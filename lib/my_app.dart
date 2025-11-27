@@ -3,6 +3,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'core/shared_cubits/auth_cubit/auth_cubit.dart';
 import 'core/shared_cubits/lang_cubit/lang_cubit.dart';
 import 'core/themes/app_colors.dart';
+import 'features/splash/presentation/screens/splash_screen.dart';
 import 'main_imports.dart';
 
 class MyApp extends StatelessWidget {
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: AppColors.white,
               ),
             ),
-            //home: const RotateScaleSplash(),
+            home: const SplashScreen(),
             builder: (context, child) {
               SystemChrome.setSystemUIOverlayStyle(
                 const SystemUiOverlayStyle(
