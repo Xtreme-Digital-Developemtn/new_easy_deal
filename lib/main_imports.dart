@@ -10,4 +10,7 @@ export 'package:easy_deal/core/app_services/local_services/cache_token.dart';
 export 'package:easy_deal/core/errors/failure.dart';
 export 'package:easy_deal/core/app_services/local_services/cache_helper.dart';
 export 'package:easy_deal/core/utils/app_consts/storage_keys.dart';
+export 'package:easy_deal/core/extensions/navigation_extension.dart';
+export 'package:easy_deal/core/routing/routes_name.dart';
+export 'package:easy_deal/core/utils/app_images/png_images.dart';
 
