@@ -3,14 +3,14 @@ import 'dart:math';
 import '../../../../main_imports.dart';
 
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _rotationAnimation;
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
         if (userToken != null && userToken.isNotEmpty) {
         //  context.pushNamed(Routes.mainlayoutScreen);
         } else {
-         // context.pushNamedAndRemoveUntil(Routes.startScreen);
+          context.pushNamedAndRemoveUntil(Routes.loginView);
         }
       }
     });

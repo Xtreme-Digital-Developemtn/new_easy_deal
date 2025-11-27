@@ -1,6 +1,9 @@
-// import 'package:match_kora_app/core/utils/app_strings/app_strings.dart';
-//
-// class MyValidators {
+ //
+import 'package:easy_localization/easy_localization.dart';
+
+import '../../../lang/lang_keys.dart';
+
+class AppValidators {
 //   static String? displayNameValidator(String? displayName) {
 //     if (displayName == null || displayName.trim().isEmpty) {
 //       return AppStrings.nameValidate; // "Name is required"
@@ -72,45 +75,45 @@
 //     return null;
 //   }
 //
-//   static String? passwordValidator(String? value) {
-//     if (value == null || value.isEmpty) {
-//       return AppStrings.passwordValidate; // "Password is required"
-//     }
-//
-//     // Detailed password requirements
-//     final requirements = <String>[];
-//
-//     if (value.length < 8) {
-//       requirements.add(AppStrings.passwordMinLength); // "8 characters minimum"
-//     }
-//
-//     if (value.length > 30) {
-//       requirements.add(AppStrings.passwordMaxLength); // "30 characters maximum"
-//     }
-//
-//     if (!RegExp(r'[A-Z]').hasMatch(value)) {
-//       requirements.add(AppStrings.passwordRequireUppercase); // "1 uppercase letter"
-//     }
-//
-//     if (!RegExp(r'[a-z]').hasMatch(value)) {
-//       requirements.add(AppStrings.passwordRequireLowercase); // "1 lowercase letter"
-//     }
-//
-//     if (!RegExp(r'\d').hasMatch(value)) {
-//       requirements.add(AppStrings.passwordRequireNumber); // "1 number"
-//     }
-//
-//     if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-//       requirements.add(AppStrings.passwordRequireSpecial); // "1 special character"
-//     }
-//
-//     if (requirements.isNotEmpty) {
-//       return '${AppStrings.passwordRequirements}:\n${requirements.join('\n')}';
-//     }
-//
-//     return null;
-//   }
-//
+  static String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return LangKeys.passwordValidate.tr(); // "Password is required"
+    }
+
+    // Detailed password requirements
+    final requirements = <String>[];
+
+    if (value.length < 8) {
+      requirements.add(LangKeys.passwordMinLength.tr()); // "8 characters minimum"
+    }
+
+    if (value.length > 30) {
+      requirements.add(LangKeys.passwordMaxLength.tr()); // "30 characters maximum"
+    }
+
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      requirements.add(LangKeys.passwordRequireUppercase.tr()); // "1 uppercase letter"
+    }
+
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      requirements.add(LangKeys.passwordRequireLowercase.tr()); // "1 lowercase letter"
+    }
+
+    if (!RegExp(r'\d').hasMatch(value)) {
+      requirements.add(LangKeys.passwordRequireNumber.tr()); // "1 number"
+    }
+
+    // if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+    //   requirements.add(LangKeys.passwordRequireSpecial.tr()); // "1 special character"
+    // }
+
+    if (requirements.isNotEmpty) {
+      return '${LangKeys.passwordRequirements.tr()}:\n${requirements.join('\n')}';
+    }
+
+    return null;
+  }
+
 //   static String? urlValidator(String? value, {bool isRequired = false}) {
 //     if (isRequired && (value == null || value.isEmpty)) {
 //       return AppStrings.urlRequired; // "URL is required"
@@ -154,31 +157,34 @@
 //     return null;
 //   }
 //
-//   static String? phoneValidator(String? value, {String? countryCode}) {
-//     if (value == null || value.isEmpty) {
-//       return AppStrings.phoneRequired; // "Phone number is required"
-//     }
-//
-//     final numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-//
-//     // Country-specific validation
-//     switch (countryCode) {
-//       case '+20': // Egypt
-//         if (!RegExp(r'^01[0-9]{9}$').hasMatch(numericValue)) {
-//           return AppStrings.phoneEgyptInvalid; // "Egyptian numbers must be 11 digits starting with 01"
-//         }
-//         break;
-//       case '+1': // US/Canada
-//         if (numericValue.length != 10) {
-//           return AppStrings.phoneUSInvalid; // "US/Canada numbers must be 10 digits"
-//         }
-//         break;
-//       default: // International
-//         if (numericValue.length < 8 || numericValue.length > 15) {
-//           return AppStrings.phoneInternationalInvalid; // "Phone number must be 8-15 digits"
-//         }
-//     }
-//
-//     return null;
-//   }
-// }
+  static String? phoneValidator(String? value, {String? countryCode}) {
+    if (value == null || value.isEmpty) {
+      return LangKeys.phoneRequired.tr(); // "Phone number is required"
+    }
+
+    final numericValue = value.replaceAll(RegExp(r'[^0-9]'), '');
+
+    // Country-specific validation
+    switch (countryCode) {
+      case '+20': // Egypt
+        if (!RegExp(r'^01[0-9]{9}$').hasMatch(numericValue)) {
+          return LangKeys.phoneEgyptInvalid.tr();
+         // "Egyptian numbers must be 11 digits starting with 01"
+        }
+        break;
+      case '+1': // US/Canada
+        if (numericValue.length != 10) {
+          return LangKeys.phoneUSInvalid.tr();
+           // "US/Canada numbers must be 10 digits"
+        }
+        break;
+      default: // International
+        if (numericValue.length < 8 || numericValue.length > 15) {
+          return LangKeys.phoneInternationalInvalid.tr();
+         // "Phone number must be 8-15 digits"
+        }
+    }
+
+    return null;
+  }
+}

@@ -1,8 +1,12 @@
 
-import 'package:easy_deal/core/routing/routes_name.dart';
 
- import '../../features/splash/presentation/screens/splash_screen.dart';
+ import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
+import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
+import 'package:easy_deal/features/login/presentation/views/login_view.dart';
+
+import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../main_imports.dart';
+import '../app_services/remote_services/service_locator.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
@@ -32,9 +36,10 @@ class AppRouter {
     }
 
     switch (settings.name) {
-      case Routes.splashScreen:
-        return transition(screen: const SplashScreen());
-
+      case Routes.splashView:
+        return transition(screen: const SplashView());
+      case Routes.loginView:
+        return transition(screen: const LoginView(),cubit: LoginCubit(getIt.get<LoginRepoImpl>()));
 
       default:
         return null;

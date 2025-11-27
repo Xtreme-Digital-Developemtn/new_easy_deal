@@ -1,7 +1,24 @@
 class EnLang {
   static const Map<String, dynamic> en = {
     "signIn": "Sign In",
-
-
+    "phoneNumber": "Phone Number",
+    "phoneRequired": "Phone number is required",
+    "phoneEgyptInvalid": "Egyptian phone number is invalid",
+    "phoneUSInvalid": "US phone number is invalid",
+    "phoneInternationalInvalid": "International phone number is invalid",
+    "password": "Password",
+    "passwordValidate": "Password validation failed",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordMaxLength": "Password cannot exceed 20 characters",
+    "passwordRequireUppercase": "Password must contain uppercase letters",
+    "passwordRequireLowercase": "Password must contain lowercase letters",
+    "passwordRequireNumber": "Password must contain numbers",
+    "passwordRequireSpecial": "Password must contain special characters",
+    "passwordRequirements": "Password requirements",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "continueAsAGuest": "Continue as a guest",
+    "doNotHaveAnAccount": "Don't have an account?",
+    "signUp": "Sign Up",
   };
 }
