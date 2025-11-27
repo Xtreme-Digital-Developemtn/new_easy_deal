@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'core/app_services/remote_services/service_locator.dart';
+import 'core/routing/app_router.dart';
 import 'core/utils/bloc_observer.dart';
 import 'lang/codegen_loader.g.dart';
 import 'main_imports.dart';
@@ -21,9 +22,11 @@ void main() async {
     ],
     path: 'lib/lang',
     saveLocale: true,
-    fallbackLocale: const Locale('ar',""),
+    fallbackLocale: const Locale('en',""),
     useOnlyLangCode: true,
     assetLoader: const CodegenLoader(),
-    child: MyApp(),
+    child: MyApp(
+      appRouter: AppRouter(),
+    ),
   ),);
 }

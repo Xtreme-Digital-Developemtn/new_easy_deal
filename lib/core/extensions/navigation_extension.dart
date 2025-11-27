@@ -22,7 +22,7 @@ extension Navigation on BuildContext {
         'Navigating to (and removing all previous): $routeName with arguments: $arguments');
     return Navigator.of(this).pushNamedAndRemoveUntil(
       routeName,
-      (route) => false,
+          (route) => false,
       arguments: arguments,
     );
   }

@@ -13,4 +13,19 @@ export 'package:easy_deal/core/utils/app_consts/storage_keys.dart';
 export 'package:easy_deal/core/extensions/navigation_extension.dart';
 export 'package:easy_deal/core/routing/routes_name.dart';
 export 'package:easy_deal/core/utils/app_images/png_images.dart';
+export 'package:easy_deal/lang/lang_keys.dart';
+export 'package:gap/gap.dart';
+export 'package:easy_deal/core/app_services/remote_services/end_points.dart';
+export 'package:easy_deal/core/errors/error_handler.dart';
+export 'package:easy_deal/core/app_services/remote_services/api_service.dart';
+export 'package:flutter_screenutil/flutter_screenutil.dart';
+export 'package:easy_deal/core/themes/app_colors.dart';
+export 'package:easy_deal/core/utils/app_images/svg_images.dart';
+export 'package:easy_deal/core/utils/app_validator/app_validator.dart';
+export 'package:easy_deal/core/shared_widgets/custom_text_form_filed.dart';
+
+
+
+
+
 
