@@ -23,6 +23,7 @@ class Categories extends StatelessWidget {
                 return  InkWell(
                   onTap: (){
                     homeCubit.chooseCategory(index);
+                    context.pushNamed(Routes.categoryUnitsView,arguments: {"categoryName" : homeCubit.categories[index]});
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),

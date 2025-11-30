@@ -2,12 +2,13 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitItem extends StatelessWidget {
-  const UnitItem({super.key});
+  const UnitItem({super.key, });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 240.w,
+      height : 240.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         color: AppColors.gray1
@@ -114,7 +115,7 @@ class UnitItem extends StatelessWidget {
           ),
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   children: [

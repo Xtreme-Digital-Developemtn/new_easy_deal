@@ -1,6 +1,7 @@
 
 
- import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
+ import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
+import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
@@ -11,6 +12,8 @@ import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 
+import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
+import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -53,7 +56,13 @@ class AppRouter {
         return transition(screen: const LayoutView(),);
       case Routes.editProfileView:
         return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
-      default:
+      case Routes.categoryUnitsView:
+        final args = arguments as Map<String, dynamic>;
+        return transition(screen:   CategoryUnitsView(
+          categoryName: args["categoryName"] as String,
+        )
+            ,cubit: CategoryUnitsCubit(getIt.get<CategoryUnitsRepoImpl>()));
+        default:
         return null;
     }
   }
