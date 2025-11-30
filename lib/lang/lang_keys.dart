@@ -30,9 +30,6 @@ abstract class LangKeys
   static const exploreTheSites = "exploreTheSites";
   static const bestSellerUnits = "bestSellerUnits";
   static const latestArticles = "latestArticles";
-
-
-
   static const editProfile = "editProfile";
   static const driverCode = "driverCode";
   static const mobileNumber = "mobileNumber";
