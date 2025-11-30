@@ -11,11 +11,14 @@ import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
+import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/search/data/repos/search_repo_imple.dart';
+import '../../features/search/presentation/view_model/search_cubit.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
@@ -62,6 +65,8 @@ class AppRouter {
           categoryName: args["categoryName"] as String,
         )
             ,cubit: CategoryUnitsCubit(getIt.get<CategoryUnitsRepoImpl>()));
+      case Routes.searchView:
+        return transition(screen: const SearchView(),cubit: SearchCubit(getIt.get<SearchRepoImpl>()));
         default:
         return null;
     }
@@ -72,7 +77,7 @@ class AppRouter {
     BlocProvider(
         create: (context)=>HomeCubit(getIt.get<HomeRepoImpl>()),
         child: HomeView()),
-    Text("1"),
+    SearchView(),
     Text("1"),
     Text("1"),
     ProfileView(),
