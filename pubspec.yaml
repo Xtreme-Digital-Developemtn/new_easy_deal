@@ -63,6 +63,8 @@ dependencies:
   easy_localization: ^3.0.7+1
   gap: ^3.0.1
   flutter_screenutil: ^5.9.3
+  flashy_tab_bar2: ^0.0.10
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

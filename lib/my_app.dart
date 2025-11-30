@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'core/routing/app_router.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
               providers: [
                 BlocProvider(create: (context) => AuthCubit()..checkAuthStatus()),
                 BlocProvider(create: (context) => LanguageCubit()),
+                BlocProvider(create: (context) => LayoutCubit()),
 
 
               ],
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
                         backgroundColor: AppColors.white,
                       ),
                     ),
-                    initialRoute: Routes.splashView,
+                    initialRoute: Routes.layoutView,
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {
                       SystemChrome.setSystemUIOverlayStyle(

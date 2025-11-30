@@ -1,6 +1,8 @@
 
 
- import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
+ import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
+import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
+import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 
@@ -40,7 +42,8 @@ class AppRouter {
         return transition(screen: const SplashView());
       case Routes.loginView:
         return transition(screen: const LoginView(),cubit: LoginCubit(getIt.get<LoginRepoImpl>()));
-
+      case Routes.layoutView:
+        return transition(screen: const LayoutView(),);
       default:
         return null;
     }

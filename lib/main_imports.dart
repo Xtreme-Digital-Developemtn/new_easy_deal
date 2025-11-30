@@ -23,6 +23,10 @@ export 'package:easy_deal/core/themes/app_colors.dart';
 export 'package:easy_deal/core/utils/app_images/svg_images.dart';
 export 'package:easy_deal/core/utils/app_validator/app_validator.dart';
 export 'package:easy_deal/core/shared_widgets/custom_text_form_filed.dart';
+export  'package:easy_deal/core/shared_widgets/custom_cached_network_image.dart';
+export 'package:easy_deal/core/themes/app_styles.dart';
+
+
 
 
 
