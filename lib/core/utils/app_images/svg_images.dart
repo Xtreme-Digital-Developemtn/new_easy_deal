@@ -14,6 +14,10 @@ class SvgImages
   static const String profile = "$svgPath/user (1).svg";
   static const String star = "$svgPath/star_icon.svg";
   static const String money = "$svgPath/money.svg";
+  static const String fav = "$svgPath/Heart.svg";
+  static const String compare = "$svgPath/code-compare-regular 1.svg";
+  static const String verified = "$svgPath/Verified.svg";
+  static const String location = "$svgPath/Location.svg";
 
 
 

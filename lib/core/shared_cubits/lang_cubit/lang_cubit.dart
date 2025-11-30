@@ -10,7 +10,7 @@ class LanguageCubit extends Cubit<Locale> {
     if (savedLanguage != null) {
       return Locale(savedLanguage, '');
     }
-    return const Locale('ar', '');
+    return const Locale('en', '');
   }
 
   void changeLanguage(BuildContext context, Locale locale) {
