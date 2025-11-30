@@ -19,7 +19,6 @@ class SvgImages
   static const String compare = "$svgPath/code-compare-regular 1.svg";
   static const String verified = "$svgPath/Verified.svg";
   static const String location = "$svgPath/Location.svg";
-=======
   static const String edit = "$svgPath/edit.svg";
   static const String edit2 = "$svgPath/edit2.svg";
   static const String arrow = "$svgPath/arrow-right.svg";

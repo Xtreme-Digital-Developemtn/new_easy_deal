@@ -26,5 +26,10 @@ class ArLang {
     "request": "طلب",
     "messages": "الرسائل",
     "profile": "الملف الشخصي",
+    "reviews": "التقييمات",
+    "exploreTheSites": "استكشف المواقع",
+    "bestSellerUnits": "الوحدات الأكثر مبيعاً",
+    "latestArticles": "أحدث المقالات",
+
   };
 }

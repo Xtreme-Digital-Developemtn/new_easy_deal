@@ -111,10 +111,7 @@ class AppStyles {
     color: AppColors.gray2,
   );
 
-  static final TextStyle gray14Medium = _createStyle(
-    fontSize: 14.sp,
-    fontWeight: medium,
-    color: AppColors.gray2,
+
  
   static final TextStyle gray14Medium = _createStyle(
     fontSize: 14.sp,

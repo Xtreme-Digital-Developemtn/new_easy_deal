@@ -26,6 +26,11 @@ class EnLang {
     "request": "Request",
     "messages": "Messages",
     "profile": "Profile",
+    "reviews": "Reviews",
+    "exploreTheSites": "Explore The Sites",
+    "bestSellerUnits": "Best Seller Units",
+    "latestArticles": "Latest Articles",
+
 
   };
 }

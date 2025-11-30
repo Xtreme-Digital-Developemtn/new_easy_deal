@@ -26,8 +26,6 @@ abstract class LangKeys
   static const request = "request";
   static const messages = "messages";
   static const profile = "profile";
-
-
   static const reviews = "reviews";
   static const exploreTheSites = "exploreTheSites";
   static const bestSellerUnits = "bestSellerUnits";
