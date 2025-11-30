@@ -26,27 +26,27 @@ class BottomNavigationBarWidget extends StatelessWidget {
           items: [
             _buildTabItem(
               icon: SvgImages.home,
-              title: LangKeys.home.tr(),
+              title: LangKeys.home ,
               index: 0,
             ),
             _buildTabItem(
               icon: SvgImages.search,
-              title: LangKeys.search.tr(),
+              title: LangKeys.search ,
               index: 1,
             ),
             _buildTabItem(
               icon: SvgImages.add,
-              title: LangKeys.request.tr(),
+              title: LangKeys.request ,
               index: 2,
             ),
             _buildTabItem(
               icon: SvgImages.chat,
-              title: LangKeys.messages.tr(),
+              title: LangKeys.messages ,
               index: 3,
             ),
             _buildTabItem(
               icon: SvgImages.profile,
-              title: LangKeys.profile.tr(),
+              title: LangKeys.profile ,
               index: 4,
             ),
           ],
