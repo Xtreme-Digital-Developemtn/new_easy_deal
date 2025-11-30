@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/home/presentation/views/home_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
 import 'layout_states.dart';
@@ -11,18 +12,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   static int pageIndex = 0;
 
 
-  List screens = [
-    Text("1"),
-    Text("1"),
-    Text("1"),
-    Text("1"),
-    Text("1"),
-    // MoreScreen(),
-    // ContractsScreen(),
-    // HomeScreen(),
-    // BookingScreen(),
-    // ProfileScreen(),
-  ];
+
 
 
 

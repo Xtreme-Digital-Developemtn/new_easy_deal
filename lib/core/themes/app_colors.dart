@@ -15,6 +15,8 @@ class AppColors {
   static const textTertiary = Color(0xff4A4A4A);
 
   static const grayDarkest = Color(0xff5C5C5C);
+  static const gray1 = Color(0xffF4F4F4);
+  static const gray2 = Color(0xff344054);
   static const grayDarker = Color(0xff6E6E6E);
   static const grayDark = Color(0xff808080);
   static const grayMedium = Color(0xff919191);

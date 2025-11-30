@@ -20,5 +20,12 @@ class EnLang {
     "continueAsAGuest": "Continue as a guest",
     "doNotHaveAnAccount": "Don't have an account?",
     "signUp": "Sign Up",
+    "exit": "Exit",
+    "home": "Home",
+    "search": "Search",
+    "request": "Request",
+    "messages": "Messages",
+    "profile": "Profile",
+
   };
 }

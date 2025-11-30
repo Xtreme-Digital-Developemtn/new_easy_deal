@@ -20,9 +20,6 @@ abstract class LangKeys
   static const continueAsAGuest = "continueAsAGuest";
   static const doNotHaveAnAccount = "doNotHaveAnAccount";
   static const signUp = "signUp";
-
-
-
   static const exit = "exit";
   static const home = "home";
   static const search = "search";
