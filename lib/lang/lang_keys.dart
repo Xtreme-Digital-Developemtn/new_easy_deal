@@ -23,6 +23,15 @@ abstract class LangKeys
 
 
 
+  static const exit = "exit";
+  static const home = "home";
+  static const search = "search";
+  static const request = "request";
+  static const messages = "messages";
+  static const profile = "profile";
+
+
+
 
 
 
