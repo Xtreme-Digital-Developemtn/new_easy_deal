@@ -21,7 +21,7 @@ class LatestArticlesItem extends StatelessWidget {
             height: double.infinity,
             fit: BoxFit.cover,
             imageUrl:
-            "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+            "https://assets-news.housing.com/news/wp-content/uploads/2022/03/28143140/Difference-between-flat-and-apartment.jpg",
             raduis: 0,
           ),
 

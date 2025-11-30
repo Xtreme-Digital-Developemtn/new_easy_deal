@@ -15,7 +15,7 @@ class SiteItem extends StatelessWidget {
               width: 120.w,
               height: 120.h,
               fit: BoxFit.cover,
-              imageUrl: "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+              imageUrl: "https://sattvagroup.com/wp-content/uploads/2024/09/flats-vs-apartment.jpg",
               raduis: 8 .r),
 
           Positioned(
