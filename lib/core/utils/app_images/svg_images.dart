@@ -14,7 +14,6 @@ class SvgImages
   static const String profile = "$svgPath/user (1).svg";
   static const String star = "$svgPath/star_icon.svg";
   static const String money = "$svgPath/money.svg";
- 
   static const String fav = "$svgPath/Heart.svg";
   static const String compare = "$svgPath/code-compare-regular 1.svg";
   static const String verified = "$svgPath/Verified.svg";
@@ -23,7 +22,9 @@ class SvgImages
   static const String edit2 = "$svgPath/edit2.svg";
   static const String arrow = "$svgPath/arrow-right.svg";
   static const String arrowLeft = "$svgPath/arrow-left.svg";
- 
+  static const String sort = "$svgPath/sort.svg";
+  static const String filter = "$svgPath/filter.svg";
+
 
 
 
