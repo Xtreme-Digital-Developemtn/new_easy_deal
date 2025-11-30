@@ -30,6 +30,16 @@ class EnLang {
     "exploreTheSites": "Explore The Sites",
     "bestSellerUnits": "Best Seller Units",
     "latestArticles": "Latest Articles",
+    "editProfile": "Edit Profile",
+    "driverCode": "Driver Code",
+    "mobileNumber": "Mobile Number",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "changePassword": "Change Password",
+    "units": "units",
+    "hereIs": "Here is",
+    "sort": "Sort",
+    "filter": "Filter",
 
 
   };
