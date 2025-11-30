@@ -1,6 +1,9 @@
 
 
- import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
+ import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
+import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
+import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
 import 'package:easy_deal/features/home/presentation/views/home_view.dart';
 import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
@@ -9,6 +12,7 @@ import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dar
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 
 import '../../features/home/presentation/view_model/home_cubit.dart';
+import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
@@ -47,6 +51,8 @@ class AppRouter {
         return transition(screen: const LoginView(),cubit: LoginCubit(getIt.get<LoginRepoImpl>()));
       case Routes.layoutView:
         return transition(screen: const LayoutView(),);
+      case Routes.editProfileView:
+        return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
       default:
         return null;
     }
@@ -60,7 +66,7 @@ class AppRouter {
     Text("1"),
     Text("1"),
     Text("1"),
-    Text("1"),
+    ProfileView(),
     // MoreScreen(),
     // ContractsScreen(),
     // HomeScreen(),

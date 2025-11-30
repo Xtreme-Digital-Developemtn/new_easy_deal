@@ -35,6 +35,15 @@ abstract class LangKeys
 
 
 
+  static const editProfile = "editProfile";
+  static const driverCode = "driverCode";
+  static const mobileNumber = "mobileNumber";
+  static const fullName = "fullName";
+  static const emailAddress = "emailAddress";
+  static const changePassword = "changePassword";
+
+
+
 
 
 
