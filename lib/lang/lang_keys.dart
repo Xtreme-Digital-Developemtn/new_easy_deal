@@ -28,6 +28,12 @@ abstract class LangKeys
   static const profile = "profile";
 
 
+  static const reviews = "reviews";
+  static const exploreTheSites = "exploreTheSites";
+  static const bestSellerUnits = "bestSellerUnits";
+  static const latestArticles = "latestArticles";
+
+
 
   static const editProfile = "editProfile";
   static const driverCode = "driverCode";

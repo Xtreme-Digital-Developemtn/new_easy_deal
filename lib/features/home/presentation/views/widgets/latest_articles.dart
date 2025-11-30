@@ -1,34 +1,34 @@
-import 'package:easy_deal/features/home/presentation/views/widgets/unit_item.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class BestSellerUnits extends StatelessWidget {
-  const BestSellerUnits({super.key});
+import 'latest_articles_item.dart';
+
+class LatestArticles extends StatelessWidget {
+  const LatestArticles({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:    EdgeInsets.symmetric(horizontal: 12.w),
+      padding:   EdgeInsets.symmetric(horizontal: 12.r,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LangKeys.bestSellerUnits.tr(),style: AppStyles.black16SemiBold,),
+          Text(LangKeys.latestArticles.tr(),style: AppStyles.black16SemiBold,),
           Gap(8.h),
           SizedBox(
-            height: 240.h,
+            height: 300.h,
             child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.horizontal,
                 itemBuilder: (context,index){
-                  return UnitItem();
+                  return LatestArticlesItem();
                 },
                 separatorBuilder: (context,index){
                   return Gap(12.w);
-                },
+                }, 
                 itemCount: 10,
             ),
-          ),
-        ],
-      ),
+          )
+      ],),
     );
   }
 }
