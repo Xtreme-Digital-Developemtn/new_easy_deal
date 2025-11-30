@@ -41,6 +41,8 @@ abstract class LangKeys
   static const sort = "sort";
   static const filter = "filter";
 
+  static const notifications = "notifications";
+
 
 
 
