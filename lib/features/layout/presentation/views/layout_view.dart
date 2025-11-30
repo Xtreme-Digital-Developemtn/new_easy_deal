@@ -3,6 +3,7 @@
 import 'package:easy_deal/features/layout/presentation/views/widgets/bottom_navigation_bar_widget.dart';
 import 'package:easy_deal/features/layout/presentation/views/widgets/profile_name_and_notification_icon.dart';
 
+import '../../../../core/routing/app_router.dart';
 import '../../../../main_imports.dart';
 import '../view_model/layout_cubit.dart';
 import '../view_model/layout_states.dart';
@@ -25,7 +26,7 @@ class LayoutView extends StatelessWidget {
               elevation: 0,
               title: const ProfileNameAndNotificationIcon(),
             ),
-            body: layoutCubit.screens[LayoutCubit.pageIndex],
+            body: AppRouter().screens[LayoutCubit.pageIndex],
             bottomNavigationBar: const BottomNavigationBarWidget(),
           ),
         );

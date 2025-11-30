@@ -12,6 +12,8 @@ class SvgImages
   static const String search = "$svgPath/search.svg";
   static const String add = "$svgPath/add-icon-svgrepo-com.svg";
   static const String profile = "$svgPath/user (1).svg";
+  static const String star = "$svgPath/star_icon.svg";
+  static const String money = "$svgPath/money.svg";
 
 
 

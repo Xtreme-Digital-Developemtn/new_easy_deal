@@ -20,5 +20,11 @@ class ArLang {
     "continueAsAGuest": "المتابعة كضيف",
     "doNotHaveAnAccount": "ليس لديك حساب؟",
     "signUp": "إنشاء حساب",
+    "exit": "خروج",
+    "home": "الرئيسية",
+    "search": "بحث",
+    "request": "طلب",
+    "messages": "الرسائل",
+    "profile": "الملف الشخصي",
   };
 }
