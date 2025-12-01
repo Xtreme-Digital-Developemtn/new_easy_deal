@@ -1,6 +1,7 @@
 
 
  import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
+import 'package:easy_deal/features/change_password/presentation/views/change_password_view.dart';
 import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
@@ -15,6 +16,8 @@ import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
+import '../../features/change_password/data/repos/change_password_repo_imple.dart';
+import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
@@ -85,6 +88,8 @@ class AppRouter {
           contact: args["contact"] as String,
           isMobile: args["isMobile"] as bool,
         ),cubit: OtpCubit(getIt.get<OtpRepoImpl>()));
+      case Routes.changePasswordView:
+        return transition(screen: const ChangePasswordView(),cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()));
         default:
         return null;
     }

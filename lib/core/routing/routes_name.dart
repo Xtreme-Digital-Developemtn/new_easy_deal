@@ -8,6 +8,7 @@ class Routes {
   static const String searchView = 'searchView';
   static const String notificationsView = 'notificationsView';
   static const String otpView = 'otpView';
+  static const String changePasswordView = 'changePasswordView';
 
 
 

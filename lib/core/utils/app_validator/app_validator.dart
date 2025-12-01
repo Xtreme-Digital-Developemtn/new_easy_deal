@@ -140,23 +140,23 @@ class AppValidators {
 //
 //     return null;
 //   }
-//
-//   static String? repeatPasswordValidator({String? value, String? password}) {
-//     if (value == null || value.isEmpty) {
-//       return AppStrings.repeatPasswordRequired; // "Please repeat your password"
-//     }
-//
-//     if (password == null || password.isEmpty) {
-//       return AppStrings.enterPasswordFirst; // "Please enter your password first"
-//     }
-//
-//     if (value != password) {
-//       return AppStrings.passwordsDontMatch; // "Passwords don't match"
-//     }
-//
-//     return null;
-//   }
-//
+
+  static String? repeatPasswordValidator({String? value, String? password}) {
+    if (value == null || value.isEmpty) {
+      return LangKeys.repeatPasswordRequired.tr(); // "Please repeat your password"
+    }
+
+    if (password == null || password.isEmpty) {
+      return LangKeys.enterPasswordFirst.tr(); // "Please enter your password first"
+    }
+
+    if (value != password) {
+      return LangKeys.passwordsDontMatch.tr(); // "Passwords don't match"
+    }
+
+    return null;
+  }
+
   static String? phoneValidator(String? value, {String? countryCode}) {
     if (value == null || value.isEmpty) {
       return LangKeys.phoneRequired.tr(); // "Phone number is required"

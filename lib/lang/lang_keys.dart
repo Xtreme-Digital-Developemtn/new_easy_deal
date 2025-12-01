@@ -59,6 +59,11 @@ abstract class LangKeys
   static const emailAddressChangedSuccessfully = "emailAddressChangedSuccessfully";
   static const mobileNumberChangedSuccessfully = "mobileNumberChangedSuccessfully";
   static const done = "done";
+  static const oldPassword = "oldPassword";
+  static const newPassword = "newPassword";
+  static const passwordsDontMatch = "passwordsDontMatch";
+  static const enterPasswordFirst = "enterPasswordFirst";
+  static const repeatPasswordRequired = "repeatPasswordRequired";
 
 
 

@@ -37,7 +37,9 @@ class EditProfileView extends StatelessWidget {
               context.pushNamed(Routes.editEmailView);
             }),
             EditProfileListItem(title: LangKeys.driverCode, subTitle: "123456", onTap: (){}),
-            EditProfileListItem(title: LangKeys.changePassword, subTitle: "", onTap: (){},isLast: true,),
+            EditProfileListItem(title: LangKeys.changePassword, subTitle: "", onTap: (){
+              context.pushNamed(Routes.changePasswordView);
+            },isLast: true,),
 
           ],
         ),
