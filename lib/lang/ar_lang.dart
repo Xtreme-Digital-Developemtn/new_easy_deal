@@ -26,5 +26,20 @@ class ArLang {
     "request": "طلب",
     "messages": "الرسائل",
     "profile": "الملف الشخصي",
+    "reviews": "التقييمات",
+    "exploreTheSites": "استكشف المواقع",
+    "bestSellerUnits": "الوحدات الأكثر مبيعاً",
+    "latestArticles": "أحدث المقالات",
+    "editProfile": "تعديل الملف الشخصي",
+    "driverCode": "كود السائق",
+    "mobileNumber": "رقم الهاتف",
+    "fullName": "الاسم الكامل",
+    "emailAddress": "البريد الإلكتروني",
+    "changePassword": "تغيير كلمة المرور",
+    "units": "وحدة",
+    "hereIs": "هنا",
+    "sort": "ترتيب",
+    "filter": "تصفية"
+
   };
 }

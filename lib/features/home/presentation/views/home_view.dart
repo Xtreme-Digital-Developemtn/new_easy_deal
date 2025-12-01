@@ -1,6 +1,9 @@
 import 'package:easy_deal/features/home/presentation/views/widgets/best_seller_units.dart';
 import 'package:easy_deal/features/home/presentation/views/widgets/categories.dart';
+import 'package:easy_deal/features/home/presentation/views/widgets/explore_the_sites.dart';
 import 'package:easy_deal/features/home/presentation/views/widgets/home_slider_images.dart';
+import 'package:easy_deal/features/home/presentation/views/widgets/latest_articles.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
 
 class HomeView extends StatelessWidget {
@@ -32,6 +35,12 @@ class HomeView extends StatelessWidget {
                   const BestSellerUnits(),
                 ],
               ),
+            ),
+            SliverToBoxAdapter(
+              child: const ExploreTheSites(),
+            ),
+            SliverToBoxAdapter(
+              child: const LatestArticles(),
             ),
           ],
         ),

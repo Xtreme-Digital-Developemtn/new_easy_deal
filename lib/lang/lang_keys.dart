@@ -26,9 +26,10 @@ abstract class LangKeys
   static const request = "request";
   static const messages = "messages";
   static const profile = "profile";
-
-
-
+  static const reviews = "reviews";
+  static const exploreTheSites = "exploreTheSites";
+  static const bestSellerUnits = "bestSellerUnits";
+  static const latestArticles = "latestArticles";
   static const editProfile = "editProfile";
   static const driverCode = "driverCode";
   static const mobileNumber = "mobileNumber";
@@ -41,6 +42,14 @@ abstract class LangKeys
   static const editEmailAddress = "editEmailAddress";
   static const editEmailAddressMsg = "editEmailAddressMsg";
   static const sendCode = "sendCode";
+  static const units = "units";
+  static const hereIs = "hereIs";
+  static const sort = "sort";
+  static const filter = "filter";
+  static const notifications = "notifications";
+  static const accept = "accept";
+  static const decline = "decline";
+  static const tryNow = "tryNow";
 
 
 

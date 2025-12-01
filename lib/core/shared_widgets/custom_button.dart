@@ -1,4 +1,3 @@
-import 'package:easy_deal/core/themes/app_styles.dart';
 import '../../main_imports.dart';
 
 class CustomButton extends StatelessWidget {
@@ -54,7 +53,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Opacity(
-        opacity: isDisabled ? 0.6 : 1.0, // شفافية عندما يكون معطل
+        opacity: isDisabled ? 0.6 : 1.0,
         child: Container(
           width: width ?? MediaQuery.of(context).size.width * 0.9,
           height: height ?? 50.h,
@@ -71,7 +70,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(color: borderColor?.color ?? Colors.transparent),
             color: isDisabled
-                ? (color ?? Colors.grey) // لون عندما يكون معطل
+                ? (color ?? Colors.grey)
                 : color ?? AppColors.primaryDark,
           ),
           child: Center(
