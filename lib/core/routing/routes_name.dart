@@ -5,6 +5,7 @@ class Routes {
   static const String editProfileView = 'editProfileView';
   static const String categoryUnitsView = 'categoryUnitsView';
   static const String searchView = 'searchView';
+  static const String notificationsView = 'notificationsView';
 
 
 }

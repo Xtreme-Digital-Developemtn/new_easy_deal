@@ -38,7 +38,7 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
         ),
         InkWell(
             onTap: (){
-
+              context.pushNamed(Routes.notificationsView);
             },
             child: SvgPicture.asset(SvgImages.notify,colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),)),
       ],

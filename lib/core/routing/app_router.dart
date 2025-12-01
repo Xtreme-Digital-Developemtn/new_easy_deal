@@ -16,6 +16,9 @@ import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
+import '../../features/notifications/data/repos/notifications_repo_imple.dart';
+import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
+import '../../features/notifications/presentation/views/notifications_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
@@ -59,7 +62,9 @@ class AppRouter {
         return transition(screen: const LayoutView(),);
       case Routes.editProfileView:
         return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
-      case Routes.categoryUnitsView:
+      case Routes.notificationsView:
+        return transition(screen: const NotificationsView(),cubit: NotificationsCubit(getIt.get<NotificationsRepoImpl>()));
+        case Routes.categoryUnitsView:
         final args = arguments as Map<String, dynamic>;
         return transition(screen:   CategoryUnitsView(
           categoryName: args["categoryName"] as String,
