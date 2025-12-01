@@ -35,6 +35,12 @@ abstract class LangKeys
   static const fullName = "fullName";
   static const emailAddress = "emailAddress";
   static const changePassword = "changePassword";
+  static const editName = "editName";
+  static const enterYourName = "enterYourName";
+  static const save = "save";
+  static const editEmailAddress = "editEmailAddress";
+  static const editEmailAddressMsg = "editEmailAddressMsg";
+  static const sendCode = "sendCode";
 
 
 

@@ -18,6 +18,7 @@ class SvgImages
   static const String edit2 = "$svgPath/edit2.svg";
   static const String arrow = "$svgPath/arrow-right.svg";
   static const String arrowLeft = "$svgPath/arrow-left.svg";
+  static const String close = "$svgPath/close.svg";
 
 
 
