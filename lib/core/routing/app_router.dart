@@ -3,11 +3,11 @@
  import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
 import 'package:easy_deal/features/home/presentation/views/home_view.dart';
-import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
-import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
+ import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
@@ -62,6 +62,11 @@ class AppRouter {
         return transition(screen: const LayoutView(),);
       case Routes.editProfileView:
         return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
+      case Routes.editEmailView:
+        return transition(screen: BlocProvider.value(
+            value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
+            child: const EditEmailView()),);
+      default:
       case Routes.notificationsView:
         return transition(screen: const NotificationsView(),cubit: NotificationsCubit(getIt.get<NotificationsRepoImpl>()));
         case Routes.categoryUnitsView:
