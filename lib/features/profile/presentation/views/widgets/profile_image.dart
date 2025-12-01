@@ -21,18 +21,18 @@ class ProfileImage extends StatelessWidget {
              width: 80.w,
              decoration: BoxDecoration(
                shape: BoxShape.circle,
-               border: Border.all( // ⬅️ [إضافة] border اختياري
+               border: Border.all(
                  color: Colors.white,
                  width: 2.w,
                ),
              ),
-             child: ClipOval( // ⬅️ [إضافة] لضمان شكل دائري مثالي
+             child: ClipOval(
                child: CustomNetWorkImage(
                  imageUrl: "https://wallpapers.com/images/featured-full/cool-profile-picture-87h46gcobjl5e4xu.jpg",
                  height: 80.h,
                  width: 80.w,
                  fit: BoxFit.cover,
-                 raduis: 0, // ⬅️ [تعديل] جعلها 0 لأننا نستخدم ClipOval
+                 raduis: 0,
                ),
              ),
            ),

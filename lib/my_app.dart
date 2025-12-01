@@ -37,8 +37,6 @@ class MyApp extends StatelessWidget {
               ],
               child: BlocBuilder<LanguageCubit, Locale>(
                 builder: (context, locale) {
-                  print(locale.languageCode);
-                  print("sssssssssssssss");
                   context.setLocale(locale);
                   return MaterialApp(
                     navigatorKey: navigatorKey,

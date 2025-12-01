@@ -65,7 +65,15 @@ class EnLang {
     "faqsMsg": "Frequently asked questions",
     "privacyAndTerms": "Privacy & Terms",
     "privacyAndTermsMsg": "Read our policies and terms",
-    "appVersion": "App Version"
+    "appVersion": "App Version",
+    "unitDetails": "Unit Details",
+    "available": "Available",
+    "egp": "EGP",
+    "license": "License",
+    "successSelling": "Success Selling",
+    "unitInformation": "Unit Information",
+    "features": "Features",
+    "propertyDetails": "Property Details"
 
 
   };
