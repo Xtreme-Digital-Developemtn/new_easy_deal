@@ -27,6 +27,7 @@ export  'package:easy_deal/core/shared_widgets/custom_cached_network_image.dart'
 export 'package:easy_deal/core/themes/app_styles.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:easy_deal/core/shared_widgets/custom_button.dart';
+export 'package:easy_deal/core/shared_widgets/custom_loading.dart';
 
 
 

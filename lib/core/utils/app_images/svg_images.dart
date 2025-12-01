@@ -25,6 +25,7 @@ class SvgImages
   static const String close = "$svgPath/close.svg";
   static const String sort = "$svgPath/sort.svg";
   static const String filter = "$svgPath/filter.svg";
+  static const String tickCircle = "$svgPath/tick-circle.svg";
 
 
 

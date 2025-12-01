@@ -26,7 +26,12 @@ class EditEmailView extends StatelessWidget {
             CustomTextFormField(),
             Gap(32.h),
             CustomButton(
-              onPressed: (){},
+              onPressed: (){
+                context.pushNamed(Routes.otpView,arguments: {
+                  "contact" : "mostafa@gmail.com",
+                  "isMobile" : false,
+                });
+              },
               text: LangKeys.sendCode.tr(),
             ),
           ],

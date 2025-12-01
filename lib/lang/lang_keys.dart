@@ -51,6 +51,15 @@ abstract class LangKeys
   static const decline = "decline";
   static const tryNow = "tryNow";
 
+  static const confirmYourPhoneNumber = "confirmYourPhoneNumber";
+  static const confirmYourEmail = "confirmYourEmail";
+  static const verifyCode = "verifyCode";
+  static const enterThe4DigitNumberSentTo = "enterThe4DigitNumberSentTo";
+  static const pleaseEnterValidOtp = "pleaseEnterValidOtp";
+  static const emailAddressChangedSuccessfully = "emailAddressChangedSuccessfully";
+  static const mobileNumberChangedSuccessfully = "mobileNumberChangedSuccessfully";
+  static const done = "done";
+
 
 
 

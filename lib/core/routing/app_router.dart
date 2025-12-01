@@ -19,6 +19,9 @@ import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../features/notifications/presentation/views/notifications_view.dart';
+import '../../features/otp/data/repos/otp_repo_imple.dart';
+import '../../features/otp/presentation/view_model/otp_cubit.dart';
+import '../../features/otp/presentation/views/otp_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
@@ -66,7 +69,6 @@ class AppRouter {
         return transition(screen: BlocProvider.value(
             value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
             child: const EditEmailView()),);
-      default:
       case Routes.notificationsView:
         return transition(screen: const NotificationsView(),cubit: NotificationsCubit(getIt.get<NotificationsRepoImpl>()));
         case Routes.categoryUnitsView:
@@ -77,6 +79,12 @@ class AppRouter {
             ,cubit: CategoryUnitsCubit(getIt.get<CategoryUnitsRepoImpl>()));
       case Routes.searchView:
         return transition(screen: const SearchView(),cubit: SearchCubit(getIt.get<SearchRepoImpl>()));
+      case Routes.otpView:
+        final args = arguments as Map<String, dynamic>;
+        return transition(screen:   OtpView(
+          contact: args["contact"] as String,
+          isMobile: args["isMobile"] as bool,
+        ),cubit: OtpCubit(getIt.get<OtpRepoImpl>()));
         default:
         return null;
     }
@@ -91,10 +99,6 @@ class AppRouter {
     Text("1"),
     Text("1"),
     ProfileView(),
-    // MoreScreen(),
-    // ContractsScreen(),
-    // HomeScreen(),
-    // BookingScreen(),
-    // ProfileScreen(),
+
   ];
 }
