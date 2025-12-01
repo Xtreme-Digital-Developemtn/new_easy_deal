@@ -2,6 +2,10 @@
 import 'package:dio/dio.dart';
 import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
 import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
+import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
+import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
+import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
+import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
 import 'package:get_it/get_it.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
@@ -31,6 +35,12 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<NotificationsRepoImpl>(NotificationsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<OtpRepoImpl>(OtpRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<SearchRepoImpl>(SearchRepoImpl(
     getIt.get<ApiService>(),
   ));
 }
