@@ -50,7 +50,6 @@ abstract class LangKeys
   static const accept = "accept";
   static const decline = "decline";
   static const tryNow = "tryNow";
-
   static const confirmYourPhoneNumber = "confirmYourPhoneNumber";
   static const confirmYourEmail = "confirmYourEmail";
   static const verifyCode = "verifyCode";
@@ -64,6 +63,19 @@ abstract class LangKeys
   static const passwordsDontMatch = "passwordsDontMatch";
   static const enterPasswordFirst = "enterPasswordFirst";
   static const repeatPasswordRequired = "repeatPasswordRequired";
+  static const reportAnIssue = "reportAnIssue";
+  static const reportAnIssueMsg = "reportAnIssueMsg";
+  static const appSettings = "appSettings";
+  static const appSettingsMsg = "appSettingsMsg";
+  static const aboutUs = "aboutUs";
+  static const aboutUsMsg = "aboutUsMsg";
+  static const contactUs = "contactUs";
+  static const contactUsMsg = "contactUsMsg";
+  static const faqs = "faqs";
+  static const faqsMsg = "faqsMsg";
+  static const privacyAndTerms = "privacyAndTerms";
+  static const privacyAndTermsMsg = "privacyAndTermsMsg";
+  static const appVersion = "appVersion";
 
 
 
