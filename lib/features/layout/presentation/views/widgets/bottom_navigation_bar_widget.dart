@@ -5,7 +5,6 @@ import '../../../../../main_imports.dart';
 import '../../view_model/layout_cubit.dart';
 import '../../view_model/layout_states.dart';
 
-
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
 

@@ -65,7 +65,15 @@ class ArLang {
     "faqsMsg": "أسئلة متكررة",
     "privacyAndTerms": "الخصوصية والشروط",
     "privacyAndTermsMsg": "اقرأ سياساتنا وشروطنا",
-    "appVersion": "إصدار التطبيق"
+    "appVersion": "إصدار التطبيق",
+    "unitDetails": "تفاصيل الوحدة",
+    "available": "متاح",
+    "egp": "جنيه مصري",
+    "license": "رخصة",
+    "successSelling": "البيع الناجح",
+    "unitInformation": "معلومات الوحدة",
+    "features": "المميزات",
+    "propertyDetails": "تفاصيل العقار"
 
   };
 }

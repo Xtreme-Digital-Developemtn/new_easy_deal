@@ -35,6 +35,7 @@ class SvgImages
   static const String facebook = "$svgPath/facebook.svg";
   static const String twitter = "$svgPath/twitter.svg";
   static const String linkedin = "$svgPath/linkedin.svg";
+  static const String map = "$svgPath/map.svg";
 
 
 

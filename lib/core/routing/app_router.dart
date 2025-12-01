@@ -29,6 +29,9 @@ import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
+import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
+import '../../features/unit_details/presentation/views/unit_details_view.dart';
 import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
@@ -89,7 +92,11 @@ class AppRouter {
           isMobile: args["isMobile"] as bool,
         ),cubit: OtpCubit(getIt.get<OtpRepoImpl>()));
       case Routes.changePasswordView:
-        return transition(screen: const ChangePasswordView(),cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()));
+        return transition(screen: const ChangePasswordView(),
+            cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()));
+      case Routes.unitDetailsView:
+        return transition(screen: const UnitDetailsView(),
+            cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>()));
         default:
         return null;
     }

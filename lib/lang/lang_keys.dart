@@ -76,6 +76,16 @@ abstract class LangKeys
   static const privacyAndTerms = "privacyAndTerms";
   static const privacyAndTermsMsg = "privacyAndTermsMsg";
   static const appVersion = "appVersion";
+  static const unitDetails = "unitDetails";
+  static const available = "available";
+  static const egp = "egp";
+  static const license = "license";
+  static const successSelling  = "successSelling";
+  static const unitInformation  = "unitInformation";
+  static const features  = "features";
+  static const propertyDetails  = "propertyDetails";
+
+
 
 
 

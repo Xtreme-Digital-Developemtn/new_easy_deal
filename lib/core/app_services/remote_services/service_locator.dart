@@ -14,6 +14,7 @@ import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
+import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import 'api_service.dart';
 
 
@@ -46,6 +47,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<ChangePasswordRepoImpl>(ChangePasswordRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<UnitDetailsRepoImpl>(UnitDetailsRepoImpl(
     getIt.get<ApiService>(),
   ));
 }
