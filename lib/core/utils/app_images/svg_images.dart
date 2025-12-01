@@ -26,6 +26,15 @@ class SvgImages
   static const String sort = "$svgPath/sort.svg";
   static const String filter = "$svgPath/filter.svg";
   static const String tickCircle = "$svgPath/tick-circle.svg";
+  static const String bugReport = "$svgPath/bug_report.svg";
+  static const String settings = "$svgPath/settings.svg";
+  static const String warning = "$svgPath/warning-2.svg";
+  static const String terms = "$svgPath/terms.svg";
+  static const String faqs = "$svgPath/FAQs.svg";
+  static const String callCalling = "$svgPath/call-calling.svg";
+  static const String facebook = "$svgPath/facebook.svg";
+  static const String twitter = "$svgPath/twitter.svg";
+  static const String linkedin = "$svgPath/linkedin.svg";
 
 
 
