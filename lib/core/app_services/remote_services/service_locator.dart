@@ -1,14 +1,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:easy_deal/features/change_password/data/repos/change_password_repo_imple.dart';
-import 'package:easy_deal/features/change_password/data/repos/change_password_repo_imple.dart';
-import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
-import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
-import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
-import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
-import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
-import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
-import 'package:get_it/get_it.dart';
+ import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
+ import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
+ import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
+ import 'package:get_it/get_it.dart';
 import '../../../features/about_us/data/repos/about_us_repo_imple.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
 import '../../../features/chats/data/repos/chats_repo_imple.dart';
@@ -53,6 +49,8 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<AboutUsRepoImpl>(AboutUsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
   getIt.registerSingleton<UnitDetailsRepoImpl>(UnitDetailsRepoImpl(
     getIt.get<ApiService>(),
   ));
@@ -62,4 +60,6 @@ void setup() {
   getIt.registerSingleton<UserChatRepoImpl>(UserChatRepoImpl(
     getIt.get<ApiService>(),
   ));
+
+
 }

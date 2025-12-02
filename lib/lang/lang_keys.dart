@@ -93,7 +93,6 @@ abstract class LangKeys
   static const typeMessage  = "typeMessage";
 
 
-
   static const whoWeAre = "whoWeAre";
 
 
