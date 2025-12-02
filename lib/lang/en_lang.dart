@@ -80,6 +80,8 @@ class EnLang {
     "noGroupsFound": "No groups found",
     "noUsersFound": "No users found",
     "noChatsFound": "No chats found",
+    "typeMessage": "Type message...",
+
 
 
 

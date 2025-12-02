@@ -10,6 +10,7 @@ class Routes {
   static const String otpView = 'otpView';
   static const String changePasswordView = 'changePasswordView';
   static const String unitDetailsView = 'unitDetailsView';
+  static const String userChatView = 'userChatView';
 
 
 

@@ -90,6 +90,7 @@ abstract class LangKeys
   static const noGroupsFound  = "noGroupsFound";
   static const noUsersFound  = "noUsersFound";
   static const noChatsFound  = "noChatsFound";
+  static const typeMessage  = "typeMessage";
 
 
 

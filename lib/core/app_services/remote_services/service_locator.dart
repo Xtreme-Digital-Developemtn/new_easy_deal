@@ -16,6 +16,7 @@ import '../../../features/home/data/repos/home_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
 import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
+import '../../../features/user_chat/data/repos/user_repo_imple.dart';
 import 'api_service.dart';
 
 
@@ -54,6 +55,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<ChatsRepoImpl>(ChatsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<UserChatRepoImpl>(UserChatRepoImpl(
     getIt.get<ApiService>(),
   ));
 }

@@ -35,6 +35,9 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
 import '../../features/unit_details/presentation/views/unit_details_view.dart';
+import '../../features/user_chat/data/repos/user_repo_imple.dart';
+import '../../features/user_chat/presentation/view_model/user_chat_cubit.dart';
+import '../../features/user_chat/presentation/views/user_chat_view.dart';
 import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
@@ -100,6 +103,9 @@ class AppRouter {
       case Routes.unitDetailsView:
         return transition(screen: const UnitDetailsView(),
             cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>()));
+      case Routes.userChatView:
+        return transition(screen: const UserChatView(),
+            cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()));
         default:
         return null;
     }
