@@ -94,6 +94,8 @@ abstract class LangKeys
 
 
 
+  static const whoWeAre = "whoWeAre";
+
 
 
 

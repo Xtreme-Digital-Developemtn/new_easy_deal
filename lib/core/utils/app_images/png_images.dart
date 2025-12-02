@@ -4,6 +4,8 @@ class PngImages
   static const String logo = "${pngPath}logo.png";
   static const String logo2 = "${pngPath}logo2.png";
   static const String splash = "${pngPath}splash.png";
+  static const String share = "${pngPath}share.png";
+
 
 
 

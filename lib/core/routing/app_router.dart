@@ -14,6 +14,9 @@ import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dar
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
+import '../../features/about_us/data/repos/about_us_repo_imple.dart';
+import '../../features/about_us/presentation/view_model/about_us_cubit.dart';
+import '../../features/about_us/presentation/views/about_us_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
@@ -100,6 +103,9 @@ class AppRouter {
       case Routes.changePasswordView:
         return transition(screen: const ChangePasswordView(),
             cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()));
+      case Routes.aboutUsView:
+        return transition(screen: const AboutUsView(),
+            cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()));
       case Routes.unitDetailsView:
         return transition(screen: const UnitDetailsView(),
             cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>()));
