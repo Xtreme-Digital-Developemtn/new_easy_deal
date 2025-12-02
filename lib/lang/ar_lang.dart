@@ -85,6 +85,10 @@ class ArLang {
     "pleaseSelectTheReportIssue": "الرجاء اختيار نوع المشكلة",
     "typeTheMessageIfYouWant": "اكتب الرسالة إذا أردت",
     "send": "إرسال",
+    "commonQuestions": "الأسئلة الشائعة",
+    "whyEasyDeal": "لماذا Easy Deal؟",
+    "contactInformation": "معلومات الاتصال",
+
 
 
 

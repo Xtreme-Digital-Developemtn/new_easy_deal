@@ -18,6 +18,7 @@ class SvgImages
   static const String compare = "$svgPath/code-compare-regular 1.svg";
   static const String verified = "$svgPath/Verified.svg";
   static const String location = "$svgPath/Location.svg";
+  static const String location2 = "$svgPath/location (1).svg";
   static const String edit = "$svgPath/edit.svg";
   static const String edit2 = "$svgPath/edit2.svg";
   static const String arrow = "$svgPath/arrow-right.svg";
@@ -37,6 +38,11 @@ class SvgImages
   static const String linkedin = "$svgPath/linkedin.svg";
   static const String map = "$svgPath/map.svg";
   static const String empty = "$svgPath/empty-set-slash-svgrepo-com.svg";
+  static const String add2 = "$svgPath/add.svg";
+  static const String minus = "$svgPath/minus.svg";
+  static const String email = "$svgPath/mail.svg";
+  static const String phone = "$svgPath/profile icons.svg";
+  static const String global = "$svgPath/global.svg";
 
 
 

@@ -8,9 +8,12 @@ import 'package:easy_deal/features/change_password/data/repos/change_password_re
 import '../../../features/about_us/data/repos/about_us_repo_imple.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
 import '../../../features/chats/data/repos/chats_repo_imple.dart';
+import '../../../features/contact_us/data/repos/contact_us_repo_imple.dart';
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
+import '../../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
+import '../../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
 import '../../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
@@ -64,6 +67,13 @@ void setup() {
   getIt.registerSingleton<ReportIssueRepoImpl>(ReportIssueRepoImpl(
     getIt.get<ApiService>(),
   ));
-
-
+  getIt.registerSingleton<PrivacyTermsRepoImpl>(PrivacyTermsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<FAQsRepoImpl>(FAQsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<ContactUsRepoImpl>(ContactUsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
 }
