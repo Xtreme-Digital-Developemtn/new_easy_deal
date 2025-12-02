@@ -16,45 +16,50 @@ class ChatsList extends StatelessWidget {
           var chatsCubit = context.read<ChatsCubit>();
           return chatsCubit.selectedChatType==1 ? ListView.separated(
             itemBuilder: (context,index){
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 50.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2.w,
+              return InkWell(
+                onTap: (){
+                  context.pushNamed(Routes.userChatView);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 50.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2.w,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: CustomNetWorkImage(
+                          imageUrl: "https://wallpapers.com/images/featured-full/cool-profile-picture-87h46gcobjl5e4xu.jpg",
+                          height: 50.h,
+                          width: 50.w,
+                          fit: BoxFit.cover,
+                          raduis: 0,
+                        ),
                       ),
                     ),
-                    child: ClipOval(
-                      child: CustomNetWorkImage(
-                        imageUrl: "https://wallpapers.com/images/featured-full/cool-profile-picture-87h46gcobjl5e4xu.jpg",
-                        height: 50.h,
-                        width: 50.w,
-                        fit: BoxFit.cover,
-                        raduis: 0,
+                    Gap(12.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Mostafa Bahr",style: AppStyles.primary16SemiBold,),
+                          Text("Are you ready for today’s part.."*10,style: AppStyles.black12Medium,
+                            maxLines: 1,overflow: TextOverflow.ellipsis,),
+                        ],
                       ),
                     ),
-                  ),
-                  Gap(12.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Mostafa Bahr",style: AppStyles.primary16SemiBold,),
-                        Text("Are you ready for today’s part.."*10,style: AppStyles.black12Medium,
-                          maxLines: 1,overflow: TextOverflow.ellipsis,),
-                      ],
-                    ),
-                  ),
-                  Gap(12.w),
-                  Text("02 feb",style: AppStyles.gray14Medium),
-                ],
+                    Gap(12.w),
+                    Text("02 feb",style: AppStyles.gray14Medium),
+                  ],
+                ),
               );
             },
             separatorBuilder: (context,index){

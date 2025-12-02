@@ -80,6 +80,7 @@ class ArLang {
     "noGroupsFound": "لا توجد مجموعات",
     "noUsersFound": "لا يوجد مستخدمين",
     "noChatsFound": "لا توجد محادثات",
+    "typeMessage": "اكتب رسالة...",
 
 
   };
