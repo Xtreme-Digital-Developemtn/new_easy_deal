@@ -97,6 +97,9 @@ abstract class LangKeys
   static const pleaseSelectTheReportIssue = "pleaseSelectTheReportIssue";
   static const typeTheMessageIfYouWant = "typeTheMessageIfYouWant";
   static const send = "send";
+  static const commonQuestions = "commonQuestions";
+  static const whyEasyDeal = "whyEasyDeal";
+  static const contactInformation = "contactInformation";
 
 
 

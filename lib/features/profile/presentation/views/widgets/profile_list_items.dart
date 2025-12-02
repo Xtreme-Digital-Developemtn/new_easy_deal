@@ -41,20 +41,26 @@ class ProfileListItems extends StatelessWidget {
             title: LangKeys.contactUs,
             subTitle: LangKeys.contactUsMsg,
             svgImage: SvgImages.callCalling,
-            onTap: (){},
+            onTap: (){
+              context.pushNamed(Routes.contactUsView);
+            },
           ),
           ProfileListItem(
             title: LangKeys.faqs,
             subTitle: LangKeys.faqsMsg,
             svgImage: SvgImages.faqs,
-            onTap: (){},
+            onTap: (){
+              context.pushNamed(Routes.faqsView);
+            },
           ),
           ProfileListItem(
             isLast: true,
             title: LangKeys.privacyAndTerms,
             subTitle: LangKeys.privacyAndTermsMsg,
             svgImage: SvgImages.terms,
-            onTap: (){},
+            onTap: (){
+              context.pushNamed(Routes.privacyTermsView);
+            },
           ),
         ],
       ),

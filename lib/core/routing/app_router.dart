@@ -24,6 +24,12 @@ import '../../features/change_password/presentation/view_model/change_password_c
 import '../../features/chats/data/repos/chats_repo_imple.dart';
 import '../../features/chats/presentation/view_model/chats_cubit.dart';
 import '../../features/chats/presentation/views/chats_view.dart';
+import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
+import '../../features/contact_us/presentation/view_model/contact_us_cubit.dart';
+import '../../features/contact_us/presentation/views/contact_us_view.dart';
+import '../../features/faqs/data/repos/faqs_repo_imple.dart';
+import '../../features/faqs/presentation/view_model/faqs_cubit.dart';
+import '../../features/faqs/presentation/views/faqs_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
@@ -31,6 +37,9 @@ import '../../features/notifications/presentation/views/notifications_view.dart'
 import '../../features/otp/data/repos/otp_repo_imple.dart';
 import '../../features/otp/presentation/view_model/otp_cubit.dart';
 import '../../features/otp/presentation/views/otp_view.dart';
+import '../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
+import '../../features/privacy_terms/presentation/view_model/privacy_terms_cubit.dart';
+import '../../features/privacy_terms/presentation/views/privacy_terms_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
@@ -118,6 +127,15 @@ class AppRouter {
       case Routes.reportIssueView:
         return transition(screen: const ReportIssueView(),
             cubit: ReportIssueCubit(getIt.get<ReportIssueRepoImpl>()));
+      case Routes.privacyTermsView:
+        return transition(screen: const PrivacyTermsView(),
+            cubit: PrivacyTermsCubit(getIt.get<PrivacyTermsRepoImpl>()));
+      case Routes.faqsView:
+        return transition(screen: const FAQsView(),
+            cubit: FAQsCubit(getIt.get<FAQsRepoImpl>()));
+      case Routes.contactUsView:
+        return transition(screen: const ContactUsView(),
+            cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>()));
         default:
         return null;
     }

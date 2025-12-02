@@ -70,6 +70,8 @@ dependencies:
   firebase_core:
   firebase_crashlytics:
   sentry_flutter:
+  expansion_tile_card: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
