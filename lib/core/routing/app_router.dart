@@ -32,6 +32,9 @@ import '../../features/otp/data/repos/otp_repo_imple.dart';
 import '../../features/otp/presentation/view_model/otp_cubit.dart';
 import '../../features/otp/presentation/views/otp_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
+import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
+import '../../features/report_issue/presentation/views/report_issue_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -112,6 +115,9 @@ class AppRouter {
       case Routes.userChatView:
         return transition(screen: const UserChatView(),
             cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()));
+      case Routes.reportIssueView:
+        return transition(screen: const ReportIssueView(),
+            cubit: ReportIssueCubit(getIt.get<ReportIssueRepoImpl>()));
         default:
         return null;
     }

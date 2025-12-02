@@ -81,6 +81,11 @@ class ArLang {
     "noUsersFound": "لا يوجد مستخدمين",
     "noChatsFound": "لا توجد محادثات",
     "typeMessage": "اكتب رسالة...",
+    "whoWeAre": "من نحن",
+    "pleaseSelectTheReportIssue": "الرجاء اختيار نوع المشكلة",
+    "typeTheMessageIfYouWant": "اكتب الرسالة إذا أردت",
+    "send": "إرسال",
+
 
 
   };

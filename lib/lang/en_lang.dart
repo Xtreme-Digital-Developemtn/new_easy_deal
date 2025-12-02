@@ -81,6 +81,11 @@ class EnLang {
     "noUsersFound": "No users found",
     "noChatsFound": "No chats found",
     "typeMessage": "Type message...",
+    "whoWeAre": "Who We Are",
+    "pleaseSelectTheReportIssue": "Please select the report issue",
+    "typeTheMessageIfYouWant": "Type the message if you want",
+    "send": "Send",
+
 
 
 

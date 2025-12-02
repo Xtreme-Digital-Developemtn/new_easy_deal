@@ -94,6 +94,10 @@ abstract class LangKeys
 
 
   static const whoWeAre = "whoWeAre";
+  static const pleaseSelectTheReportIssue = "pleaseSelectTheReportIssue";
+  static const typeTheMessageIfYouWant = "typeTheMessageIfYouWant";
+  static const send = "send";
+
 
 
 
