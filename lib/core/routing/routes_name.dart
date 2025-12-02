@@ -12,6 +12,7 @@ class Routes {
   static const String aboutUsView = 'aboutUsView';
   static const String unitDetailsView = 'unitDetailsView';
   static const String userChatView = 'userChatView';
+  static const String reportIssueView = 'reportIssueView';
 
 
 

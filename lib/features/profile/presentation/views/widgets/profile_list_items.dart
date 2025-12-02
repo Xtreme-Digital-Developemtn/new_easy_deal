@@ -19,7 +19,9 @@ class ProfileListItems extends StatelessWidget {
               title: LangKeys.reportAnIssue,
               subTitle: LangKeys.reportAnIssueMsg,
               svgImage: SvgImages.bugReport,
-              onTap: (){},
+              onTap: (){
+                context.pushNamed(Routes.reportIssueView);
+              },
           ),
           ProfileListItem(
             title: LangKeys.appSettings,
