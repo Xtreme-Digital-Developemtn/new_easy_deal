@@ -73,7 +73,14 @@ class EnLang {
     "successSelling": "Success Selling",
     "unitInformation": "Unit Information",
     "features": "Features",
-    "propertyDetails": "Property Details"
+    "propertyDetails": "Property Details",
+    "groups": "Groups",
+    "users": "Users",
+    "chats": "Chats",
+    "noGroupsFound": "No groups found",
+    "noUsersFound": "No users found",
+    "noChatsFound": "No chats found",
+
 
 
   };

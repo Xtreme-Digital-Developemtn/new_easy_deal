@@ -45,6 +45,12 @@ class AppStyles {
     color: AppColors.white,
   );
 
+  static final TextStyle white14Medium = _createStyle(
+    fontSize: 14.sp,
+    fontWeight: medium,
+    color: AppColors.white,
+  );
+
   static final TextStyle blueDark14Bold = _createStyle(
     fontSize: 14.sp,
     fontWeight: bold,

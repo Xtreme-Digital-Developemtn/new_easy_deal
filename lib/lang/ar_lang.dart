@@ -73,7 +73,14 @@ class ArLang {
     "successSelling": "البيع الناجح",
     "unitInformation": "معلومات الوحدة",
     "features": "المميزات",
-    "propertyDetails": "تفاصيل العقار"
+    "propertyDetails": "تفاصيل العقار",
+    "groups": "المجموعات",
+    "users": "المستخدمين",
+    "chats": "المحادثات",
+    "noGroupsFound": "لا توجد مجموعات",
+    "noUsersFound": "لا يوجد مستخدمين",
+    "noChatsFound": "لا توجد محادثات",
+
 
   };
 }
