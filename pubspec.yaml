@@ -66,6 +66,10 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   shimmer: ^3.0.0
   flutter_slidable: ^4.0.3
+  map_launcher: ^4.4.2
+  firebase_core:
+  firebase_crashlytics:
+  sentry_flutter:
 
 dev_dependencies:
   flutter_test:

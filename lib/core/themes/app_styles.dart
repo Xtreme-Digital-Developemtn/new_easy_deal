@@ -45,6 +45,36 @@ class AppStyles {
     color: AppColors.white,
   );
 
+  static final TextStyle white14Medium = _createStyle(
+    fontSize: 14.sp,
+    fontWeight: medium,
+    color: AppColors.white,
+  );
+
+  static final TextStyle blueDark14Bold = _createStyle(
+    fontSize: 14.sp,
+    fontWeight: bold,
+    color: AppColors.blueDark,
+  );
+
+  static final TextStyle blueDark14Medium = _createStyle(
+    fontSize: 14.sp,
+    fontWeight: medium,
+    color: AppColors.blueDark,
+  );
+
+  static final TextStyle blueDark16Bold = _createStyle(
+    fontSize: 16.sp,
+    fontWeight: bold,
+    color: AppColors.blueDark,
+  );
+
+
+  static final TextStyle green20ExtraBold = _createStyle(
+    fontSize: 20.sp,
+    fontWeight: extraBold,
+    color: AppColors.green,
+  );
   static final TextStyle white16SemiBold = _createStyle(
     fontSize: 16.sp,
     fontWeight: semiBold,

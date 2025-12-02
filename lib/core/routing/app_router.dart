@@ -21,6 +21,9 @@ import '../../features/category_units/presentation/view_model/category_units_cub
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
 import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
+import '../../features/chats/data/repos/chats_repo_imple.dart';
+import '../../features/chats/presentation/view_model/chats_cubit.dart';
+import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
@@ -32,6 +35,12 @@ import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
+import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
+import '../../features/unit_details/presentation/views/unit_details_view.dart';
+import '../../features/user_chat/data/repos/user_repo_imple.dart';
+import '../../features/user_chat/presentation/view_model/user_chat_cubit.dart';
+import '../../features/user_chat/presentation/views/user_chat_view.dart';
 import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
@@ -97,6 +106,12 @@ class AppRouter {
       case Routes.aboutUsView:
         return transition(screen: const AboutUsView(),
             cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()));
+      case Routes.unitDetailsView:
+        return transition(screen: const UnitDetailsView(),
+            cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>()));
+      case Routes.userChatView:
+        return transition(screen: const UserChatView(),
+            cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()));
         default:
         return null;
     }
@@ -109,7 +124,9 @@ class AppRouter {
         child: HomeView()),
     SearchView(),
     Text("1"),
-    Text("1"),
+    BlocProvider(
+        create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
+        child: ChatsView()),
     ProfileView(),
 
   ];

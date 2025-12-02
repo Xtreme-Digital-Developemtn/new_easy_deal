@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "250549836016",
+    "project_id": "eslamic-66cb4",
+    "storage_bucket": "eslamic-66cb4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250549836016:android:3ac07d7630c5e748df8a35",
+        "android_client_info": {
+          "package_name": "com.example.quran"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzi7xrS8bhe8ME4KdxqXD6u3Fgp-5DXsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250549836016:android:125203fc3a8c9e43df8a35",
+        "android_client_info": {
+          "package_name": "com.xtreme.easy_deal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzi7xrS8bhe8ME4KdxqXD6u3Fgp-5DXsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
