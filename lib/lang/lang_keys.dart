@@ -77,6 +77,8 @@ abstract class LangKeys
   static const privacyAndTermsMsg = "privacyAndTermsMsg";
   static const appVersion = "appVersion";
 
+  static const whoWeAre = "whoWeAre";
+
 
 
 

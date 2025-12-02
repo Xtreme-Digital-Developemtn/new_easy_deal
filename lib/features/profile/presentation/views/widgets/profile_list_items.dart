@@ -31,7 +31,9 @@ class ProfileListItems extends StatelessWidget {
             title: LangKeys.aboutUs,
             subTitle: LangKeys.aboutUsMsg,
             svgImage: SvgImages.warning,
-            onTap: (){},
+            onTap: (){
+              context.pushNamed(Routes.aboutUsView);
+            },
           ),
           ProfileListItem(
             title: LangKeys.contactUs,
