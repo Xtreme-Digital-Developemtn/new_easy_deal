@@ -18,6 +18,9 @@ import '../../features/category_units/presentation/view_model/category_units_cub
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
 import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
+import '../../features/chats/data/repos/chats_repo_imple.dart';
+import '../../features/chats/presentation/view_model/chats_cubit.dart';
+import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
@@ -109,7 +112,9 @@ class AppRouter {
         child: HomeView()),
     SearchView(),
     Text("1"),
-    Text("1"),
+    BlocProvider(
+        create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
+        child: ChatsView()),
     ProfileView(),
 
   ];

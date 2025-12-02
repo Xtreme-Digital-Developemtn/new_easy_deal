@@ -3,8 +3,7 @@ import 'package:easy_deal/features/home/presentation/views/widgets/categories.da
 import 'package:easy_deal/features/home/presentation/views/widgets/explore_the_sites.dart';
 import 'package:easy_deal/features/home/presentation/views/widgets/home_slider_images.dart';
 import 'package:easy_deal/features/home/presentation/views/widgets/latest_articles.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../../../../main_imports.dart';
+ import '../../../../main_imports.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

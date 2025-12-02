@@ -84,6 +84,12 @@ abstract class LangKeys
   static const unitInformation  = "unitInformation";
   static const features  = "features";
   static const propertyDetails  = "propertyDetails";
+  static const groups  = "groups";
+  static const users  = "users";
+  static const chats  = "chats";
+  static const noGroupsFound  = "noGroupsFound";
+  static const noUsersFound  = "noUsersFound";
+  static const noChatsFound  = "noChatsFound";
 
 
 

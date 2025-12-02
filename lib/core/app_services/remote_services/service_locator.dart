@@ -10,6 +10,7 @@ import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
 import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
 import 'package:get_it/get_it.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
+import '../../../features/chats/data/repos/chats_repo_imple.dart';
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
@@ -50,6 +51,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<UnitDetailsRepoImpl>(UnitDetailsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<ChatsRepoImpl>(ChatsRepoImpl(
     getIt.get<ApiService>(),
   ));
 }
