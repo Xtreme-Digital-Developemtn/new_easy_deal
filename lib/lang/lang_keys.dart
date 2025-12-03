@@ -98,6 +98,18 @@ abstract class LangKeys
   static const commonQuestions = "commonQuestions";
   static const whyEasyDeal = "whyEasyDeal";
   static const contactInformation = "contactInformation";
+  static const alertAndNotifications = "alertAndNotifications";
+  static const enableNotifications = "enableNotifications";
+  static const lightMode = "lightMode";
+  static const darkMode = "darkMode";
+  static const useDeviceSettings = "useDeviceSettings";
+  static const appearance = "appearance";
+  static const useDeviceSettingsMsg = "useDeviceSettingsMsg";
+  static const language = "language";
+  static const selectLang = "selectLang";
+
+
+
 
 
 

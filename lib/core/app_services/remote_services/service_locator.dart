@@ -16,6 +16,7 @@ import '../../../features/login/data/repos/login_repo_imple.dart';
 import '../../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
 import '../../../features/report_issue/data/repos/report_issue_repo_imple.dart';
+import '../../../features/settings/data/repos/app_settings_repo_imple.dart';
 import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import '../../../features/user_chat/data/repos/user_repo_imple.dart';
 import 'api_service.dart';
@@ -76,4 +77,8 @@ void setup() {
   getIt.registerSingleton<ContactUsRepoImpl>(ContactUsRepoImpl(
     getIt.get<ApiService>(),
   ));
+  getIt.registerSingleton<AppSettingsRepoImpl>(AppSettingsRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+
 }

@@ -88,6 +88,16 @@ class ArLang {
     "commonQuestions": "الأسئلة الشائعة",
     "whyEasyDeal": "لماذا Easy Deal؟",
     "contactInformation": "معلومات الاتصال",
+    "alertAndNotifications": "التنبيهات والإشعارات",
+    "enableNotifications": "تفعيل الإشعارات",
+    "lightMode": "الوضع الفاتح",
+    "darkMode": "الوضع الداكن",
+    "useDeviceSettings": "استخدام إعدادات الجهاز",
+    "appearance": "المظهر",
+    "useDeviceSettingsMsg": "اتباع إعدادات سمة النظام",
+    "language": "اللغة",
+    "selectLang": "اختر اللغة",
+
 
 
 
