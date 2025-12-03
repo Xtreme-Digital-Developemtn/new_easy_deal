@@ -107,10 +107,13 @@ abstract class LangKeys
   static const useDeviceSettingsMsg = "useDeviceSettingsMsg";
   static const language = "language";
   static const selectLang = "selectLang";
-
-
   static const requests = "requests";
   static const requestNumber = "requestNumber";
+  static const continuee = "continuee";
+  static const skip = "skip";
+  static const sellOrRentYourPropertyInSimpleSteps = "sellOrRentYourPropertyInSimpleSteps";
+  static const fromBeginningToEndWeAreWithYouOnYourRealEstateJourney = "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney";
+  static const findYourPerfectHomeWithEase = "findYourPerfectHomeWithEase";
 
 
 

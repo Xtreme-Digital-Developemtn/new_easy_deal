@@ -97,6 +97,14 @@ class EnLang {
     "useDeviceSettingsMsg": "Follow system theme settings",
     "language": "Language",
     "selectLang": "Select Language",
+    "requests": "Requests",
+    "requestNumber": "Request Number",
+    "continuee": "Continue",
+    "skip": "Skip",
+    "sellOrRentYourPropertyInSimpleSteps": "Sell or rent your property in simple steps",
+    "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney": "From beginning to end, we are with you on your real estate journey",
+    "findYourPerfectHomeWithEase": "Find your perfect home with ease",
+
 
 
 
