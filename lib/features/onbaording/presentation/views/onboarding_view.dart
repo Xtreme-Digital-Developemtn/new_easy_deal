@@ -10,12 +10,18 @@ class OnboardingView extends StatelessWidget {
     return Scaffold(
       body: OnBoardingSlider(
         headerBackgroundColor: Colors.white,
-        finishButtonText: LangKeys.continuee.tr(),
+        finishButtonText: LangKeys.signUp.tr(),
         finishButtonStyle: FinishButtonStyle(
           backgroundColor: AppColors.primaryDark,
         ),
+        onFinish: (){
+       //   context.pushNamed(Routes.);
+        },
         skipTextButton: Text( LangKeys.skip.tr(),style: AppStyles.primary16SemiBold,),
-        trailing: Text( LangKeys.signIn.tr(),),
+        trailing: Text( LangKeys.signIn.tr(),style: AppStyles.primary16SemiBold,),
+        trailingFunction: (){
+          context.pushNamed(Routes.loginView);
+        },
         background: [
           Image.asset(JpgImages.onboarding2,height: 350.h,width: 350.w,fit: BoxFit.cover,),
           Image.asset(JpgImages.onboarding3,height: 350.h,width: 350.w,fit: BoxFit.cover,),
