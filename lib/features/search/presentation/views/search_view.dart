@@ -9,7 +9,7 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: Padding(
-        padding:   EdgeInsets.symmetric(horizontal: 12.0.w,vertical: 20.h),
+        padding:   EdgeInsets.all(12.r),
         child: Column(
           children: [
             ContainerSearchWidget(),

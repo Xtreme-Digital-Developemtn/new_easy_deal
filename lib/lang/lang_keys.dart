@@ -109,6 +109,11 @@ abstract class LangKeys
   static const selectLang = "selectLang";
 
 
+  static const requests = "requests";
+  static const requestNumber = "requestNumber";
+
+
+
 
 
 
