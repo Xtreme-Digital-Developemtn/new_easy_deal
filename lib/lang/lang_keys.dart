@@ -115,6 +115,25 @@ abstract class LangKeys
   static const fromBeginningToEndWeAreWithYouOnYourRealEstateJourney = "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney";
   static const findYourPerfectHomeWithEase = "findYourPerfectHomeWithEase";
 
+  static const selectAccountType = "selectAccountType";
+  static const type = "type";
+  static const selectGender  = "selectGender";
+  static const gender  = "gender";
+  static const complete = "complete";
+  static const createPassword = "createPassword";
+  static const client = "client";
+  static const broker = "broker";
+  static const next = "next";
+  static const male = "male";
+  static const female = "female";
+  static const completeProfileInfo = "completeProfileInfo";
+  static const nameNoSpecialChars = "nameNoSpecialChars";
+  static const nameNoNumbers = "nameNoNumbers";
+  static const nameTooLong = "nameTooLong";
+  static const nameTooShort = "nameTooShort";
+  static const nameValidate = "nameValidate";
+
+
 
 
 

@@ -15,7 +15,7 @@ class OnboardingView extends StatelessWidget {
           backgroundColor: AppColors.primaryDark,
         ),
         onFinish: (){
-       //   context.pushNamed(Routes.);
+         context.pushNamed(Routes.registerView);
         },
         skipTextButton: Text( LangKeys.skip.tr(),style: AppStyles.primary16SemiBold,),
         trailing: Text( LangKeys.signIn.tr(),style: AppStyles.primary16SemiBold,),

@@ -46,6 +46,10 @@ class SvgImages
   static const String global = "$svgPath/global.svg";
   static const String lang = "$svgPath/language-translate-svgrepo-com.svg";
   static const String calendar = "$svgPath/calendar-mark-svgrepo-com.svg";
+  static const String client = "$svgPath/user.svg";
+  static const String broker = "$svgPath/broker.svg";
+  static const String male = "$svgPath/maleIcon.svg";
+  static const String female = "$svgPath/feamaleIcon.svg";
 
 
 

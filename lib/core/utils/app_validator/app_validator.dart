@@ -4,35 +4,35 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../lang/lang_keys.dart';
 
 class AppValidators {
-//   static String? displayNameValidator(String? displayName) {
-//     if (displayName == null || displayName.trim().isEmpty) {
-//       return AppStrings.nameValidate; // "Name is required"
-//     }
-//
-//     final trimmed = displayName.trim();
-//
-//     if (trimmed.length < 2) {
-//       return AppStrings.nameTooShort; // "Name must be at least 2 characters"
-//     }
-//
-//     if (trimmed.length > 50) {
-//       return AppStrings.nameTooLong; // "Name cannot exceed 50 characters"
-//     }
-//
-//     if (RegExp(r'[0-9]').hasMatch(trimmed)) {
-//       return AppStrings.nameNoNumbers; // "Name cannot contain numbers"
-//     }
-//
-//     if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(trimmed)) {
-//       return AppStrings.nameNoSpecialChars; // "Name cannot contain special characters"
-//     }
-//
-//     return null;
-//   }
-//
+  static String? displayNameValidator(String? displayName) {
+    if (displayName == null || displayName.trim().isEmpty) {
+      return LangKeys.nameValidate; // "Name is required"
+    }
+
+    final trimmed = displayName.trim();
+
+    if (trimmed.length < 2) {
+      return LangKeys.nameTooShort; // "Name must be at least 2 characters"
+    }
+
+    if (trimmed.length > 50) {
+      return LangKeys.nameTooLong; // "Name cannot exceed 50 characters"
+    }
+
+    if (RegExp(r'[0-9]').hasMatch(trimmed)) {
+      return LangKeys.nameNoNumbers; // "Name cannot contain numbers"
+    }
+
+    if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(trimmed)) {
+      return LangKeys.nameNoSpecialChars; // "Name cannot contain special characters"
+    }
+
+    return null;
+  }
+
 //   static String? displayMessageValidator(String? message) {
 //     if (message == null || message.isEmpty) {
-//       return AppStrings.messageValidate; // "Message is required"
+//       return LangKeys.messageValidate; // "Message is required"
 //     }
 //
 //     if (message.length < 10) {

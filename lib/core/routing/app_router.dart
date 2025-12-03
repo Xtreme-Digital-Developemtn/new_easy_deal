@@ -13,6 +13,7 @@ import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
+import 'package:easy_deal/features/register/presentation/views/register_view.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
 import '../../features/about_us/data/repos/about_us_repo_imple.dart';
@@ -43,6 +44,8 @@ import '../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
 import '../../features/privacy_terms/presentation/view_model/privacy_terms_cubit.dart';
 import '../../features/privacy_terms/presentation/views/privacy_terms_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
+import '../../features/register/data/repos/register_repo_imple.dart';
+import '../../features/register/presentation/view_model/register_cubit.dart';
 import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
@@ -149,6 +152,9 @@ class AppRouter {
             cubit: AppSettingsCubit(getIt.get<AppSettingsRepoImpl>()));
       case Routes.onBoardingView:
         return transition(screen: const OnboardingView());
+      case Routes.registerView:
+        return transition(screen: const RegisterView(),
+            cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()));
         default:
         return null;
     }
