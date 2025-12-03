@@ -12,6 +12,7 @@ import 'package:easy_deal/features/home/presentation/views/home_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
+import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
 import '../../features/about_us/data/repos/about_us_repo_imple.dart';
@@ -146,6 +147,8 @@ class AppRouter {
       case Routes.appSettingsView:
         return transition(screen: const AppSettingsView(),
             cubit: AppSettingsCubit(getIt.get<AppSettingsRepoImpl>()));
+      case Routes.onBoardingView:
+        return transition(screen: const OnboardingView());
         default:
         return null;
     }

@@ -38,7 +38,7 @@ class _SplashViewState extends State<SplashView>
         if (userToken != null && userToken.isNotEmpty) {
         //  context.pushNamed(Routes.mainlayoutScreen);
         } else {
-          context.pushNamedAndRemoveUntil(Routes.loginView);
+          context.pushNamedAndRemoveUntil(Routes.onBoardingView);
         }
       }
     });

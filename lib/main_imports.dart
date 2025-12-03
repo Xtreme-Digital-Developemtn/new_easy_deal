@@ -28,6 +28,8 @@ export 'package:easy_deal/core/themes/app_styles.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:easy_deal/core/shared_widgets/custom_button.dart';
 export 'package:easy_deal/core/shared_widgets/custom_loading.dart';
+export 'package:easy_deal/core/utils/app_images/jpg_images.dart';
+
 
 
 

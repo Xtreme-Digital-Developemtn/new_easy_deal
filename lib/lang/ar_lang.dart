@@ -97,6 +97,14 @@ class ArLang {
     "useDeviceSettingsMsg": "اتباع إعدادات سمة النظام",
     "language": "اللغة",
     "selectLang": "اختر اللغة",
+    "requests": "الطلبات",
+    "requestNumber": "رقم الطلب",
+    "continuee": "متابعة",
+    "skip": "تخطي",
+    "sellOrRentYourPropertyInSimpleSteps": "بيع أو استأجر عقارك في خطوات بسيطة",
+    "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney": "من البداية حتى النهاية، نحن معك في رحلتك العقارية",
+    "findYourPerfectHomeWithEase": "ابحث عن منزلك المثالي بكل سهولة",
+
 
 
 
