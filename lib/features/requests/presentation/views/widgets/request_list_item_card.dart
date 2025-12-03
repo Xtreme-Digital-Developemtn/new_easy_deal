@@ -34,7 +34,7 @@ class RequestListItemCard extends StatelessWidget {
             ),
           ],
           border: Border.all(
-            color: AppColors.grayLight,
+            color: Color.fromRGBO(213, 224, 252, 1),
             width: 1.w,
           ),
         ),

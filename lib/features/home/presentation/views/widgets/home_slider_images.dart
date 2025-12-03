@@ -19,25 +19,26 @@ class HomeSliderImages extends StatelessWidget {
             return Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                // SizedBox(
-                //   width: MediaQuery.of(context).size.width,
-                //   child: CustomNetWorkImage(
-                //     imageUrl: slider,
-                //     raduis: 16,
-                //     fit: BoxFit.cover,
-                //   ),
-                // ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 140.h,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: Image.asset(
-                      slider,
-                      fit: BoxFit.cover,
-                    ),
+                  child: CustomNetWorkImage(
+                    imageUrl: slider,
+                    raduis: 12.r,
+                    fit: BoxFit.cover,
                   ),
                 ),
+                // SizedBox(
+                //   width: MediaQuery.of(context).size.width,
+                //   height: 140.h,
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(12.r),
+                //     child: Image.asset(
+                //       slider,
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
                 Positioned(
                   bottom: 10.0,
                   left: 0,
