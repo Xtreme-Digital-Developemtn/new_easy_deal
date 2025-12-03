@@ -46,6 +46,9 @@ import '../../features/report_issue/presentation/view_model/report_issue_cubit.d
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
+import '../../features/settings/data/repos/app_settings_repo_imple.dart';
+import '../../features/settings/presentation/view_model/settings_cubit.dart';
+import '../../features/settings/presentation/views/settings_view.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
@@ -136,6 +139,9 @@ class AppRouter {
       case Routes.contactUsView:
         return transition(screen: const ContactUsView(),
             cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>()));
+      case Routes.appSettingsView:
+        return transition(screen: const AppSettingsView(),
+            cubit: AppSettingsCubit(getIt.get<AppSettingsRepoImpl>()));
         default:
         return null;
     }

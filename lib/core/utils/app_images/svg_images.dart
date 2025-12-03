@@ -9,6 +9,7 @@ class SvgImages
   static const String home = "$svgPath/home-2.svg";
   static const String chat = "$svgPath/messages-3-svgrepo-com.svg";
   static const String notify = "$svgPath/clarity_notification-line.svg";
+  static const String notify2 = "$svgPath/notify.svg";
   static const String search = "$svgPath/search.svg";
   static const String add = "$svgPath/add-icon-svgrepo-com.svg";
   static const String profile = "$svgPath/user (1).svg";
@@ -43,6 +44,7 @@ class SvgImages
   static const String email = "$svgPath/mail.svg";
   static const String phone = "$svgPath/profile icons.svg";
   static const String global = "$svgPath/global.svg";
+  static const String lang = "$svgPath/language-translate-svgrepo-com.svg";
 
 
 

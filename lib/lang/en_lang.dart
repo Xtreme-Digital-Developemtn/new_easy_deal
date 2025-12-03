@@ -87,7 +87,17 @@ class EnLang {
     "send": "Send",
     "commonQuestions": "Common Questions",
     "whyEasyDeal": "Why Easy Deal?",
-    "contactInformation": "Contact Information"
+    "contactInformation": "Contact Information",
+    "alertAndNotifications": "Alert and Notifications",
+    "enableNotifications": "Enable Notifications",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "useDeviceSettings": "Use Device Settings",
+    "appearance": "Appearance",
+    "useDeviceSettingsMsg": "Follow system theme settings",
+    "language": "Language",
+    "selectLang": "Select Language",
+
 
 
 

@@ -16,6 +16,7 @@ class Routes {
   static const String privacyTermsView = 'privacyTermsView';
   static const String faqsView = 'faqsView';
   static const String contactUsView = 'contactUsView';
+  static const String appSettingsView = 'appSettingsView';
 
 
 
