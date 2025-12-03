@@ -45,6 +45,7 @@ class SvgImages
   static const String phone = "$svgPath/profile icons.svg";
   static const String global = "$svgPath/global.svg";
   static const String lang = "$svgPath/language-translate-svgrepo-com.svg";
+  static const String calendar = "$svgPath/calendar-mark-svgrepo-com.svg";
 
 
 

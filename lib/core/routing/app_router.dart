@@ -34,6 +34,7 @@ import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../features/notifications/presentation/views/notifications_view.dart';
+
 import '../../features/otp/data/repos/otp_repo_imple.dart';
 import '../../features/otp/presentation/view_model/otp_cubit.dart';
 import '../../features/otp/presentation/views/otp_view.dart';
@@ -44,6 +45,9 @@ import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
+import '../../features/requests/data/repos/requests_repo_imple.dart';
+import '../../features/requests/presentation/view_model/requests_cubit.dart';
+import '../../features/requests/presentation/views/requests_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
 import '../../features/settings/data/repos/app_settings_repo_imple.dart';
@@ -153,7 +157,9 @@ class AppRouter {
         create: (context)=>HomeCubit(getIt.get<HomeRepoImpl>()),
         child: HomeView()),
     SearchView(),
-    Text("1"),
+    BlocProvider(
+        create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>()),
+        child: RequestsView()),
     BlocProvider(
         create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
         child: ChatsView()),
