@@ -104,6 +104,23 @@ class ArLang {
     "sellOrRentYourPropertyInSimpleSteps": "بيع أو استأجر عقارك في خطوات بسيطة",
     "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney": "من البداية حتى النهاية، نحن معك في رحلتك العقارية",
     "findYourPerfectHomeWithEase": "ابحث عن منزلك المثالي بكل سهولة",
+    "selectAccountType": "اختر نوع الحساب",
+    "type": "النوع",
+    "selectGender": "اختر الجنس",
+    "gender": "الجنس",
+    "complete": "إكمال",
+    "createPassword": "إنشاء كلمة المرور",
+    "client": "عميل",
+    "broker": "وسيط",
+    "next": "التالي",
+    "male": "ذكر",
+    "female": "أنثى",
+    "completeProfileInfo": "إكمال معلومات الملف الشخصي",
+    "nameNoSpecialChars": "الاسم لا يجب أن يحتوي على رموز خاصة",
+    "nameNoNumbers": "الاسم لا يجب أن يحتوي على أرقام",
+    "nameTooLong": "الاسم طويل جداً",
+    "nameTooShort": "الاسم قصير جداً",
+    "nameValidate": "يرجى إدخال اسم صحيح",
 
 
 
