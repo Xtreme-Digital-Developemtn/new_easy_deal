@@ -1,6 +1,4 @@
 import 'package:easy_deal/features/otp/presentation/views/widgets/otp_texts.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../main_imports.dart';
 import 'widgets/pin_code_fields_widget.dart';
 import 'widgets/verify_otp_button.dart';
@@ -27,12 +25,7 @@ class _OtpViewState extends State<OtpView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.verifyCode.tr()),
-        leading: IconButton(onPressed: (){
-          context.pop();
-        }, icon: SvgPicture.asset(SvgImages.arrow)),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.verifyCode),
       body: BlocBuilder<OtpCubit, OtpStates>(
         builder: (context, state) {
           return SingleChildScrollView(

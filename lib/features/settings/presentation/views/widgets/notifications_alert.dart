@@ -13,7 +13,7 @@ class NotificationsAlert extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LangKeys.alertAndNotifications.tr(),
+          context.tr(LangKeys.alertAndNotifications),
           style: AppStyles.black16SemiBold,
         ),
         Gap(12.h),
@@ -32,7 +32,7 @@ class NotificationsAlert extends StatelessWidget {
                 ),
                 Gap(6.w),
                 Text(
-                  LangKeys.enableNotifications.tr(),
+                context.tr(LangKeys.enableNotifications),
                   style: AppStyles.primary14Medium,
                 ),
               ],

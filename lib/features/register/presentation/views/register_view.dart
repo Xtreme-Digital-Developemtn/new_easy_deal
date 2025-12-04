@@ -7,7 +7,6 @@ import 'package:easy_deal/features/register/presentation/views/widgets/client_in
 import 'package:easy_deal/features/register/presentation/views/widgets/gender_widgets/gender_body.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/password_widgets/password_body.dart';
  import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -15,15 +14,7 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.signUp.tr()),
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: SvgPicture.asset(SvgImages.arrow),
-        ),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.signUp),
       body:  Padding(
         padding:   EdgeInsets.all(20.0.r),
         child: BlocBuilder<RegisterCubit , RegisterStates>(

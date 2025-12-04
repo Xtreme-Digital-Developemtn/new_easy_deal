@@ -42,10 +42,11 @@ class LoginButton extends StatelessWidget {
                 builder: (context, isValid, child) => CustomButton(
                 text: LangKeys.signIn.tr(),
                 onPressed: isValid ? () {
-                    loginCubit.login(
-                      password: loginCubit.passwordCon.text,
-                      phone: loginCubit.phoneNumber,
-                    );
+                  context.pushNamedAndRemoveUntil(Routes.layoutView);
+                    // loginCubit.login(
+                    //   password: loginCubit.passwordCon.text,
+                    //   phone: loginCubit.phoneNumber,
+                    // );
 
                 } : null,
               ),

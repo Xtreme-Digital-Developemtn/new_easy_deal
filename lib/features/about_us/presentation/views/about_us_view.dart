@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/shared_widgets/global_app_bar.dart';
 import 'package:easy_deal/features/about_us/presentation/views/widgets/about_us_view_body.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,17 +9,11 @@ class AboutUsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.aboutUs.tr()),
+      appBar: GlobalAppBar(
+        title: LangKeys.aboutUs.tr(),
         actions: [
           IconButton(onPressed: () {}, icon: Image.asset(PngImages.share)),
         ],
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: SvgPicture.asset(SvgImages.arrow),
-        ),
       ),
       body: AboutUsViewBody(),
     );

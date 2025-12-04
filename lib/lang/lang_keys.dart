@@ -1,5 +1,4 @@
-abstract class LangKeys
-{
+abstract class LangKeys {
   static const signIn = "signIn";
   static const phoneNumber = "phoneNumber";
   static const phoneRequired = "phoneRequired";
@@ -80,17 +79,17 @@ abstract class LangKeys
   static const available = "available";
   static const egp = "egp";
   static const license = "license";
-  static const successSelling  = "successSelling";
-  static const unitInformation  = "unitInformation";
-  static const features  = "features";
-  static const propertyDetails  = "propertyDetails";
-  static const groups  = "groups";
-  static const users  = "users";
-  static const chats  = "chats";
-  static const noGroupsFound  = "noGroupsFound";
-  static const noUsersFound  = "noUsersFound";
-  static const noChatsFound  = "noChatsFound";
-  static const typeMessage  = "typeMessage";
+  static const successSelling = "successSelling";
+  static const unitInformation = "unitInformation";
+  static const features = "features";
+  static const propertyDetails = "propertyDetails";
+  static const groups = "groups";
+  static const users = "users";
+  static const chats = "chats";
+  static const noGroupsFound = "noGroupsFound";
+  static const noUsersFound = "noUsersFound";
+  static const noChatsFound = "noChatsFound";
+  static const typeMessage = "typeMessage";
   static const whoWeAre = "whoWeAre";
   static const pleaseSelectTheReportIssue = "pleaseSelectTheReportIssue";
   static const typeTheMessageIfYouWant = "typeTheMessageIfYouWant";
@@ -116,8 +115,8 @@ abstract class LangKeys
   static const findYourPerfectHomeWithEase = "findYourPerfectHomeWithEase";
   static const selectAccountType = "selectAccountType";
   static const type = "type";
-  static const selectGender  = "selectGender";
-  static const gender  = "gender";
+  static const selectGender = "selectGender";
+  static const gender = "gender";
   static const complete = "complete";
   static const createPassword = "createPassword";
   static const client = "client";
@@ -136,22 +135,6 @@ abstract class LangKeys
   static const success = "success";
   static const registerSuccessMsg = "registerSuccessMsg";
   static const start = "start";
-
-
   static const selectBrokerType = "selectBrokerType";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  static const reject = "reject";
 }

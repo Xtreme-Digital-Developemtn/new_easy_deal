@@ -8,12 +8,7 @@ class EditEmailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.editEmailAddress.tr()),
-        leading: IconButton(onPressed: (){
-          context.pop();
-        }, icon: SvgPicture.asset(SvgImages.arrow)),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.editEmailAddress),
       body: Padding(
         padding:   EdgeInsets.all(20.0.r),
         child: Column(

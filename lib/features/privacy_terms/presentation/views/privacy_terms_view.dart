@@ -7,15 +7,7 @@ class PrivacyTermsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.privacyAndTerms.tr()),
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: SvgPicture.asset(SvgImages.arrow),
-        ),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.privacyAndTerms),
       body: Padding(
         padding:   EdgeInsets.all(20.0.r),
         child: Column(
