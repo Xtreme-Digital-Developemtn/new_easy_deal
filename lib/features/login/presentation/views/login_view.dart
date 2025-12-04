@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/do_not_have_account.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/login_as_guest.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/login_button.dart';
@@ -11,7 +12,6 @@ class LoginView extends StatelessWidget {
   const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
-    final loginKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -22,7 +22,7 @@ class LoginView extends StatelessWidget {
         child: Padding(
           padding:   EdgeInsets.all(20.r),
           child: Form(
-            key: loginKey,
+            key: context.read<LoginCubit>().formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +34,7 @@ class LoginView extends StatelessWidget {
                 Gap(12.h),
                 RememberMeAndForgetPassword(),
                 Gap(12.h),
-                LoginButton(formKey: loginKey,),
+                LoginButton( ),
                 Gap(24.h),
                 LoginAsGuest(),
                 DoNotHaveAccount(),

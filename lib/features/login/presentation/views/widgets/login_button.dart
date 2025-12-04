@@ -1,17 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easy_deal/core/shared_widgets/custom_button.dart';
-import 'package:easy_deal/core/shared_widgets/custom_loading.dart';
-import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
+  import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../../core/utils/toast/toast.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key, required this.formKey});
-
-  final GlobalKey<FormState> formKey;
+  const LoginButton({super.key,  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +33,22 @@ class LoginButton extends StatelessWidget {
       },
       builder: (context, state) {
         var loginCubit = context.watch<LoginCubit>();
-        bool isValid = false;
-
-        if (state is LoginValidationState) {
-          isValid = state.isValid;
-        }
         return ConditionalBuilder(
           condition: state is! LoginLoadingState,
           fallback: (context) => CustomLoading(),
           builder: (context) {
-            return CustomButton(
-              text: LangKeys.signIn.tr(),
-              onPressed: isValid ? () {
-                if (formKey.currentState!.validate()) {
-                  loginCubit.login(
-                    password: loginCubit.passwordCon.text,
-                    phone: loginCubit.phoneNumber,
-                  );
-                }
-              } : null,
-              color: isValid ? null : AppColors.primaryDark.withValues(alpha: 0.3),
-              textColor: isValid ? null : AppColors.white,
+            return ValueListenableBuilder<bool>(
+              valueListenable: loginCubit.isFormValid,
+                builder: (context, isValid, child) => CustomButton(
+                text: LangKeys.signIn.tr(),
+                onPressed: isValid ? () {
+                    loginCubit.login(
+                      password: loginCubit.passwordCon.text,
+                      phone: loginCubit.phoneNumber,
+                    );
+
+                } : null,
+              ),
             );
           },
         );
