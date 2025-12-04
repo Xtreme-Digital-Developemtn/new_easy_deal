@@ -38,12 +38,12 @@ class ModeItem extends StatelessWidget {
                       appSettingsCubit.selectModeIndex==modeInex ? AppColors.white : AppColors.black, BlendMode.srcIn),),
                   Gap(8.w),
                   svgImage==null ?
-                  Text(modeTitle.tr(),style: appSettingsCubit.selectModeIndex==modeInex ? AppStyles.white14Medium : AppStyles.black14Medium,) :
+                  Text(context.tr(modeTitle),style: appSettingsCubit.selectModeIndex==modeInex ? AppStyles.white14Medium : AppStyles.black14Medium,) :
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(modeTitle.tr(),style:appSettingsCubit.selectModeIndex==modeInex ? AppStyles.white14Medium:  AppStyles.black14Medium,) ,
-                      Text(LangKeys.useDeviceSettingsMsg.tr().tr(),style: AppStyles.gray14Medium,) ,
+                      Text(context.tr(modeTitle),style:appSettingsCubit.selectModeIndex==modeInex ? AppStyles.white14Medium:  AppStyles.black14Medium,) ,
+                      Text(context.tr(LangKeys.useDeviceSettingsMsg),style: AppStyles.gray14Medium,) ,
                     ],
 
                   ),

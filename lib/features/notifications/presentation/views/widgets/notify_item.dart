@@ -20,7 +20,7 @@ class NotifyItem extends StatelessWidget {
               Container(
                 height: 8.h,
                 width: 8.w,
-                margin: EdgeInsets.only(top: 6.h), // Align with text
+                margin: EdgeInsets.only(top: 6.h),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.primaryDark,
@@ -80,7 +80,7 @@ class NotifyItem extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                             ),
-                            child: Text(LangKeys.accept.tr(),style: AppStyles.white12Medium,),
+                            child: Text(LangKeys.reject.tr(),style: AppStyles.white12Medium,),
                           ),
                         ),
                       ],

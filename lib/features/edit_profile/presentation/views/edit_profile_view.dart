@@ -1,8 +1,6 @@
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_name.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_profile_list_item.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../core/shared_widgets/general_bottom_sheet.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -11,12 +9,7 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.editProfile.tr()),
-        leading: IconButton(onPressed: (){
-          context.pop();
-        }, icon: SvgPicture.asset(SvgImages.arrow)),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.editProfile),
       body: Padding(
         padding:   EdgeInsets.all(20.r),
         child: Column(

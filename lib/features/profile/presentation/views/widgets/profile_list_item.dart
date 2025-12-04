@@ -12,6 +12,7 @@ class ProfileListItem extends StatelessWidget {
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
+    final bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Column(
       children: [
         Row(
@@ -39,7 +40,9 @@ class ProfileListItem extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(onPressed: onTap, icon: SvgPicture.asset(SvgImages.arrowLeft)),
+            IconButton(onPressed: onTap, icon: SvgPicture.asset(
+                isArabic? SvgImages.arrow:
+                SvgImages.arrowLeft,colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),),),
 
           ],
         ),

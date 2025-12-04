@@ -8,12 +8,14 @@ class CategoryUnitsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryName),
         leading: IconButton(onPressed: (){
           context.pop();
-        }, icon: SvgPicture.asset(SvgImages.arrow)),
+        }, icon: SvgPicture.asset(isArabic ? SvgImages.arrowLeft: SvgImages.arrow,
+        colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcIn),)),
       ),
       body: Padding(
         padding:   EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),

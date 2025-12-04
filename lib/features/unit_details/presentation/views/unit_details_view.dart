@@ -7,7 +7,6 @@ import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_location.dart';
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_price_status_indoor.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 
 class UnitDetailsView extends StatelessWidget {
@@ -16,12 +15,7 @@ class UnitDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.unitDetails.tr()),
-        leading: IconButton(onPressed: (){
-          context.pop();
-        }, icon: SvgPicture.asset(SvgImages.arrow)),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.unitDetails),
       body: Padding(
         padding:   EdgeInsets.only(top: 20.h,right: 20.w,left: 20.w),
         child: ListView(

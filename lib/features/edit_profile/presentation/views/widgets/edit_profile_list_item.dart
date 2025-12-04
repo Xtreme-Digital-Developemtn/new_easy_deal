@@ -31,7 +31,8 @@ class EditProfileListItem extends StatelessWidget {
                   children: [
                     Text(subTitle, style: AppStyles.gray14Medium),
                     Gap(8.w),
-                    SvgPicture.asset(SvgImages.arrowLeft),
+                    SvgPicture.asset(context.isArabic ? SvgImages.arrow :  SvgImages.arrowLeft,
+                    colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),),
                   ],
                 ),
               ],

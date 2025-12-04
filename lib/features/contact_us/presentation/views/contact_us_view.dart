@@ -10,15 +10,7 @@ class ContactUsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LangKeys.contactUs.tr()),
-        leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: SvgPicture.asset(SvgImages.arrow),
-        ),
-      ),
+      appBar: GlobalAppBar(title: LangKeys.contactUs),
       body: BlocBuilder<ContactUsCubit , ContactUsStates>(
         builder: (context,state){
           var contactUsCubit = context.read<ContactUsCubit>();
