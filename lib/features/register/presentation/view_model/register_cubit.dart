@@ -27,6 +27,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
   int selectTypeIndex = 0;
   void selectType(typeIndex) {
     selectTypeIndex = typeIndex;
+    print(selectTypeIndex);
+    print("sssssssssss");
     emit(SelectTypeState());
   }
 
@@ -34,6 +36,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
   void selectGender(genderIndex) {
     selectGenderIndex = genderIndex;
     emit(SelectGenderState());
+  }
+
+  int selectBrokerIndex = 0;
+  void selectBroker(genderIndex) {
+    selectBrokerIndex = genderIndex;
+    emit(SelectBrokerState());
   }
 
   String phoneNumber = '';

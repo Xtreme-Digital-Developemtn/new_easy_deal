@@ -19,3 +19,5 @@ class ChangeConfirmPasswordVisibleState extends RegisterStates{}
 
 class PasswordCheckedState extends RegisterStates{}
 class ChangePasswordTypingState extends RegisterStates{}
+
+class SelectBrokerState extends RegisterStates{}
