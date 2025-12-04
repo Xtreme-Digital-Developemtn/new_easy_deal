@@ -11,7 +11,7 @@ class AccountTypeBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectAccountType(),
-        Gap(24.h),
+        Gap(MediaQuery.of(context).size.height*0.5),
         SelectionAccountTypeButton(),
       ],
     );

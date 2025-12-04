@@ -11,7 +11,7 @@ class GenderBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectGenderType(),
-        Gap(24.h),
+        Gap(MediaQuery.of(context).size.height*0.5),
        SelectionGenderTypeButton(),
       ],
     );

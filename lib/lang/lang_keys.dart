@@ -133,6 +133,10 @@ abstract class LangKeys
   static const nameValidate = "nameValidate";
 
 
+  static const pleaseCompleteTheRightData = "pleaseCompleteTheRightData";
+  static const past = "past";
+
+
 
 
 

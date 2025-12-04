@@ -102,4 +102,21 @@ class RegisterCubit extends Cubit<RegisterStates> {
     isButtonEnabled = false;
     emit(ButtonStateChanged());
   }
+
+  var passwordCon = TextEditingController();
+  var confirmPasswordCon = TextEditingController();
+  bool isPasswordVisible = true;
+  bool isConfirmPasswordVisible = true;
+
+  changePasswordVisible()
+  {
+    isPasswordVisible = !isPasswordVisible;
+    emit(ChangePasswordVisibleState());
+  }
+
+  changeConfirmPasswordVisible()
+  {
+    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    emit(ChangeConfirmPasswordVisibleState());
+  }
 }

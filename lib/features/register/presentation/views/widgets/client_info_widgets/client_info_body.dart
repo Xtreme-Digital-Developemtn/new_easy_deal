@@ -20,7 +20,7 @@ class ClientInfoBody extends StatelessWidget {
           Text(LangKeys.completeProfileInfo.tr(), style: AppStyles.black16SemiBold),
           Gap(24.h),
           ClientInfoForm(),
-          Gap(24.h),
+          Gap(MediaQuery.of(context).size.height*0.4),
           SendCodeButton(formKey: registerCubit.formKey),
         ],
       ),

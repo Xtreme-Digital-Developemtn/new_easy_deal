@@ -13,3 +13,6 @@ class SelectGenderState extends RegisterStates{}
 
 class ValidateNameAndNumberState extends RegisterStates{}
 class ButtonStateChanged extends RegisterStates{}
+
+class ChangePasswordVisibleState extends RegisterStates{}
+class ChangeConfirmPasswordVisibleState extends RegisterStates{}

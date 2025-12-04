@@ -13,11 +13,26 @@ class SelectionGenderTypeButton extends StatelessWidget {
     return BlocBuilder<RegisterCubit , RegisterStates>(
       builder: (context,state){
         var registerCubit = context.read<RegisterCubit>();
-        return CustomButton(
-          onPressed:registerCubit.selectGenderIndex==0 ? null : (){
-            registerCubit.changeStepperIndex(2);
-          },
-          text: LangKeys.next.tr(),
+        return Row(
+          children: [
+            Expanded(
+              child: CustomButton(
+                onPressed:  (){
+                  registerCubit.changeStepperIndex(0);
+                },
+                text: LangKeys.past.tr(),
+              ),
+            ),
+            Gap(12.w),
+            Expanded(
+              child: CustomButton(
+                onPressed:registerCubit.selectGenderIndex==0 ? null : (){
+                  registerCubit.changeStepperIndex(2);
+                },
+                text: LangKeys.next.tr(),
+              ),
+            ),
+          ],
         );
       },
 

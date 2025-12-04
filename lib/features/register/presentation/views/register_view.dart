@@ -4,6 +4,7 @@ import 'package:easy_deal/features/register/presentation/views/widgets/account_t
 import 'package:easy_deal/features/register/presentation/views/widgets/client_info_widgets/client_info_body.dart';
  import 'package:easy_deal/features/register/presentation/views/widgets/custom_stepper.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/gender_widgets/gender_body.dart';
+import 'package:easy_deal/features/register/presentation/views/widgets/password_widgets/password_body.dart';
  import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -37,7 +38,8 @@ class RegisterView extends StatelessWidget {
                         ? AccountTypeBody()
                         : registerCubit.activeStep == 1
                         ? GenderBody()
-                        : ClientInfoBody(),
+                        : registerCubit.activeStep == 2 ?
+                    ClientInfoBody() : PasswordBody(),
                   ),
                 ),
                 // if(registerCubit.activeStep==0)
