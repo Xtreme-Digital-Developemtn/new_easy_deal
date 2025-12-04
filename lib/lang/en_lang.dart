@@ -121,6 +121,12 @@ class EnLang {
     "nameTooLong": "Name is too long",
     "nameTooShort": "Name is too short",
     "nameValidate": "Please enter a valid name",
+    "previous": "Previous",
+    "invalidPhoneNumber": "Invalid Phone Number",
+    "registerSuccessMsg" : "Your account has been successfully registered as a customer. Now you can enjoy Easy Deal's many distinguished services through the website or mobile app",
+    "start" : "Start",
+    "success" : "Success",
+
 
 
 

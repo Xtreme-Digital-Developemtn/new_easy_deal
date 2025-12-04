@@ -12,6 +12,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   var passwordCon = TextEditingController();
   var emailCon = TextEditingController();
+  var phoneCon = TextEditingController();
   var formKey = GlobalKey<FormState>();
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
   LoginRepo? loginRepo;
@@ -67,16 +68,19 @@ class LoginCubit extends Cubit<LoginStates> {
   String phoneNumber = '';
 
 
-  void validateFields() {
-    bool valid = phoneNumber.isNotEmpty && passwordCon.text.isNotEmpty;
-    emit(LoginValidationState(valid));
-  }
+
 
 
   @override
   Future<void> close() {
     passwordCon.dispose();
     return super.close();
+  }
+
+  final ValueNotifier<bool> isFormValid = ValueNotifier(false);
+  void validateForm() {
+    final valid = formKey.currentState?.validate() ?? false;
+    isFormValid.value = valid;
   }
 
 

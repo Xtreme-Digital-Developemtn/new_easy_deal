@@ -1,9 +1,9 @@
+import 'package:easy_deal/core/shared_widgets/phone_widget.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
+
 
 
 class LoginPhoneAndPasswordForm extends StatelessWidget {
@@ -20,50 +20,11 @@ class LoginPhoneAndPasswordForm extends StatelessWidget {
         return Column(
           children: [
             /// Phone Number
-            IntlPhoneField(
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                labelText: LangKeys.phoneNumber.tr(),
-                labelStyle: const TextStyle(color: AppColors.gray),
-                contentPadding:   EdgeInsets.symmetric(vertical: 17.h, horizontal: 15.w),
-                filled: true,
-                fillColor: AppColors.white,
-                hintStyle: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromRGBO(150, 150, 150, 1),
-                ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset(SvgImages.mobile,
-                    colorFilter: ColorFilter.mode(AppColors.primaryDark,
-                        BlendMode.srcIn),
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(color: AppColors.blueLight),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(color: AppColors.blueLight),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(color: AppColors.blueLight),
-                ),
-              ),
-              initialCountryCode: 'EG',
-              keyboardType: TextInputType.number,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              onChanged: (PhoneNumber phone) {
-                String number = phone.number ;
-                if (number.isNotEmpty && !number.startsWith('0')) {
-                  number = '0$number';
-                }
-                loginCubit.phoneNumber = number;
-                loginCubit.validateFields();
+            PhoneWidget(controller: loginCubit.phoneCon,
+              onPhoneChanged: (v) {
+                loginCubit.phoneNumber = v;
+                loginCubit.validateForm();
               },
-              validator: (value)=> AppValidators.phoneValidator(loginCubit.phoneNumber),
             ),
             Gap(20.h),
             /// Password Field
@@ -81,14 +42,8 @@ class LoginPhoneAndPasswordForm extends StatelessWidget {
                 onPressed: loginCubit.changePasswordVisible,
               ),
               obscureText: loginCubit.isPasswordVisible,
-              // validator: (value) {
-              //   if (value == null || value.isEmpty) {
-              //     return LangKeys.passwordValidate.tr();
-              //   }
-              //   return null;
-              // },
+              onChanged: (_) => loginCubit.validateForm(),
               validator: (String? value) {
-                loginCubit.validateFields();
                 return AppValidators.passwordValidator(value);
 
               },

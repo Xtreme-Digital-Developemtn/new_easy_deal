@@ -58,6 +58,7 @@ import '../../features/settings/data/repos/app_settings_repo_imple.dart';
 import '../../features/settings/presentation/view_model/settings_cubit.dart';
 import '../../features/settings/presentation/views/settings_view.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/success/presentation/views/success_view.dart';
 import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
 import '../../features/unit_details/presentation/views/unit_details_view.dart';
@@ -155,6 +156,8 @@ class AppRouter {
       case Routes.registerView:
         return transition(screen: const RegisterView(),
             cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()));
+      case Routes.successView:
+        return transition(screen: const SuccessView(),);
         default:
         return null;
     }

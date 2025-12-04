@@ -131,11 +131,11 @@ abstract class LangKeys
   static const nameTooLong = "nameTooLong";
   static const nameTooShort = "nameTooShort";
   static const nameValidate = "nameValidate";
-
-
-  static const pleaseCompleteTheRightData = "pleaseCompleteTheRightData";
   static const past = "past";
   static const invalidPhoneNumber = "invalidPhoneNumber";
+  static const success = "success";
+  static const registerSuccessMsg = "registerSuccessMsg";
+  static const start = "start";
 
 
 

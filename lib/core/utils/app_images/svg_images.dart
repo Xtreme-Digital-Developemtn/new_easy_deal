@@ -50,6 +50,7 @@ class SvgImages
   static const String broker = "$svgPath/broker.svg";
   static const String male = "$svgPath/maleIcon.svg";
   static const String female = "$svgPath/feamaleIcon.svg";
+  static const String success = "$svgPath/g1118.svg";
 
 
 

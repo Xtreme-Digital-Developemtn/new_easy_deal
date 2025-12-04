@@ -19,6 +19,7 @@ class Routes {
   static const String appSettingsView = 'appSettingsView';
   static const String onBoardingView = 'onBoardingView';
   static const String registerView = 'registerView';
+  static const String successView = 'successView';
 
 
 

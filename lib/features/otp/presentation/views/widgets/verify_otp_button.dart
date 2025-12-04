@@ -55,17 +55,20 @@ class VerifyOtpButton extends StatelessWidget {
                   //   otpCode: controller.text,
                   //   phone: context.read<LoginCubit>().phoneNumber.toString(),
                   // );
-                  GeneralBottomSheet.show(
-                    heightRatio: 0.45,
-                      context: context,
-                      image: SvgPicture.asset(SvgImages.tickCircle,height: 100.h,width: 100.w,),
-                      title:isMobile ? LangKeys.mobileNumberChangedSuccessfully.tr(): LangKeys.emailAddressChangedSuccessfully.tr(),
-                      description: "",
-                      buttonText: LangKeys.done.tr(),
-                      onButtonPressed: (){
-                      context.pushNamed(Routes.layoutView);
-                      },
-                  );
+                  ///
+                  // GeneralBottomSheet.show(
+                  //   heightRatio: 0.45,
+                  //     context: context,
+                  //     image: SvgPicture.asset(SvgImages.tickCircle,height: 100.h,width: 100.w,),
+                  //     title:isMobile ? LangKeys.mobileNumberChangedSuccessfully.tr(): LangKeys.emailAddressChangedSuccessfully.tr(),
+                  //     description: "",
+                  //     buttonText: LangKeys.done.tr(),
+                  //     onButtonPressed: (){
+                  //     context.pushNamed(Routes.layoutView);
+                  //     },
+                  // );
+                  ///
+                  context.pushNamedAndRemoveUntil(Routes.successView);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(context.tr(LangKeys.pleaseEnterValidOtp,),),
