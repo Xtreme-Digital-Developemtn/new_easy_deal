@@ -114,7 +114,6 @@ abstract class LangKeys
   static const sellOrRentYourPropertyInSimpleSteps = "sellOrRentYourPropertyInSimpleSteps";
   static const fromBeginningToEndWeAreWithYouOnYourRealEstateJourney = "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney";
   static const findYourPerfectHomeWithEase = "findYourPerfectHomeWithEase";
-
   static const selectAccountType = "selectAccountType";
   static const type = "type";
   static const selectGender  = "selectGender";
@@ -132,8 +131,9 @@ abstract class LangKeys
   static const nameTooLong = "nameTooLong";
   static const nameTooShort = "nameTooShort";
   static const nameValidate = "nameValidate";
-  static const pleaseCheckYourData = "pleaseCheckYourData";
-  static const loading = "loading";
+
+
+
 
 
 

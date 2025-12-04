@@ -104,6 +104,23 @@ class EnLang {
     "sellOrRentYourPropertyInSimpleSteps": "Sell or rent your property in simple steps",
     "fromBeginningToEndWeAreWithYouOnYourRealEstateJourney": "From beginning to end, we are with you on your real estate journey",
     "findYourPerfectHomeWithEase": "Find your perfect home with ease",
+    "selectAccountType": "Select Account Type",
+    "type": "Type",
+    "selectGender": "Select Gender",
+    "gender": "Gender",
+    "complete": "Complete",
+    "createPassword": "Create Password",
+    "client": "Client",
+    "broker": "Broker",
+    "next": "Next",
+    "male": "Male",
+    "female": "Female",
+    "completeProfileInfo": "Complete Profile Information",
+    "nameNoSpecialChars": "Name should not contain special characters",
+    "nameNoNumbers": "Name should not contain numbers",
+    "nameTooLong": "Name is too long",
+    "nameTooShort": "Name is too short",
+    "nameValidate": "Please enter a valid name",
 
 
 
