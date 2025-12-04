@@ -42,12 +42,6 @@ class RegisterView extends StatelessWidget {
                     ClientInfoBody() : PasswordBody(),
                   ),
                 ),
-                // if(registerCubit.activeStep==0)
-                //   AccountTypeBody(),
-                // if(registerCubit.activeStep==1)
-                //   GenderBody(),
-                // if(registerCubit.activeStep==2)
-                //   ClientInfoBody(),
               ],
             );
           },

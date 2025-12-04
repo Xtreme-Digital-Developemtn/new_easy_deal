@@ -135,6 +135,7 @@ abstract class LangKeys
 
   static const pleaseCompleteTheRightData = "pleaseCompleteTheRightData";
   static const past = "past";
+  static const invalidPhoneNumber = "invalidPhoneNumber";
 
 
 

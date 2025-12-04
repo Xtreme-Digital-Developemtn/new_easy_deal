@@ -12,7 +12,6 @@ class SendCodeButton extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterStates>(
       builder: (context, state) {
         final registerCubit = context.read<RegisterCubit>();
-        final isEnabled = registerCubit.isButtonEnabled;
         return Row(
           children: [
             Expanded(
@@ -25,37 +24,17 @@ class SendCodeButton extends StatelessWidget {
             ),
             Gap(12.w),
             Expanded(
-              child: CustomButton(
-                onPressed: isEnabled
-                    ? () {
-                  if (formKey.currentState?.validate() == true) {
-                    if (registerCubit.validateAllFields()) {
-                      registerCubit.changeStepperIndex(3);
-                      context.pushNamed(Routes.otpView);
-                      //print("✅ تم الانتقال للخطوة التالية - كل البيانات صحيحة");
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(LangKeys.pleaseCompleteTheRightData.tr()),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                     // print("⚠️ هناك خطأ في البيانات رغم أن الفورم صالح");
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(LangKeys.pleaseCompleteTheRightData.tr()),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                    //print("❌ الفورم غير صالح - يرجى تصحيح الأخطاء");
-                  }
-                }
-                    : null,
-                text: LangKeys.next.tr(),
+              child: ValueListenableBuilder<bool>(
+                valueListenable: registerCubit.isFormValid,
+                builder: (context, isValid, child) => CustomButton(
+                  onPressed: isValid ? () {
+                    registerCubit.changeStepperIndex(3);
+                  } : null,
+                  text: LangKeys.next.tr(),
+                ),
               ),
             ),
+
           ],
         );
       },

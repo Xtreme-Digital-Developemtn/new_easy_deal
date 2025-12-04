@@ -16,3 +16,6 @@ class ButtonStateChanged extends RegisterStates{}
 
 class ChangePasswordVisibleState extends RegisterStates{}
 class ChangeConfirmPasswordVisibleState extends RegisterStates{}
+
+class PasswordCheckedState extends RegisterStates{}
+class ChangePasswordTypingState extends RegisterStates{}

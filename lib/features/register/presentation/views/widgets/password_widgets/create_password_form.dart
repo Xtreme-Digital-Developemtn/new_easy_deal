@@ -9,66 +9,60 @@ class CreatePasswordForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegisterCubit , RegisterStates>(
-      builder: (context,state){
+    return BlocBuilder<RegisterCubit, RegisterStates>(
+      buildWhen: (prev, curr) =>
+      curr is ChangePasswordVisibleState ||
+          curr is ChangeConfirmPasswordVisibleState,
+      builder: (context, state) {
         var registerCubit = context.read<RegisterCubit>();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextFormField(
-              controller:  registerCubit.passwordCon,
+              controller: registerCubit.passwordCon,
               keyboardType: TextInputType.visiblePassword,
               hintText: LangKeys.password.tr(),
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: SvgPicture.asset(SvgImages.lock,),
+                child: SvgPicture.asset(SvgImages.lock),
               ),
-              validator: (String? value) {
-                return AppValidators.passwordValidator(value);
-              },
+              validator: AppValidators.passwordValidator,
               suffixIcon: IconButton(
-                color: AppColors.gray,
                 icon: registerCubit.isPasswordVisible
                     ? const Icon(Icons.visibility_off)
                     : const Icon(Icons.visibility),
-                onPressed: () {
-                  registerCubit.changePasswordVisible();
-                },
+                onPressed: registerCubit.changePasswordVisible,
               ),
-
-              obscureText: registerCubit.isPasswordVisible,
+              obscureText: !registerCubit.isPasswordVisible,
+              onChanged: (_) => registerCubit.validateForm(),
             ),
             Gap(20.h),
             CustomTextFormField(
-              controller:  registerCubit.confirmPasswordCon,
+              controller: registerCubit.confirmPasswordCon,
               keyboardType: TextInputType.visiblePassword,
               hintText: LangKeys.newPassword.tr(),
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: SvgPicture.asset(SvgImages.lock,),
+                child: SvgPicture.asset(SvgImages.lock),
               ),
-              validator: (String? value) {
-                return AppValidators.repeatPasswordValidator(
-                  value: value,
-                  password: registerCubit.passwordCon.text,
-                );
-              },
+              validator: (value) =>
+                  AppValidators.repeatPasswordValidator(
+                    value: value,
+                    password: registerCubit.passwordCon.text,
+                  ),
               suffixIcon: IconButton(
-                color: AppColors.gray,
                 icon: registerCubit.isConfirmPasswordVisible
                     ? const Icon(Icons.visibility_off)
                     : const Icon(Icons.visibility),
-                onPressed: () {
-                  registerCubit.changeConfirmPasswordVisible();
-                },
+                onPressed: registerCubit.changeConfirmPasswordVisible,
               ),
-
-              obscureText: registerCubit.isConfirmPasswordVisible,
+              obscureText: !registerCubit.isConfirmPasswordVisible, // Fixed
+              onChanged: (_) => registerCubit.validateForm(),
             ),
           ],
         );
       },
-
     );
   }
 }
+

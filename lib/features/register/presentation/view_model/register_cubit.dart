@@ -38,71 +38,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   String phoneNumber = '';
   var nameCon = TextEditingController();
-
-
-  bool _isPhoneValid = false;
-  bool _isNameValid = false;
-
-  void updatePhone(String number) {
-    phoneNumber = number;
-
-
-    final phoneValidation = AppValidators.phoneValidator(number);
-    _isPhoneValid = phoneValidation == null;
-
-    emit(ValidateNameAndNumberState());
-
-
-    _updateButtonState();
-  }
-
-  void updateName(String name) {
-    nameCon.text = name;
-
-
-    final nameValidation = AppValidators.displayNameValidator(name);
-    _isNameValid = nameValidation == null;
-
-    emit(ValidateNameAndNumberState());
-
-    _updateButtonState();
-  }
-
-  // دالة خاصة لتحديث حالة الزر تلقائياً
-  void _updateButtonState() {
-    // الزر يكون مفعلاً فقط عندما يكون الهاتف والاسم صالحين معاً
-    final shouldBeEnabled = _isPhoneValid && _isNameValid;
-
-    // تحديث فقط إذا تغيرت القيمة
-    if (isButtonEnabled != shouldBeEnabled) {
-      isButtonEnabled = shouldBeEnabled;
-      emit(ButtonStateChanged());
-    }
-  }
-
-  // دالة لفحص صلاحية جميع الحقول معاً
-  bool get areAllFieldsValid => _isPhoneValid && _isNameValid;
-
-  // دالة للتحقق من الصلاحية النهائية (يمكن استخدامها في الـ Form)
-  bool validateAllFields() {
-    final phoneValid = AppValidators.phoneValidator(phoneNumber) == null;
-    final nameValid = AppValidators.displayNameValidator(nameCon.text) == null;
-
-    return phoneValid && nameValid;
-  }
-
+  var phoneCon = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-  // قيمة الزر تبدأ بـ false (معطل) حتى يتم تعبئة الحقول الصحيحة
-  bool isButtonEnabled = false;
-
-  // إزالة دالة disableButton لأنها أصبحت تلقائية
-  // يمكنك إضافة دالة لتفعيل الزر يدوياً إذا احتجت
-  void resetButton() {
-    isButtonEnabled = false;
-    emit(ButtonStateChanged());
-  }
-
   var passwordCon = TextEditingController();
   var confirmPasswordCon = TextEditingController();
   bool isPasswordVisible = true;
@@ -119,4 +56,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     isConfirmPasswordVisible = !isConfirmPasswordVisible;
     emit(ChangeConfirmPasswordVisibleState());
   }
+
+
+  final ValueNotifier<bool> isFormValid = ValueNotifier(false);
+  void validateForm() {
+    final valid = formKey.currentState?.validate() ?? false;
+    isFormValid.value = valid;
+  }
+
+
 }
