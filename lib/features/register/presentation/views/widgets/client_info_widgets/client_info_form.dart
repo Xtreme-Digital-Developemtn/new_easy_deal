@@ -10,9 +10,9 @@ class ClientInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegisterCubit , RegisterStates>(
-      builder: (context,state){
-        var registerCubit = context.read<RegisterCubit>();
+    return BlocBuilder<RegisterCubit, RegisterStates>(
+      builder: (context, state) {
+        final registerCubit = context.read<RegisterCubit>();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,7 +22,10 @@ class ClientInfoForm extends StatelessWidget {
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 labelText: LangKeys.phoneNumber.tr(),
                 labelStyle: const TextStyle(color: AppColors.gray),
-                contentPadding:   EdgeInsets.symmetric(vertical: 17.h, horizontal: 15.w),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 17.h,
+                  horizontal: 15.w,
+                ),
                 filled: true,
                 fillColor: AppColors.white,
                 hintStyle: const TextStyle(
@@ -31,9 +34,12 @@ class ClientInfoForm extends StatelessWidget {
                 ),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset(SvgImages.mobile,
-                    colorFilter: ColorFilter.mode(AppColors.primaryDark,
-                        BlendMode.srcIn),
+                  child: SvgPicture.asset(
+                    SvgImages.mobile,
+                    colorFilter: ColorFilter.mode(
+                      AppColors.primaryDark,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
                 border: OutlineInputBorder(
@@ -53,18 +59,20 @@ class ClientInfoForm extends StatelessWidget {
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               onChanged: (PhoneNumber phone) {
-                String number = phone.number ;
+                String number = phone.number;
                 if (number.isNotEmpty && !number.startsWith('0')) {
                   number = '0$number';
                 }
-                registerCubit.phoneNumber = number;
                 registerCubit.updatePhone(number);
               },
-              validator: (value)=> AppValidators.phoneValidator(registerCubit.phoneNumber),
+              validator: (value) {
+                return AppValidators.phoneValidator(registerCubit.phoneNumber);
+              },
             ),
             Gap(20.h),
             CustomTextFormField(
-              validator: (value)=> AppValidators.displayNameValidator(registerCubit.nameCon.text),
+              validator: (value) =>
+                  AppValidators.displayNameValidator(registerCubit.nameCon.text),
               hintText: LangKeys.enterYourName.tr(),
               controller: registerCubit.nameCon,
               onChanged: (value) {
@@ -74,7 +82,6 @@ class ClientInfoForm extends StatelessWidget {
           ],
         );
       },
-
     );
   }
 }

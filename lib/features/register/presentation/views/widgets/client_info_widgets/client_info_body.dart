@@ -27,4 +27,3 @@ class ClientInfoBody extends StatelessWidget {
     );
   }
 }
-

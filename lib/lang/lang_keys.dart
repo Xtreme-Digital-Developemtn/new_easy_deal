@@ -132,6 +132,8 @@ abstract class LangKeys
   static const nameTooLong = "nameTooLong";
   static const nameTooShort = "nameTooShort";
   static const nameValidate = "nameValidate";
+  static const pleaseCheckYourData = "pleaseCheckYourData";
+  static const loading = "loading";
 
 
 
