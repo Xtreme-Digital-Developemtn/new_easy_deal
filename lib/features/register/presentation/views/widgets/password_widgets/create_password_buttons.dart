@@ -46,6 +46,7 @@ class CreatePasswordButtons extends StatelessWidget {
                       arguments: {
                         "isMobile": true,
                         "contact": registerCubit.phoneNumber,
+                        "selectIndex": registerCubit.selectBrokerIndex,
                       },
                     );
                   }

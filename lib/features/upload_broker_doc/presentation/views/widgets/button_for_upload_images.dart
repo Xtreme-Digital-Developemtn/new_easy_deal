@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-
-import '../../../../../main_imports.dart';
-import '../../view_model/upload_broker_doc_cubit.dart';
-import '../../view_model/upload_broker_doc_states.dart';
+import 'package:easy_deal/main_imports.dart';
+import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_cubit.dart';
+import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
 
 class ButtonForUploadImages extends StatelessWidget {
-  const ButtonForUploadImages({super.key});
+  final bool isCompany;
+
+  const ButtonForUploadImages({super.key, required this.isCompany});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +15,20 @@ class ButtonForUploadImages extends StatelessWidget {
         var cubit = context.read<UploadBrokerDocCubit>();
 
         return ValueListenableBuilder<bool>(
-          valueListenable: cubit.isImagesValid,
+          valueListenable: isCompany
+              ? cubit.isCompanyDocumentsValid
+              : cubit.isIndividualDocumentsValid,
           builder: (context, isValid, child) {
             return CustomButton(
               text: LangKeys.continuee.tr(),
               onPressed: isValid
                   ? () {
+                // هنا يمكنك إضافة منطق مختلف للشركة والفرد
+                if (isCompany) {
+                  cubit.submitCompanyDocuments();
+                } else {
+                  cubit.submitIndividualDocuments();
+                }
                 context.pushNamedAndRemoveUntil(Routes.successView);
               }
                   : null,

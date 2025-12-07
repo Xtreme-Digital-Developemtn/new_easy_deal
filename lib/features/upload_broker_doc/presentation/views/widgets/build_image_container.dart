@@ -1,19 +1,22 @@
 import 'dart:io';
-import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/themes/app_colors.dart';
 
 class BuildImageContainer extends StatelessWidget {
   final bool isFront;
   final File? imageFile;
   final VoidCallback onPickImage;
   final VoidCallback onClearImage;
+  final String title;
 
   const BuildImageContainer({
     super.key,
     required this.isFront,
     required this.imageFile,
     required this.onPickImage,
-    required this.onClearImage,
+    required this.onClearImage, required this.title,
   });
 
   @override
@@ -23,15 +26,15 @@ class BuildImageContainer extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1.586,
         child: Container(
-          height: 180.h,
+          height: 180,
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: AppColors.primaryDark,
-              width: 2.w,
+              width: 2,
             ),
-            color: AppColors.primaryLight.withValues(alpha: 0.3),
+            color: Colors.grey[100],
           ),
           child: imageFile == null
               ? Column(
@@ -39,15 +42,12 @@ class BuildImageContainer extends StatelessWidget {
             children: [
               Icon(
                 Icons.add_a_photo,
-                size: 40.sp,
+                size: 40,
                 color: AppColors.primaryDark,
               ),
-              Gap(8.h),
-
+              const SizedBox(height: 8),
               Text(
-                isFront
-                    ? LangKeys.uploadTheFrontOfTheCardImage.tr()
-                    : LangKeys.uploadTheBackOfTheCardImage.tr(),
+                title,
                 style: TextStyle(
                   color: Colors.grey[600],
                 ),
@@ -58,28 +58,28 @@ class BuildImageContainer extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.r),
+                  borderRadius: BorderRadius.circular(10),
                   child: Image.file(
-                    imageFile!,
+                    File(imageFile!.path),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Positioned(
-                top: 8.h,
-                right: 8.w,
+                top: 8,
+                right: 8,
                 child: InkWell(
                   onTap: onClearImage,
                   child: Container(
-                    padding:   EdgeInsets.all(4.r),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: AppColors.gray,
+                      color: Colors.black54,
                       shape: BoxShape.circle,
                     ),
-                    child:   Icon(
+                    child: const Icon(
                       Icons.close,
                       color: Colors.white,
-                      size: 20.sp,
+                      size: 20,
                     ),
                   ),
                 ),

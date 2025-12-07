@@ -126,6 +126,7 @@ class AppRouter {
         return transition(screen:   OtpView(
           contact: args["contact"] as String,
           isMobile: args["isMobile"] as bool,
+          selectIndex: args["selectIndex"] as int,
         ),cubit: OtpCubit(getIt.get<OtpRepoImpl>()));
       case Routes.changePasswordView:
         return transition(screen: const ChangePasswordView(),
@@ -162,8 +163,10 @@ class AppRouter {
       case Routes.successView:
         return transition(screen: const SuccessView(),);
       case Routes.uploadBrokerDocView:
-        return transition(screen: const UploadBrokerDocView(),
-            cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()));
+        final args = arguments as Map<String, dynamic>;
+        return transition(screen:   UploadBrokerDocView(selectedIndex: args["selectIndex"] as int,),
+            cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>(),),
+        );
         default:
         return null;
     }

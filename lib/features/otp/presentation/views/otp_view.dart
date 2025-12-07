@@ -6,10 +6,11 @@ import '../view_model/otp_cubit.dart';
 import '../view_model/otp_states.dart';
 
 class OtpView extends StatefulWidget {
-  const OtpView({super.key,   required this.contact, required this.isMobile});
+  const OtpView({super.key,   required this.contact, required this.isMobile, required this.selectIndex});
 
   final String contact;
   final bool isMobile;
+  final int selectIndex;
   @override
   State<OtpView> createState() => _OtpViewState();
 }
@@ -50,7 +51,7 @@ class _OtpViewState extends State<OtpView> {
                   ),
                   Column(
                     children: [
-                    VerifyOtpButton(controller: _otpController, isMobile:widget.isMobile, ),
+                    VerifyOtpButton(controller: _otpController, isMobile:widget.isMobile, selectIndex: widget.selectIndex,),
                       SizedBox(
                         height: 50 + MediaQuery.of(context).viewInsets.bottom,
                       ),

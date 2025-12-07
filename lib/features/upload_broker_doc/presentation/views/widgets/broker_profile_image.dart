@@ -1,59 +1,46 @@
-import 'package:easy_deal/features/upload_broker_doc/data/repos/upload_broker_doc_repo_imple.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_cubit.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
-import 'package:easy_localization/easy_localization.dart';
-
-import '../../../../../core/app_services/remote_services/service_locator.dart';
-import '../../../../../main_imports.dart';
+import 'package:easy_deal/main_imports.dart';
 
 class BrokerProfileImage extends StatelessWidget {
-  const BrokerProfileImage({super.key});
+  final bool isCompany;
+
+  const BrokerProfileImage({super.key, required this.isCompany});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UploadBrokerDocCubit, UploadBrokerDocStates>(
       builder: (context, state) {
         var uploadBrokerDocCubit = context.read<UploadBrokerDocCubit>();
+
         return Row(
           children: [
             GestureDetector(
-              onTap: uploadBrokerDocCubit.uploadProfilePicture,
+              onTap: isCompany
+                  ? uploadBrokerDocCubit.uploadCompanyLogo
+                  : uploadBrokerDocCubit.uploadProfilePicture,
               child: Container(
-                height: 84,
-                width: 84,
+                height: 84.r,
+                width: 84.r,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.primaryLight.withValues(alpha: 0.3),
-                  image: uploadBrokerDocCubit.profileImage != null
+                  image: isCompany
+                      ? (uploadBrokerDocCubit.companyLogo != null
                       ? DecorationImage(
-                          image: FileImage(
-                            uploadBrokerDocCubit.profileImage!,
-                          ),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
+                    image: FileImage(uploadBrokerDocCubit.companyLogo!),
+                    fit: BoxFit.cover,
+                  )
+                      : null)
+                      : (uploadBrokerDocCubit.profileImage != null
+                      ? DecorationImage(
+                    image: FileImage(uploadBrokerDocCubit.profileImage!),
+                    fit: BoxFit.cover,
+                  )
+                      : null),
                 ),
-                child: uploadBrokerDocCubit.profileImage != null
-                    ? ClipOval(
-                        child: CustomNetWorkImage(
-                          fit: BoxFit.cover,
-                          height: 84,
-                          width: 84,
-                          imageUrl:
-                              "https://wallpapers.com/images/featured-full/cool-profile-picture-87h46gcobjl5e4xu.jpg",
-                          raduis: 50,
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: SvgPicture.asset(
-                          SvgImages.camera,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.primaryDark,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
+                child: _buildImageContent(uploadBrokerDocCubit),
               ),
             ),
             Gap(20.w),
@@ -61,24 +48,33 @@ class BrokerProfileImage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LangKeys.profilePhoto.tr(),
+                  isCompany
+                      ? LangKeys.companyLogo.tr()
+                      : LangKeys.profilePhoto.tr(),
                   style: AppStyles.black16SemiBold,
                 ),
                 Row(
                   children: [
                     TextButton(
-                      onPressed: uploadBrokerDocCubit.uploadProfilePicture,
+                      onPressed: isCompany
+                          ? uploadBrokerDocCubit.uploadCompanyLogo
+                          : uploadBrokerDocCubit.uploadProfilePicture,
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.primaryDark,
                       ),
                       child: Text(
-                        LangKeys.changePhoto.tr(),
+                        isCompany
+                            ? LangKeys.changeLogo.tr()
+                            : LangKeys.changePhoto.tr(),
                         style: AppStyles.black14Medium,
                       ),
                     ),
-                    if (uploadBrokerDocCubit.profileImage != null)
+                    if ((isCompany && uploadBrokerDocCubit.companyLogo != null) ||
+                        (!isCompany && uploadBrokerDocCubit.profileImage != null))
                       TextButton(
-                        onPressed: uploadBrokerDocCubit.clearProfileImage,
+                        onPressed: isCompany
+                            ? uploadBrokerDocCubit.clearCompanyLogo
+                            : uploadBrokerDocCubit.clearProfileImage,
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.primaryDark,
                         ),
@@ -95,5 +91,31 @@ class BrokerProfileImage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget _buildImageContent(UploadBrokerDocCubit cubit) {
+    final imageFile = isCompany ? cubit.companyLogo : cubit.profileImage;
+
+    if (imageFile != null) {
+      return ClipOval(
+        child: Image.file(
+          imageFile,
+          fit: BoxFit.cover,
+          height: 84.r,
+          width: 84.r,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(20.r),
+        child: SvgPicture.asset(
+          SvgImages.camera,
+          colorFilter: ColorFilter.mode(
+            AppColors.primaryDark,
+            BlendMode.srcIn,
+          ),
+        ),
+      );
+    }
   }
 }
