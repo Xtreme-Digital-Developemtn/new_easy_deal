@@ -8,7 +8,6 @@ class SvgImages
   static const String openEye = "$svgPath/open_eye.svg";
   static const String home = "$svgPath/home-2.svg";
   static const String chat = "$svgPath/messages-3-svgrepo-com.svg";
-  static const String notify = "$svgPath/clarity_notification-line.svg";
   static const String notify2 = "$svgPath/notify.svg";
   static const String search = "$svgPath/search.svg";
   static const String add = "$svgPath/add-icon-svgrepo-com.svg";
@@ -39,15 +38,12 @@ class SvgImages
   static const String linkedin = "$svgPath/linkedin.svg";
   static const String map = "$svgPath/map.svg";
   static const String empty = "$svgPath/empty-set-slash-svgrepo-com.svg";
-  static const String add2 = "$svgPath/add.svg";
-  static const String minus = "$svgPath/minus.svg";
   static const String email = "$svgPath/mail.svg";
   static const String phone = "$svgPath/profile icons.svg";
   static const String global = "$svgPath/global.svg";
   static const String lang = "$svgPath/language-translate-svgrepo-com.svg";
   static const String calendar = "$svgPath/calendar-mark-svgrepo-com.svg";
   static const String client = "$svgPath/user.svg";
-  static const String broker = "$svgPath/broker.svg";
   static const String male = "$svgPath/maleIcon.svg";
   static const String female = "$svgPath/feamaleIcon.svg";
   static const String success = "$svgPath/g1118.svg";
