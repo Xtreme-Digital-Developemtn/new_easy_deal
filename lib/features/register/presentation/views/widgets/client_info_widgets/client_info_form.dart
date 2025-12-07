@@ -28,7 +28,7 @@ class ClientInfoForm extends StatelessWidget {
             CustomTextFormField(
               validator: (value) =>
                   AppValidators.displayNameValidator(registerCubit.nameCon.text),
-              hintText: LangKeys.enterYourName.tr(),
+              hintText:  registerCubit.selectBrokerIndex ==2 ?  LangKeys.enterCompanyName.tr() : LangKeys.enterYourName.tr(),
               controller: registerCubit.nameCon,
               onChanged: (_) => registerCubit.validateForm(),
             ),

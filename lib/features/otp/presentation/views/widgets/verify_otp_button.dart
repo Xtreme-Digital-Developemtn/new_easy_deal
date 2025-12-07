@@ -8,7 +8,8 @@ import '../../view_model/otp_states.dart';
 class VerifyOtpButton extends StatelessWidget {
   final TextEditingController controller;
   final bool isMobile;
-  const VerifyOtpButton({super.key, required this.controller, required this.isMobile,   });
+  final int selectIndex;
+  const VerifyOtpButton({super.key, required this.controller, required this.isMobile, required this.selectIndex,   });
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,9 @@ class VerifyOtpButton extends StatelessWidget {
                   if(CacheHelper.getData(key: "role")=="client"){
                     context.pushNamedAndRemoveUntil(Routes.successView);
                   }else{
-                    context.pushNamedAndRemoveUntil(Routes.uploadBrokerDocView);
+                    context.pushNamed(Routes.uploadBrokerDocView,arguments: {
+                      "selectIndex" : selectIndex,
+                    });
                   }
 
                 } else {

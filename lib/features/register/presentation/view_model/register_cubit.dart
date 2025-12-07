@@ -25,12 +25,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     LangKeys.complete.tr(),
     LangKeys.password.tr(),
   ];
-  List<String> brokerStepsNames = [
-    LangKeys.type.tr(),
-    LangKeys.service.tr(),
-    LangKeys.complete.tr(),
-    LangKeys.password.tr(),
-  ];
+
 
   int selectTypeIndex = 0;
 
@@ -57,6 +52,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   void selectBroker(genderIndex) {
     selectBrokerIndex = genderIndex;
+    print("selectBrokerIndex = $selectBrokerIndex");
     emit(SelectBrokerState());
   }
 
