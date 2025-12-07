@@ -20,6 +20,7 @@ class Routes {
   static const String onBoardingView = 'onBoardingView';
   static const String registerView = 'registerView';
   static const String successView = 'successView';
+  static const String uploadBrokerDocView = 'uploadBrokerDocView';
 
 
 

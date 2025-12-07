@@ -47,6 +47,9 @@ class SvgImages
   static const String male = "$svgPath/maleIcon.svg";
   static const String female = "$svgPath/feamaleIcon.svg";
   static const String success = "$svgPath/g1118.svg";
+  static const String broker = "$svgPath/broker.svg";
+  static const String company = "$svgPath/company.svg";
+  static const String camera = "$svgPath/camera-svgrepo-com.svg";
 
 
 

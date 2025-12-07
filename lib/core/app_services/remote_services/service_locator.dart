@@ -20,6 +20,7 @@ import '../../../features/report_issue/data/repos/report_issue_repo_imple.dart';
  import '../../../features/requests/data/repos/requests_repo_imple.dart';
 import '../../../features/settings/data/repos/app_settings_repo_imple.dart';
 import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
+import '../../../features/upload_broker_doc/data/repos/upload_broker_doc_repo_imple.dart';
 import '../../../features/user_chat/data/repos/user_repo_imple.dart';
 import 'api_service.dart';
 
@@ -88,5 +89,7 @@ void setup() {
   getIt.registerSingleton<RegisterRepoImpl>(RegisterRepoImpl(
     getIt.get<ApiService>(),
   ));
-
+  getIt.registerSingleton<UploadBrokerDocRepoImpl>(UploadBrokerDocRepoImpl(
+    getIt.get<ApiService>(),
+  ));
 }

@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/register/presentation/views/widgets/broker_type_widget/select_broker_type.dart';
+import 'package:easy_deal/features/register/presentation/views/widgets/broker_type_widget/selection_broker_type_button.dart';
 
 import '../../../../../../main_imports.dart';
 
@@ -12,7 +13,7 @@ class BrokerTypeBody extends StatelessWidget {
       children: [
         SelectBrokerType(),
         Gap(MediaQuery.of(context).size.height*0.5),
-        // SelectionGenderTypeButton(),
+        SelectionBrokerTypeButton(),
       ],
     );
   }
