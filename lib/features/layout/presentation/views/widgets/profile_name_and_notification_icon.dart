@@ -8,8 +8,7 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    return Row(
+     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
@@ -28,7 +27,7 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    isArabic ? "اهلا مصطفي بحر":   "Hi, Mostafa Bahr",
+                    context.isArabic ? "اهلا مصطفي بحر":   "Hi, Mostafa Bahr",
                     style: AppStyles.black16SemiBold,
                   ),
                 ),
@@ -40,7 +39,7 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
             onTap: (){
               context.pushNamed(Routes.notificationsView);
             },
-            child: SvgPicture.asset(SvgImages.notify,colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),)),
+            child: SvgPicture.asset(SvgImages.notify2,colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),)),
       ],
     );
   }

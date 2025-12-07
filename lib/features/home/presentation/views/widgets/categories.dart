@@ -30,7 +30,7 @@ class Categories extends StatelessWidget {
                     height: 24.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
-                      color: homeCubit.selectCategory==index ? AppColors.primaryDark : AppColors.grayLightest,
+                      color: homeCubit.selectCategory==index ? AppColors.primaryDark : AppColors.backgroundLight,
                     ),
                     child: Center(
                       child: Text(

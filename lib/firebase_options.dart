@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCzi7xrS8bhe8ME4KdxqXD6u3Fgp-5DXsI',
-    appId: '1:250549836016:android:125203fc3a8c9e43df8a35',
-    messagingSenderId: '250549836016',
-    projectId: 'eslamic-66cb4',
-    storageBucket: 'eslamic-66cb4.firebasestorage.app',
+    apiKey: 'AIzaSyCm-Quj7KUnlOZmIAaLCOy46OGfVsMWbLs',
+    appId: '1:546012842234:android:4e86b341f4fa86986da143',
+    messagingSenderId: '546012842234',
+    projectId: 'easy-seal',
+    storageBucket: 'easy-seal.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCAPZxJafgj4TjILDK4yBi56SVaLZPM6uc',
-    appId: '1:250549836016:ios:39e1b65afaecfc71df8a35',
-    messagingSenderId: '250549836016',
-    projectId: 'eslamic-66cb4',
-    storageBucket: 'eslamic-66cb4.firebasestorage.app',
+    apiKey: 'AIzaSyAMBO9IfMczd1fATGJVtP2E3H63bJJ0Www',
+    appId: '1:546012842234:ios:8045be52d5ce54e66da143',
+    messagingSenderId: '546012842234',
+    projectId: 'easy-seal',
+    storageBucket: 'easy-seal.firebasestorage.app',
     iosBundleId: 'com.xtreme.easyDeal',
   );
+
 }

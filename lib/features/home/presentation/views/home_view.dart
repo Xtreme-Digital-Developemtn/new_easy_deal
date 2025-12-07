@@ -11,38 +11,36 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: HomeSliderImages(),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: HomeSliderImages(),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Gap(20.h),
+                const Categories(),
+              ],
             ),
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20.h),
-                  const Categories(),
-                ],
-              ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Gap(20.h),
+                const BestSellerUnits(),
+              ],
             ),
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(20.h),
-                  const BestSellerUnits(),
-                ],
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: const ExploreTheSites(),
-            ),
-            SliverToBoxAdapter(
-              child: const LatestArticles(),
-            ),
-          ],
-        ),
+          ),
+          SliverToBoxAdapter(
+            child: const ExploreTheSites(),
+          ),
+          SliverToBoxAdapter(
+            child: const LatestArticles(),
+          ),
+        ],
       ),
     );
   }

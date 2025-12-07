@@ -40,7 +40,7 @@ class EnLang {
     "request": "Request",
     "requests": "Requests",
     "requestNumber": "Request Number",
-    "messages": "Messages",
+    "messages": "Chats",
     "profile": "Profile",
     "reviews": "Reviews",
     "exit": "Exit",

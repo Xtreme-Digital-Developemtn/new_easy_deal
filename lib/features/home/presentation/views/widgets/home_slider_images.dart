@@ -65,7 +65,7 @@ class HomeSliderImages extends StatelessWidget {
           }).toList(),
           options: CarouselOptions(
             autoPlay: true,
-            height: 170,
+            height: 150.h,
             aspectRatio: MediaQuery.of(context).size.width / 250,
             viewportFraction: 0.8,
             enlargeCenterPage: true,

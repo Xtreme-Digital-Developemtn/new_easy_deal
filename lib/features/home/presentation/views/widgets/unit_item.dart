@@ -11,7 +11,7 @@ class UnitItem extends StatelessWidget {
         context.pushNamed(Routes.unitDetailsView);
       },
       child: Container(
-        width: 240.w,
+        width: 260.w,
         height : 240.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
@@ -118,31 +118,35 @@ class UnitItem extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Row(
-                        children: List.generate(5, (index){
-                          return SvgPicture.asset(SvgImages.star,height: 10.h,);
-                        }),
-                      ),
-                      Gap(6.w),
-                      Text("5.0",style: AppStyles.gray12Medium,),
-                      Gap(6.w),
-                      Text("(107 ${LangKeys.reviews.tr()})",style: AppStyles.gray12Medium,),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(SvgImages.compare,height: 24.h,width: 24.w,),
-                      SvgPicture.asset(SvgImages.fav,height: 24.h,width: 24.w,),
+              child: Padding(
+                padding:   EdgeInsets.symmetric(horizontal: 12.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Row(
+                          children: List.generate(5, (index){
+                            return SvgPicture.asset(SvgImages.star,height: 10.h,);
+                          }),
+                        ),
+                        Gap(6.w),
+                        Text("5.0",style: AppStyles.gray12Medium,),
+                        Gap(6.w),
+                        Text("(107 ${LangKeys.reviews.tr()})",style: AppStyles.gray12Medium,),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SvgPicture.asset(SvgImages.compare,height: 24.h,width: 24.w,),
+                        Gap(12.w),
+                        SvgPicture.asset(SvgImages.fav,height: 24.h,width: 24.w,),
 
 
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
 

@@ -15,7 +15,7 @@ class ChatsTypesItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
             color: chatsCubit.selectedChatType == index+1
                 ? AppColors.primaryDark
-                : AppColors.primaryDark.withValues(alpha: 0.3),
+                : AppColors.primaryDark.withValues(alpha: 0.1),
           ),
           child: Material(
             color: Colors.transparent,

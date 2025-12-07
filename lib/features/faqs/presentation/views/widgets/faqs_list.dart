@@ -33,25 +33,24 @@ class _FAQsListState extends State<FAQsList> {
             expandedColor:AppColors.gray1,
             key: keys[index],
             animateTrailing: false,
-            trailing: GestureDetector(
-              onTap: () {
-                if (isExpandedList[index]) {
-                  keys[index].currentState!.collapse();
-                }
-                else {
-                  keys[index].currentState!.expand();
-                }
-                setState(() {
-                  isExpandedList[index] = !isExpandedList[index];
-                });
-              },
-
-              child: SvgPicture.asset(
-                isExpandedList[index] ? SvgImages.minus : SvgImages.add2,
-                height: 24.h,
-              ),
-            ),
-
+            // trailing: GestureDetector(
+            //   onTap: () {
+            //     if (isExpandedList[index]) {
+            //       keys[index].currentState!.collapse();
+            //     }
+            //     else {
+            //       keys[index].currentState!.expand();
+            //     }
+            //     setState(() {
+            //       isExpandedList[index] = !isExpandedList[index];
+            //     });
+            //   },
+            //
+            //   child: SvgPicture.asset(
+            //     isExpandedList[index] ? SvgImages.minus : SvgImages.add2,
+            //     height: 24.h,
+            //   ),
+            // ),
             leading: CircleAvatar(
               backgroundColor: AppColors.blueLight,
               child: Text("${index + 1}"),

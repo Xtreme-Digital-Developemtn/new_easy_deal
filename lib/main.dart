@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'core/app_services/notifications/notification_service.dart';
 import 'core/app_services/remote_services/service_locator.dart';
 import 'core/routing/app_router.dart';
 import 'core/utils/bloc_observer.dart';
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService.init();
   // const fatalError = true;
   // // Non-async exceptions
   // FlutterError.onError = (errorDetails) {
