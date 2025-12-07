@@ -68,7 +68,12 @@ class VerifyOtpButton extends StatelessWidget {
                   //     },
                   // );
                   ///
-                  context.pushNamedAndRemoveUntil(Routes.successView);
+                  if(CacheHelper.getData(key: "role")=="client"){
+                    context.pushNamedAndRemoveUntil(Routes.successView);
+                  }else{
+                    context.pushNamedAndRemoveUntil(Routes.uploadBrokerDocView);
+                  }
+
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(context.tr(LangKeys.pleaseEnterValidOtp,),),

@@ -2,6 +2,7 @@
 import 'package:easy_deal/features/register/presentation/view_model/register_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
  import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 
 
@@ -59,7 +60,8 @@ class CustomStepper extends StatelessWidget {
                     : Text("02", style: AppStyles.white16SemiBold),
                 customTitle: Center(
                   child: Text(
-                    registerCubit.stepsNames[1],
+                    registerCubit.selectTypeIndex==1 ?
+                    registerCubit.stepsNames[1] : LangKeys.service.tr(),
                     style: AppStyles.black14Medium,
                     maxLines: 2,
                     textAlign: TextAlign.center,

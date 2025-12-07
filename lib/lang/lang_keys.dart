@@ -137,4 +137,13 @@ abstract class LangKeys {
   static const start = "start";
   static const selectBrokerType = "selectBrokerType";
   static const reject = "reject";
+
+  static const service = "service";
+  static const company = "company";
+  static const individual = "individual";
+  static const profilePhoto = "profilePhoto";
+  static const changePhoto = "changePhoto";
+  static const deletePhoto = "deletePhoto";
+  static const uploadTheFrontOfTheCardImage = "uploadTheFrontOfTheCardImage";
+  static const uploadTheBackOfTheCardImage = "uploadTheBackOfTheCardImage";
 }

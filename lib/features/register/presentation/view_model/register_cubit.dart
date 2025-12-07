@@ -14,34 +14,57 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   changeStepperIndex(int index) {
     activeStep = index;
+    print("activeStep = $activeStep");
+    print("selectTypeIndex = $selectTypeIndex");
     emit(ChangeStepperIndexState(activeStep));
   }
 
-  List<String> stepsNames = [
+    List<String> stepsNames = [
     LangKeys.type.tr(),
-    LangKeys.gender.tr(),
+      LangKeys.gender.tr() ,
+    LangKeys.complete.tr(),
+    LangKeys.password.tr(),
+  ];
+  List<String> brokerStepsNames = [
+    LangKeys.type.tr(),
+    LangKeys.service.tr(),
     LangKeys.complete.tr(),
     LangKeys.password.tr(),
   ];
 
   int selectTypeIndex = 0;
+
   void selectType(typeIndex) {
     selectTypeIndex = typeIndex;
-    print(selectTypeIndex);
-    print("sssssssssss");
+    print("selectTypeIndex = $selectTypeIndex");
+    print("activeStep = $activeStep");
+    CacheHelper.saveData(
+      key: "role",
+      value: selectTypeIndex == 1 ? "client" : "broker",
+    );
     emit(SelectTypeState());
   }
 
   int selectGenderIndex = 0;
+
   void selectGender(genderIndex) {
     selectGenderIndex = genderIndex;
+
     emit(SelectGenderState());
   }
 
   int selectBrokerIndex = 0;
+
   void selectBroker(genderIndex) {
     selectBrokerIndex = genderIndex;
     emit(SelectBrokerState());
+  }
+
+  int selectServiceIndex = 0;
+
+  void selectService(serviceIndex) {
+    selectServiceIndex = serviceIndex;
+    emit(SelectServiceState());
   }
 
   String phoneNumber = '';
@@ -53,24 +76,20 @@ class RegisterCubit extends Cubit<RegisterStates> {
   bool isPasswordVisible = true;
   bool isConfirmPasswordVisible = true;
 
-  changePasswordVisible()
-  {
+  changePasswordVisible() {
     isPasswordVisible = !isPasswordVisible;
     emit(ChangePasswordVisibleState());
   }
 
-  changeConfirmPasswordVisible()
-  {
+  changeConfirmPasswordVisible() {
     isConfirmPasswordVisible = !isConfirmPasswordVisible;
     emit(ChangeConfirmPasswordVisibleState());
   }
 
-
   final ValueNotifier<bool> isFormValid = ValueNotifier(false);
+
   void validateForm() {
     final valid = formKey.currentState?.validate() ?? false;
     isFormValid.value = valid;
   }
-
-
 }

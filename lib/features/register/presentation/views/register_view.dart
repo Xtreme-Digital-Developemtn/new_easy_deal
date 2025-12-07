@@ -20,18 +20,36 @@ class RegisterView extends StatelessWidget {
         child: BlocBuilder<RegisterCubit , RegisterStates>(
           builder: (context,state){
             var registerCubit = context.read<RegisterCubit>();
+            print(registerCubit.activeStep);
+            print("mostafa");
             return Column(
               children: [
                 CustomStepper(),
                 Gap(18.h),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: registerCubit.activeStep == 0
-                        ? AccountTypeBody()
-                        : registerCubit.activeStep == 1 && registerCubit.selectTypeIndex==1
-                        ? GenderBody() :  registerCubit.activeStep == 1 && registerCubit.selectTypeIndex==2 ? BrokerTypeBody()
-                        : registerCubit.activeStep == 2 ?
-                    ClientInfoBody() : PasswordBody(),
+                    child: () {
+                      switch (registerCubit.activeStep) {
+                        case 0:
+                          return AccountTypeBody();
+                        case 1:
+                          if (registerCubit.selectTypeIndex == 1) {
+                            return GenderBody();
+                          } else if (registerCubit.selectTypeIndex == 2) {
+                            return BrokerTypeBody();
+                          }
+                        case 2:
+                          return ClientInfoBody();
+                        case 3:
+                          return PasswordBody();
+                        case 4:
+                          return PasswordBody();
+                        default:
+                          return AccountTypeBody();
+                      }
+                    }(),
+
+
                   ),
                 ),
               ],

@@ -64,7 +64,7 @@ class SelectAccountType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.client,height: 30.h,
+                        SvgPicture.asset(SvgImages.broker,height: 30.h,
                         colorFilter: ColorFilter.mode(
                             registerCubit.selectTypeIndex==2 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),

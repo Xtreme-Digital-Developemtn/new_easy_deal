@@ -36,12 +36,12 @@ class SelectBrokerType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.male,height: 30.h,
+                        SvgPicture.asset(SvgImages.broker,height: 30.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectBrokerIndex==1 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.male.tr(),style:registerCubit.selectBrokerIndex==1 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.individual.tr(),style:registerCubit.selectBrokerIndex==1 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
                       ],
                     ),
                   ),
@@ -64,12 +64,12 @@ class SelectBrokerType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.female,height: 30.h,
+                        SvgPicture.asset(SvgImages.company,height: 30.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectBrokerIndex==2 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.female.tr(),style:registerCubit.selectBrokerIndex==2 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.company.tr(),style:registerCubit.selectBrokerIndex==2 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
                       ],
                     ),
                   ),
