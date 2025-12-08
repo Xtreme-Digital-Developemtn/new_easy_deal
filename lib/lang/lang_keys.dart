@@ -168,10 +168,6 @@ abstract class LangKeys {
   static const String changeLogo = 'changeLogo';
   static const String uploadFrontAndBackId = 'uploadFrontAndBackId';
   static const String uploadRequiredLegalDocuments = 'uploadRequiredLegalDocuments';
-
-
-
-
   static const String createNewRequest = 'createNewRequest';
   static const String rentingHotelUnit = 'rentingHotelUnit';
   static const String rentHotelUnit = 'rentHotelUnit';
