@@ -197,7 +197,7 @@ class CustomTextFormField extends StatelessWidget {
                 horizontal: width ?? 15.w, vertical: height ?? 15.h),
         fillColor: backgroundColor ?? AppColors.scaffoldBackground,
       ),
-      maxLines: isChat ? null : 1,
+      maxLines: isChat ? null : maxLines,
       minLines: isChat ? null : minLines,
       onFieldSubmitted: onFieldSubmitted,
       scrollPhysics: scrollPhysics,

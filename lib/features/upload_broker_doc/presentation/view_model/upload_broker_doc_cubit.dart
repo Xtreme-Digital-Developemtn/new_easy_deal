@@ -115,7 +115,8 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   Future<void> pickCommercialFile({
     required UploadBrokerDocStates newEmit,
-  }) async {
+  })
+  async {
     try {
       final XFile? pickedFile = await picker.pickImage(
         source: ImageSource.gallery,

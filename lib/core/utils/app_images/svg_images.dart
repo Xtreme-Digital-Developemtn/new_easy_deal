@@ -50,6 +50,12 @@ class SvgImages
   static const String broker = "$svgPath/broker.svg";
   static const String company = "$svgPath/company.svg";
   static const String camera = "$svgPath/camera-svgrepo-com.svg";
+  static const String house = "$svgPath/house-svgrepo-com.svg";
+  static const String key = "$svgPath/key-square-2-svgrepo-com.svg";
+  static const String buy = "$svgPath/buy-svgrepo-com.svg";
+  static const String transfer = "$svgPath/transfer-svgrepo-com.svg";
+  static const String hands = "$svgPath/hands-helping-solid-svgrepo-com.svg";
+  static const String welfare = "$svgPath/welfare-pension-insurance-premium-svgrepo-com.svg";
 
 
 

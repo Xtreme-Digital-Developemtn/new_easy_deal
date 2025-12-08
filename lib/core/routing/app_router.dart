@@ -29,6 +29,11 @@ import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
 import '../../features/contact_us/presentation/view_model/contact_us_cubit.dart';
 import '../../features/contact_us/presentation/views/contact_us_view.dart';
+import '../../features/create_request/data/models/category_model.dart';
+import '../../features/create_request/data/repos/create_request_repo_imple.dart';
+import '../../features/create_request/presentation/view_model/create_request_cubit.dart';
+import '../../features/create_request/presentation/views/create_request_view.dart';
+import '../../features/create_request/presentation/views/create_request_by_category_view.dart';
 import '../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../features/faqs/presentation/view_model/faqs_cubit.dart';
 import '../../features/faqs/presentation/views/faqs_view.dart';
@@ -166,6 +171,20 @@ class AppRouter {
         final args = arguments as Map<String, dynamic>;
         return transition(screen:   UploadBrokerDocView(selectedIndex: args["selectIndex"] as int,),
             cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>(),),
+        );
+      case Routes.createRequestView:
+        return transition(screen: const CreateRequestView(),
+            cubit: CreateRequestCubit(getIt.get<CreateRequestRepoImpl>()));
+      case Routes.createRequestByCategoryView:
+        final args = arguments as Map<String, dynamic>;
+        final createRequestCubit = args['cubit'] as CreateRequestCubit;
+        final category = args['category'] as CategoryModel;
+
+        return transition(
+          screen: BlocProvider.value(
+            value: createRequestCubit,
+            child: CreateRequestByCategoryView(category: category),
+          ),
         );
         default:
         return null;

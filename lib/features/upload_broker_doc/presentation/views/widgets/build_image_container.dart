@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_deal/main_imports.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/themes/app_colors.dart';
@@ -10,13 +11,14 @@ class BuildImageContainer extends StatelessWidget {
   final VoidCallback onPickImage;
   final VoidCallback onClearImage;
   final String title;
+  final double? height;
 
   const BuildImageContainer({
     super.key,
     required this.isFront,
     required this.imageFile,
     required this.onPickImage,
-    required this.onClearImage, required this.title,
+    required this.onClearImage, required this.title, this.height,
   });
 
   @override
@@ -24,9 +26,9 @@ class BuildImageContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onPickImage,
       child: AspectRatio(
-        aspectRatio: 1.586,
+        aspectRatio:height!=null ? 2.5 : 1.586,
         child: Container(
-          height: 180,
+          height:height?? 180.h,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
