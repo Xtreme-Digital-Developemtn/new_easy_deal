@@ -24,7 +24,9 @@ class RequestsView extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.pushNamed(Routes.createRequestView);
+        },
         backgroundColor: AppColors.primaryDark,
         child: Icon(Icons.add, color: Colors.white),
       ),

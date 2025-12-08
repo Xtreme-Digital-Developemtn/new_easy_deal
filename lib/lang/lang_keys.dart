@@ -167,6 +167,50 @@ abstract class LangKeys {
   static const String uploadIdBack = 'uploadIdBack';
   static const String changeLogo = 'changeLogo';
   static const String uploadFrontAndBackId = 'uploadFrontAndBackId';
-  static const String uploadRequiredLegalDocuments =
-      'uploadRequiredLegalDocuments';
+  static const String uploadRequiredLegalDocuments = 'uploadRequiredLegalDocuments';
+
+
+
+
+  static const String createNewRequest = 'createNewRequest';
+  static const String rentingHotelUnit = 'rentingHotelUnit';
+  static const String rentHotelUnit = 'rentHotelUnit';
+  static const String rentingProperty = 'rentingProperty';
+  static const String propertyForSale = 'propertyForSale';
+  static const String propertyRental = 'propertyRental';
+  static const String buyingProperty = 'buyingProperty';
+  static const String newRequest = 'newRequest';
+  static const String requestInformation = 'requestInformation';
+  static const String scopeOfSpecialization = 'scopeOfSpecialization';
+  static const String dealType = 'dealType';
+  static const String unitType = 'unitType';
+  static const String city = 'city';
+  static const String area = 'area';
+  static const String subArea = 'subArea';
+  static const String address = 'address';
+  static const String locationLink = 'locationLink';
+  static const String propertyNumber = 'propertyNumber';
+  static const String unitNumber = 'unitNumber';
+  static const String floor = 'floor';
+  static const String unitArea = 'unitArea';
+  static const String numberOfRooms = 'numberOfRooms';
+  static const String bathrooms = 'bathrooms';
+  static const String unitLocationFromTheFront = 'unitLocationFromTheFront';
+  static const String theView = 'theView';
+  static const String finishingCondition = 'finishingCondition';
+  static const String deliveryStatus = 'deliveryStatus';
+  static const String otherLuxuries = 'otherLuxuries';
+  static const String notes = 'notes';
+  static const String mainImage = 'mainImage';
+  static const String masterPlanImage = 'masterPlanImage';
+  static const String financialStatementImage = 'financialStatementImage';
+  static const String video = 'video';
+  static const String paymentSystem = 'paymentSystem';
+  static const String price = 'price';
+  static const String financialInformation = 'financialInformation';
+  static const String projectDocuments = 'projectDocuments';
+  static const String unitData = 'unitData';
+  static const String siteInformation = 'siteInformation';
+  static const String orderSettings = 'orderSettings';
+
 }

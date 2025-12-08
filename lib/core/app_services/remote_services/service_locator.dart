@@ -9,6 +9,7 @@ import '../../../features/about_us/data/repos/about_us_repo_imple.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
 import '../../../features/chats/data/repos/chats_repo_imple.dart';
 import '../../../features/contact_us/data/repos/contact_us_repo_imple.dart';
+import '../../../features/create_request/data/repos/create_request_repo_imple.dart';
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import '../../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
@@ -90,6 +91,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<UploadBrokerDocRepoImpl>(UploadBrokerDocRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<CreateRequestRepoImpl>(CreateRequestRepoImpl(
     getIt.get<ApiService>(),
   ));
 }

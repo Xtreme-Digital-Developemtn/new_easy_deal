@@ -21,6 +21,8 @@ class Routes {
   static const String registerView = 'registerView';
   static const String successView = 'successView';
   static const String uploadBrokerDocView = 'uploadBrokerDocView';
+  static const String createRequestView = 'createRequestView';
+  static const String createRequestByCategoryView = 'createRequestByCategoryView';
 
 
 
