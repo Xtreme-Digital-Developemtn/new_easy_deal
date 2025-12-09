@@ -214,9 +214,6 @@ abstract class LangKeys {
   static const String selectAll = 'selectAll';
   static const String requestSentSuccessfully = 'requestSentSuccessfully';
   static const String backToHome = 'backToHome';
-
-
-
   static const String requestDetails = 'requestDetails';
   static const String brokerInfo = 'brokerInfo';
   static const String call = 'call';
@@ -224,7 +221,6 @@ abstract class LangKeys {
   static const String basicInfo = 'basicInfo';
   static const String operationType = 'operationType';
   static const String cancel = 'cancel';
-
   static const String orderInformation = 'orderInformation';
   static const String financesAndNotes = 'financesAndNotes';
   static const String additionalInformation = 'additionalInformation';

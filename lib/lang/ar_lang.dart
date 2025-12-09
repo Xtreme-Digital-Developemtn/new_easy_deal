@@ -239,6 +239,28 @@ class ArLang {
     "selectAll": "تحديد الكل",
     "requestSentSuccessfully": "تم إرسال الطلب بنجاح",
     "backToHome": "العودة للرئيسية",
+    "requestDetails": "تفاصيل الطلب",
+    "brokerInfo": "معلومات الوسيط",
+    "call": "اتصال",
+    "whatsapp": "واتساب",
+    "basicInfo": "المعلومات الأساسية",
+    "operationType": "نوع العملية",
+    "cancel": "إلغاء",
+    "orderInformation": "معلومات الطلب",
+    "financesAndNotes": "المالية والملاحظات",
+    "additionalInformation": "معلومات إضافية",
+    "statusInformation": "معلومات الحالة",
+    "siteDetails": "تفاصيل الموقع",
+    "basicInformation": "المعلومات الأساسية",
+    "dateOfCreation": "تاريخ الإنشاء",
+    "requiredPaymentSystem": "نظام الدفع المطلوب",
+    "otherAccessories": "ملحقات أخرى",
+    "minimumUnitArea": "الحد الأدنى لمساحة الوحدة",
+    "maximumUnitArea": "الحد الأقصى لمساحة الوحدة",
+    "minimumAverageUnitPrice": "متوسط سعر الوحدة الأدنى",
+    "maximumAverageUnitPrice": "متوسط سعر الوحدة الأقصى",
+    "typeOfOperation": "نوع العملية",
+
 
 
   };
