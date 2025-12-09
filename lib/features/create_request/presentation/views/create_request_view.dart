@@ -10,7 +10,7 @@ class CreateRequestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.createNewRequest.tr()),
+      appBar: GlobalAppBar(title: LangKeys.createRequest.tr()),
       body: BlocBuilder<CreateRequestCubit , CreateRequestStates>(
         builder: (context,state){
           var createRequestCubit = context.read<CreateRequestCubit>();

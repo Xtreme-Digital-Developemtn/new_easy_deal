@@ -232,6 +232,7 @@ class EnLang {
     "unitData": "Unit Data",
     "siteInformation": "Site Information",
     "orderSettings": "Order Settings",
+    "past" : "Previous",
 
   };
 }

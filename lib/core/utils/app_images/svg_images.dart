@@ -23,6 +23,7 @@ class SvgImages
   static const String edit2 = "$svgPath/edit2.svg";
   static const String arrow = "$svgPath/arrow-right.svg";
   static const String arrowLeft = "$svgPath/arrow-left.svg";
+  static const String arrowDown = "$svgPath/arrow-down-svgrepo-com.svg";
   static const String close = "$svgPath/close.svg";
   static const String sort = "$svgPath/sort.svg";
   static const String filter = "$svgPath/filter.svg";
@@ -56,6 +57,7 @@ class SvgImages
   static const String transfer = "$svgPath/transfer-svgrepo-com.svg";
   static const String hands = "$svgPath/hands-helping-solid-svgrepo-com.svg";
   static const String welfare = "$svgPath/welfare-pension-insurance-premium-svgrepo-com.svg";
+  static const String assignSuccess = "$svgPath/Leader-pana 1.svg";
 
 
 

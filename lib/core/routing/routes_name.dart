@@ -23,6 +23,8 @@ class Routes {
   static const String uploadBrokerDocView = 'uploadBrokerDocView';
   static const String createRequestView = 'createRequestView';
   static const String createRequestByCategoryView = 'createRequestByCategoryView';
+  static const String assignToBrokerView = 'assignToBrokerView';
+  static const String successAssignView = 'successAssignView';
 
 
 
