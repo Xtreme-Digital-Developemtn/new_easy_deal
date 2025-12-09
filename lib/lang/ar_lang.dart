@@ -232,6 +232,7 @@ class ArLang {
     "unitData": "بيانات الوحدة",
     "siteInformation": "معلومات الموقع",
     "orderSettings": "إعدادات الطلب",
+    "past" : "السابق",
 
 
   };

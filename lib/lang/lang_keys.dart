@@ -209,4 +209,12 @@ abstract class LangKeys {
   static const String siteInformation = 'siteInformation';
   static const String orderSettings = 'orderSettings';
 
+  static const String assignToBroker = 'assignToBroker';
+  static const String createRequest = 'createRequest';
+  static const String selectBroker = 'selectBroker';
+  static const String selectAll = 'selectAll';
+  static const String requestSentSuccessfully = 'requestSentSuccessfully';
+  static const String backToHome = 'backToHome';
+
+
 }

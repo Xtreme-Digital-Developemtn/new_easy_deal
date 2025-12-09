@@ -14,10 +14,12 @@ class NextButton extends StatelessWidget {
         var createRequestCubit = context.read<CreateRequestCubit>();
         return CustomButton(
           onPressed: (){
-            if(createRequestCubit.currentStepNumber<6){
+            if(createRequestCubit.currentStepNumber<5){
               createRequestCubit.moveNextStep(createRequestCubit.currentStepNumber+1);
             }
-
+            else{
+              context.pushNamed(Routes.assignToBrokerView);
+            }
           },
           text: LangKeys.next.tr(),
         );
