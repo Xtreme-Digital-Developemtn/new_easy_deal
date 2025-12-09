@@ -208,7 +208,6 @@ abstract class LangKeys {
   static const String unitData = 'unitData';
   static const String siteInformation = 'siteInformation';
   static const String orderSettings = 'orderSettings';
-
   static const String assignToBroker = 'assignToBroker';
   static const String createRequest = 'createRequest';
   static const String selectBroker = 'selectBroker';

@@ -233,6 +233,12 @@ class ArLang {
     "siteInformation": "معلومات الموقع",
     "orderSettings": "إعدادات الطلب",
     "past" : "السابق",
+    "assignToBroker": "تعيين لوسيط",
+    "createRequest": "إنشاء طلب",
+    "selectBroker": "اختر وسيط",
+    "selectAll": "تحديد الكل",
+    "requestSentSuccessfully": "تم إرسال الطلب بنجاح",
+    "backToHome": "العودة للرئيسية",
 
 
   };
