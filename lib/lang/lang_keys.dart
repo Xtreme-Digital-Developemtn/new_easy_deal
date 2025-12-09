@@ -208,13 +208,40 @@ abstract class LangKeys {
   static const String unitData = 'unitData';
   static const String siteInformation = 'siteInformation';
   static const String orderSettings = 'orderSettings';
-
   static const String assignToBroker = 'assignToBroker';
   static const String createRequest = 'createRequest';
   static const String selectBroker = 'selectBroker';
   static const String selectAll = 'selectAll';
   static const String requestSentSuccessfully = 'requestSentSuccessfully';
   static const String backToHome = 'backToHome';
+
+
+
+  static const String requestDetails = 'requestDetails';
+  static const String brokerInfo = 'brokerInfo';
+  static const String call = 'call';
+  static const String whatsapp = 'whatsapp';
+  static const String basicInfo = 'basicInfo';
+  static const String operationType = 'operationType';
+  static const String cancel = 'cancel';
+
+  static const String orderInformation = 'orderInformation';
+  static const String financesAndNotes = 'financesAndNotes';
+  static const String additionalInformation = 'additionalInformation';
+  static const String statusInformation = 'statusInformation';
+  static const String siteDetails = 'siteDetails';
+  static const String basicInformation = 'basicInformation';
+  static const String dateOfCreation = 'dateOfCreation';
+  static const String requiredPaymentSystem = 'requiredPaymentSystem';
+  static const String otherAccessories = 'otherAccessories';
+  static const String minimumUnitArea = 'minimumUnitArea';
+  static const String maximumUnitArea = 'maximumUnitArea';
+  static const String minimumAverageUnitPrice = 'minimumAverageUnitPrice';
+  static const String maximumAverageUnitPrice = 'maximumAverageUnitPrice';
+  static const String typeOfOperation = 'typeOfOperation';
+
+
+
 
 
 }
