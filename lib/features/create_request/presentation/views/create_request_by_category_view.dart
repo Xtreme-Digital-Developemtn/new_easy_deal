@@ -14,54 +14,68 @@ import '../../data/models/category_model.dart';
 class CreateRequestByCategoryView extends StatelessWidget {
   const CreateRequestByCategoryView({super.key, required this.category});
   final CategoryModel category;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(title: category.name),
+
+      // 1️⃣ هنا الجسم بس اللي يعمل Scroll
       body: SingleChildScrollView(
         child: Padding(
-          padding:   EdgeInsets.all(20.0.r),
-          child: BlocBuilder<CreateRequestCubit , CreateRequestStates>(
-            builder: (context,state){
-              var createRequestCubit = context.read<CreateRequestCubit>();
+          padding: EdgeInsets.all(20.0.r),
+          child: BlocBuilder<CreateRequestCubit, CreateRequestStates>(
+            builder: (context, state) {
+              var cubit = context.read<CreateRequestCubit>();
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StepNumber(),
                   Gap(32.h),
-                  if(createRequestCubit.currentStepNumber==1)
-                  FormOfSpecializationAndDealTypeAndUnitType(),
-                  if(createRequestCubit.currentStepNumber==2)
-                  FormOfCityAreaSubAreaAddressLocationLink(),
-                  if(createRequestCubit.currentStepNumber==3)
+
+                  if (cubit.currentStepNumber == 1)
+                    FormOfSpecializationAndDealTypeAndUnitType(),
+
+                  if (cubit.currentStepNumber == 2)
+                    FormOfCityAreaSubAreaAddressLocationLink(),
+
+                  if (cubit.currentStepNumber == 3)
                     FormOfUnitInfoDetails(),
-                  if(createRequestCubit.currentStepNumber==4)
+
+                  if (cubit.currentStepNumber == 4)
                     FormOfUnitUploadUnitDocuments(),
-                  if(createRequestCubit.currentStepNumber==5)
+
+                  if (cubit.currentStepNumber == 5)
                     PaymentSystemAndPrice(),
-                  Gap(32.h),
-                  if(createRequestCubit.currentStepNumber==1&&createRequestCubit.selectedUnitType!=null && createRequestCubit.selectedDealType!=null&&createRequestCubit.selectedSpecialization!=null)
-                  NextButton(),
-                  if(createRequestCubit.currentStepNumber==2)
-                    PastButton(),
-                  if(createRequestCubit.currentStepNumber==2&&createRequestCubit.selectedCity!=null&&
-                      createRequestCubit.selectedArea!=null&&createRequestCubit.selectedSubArea!=null&&
-                  createRequestCubit.locationLinkCon.text.isNotEmpty&&createRequestCubit.addressCon.text.isNotEmpty
-                  )
-                    Row(
-                      children: [
-                        Expanded(child: PastButton()),
-                        Gap(12.w),
-                        Expanded(child: NextButton()),
-                      ],
-                    ),
+
+                  Gap(150.h), // مساحة علشان الزرار تحت
                 ],
               );
             },
-
           ),
         ),
+      ),
+
+      bottomNavigationBar: BlocBuilder<CreateRequestCubit, CreateRequestStates>(
+        builder: (context, state) {
+          var cubit = context.read<CreateRequestCubit>();
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            color: Colors.white,
+            child: Row(
+              children: [
+                if (cubit.currentStepNumber > 1)
+                  Expanded(child: PastButton()),
+                if (cubit.currentStepNumber > 1)
+                  Gap(10.w),
+
+                Expanded(child: NextButton()),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
+
