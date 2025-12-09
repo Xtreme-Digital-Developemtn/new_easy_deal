@@ -9,6 +9,7 @@ import 'package:easy_deal/features/create_request/presentation/views/widgets/pas
 import 'package:easy_deal/features/create_request/presentation/views/widgets/payment_system_price.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/step_number.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../data/models/category_model.dart';
 
 class CreateRequestByCategoryView extends StatelessWidget {
@@ -18,9 +19,18 @@ class CreateRequestByCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: category.name),
-
-      // 1️⃣ هنا الجسم بس اللي يعمل Scroll
+      appBar:AppBar(
+        title: Text(category.name.toString()),
+        leading: IconButton(
+          onPressed: () {
+            context.pop();
+          },
+          icon: SvgPicture.asset(context.isArabic ? SvgImages.arrowLeft: SvgImages.arrow , colorFilter: ColorFilter.mode(AppColors.black,
+            BlendMode.srcIn,
+          ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20.0.r),

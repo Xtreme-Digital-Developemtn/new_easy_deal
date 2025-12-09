@@ -9,7 +9,7 @@ class AssignToBrokerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.assignToBroker.tr()),
+      appBar: GlobalAppBar(title: LangKeys.assignToBroker),
       body: Padding(
         padding:   EdgeInsets.all(20.0.r),
         child: Column(

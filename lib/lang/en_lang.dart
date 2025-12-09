@@ -239,6 +239,27 @@ class EnLang {
     "selectAll": "Select All",
     "requestSentSuccessfully": "Request sent successfully",
     "backToHome": "Back to Home",
+    "requestDetails": "Request Details",
+    "brokerInfo": "Broker Information",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "basicInfo": "Basic Info",
+    "operationType": "Operation Type",
+    "cancel": "Cancel",
+    "orderInformation": "Order Information",
+    "financesAndNotes": "Finances and Notes",
+    "additionalInformation": "Additional Information",
+    "statusInformation": "Status Information",
+    "siteDetails": "Site Details",
+    "basicInformation": "Basic Information",
+    "dateOfCreation": "Date of Creation",
+    "requiredPaymentSystem": "Required Payment System",
+    "otherAccessories": "Other Accessories",
+    "minimumUnitArea": "Minimum Unit Area",
+    "maximumUnitArea": "Maximum Unit Area",
+    "minimumAverageUnitPrice": "Minimum Average Unit Price",
+    "maximumAverageUnitPrice": "Maximum Average Unit Price",
+    "typeOfOperation": "Type of Operation"
 
   };
 }
