@@ -88,7 +88,7 @@ class CustomTextFormField extends StatelessWidget {
     this.autofillHints,
     this.contentPadding,
     this.expands,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.onFieldSubmitted,
     this.buildCounter,

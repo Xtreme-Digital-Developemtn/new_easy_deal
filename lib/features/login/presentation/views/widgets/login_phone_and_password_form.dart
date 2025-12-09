@@ -29,6 +29,7 @@ class LoginPhoneAndPasswordForm extends StatelessWidget {
             Gap(20.h),
             /// Password Field
             CustomTextFormField(
+
               controller: loginCubit.passwordCon,
               keyboardType: TextInputType.visiblePassword,
               hintText: LangKeys.password.tr(),
