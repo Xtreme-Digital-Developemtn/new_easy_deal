@@ -19,7 +19,7 @@ class RequestListItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-
+        context.pushNamed(Routes.requestDetailsView);
       },
       child: Container(
         padding: EdgeInsets.all(16.r),

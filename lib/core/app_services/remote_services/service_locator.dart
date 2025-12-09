@@ -19,7 +19,8 @@ import '../../../features/login/data/repos/login_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
 import '../../../features/register/data/repos/register_repo_imple.dart';
 import '../../../features/report_issue/data/repos/report_issue_repo_imple.dart';
- import '../../../features/requests/data/repos/requests_repo_imple.dart';
+ import '../../../features/request_details/data/repos/request_repo_imple.dart';
+import '../../../features/requests/data/repos/requests_repo_imple.dart';
 import '../../../features/settings/data/repos/app_settings_repo_imple.dart';
 import '../../../features/unit_details/data/repos/unit_details_repo_imple.dart';
 import '../../../features/upload_broker_doc/data/repos/upload_broker_doc_repo_imple.dart';
@@ -98,6 +99,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<AssignToBrokerRepoImpl>(AssignToBrokerRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<RequestDetailsRepoImpl>(RequestDetailsRepoImpl(
     getIt.get<ApiService>(),
   ));
 }

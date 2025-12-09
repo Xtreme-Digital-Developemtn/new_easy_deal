@@ -233,6 +233,12 @@ class EnLang {
     "siteInformation": "Site Information",
     "orderSettings": "Order Settings",
     "past" : "Previous",
+    "assignToBroker": "Assign to Broker",
+    "createRequest": "Create Request",
+    "selectBroker": "Select Broker",
+    "selectAll": "Select All",
+    "requestSentSuccessfully": "Request sent successfully",
+    "backToHome": "Back to Home",
 
   };
 }

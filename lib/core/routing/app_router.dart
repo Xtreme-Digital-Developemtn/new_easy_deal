@@ -58,6 +58,7 @@ import '../../features/register/presentation/view_model/register_cubit.dart';
 import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
+import '../../features/request_details/presentation/views/request_details_view.dart';
 import '../../features/requests/data/repos/requests_repo_imple.dart';
 import '../../features/requests/presentation/view_model/requests_cubit.dart';
 import '../../features/requests/presentation/views/requests_view.dart';
@@ -195,6 +196,8 @@ class AppRouter {
             cubit: AssignToBrokerCubit(getIt.get<AssignToBrokerRepoImpl>()));
       case Routes.successAssignView:
         return transition(screen: const SuccessAssignView());
+      case Routes.requestDetailsView:
+        return transition(screen: const RequestDetailsView());
         default:
         return null;
     }
