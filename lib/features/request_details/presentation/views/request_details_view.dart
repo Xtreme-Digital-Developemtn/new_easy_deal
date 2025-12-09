@@ -15,7 +15,7 @@ class RequestDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.requestDetails.tr()),
+      appBar: GlobalAppBar(title: LangKeys.requestDetails),
       body: SingleChildScrollView(
         child: Padding(
           padding:   EdgeInsets.all(20.0.r),
