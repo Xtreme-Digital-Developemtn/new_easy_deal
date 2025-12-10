@@ -58,6 +58,11 @@ class SvgImages
   static const String hands = "$svgPath/hands-helping-solid-svgrepo-com.svg";
   static const String welfare = "$svgPath/welfare-pension-insurance-premium-svgrepo-com.svg";
   static const String assignSuccess = "$svgPath/Leader-pana 1.svg";
+  static const String myData = "$svgPath/g3660.svg";
+  static const String developers = "$svgPath/g3660 (1).svg";
+  static const String map2 = "$svgPath/map-pin-svgrepo-com 1.svg";
+  static const String ads = "$svgPath/ads-svgrepo-com.svg";
+
 
 
 

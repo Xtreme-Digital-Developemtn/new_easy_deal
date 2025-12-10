@@ -26,17 +26,23 @@ class LayoutCubit extends Cubit<LayoutStates> {
     if (didPop) {
       return;
     }
-    DateTime now = DateTime.now();
-    if (_lastPressed == null || now.difference(_lastPressed!) > const Duration(seconds: 2)) {
-      _lastPressed = now;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(LangKeys.exit.tr()),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    } else {
-      SystemNavigator.pop();
+    if(pageIndex==0){
+      DateTime now = DateTime.now();
+      if (_lastPressed == null || now.difference(_lastPressed!) > const Duration(seconds: 2)) {
+        _lastPressed = now;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(LangKeys.exit.tr()),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } else {
+        SystemNavigator.pop();
+      }
+    }else{
+      changeBottomNav(0, context);
+
     }
+
   }
 }
