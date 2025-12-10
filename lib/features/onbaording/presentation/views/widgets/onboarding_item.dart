@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../../main_imports.dart';
 
 class OnboardingItem extends StatelessWidget {

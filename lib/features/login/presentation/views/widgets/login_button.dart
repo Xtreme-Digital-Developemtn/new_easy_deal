@@ -1,12 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-  import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
+import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/utils/toast/toast.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key,  });
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,8 @@ class LoginButton extends StatelessWidget {
       buildWhen: (previous, current) {
         return current is LoginSuccessState ||
             current is LoginLoadingState ||
-            current is LoginErrorState || current is LoginValidationState;
+            current is LoginErrorState ||
+            current is LoginValidationState;
       },
       listener: (context, state) {
         if (state is LoginErrorState) {
@@ -39,16 +40,17 @@ class LoginButton extends StatelessWidget {
           builder: (context) {
             return ValueListenableBuilder<bool>(
               valueListenable: loginCubit.isFormValid,
-                builder: (context, isValid, child) => CustomButton(
+              builder: (context, isValid, child) => CustomButton(
                 text: LangKeys.signIn.tr(),
-                onPressed: isValid ? () {
-                  context.pushNamedAndRemoveUntil(Routes.layoutView);
-                    // loginCubit.login(
-                    //   password: loginCubit.passwordCon.text,
-                    //   phone: loginCubit.phoneNumber,
-                    // );
-
-                } : null,
+                onPressed: isValid
+                    ? () {
+                        context.pushNamedAndRemoveUntil(Routes.layoutView);
+                        // loginCubit.login(
+                        //   password: loginCubit.passwordCon.text,
+                        //   phone: loginCubit.phoneNumber,
+                        // );
+                      }
+                    : null,
               ),
             );
           },

@@ -1,4 +1,4 @@
-import 'package:easy_deal/features/register/presentation/views/widgets/client_info_widgets/send_code_button.dart';
+import 'package:easy_deal/features/register/presentation/views/widgets/client_info_widgets/client_info_buttons.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -11,7 +11,6 @@ class ClientInfoBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerCubit = context.read<RegisterCubit>();
-
     return Form(
       key: registerCubit.formKey,
       child: Column(
@@ -21,7 +20,7 @@ class ClientInfoBody extends StatelessWidget {
           Gap(24.h),
           ClientInfoForm(),
           Gap(48.h),
-          SendCodeButton(formKey: registerCubit.formKey),
+          ClientInfoButtons(formKey: registerCubit.formKey),
         ],
       ),
     );

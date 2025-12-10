@@ -3,8 +3,8 @@ import '../../../../../../main_imports.dart';
 import '../../../view_model/register_cubit.dart';
 import '../../../view_model/register_states.dart';
 
-class SendCodeButton extends StatelessWidget {
-  const SendCodeButton({super.key, required this.formKey});
+class ClientInfoButtons extends StatelessWidget {
+  const ClientInfoButtons({super.key, required this.formKey});
   final GlobalKey<FormState> formKey;
 
   @override

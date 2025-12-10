@@ -14,8 +14,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   changeStepperIndex(int index) {
     activeStep = index;
-    print("activeStep = $activeStep");
-    print("selectTypeIndex = $selectTypeIndex");
+    validateForm();
     emit(ChangeStepperIndexState(activeStep));
   }
 
@@ -31,8 +30,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   void selectType(typeIndex) {
     selectTypeIndex = typeIndex;
-    print("selectTypeIndex = $selectTypeIndex");
-    print("activeStep = $activeStep");
     CacheHelper.saveData(
       key: "role",
       value: selectTypeIndex == 1 ? "client" : "broker",
@@ -52,7 +49,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   void selectBroker(genderIndex) {
     selectBrokerIndex = genderIndex;
-    print("selectBrokerIndex = $selectBrokerIndex");
     emit(SelectBrokerState());
   }
 

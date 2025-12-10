@@ -32,6 +32,7 @@ class ClientInfoForm extends StatelessWidget {
               controller: registerCubit.nameCon,
               onChanged: (_) => registerCubit.validateForm(),
             ),
+            
           ],
         );
       },

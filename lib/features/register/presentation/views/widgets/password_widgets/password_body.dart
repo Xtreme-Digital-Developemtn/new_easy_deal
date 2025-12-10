@@ -9,8 +9,10 @@ class PasswordBody extends StatelessWidget {
   const PasswordBody({super.key});
   @override
   Widget build(BuildContext context) {
+    final registerCubit = context.read<RegisterCubit>();
+    registerCubit.isFormValid.value =false;
     return Form(
-      key: context.read<RegisterCubit>().formKey,
+      key: registerCubit.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -18,7 +20,7 @@ class PasswordBody extends StatelessWidget {
           Gap(12.h),
           CreatePasswordForm(),
           Gap(48.h),
-          CreatePasswordButtons(formKey : context.read<RegisterCubit>().formKey),
+          CreatePasswordButtons(formKey : registerCubit.formKey),
         ],
       ),
     );

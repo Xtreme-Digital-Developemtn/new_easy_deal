@@ -1,4 +1,3 @@
-import 'package:easy_deal/core/themes/app_styles.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -16,7 +15,7 @@ class DoNotHaveAccount extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-           // context.pushNamed(Routes.registerScreen);
+            context.pushNamed(Routes.registerView);
           },
           child: Text(
             textAlign: TextAlign.center,

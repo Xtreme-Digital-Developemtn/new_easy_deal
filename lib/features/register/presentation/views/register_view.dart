@@ -3,10 +3,10 @@ import 'package:easy_deal/features/register/presentation/view_model/register_sta
 import 'package:easy_deal/features/register/presentation/views/widgets/account_type_widgets/account_type_body.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/broker_type_widget/broker_type_body.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/client_info_widgets/client_info_body.dart';
- import 'package:easy_deal/features/register/presentation/views/widgets/custom_stepper.dart';
+import 'package:easy_deal/features/register/presentation/views/widgets/custom_stepper.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/gender_widgets/gender_body.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/password_widgets/password_body.dart';
- import 'package:easy_deal/main_imports.dart';
+import 'package:easy_deal/main_imports.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -15,13 +15,11 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.signUp),
-      body:  Padding(
-        padding:   EdgeInsets.all(20.0.r),
-        child: BlocBuilder<RegisterCubit , RegisterStates>(
-          builder: (context,state){
+      body: Padding(
+        padding: EdgeInsets.all(20.0.r),
+        child: BlocBuilder<RegisterCubit, RegisterStates>(
+          builder: (context, state) {
             var registerCubit = context.read<RegisterCubit>();
-            print(registerCubit.activeStep);
-            print("mostafa");
             return Column(
               children: [
                 CustomStepper(),
@@ -48,14 +46,11 @@ class RegisterView extends StatelessWidget {
                           return AccountTypeBody();
                       }
                     }(),
-
-
                   ),
                 ),
               ],
             );
           },
-
         ),
       ),
     );

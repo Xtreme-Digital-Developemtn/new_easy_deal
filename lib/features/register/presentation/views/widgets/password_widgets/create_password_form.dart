@@ -1,6 +1,5 @@
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import '../../../view_model/register_cubit.dart';
 import '../../../view_model/register_states.dart';
 
@@ -10,9 +9,6 @@ class CreatePasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterStates>(
-      buildWhen: (prev, curr) =>
-      curr is ChangePasswordVisibleState ||
-          curr is ChangeConfirmPasswordVisibleState,
       builder: (context, state) {
         var registerCubit = context.read<RegisterCubit>();
         return Column(
@@ -26,7 +22,7 @@ class CreatePasswordForm extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(SvgImages.lock),
               ),
-              validator: AppValidators.passwordValidator,
+              validator: (value) => AppValidators.passwordValidator(registerCubit.passwordCon.text),
               suffixIcon: IconButton(
                 icon: registerCubit.isPasswordVisible
                     ? const Icon(Icons.visibility_off)
@@ -59,6 +55,7 @@ class CreatePasswordForm extends StatelessWidget {
               obscureText: !registerCubit.isConfirmPasswordVisible, // Fixed
               onChanged: (_) => registerCubit.validateForm(),
             ),
+
           ],
         );
       },

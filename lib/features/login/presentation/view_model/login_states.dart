@@ -1,8 +1,6 @@
-
 import '../../data/models/login_model.dart';
 
 abstract class LoginStates{}
-
 
 class LoginInitState extends LoginStates{}
 

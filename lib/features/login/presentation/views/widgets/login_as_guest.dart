@@ -1,6 +1,4 @@
-import 'package:easy_deal/core/themes/app_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../../main_imports.dart';
 
 class LoginAsGuest extends StatelessWidget {
@@ -10,7 +8,7 @@ class LoginAsGuest extends StatelessWidget {
   Widget build(BuildContext context) {
     return  TextButton(
       onPressed: () {
-        //context.pushNamed(Routes.mainlayoutScreen);
+         context.pushNamed(Routes.layoutView);
       },
       child: Text(
         textAlign: TextAlign.center,
