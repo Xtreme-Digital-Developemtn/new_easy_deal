@@ -23,6 +23,9 @@ import '../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.d
 import '../../features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
 import '../../features/assign_to_broker/presentation/views/assign_to_broker_view.dart';
 import '../../features/assign_to_broker/presentation/views/success_assign_view.dart';
+import '../../features/broker_features/broker_home/data/repos/broker_home_repo_imple.dart';
+import '../../features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
+import '../../features/broker_features/broker_home/presentation/views/broker_home_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
@@ -198,6 +201,9 @@ class AppRouter {
         return transition(screen: const SuccessAssignView());
       case Routes.requestDetailsView:
         return transition(screen: const RequestDetailsView());
+      case Routes.brokerHomeView:
+        return transition(screen: const BrokerHomeView(),
+            cubit: BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()));
         default:
         return null;
     }
@@ -205,9 +211,12 @@ class AppRouter {
 
 
   List<Widget> screens = [
+    CacheHelper.getData(key: "role")=="client" ?
     BlocProvider(
         create: (context)=>HomeCubit(getIt.get<HomeRepoImpl>()),
-        child: HomeView()),
+        child: HomeView()) : BlocProvider(
+        create: (context)=>BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
+        child: BrokerHomeView()),
     SearchView(),
     BlocProvider(
         create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>()),
