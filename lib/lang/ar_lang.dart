@@ -260,6 +260,13 @@ class ArLang {
     "minimumAverageUnitPrice": "متوسط سعر الوحدة الأدنى",
     "maximumAverageUnitPrice": "متوسط سعر الوحدة الأقصى",
     "typeOfOperation": "نوع العملية",
+    "startNewRequest": "بدء طلب جديد",
+    "developers": "المطورين",
+    "maps": "الخرائط",
+    "myData": "بياناتي",
+    "myAds": "إعلاناتي",
+    "recentRequests": "الطلبات الأخيرة",
+
 
 
 

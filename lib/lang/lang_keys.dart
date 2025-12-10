@@ -235,13 +235,12 @@ abstract class LangKeys {
   static const String minimumAverageUnitPrice = 'minimumAverageUnitPrice';
   static const String maximumAverageUnitPrice = 'maximumAverageUnitPrice';
   static const String typeOfOperation = 'typeOfOperation';
-
-
   static const String startNewRequest = 'startNewRequest';
   static const String developers = 'developers';
   static const String maps = 'maps';
   static const String myData = 'myData';
   static const String myAds = 'myAds';
+  static const String recentRequests = 'recentRequests';
 
 
 

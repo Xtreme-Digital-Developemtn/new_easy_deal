@@ -259,7 +259,13 @@ class EnLang {
     "maximumUnitArea": "Maximum Unit Area",
     "minimumAverageUnitPrice": "Minimum Average Unit Price",
     "maximumAverageUnitPrice": "Maximum Average Unit Price",
-    "typeOfOperation": "Type of Operation"
+    "typeOfOperation": "Type of Operation",
+    "startNewRequest": "Start New Request",
+    "developers": "Developers",
+    "maps": "Maps",
+    "myData": "My Data",
+    "myAds": "My Ads",
+    "recentRequests": "Recent Requests",
 
   };
 }
