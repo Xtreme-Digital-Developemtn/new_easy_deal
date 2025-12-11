@@ -241,8 +241,6 @@ abstract class LangKeys {
   static const String myData = 'myData';
   static const String myAds = 'myAds';
   static const String recentRequests = 'recentRequests';
-
-
   static const String advertisementAndPropertyDetails = 'advertisementAndPropertyDetails';
   static const String specializations = 'specializations';
   static const String areas = 'areas';
