@@ -4,6 +4,7 @@
 import 'package:easy_deal/features/change_password/presentation/views/change_password_view.dart';
 import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_advertisement_properties_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
@@ -13,6 +14,7 @@ import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
+import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/register/presentation/views/register_view.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
@@ -204,6 +206,15 @@ class AppRouter {
       case Routes.brokerHomeView:
         return transition(screen: const BrokerHomeView(),
             cubit: BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()));
+      case Routes.editAdvertisementAndPropertyDetailsView:
+        final args = arguments as Map<String, dynamic>;
+        final profileCubit = args['profileCubit'] as ProfileCubit;
+        return transition(
+          screen: BlocProvider.value(
+            value: profileCubit,
+            child: EditAdvertisementAndPropertyDetailsView(),
+          ),
+        );
         default:
         return null;
     }

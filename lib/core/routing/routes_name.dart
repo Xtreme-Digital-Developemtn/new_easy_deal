@@ -27,6 +27,7 @@ class Routes {
   static const String successAssignView = 'successAssignView';
   static const String requestDetailsView = 'requestDetailsView';
   static const String brokerHomeView = 'brokerHomeView';
+  static const String editAdvertisementAndPropertyDetailsView = 'editAdvertisementAndPropertyDetailsView';
 
 
 

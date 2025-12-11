@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_name.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_profile_list_item.dart';
+import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../../../../core/shared_widgets/general_bottom_sheet.dart';
 
@@ -8,6 +9,7 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var profileCubit = context.read<ProfileCubit>();
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.editProfile),
       body: Padding(
@@ -32,8 +34,13 @@ class EditProfileView extends StatelessWidget {
             EditProfileListItem(title: LangKeys.driverCode, subTitle: "123456", onTap: (){}),
             EditProfileListItem(title: LangKeys.changePassword, subTitle: "", onTap: (){
               context.pushNamed(Routes.changePasswordView);
-            },isLast: true,),
-
+            }, isLast:CacheHelper.getData(key: "role")=="broker" ? false: true,),
+            if(    CacheHelper.getData(key: "role")=="broker" )
+              EditProfileListItem(title: LangKeys.advertisementAndPropertyDetails, subTitle: "", onTap: (){
+                context.pushNamed(Routes.editAdvertisementAndPropertyDetailsView,arguments: {
+                  "profileCubit" : profileCubit,
+                });
+              },isLast: true,),
           ],
         ),
       ),
