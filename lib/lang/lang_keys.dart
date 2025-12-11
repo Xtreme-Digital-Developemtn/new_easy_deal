@@ -253,6 +253,13 @@ abstract class LangKeys {
   static const String tapToEditOrDelete = 'tapToEditOrDelete';
 
 
+  static const String developerName = 'developerName';
+  static const String numberOfProjects = 'numberOfProjects';
+  static const String projects = 'projects';
+  static const String status = 'status';
+  static const String procedures = 'procedures';
+
+
 
 
 

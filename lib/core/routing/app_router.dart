@@ -26,6 +26,9 @@ import '../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.d
 import '../../features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
 import '../../features/assign_to_broker/presentation/views/assign_to_broker_view.dart';
 import '../../features/assign_to_broker/presentation/views/success_assign_view.dart';
+import '../../features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
+import '../../features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
+import '../../features/broker_features/broker_developers/presentation/views/broker_developers_view.dart';
 import '../../features/broker_features/broker_home/data/repos/broker_home_repo_imple.dart';
 import '../../features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
 import '../../features/broker_features/broker_home/presentation/views/broker_home_view.dart';
@@ -225,6 +228,9 @@ class AppRouter {
             child: EditRegistrationPapersView(),
           ),
         );
+      case Routes.brokerDevelopersView:
+        return transition(screen: const BrokerDevelopersView(),
+            cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()));
         default:
         return null;
     }

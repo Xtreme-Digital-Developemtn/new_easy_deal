@@ -29,6 +29,7 @@ class Routes {
   static const String brokerHomeView = 'brokerHomeView';
   static const String editAdvertisementAndPropertyDetailsView = 'editAdvertisementAndPropertyDetailsView';
   static const String editRegistrationPapersView = 'editRegistrationPapersView';
+  static const String brokerDevelopersView = 'brokerDevelopersView';
 
 
 

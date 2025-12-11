@@ -12,7 +12,9 @@ class BrokerCategories extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BrokerCategoryItem(svgImage: SvgImages.developers, title: LangKeys.developers),
+            BrokerCategoryItem(svgImage: SvgImages.developers, title: LangKeys.developers,onTap: (){
+              context.pushNamed(Routes.brokerDevelopersView);
+            },),
             Gap(12.w),
             BrokerCategoryItem(svgImage: SvgImages.myData, title: LangKeys.myData),
           ],
