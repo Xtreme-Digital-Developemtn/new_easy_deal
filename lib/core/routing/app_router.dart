@@ -7,6 +7,7 @@ import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_pro
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_advertisement_properties_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_registration_papers_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
 import 'package:easy_deal/features/home/presentation/views/home_view.dart';
  import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
@@ -213,6 +214,15 @@ class AppRouter {
           screen: BlocProvider.value(
             value: profileCubit,
             child: EditAdvertisementAndPropertyDetailsView(),
+          ),
+        );
+      case Routes.editRegistrationPapersView:
+        final args = arguments as Map<String, dynamic>;
+        final editProfileCubit = args['editProfileCubit'] as EditProfileCubit;
+        return transition(
+          screen: BlocProvider.value(
+            value: editProfileCubit,
+            child: EditRegistrationPapersView(),
           ),
         );
         default:

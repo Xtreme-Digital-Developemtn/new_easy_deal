@@ -273,6 +273,10 @@ class EnLang {
     "addElement": "Add Element",
     "add": "Add",
     "addNewElement": "Add New Element",
+    "registrationPapers": "Registration Papers",
+    "noFilesCurrentlyAvailable": "No Files Currently Available",
+    "tapToEditOrDelete": "tap To EditOrDelete",
+
 
 
   };
