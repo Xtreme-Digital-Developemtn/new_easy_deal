@@ -266,6 +266,14 @@ class EnLang {
     "myData": "My Data",
     "myAds": "My Ads",
     "recentRequests": "Recent Requests",
+    "advertisementAndPropertyDetails": "Advertisement and Property Details",
+    "specializations": "Specializations",
+    "areas": "Areas",
+    "thereAreNoItemsCurrentlyAvailable": "There are no items currently available",
+    "addElement": "Add Element",
+    "add": "Add",
+    "addNewElement": "Add New Element",
+
 
   };
 }

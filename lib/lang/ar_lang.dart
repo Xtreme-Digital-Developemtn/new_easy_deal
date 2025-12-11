@@ -266,6 +266,13 @@ class ArLang {
     "myData": "بياناتي",
     "myAds": "إعلاناتي",
     "recentRequests": "الطلبات الأخيرة",
+    "advertisementAndPropertyDetails": "تفاصيل الإعلان والعقار",
+    "specializations": "التخصصات",
+    "areas": "المناطق",
+    "thereAreNoItemsCurrentlyAvailable": "لا توجد عناصر متاحة حالياً",
+    "addElement": "إضافة عنصر",
+    "add": "إضافة",
+    "addNewElement": "إضافة عنصر جديد"
 
 
 
