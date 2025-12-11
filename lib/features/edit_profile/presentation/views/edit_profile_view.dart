@@ -3,6 +3,7 @@ import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../../../../core/shared_widgets/general_bottom_sheet.dart';
+import '../view_model/edit_profile_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
@@ -10,6 +11,7 @@ class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profileCubit = context.read<ProfileCubit>();
+    var editProfileCubit = context.read<EditProfileCubit>();
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.editProfile),
       body: Padding(
@@ -39,6 +41,12 @@ class EditProfileView extends StatelessWidget {
               EditProfileListItem(title: LangKeys.advertisementAndPropertyDetails, subTitle: "", onTap: (){
                 context.pushNamed(Routes.editAdvertisementAndPropertyDetailsView,arguments: {
                   "profileCubit" : profileCubit,
+                });
+              } ),
+            if(    CacheHelper.getData(key: "role")=="broker" )
+              EditProfileListItem(title: LangKeys.registrationPapers, subTitle: "", onTap: (){
+                context.pushNamed(Routes.editRegistrationPapersView,arguments: {
+                  "editProfileCubit" : editProfileCubit,
                 });
               },isLast: true,),
           ],

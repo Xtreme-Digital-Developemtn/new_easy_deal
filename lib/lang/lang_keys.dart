@@ -248,6 +248,9 @@ abstract class LangKeys {
   static const String addElement = 'addElement';
   static const String add = 'add';
   static const String addNewElement = 'addNewElement';
+  static const String registrationPapers = 'registrationPapers';
+  static const String noFilesCurrentlyAvailable = 'noFilesCurrentlyAvailable';
+  static const String tapToEditOrDelete = 'tapToEditOrDelete';
 
 
 

@@ -28,6 +28,7 @@ class Routes {
   static const String requestDetailsView = 'requestDetailsView';
   static const String brokerHomeView = 'brokerHomeView';
   static const String editAdvertisementAndPropertyDetailsView = 'editAdvertisementAndPropertyDetailsView';
+  static const String editRegistrationPapersView = 'editRegistrationPapersView';
 
 
 

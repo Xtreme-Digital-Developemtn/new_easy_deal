@@ -272,7 +272,11 @@ class ArLang {
     "thereAreNoItemsCurrentlyAvailable": "لا توجد عناصر متاحة حالياً",
     "addElement": "إضافة عنصر",
     "add": "إضافة",
-    "addNewElement": "إضافة عنصر جديد"
+    "addNewElement": "إضافة عنصر جديد",
+    "registrationPapers": "أوراق التسجيل",
+    "noFilesCurrentlyAvailable": "لا توجد ملفات متاحة حاليًا",
+    "tapToEditOrDelete": "انقر للتعديل أو الحذف",
+
 
 
 
