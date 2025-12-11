@@ -9,7 +9,7 @@ class ChipItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(
-        color: AppColors.primaryLight,
+        color: AppColors.blueLight,
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Row(
@@ -20,7 +20,7 @@ class ChipItem extends StatelessWidget {
           GestureDetector(
             onTap: onRemove,
             child: Icon(Icons.close,
-                size: 16.r, color: AppColors.primaryDark),
+                size: 16.r, color: AppColors.errorLight),
           ),
         ],
       ),

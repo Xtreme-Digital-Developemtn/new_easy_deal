@@ -1,4 +1,5 @@
 import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'add_bottom_sheet.dart';
 import 'chip_item.dart';
@@ -13,14 +14,11 @@ class MainSection extends StatelessWidget {
       final Function(String) onAddCustomItem;
   @override
   Widget build(BuildContext context) {
-    TextEditingController customController = TextEditingController();
-    return Column(
+     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: AppStyles.primary16SemiBold),
+        Text(title, style: AppStyles.black16SemiBold),
         Gap(12.h),
-
-        /// ---- القائمة الحالية ----
         currentItems.isNotEmpty
             ? Wrap(
           spacing: 8.w,
@@ -32,19 +30,18 @@ class MainSection extends StatelessWidget {
           ))
               .toList(),
         )
-            : Text("لا توجد عناصر حالياً", style: AppStyles.gray12Medium),
+            : Center(child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr(), style: AppStyles.gray12Medium)),
 
         Gap(20.h),
 
-        /// ---- زر الإضافة ----
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("إضافة عنصر:", style: AppStyles.gray14Medium),
+            Text(LangKeys.addElement.tr(), style: AppStyles.gray14Medium),
             IconButton(
               onPressed: () {
                 openAddSheet(
-                  title: "إضافة $title",
+                  title: "${LangKeys.add.tr()} $title",
                   available: availableItems,
                   onAddItem: onAddItem,
                   onAddCustomItem: onAddCustomItem,

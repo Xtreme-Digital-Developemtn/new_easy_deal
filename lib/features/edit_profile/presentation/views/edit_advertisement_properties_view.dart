@@ -31,7 +31,7 @@ class _EditAdvertisementAndPropertyDetailsViewState
           child: Column(
             children: [
               MainSection(
-                title: "التخصصات",
+                title: LangKeys.specializations.tr(),
                 currentItems: currentSpecializations,
                 availableItems: availableSpecializations,
                 onAddItem: (item) {
@@ -52,12 +52,12 @@ class _EditAdvertisementAndPropertyDetailsViewState
                   });
                 },
               ),
-
-              Gap(40.h),
-
-              /// --- قسم المناطق ---
+              Divider(
+                color: Color.fromRGBO(213, 224, 252, 1),
+                height: 30.h,
+              ),
               MainSection(
-                title: "المناطق",
+                title: LangKeys.areas.tr(),
                 currentItems: currentAreas,
                 availableItems: availableAreas,
                 onAddItem: (item) {

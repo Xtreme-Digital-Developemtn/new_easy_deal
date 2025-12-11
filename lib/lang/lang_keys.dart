@@ -245,6 +245,12 @@ abstract class LangKeys {
 
   static const String advertisementAndPropertyDetails = 'advertisementAndPropertyDetails';
   static const String specializations = 'specializations';
+  static const String areas = 'areas';
+  static const String thereAreNoItemsCurrentlyAvailable = 'thereAreNoItemsCurrentlyAvailable';
+  static const String addElement = 'addElement';
+  static const String add = 'add';
+  static const String addNewElement = 'addNewElement';
+
 
 
 

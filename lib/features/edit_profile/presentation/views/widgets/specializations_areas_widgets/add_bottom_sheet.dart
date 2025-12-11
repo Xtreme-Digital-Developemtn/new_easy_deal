@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../../main_imports.dart';
 
 void openAddSheet({
@@ -28,37 +30,47 @@ void openAddSheet({
           children: [
             Text(title, style: AppStyles.black16SemiBold),
             Gap(20.h),
-
-            /// ---- العناصر المتاحة ----
             if (available.isNotEmpty)
               ...available.map(
-                    (item) => ListTile(
-                  title: Text(item),
-                  trailing: Icon(Icons.add, color: AppColors.primaryDark),
-                  onTap: () {
-                    onAddItem(item);
-                    Navigator.pop(context);
-                  },
-                ),
+                    (item) =>    Padding(
+                      padding:   EdgeInsets.symmetric(vertical: 6.h),
+                      child: InkWell(
+                        onTap: (){
+                          onAddItem(item);
+                          Navigator.pop(context);
+                        },
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(horizontal:20.w,vertical: 10.h),
+                          decoration: BoxDecoration(
+                            color: AppColors.blueLight,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(item,style: AppStyles.primary16SemiBold,),
+                              Icon(Icons.add, color: AppColors.primaryDark),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
               )
             else
-              Text("لا توجد عناصر متاحة"),
+              Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
 
             Gap(20.h),
             Divider(),
             Gap(20.h),
-
-            /// ---- إضافة عنصر مخصص ----
-            TextField(
+            CustomTextFormField(
               controller: customController,
-              decoration: InputDecoration(
-                hintText: "إضافة عنصر جديد",
-                border: OutlineInputBorder(),
-              ),
+              hintText: LangKeys.addNewElement.tr(),
             ),
             Gap(16.h),
             CustomButton(
-              text: "إضافة",
+              text: LangKeys.add.tr(),
               onPressed: () {
                 if (customController.text.trim().isNotEmpty) {
                   onAddCustomItem(customController.text.trim());
