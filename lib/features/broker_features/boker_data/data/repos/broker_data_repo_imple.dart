@@ -1,12 +1,10 @@
-
-import 'package:easy_deal/features/upload_broker_doc/data/repos/upload_broker_doc_repo.dart';
-
-import '../../../../core/app_services/remote_services/api_service.dart';
+  import '../../../../../core/app_services/remote_services/api_service.dart';
+import 'broker_data_repo.dart';
 
 
-class UploadBrokerDocRepoImpl implements UploadBrokerDocRepo {
+class BrokerDataRepoImpl implements BrokerDataRepo {
   final ApiService? apiService;
-  UploadBrokerDocRepoImpl(this.apiService);
+  BrokerDataRepoImpl(this.apiService);
 
 
 

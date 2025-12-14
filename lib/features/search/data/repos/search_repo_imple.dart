@@ -1,5 +1,4 @@
 
-import 'package:easy_deal/features/profile/data/repos/profile_repo.dart';
 import 'package:easy_deal/features/search/data/repos/search_repo.dart';
 
 import '../../../../core/app_services/remote_services/api_service.dart';

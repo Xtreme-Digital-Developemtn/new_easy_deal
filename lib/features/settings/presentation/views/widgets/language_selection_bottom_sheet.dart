@@ -4,7 +4,6 @@ import '../../../../../main_imports.dart';
 
 void showLanguageBottomSheet(BuildContext context, Locale currentLocale) {
   String? selectedLanguageCode;
-  bool isLanguageChanged = false;
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -50,7 +49,6 @@ void showLanguageBottomSheet(BuildContext context, Locale currentLocale) {
                           (String code) {
                         setState(() {
                           selectedLanguageCode = code;
-                          isLanguageChanged = (selectedLanguageCode != currentLocale.languageCode);
                           _changeLanguage(context, selectedLanguageCode!);
                         });
                       },

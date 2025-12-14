@@ -9,7 +9,6 @@ import 'package:easy_deal/features/create_request/presentation/views/widgets/pas
 import 'package:easy_deal/features/create_request/presentation/views/widgets/payment_system_price.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/step_number.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../data/models/category_model.dart';
 
 class CreateRequestByCategoryView extends StatelessWidget {

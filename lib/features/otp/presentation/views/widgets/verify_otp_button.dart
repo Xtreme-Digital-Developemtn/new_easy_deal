@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easy_deal/core/shared_widgets/general_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
 import '../../view_model/otp_cubit.dart';

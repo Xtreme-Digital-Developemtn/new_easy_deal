@@ -1,4 +1,3 @@
-import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/repos/category_units_repo.dart';

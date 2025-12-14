@@ -1,7 +1,7 @@
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_states.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../../../../core/themes/app_styles.dart';
+
 import '../../../../../main_imports.dart';
 
 class RememberMeAndForgetPassword extends StatelessWidget {
@@ -22,7 +22,7 @@ class RememberMeAndForgetPassword extends StatelessWidget {
                 : loginCubit.rememberMe;
 
             return Checkbox(
-              value: currentValue ,
+              value: currentValue,
               onChanged: (v) {
                 context.read<LoginCubit>().changeRememberMeValue(v ?? false);
               },
@@ -31,13 +31,11 @@ class RememberMeAndForgetPassword extends StatelessWidget {
             );
           },
         ),
-        Text(LangKeys.rememberMe.tr(),
-          style: AppStyles.primary14Medium,
-        ),
+        Text(LangKeys.rememberMe.tr(), style: AppStyles.primary14Medium),
         const Spacer(),
         InkWell(
           onTap: () {
-          // context.pushNamed(Routes.forgotpasswordScreen);
+            // context.pushNamed(Routes.forgotpasswordScreen);
           },
           child: Text(
             LangKeys.forgotPassword.tr(),

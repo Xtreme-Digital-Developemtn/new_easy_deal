@@ -9,35 +9,33 @@ class BrokerCategoryItem extends StatelessWidget {
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12.r),
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(20.r),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
-            color: AppColors.primaryDark,
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(4.r),
-                height: 30.h,
-                width: 30.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.r),
-                  color: AppColors.gray1,
-                ),
-                child: SvgPicture.asset(svgImage),
+    return InkWell(
+      borderRadius: BorderRadius.circular(12.r),
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(20.r),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+          color: AppColors.primaryDark,
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(4.r),
+              height: 30.h,
+              width: 30.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                color: AppColors.gray1,
               ),
-              Gap(6.w),
-              Text(
-                title.tr(),
-                style: AppStyles.white14SemiBold,
-              ),
-            ],
-          ),
+              child: SvgPicture.asset(svgImage),
+            ),
+            Gap(6.w),
+            Text(
+              title.tr(),
+              style: AppStyles.white14SemiBold,
+            ),
+          ],
         ),
       ),
     );

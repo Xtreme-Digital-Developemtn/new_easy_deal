@@ -1,6 +1,3 @@
-
-import 'package:easy_deal/features/profile/data/repos/profile_repo.dart';
-
 import '../../../../core/app_services/remote_services/api_service.dart';
 import 'assign_to_broker_repo.dart';
 
