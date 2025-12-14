@@ -257,7 +257,6 @@ abstract class LangKeys {
   static const String status = 'status';
   static const String procedures = 'procedures';
   static const String developer = 'developer';
-
   static const String ownerName = 'ownerName';
   static const String compoundType = 'compoundType';
   static const String transactionType = 'transactionType';

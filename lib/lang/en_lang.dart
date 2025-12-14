@@ -282,6 +282,25 @@ class EnLang {
     "status": "status",
     "procedures": "procedures",
     "developer": "developer",
+    "ownerName": "Owner Name",
+    "compoundType": "Compound Type",
+    "transactionType": "Transaction Type",
+    "location": "Location",
+    "description": "Description",
+    "unitDiagram": "Unit Diagram",
+    "show": "Show",
+    "delete": "Delete",
+    "changeStatus": "Change Status",
+    "edit": "Edit",
+    "viewDetails": "View Details",
+    "ok": "OK",
+    "viewingDetails": "Viewing Details",
+    "editingItem": "Editing Item",
+    "changingStatus": "Changing Status",
+    "deleteConfirmation": "Delete Confirmation",
+    "deleteConfirmationMessage": "Are you sure you want to delete this item?",
+    "itemDeleted": "Item Deleted",
+
 
 
 
