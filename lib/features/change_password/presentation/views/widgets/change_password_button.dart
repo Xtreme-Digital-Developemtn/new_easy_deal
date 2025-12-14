@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
-import '../../../../login/presentation/views/login_view.dart';
 import '../../view_model/change_password_cubit.dart';
 import '../../view_model/change_password_states.dart';
 

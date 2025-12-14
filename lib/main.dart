@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'core/app_services/notifications/notification_service.dart';

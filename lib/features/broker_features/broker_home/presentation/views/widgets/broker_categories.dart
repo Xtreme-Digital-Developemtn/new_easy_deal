@@ -1,6 +1,5 @@
 import 'package:easy_deal/features/broker_features/broker_home/presentation/views/widgets/category_item.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class BrokerCategories extends StatelessWidget {
   const BrokerCategories({super.key});

@@ -1,7 +1,6 @@
 import 'package:easy_deal/core/shared_widgets/custom_drop_down.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
-import 'package:easy_deal/features/create_request/presentation/views/widgets/next_button.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 

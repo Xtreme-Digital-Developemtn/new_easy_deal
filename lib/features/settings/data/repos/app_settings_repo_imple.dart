@@ -1,5 +1,4 @@
 
-import 'package:easy_deal/features/privacy_terms/data/repos/privacy_terms_repo.dart';
 
 import '../../../../core/app_services/remote_services/api_service.dart';
 import 'app_settings_repo.dart';
