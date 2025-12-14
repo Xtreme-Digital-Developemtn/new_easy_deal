@@ -276,6 +276,13 @@ class EnLang {
     "registrationPapers": "Registration Papers",
     "noFilesCurrentlyAvailable": "No Files Currently Available",
     "tapToEditOrDelete": "tap To EditOrDelete",
+    "developerName": "developerName",
+    "numberOfProjects": "numberOfProjects",
+    "projects": "projects",
+    "status": "status",
+    "procedures": "procedures",
+    "developer": "developer",
+
 
 
 

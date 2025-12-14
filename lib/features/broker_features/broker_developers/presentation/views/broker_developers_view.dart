@@ -12,6 +12,7 @@ class BrokerDevelopersView extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: DevelopersTableData()),
+
         ],
       ),
     );

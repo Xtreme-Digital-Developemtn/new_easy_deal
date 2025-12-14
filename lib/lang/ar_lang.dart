@@ -276,6 +276,13 @@ class ArLang {
     "registrationPapers": "أوراق التسجيل",
     "noFilesCurrentlyAvailable": "لا توجد ملفات متاحة حاليًا",
     "tapToEditOrDelete": "انقر للتعديل أو الحذف",
+    "developerName": "اسم المطور",
+    "numberOfProjects": "عدد المشاريع",
+    "projects": "المشاريع",
+    "status": "الحالة",
+    "procedures": "الإجراءات",
+    "developer": "مطور",
+
 
 
 
