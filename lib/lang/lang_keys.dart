@@ -265,6 +265,18 @@ abstract class LangKeys {
   static const String description = 'description';
   static const String unitDiagram = 'unitDiagram';
   static const String show = 'show';
+  static const String delete = 'delete';
+  static const String changeStatus = 'changeStatus';
+  static const String edit = 'edit';
+  static const String viewDetails = 'viewDetails';
+  static const String ok = 'ok';
+  static const String viewingDetails = 'viewingDetails';
+  static const String editingItem = 'editingItem';
+  static const String changingStatus = 'changingStatus';
+  static const String deleteConfirmation = 'deleteConfirmation';
+  static const String deleteConfirmationMessage = 'deleteConfirmationMessage';
+  static const String itemDeleted = 'itemDeleted';
+
 
 
 
