@@ -258,6 +258,7 @@ abstract class LangKeys {
   static const String projects = 'projects';
   static const String status = 'status';
   static const String procedures = 'procedures';
+  static const String developer = 'developer';
 
 
 
