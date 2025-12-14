@@ -16,7 +16,7 @@ class StartNewRequest extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.primaryDark,
+          color: AppColors.blueDark,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -26,6 +26,9 @@ import '../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.d
 import '../../features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
 import '../../features/assign_to_broker/presentation/views/assign_to_broker_view.dart';
 import '../../features/assign_to_broker/presentation/views/success_assign_view.dart';
+import '../../features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
+import '../../features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
+import '../../features/broker_features/boker_data/presentation/views/broker_data_view.dart';
 import '../../features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import '../../features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
 import '../../features/broker_features/broker_developers/presentation/views/broker_developers_view.dart';
@@ -231,6 +234,9 @@ class AppRouter {
       case Routes.brokerDevelopersView:
         return transition(screen: const BrokerDevelopersView(),
             cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()));
+      case Routes.brokerDataView:
+        return transition(screen: const BrokerDataView(),
+            cubit: BrokerDataCubit(getIt.get<BrokerDataRepoImpl>()));
         default:
         return null;
     }
