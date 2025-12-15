@@ -16,9 +16,9 @@ class BrokerCategories extends StatelessWidget {
         onTap: (){
           context.pushNamed(Routes.brokerDataView);
         },),
-
+        Gap(12.h),
         BrokerCategoryItem(svgImage: SvgImages.ads, title: LangKeys.myAds),
-
+        Gap(12.h),
         BrokerCategoryItem(svgImage: SvgImages.map2, title: LangKeys.maps),
       ],
     );

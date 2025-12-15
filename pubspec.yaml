@@ -131,6 +131,11 @@ flutter:
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-Italic-VariableFont_wght.ttf
+    - family: neue-haas-grotesk-display-pro-cufonfonts
+      fonts:
+        - asset: assets/fonts/neue-haas-grotesk-display-pro-cufonfonts/NeueHaasDisplayBlackItalic.ttf
+        - asset: assets/fonts/neue-haas-grotesk-display-pro-cufonfonts/NeueHaasDisplayBoldItalic.ttf
+        - asset: assets/fonts/neue-haas-grotesk-display-pro-cufonfonts/NeueHaasDisplayLightItalic.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
