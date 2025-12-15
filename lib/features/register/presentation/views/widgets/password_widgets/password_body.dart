@@ -10,16 +10,18 @@ class PasswordBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerCubit = context.read<RegisterCubit>();
-    registerCubit.isFormValid.value =false;
+    registerCubit.hasPasswordInteracted = false;
+    registerCubit.isFormValid.value = false;
     return Form(
       key: registerCubit.formKey,
+      // autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(LangKeys.password.tr(),style: AppStyles.black16SemiBold,),
           Gap(12.h),
           CreatePasswordForm(),
-          Gap(48.h),
+          Gap(24.h),
           CreatePasswordButtons(formKey : registerCubit.formKey),
         ],
       ),

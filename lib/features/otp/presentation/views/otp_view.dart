@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/otp/presentation/views/widgets/otp_texts.dart';
+import 'package:easy_deal/features/otp/presentation/views/widgets/resend_otp.dart';
 import '../../../../main_imports.dart';
 import 'widgets/pin_code_fields_widget.dart';
 import 'widgets/verify_otp_button.dart';
@@ -38,25 +39,16 @@ class _OtpViewState extends State<OtpView> {
                     MediaQuery.of(context).padding.top,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      OtpTexts(contact:widget.contact,isMobile: false,),
-                      Gap(20.h),
-                      PinCodeFieldsWidget(controller: _otpController),
-                      Gap(20.h),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                    VerifyOtpButton(controller: _otpController, isMobile:widget.isMobile, selectIndex: widget.selectIndex,),
-                      SizedBox(
-                        height: 50 + MediaQuery.of(context).viewInsets.bottom,
-                      ),
-                    ],
-                  ),
+                  OtpTexts(contact:widget.contact,isMobile: false,),
+                  Gap(20.h),
+                  PinCodeFieldsWidget(controller: _otpController),
+                  Gap(12.h),
+                  ResendOtp(),
+                  Gap(24.h),
+                  VerifyOtpButton(controller: _otpController, isMobile:widget.isMobile, selectIndex: widget.selectIndex,),
+
                 ],
               ),
             ),

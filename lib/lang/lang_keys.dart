@@ -275,6 +275,12 @@ abstract class LangKeys {
   static const String deleteConfirmation = 'deleteConfirmation';
   static const String deleteConfirmationMessage = 'deleteConfirmationMessage';
   static const String itemDeleted = 'itemDeleted';
+  static const String bySigningUpIAccept = 'bySigningUpIAccept';
+  static const String termsOfService = 'termsOfService';
+  static const String haveAnAccount = 'haveAnAccount';
+
+  static const String didntReceiveIt = 'didntReceiveIt';
+  static const String resendOtp = 'resendOtp';
 
 
 

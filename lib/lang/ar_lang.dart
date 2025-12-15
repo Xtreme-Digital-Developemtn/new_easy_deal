@@ -300,6 +300,9 @@ class ArLang {
     "deleteConfirmation": "تأكيد الحذف",
     "deleteConfirmationMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
     "itemDeleted": "تم حذف العنصر",
+    "bySigningUpIAccept": "بالتسجيل، أنا أوافق على",
+    "termsOfService": "شروط الخدمة",
+    "haveAnAccount": "هل لديك حساب بالفعل؟",
 
 
 

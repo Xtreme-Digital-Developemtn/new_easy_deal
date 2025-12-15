@@ -14,7 +14,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   changeStepperIndex(int index) {
     activeStep = index;
-    validateForm();
     emit(ChangeStepperIndexState(activeStep));
   }
 
@@ -27,9 +26,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
 
   int selectTypeIndex = 0;
+  String? role;
 
   void selectType(typeIndex) {
     selectTypeIndex = typeIndex;
+    role = selectTypeIndex == 1 ? "client": "broker";
     CacheHelper.saveData(
       key: "role",
       value: selectTypeIndex == 1 ? "client" : "broker",
@@ -39,9 +40,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   int selectGenderIndex = 0;
 
+  String? gender;
   void selectGender(genderIndex) {
     selectGenderIndex = genderIndex;
-
+    gender = selectGenderIndex == 1 ? "male": "female";
     emit(SelectGenderState());
   }
 
@@ -79,9 +81,28 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   final ValueNotifier<bool> isFormValid = ValueNotifier(false);
-
+  //
+  // void validateForm() {
+  //   final valid = formKey.currentState?.validate() ?? false;
+  //   isFormValid.value = valid;
+  // }
+  bool hasUserInteracted = false;
   void validateForm() {
-    final valid = formKey.currentState?.validate() ?? false;
-    isFormValid.value = valid;
+    if (!hasUserInteracted) return;
+
+    final isValid = formKey.currentState?.validate() ?? false;
+    isFormValid.value = isValid;
   }
+
+  void onUserInteraction() {
+    hasUserInteracted = true;
+    validateForm();
+  }
+
+  bool hasPasswordInteracted = false;
+  void onPasswordInteraction() {
+    hasPasswordInteracted = true;
+    validateForm();
+  }
+
 }

@@ -23,12 +23,13 @@ class SelectAccountType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectType(1);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    height : 45.h,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: registerCubit.selectTypeIndex==1 ? AppColors.primaryDark : AppColors.white,
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: registerCubit.selectTypeIndex==1 ? AppColors.blue : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -36,12 +37,12 @@ class SelectAccountType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.client,height: 30.h,
+                        SvgPicture.asset(SvgImages.client,height: 20.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectTypeIndex==1 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.client.tr(),style:registerCubit.selectTypeIndex==1 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.client.tr(),style:registerCubit.selectTypeIndex==1 ? AppStyles.white16SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),
@@ -51,12 +52,13 @@ class SelectAccountType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectType(2);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    height : 45.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: registerCubit.selectTypeIndex==2 ? AppColors.primaryDark : AppColors.white,
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: registerCubit.selectTypeIndex==2 ? AppColors.blue : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -64,12 +66,12 @@ class SelectAccountType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.broker,height: 30.h,
+                        SvgPicture.asset(SvgImages.broker,height: 20.h,
                         colorFilter: ColorFilter.mode(
                             registerCubit.selectTypeIndex==2 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.broker.tr(),style:registerCubit.selectTypeIndex==2 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.broker.tr(),style:registerCubit.selectTypeIndex==2 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),

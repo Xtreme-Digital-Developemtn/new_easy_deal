@@ -18,7 +18,6 @@ class ClientInfoForm extends StatelessWidget {
             /// Phone Number
             PhoneWidget(
               controller: registerCubit.phoneCon,
-
               onPhoneChanged: (v) {
                 registerCubit.phoneNumber = v;
                 registerCubit.validateForm();
@@ -30,7 +29,9 @@ class ClientInfoForm extends StatelessWidget {
                   AppValidators.displayNameValidator(registerCubit.nameCon.text),
               hintText:  registerCubit.selectBrokerIndex ==2 ?  LangKeys.enterCompanyName.tr() : LangKeys.enterYourName.tr(),
               controller: registerCubit.nameCon,
-              onChanged: (_) => registerCubit.validateForm(),
+              onChanged: (_) => registerCubit.onUserInteraction(),
+
+              // onChanged: (_) => registerCubit.validateForm(),
             ),
             
           ],

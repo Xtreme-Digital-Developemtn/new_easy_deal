@@ -26,14 +26,17 @@ class CreatePasswordButtons extends StatelessWidget {
                 Expanded(
                   child: ValueListenableBuilder<bool>(
                     valueListenable: registerCubit.isFormValid,
-                    builder: (context, isValid, child) =>CustomButton(
-                      onPressed: isValid
-                          ? () => registerCubit.changeStepperIndex(4)
-                          : null,
-                      text: LangKeys.next.tr(),
-                    ),
+                    builder: (_, isValid, __) {
+                      return CustomButton(
+                        onPressed: isValid
+                            ? () => registerCubit.changeStepperIndex(4)
+                            : null,
+                        text: LangKeys.next.tr(),
+                      );
+                    },
                   ),
                 ),
+
               ],
             ),
             Gap(12.h),

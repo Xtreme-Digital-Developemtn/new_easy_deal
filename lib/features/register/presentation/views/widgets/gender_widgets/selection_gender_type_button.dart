@@ -28,6 +28,10 @@ class SelectionGenderTypeButton extends StatelessWidget {
               child: CustomButton(
                 onPressed:registerCubit.selectGenderIndex==0 ? null : (){
                   registerCubit.changeStepperIndex(2);
+
+                    registerCubit.validateForm();
+
+
                 },
                 text: LangKeys.next.tr(),
               ),

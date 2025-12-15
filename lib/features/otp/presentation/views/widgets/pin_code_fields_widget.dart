@@ -23,7 +23,7 @@ class PinCodeFieldsWidget extends StatelessWidget {
         pinTheme: PinTheme(
           selectedColor: AppColors.primaryDark,
           selectedFillColor: AppColors.primaryDark,
-          inactiveColor: AppColors.primaryDark,
+          inactiveColor: AppColors.blueLight,
           inactiveFillColor: AppColors.white,
           activeColor: AppColors.primaryDark,
           shape: PinCodeFieldShape.box,

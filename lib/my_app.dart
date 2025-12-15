@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                     debugShowCheckedModeBanner: false,
                     title: "Easy Deal",
                     theme: ThemeData(
-                      fontFamily: locale.languageCode == 'ar' ? "Cairo" : "RobotoCondensed",
+                      fontFamily: locale.languageCode == 'ar' ? "Cairo" : "neue-haas-grotesk-display-pro-cufonfonts",
                       scaffoldBackgroundColor: AppColors.white,
                       appBarTheme: const AppBarTheme(
                         scrolledUnderElevation: 0,

@@ -300,6 +300,9 @@ class EnLang {
     "deleteConfirmation": "Delete Confirmation",
     "deleteConfirmationMessage": "Are you sure you want to delete this item?",
     "itemDeleted": "Item Deleted",
+    "bySigningUpIAccept": "By signing up, I accept the",
+    "termsOfService": "Terms of Service",
+    "haveAnAccount": "Already have an account?",
 
 
 
