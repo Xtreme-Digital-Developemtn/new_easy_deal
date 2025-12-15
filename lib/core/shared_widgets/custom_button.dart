@@ -49,7 +49,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDisabled = onPressed == null;
-
     return GestureDetector(
       onTap: onPressed,
       child: Opacity(
@@ -70,7 +69,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(color: borderColor?.color ?? Colors.transparent),
             color: isDisabled
-                ? (color ?? Colors.grey)
+                ? (color ?? AppColors.blueVeryLight)
                 : color ?? AppColors.primaryDark,
           ),
           child: Center(

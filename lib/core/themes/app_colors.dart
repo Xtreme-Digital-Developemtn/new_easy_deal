@@ -5,6 +5,7 @@ class AppColors {
   static const primaryDark = Color(0xff0C3BB6);
   static const blueDark = Color(0xff031752);
   static const primaryLight = Color(0xff4074FF);
+  static const blue = Color(0xff4285F4);
   static const primaryVeryLight = Color(0x1A006638);
   static const green = Color(0xff00c735);
   static const greenDark = Color(0xff2D8A39);

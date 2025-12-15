@@ -23,12 +23,13 @@ class SelectGenderType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectGender(1);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    height : 45.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: registerCubit.selectGenderIndex==1 ? AppColors.primaryDark : AppColors.white,
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: registerCubit.selectGenderIndex==1 ? AppColors.blue : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -36,12 +37,12 @@ class SelectGenderType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.male,height: 30.h,
+                        SvgPicture.asset(SvgImages.male,height: 20.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectGenderIndex==1 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.male.tr(),style:registerCubit.selectGenderIndex==1 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.male.tr(),style:registerCubit.selectGenderIndex==1 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),
@@ -51,12 +52,13 @@ class SelectGenderType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectGender(2);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    height : 45.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: registerCubit.selectGenderIndex==2 ? AppColors.primaryDark : AppColors.white,
+                      borderRadius: BorderRadius.circular(40.r),
+                      color: registerCubit.selectGenderIndex==2 ? AppColors.blue : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -64,12 +66,12 @@ class SelectGenderType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.female,height: 30.h,
+                        SvgPicture.asset(SvgImages.female,height: 20.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectGenderIndex==2 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.female.tr(),style:registerCubit.selectGenderIndex==2 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.female.tr(),style:registerCubit.selectGenderIndex==2 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),
