@@ -4,13 +4,13 @@ import 'layout_states.dart';
 
 
 class LayoutCubit extends Cubit<LayoutStates> {
-  LayoutCubit() : super(LayoutInitState());
+  LayoutCubit(this.screens) : super(LayoutInitState());
 
   static LayoutCubit get(context) => BlocProvider.of(context);
 
   static int pageIndex = 0;
 
-
+  final List<Widget> screens;
 
 
 

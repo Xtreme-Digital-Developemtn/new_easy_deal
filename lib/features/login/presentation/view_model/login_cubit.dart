@@ -26,6 +26,7 @@ class LoginCubit extends Cubit<LoginStates> {
   String phoneNumber = '';
 
 
+
   // Value notifiers
   final ValueNotifier<bool> isFormValid = ValueNotifier(false);
 
@@ -55,12 +56,11 @@ class LoginCubit extends Cubit<LoginStates> {
     required String phone,
   }) async {
     emit(LoginLoadingState());
-
-    final result = await loginRepo!.login(data: {
+    FormData formData = FormData.fromMap({
       "password": password,
-      "phone": phone,
+      "phone": "0$phone",
     });
-
+    final result = await loginRepo!.login(data:formData);
     return result.fold(
           (failure) {
         emit(LoginErrorState(failure.errMessage));

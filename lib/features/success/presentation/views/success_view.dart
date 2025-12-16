@@ -17,7 +17,7 @@ class SuccessView extends StatelessWidget {
             Image.asset(PngImages.success,height: 300.h,width: 300.w,fit: BoxFit.cover,),
             Gap(12.h),
             Text(LangKeys.registerSuccessMsg.tr(),textAlign: TextAlign.center,
-            style: AppStyles.black16SemiBold,),
+            style: AppStyles.black16Medium,),
             Spacer(),
             CustomButton(
               text: LangKeys.start.tr(),

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -29,7 +30,6 @@ class MyApp extends StatelessWidget {
               providers: [
                 BlocProvider(create: (context) => AuthCubit()..checkAuthStatus()),
                 BlocProvider(create: (context) => LanguageCubit()),
-                BlocProvider(create: (context) => LayoutCubit()),
                 BlocProvider(create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>())),
 
 

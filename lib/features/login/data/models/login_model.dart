@@ -1,3 +1,4 @@
+
 class LoginModel {
   String? status;
   String? message;
@@ -34,7 +35,7 @@ class Data {
   List<String>? permissions;
   dynamic parentId;
   String? authToken;
-  dynamic gender;
+  String? gender;
 
   Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.authToken, this.gender});
 

@@ -27,12 +27,12 @@ class UploadBrokerDocView extends StatelessWidget {
             UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
         child: Padding(
           padding: EdgeInsets.all(20.0.r),
-          child: Column(
+          child: ListView(
             children: [
               BrokerProfileImage(isCompany: isCompany),
               Gap(24.h),
               BrokerDocumentsImages(isCompany: isCompany),
-              Spacer(),
+              Gap(24.h),
               ButtonForUploadImages(isCompany: isCompany),
               Gap(24.h),
             ],

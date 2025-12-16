@@ -10,6 +10,7 @@ import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_registration_papers_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
 import 'package:easy_deal/features/home/presentation/views/home_view.dart';
+import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
  import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
@@ -39,8 +40,6 @@ import '../../features/category_units/presentation/view_model/category_units_cub
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
 import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
-import '../../features/chats/data/repos/chats_repo_imple.dart';
-import '../../features/chats/presentation/view_model/chats_cubit.dart';
 import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
 import '../../features/contact_us/presentation/view_model/contact_us_cubit.dart';
@@ -71,8 +70,6 @@ import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
 import '../../features/request_details/presentation/views/request_details_view.dart';
-import '../../features/requests/data/repos/requests_repo_imple.dart';
-import '../../features/requests/presentation/view_model/requests_cubit.dart';
 import '../../features/requests/presentation/views/requests_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
@@ -94,6 +91,7 @@ import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
 class AppRouter {
+  final String userRole;
   Route? generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
     PageTransition transition<T extends Cubit<Object>>({
@@ -126,7 +124,7 @@ class AppRouter {
       case Routes.loginView:
         return transition(screen: const LoginView(),cubit: LoginCubit(getIt.get<LoginRepoImpl>()));
       case Routes.layoutView:
-        return transition(screen: const LayoutView(),);
+        return transition(screen: const LayoutView(),cubit: LayoutCubit(getScreens()));
       case Routes.editProfileView:
         return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
       case Routes.editEmailView:
@@ -243,21 +241,25 @@ class AppRouter {
   }
 
 
-  List<Widget> screens = [
-    CacheHelper.getData(key: "role")=="client" ?
-    BlocProvider(
-        create: (context)=>HomeCubit(getIt.get<HomeRepoImpl>()),
-        child: HomeView()) : BlocProvider(
-        create: (context)=>BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
-        child: BrokerHomeView()),
-    SearchView(),
-    BlocProvider(
-        create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>()),
-        child: RequestsView()),
-    BlocProvider(
-        create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
-        child: ChatsView()),
-    ProfileView(),
+  ///الـ AppRouter بيتبني قبل ما Cache يجهز فعليًا
+  List<Widget> getScreens() {
+    return [
+      userRole == "client"
+          ? BlocProvider(
+        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>()),
+        child: HomeView(),
+      )
+          : BlocProvider(
+        create: (_) => BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
+        child: BrokerHomeView(),
+      ),
+      SearchView(),
+      RequestsView(),
+      ChatsView(),
+      ProfileView(),
+    ];
+  }
 
-  ];
+  AppRouter({required this.userRole});
 }
+

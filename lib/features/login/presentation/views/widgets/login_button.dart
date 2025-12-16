@@ -21,6 +21,7 @@ class LoginButton extends StatelessWidget {
         if (state is LoginErrorState) {
           Toast.showErrorToast(msg: state.error.toString(), context: context);
         } else if (state is LoginSuccessState) {
+          context.pushNamedAndRemoveUntil(Routes.layoutView);
           Toast.showSuccessToast(
             msg: state.loginModel.message.toString(),
             context: context,
@@ -44,11 +45,10 @@ class LoginButton extends StatelessWidget {
                 text: LangKeys.signIn.tr(),
                 onPressed: isValid
                     ? () {
-                        context.pushNamedAndRemoveUntil(Routes.layoutView);
-                        // loginCubit.login(
-                        //   password: loginCubit.passwordCon.text,
-                        //   phone: loginCubit.phoneNumber,
-                        // );
+                        loginCubit.login(
+                          password: loginCubit.passwordCon.text,
+                          phone: loginCubit.phoneCon.text,
+                        );
                       }
                     : null,
               ),

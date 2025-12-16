@@ -49,7 +49,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     selectTypeIndex = typeIndex;
     role = selectTypeIndex == 1 ? "client": "broker";
     CacheHelper.saveData(
-      key: "role",
+      key: "userRole",
       value: selectTypeIndex == 1 ? "client" : "broker",
     );
     emit(SelectTypeState());
@@ -185,5 +185,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     CacheHelper.saveData(key: "userPhone", value: phone);
     CacheHelper.saveData(key: "userId", value: id);
     CacheHelper.saveData(key: "userEmail", value: email);
+    CacheHelper.saveData(key: "userRole", value: "client");
   }
 }
