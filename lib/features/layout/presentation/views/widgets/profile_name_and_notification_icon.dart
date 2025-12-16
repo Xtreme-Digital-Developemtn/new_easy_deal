@@ -8,6 +8,7 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(CacheTokenManger.userToken);
      return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

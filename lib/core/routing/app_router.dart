@@ -40,6 +40,8 @@ import '../../features/category_units/presentation/view_model/category_units_cub
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
 import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
+import '../../features/chats/data/repos/chats_repo_imple.dart';
+import '../../features/chats/presentation/view_model/chats_cubit.dart';
 import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
 import '../../features/contact_us/presentation/view_model/contact_us_cubit.dart';
@@ -70,6 +72,8 @@ import '../../features/report_issue/data/repos/report_issue_repo_imple.dart';
 import '../../features/report_issue/presentation/view_model/report_issue_cubit.dart';
 import '../../features/report_issue/presentation/views/report_issue_view.dart';
 import '../../features/request_details/presentation/views/request_details_view.dart';
+import '../../features/requests/data/repos/requests_repo_imple.dart';
+import '../../features/requests/presentation/view_model/requests_cubit.dart';
 import '../../features/requests/presentation/views/requests_view.dart';
 import '../../features/search/data/repos/search_repo_imple.dart';
 import '../../features/search/presentation/view_model/search_cubit.dart';
@@ -254,8 +258,12 @@ class AppRouter {
         child: BrokerHomeView(),
       ),
       SearchView(),
-      RequestsView(),
-      ChatsView(),
+      BlocProvider(
+          create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>()),
+          child: RequestsView()),
+      BlocProvider(
+          create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
+          child: ChatsView()),
       ProfileView(),
     ];
   }
