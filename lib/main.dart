@@ -15,15 +15,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
     await NotificationService.init();
+  String? token = await CacheTokenManger.getUserToken();
+  debugPrint("Retrieved token: $token");
   await CacheHelper.init();
   await EasyLocalization.ensureInitialized();
   setup();
     Bloc.observer = MyBlocObserver();
-  // CacheTokenManger.getUserToken().then((token) {
-  //   debugPrint("Retrieved token: $token");
-  // });
-  // String? token = await CacheTokenManger.getUserToken();
-  // // debugPrint("Retrieved token: $token");
   final userRole = CacheHelper.getData(key: "userRole") ?? "client";
   runApp(
     EasyLocalization(

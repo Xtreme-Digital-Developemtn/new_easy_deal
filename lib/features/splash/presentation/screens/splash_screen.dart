@@ -36,7 +36,7 @@ class _SplashViewState extends State<SplashView>
       if (status == AnimationStatus.completed) {
         final String? userToken = CacheTokenManger.userToken;
         if (userToken != null && userToken.isNotEmpty) {
-        //  context.pushNamed(Routes.mainlayoutScreen);
+         context.pushNamed(Routes.layoutView);
         } else {
           context.pushNamedAndRemoveUntil(Routes.onBoardingView);
         }
