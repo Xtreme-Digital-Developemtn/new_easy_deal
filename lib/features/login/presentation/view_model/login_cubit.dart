@@ -25,6 +25,7 @@ class LoginCubit extends Cubit<LoginStates> {
   bool _rememberMe = false;
   String phoneNumber = '';
 
+
   // Value notifiers
   final ValueNotifier<bool> isFormValid = ValueNotifier(false);
 

@@ -9,11 +9,13 @@ class PhoneWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.onPhoneChanged,
+    required this.onPhoneChangedWithoutCode,
     this.label,
   });
 
   final TextEditingController controller;
   final ValueChanged<String> onPhoneChanged;
+  final ValueChanged<String> onPhoneChangedWithoutCode;
   final String? label;
 
   @override
@@ -31,9 +33,11 @@ class PhoneWidget extends StatelessWidget {
       onCountry: (country) {
         final fullNumber = '+${country.dialCode}${controller.text}';
         onPhoneChanged(fullNumber);
+        onPhoneChangedWithoutCode(controller.text);
       },
       onChanged: (v) {
         onPhoneChanged(v.completeNumber);
+        onPhoneChangedWithoutCode(v.number);
       },
     );
   }
@@ -43,6 +47,7 @@ class EditPhoneWidget extends StatefulWidget {
   final String phone;
   final TextEditingController controller;
   final ValueChanged<String> onPhoneChanged;
+  final ValueChanged<String> onPhoneChangedWithoutCode;
   final String? label;
 
   const EditPhoneWidget({
@@ -50,6 +55,7 @@ class EditPhoneWidget extends StatefulWidget {
     required this.phone,
     required this.controller,
     required this.onPhoneChanged,
+    required this.onPhoneChangedWithoutCode,
     this.label,
   });
 
@@ -95,15 +101,17 @@ class _EditPhoneWidgetState extends State<EditPhoneWidget> {
     }
 
     return CustomPhoneTextFormField(
-      labelText: widget.label ?? "phone".tr(),
+      labelText: widget.label ?? LangKeys.phoneNumber.tr(),
       controller: widget.controller,
       initialCountryCode: _initialCountryCode,
       onChanged: (PhoneNumber number) {
         widget.onPhoneChanged(number.completeNumber);
+        widget.onPhoneChangedWithoutCode(number.number);
       },
       onCountry: (country) {
         final fullNumber = '+${country.dialCode}${widget.controller.text}';
         widget.onPhoneChanged(fullNumber);
+        widget.onPhoneChangedWithoutCode(widget.controller.text);
       },
       validator: (value) {
         if (value == null || value.number.isEmpty) {

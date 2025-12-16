@@ -10,11 +10,8 @@ class PasswordBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerCubit = context.read<RegisterCubit>();
-    registerCubit.hasPasswordInteracted = false;
-    registerCubit.isFormValid.value = false;
     return Form(
       key: registerCubit.formKey,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

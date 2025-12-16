@@ -25,6 +25,10 @@ class LoginPhoneAndPasswordForm extends StatelessWidget {
                 loginCubit.phoneNumber = v;
                 loginCubit.validateForm();
               },
+              onPhoneChangedWithoutCode: (v) {
+                loginCubit.phoneCon.text = v;
+                loginCubit.validateForm();
+              },
             ),
             Gap(20.h),
             /// Password Field

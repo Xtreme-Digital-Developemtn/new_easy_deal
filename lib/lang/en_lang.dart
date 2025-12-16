@@ -303,6 +303,8 @@ class EnLang {
     "bySigningUpIAccept": "By signing up, I accept the",
     "termsOfService": "Terms of Service",
     "haveAnAccount": "Already have an account?",
+    "didntReceiveIt": "didn't receive it",
+    "resendOtp": "resend OTP",
 
 
 

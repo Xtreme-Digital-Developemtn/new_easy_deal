@@ -22,6 +22,10 @@ class ClientInfoForm extends StatelessWidget {
                 registerCubit.phoneNumber = v;
                 registerCubit.validateForm();
               },
+              onPhoneChangedWithoutCode: (v){
+                registerCubit.phoneCon.text = v;
+                registerCubit.validateForm();
+              },
             ),
             Gap(20.h),
             CustomTextFormField(
@@ -33,7 +37,14 @@ class ClientInfoForm extends StatelessWidget {
 
               // onChanged: (_) => registerCubit.validateForm(),
             ),
-            
+            Gap(20.h),
+            CustomTextFormField(
+              validator: (value) =>
+                  AppValidators.emailValidator(registerCubit.emailCon.text),
+              hintText:   LangKeys.enterYourEmail.tr(),
+              controller: registerCubit.emailCon,
+              onChanged: (_) => registerCubit.onUserInteraction(),
+            ),
           ],
         );
       },

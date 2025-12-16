@@ -303,6 +303,8 @@ class ArLang {
     "bySigningUpIAccept": "بالتسجيل، أنا أوافق على",
     "termsOfService": "شروط الخدمة",
     "haveAnAccount": "هل لديك حساب بالفعل؟",
+    "resendOtp" :"إعادة إرسال رمز التحقق",
+    "didntReceiveIt" : "لم تستلم",
 
 
 

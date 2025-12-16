@@ -49,35 +49,35 @@ class AppValidators {
 //     return null;
 //   }
 //
-//   static String? emailValidator(String? value) {
-//     if (value == null || value.isEmpty) {
-//       return AppStrings.emailValidate; // "Email is required"
-//     }
-//
-//     final emailRegex = RegExp(
-//         r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
-//     );
-//
-//     if (!emailRegex.hasMatch(value)) {
-//       return AppStrings.emailValidate2; // "Please enter a valid email"
-//     }
-//
-//     // Additional checks for common email issues
-//     if (value.contains(' ')) {
-//       return AppStrings.emailNoSpaces; // "Email cannot contain spaces"
-//     }
-//
-//     if (value.startsWith('.') || value.endsWith('.')) {
-//       return AppStrings.emailInvalidDots; // "Email cannot start or end with a dot"
-//     }
-//
-//     if ('@.'.allMatches(value).length > 1) {
-//       return AppStrings.emailMultipleAt; // "Email can only contain one @ symbol"
-//     }
-//
-//     return null;
-//   }
-//
+  static String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return LangKeys.emailValidate.tr();
+    }
+
+    final emailRegex = RegExp(
+        r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
+    );
+
+    if (!emailRegex.hasMatch(value)) {
+      return LangKeys.emailValidate2.tr(); // "Please enter a valid email"
+    }
+
+    // Additional checks for common email issues
+    if (value.contains(' ')) {
+      return LangKeys.emailNoSpaces.tr(); // "Email cannot contain spaces"
+    }
+
+    if (value.startsWith('.') || value.endsWith('.')) {
+      return LangKeys.emailInvalidDots.tr();// "Email cannot start or end with a dot"
+    }
+
+    if ('@.'.allMatches(value).length > 1) {
+      return LangKeys.emailMultipleAt.tr();// "Email can only contain one @ symbol"
+    }
+
+    return null;
+  }
+
   static String? passwordValidator(String? value) {
     if (value == null || value.isEmpty) {
       return LangKeys.passwordValidate.tr(); // "Password is required"

@@ -278,9 +278,17 @@ abstract class LangKeys {
   static const String bySigningUpIAccept = 'bySigningUpIAccept';
   static const String termsOfService = 'termsOfService';
   static const String haveAnAccount = 'haveAnAccount';
-
   static const String didntReceiveIt = 'didntReceiveIt';
   static const String resendOtp = 'resendOtp';
+
+
+
+  static const String emailValidate = 'emailValidate';
+  static const String emailValidate2 = 'emailValidate2';
+  static const String emailNoSpaces = 'emailNoSpaces';
+  static const String emailInvalidDots = 'emailInvalidDots';
+  static const String emailMultipleAt = 'emailMultipleAt';
+  static const String enterYourEmail = 'enterYourEmail';
 
 
 

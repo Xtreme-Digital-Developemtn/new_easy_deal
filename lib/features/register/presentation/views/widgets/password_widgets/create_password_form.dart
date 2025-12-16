@@ -1,41 +1,60 @@
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../view_model/register_cubit.dart';
-import '../../../view_model/register_states.dart';
 
 class CreatePasswordForm extends StatelessWidget {
   const CreatePasswordForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<RegisterCubit>();
+    final registerCubit = context.read<RegisterCubit>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// Password
         CustomTextFormField(
-          controller: cubit.passwordCon,
+          suffixIcon: IconButton(
+            icon: registerCubit.isPasswordVisible
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility),
+            onPressed: registerCubit.changePasswordVisible,
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SvgPicture.asset(SvgImages.lock),
+          ),
+          controller: registerCubit.passwordCon,
           hintText: LangKeys.password.tr(),
-          obscureText: !cubit.isPasswordVisible,
+          obscureText: !registerCubit.isPasswordVisible,
           validator: (v) =>
-              AppValidators.passwordValidator(cubit.passwordCon.text),
-          onChanged: (_) => cubit.onPasswordInteraction(),
+              AppValidators.passwordValidator(registerCubit.passwordCon.text),
+          onChanged: (_) => registerCubit.onPasswordInteraction(),
         ),
 
         Gap(20.h),
 
         /// Confirm Password
         CustomTextFormField(
-          controller: cubit.confirmPasswordCon,
+          suffixIcon: IconButton(
+            icon: registerCubit.isConfirmPasswordVisible
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility),
+            onPressed: registerCubit.changeConfirmPasswordVisible,
+          ),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SvgPicture.asset(SvgImages.lock),
+          ),
+          controller: registerCubit.confirmPasswordCon,
           hintText: LangKeys.newPassword.tr(),
-          obscureText: !cubit.isConfirmPasswordVisible,
+          obscureText: !registerCubit.isConfirmPasswordVisible,
           validator: (v) =>
               AppValidators.repeatPasswordValidator(
                 value: v,
-                password: cubit.passwordCon.text,
+                password: registerCubit.passwordCon.text,
               ),
-          onChanged: (_) => cubit.onPasswordInteraction(),
+          onChanged: (_) => registerCubit.onPasswordInteraction(),
         ),
       ],
     );

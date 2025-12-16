@@ -1,12 +1,15 @@
+import 'dart:io';
+
+import 'package:easy_deal/features/register/data/models/register_model.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
 import '../../data/repos/register_repo.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
-  RegisterCubit(this.contactUsRepo) : super(RegisterInitState());
+  RegisterCubit(this.registerRepo) : super(RegisterInitState());
 
-  RegisterRepo? contactUsRepo;
+  RegisterRepo? registerRepo;
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
@@ -14,10 +17,24 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   changeStepperIndex(int index) {
     activeStep = index;
+
+    if (index == 3 || index == 4) {
+      if(hasPasswordInteracted!=true){
+        initPasswordStep();
+      }
+
+    }
+
     emit(ChangeStepperIndexState(activeStep));
   }
 
-    List<String> stepsNames = [
+
+  void initPasswordStep() {
+    hasPasswordInteracted = false;
+    isFormValid.value = false;
+  }
+
+  List<String> stepsNames = [
     LangKeys.type.tr(),
       LangKeys.gender.tr() ,
     LangKeys.complete.tr(),
@@ -64,6 +81,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   String phoneNumber = '';
   var nameCon = TextEditingController();
   var phoneCon = TextEditingController();
+  var emailCon = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var passwordCon = TextEditingController();
   var confirmPasswordCon = TextEditingController();
@@ -105,4 +123,67 @@ class RegisterCubit extends Cubit<RegisterStates> {
     validateForm();
   }
 
+
+
+  RegisterModel? registerModel;
+  Future<void> register({
+    required String fullName,
+    required String phone,
+    required String password,
+    required String passwordConfirmation,
+    required String gender,
+    required String email,
+    required File? image,
+  }) async {
+    emit(SignUpLoading());
+    FormData formData = FormData.fromMap({
+      "fullName": fullName,
+      "phone": "0$phone",
+      "role": "client",
+      "password": password,
+      "password_confirmation": passwordConfirmation,
+      "email": email!="" ? email : "",
+      "gender": gender,
+      "image": image != null
+          ? await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)
+          : null,
+
+    });
+    final result = await registerRepo!.register(data: formData);
+    return result.fold((failure) {
+      emit(SignUpError(failure.errMessage));
+    }, (data) async {
+      registerModel = data;
+      emit(SignUpSuccess(data));
+      await cacheUserInfo(
+        token: "${data.data!.authToken}",
+        phone: data.data!.phone.toString(),
+        id:  data.data!.id!,
+        email: "${data.data!.email}",
+      );
+      clearControllers();
+    });
+  }
+
+  clearControllers(){
+    nameCon.clear();
+    emailCon.clear();
+    passwordCon.clear();
+    confirmPasswordCon.clear();
+    phoneNumber='';
+    phoneCon.clear();
+    emit(RegisterInitState());
+  }
+
+  cacheUserInfo({required String token ,
+    required String phone ,
+    required int id ,
+    required String email,
+  })
+  async {
+    await CacheTokenManger.saveUserToken(token);
+    CacheHelper.saveData(key: "userPhone", value: phone);
+    CacheHelper.saveData(key: "userId", value: id);
+    CacheHelper.saveData(key: "userEmail", value: email);
+  }
 }

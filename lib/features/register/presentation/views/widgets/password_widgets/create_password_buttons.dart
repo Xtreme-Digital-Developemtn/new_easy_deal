@@ -1,3 +1,5 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -41,9 +43,10 @@ class CreatePasswordButtons extends StatelessWidget {
             ),
             Gap(12.h),
             if (registerCubit.activeStep == 4)
-              CustomButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
+              BlocConsumer<RegisterCubit , RegisterStates>(
+                listener:(context,state){
+                  if(state is SignUpSuccess){
+                    Toast.showSuccessToast(msg: state.registerModel.message.toString(), context: context);
                     context.pushNamed(
                       Routes.otpView,
                       arguments: {
@@ -53,8 +56,36 @@ class CreatePasswordButtons extends StatelessWidget {
                       },
                     );
                   }
-                },
-                text: LangKeys.sendCode.tr(),
+                  else if (state is SignUpError){
+                    Toast.showErrorToast(msg: state.message.toString(), context: context);
+                  }
+                } ,
+                builder: (context,state){
+                 return   ConditionalBuilder(
+                   condition: state is ! SignUpLoading,
+                   fallback: (context)=>CustomLoading(),
+                  builder: (context){
+                     return CustomButton(
+                       onPressed: () {
+                         if (formKey.currentState!.validate()) {
+                           registerCubit.register(
+                             fullName: registerCubit.nameCon.text,
+                             phone: registerCubit.phoneCon.text,
+                             password:registerCubit.passwordCon.text,
+                             passwordConfirmation: registerCubit.confirmPasswordCon.text,
+                             gender: registerCubit.gender.toString(),
+                             email: registerCubit.emailCon.text,
+                             image: null,
+                           );
+
+                         }
+                       },
+                       text: LangKeys.sendCode.tr(),
+                     );
+                  },
+                 );
+                } ,
+
               ),
           ],
         );
