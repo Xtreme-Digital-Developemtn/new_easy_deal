@@ -1,9 +1,14 @@
 
 
 
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/errors/failure.dart';
+import '../models/logout_model.dart';
+
 abstract class ProfileRepo{
 
-  // Future<Either<Failure,MainCategoriesModel>> getAllMainCategories();
+   Future<Either<Failure,LogoutModel>> logout();
 
 
 

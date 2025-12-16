@@ -289,6 +289,9 @@ abstract class LangKeys {
   static const String emailInvalidDots = 'emailInvalidDots';
   static const String emailMultipleAt = 'emailMultipleAt';
   static const String enterYourEmail = 'enterYourEmail';
+  static const String logout = 'logout';
+  static const String areYouSureLogout = 'areYouSureLogout';
+  static const String confirmLogout = 'confirmLogout';
 
 
 

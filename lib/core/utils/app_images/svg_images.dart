@@ -63,6 +63,7 @@ class SvgImages
   static const String map2 = "$svgPath/map-pin-svgrepo-com 1.svg";
   static const String ads = "$svgPath/ads-svgrepo-com.svg";
   static const String trash = "$svgPath/trash-bin-minimalistic-svgrepo-com.svg";
+  static const String logout = "$svgPath/logout.svg";
 
 
 
