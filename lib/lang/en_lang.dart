@@ -305,6 +305,18 @@ class EnLang {
     "haveAnAccount": "Already have an account?",
     "didntReceiveIt": "didn't receive it",
     "resendOtp": "resend OTP",
+    "emailValidate": "Email is required",
+    "emailValidate2": "Please enter your email",
+    "emailNoSpaces": "Email cannot contain spaces",
+    "emailInvalidDots": "Invalid email (incorrect dots)",
+    "emailMultipleAt": "Email cannot contain more than one @ symbol",
+    "enterYourEmail": "Enter your email",
+    "logout": "Logout",
+    "areYouSureLogout": "Are you sure you want to logout?",
+    "confirmLogout": "Confirm Logout",
+    "noUnitsAvailable": "No units available",
+    "somethingWentWrong": "Something went wrong",
+    "reload": "Reload",
 
 
 

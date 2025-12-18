@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 class CategoryUnitsView extends StatelessWidget {
   const CategoryUnitsView({super.key, required this.categoryName});
   final String categoryName;
-
   @override
   Widget build(BuildContext context) {
     final bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
@@ -49,7 +48,7 @@ class CategoryUnitsView extends StatelessWidget {
               ],
             ),
             Gap(24.h),
-            CategoryUnitsList(),
+            CategoryUnitsList(unitId: 1,),
           ],
         ),
       ),

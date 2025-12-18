@@ -159,8 +159,11 @@ class AppRouter {
         return transition(screen: const AboutUsView(),
             cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()));
       case Routes.unitDetailsView:
-        return transition(screen: const UnitDetailsView(),
-            cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>()));
+        final args = arguments as Map<String, dynamic>;
+        return transition(screen:   UnitDetailsView(
+            unitId: args["unitId"] as int,
+        ),
+            cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>())..getUnitDetails(unitId: args["unitId"] as int));
       case Routes.userChatView:
         return transition(screen: const UserChatView(),
             cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()));
@@ -250,7 +253,7 @@ class AppRouter {
     return [
       userRole == "client"
           ? BlocProvider(
-        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>()),
+        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())..getBestSellerUnitsInHome(),
         child: HomeView(),
       )
           : BlocProvider(

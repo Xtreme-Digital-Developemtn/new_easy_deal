@@ -280,9 +280,6 @@ abstract class LangKeys {
   static const String haveAnAccount = 'haveAnAccount';
   static const String didntReceiveIt = 'didntReceiveIt';
   static const String resendOtp = 'resendOtp';
-
-
-
   static const String emailValidate = 'emailValidate';
   static const String emailValidate2 = 'emailValidate2';
   static const String emailNoSpaces = 'emailNoSpaces';
@@ -292,6 +289,10 @@ abstract class LangKeys {
   static const String logout = 'logout';
   static const String areYouSureLogout = 'areYouSureLogout';
   static const String confirmLogout = 'confirmLogout';
+  static const String noUnitsAvailable = 'noUnitsAvailable';
+  static const String somethingWentWrong = 'somethingWentWrong';
+  static const String reload = 'reload';
+
 
 
 

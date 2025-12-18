@@ -10,8 +10,8 @@ import 'package:easy_deal/main_imports.dart';
 
 
 class UnitDetailsView extends StatelessWidget {
-  const UnitDetailsView({super.key});
-
+  const UnitDetailsView({super.key, required this.unitId});
+  final int unitId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

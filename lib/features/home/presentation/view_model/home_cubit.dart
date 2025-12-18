@@ -1,6 +1,7 @@
 
 
 import '../../../../main_imports.dart';
+import '../../data/models/best_seller_units_model.dart';
 import '../../data/repos/home_repo.dart';
 import 'home_states.dart';
 
@@ -32,5 +33,18 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(ChooseCategoryState());
   }
 
+
+
+  BestSellerUnitsModel? bestSellerUnitsModel;
+  Future<void> getBestSellerUnitsInHome() async {
+    emit(GetBestSellerUnitsInHomeLoadingState());
+    var result = await homeRepo!.getBestSellerUnitsInHome();
+    return result.fold((failure) {
+      emit(GetBestSellerUnitsInHomeErrorState(failure.errMessage));
+    }, (data) async {
+      bestSellerUnitsModel = data;
+      emit(GetBestSellerUnitsInHomeSuccessState(data));
+    });
+  }
 
 }

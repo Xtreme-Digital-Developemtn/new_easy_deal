@@ -305,6 +305,18 @@ class ArLang {
     "haveAnAccount": "هل لديك حساب بالفعل؟",
     "resendOtp" :"إعادة إرسال رمز التحقق",
     "didntReceiveIt" : "لم تستلم",
+    "emailValidate": "البريد الإلكتروني مطلوب",
+    "emailValidate2": "من فضلك أدخل بريدك الإلكتروني",
+    "emailNoSpaces": "البريد الإلكتروني لا يمكن أن يحتوي على مسافات",
+    "emailInvalidDots": "البريد الإلكتروني غير صالح (نقاط غير صحيحة)",
+    "emailMultipleAt": "البريد الإلكتروني لا يمكن أن يحتوي على أكثر من علامة @",
+    "enterYourEmail": "أدخل بريدك الإلكتروني",
+    "logout": "تسجيل الخروج",
+    "areYouSureLogout": "هل أنت متأكد من تسجيل الخروج؟",
+    "confirmLogout": "تأكيد تسجيل الخروج",
+    "noUnitsAvailable": "لا توجد وحدات متاحة",
+    "somethingWentWrong": "حدث خطأ ما",
+    "reload": "إعادة تحميل",
 
 
 

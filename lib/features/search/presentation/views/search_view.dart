@@ -17,7 +17,7 @@ class SearchView extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context,index){
-                    return UnitItem();
+                    return UnitItem(unitId: 1,);
                   },
                   separatorBuilder: (context,index){
                     return Gap(12.h);

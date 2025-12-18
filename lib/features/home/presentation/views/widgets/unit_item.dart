@@ -1,14 +1,23 @@
-import 'package:easy_deal/main_imports.dart';
+ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitItem extends StatelessWidget {
-  const UnitItem({super.key, });
-
+  const UnitItem({super.key, required this.unitId, this.unitImage, this.unitType, this.unitPrice, this.unitApartment, this.city, this.area, this.subArea, });
+  final int unitId;
+  final String? unitImage;
+  final String? unitType;
+  final String? unitPrice;
+  final String? unitApartment;
+  final String? city;
+  final String? area;
+  final String? subArea;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        context.pushNamed(Routes.unitDetailsView);
+        context.pushNamed(Routes.unitDetailsView,arguments: {
+          "unitId" : unitId,
+        });
       },
       child: Container(
         width: 260.w,
@@ -20,7 +29,9 @@ class UnitItem extends StatelessWidget {
         child: Column(
           children: [
             Stack(
-              alignment: Alignment.topLeft,
+              alignment: context.isArabic
+                  ? Alignment.topRight
+                  : Alignment.topLeft,
               children: [
                 ClipRRect(
                     borderRadius: BorderRadiusGeometry.only(topLeft: Radius.circular(12.r),topRight: Radius.circular(12.r)),
@@ -28,46 +39,48 @@ class UnitItem extends StatelessWidget {
                         width: double.infinity,
                         height: 190.h,
                         fit: BoxFit.cover,
-                        imageUrl: "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+                        imageUrl:unitImage?? "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
                         raduis: 0)),
-                Positioned(
-                  top: 16.h,
-                  left: 16.w,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: AppColors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(SvgImages.star,height: 8.h,),
-                        Gap(6.w),
-                        Text("Feature",style: AppStyles.gray8Medium,),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 16.h,
-                  left: 90.w,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: AppColors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(SvgImages.money,height: 8.h,),
-                        Gap(6.w),
-                        Text("2150.50000",style: AppStyles.gray8Medium,),
-                      ],
-                    ),
-                  ),
-                ),
+               Positioned(
+                 top: 16.h,
+                 left: context.isArabic ? null : 16.w,
+                 right: context.isArabic ? 16.w : null,
+                 child: Row(
+                   children: [
+                     Container(
+                       padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
+                       decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(12.r),
+                         color: AppColors.white,
+                       ),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                           SvgPicture.asset(SvgImages.star,height: 8.h,),
+                           Gap(6.w),
+                           Text(unitType??"Feature 1",style: AppStyles.gray8Medium,),
+                         ],
+                       ),
+                     ),
+                     Gap(8.w),
+                     Container(
+                       padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
+                       decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(12.r),
+                         color: AppColors.white,
+                       ),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                           SvgPicture.asset(SvgImages.money,height: 8.h,),
+                           Gap(6.w),
+                           Text(unitPrice??"2150.50000",style: AppStyles.gray8Medium,),
+                         ],
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -89,22 +102,24 @@ class UnitItem extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 50.h,
-                  left: 16.w,
+                  left: context.isArabic ? null : 16.w,
+                  right: context.isArabic ? 16.w : null,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       color: AppColors.primaryDark,
                     ),
-                    child: Text("Apartment",style: AppStyles.white12Medium,),
+                    child: Text(unitApartment ?? "Apartment",style: AppStyles.white12Medium,),
                   ),
                 ),
                 Positioned(
                   bottom: 25.h,
-                  left: 16.w,
+                  left: context.isArabic ? null : 16.w,
+                  right: context.isArabic ? 16.w : null,
                   child: Row(
                     children: [
-                      Text("Marasem, New Cairo",style: AppStyles.white14SemiBold,),
+                      Text(city??"Marasem, New Cairo",style: AppStyles.white14SemiBold,),
                       Gap(4.w),
                       SvgPicture.asset(SvgImages.verified),
                     ],
@@ -112,8 +127,15 @@ class UnitItem extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 10.h,
-                  left: 16.w,
-                  child: Text("Marasem, New Cairo",style: AppStyles.white10Regular,),
+                  left: context.isArabic ? null : 16.w,
+                  right: context.isArabic ? 16.w : null,
+                  child: Row(
+                    children: [
+                      Text(area ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+                      Gap(4.w),
+                      Text(subArea ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+                    ],
+                  ),
                 ),
               ],
             ),
