@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import '../../../../main_imports.dart';
 import '../models/best_seller_units_model.dart';
+import '../models/unit_types_model.dart';
 import 'home_repo.dart';
 
 
@@ -19,6 +20,19 @@ class HomeRepoImpl implements HomeRepo {
         }
       );
       BestSellerUnitsModel result = BestSellerUnitsModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UnitTypesModel>> getUnitTypes() async{
+    try {
+      var response = await apiService!.getData(
+          endPoint: EndPoints.unitUniTypes,
+      );
+      UnitTypesModel result = UnitTypesModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

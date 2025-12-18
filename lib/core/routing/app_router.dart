@@ -253,7 +253,7 @@ class AppRouter {
     return [
       userRole == "client"
           ? BlocProvider(
-        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())..getBestSellerUnitsInHome(),
+        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())..getBestSellerUnitsInHome()..getUnitTypes(),
         child: HomeView(),
       )
           : BlocProvider(

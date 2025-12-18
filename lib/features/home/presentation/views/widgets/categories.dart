@@ -7,42 +7,48 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit , HomeStates>(
-      buildWhen: (previous, current){
+    return BlocBuilder<HomeCubit, HomeStates>(
+      buildWhen: (previous, current) {
         return current is ChooseCategoryState;
       },
-      builder:  (context,state){
+      builder: (context, state) {
         var homeCubit = context.read<HomeCubit>();
         return Padding(
-          padding:   EdgeInsets.symmetric(horizontal: 12.w),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: SizedBox(
             height: 24.h,
-            child:ListView.separated(
+            child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context,index){
-                return  InkWell(
-                  onTap: (){
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
                     homeCubit.chooseCategory(index);
-                    context.pushNamed(Routes.categoryUnitsView,arguments: {"categoryName" : homeCubit.categories[index]});
+                    context.pushNamed(
+                      Routes.categoryUnitsView,
+                      arguments: {"categoryName": homeCubit.categories[index]},
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     height: 24.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
-                      color: homeCubit.selectCategory==index ? AppColors.primaryDark : AppColors.backgroundLight,
+                      color: homeCubit.selectCategory == index
+                          ? AppColors.primaryDark
+                          : AppColors.backgroundLight,
                     ),
                     child: Center(
                       child: Text(
-
                         homeCubit.categories[index],
-                        style:  homeCubit.selectCategory==index ?  AppStyles.white12Medium : AppStyles.black12Medium,
+                        style: homeCubit.selectCategory == index
+                            ? AppStyles.white12Medium
+                            : AppStyles.black12Medium,
                       ),
                     ),
                   ),
                 );
               },
-              separatorBuilder: (context,index){
+              separatorBuilder: (context, index) {
                 return Gap(12.w);
               },
               itemCount: homeCubit.categories.length,
@@ -50,7 +56,6 @@ class Categories extends StatelessWidget {
           ),
         );
       },
-
     );
   }
 }

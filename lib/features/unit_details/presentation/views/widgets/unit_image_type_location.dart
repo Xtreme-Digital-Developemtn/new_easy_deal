@@ -1,8 +1,12 @@
 import '../../../../../main_imports.dart';
 
 class UnitImageTypeLocation extends StatelessWidget {
-  const UnitImageTypeLocation({super.key});
-
+  const UnitImageTypeLocation({super.key, required this.image, required this.apartment, required this.city, required this.area, required this.subArea});
+  final String? image;
+  final String? apartment;
+  final String? city;
+  final String? area;
+  final String? subArea;
   @override
   Widget build(BuildContext context) {
     return     Container(
@@ -14,7 +18,7 @@ class UnitImageTypeLocation extends StatelessWidget {
               width: double.infinity,
               height: 300.h,
               fit: BoxFit.cover,
-              imageUrl: "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+              imageUrl:image?? "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
               raduis: 12.r),
           Positioned(
             bottom: 0,
@@ -38,22 +42,24 @@ class UnitImageTypeLocation extends StatelessWidget {
           ),
           Positioned(
             bottom: 50.h,
-            left: 16.w,
+            left:context.isArabic ? null : 16.w,
+            right:context.isArabic ?  16.w : null,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 6.h),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
                 color: AppColors.primaryDark,
               ),
-              child: Text("Apartment",style: AppStyles.white12Medium,),
+              child: Text(apartment ?? "Apartment",style: AppStyles.white12Medium,),
             ),
           ),
           Positioned(
             bottom: 25.h,
-            left: 16.w,
+            left:context.isArabic ? null : 16.w,
+            right:context.isArabic ?  16.w : null,
             child: Row(
               children: [
-                Text("Marasem, New Cairo",style: AppStyles.white14SemiBold,),
+                Text(city ?? "Marasem, New Cairo",style: AppStyles.white14SemiBold,),
                 Gap(4.w),
                 SvgPicture.asset(SvgImages.verified),
               ],
@@ -61,8 +67,15 @@ class UnitImageTypeLocation extends StatelessWidget {
           ),
           Positioned(
             bottom: 10.h,
-            left: 16.w,
-            child: Text("Marasem, New Cairo",style: AppStyles.white10Regular,),
+            left:context.isArabic ? null : 16.w,
+            right:context.isArabic ?  16.w : null,
+            child: Row(
+              children: [
+                Text(area ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+                Gap(4.w),
+                Text(subArea ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+              ],
+            ),
           ),
         ],
       ),

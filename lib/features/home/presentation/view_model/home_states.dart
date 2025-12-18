@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/home/data/models/best_seller_units_model.dart';
+import 'package:easy_deal/features/home/data/models/unit_types_model.dart';
 
 abstract class HomeStates {}
 
@@ -20,4 +21,19 @@ class GetBestSellerUnitsInHomeSuccessState extends HomeStates {
   final BestSellerUnitsModel bestSellerUnitsModel;
 
   GetBestSellerUnitsInHomeSuccessState(this.bestSellerUnitsModel);
+}
+
+
+class GetUnitTypesLoadingState extends HomeStates {}
+
+class GetUnitTypesErrorState extends HomeStates {
+  final String error;
+
+  GetUnitTypesErrorState(this.error);
+}
+
+class GetUnitTypesSuccessState extends HomeStates {
+  final UnitTypesModel unitTypesModel;
+
+  GetUnitTypesSuccessState(this.unitTypesModel);
 }

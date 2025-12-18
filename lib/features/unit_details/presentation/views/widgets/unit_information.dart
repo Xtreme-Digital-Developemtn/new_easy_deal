@@ -2,7 +2,14 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitInformation extends StatelessWidget {
-  const UnitInformation({super.key});
+  const UnitInformation({super.key,required this.beds, required this.baths, required this.sqft, required this.areaSize, required
+  this.poal, required this.builtIn});
+  final dynamic beds;
+  final dynamic baths;
+  final dynamic sqft;
+  final dynamic areaSize;
+  final dynamic poal;
+  final dynamic builtIn;
 
   @override
   Widget build(BuildContext context) {

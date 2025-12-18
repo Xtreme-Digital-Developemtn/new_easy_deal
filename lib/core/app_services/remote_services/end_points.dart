@@ -6,6 +6,7 @@ class EndPoints {
   static const String logout = 'auth/logout';
   static const String unitDetails = 'unit';
   static const String bestSellerUnitsInHome = 'unit/advertisement-shuffle';
+  static const String unitUniTypes = 'unit/unit-types';
 
 
 

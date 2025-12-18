@@ -2,14 +2,17 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitPriceStatusIndoor extends StatelessWidget {
-  const UnitPriceStatusIndoor({super.key});
+  const UnitPriceStatusIndoor({super.key, required this.price, required this.type, required this.status});
+  final String? price;
+  final String? type;
+  final String? status;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("6000000.00 ${LangKeys.egp.tr()}",style: AppStyles.green20ExtraBold,),
+        Text(price ?? "6000000.00 ${LangKeys.egp.tr()}",style: AppStyles.green20ExtraBold,),
         Gap(12.h),
         Row(
           children: [
@@ -31,7 +34,7 @@ class UnitPriceStatusIndoor extends StatelessWidget {
                     ),
                   ),
                   Gap(4.w),
-                  Text("Compound",style: AppStyles.white12Medium.copyWith(
+                  Text(type ?? "Compound",style: AppStyles.white12Medium.copyWith(
                     color: Color.fromRGBO(44, 161, 241, 1),
                   ),),
                 ],
@@ -44,7 +47,7 @@ class UnitPriceStatusIndoor extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6.r),
                 color: AppColors.greenDark,
               ),
-              child: Text(LangKeys.available.tr(),style: AppStyles.white12Medium,),
+              child: Text(status ?? LangKeys.available.tr(),style: AppStyles.white12Medium,),
             ),
           ],
         ),

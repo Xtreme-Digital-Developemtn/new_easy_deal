@@ -5,7 +5,21 @@ import 'broker_specializations_list.dart';
 import 'broker_verified_mark.dart';
 
 class UnitBrokerInfo extends StatelessWidget {
-  const UnitBrokerInfo({super.key});
+  const UnitBrokerInfo({
+    super.key,
+    required this.brokerName,
+    required this.brokerRate,
+    required this.brokerImage,
+    required this.brokerVerify,
+    required this.brokerSpecializationsList, required this.brokerLicense,
+  });
+
+  final String? brokerName;
+  final String? brokerRate;
+  final String? brokerLicense;
+  final String? brokerImage;
+  final bool? brokerVerify;
+  final List? brokerSpecializationsList;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +33,12 @@ class UnitBrokerInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BrokerNameImageRateSelling(),
+          BrokerNameImageRateSelling(
+            brokerName: brokerName,
+            brokerRate: brokerRate,
+            brokerImage: brokerImage,
+            brokerLicense: brokerLicense,
+          ),
           Gap(12.h),
           BrokerVerifiedMark(),
           Gap(8.h),

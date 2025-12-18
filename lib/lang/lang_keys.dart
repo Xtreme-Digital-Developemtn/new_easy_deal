@@ -292,6 +292,13 @@ abstract class LangKeys {
   static const String noUnitsAvailable = 'noUnitsAvailable';
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String reload = 'reload';
+  // static const String requestToPurchaseProperty = 'requestToPurchaseProperty';
+  // static const String requestToRentalProperty = 'requestToRentalProperty';
+  // static const String requestToSaleProperty = 'requestToSaleProperty';
+  // static const String requestToRentProperty = 'requestToRentProperty';
+  // static const String requestToRentingHotelUnit = 'requestToRentingHotelUnit';
+  // static const String requestToRentHotelUnit = 'requestToRentHotelUnit';
+
 
 
 
