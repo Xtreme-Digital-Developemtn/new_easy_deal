@@ -55,6 +55,13 @@ class AppColors {
   static const divider = Color(0xff92929D);
   static const scaffoldBackground = Color(0xffffffff);
 
+  static const orangeOriginal = Color(0xFFFF9100);    // Original
+  static const orangeMedium = Color(0xFFE67A00);      // Slightly darker
+  static const orange = Color(0xFFCC6A00);
+  // Medium dark
+
+
+
   // Transparent Colors
   static Color shadowLight = const Color(0xff030303).withValues(alpha: 0.1);
 }

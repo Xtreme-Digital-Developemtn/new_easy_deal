@@ -292,12 +292,20 @@ abstract class LangKeys {
   static const String noUnitsAvailable = 'noUnitsAvailable';
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String reload = 'reload';
-  // static const String requestToPurchaseProperty = 'requestToPurchaseProperty';
-  // static const String requestToRentalProperty = 'requestToRentalProperty';
-  // static const String requestToSaleProperty = 'requestToSaleProperty';
-  // static const String requestToRentProperty = 'requestToRentProperty';
-  // static const String requestToRentingHotelUnit = 'requestToRentingHotelUnit';
-  // static const String requestToRentHotelUnit = 'requestToRentHotelUnit';
+  static const String requestToPurchaseProperty = 'requestToPurchaseProperty';
+  static const String requestToRentalProperty = 'requestToRentalProperty';
+  static const String requestToSaleProperty = 'requestToSaleProperty';
+  static const String requestToRentProperty = 'requestToRentProperty';
+  static const String requestToRentingHotelUnit = 'requestToRentingHotelUnit';
+  static const String requestToRentHotelUnit = 'requestToRentHotelUnit';
+  static const String sold = 'sold';
+  static const String previousOrders = 'previousOrders';
+  static const String outOfListing = 'outOfListing';
+  static const String pendingOrders = 'pendingOrders';
+  static const String inProcess = 'inProcess';
+  static const String completedOrders = 'completedOrders';
+  static const String activeOrders = 'activeOrders';
+  static const String currentRequests = 'currentRequests';
 
 
 

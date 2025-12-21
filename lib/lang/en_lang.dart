@@ -317,6 +317,20 @@ class EnLang {
     "noUnitsAvailable": "No units available",
     "somethingWentWrong": "Something went wrong",
     "reload": "Reload",
+    "requestToPurchaseProperty": "request to purchase property",
+    "requestToRentalProperty": "request to rental property",
+    "requestToSaleProperty": "request to sale property",
+    "requestToRentProperty": "request to rent property",
+    "requestToRentingHotelUnit": "request to renting hotel unit",
+    "requestToRentHotelUnit": "request to rent hotel unit",
+    "sold": "sold",
+    "previousOrders": "previous orders",
+    "outOfListing": "out of listing",
+    "pendingOrders": "pending orders",
+    "inProcess": "in process",
+    "completedOrders": "completed orders",
+    "activeOrders": "active orders",
+    "currentRequests": "current requests"
 
 
 

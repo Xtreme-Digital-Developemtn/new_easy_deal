@@ -317,6 +317,20 @@ class ArLang {
     "noUnitsAvailable": "لا توجد وحدات متاحة",
     "somethingWentWrong": "حدث خطأ ما",
     "reload": "إعادة تحميل",
+    "requestToPurchaseProperty": "طلب شراء عقار",
+    "requestToRentalProperty": "طلب تأجير عقار",
+    "requestToSaleProperty": "طلب بيع عقار",
+    "requestToRentProperty": "طلب إيجار عقار",
+    "requestToRentingHotelUnit": "طلب تأجير وحدة فندقية",
+    "requestToRentHotelUnit": "طلب إيجار وحدة فندقية",
+    "sold": "مباع",
+    "previousOrders": "الطلبات السابقة",
+    "outOfListing": "خارج القائمة",
+    "pendingOrders": "طلبات معلقة",
+    "inProcess": "قيد التنفيذ",
+    "completedOrders": "طلبات مكتملة",
+    "activeOrders": "طلبات نشطة",
+    "currentRequests": "الطلبات الحالية"
 
 
 

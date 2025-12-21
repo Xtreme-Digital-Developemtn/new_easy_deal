@@ -8,7 +8,6 @@ class BrokerHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(CacheHelper.getData(key: "role"));
     return Scaffold(
       body: SafeArea(child: Padding(
         padding:   EdgeInsets.all(20.0.r),

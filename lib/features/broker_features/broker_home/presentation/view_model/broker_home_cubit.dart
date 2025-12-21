@@ -11,6 +11,10 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
   static BrokerHomeCubit get(context) => BlocProvider.of(context);
 
 
-
-
+  int? selectedCategoryIndex;
+  void selectCategoryItem(int index)
+  {
+    selectedCategoryIndex = index;
+    emit(SelectCategoryItemState());
+  }
 }
