@@ -348,6 +348,8 @@ class ArLang {
     "pending": "معلق",
     "inactive": "غير نشط",
     "actions": "الإجراءات",
+    "mapLocations": "المواقع على الخريطة",
+    "tapAnyLocationToOpenInMapsApp": "انقر على أي موقع لفتحه في تطبيق الخرائط",
 
 
 

@@ -45,7 +45,7 @@ class BrokerCategories extends StatelessWidget {
             Gap(12.h),
             BrokerCategoryItem(svgImage: SvgImages.map2, title: LangKeys.maps,
               onTap: (){
-               // context.pushNamed(Routes.brokerDataView);
+               context.pushNamed(Routes.brokerMapsView);
                 brokerHomeCubit.selectCategoryItem(4);
               },
               isSelected: brokerHomeCubit.selectedCategoryIndex==4,),

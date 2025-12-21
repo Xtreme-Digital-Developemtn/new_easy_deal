@@ -39,6 +39,9 @@ import '../../features/broker_features/broker_developers/presentation/views/brok
 import '../../features/broker_features/broker_home/data/repos/broker_home_repo_imple.dart';
 import '../../features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
 import '../../features/broker_features/broker_home/presentation/views/broker_home_view.dart';
+import '../../features/broker_features/broker_maps/data/repos/broker_maps_repo_imple.dart';
+import '../../features/broker_features/broker_maps/presentation/view_model/broker_maps_cubit.dart';
+import '../../features/broker_features/broker_maps/presentation/views/broker_maps_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
 import '../../features/change_password/data/repos/change_password_repo_imple.dart';
@@ -248,6 +251,9 @@ class AppRouter {
       case Routes.brokerAdsView:
         return transition(screen: const BrokerAdsView(),
             cubit: BrokerAdsCubit(getIt.get<BrokerAdsRepoImpl>()));
+      case Routes.brokerMapsView:
+        return transition(screen: const BrokerMapsView(),
+            cubit: BrokerMapsCubit(getIt.get<BrokerMapsRepoImpl>()));
         default:
         return null;
     }

@@ -51,6 +51,13 @@ class AppStyles {
     color: AppColors.black,
   );
 
+  static final TextStyle black20SemiBold = _createStyle(
+    fontSize: 20.sp,
+    fontWeight: semiBold,
+    color: AppColors.black,
+  );
+
+
   static final TextStyle white14Medium = _createStyle(
     fontSize: 14.sp,
     fontWeight: medium,
@@ -150,7 +157,13 @@ class AppStyles {
   );
 
 
- 
+
+  static final TextStyle grayDark14Medium = _createStyle(
+    fontSize: 14.sp,
+    fontWeight: medium,
+    color: AppColors.gray2,
+  );
+
   static final TextStyle gray14Medium = _createStyle(
     fontSize: 14.sp,
     fontWeight: medium,

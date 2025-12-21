@@ -7,7 +7,7 @@ class BrokerAdsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.developers),
+      appBar: GlobalAppBar(title: LangKeys.myAds),
       body: Column(
         children: [
           Expanded(child: AdsTableWidget()),

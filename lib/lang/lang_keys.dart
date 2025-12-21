@@ -323,6 +323,8 @@ abstract class LangKeys {
   static const String pending = 'pending';
   static const String inactive = 'inactive';
   static const String actions = 'actions';
+  static const String mapLocations = 'mapLocations';
+  static const String tapAnyLocationToOpenInMapsApp = 'tapAnyLocationToOpenInMapsApp';
 
 
 

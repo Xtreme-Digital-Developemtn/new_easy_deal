@@ -6,7 +6,7 @@ class BrokerDataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.developers),
+      appBar: GlobalAppBar(title: LangKeys.myData),
       body: Column(
         children: [
           Expanded(child: DataTableWidget()),

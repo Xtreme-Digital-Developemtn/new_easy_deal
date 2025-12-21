@@ -348,6 +348,9 @@ class EnLang {
     "pending": "Pending",
     "inactive": "Inactive",
     "actions": "Actions",
+    "mapLocations": "Map Locations",
+    "tapAnyLocationToOpenInMapsApp": "Tap any location to open in maps app",
+
 
 
 
