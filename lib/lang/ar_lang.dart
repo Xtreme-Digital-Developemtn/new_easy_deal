@@ -330,7 +330,25 @@ class ArLang {
     "inProcess": "قيد التنفيذ",
     "completedOrders": "طلبات مكتملة",
     "activeOrders": "طلبات نشطة",
-    "currentRequests": "الطلبات الحالية"
+    "currentRequests": "الطلبات الحالية",
+    "adTitle": "عنوان الإعلان",
+    "purpose": "الغرض",
+    "view": "الإطلالة",
+    "size": "المساحة",
+    "rooms": "الغرف",
+    "pathRooms": "دورات المياه",
+    "myPrice": "سعري",
+    "select": "تحديد",
+    "selectedItems": "العناصر المحددة",
+    "itemsSelected": "عنصر محدد",
+    "clearSelection": "مسح التحديد",
+    "selectItemsFirst": "الرجاء تحديد عناصر أولاً",
+    "itemsDeleted": "عنصر محذوف",
+    "active": "نشط",
+    "pending": "معلق",
+    "inactive": "غير نشط",
+    "actions": "الإجراءات",
+
 
 
 

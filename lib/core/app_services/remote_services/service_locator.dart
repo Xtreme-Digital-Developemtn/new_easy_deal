@@ -8,6 +8,7 @@ import 'package:easy_deal/features/change_password/data/repos/change_password_re
 import '../../../features/about_us/data/repos/about_us_repo_imple.dart';
 import '../../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.dart';
 import '../../../features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
+import '../../../features/broker_features/broker_ads/data/repos/broker_ads_repo_imple.dart';
 import '../../../features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import '../../../features/broker_features/broker_home/data/repos/broker_home_repo_imple.dart';
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
@@ -114,6 +115,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<BrokerDataRepoImpl>(BrokerDataRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<BrokerAdsRepoImpl>(BrokerAdsRepoImpl(
     getIt.get<ApiService>(),
   ));
 }

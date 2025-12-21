@@ -31,6 +31,7 @@ class Routes {
   static const String editRegistrationPapersView = 'editRegistrationPapersView';
   static const String brokerDevelopersView = 'brokerDevelopersView';
   static const String brokerDataView = 'brokerDataView';
+  static const String brokerAdsView = 'brokerAdsView';
 
 
 

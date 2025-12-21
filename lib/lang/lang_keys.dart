@@ -306,6 +306,23 @@ abstract class LangKeys {
   static const String completedOrders = 'completedOrders';
   static const String activeOrders = 'activeOrders';
   static const String currentRequests = 'currentRequests';
+  static const String adTitle = 'adTitle';
+  static const String purpose = 'purpose';
+  static const String view = 'view';
+  static const String size = 'size';
+  static const String rooms = 'rooms';
+  static const String pathRooms = 'pathRooms';
+  static const String myPrice = 'myPrice';
+  static const String select = 'select';
+  static const String selectedItems = 'selectedItems';
+  static const String itemsSelected = 'itemsSelected';
+  static const String clearSelection = 'clearSelection';
+  static const String selectItemsFirst = 'selectItemsFirst';
+  static const String itemsDeleted = 'itemsDeleted';
+  static const String active = 'active';
+  static const String pending = 'pending';
+  static const String inactive = 'inactive';
+  static const String actions = 'actions';
 
 
 

@@ -15,14 +15,14 @@ class BrokerCategories extends StatelessWidget {
         return Column(
           children: [
             BrokerCategoryItem(svgImage: SvgImages.search, title: LangKeys.startNewRequest,onTap: (){
-            //  context.pushNamed(Routes.createRequestView);
+              context.pushNamed(Routes.createRequestView);
               brokerHomeCubit.selectCategoryItem(0);
             },
               isSelected: brokerHomeCubit.selectedCategoryIndex==0,
             ),
             Gap(12.h),
             BrokerCategoryItem(svgImage: SvgImages.developers, title: LangKeys.developers,onTap: (){
-             // context.pushNamed(Routes.brokerDevelopersView);
+             context.pushNamed(Routes.brokerDevelopersView);
               brokerHomeCubit.selectCategoryItem(1);
             },
               isSelected: brokerHomeCubit.selectedCategoryIndex==1,
@@ -30,7 +30,7 @@ class BrokerCategories extends StatelessWidget {
             Gap(12.h),
             BrokerCategoryItem(svgImage: SvgImages.myData, title: LangKeys.myData,
               onTap: (){
-            //    context.pushNamed(Routes.brokerDataView);
+              context.pushNamed(Routes.brokerDataView);
                 brokerHomeCubit.selectCategoryItem(2);
               },
               isSelected: brokerHomeCubit.selectedCategoryIndex==2,
@@ -38,7 +38,7 @@ class BrokerCategories extends StatelessWidget {
             Gap(12.h),
             BrokerCategoryItem(svgImage: SvgImages.ads, title: LangKeys.myAds,
               onTap: (){
-               // context.pushNamed(Routes.brokerDataView);
+               context.pushNamed(Routes.brokerAdsView);
                 brokerHomeCubit.selectCategoryItem(3);
               },
               isSelected: brokerHomeCubit.selectedCategoryIndex==3,),

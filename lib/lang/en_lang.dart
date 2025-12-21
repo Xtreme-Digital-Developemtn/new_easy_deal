@@ -330,7 +330,25 @@ class EnLang {
     "inProcess": "in process",
     "completedOrders": "completed orders",
     "activeOrders": "active orders",
-    "currentRequests": "current requests"
+    "currentRequests": "current requests",
+    "adTitle": "ad title",
+    "purpose": "purpose",
+    "view": "view",
+    "size": "size",
+    "rooms": "rooms",
+    "pathRooms": "path rooms",
+    "myPrice": "my price",
+    "select": "Select",
+    "selectedItems": "Selected Items",
+    "itemsSelected": "items selected",
+    "clearSelection": "Clear Selection",
+    "selectItemsFirst": "Please select items first",
+    "itemsDeleted": "items deleted",
+    "active": "Active",
+    "pending": "Pending",
+    "inactive": "Inactive",
+    "actions": "Actions",
+
 
 
 
