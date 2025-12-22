@@ -20,7 +20,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
             Text(LangKeys.unitArea.tr(), style: AppStyles.black14Regular),
             Gap(6.h),
             CustomTextFormField(
-              height: 10.h,
               hintText: LangKeys.unitArea.tr(),
             ),
             Gap(12.h),
@@ -35,7 +34,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.propertyNumber.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomTextFormField(
-                        height: 10.h,
                         hintText: LangKeys.propertyNumber.tr(),
                       ),
                     ],
@@ -49,7 +47,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.unitNumber.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomTextFormField(
-                        height: 10.h,
                         hintText: LangKeys.unitNumber.tr(),
                       ),
                     ],
@@ -69,7 +66,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.numberOfRooms.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomTextFormField(
-                        height: 10.h,
                         hintText: LangKeys.numberOfRooms.tr(),
                       ),
                     ],
@@ -83,7 +79,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.bathrooms.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomTextFormField(
-                        height: 10.h,
                         hintText: LangKeys.bathrooms.tr(),
                       ),
                     ],
@@ -97,7 +92,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
             Text(LangKeys.unitLocationFromTheFront.tr(), style: AppStyles.black14Regular),
             Gap(6.h),
             CustomDropdown(
-              height: 42.h,
               value: createRequestCubit.selectedUnitLocationFromTheFront,
               items: ["LocationFromTheFront 1", "LocationFromTheFront 2", "LocationFromTheFront 3"],
               onChanged: (val) {
@@ -118,7 +112,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.floor.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomDropdown(
-                        height: 42.h,
                         value: createRequestCubit.selectedFloor,
                         items: ["floor 1", "floor 2", "floor 3"],
                         onChanged: (val) {
@@ -138,7 +131,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.theView.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomDropdown(
-                        height: 42.h,
                         value: createRequestCubit.selectedTheUnitView,
                         items: ["UnitView 1", "UnitView 2", "UnitView 3"],
                         onChanged: (val) {
@@ -164,7 +156,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.deliveryStatus.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomDropdown(
-                        height: 42.h,
                         value: createRequestCubit.selectedDeliveryStatus,
                         items: ["deliveryStatus 1", "deliveryStatus 2", "deliveryStatus 3"],
                         onChanged: (val) {
@@ -184,7 +175,6 @@ class FormOfUnitInfoDetails extends StatelessWidget {
                       Text(LangKeys.finishingCondition.tr(), style: AppStyles.black14Regular),
                       Gap(6.h),
                       CustomDropdown(
-                        height: 42.h,
                         value: createRequestCubit.selectedFinishingCondition,
                         items: ["finishingCondition 1", "finishingCondition 2", "finishingCondition 3"],
                         onChanged: (val) {

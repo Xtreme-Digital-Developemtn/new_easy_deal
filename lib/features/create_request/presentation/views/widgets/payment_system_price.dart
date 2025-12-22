@@ -19,7 +19,6 @@ class PaymentSystemAndPrice extends StatelessWidget {
             Text(LangKeys.paymentSystem.tr(),style: AppStyles.black14Regular,),
             Gap(12.h),
             CustomDropdown(
-              height: 42.h,
               value: createRequestCubit.selectedPaymentSystem,
               items: ["PaymentSystem 1", "PaymentSystem 2", "PaymentSystem 3"],
               onChanged: (val) {
@@ -32,7 +31,6 @@ class PaymentSystemAndPrice extends StatelessWidget {
             Text(LangKeys.price.tr(),style: AppStyles.black14Regular,),
             Gap(12.h),
             CustomTextFormField(
-              height: 10.h,
               hintText: LangKeys.price.tr(),
             ),
             Gap(12.h),

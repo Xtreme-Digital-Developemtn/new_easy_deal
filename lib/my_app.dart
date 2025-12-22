@@ -1,4 +1,3 @@
-import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -15,7 +14,6 @@ class MyApp extends StatelessWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -31,8 +29,6 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => AuthCubit()..checkAuthStatus()),
                 BlocProvider(create: (context) => LanguageCubit()),
                 BlocProvider(create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>())),
-
-
               ],
               child: BlocBuilder<LanguageCubit, Locale>(
                 builder: (context, locale) {
@@ -68,7 +64,6 @@ class MyApp extends StatelessWidget {
                       return ResponsiveBreakpoints.builder(
                         child: child!,
                         breakpoints: const [
-
                           Breakpoint(start: 0, end: 450, name: MOBILE),
                           Breakpoint(start: 451, end: 800, name: TABLET),
                           Breakpoint(start: 801, end: 1920, name: DESKTOP),

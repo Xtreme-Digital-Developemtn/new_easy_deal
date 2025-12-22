@@ -19,7 +19,6 @@ class FormOfSpecializationAndDealTypeAndUnitType extends StatelessWidget {
             Text(LangKeys.scopeOfSpecialization.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
             CustomDropdown(
-              height: 42.h,
               value: cubit.selectedSpecialization,
               items: ["scope 1", "scope 2", "scope 3"],
               onChanged: cubit.selectSpecialization,
@@ -31,7 +30,6 @@ class FormOfSpecializationAndDealTypeAndUnitType extends StatelessWidget {
             Text(LangKeys.dealType.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
             CustomDropdown(
-              height: 42.h,
               value: cubit.selectedDealType,
               items: ["Deal Type 1", "Deal Type 2", "Deal Type 3"],
               onChanged: cubit.selectDealType,
@@ -43,7 +41,6 @@ class FormOfSpecializationAndDealTypeAndUnitType extends StatelessWidget {
             Text(LangKeys.unitType.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
             CustomDropdown(
-              height: 42.h,
               value: cubit.selectedUnitType,
               items: ["unitType 1", "unitType 2", "unitType 3"],
               onChanged: cubit.selectUnitType,

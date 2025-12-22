@@ -167,7 +167,8 @@ abstract class LangKeys {
   static const String uploadIdBack = 'uploadIdBack';
   static const String changeLogo = 'changeLogo';
   static const String uploadFrontAndBackId = 'uploadFrontAndBackId';
-  static const String uploadRequiredLegalDocuments = 'uploadRequiredLegalDocuments';
+  static const String uploadRequiredLegalDocuments =
+      'uploadRequiredLegalDocuments';
   static const String createNewRequest = 'createNewRequest';
   static const String rentingHotelUnit = 'rentingHotelUnit';
   static const String rentHotelUnit = 'rentHotelUnit';
@@ -241,10 +242,12 @@ abstract class LangKeys {
   static const String myData = 'myData';
   static const String myAds = 'myAds';
   static const String recentRequests = 'recentRequests';
-  static const String advertisementAndPropertyDetails = 'advertisementAndPropertyDetails';
+  static const String advertisementAndPropertyDetails =
+      'advertisementAndPropertyDetails';
   static const String specializations = 'specializations';
   static const String areas = 'areas';
-  static const String thereAreNoItemsCurrentlyAvailable = 'thereAreNoItemsCurrentlyAvailable';
+  static const String thereAreNoItemsCurrentlyAvailable =
+      'thereAreNoItemsCurrentlyAvailable';
   static const String addElement = 'addElement';
   static const String add = 'add';
   static const String addNewElement = 'addNewElement';
@@ -324,14 +327,6 @@ abstract class LangKeys {
   static const String inactive = 'inactive';
   static const String actions = 'actions';
   static const String mapLocations = 'mapLocations';
-  static const String tapAnyLocationToOpenInMapsApp = 'tapAnyLocationToOpenInMapsApp';
-
-
-
-
-
-
-
-
-
+  static const String tapAnyLocationToOpenInMapsApp =
+      'tapAnyLocationToOpenInMapsApp';
 }
