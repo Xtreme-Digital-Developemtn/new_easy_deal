@@ -352,6 +352,24 @@ class EnLang {
     "tapAnyLocationToOpenInMapsApp": "Tap any location to open in maps app",
 
 
+    "purchaseSellOutsideCompound": "Purchase/Sell Outside Compound",
+    "primaryInsideCompound": "Primary Inside Compound",
+    "resaleInsideCompound": "Resale Inside Compound",
+    "rentalsOutsideCompound": "Rentals Outside Compound",
+    "rentalsInsideCompound": "Rentals Inside Compound",
+
+
+    "purchasing": "Purchasing",
+    "sell": "Sell",
+    "rentOut": "Rent Out",
+    "rentIn": "Rent In",
+
+
+
+
+
+
+
 
 
 

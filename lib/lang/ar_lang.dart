@@ -352,6 +352,13 @@ class ArLang {
     "tapAnyLocationToOpenInMapsApp": "انقر على أي موقع لفتحه في تطبيق الخرائط",
 
 
+    "purchaseSellOutsideCompound": "شراء/بيع خارج الكمبوند",
+    "primaryInsideCompound": "بيع أولي داخل الكمبوند",
+    "resaleInsideCompound": "إعادة بيع داخل الكمبوند",
+    "rentalsOutsideCompound": "إيجار خارج الكمبوند",
+    "rentalsInsideCompound": "إيجار داخل الكمبوند",
+
+
 
 
 

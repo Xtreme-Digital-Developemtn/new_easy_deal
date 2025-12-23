@@ -329,4 +329,56 @@ abstract class LangKeys {
   static const String mapLocations = 'mapLocations';
   static const String tapAnyLocationToOpenInMapsApp =
       'tapAnyLocationToOpenInMapsApp';
+
+
+
+ ///////////////////////////////////////////////////////////////////////////////
+  /// SPECIALIZATION_SCOPE_OPTIONS
+  static const String purchaseSellOutsideCompound = 'purchaseSellOutsideCompound';
+  static const String primaryInsideCompound = 'primaryInsideCompound';
+  static const String resaleInsideCompound = 'resaleInsideCompound';
+  static const String rentalsOutsideCompound = 'rentalsOutsideCompound';
+  static const String rentalsInsideCompound = 'rentalsInsideCompound';
+
+
+  /// TYPE_OPTIONS
+  static const String purchasing = 'purchasing';
+  static const String sell = 'sell';
+  static const String rentOut = 'rentOut';
+  static const String rentIn = 'rentIn';
+  //////////////////////////////////////////////////////////////////////////////
+
+  /// UNITS
+  static const String apartments = 'apartments';
+  static const String duplexes = 'duplexes';
+  static const String penthouses = 'penthouses';
+  static const String roofs = 'roofs';
+  static const String studios = 'studios';
+  static const String basements = 'basements';
+  static const String residentialBuildings = 'residentialBuildings';
+  static const String villas = 'villas';
+  static const String iVilla = 'iVilla';
+  static const String administrativeUnits = 'administrativeUnits';
+  static const String medicalClinics = 'medicalClinics';
+  static const String pharmacies = 'pharmacies';
+  static const String commercialStores = 'commercialStores';
+  static const String residentialLands = 'residentialLands';
+  static const String commercialAdministrativeBuildings = 'commercialAdministrativeBuildings';
+  static const String commercialAdministrativeLands = 'commercialAdministrativeLands';
+  static const String factoryLands = 'factoryLands';
+  static const String warehouseLands = 'warehouseLands';
+  static const String chalets = 'chalets';
+  static const String vacationVilla = 'vacationVilla';
+  static const String hotels = 'hotels';
+  static const String twinHouses = 'twinHouses';
+  static const String townHouses = 'townHouses';
+  static const String standaloneVillas = 'standaloneVillas';
+
+
+
+
+
 }
+
+
+
