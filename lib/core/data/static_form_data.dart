@@ -41,10 +41,27 @@ class StaticFormData {
             'label': LangKeys.sell.tr(),
             'value': 'sell',
             'units': [
-              {'label': 'Apartment', 'value': 'apartment'},
-              {'label': 'Villa', 'value': 'villa'},
-              {'label': 'Shop', 'value': 'shop'},
-              {'label': 'Office', 'value': 'office'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.roofs.tr(), 'value': 'roofs'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.basements.tr(), 'value': 'basements'},
+              {'label':  LangKeys.residentialBuildings.tr(), 'value': 'residential_buildings'},
+              {'label':  LangKeys.villas.tr(), 'value': 'villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.residentialLands.tr(), 'value': 'residential_lands'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.commercialAdministrativeLands.tr(), 'value': 'commercial_administrative_lands'},
+              {'label':  LangKeys.factoryLands.tr(), 'value': 'factory_lands'},
+              {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+
+
             ]
           }
         ]
@@ -54,19 +71,55 @@ class StaticFormData {
         'value': 'primary_inside_compound',
         'subtypes': [
           {
-            'label': 'Buy',
-            'value': 'buy',
+            'label': LangKeys.purchasing.tr(),
+            'value': 'purchasing',
             'units': [
-              {'label': 'Apartment', 'value': 'apartment'},
-              {'label': 'Townhouse', 'value': 'townhouse'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+
+
+
+
+
             ]
           },
           {
-            'label': 'Rent',
-            'value': 'rent',
+            'label': LangKeys.sell.tr(),
+            'value': 'sell',
             'units': [
-              {'label': 'Villa', 'value': 'villa'},
-              {'label': 'Studio', 'value': 'studio'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+
+
+
+
+
             ]
           }
         ]
@@ -76,20 +129,55 @@ class StaticFormData {
         'value': 'resale_inside_compound',
         'subtypes': [
           {
-            'label': 'Residential',
-            'value': 'residential',
+            'label': LangKeys.purchasing.tr(),
+            'value': 'purchasing',
             'units': [
-              {'label': 'Furnished Apartment', 'value': 'furnished_apartment'},
-              {'label': 'Unfurnished Apartment', 'value': 'unfurnished_apartment'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+
+
+
+
+
             ]
           },
           {
-            'label': 'Commercial',
-            'value': 'commercial',
+            'label': LangKeys.sell.tr(),
+            'value': 'sell',
             'units': [
-              {'label': 'Shop', 'value': 'shop'},
-              {'label': 'Office', 'value': 'office'},
-              {'label': 'Warehouse', 'value': 'warehouse'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+
+
+
+
+
             ]
           }
         ]
@@ -99,21 +187,55 @@ class StaticFormData {
         'value': 'rentals_outside_compound',
         'subtypes': [
           {
-            'label': 'Buy',
-            'value': 'buy',
+            'label': LangKeys.rentOut.tr(),
+            'value': 'rent_out',
             'units': [
-              {'label': 'Apartment', 'value': 'apartment'},
-              {'label': 'Townhouse', 'value': 'townhouse'},
+              {'label':  LangKeys.hotels.tr(), 'value': 'hotels'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.roofs.tr(), 'value': 'roofs'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.basements.tr(), 'value': 'basements'},
+              {'label':  LangKeys.residentialBuildings.tr(), 'value': 'residential_buildings'},
+              {'label':  LangKeys.villas.tr(), 'value': 'villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.factoryLands.tr(), 'value': 'factory_lands'},
+              {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
+
             ]
           },
           {
-            'label': 'Rent',
-            'value': 'rent',
+            'label': LangKeys.rentIn.tr(),
+            'value': 'rent_in',
             'units': [
-              {'label': 'Villa', 'value': 'villa'},
-              {'label': 'Studio', 'value': 'studio'},
+              {'label':  LangKeys.hotels.tr(), 'value': 'hotels'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.roofs.tr(), 'value': 'roofs'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.basements.tr(), 'value': 'basements'},
+              {'label':  LangKeys.residentialBuildings.tr(), 'value': 'residential_buildings'},
+              {'label':  LangKeys.villas.tr(), 'value': 'villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.factoryLands.tr(), 'value': 'factory_lands'},
+              {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
+
             ]
-          }
+          },
         ]
       },
       {
@@ -121,24 +243,53 @@ class StaticFormData {
         'value': 'rentals_inside_compound',
         'subtypes': [
           {
-            'label': 'Residential',
-            'value': 'residential',
+            'label': LangKeys.rentOut.tr(),
+            'value': 'rent_out',
             'units': [
-              {'label': 'Furnished Apartment', 'value': 'furnished_apartment'},
-              {'label': 'Unfurnished Apartment', 'value': 'unfurnished_apartment'},
+              {'label':  LangKeys.hotels.tr(), 'value': 'hotels'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+
             ]
           },
           {
-            'label': 'Commercial',
-            'value': 'commercial',
+            'label': LangKeys.rentIn.tr(),
+            'value': 'rent_in',
             'units': [
-              {'label': 'Shop', 'value': 'shop'},
-              {'label': 'Office', 'value': 'office'},
-              {'label': 'Warehouse', 'value': 'warehouse'},
+              {'label':  LangKeys.hotels.tr(), 'value': 'hotels'},
+              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
+              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
+              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
+              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
+              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
+              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
+              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
+              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
+              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
+              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
+              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
+              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
+              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
+              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
+              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
+
             ]
-          }
+          },
         ]
-      }
+      },
     ]
   };
     }

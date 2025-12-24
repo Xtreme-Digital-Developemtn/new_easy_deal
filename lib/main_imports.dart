@@ -31,6 +31,7 @@ export 'package:easy_deal/core/shared_widgets/custom_loading.dart';
 export 'package:easy_deal/core/utils/app_images/jpg_images.dart';
 export 'package:easy_deal/core/extensions/lang.dart';
 export 'package:easy_deal/core/shared_widgets/global_app_bar.dart';
+export 'package:easy_deal/core/shared_widgets/custom_drop_down.dart';
 
 
 
