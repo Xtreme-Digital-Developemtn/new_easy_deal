@@ -22,7 +22,6 @@ class StaticFormData {
               {'label':  LangKeys.basements.tr(), 'value': 'basements'},
               {'label':  LangKeys.residentialBuildings.tr(), 'value': 'residential_buildings'},
               {'label':  LangKeys.villas.tr(), 'value': 'villas'},
-              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
               {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
               {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
               {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},

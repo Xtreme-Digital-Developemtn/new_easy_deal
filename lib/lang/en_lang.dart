@@ -364,6 +364,31 @@ class EnLang {
     "rentOut": "Rent Out",
     "rentIn": "Rent In",
 
+    "apartments": "Apartments",
+    "duplexes": "Duplexes",
+    "penthouses": "Penthouses",
+    "roofs": "Roofs",
+    "studios": "Studios",
+    "basements": "Basements",
+    "residentialBuildings": "Residential Buildings",
+    "villas": "Villas",
+    "iVilla": "iVilla",
+    "administrativeUnits": "Administrative Units",
+    "medicalClinics": "Medical Clinics",
+    "pharmacies": "Pharmacies",
+    "commercialStores": "Commercial Stores",
+    "residentialLands": "Residential Lands",
+    "commercialAdministrativeBuildings": "Commercial/Administrative Buildings",
+    "commercialAdministrativeLands": "Commercial/Administrative Lands",
+    "factoryLands": "Factory Lands",
+    "warehouseLands": "Warehouse Lands",
+    "chalets": "Chalets",
+    "vacationVilla": "Vacation Villa",
+    "hotels": "Hotels",
+    "twinHouses": "Twin Houses",
+    "townHouses": "Town Houses",
+    "standaloneVillas": "Standalone Villas",
+
 
 
 

@@ -57,7 +57,7 @@ class CreateRequestByCategoryView extends StatelessWidget {
                   if (cubit.currentStepNumber == 5)
                     PaymentSystemAndPrice(),
 
-                  Gap(150.h), // مساحة علشان الزرار تحت
+                  Gap(150.h),
                 ],
               );
             },

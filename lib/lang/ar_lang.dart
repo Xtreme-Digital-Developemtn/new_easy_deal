@@ -359,6 +359,41 @@ class ArLang {
     "rentalsInsideCompound": "إيجار داخل الكمبوند",
 
 
+    "purchasing": "شراء",
+    "sell": "بيع",
+    "rentOut": "تأجير",
+    "rentIn": "إيجار",
+
+    "apartments": "شقق",
+    "duplexes": "دوبلكس",
+    "penthouses": "بنتهاوس",
+    "roofs": "أسطح",
+    "studios": "استوديوهات",
+    "basements": "بدرومات",
+    "residentialBuildings": "عمارات سكنية",
+    "villas": "فيلات",
+    "iVilla": "آي فيلا",
+    "administrativeUnits": "وحدات إدارية",
+    "medicalClinics": "عيادات طبية",
+    "pharmacies": "صيدليات",
+    "commercialStores": "محلات تجارية",
+    "residentialLands": "أراضي سكنية",
+    "commercialAdministrativeBuildings": "عمارات تجارية/إدارية",
+    "commercialAdministrativeLands": "أراضي تجارية/إدارية",
+    "factoryLands": "أراضي مصانع",
+    "warehouseLands": "أراضي مخازن",
+    "chalets": "شاليهات",
+    "vacationVilla": "فيلا سياحية",
+    "hotels": "فنادق",
+    "twinHouses": "توين هاوس",
+    "townHouses": "تاون هاوس",
+    "standaloneVillas": "فيلات مستقلة",
+
+
+
+
+
+
 
 
 
