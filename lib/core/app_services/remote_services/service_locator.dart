@@ -124,4 +124,5 @@ void setup() {
   getIt.registerSingleton<BrokerMapsRepoImpl>(BrokerMapsRepoImpl(
     getIt.get<ApiService>(),
   ));
+
 }

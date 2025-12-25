@@ -2,8 +2,8 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class RequestsCount extends StatelessWidget {
-  const RequestsCount({super.key});
-
+  const RequestsCount({super.key, required this.count});
+  final int count;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -12,7 +12,7 @@ class RequestsCount extends StatelessWidget {
         Text(LangKeys.requests.tr(),style: AppStyles.primary16SemiBold,),
         Gap(12.w),
         Text(
-          '${4} ${LangKeys.request.tr()}',
+          '$count ${LangKeys.request.tr()}',
           style: AppStyles.gray14Medium,
         ),
       ],

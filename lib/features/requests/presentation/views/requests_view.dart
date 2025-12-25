@@ -1,6 +1,9 @@
+import 'package:easy_deal/features/requests/presentation/view_model/requests_cubit.dart';
+import 'package:easy_deal/features/requests/presentation/view_model/requests_states.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/requests_count.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/requests_list.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class RequestsView extends StatelessWidget {
   const RequestsView({super.key});
@@ -11,14 +14,23 @@ class RequestsView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(12.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RequestsCount(),
-              Gap(24.h),
-              RequestsList(),
+          child: BlocBuilder<RequestsCubit , RequestsStates>(
+            builder: (context,state){
+              var requestsCubit = context.read<RequestsCubit>();
+              return Skeletonizer(
+                enabled: state is GetAllRequestsLoadingState || requestsCubit.allRequestModel==null ,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RequestsCount(count: requestsCubit.allRequestModel?.data?.count??0,),
+                    Gap(24.h),
+                    RequestsList(data: requestsCubit.allRequestModel?.data?.data??[],),
 
-            ],
+                  ],
+                ),
+              );
+            },
+
           ),
         ),
       ),

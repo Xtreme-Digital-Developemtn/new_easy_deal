@@ -22,12 +22,19 @@ class RangeAndID extends StatelessWidget {
             size: 18,
           ),
           SizedBox(width: 8.w),
-          Text(
-            range,
-            style:AppStyles.primary16SemiBold,
+          Expanded(
+            flex: 5,
+            child: Text(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              range,
+              style:AppStyles.primary16SemiBold,
+            ),
           ),
           Spacer(),
           Text(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             '${LangKeys.requestNumber.tr()}: $id',
             style: AppStyles.gray12Medium,
           ),

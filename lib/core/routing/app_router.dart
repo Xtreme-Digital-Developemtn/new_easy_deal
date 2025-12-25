@@ -277,7 +277,7 @@ class AppRouter {
       ),
       SearchView(),
       BlocProvider(
-          create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>()),
+          create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),
           child: RequestsView()),
       BlocProvider(
           create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
