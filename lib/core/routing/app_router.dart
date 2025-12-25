@@ -18,6 +18,9 @@ import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/register/presentation/views/register_view.dart';
+import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
+import 'package:easy_deal/features/request_details/data/repos/request_repo_imple.dart';
+import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
 
 import '../../features/about_us/data/repos/about_us_repo_imple.dart';
@@ -220,7 +223,7 @@ class AppRouter {
       case Routes.successAssignView:
         return transition(screen: const SuccessAssignView());
       case Routes.requestDetailsView:
-        return transition(screen: const RequestDetailsView());
+        return transition(screen: const RequestDetailsView(),cubit: RequestDetailsCubit(getIt.get<RequestDetailsRepoImpl>())..requestDetails(requestId: 10));
       case Routes.brokerHomeView:
         return transition(screen: const BrokerHomeView(),
             cubit: BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()));

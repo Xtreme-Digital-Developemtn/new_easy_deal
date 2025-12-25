@@ -15,7 +15,7 @@ class RequestDetailsItem extends StatelessWidget {
           children: [
             Text("${title.tr()} : "),
             Gap(24.w),
-            Text("150"),
+            Text(value),
           ],
         ),
         if(!isLast)

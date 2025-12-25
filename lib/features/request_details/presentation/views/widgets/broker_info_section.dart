@@ -1,9 +1,10 @@
+import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class BrokerInfoSection extends StatelessWidget {
-  const BrokerInfoSection({super.key});
-
+  const BrokerInfoSection({super.key, this.user});
+  final  User? user;
   @override
   Widget build(BuildContext context) {
     final DateTime now = DateTime.now();
@@ -34,7 +35,7 @@ class BrokerInfoSection extends StatelessWidget {
                   children: [
                     CustomNetWorkImage(
                       imageUrl:
-                      "https://assets-news.housing.com/news/wp-content/uploads/2022/03/28143140/Difference-between-flat-and-apartment.jpg",
+                      "${user!.image}",
                       raduis: 50.r,
                       height: 50.h,
                       width: 50.w,
@@ -48,7 +49,7 @@ class BrokerInfoSection extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Mostafa Bahr",
+                            "${user!.name}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppStyles.black16SemiBold,
@@ -78,7 +79,7 @@ class BrokerInfoSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Text(
-                            "Type A",
+                            "${user!.id}",
                             style: TextStyle(
                               color: AppColors.white,
                               fontSize: 12.sp,

@@ -4,8 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
 
 class BasicInfo extends StatelessWidget {
-  const BasicInfo({super.key});
-
+  const BasicInfo({super.key, required this.typeOfOperation, required this.scopeOfSpecialization, required this.unitType});
+  final String typeOfOperation;
+  final String scopeOfSpecialization;
+  final String unitType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,9 +28,9 @@ class BasicInfo extends StatelessWidget {
             padding:   EdgeInsets.all(12.0.r),
             child: Column(
               children: [
-                RequestDetailsItem(title: LangKeys.typeOfOperation, value: "100"),
-                RequestDetailsItem(title: LangKeys.scopeOfSpecialization, value: "100"),
-                RequestDetailsItem(title: LangKeys.unitType, value: "100",isLast: true,),
+                RequestDetailsItem(title: LangKeys.typeOfOperation, value: typeOfOperation),
+                RequestDetailsItem(title: LangKeys.scopeOfSpecialization, value: scopeOfSpecialization),
+                RequestDetailsItem(title: LangKeys.unitType, value: unitType,isLast: true,),
               ],
             ),
           ),

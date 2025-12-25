@@ -2,10 +2,11 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/re
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
+import '../../../data/models/request_details_model.dart';
 
 class PropertyDetails extends StatelessWidget {
-  const PropertyDetails({super.key});
-
+  const PropertyDetails({super.key, this.attributes});
+  final  Attributes? attributes;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,13 +26,13 @@ class PropertyDetails extends StatelessWidget {
             padding:   EdgeInsets.all(12.0.r),
             child: Column(
               children: [
-                RequestDetailsItem(title: LangKeys.minimumUnitArea, value: "100"),
-                RequestDetailsItem(title: LangKeys.maximumUnitArea, value: "100"),
-                RequestDetailsItem(title: LangKeys.numberOfRooms, value: "100"),
-                RequestDetailsItem(title: LangKeys.bathrooms, value: "100"),
-                RequestDetailsItem(title: LangKeys.theView, value: "100"),
-                RequestDetailsItem(title: LangKeys.maximumAverageUnitPrice, value: "100"),
-                RequestDetailsItem(title: LangKeys.minimumAverageUnitPrice, value: "100",isLast: true,),
+                RequestDetailsItem(title: LangKeys.minimumUnitArea, value: attributes!.unitArea.toString()),
+                RequestDetailsItem(title: LangKeys.maximumUnitArea, value: attributes!.unitArea.toString()),
+                RequestDetailsItem(title: LangKeys.numberOfRooms, value: attributes!.rooms.toString()),
+                RequestDetailsItem(title: LangKeys.bathrooms, value: attributes!.bathrooms.toString()),
+                RequestDetailsItem(title: LangKeys.theView, value: attributes!.unitView.toString()),
+                RequestDetailsItem(title: LangKeys.maximumAverageUnitPrice, value: attributes!.unitPrice.toString()),
+                RequestDetailsItem(title: LangKeys.minimumAverageUnitPrice, value: attributes!.unitPriceSuggestions.toString(),isLast: true,),
 
               ],
             ),
