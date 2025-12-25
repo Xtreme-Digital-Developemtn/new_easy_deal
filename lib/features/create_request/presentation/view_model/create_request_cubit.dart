@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:easy_deal/core/extensions/log_util.dart';
+import 'package:easy_deal/features/create_request/data/models/dynamic_forms_data_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../core/utils/toast/toast.dart';
 import '../../../../main_imports.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repos/create_request_repo.dart';
@@ -9,9 +11,9 @@ import 'create_request_states.dart';
 
 
 class CreateRequestCubit extends Cubit<CreateRequestStates> {
-  CreateRequestCubit(this.aboutUsRepo) : super(CreateRequestInitState());
+  CreateRequestCubit(this.createRequestRepo) : super(CreateRequestInitState());
 
-  CreateRequestRepo? aboutUsRepo;
+  CreateRequestRepo? createRequestRepo;
 
   static CreateRequestCubit get(context) => BlocProvider.of(context);
 
@@ -294,7 +296,44 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
 
 
+  DynamicFormsDataModel? dynamicFormsDataModel;
+  Future<void> getDynamicFormsData() async {
+    emit(GetDynamicFormsDataLoadingState());
+    var result = await createRequestRepo!.getDynamicFormsData(
+        unit: selectedUnitTypeValue!,
+        type: selectedDealTypeValue!,
+        specializationScope: selectedSpecializationValue!,
+    );
+    return result.fold((failure) {
+      emit(GetDynamicFormsDataErrorState(failure.errMessage));
+    }, (data) async {
+      dynamicFormsDataModel = data;
+      emit(GetDynamicFormsDataSuccessState(data));
+      moveNextStep(currentStepNumber + 1);
+    });
+  }
 
+  void handleStepOne(BuildContext context,) {
+    if (selectedSpecializationValue == null) {
+      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfSpecialization.tr(), context: context);
+    } else if (selectedDealTypeValue == null) {
+      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfDealType.tr(), context: context);
+    }
+    else if (selectedUnitTypeValue == null) {
+      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfUnitType.tr(), context: context);
+    }  else {
+      getDynamicFormsData();
+    }
+  }
+
+
+  void handleNextSteps(BuildContext context ) {
+    if (currentStepNumber < 5) {
+      moveNextStep(currentStepNumber + 1);
+    } else {
+      context.pushNamed(Routes.assignToBrokerView);
+    }
+  }
 
 
 }

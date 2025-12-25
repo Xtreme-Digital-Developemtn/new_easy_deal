@@ -77,7 +77,9 @@ class CreateRequestByCategoryView extends StatelessWidget {
                   Expanded(child: PastButton()),
                 if (cubit.currentStepNumber > 1)
                   Gap(10.w),
-                Expanded(child: NextButton()),
+                Expanded(child: NextButton(
+
+                )),
               ],
             ),
           );

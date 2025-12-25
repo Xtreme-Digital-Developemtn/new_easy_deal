@@ -374,6 +374,10 @@ abstract class LangKeys {
   static const String townHouses = 'townHouses';
   static const String standaloneVillas = 'standaloneVillas';
 
+  static const String youMustChooseFieldOfSpecialization = 'youMustChooseFieldOfSpecialization';
+  static const String youMustChooseFieldOfDealType = 'youMustChooseFieldOfDealType';
+  static const String youMustChooseFieldOfUnitType = 'youMustChooseFieldOfUnitType';
+
 
 
 

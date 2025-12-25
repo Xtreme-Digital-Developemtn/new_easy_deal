@@ -1,3 +1,5 @@
+import 'package:easy_deal/features/create_request/data/models/dynamic_forms_data_model.dart';
+
 abstract class CreateRequestStates{}
 
 class CreateRequestInitState extends CreateRequestStates{}
@@ -42,3 +44,16 @@ class ClearFinancialStatementSuccessState extends CreateRequestStates {}
 
 class UploadMasterPlanSuccessState extends CreateRequestStates {}
 class ClearMasterPlanSuccessState extends CreateRequestStates {}
+
+
+class GetDynamicFormsDataLoadingState extends CreateRequestStates {}
+class GetDynamicFormsDataSuccessState extends CreateRequestStates {
+  final DynamicFormsDataModel dynamicFormsDataModel;
+
+  GetDynamicFormsDataSuccessState(this.dynamicFormsDataModel);
+}
+class GetDynamicFormsDataErrorState extends CreateRequestStates {
+  final String error;
+  GetDynamicFormsDataErrorState(this.error);
+
+}

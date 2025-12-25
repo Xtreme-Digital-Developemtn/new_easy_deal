@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,16 +13,28 @@ class NextButton extends StatelessWidget {
     return BlocBuilder<CreateRequestCubit , CreateRequestStates>(
       builder: (context,state){
         var createRequestCubit = context.read<CreateRequestCubit>();
-        return CustomButton(
-          onPressed: (){
-            if(createRequestCubit.currentStepNumber<5){
-              createRequestCubit.moveNextStep(createRequestCubit.currentStepNumber+1);
-            }
-            else{
-              context.pushNamed(Routes.assignToBrokerView);
-            }
+        return ConditionalBuilder(
+          condition: state is ! GetDynamicFormsDataLoadingState,
+          fallback: (context)=>CustomLoading(),
+          builder: (context){
+            return CustomButton(
+              onPressed: (){
+                print(createRequestCubit.currentStepNumber);
+                if(createRequestCubit.currentStepNumber==1){
+                  createRequestCubit.handleStepOne(context);
+
+                }
+                // if(createRequestCubit.currentStepNumber<5){
+                //   createRequestCubit.moveNextStep(createRequestCubit.currentStepNumber+1);
+                // }
+                // else{
+                //   context.pushNamed(Routes.assignToBrokerView);
+                // }
+              },
+              text: LangKeys.next.tr(),
+            );
           },
-          text: LangKeys.next.tr(),
+
         );
       },
 
