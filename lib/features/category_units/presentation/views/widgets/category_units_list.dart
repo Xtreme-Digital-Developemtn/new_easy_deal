@@ -10,7 +10,7 @@ class CategoryUnitsList extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context,index){
-          return UnitItem(unitId: unitId,);
+          return UnitItem();
         },
         separatorBuilder:  (context,index){
           return Gap(12.h);

@@ -1,22 +1,16 @@
- import 'package:easy_deal/main_imports.dart';
+ import 'package:easy_deal/features/search/data/models/all_units_model.dart';
+import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitItem extends StatelessWidget {
-  const UnitItem({super.key, required this.unitId, this.unitImage, this.unitType, this.unitPrice, this.unitApartment, this.city, this.area, this.subArea, });
-  final int unitId;
-  final String? unitImage;
-  final String? unitType;
-  final String? unitPrice;
-  final String? unitApartment;
-  final String? city;
-  final String? area;
-  final String? subArea;
+  const UnitItem({super.key, this.unit, });
+  final Data? unit;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
         context.pushNamed(Routes.unitDetailsView,arguments: {
-          "unitId" : unitId,
+          "unitId" : unit!.id,
         });
       },
       child: Container(
@@ -39,7 +33,7 @@ class UnitItem extends StatelessWidget {
                         width: double.infinity,
                         height: 190.h,
                         fit: BoxFit.cover,
-                        imageUrl:unitImage?? "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+                        imageUrl:unit?.diagram?? "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
                         raduis: 0)),
                Positioned(
                  top: 16.h,
@@ -58,7 +52,7 @@ class UnitItem extends StatelessWidget {
                          children: [
                            SvgPicture.asset(SvgImages.star,height: 8.h,),
                            Gap(6.w),
-                           Text(unitType??"Feature 1",style: AppStyles.gray8Medium,),
+                           Text(unit?.type??"Feature 1",style: AppStyles.gray8Medium,),
                          ],
                        ),
                      ),
@@ -74,7 +68,7 @@ class UnitItem extends StatelessWidget {
                          children: [
                            SvgPicture.asset(SvgImages.money,height: 8.h,),
                            Gap(6.w),
-                           Text(unitPrice??"2150.50000",style: AppStyles.gray8Medium,),
+                           Text(unit?.pricePerMeterInCash??"2150.50000",style: AppStyles.gray8Medium,),
                          ],
                        ),
                      ),
@@ -110,7 +104,7 @@ class UnitItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.r),
                       color: AppColors.primaryDark,
                     ),
-                    child: Text(unitApartment ?? "Apartment",style: AppStyles.white12Medium,),
+                    child: Text(unit?.status ?? "Apartment",style: AppStyles.white12Medium,),
                   ),
                 ),
                 Positioned(
@@ -119,7 +113,7 @@ class UnitItem extends StatelessWidget {
                   right: context.isArabic ? 16.w : null,
                   child: Row(
                     children: [
-                      Text(city??"Marasem, New Cairo",style: AppStyles.white14SemiBold,),
+                      Text(context.isArabic ? unit?.city?.nameAr??"Marasem, New Cairo": unit?.city?.nameEn??"Marasem, New Cairo",style: AppStyles.white14SemiBold,),
                       Gap(4.w),
                       SvgPicture.asset(SvgImages.verified),
                     ],
@@ -131,9 +125,9 @@ class UnitItem extends StatelessWidget {
                   right: context.isArabic ? 16.w : null,
                   child: Row(
                     children: [
-                      Text(area ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+                      Text(context.isArabic ? unit?.area?.nameAr ?? "Marasem, New Cairo" : unit?.area?.nameEn ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
                       Gap(4.w),
-                      Text(subArea ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
+                      Text(context.isArabic ? unit?.subArea?.nameAr ?? "Marasem, New Cairo":unit?.subArea?.nameEn ?? "Marasem, New Cairo",style: AppStyles.white10Regular,),
                     ],
                   ),
                 ),

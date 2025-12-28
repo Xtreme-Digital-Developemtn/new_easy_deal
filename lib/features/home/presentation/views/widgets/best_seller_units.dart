@@ -51,23 +51,7 @@ class BestSellerUnits extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final bool isLoading = units.isEmpty;
 
-                      return UnitItem(
-                        unitId: isLoading ? 0 : units[index].id ?? 0,
-                        unitImage: isLoading ? null : units[index].diagram,
-                        unitPrice: isLoading ? '' : units[index].totalPriceInCash.toString(),
-                        unitType: isLoading ? '' : units[index].type.toString(),
-                        unitApartment: isLoading ? '' : units[index].finishingType.toString(),
-                        city: isLoading
-                            ? ''
-                            : context.isArabic
-                            ? units[index].city!.nameAr.toString()
-                            : units[index].city!.nameEn.toString(),
-                        area: isLoading
-                            ? ''
-                            : context.isArabic
-                            ? units[index].area!.nameAr.toString()
-                            : units[index].area!.nameEn.toString(),
-                      );
+                      return UnitItem();
                     },
                     separatorBuilder: (context, index) => Gap(12.w),
                   ),
