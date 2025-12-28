@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
+    logSuccess(CacheHelper.getData(key: "clientId").toString());
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -28,7 +30,8 @@ class MyApp extends StatelessWidget {
               providers: [
                 BlocProvider(create: (context) => AuthCubit()..checkAuthStatus()),
                 BlocProvider(create: (context) => LanguageCubit()),
-                BlocProvider(create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>())),
+                BlocProvider(create: (context) => ProfileCubit(
+                    getIt.get<ProfileRepoImpl>())..getClientProfile(clientId:CacheHelper.getData(key: "userId"))),
               ],
               child: BlocBuilder<LanguageCubit, Locale>(
                 builder: (context, locale) {
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
                         backgroundColor: AppColors.white,
                       ),
                     ),
-                    initialRoute: Routes.layoutView,
+                    initialRoute: Routes.loginView,
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {
                       SystemChrome.setSystemUIOverlayStyle(

@@ -58,11 +58,11 @@ class Data1 {
   User? user;
   String? createdAt;
   String? updatedAt;
-  String? detailedAddress;
+  dynamic detailedAddress;
   List<Locations>? locations;
   Attributes? attributes;
   List<dynamic>? brokers;
-  String? mainImage;
+  dynamic mainImage;
   dynamic unitInMasterPlanImage;
   List<dynamic>? gallery;
   List<dynamic>? assignedBrokers;
@@ -127,91 +127,71 @@ class Data1 {
 }
 
 class Attributes {
-  String? compoundName;
-  String? detailedAddress;
-  String? addressLink;
-  String? unitNumber;
-  String? buildingNumber;
+  String? locationSuggestions;
   String? floor;
-  int? unitArea;
-  int? rooms;
-  int? bathrooms;
+  String? unitAreaMin;
+  String? unitAreaMax;
+  String? rooms;
+  String? bathRooms;
   String? unitView;
   String? finishingStatus;
-  String? furnishingStatus;
-  List<String>? otherAccessories;
+  String? deliveryStatus;
   String? notes;
-  int? unitPrice;
-  int? unitPriceSuggestions;
-  String? rentRecurrence;
-  String? requiredInsurance;
-  List<String>? otherExpenses;
-  String? mainImage;
+  List<String>? otherAccessories;
+  String? paymentMethod;
+  String? averageUnitPriceMin;
+  String? averageUnitPriceMax;
 
-  Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.rooms, this.bathrooms, this.unitView, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.rentRecurrence, this.requiredInsurance, this.otherExpenses, this.mainImage});
+  Attributes({this.locationSuggestions, this.floor, this.unitAreaMin, this.unitAreaMax, this.rooms, this.bathRooms, this.unitView, this.finishingStatus, this.deliveryStatus, this.notes, this.otherAccessories, this.paymentMethod, this.averageUnitPriceMin, this.averageUnitPriceMax});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    compoundName = json["compoundName"];
-    detailedAddress = json["detailedAddress"];
-    addressLink = json["addressLink"];
-    unitNumber = json["unitNumber"];
-    buildingNumber = json["buildingNumber"];
+    locationSuggestions = json["locationSuggestions"];
     floor = json["floor"];
-    unitArea = json["unitArea"];
+    unitAreaMin = json["unitAreaMin"];
+    unitAreaMax = json["unitAreaMax"];
     rooms = json["rooms"];
-    bathrooms = json["bathrooms"];
+    bathRooms = json["bathRooms"];
     unitView = json["unitView"];
     finishingStatus = json["finishingStatus"];
-    furnishingStatus = json["furnishingStatus"];
-    otherAccessories = json["otherAccessories"] == null ? null : List<String>.from(json["otherAccessories"]);
+    deliveryStatus = json["deliveryStatus"];
     notes = json["notes"];
-    unitPrice = json["unitPrice"];
-    unitPriceSuggestions = json["unitPriceSuggestions"];
-    rentRecurrence = json["rentRecurrence"];
-    requiredInsurance = json["requiredInsurance"];
-    otherExpenses = json["otherExpenses"] == null ? null : List<String>.from(json["otherExpenses"]);
-    mainImage = json["mainImage"];
+    otherAccessories = json["otherAccessories"] == null ? null : List<String>.from(json["otherAccessories"]);
+    paymentMethod = json["paymentMethod"];
+    averageUnitPriceMin = json["averageUnitPriceMin"];
+    averageUnitPriceMax = json["averageUnitPriceMax"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["compoundName"] = compoundName;
-    _data["detailedAddress"] = detailedAddress;
-    _data["addressLink"] = addressLink;
-    _data["unitNumber"] = unitNumber;
-    _data["buildingNumber"] = buildingNumber;
+    _data["locationSuggestions"] = locationSuggestions;
     _data["floor"] = floor;
-    _data["unitArea"] = unitArea;
+    _data["unitAreaMin"] = unitAreaMin;
+    _data["unitAreaMax"] = unitAreaMax;
     _data["rooms"] = rooms;
-    _data["bathrooms"] = bathrooms;
+    _data["bathRooms"] = bathRooms;
     _data["unitView"] = unitView;
     _data["finishingStatus"] = finishingStatus;
-    _data["furnishingStatus"] = furnishingStatus;
+    _data["deliveryStatus"] = deliveryStatus;
+    _data["notes"] = notes;
     if(otherAccessories != null) {
       _data["otherAccessories"] = otherAccessories;
     }
-    _data["notes"] = notes;
-    _data["unitPrice"] = unitPrice;
-    _data["unitPriceSuggestions"] = unitPriceSuggestions;
-    _data["rentRecurrence"] = rentRecurrence;
-    _data["requiredInsurance"] = requiredInsurance;
-    if(otherExpenses != null) {
-      _data["otherExpenses"] = otherExpenses;
-    }
-    _data["mainImage"] = mainImage;
+    _data["paymentMethod"] = paymentMethod;
+    _data["averageUnitPriceMin"] = averageUnitPriceMin;
+    _data["averageUnitPriceMax"] = averageUnitPriceMax;
     return _data;
   }
 }
 
 class Locations {
   City? city;
-  List<dynamic>? areas;
+  List<Areas>? areas;
 
   Locations({this.city, this.areas});
 
   Locations.fromJson(Map<String, dynamic> json) {
     city = json["city"] == null ? null : City.fromJson(json["city"]);
-    areas = json["areas"] ?? [];
+    areas = json["areas"] == null ? null : (json["areas"] as List).map((e) => Areas.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -220,8 +200,53 @@ class Locations {
       _data["city"] = city?.toJson();
     }
     if(areas != null) {
-      _data["areas"] = areas;
+      _data["areas"] = areas?.map((e) => e.toJson()).toList();
     }
+    return _data;
+  }
+}
+
+class Areas {
+  Area? area;
+  List<dynamic>? subAreas;
+
+  Areas({this.area, this.subAreas});
+
+  Areas.fromJson(Map<String, dynamic> json) {
+    area = json["area"] == null ? null : Area.fromJson(json["area"]);
+    subAreas = json["sub_areas"] ?? [];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    if(area != null) {
+      _data["area"] = area?.toJson();
+    }
+    if(subAreas != null) {
+      _data["sub_areas"] = subAreas;
+    }
+    return _data;
+  }
+}
+
+class Area {
+  int? id;
+  String? nameEn;
+  String? nameAr;
+
+  Area({this.id, this.nameEn, this.nameAr});
+
+  Area.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    nameEn = json["name_en"];
+    nameAr = json["name_ar"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["name_en"] = nameEn;
+    _data["name_ar"] = nameAr;
     return _data;
   }
 }

@@ -18,12 +18,12 @@ class ApiService {
           // Add default headers
           options.headers["Accept"] = "application/json";
 
-          // Add user token if available
-          // if (CacheTokenManger.userToken != null &&
-          //     CacheTokenManger.userToken!.isNotEmpty) {
-          //   options.headers["Authorization"] = "Bearer ${CacheTokenManger.userToken}";
-          // }
-          options.headers["Authorization"] =   "Bearer 8|FurotwrspzstJxqZdfmCRh8Jd1jz9jXzNEZqv8Bf982d34f3";
+         /// Add user token if available
+          if (CacheTokenManger.userToken != null &&
+              CacheTokenManger.userToken!.isNotEmpty) {
+            options.headers["Authorization"] = "Bearer ${CacheTokenManger.userToken}";
+          }
+         // options.headers["Authorization"] =   "Bearer 8|FurotwrspzstJxqZdfmCRh8Jd1jz9jXzNEZqv8Bf982d34f3";
           debugPrint("➡️ [REQUEST] ${options.method} ${options.uri}");
           debugPrint("Headers: ${options.headers}");
           debugPrint("Data: ${options.data}");

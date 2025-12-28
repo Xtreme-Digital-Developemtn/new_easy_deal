@@ -35,7 +35,7 @@ class _SplashViewState extends State<SplashView>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         final String? userToken = CacheTokenManger.userToken;
-        if (userToken != null && userToken.isNotEmpty) {
+        if (userToken != null && userToken.isNotEmpty && CacheHelper.getData(key: "rememberMe") == true) {
          context.pushNamed(Routes.layoutView);
         } else {
           context.pushNamedAndRemoveUntil(Routes.onBoardingView);

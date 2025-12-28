@@ -29,6 +29,11 @@ class LoginButton extends StatelessWidget {
           if (context.read<LoginCubit>().rememberMe == true) {
             context.read<LoginCubit>().cacheTokenAndIDAndVerified(
               token: state.loginModel.data!.authToken.toString(),
+              id: state.loginModel.data!.authToken.toString(),
+            );
+          }else if (context.read<LoginCubit>().rememberMe == false){
+            context.read<LoginCubit>().cacheTokenAndIDAndVerified(
+              id: state.loginModel.data!.authToken.toString(),
             );
           }
         }

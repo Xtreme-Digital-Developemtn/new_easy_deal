@@ -47,6 +47,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   void changeRememberMeValue(bool newValue) {
     _rememberMe = newValue;
+    CacheHelper.saveData(key: "rememberMe", value: newValue);
     emit(ChangeRememberValueState(newValue));
   }
 
@@ -67,8 +68,13 @@ class LoginCubit extends Cubit<LoginStates> {
       },
           (data) async {
         loginModel = data;
-        await cacheTokenAndIDAndVerified(token: data.data!.authToken.toString());
+        print(data.data!.id);
+        print(data.data!.authToken);
+        print("0123456789");
+    //await cacheTokenAndIDAndVerified(token: data.data!.authToken.toString(),id: data.data!.id.toString());
         emit(LoginSuccessState(data));
+        CacheHelper.saveData(key: "userId", value: data.data!.id);
+        await CacheTokenManger.saveUserToken(data.data!.authToken!);
         clearControllers();
       },
     );
@@ -76,9 +82,13 @@ class LoginCubit extends Cubit<LoginStates> {
 
   // ==================== CACHE MANAGEMENT ====================
   Future<void> cacheTokenAndIDAndVerified({
-    required String token,
+     String? token,
+     String? id,
   }) async {
-    await CacheTokenManger.saveUserToken(token);
+    if(token!=null && token.isNotEmpty){
+      await CacheTokenManger.saveUserToken(token);
+    }
+    CacheHelper.saveData(key: "clientId", value: id);
   }
 
   // ==================== CLEANUP ====================
