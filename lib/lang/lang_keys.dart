@@ -381,6 +381,40 @@ abstract class LangKeys {
 
 
 
+  static const String articlesTitle = "ArticlesThatInterestYou";
+  static const String allArticles = "AllArticles";
+
+// Article 1
+  static const String article1Title = "ModernFinishingMaterialsShopWithTheBest";
+  static const String article1Description = "AVeryQuietAreaAwayFromTheNoiseAndHustleOfTheCitySuitableForLargeAndSmallFamiliesSpaciousAreaWithAPrivateGarden";
+
+// Article 2
+  static const String article2Title = "InvestYourMoneyWithHotelProperty";
+  static const String article2Description = "ExcellentInvestmentOpportunityInTheHeartOfTheCityGuaranteedReturnsAndIntegratedManagementStrategicLocationNearTheAirportAndCommercialCenters";
+
+// Article 3
+  static const String article3Title = "Villa6OctoberApril2019";
+  static const String article3Description = "LatestInternationalFinishingMaterialsHighQualityAndCompetitivePricesSpecializedTeamToImplementFinishingWorksToTheHighestStandards";
+
+// Article 4
+  static const String article4Title = "ApartmentInNewCairo";
+  static const String article4Description = "ModernApartmentInTheFinestNeighborhoodsOfNewCairoLuxuryFinishesAndIntegratedFacilitiesCloseToUniversitiesAndInternationalSchools";
+
+// Article 5
+  static const String article5Title = "NorthCoastProperties";
+  static const String article5Description = "ResidentialUnitsDirectlyOnTheSeaWonderfulPanoramicViewIntegratedRecreationalFacilitiesAndSuitableForSummerInvestment";
+
+// Article 6
+  static const String article6Title = "AdministrativeOfficesDowntown";
+  static const String article6Description = "ModernOfficeSpacesInTheHeartOfCairoSuitableForCompaniesAndInstitutionsParkingAndIntegratedServiceFacilities";
+
+// Article 7
+  static const String article7Title = "LuxuryVillasInSheikhZayed";
+  static const String article7Description = "ExclusiveVillasWithModernDesignPrivateGardensAndPremiumFinishesInTheHeartOfSheikhZayedCity";
+
+
+
+
 
 }
 

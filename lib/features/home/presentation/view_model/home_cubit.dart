@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/home/data/models/unit_types_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/models/best_seller_units_model.dart';
@@ -63,5 +64,37 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
 
+
+  List<String> lastArticlesImages = [
+    "assets/images/jpgs/1.jpg",
+    "assets/images/jpgs/2.jpg",
+    "assets/images/jpgs/3.jpg",
+    "assets/images/jpgs/4.jpg",
+    "assets/images/jpgs/5.jpg",
+    "assets/images/jpgs/6.jpg",
+    "assets/images/jpgs/7.jpg",
+  ];
+
+  List<String> lastArticlesTitles  = [
+    LangKeys.article1Title.tr(),
+    LangKeys.article2Title.tr(),
+    LangKeys.article3Title.tr(),
+    LangKeys.article4Title.tr(),
+    LangKeys.article5Title.tr(),
+    LangKeys.article6Title.tr(),
+    LangKeys.article7Title.tr(),
+  ];
+
+  List<String> lastArticlesDescription  = [
+    LangKeys.article1Description.tr(),
+    LangKeys.article2Description.tr(),
+    LangKeys.article3Description.tr(),
+    LangKeys.article4Description.tr(),
+    LangKeys.article5Description.tr(),
+    LangKeys.article6Description.tr(),
+    LangKeys.article7Description.tr(),
+
+
+  ];
 
 }

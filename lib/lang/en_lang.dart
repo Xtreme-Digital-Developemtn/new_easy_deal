@@ -392,6 +392,26 @@ class EnLang {
 
 
 
+    "articlesTitle": "Articles That Interest You",
+    "allArticles": "All Articles",
+    "article1Title": "Modern Finishing Materials - Shop with the Best",
+    "article1Description": "A very quiet area away from the noise and hustle of the city, suitable for large and small families, spacious area with a private garden.",
+    "article2Title": "Invest Your Money with Hotel Property",
+    "article2Description": "Excellent investment opportunity in the heart of the city, guaranteed returns and integrated management, strategic location near the airport and commercial centers.",
+    "article3Title": "Villa 6 October April 2019",
+    "article3Description": "Latest international finishing materials, high quality and competitive prices, specialized team to implement finishing works to the highest standards.",
+    "article4Title": "Apartment in New Cairo",
+    "article4Description": "Modern apartment in the finest neighborhoods of New Cairo, luxury finishes and integrated facilities, close to universities and international schools.",
+    "article5Title": "North Coast Properties",
+    "article5Description": "Residential units directly on the sea, wonderful panoramic view, integrated recreational facilities and suitable for summer investment.",
+    "article6Title": "Administrative Offices Downtown",
+    "article6Description": "Modern office spaces in the heart of Cairo, suitable for companies and institutions, parking and integrated service facilities.",
+    "article7Title": "Luxury Villas in Sheikh Zayed",
+    "article7Description": "Exclusive villas with modern design, private gardens, and premium finishes in the heart of Sheikh Zayed City."
+
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/home/presentation/view_model/home_cubit.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -20,12 +21,12 @@ class LatestArticles extends StatelessWidget {
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context,index){
-                  return LatestArticlesItem();
+                  return LatestArticlesItem(index: index,);
                 },
                 separatorBuilder: (context,index){
                   return Gap(12.w);
-                }, 
-                itemCount: 10,
+                },
+                itemCount: context.read<HomeCubit>().lastArticlesImages.length,
             ),
           )
       ],),
