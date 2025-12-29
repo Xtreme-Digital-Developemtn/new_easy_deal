@@ -2,22 +2,19 @@ import '../../../../../../main_imports.dart';
 import '../../../data/models/map_location_model.dart';
 import 'location_card.dart';
 
-class LocationsGridView extends StatelessWidget {
-  const LocationsGridView({super.key});
+class LocationsListView extends StatelessWidget {
+  const LocationsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 8.w,
-        mainAxisSpacing: 8.h,
-        childAspectRatio: 0.55,
-      ),
-      itemCount: mapLocations.length,
-      itemBuilder: (context, index) {
-        return LocationCard(mapLocations[index]);
-      },
+    return ListView.separated(
+        itemBuilder: (context,index){
+          return LocationCard(mapLocations[index]);
+        },
+        separatorBuilder: (context,index){
+          return Gap(12.h) ;
+        },
+        itemCount: mapLocations.length
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:easy_deal/features/broker_features/broker_maps/presentation/views/widgets/header_section.dart';
-import 'package:easy_deal/features/broker_features/broker_maps/presentation/views/widgets/locations_grid_view.dart';
+import 'package:easy_deal/features/broker_features/broker_maps/presentation/views/widgets/locations_list_view.dart';
 import '../../../../../main_imports.dart';
 
 class BrokerMapsView extends StatelessWidget {
@@ -16,7 +16,7 @@ class BrokerMapsView extends StatelessWidget {
             HeaderSection(),
             Gap(12.h),
             Expanded(
-              child: LocationsGridView(),
+              child: LocationsListView(),
             ),
           ],
         ),
