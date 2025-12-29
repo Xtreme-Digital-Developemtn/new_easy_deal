@@ -9,7 +9,6 @@ import '../../data/models/category_model.dart';
 import '../../data/repos/create_request_repo.dart';
 import 'create_request_states.dart';
 
-
 class CreateRequestCubit extends Cubit<CreateRequestStates> {
   CreateRequestCubit(this.createRequestRepo) : super(CreateRequestInitState());
 
@@ -17,16 +16,45 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
   static CreateRequestCubit get(context) => BlocProvider.of(context);
 
-
   var addressCon = TextEditingController();
   var locationLinkCon = TextEditingController();
   List<CategoryModel> categories = [
-    CategoryModel(id: 1, name: LangKeys.buyingProperty.tr(), image: SvgImages.house),
-    CategoryModel(id: 2, name:LangKeys.propertyRental.tr(),  image: SvgImages.key),
-    CategoryModel(id: 3, name:LangKeys.propertyForSale.tr(),  image: SvgImages.buy),
-    CategoryModel(id: 4, name:LangKeys.rentingProperty.tr(),  image: SvgImages.transfer),
-    CategoryModel(id: 5, name:LangKeys.rentHotelUnit.tr(),  image: SvgImages.hands),
-    CategoryModel(id: 6, name:LangKeys.rentingHotelUnit.tr(),  image: SvgImages.welfare),
+    CategoryModel(
+      id: 1,
+      name: LangKeys.buyingPropertyPart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.house,
+    ),
+    CategoryModel(
+      id: 2,
+      name: LangKeys.propertyRentalPart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.key,
+    ),
+    CategoryModel(
+      id: 3,
+      name: LangKeys.propertyForSalePart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.buy,
+    ),
+    CategoryModel(
+      id: 4,
+      name: LangKeys.rentingPropertyPart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.transfer,
+    ),
+    CategoryModel(
+      id: 5,
+      name: LangKeys.rentHotelUnitPart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.hands,
+    ),
+    CategoryModel(
+      id: 6,
+      name: LangKeys.rentingHotelUnitPart1.tr(),
+      des: LangKeys.buyingPropertyPart2.tr(),
+      image: SvgImages.welfare,
+    ),
   ];
 
   int selectedIndex = -1;
@@ -36,10 +64,10 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     emit(CategorySelectedState(selectedIndex));
   }
 
-
- /// Specialization
+  /// Specialization
   String? selectedSpecializationValue;
   String? selectedSpecializationLabel;
+
   void selectSpecialization({String? value, String? label}) {
     selectedSpecializationValue = value;
     selectedSpecializationLabel = label;
@@ -55,6 +83,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   /// DealType
   String? selectedDealTypeValue;
   String? selectedDealTypeLabel;
+
   void selectDealType({String? value, String? label}) {
     selectedDealTypeValue = value;
     selectedDealTypeLabel = label;
@@ -65,10 +94,10 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     emit(SelectDealTypeState());
   }
 
-
   /// UnitType
   String? selectedUnitTypeValue;
   String? selectedUnitTypeLabel;
+
   void selectUnitType({String? value, String? label}) {
     selectedUnitTypeValue = value;
     selectedUnitTypeLabel = label;
@@ -77,70 +106,78 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     emit(SelectUnitTypeState());
   }
 
-
   int currentStepNumber = 1;
-  void moveNextStep(step)
-  {
+
+  void moveNextStep(step) {
     currentStepNumber = step;
     emit(MoveNextStepState());
   }
 
+  String? selectedCity;
 
-  String? selectedCity ;
   void selectCity(String? city) {
     selectedCity = city!;
     emit(SelectCityState());
   }
-  String? selectedArea ;
+
+  String? selectedArea;
+
   void selectArea(String? area) {
     selectedArea = area!;
     emit(SelectAreaState());
   }
-  String? selectedSubArea ;
+
+  String? selectedSubArea;
+
   void selectSubArea(String? subArea) {
     selectedSubArea = subArea!;
     emit(SelectSubAreaState());
   }
 
-  String? selectedUnitLocationFromTheFront ;
+  String? selectedUnitLocationFromTheFront;
+
   void selectUnitLocationFromTheFront(String? unitLocationFromTheFrontState) {
     selectedUnitLocationFromTheFront = unitLocationFromTheFrontState!;
     emit(SelectUnitLocationFromTheFrontState());
   }
 
-  String? selectedPaymentSystem ;
+  String? selectedPaymentSystem;
+
   void selectPaymentSystem(String? paymentSystem) {
     selectedPaymentSystem = paymentSystem!;
     emit(SelectPaymentSystemState());
   }
 
+  String? selectedTheUnitView;
 
-  String? selectedTheUnitView ;
   void selectTheUnitView(String? theUnitView) {
     selectedTheUnitView = theUnitView!;
     emit(SelectTheUnitViewState());
   }
 
-  String? selectedFinishingCondition ;
+  String? selectedFinishingCondition;
+
   void selectFinishingCondition(String? finishingCondition) {
     selectedFinishingCondition = finishingCondition!;
     emit(SelectFinishingConditionState());
   }
 
-  String? selectedDeliveryStatus ;
+  String? selectedDeliveryStatus;
+
   void selectDeliveryStatus(String? deliveryStatus) {
     selectedDeliveryStatus = deliveryStatus!;
     emit(SelectDeliveryStatusState());
   }
 
-  String? selectedOtherLuxuries ;
+  String? selectedOtherLuxuries;
+
   void selectOtherLuxuries(String? otherLuxuries) {
     selectedOtherLuxuries = otherLuxuries!;
     emit(SelectOtherLuxuriesState());
   }
 
+  String? selectedFloor;
 
-  String? selectedFloor ;
   void selectFloor(String? floor) {
     selectedFloor = floor!;
     emit(SelectFloorState());
@@ -149,10 +186,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   final ImagePicker picker = ImagePicker();
   File? mainImage;
 
-  Future<void> pickMainImage({
-    required CreateRequestStates newEmit,
-  })
-  async {
+  Future<void> pickMainImage({required CreateRequestStates newEmit}) async {
     try {
       final XFile? pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
@@ -171,9 +205,12 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       emit(UploadImageErrorState());
     }
   }
+
   final ValueNotifier<bool> isUnitDocumentsValid = ValueNotifier(false);
+
   void validateUnitDocuments() {
-    bool isValid = mainImage != null &&
+    bool isValid =
+        mainImage != null &&
         video != null &&
         financialStatementImage != null &&
         masterPlanImage != null;
@@ -181,22 +218,17 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     isUnitDocumentsValid.value = isValid;
   }
 
-
-  void clearMainImage({
-    required CreateRequestStates newEmit,
-  }) {
+  void clearMainImage({required CreateRequestStates newEmit}) {
     mainImage = null;
     validateUnitDocuments();
     emit(newEmit);
   }
 
-
   File? video;
   File? financialStatementImage;
   File? masterPlanImage;
-  Future<void> pickVideo({
-    required CreateRequestStates newEmit,
-  }) async {
+
+  Future<void> pickVideo({required CreateRequestStates newEmit}) async {
     try {
       final XFile? pickedFile = await picker.pickVideo(
         source: ImageSource.gallery,
@@ -257,30 +289,24 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       emit(UploadImageErrorState());
     }
   }
-  void clearVideo({
-    required CreateRequestStates newEmit,
-  }) {
+
+  void clearVideo({required CreateRequestStates newEmit}) {
     video = null;
     validateUnitDocuments();
     emit(newEmit);
   }
 
-  void clearFinancialStatementImage({
-    required CreateRequestStates newEmit,
-  }) {
+  void clearFinancialStatementImage({required CreateRequestStates newEmit}) {
     financialStatementImage = null;
     validateUnitDocuments();
     emit(newEmit);
   }
 
-  void clearMasterPlanImage({
-    required CreateRequestStates newEmit,
-  }) {
+  void clearMasterPlanImage({required CreateRequestStates newEmit}) {
     masterPlanImage = null;
     validateUnitDocuments();
     emit(newEmit);
   }
-
 
   List<String> titleNames = [
     LangKeys.orderSettings.tr(),
@@ -290,50 +316,53 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     LangKeys.financialInformation.tr(),
   ];
 
-
-
-
-
-
-
   DynamicFormsDataModel? dynamicFormsDataModel;
+
   Future<void> getDynamicFormsData() async {
     emit(GetDynamicFormsDataLoadingState());
     var result = await createRequestRepo!.getDynamicFormsData(
-        unit: selectedUnitTypeValue!,
-        type: selectedDealTypeValue!,
-        specializationScope: selectedSpecializationValue!,
+      unit: selectedUnitTypeValue!,
+      type: selectedDealTypeValue!,
+      specializationScope: selectedSpecializationValue!,
     );
-    return result.fold((failure) {
-      emit(GetDynamicFormsDataErrorState(failure.errMessage));
-    }, (data) async {
-      dynamicFormsDataModel = data;
-      emit(GetDynamicFormsDataSuccessState(data));
-      moveNextStep(currentStepNumber + 1);
-    });
+    return result.fold(
+      (failure) {
+        emit(GetDynamicFormsDataErrorState(failure.errMessage));
+      },
+      (data) async {
+        dynamicFormsDataModel = data;
+        emit(GetDynamicFormsDataSuccessState(data));
+        moveNextStep(currentStepNumber + 1);
+      },
+    );
   }
 
-  void handleStepOne(BuildContext context,) {
+  void handleStepOne(BuildContext context) {
     if (selectedSpecializationValue == null) {
-      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfSpecialization.tr(), context: context);
+      Toast.showErrorToast(
+        msg: LangKeys.youMustChooseFieldOfSpecialization.tr(),
+        context: context,
+      );
     } else if (selectedDealTypeValue == null) {
-      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfDealType.tr(), context: context);
-    }
-    else if (selectedUnitTypeValue == null) {
-      Toast.showErrorToast(msg: LangKeys.youMustChooseFieldOfUnitType.tr(), context: context);
-    }  else {
+      Toast.showErrorToast(
+        msg: LangKeys.youMustChooseFieldOfDealType.tr(),
+        context: context,
+      );
+    } else if (selectedUnitTypeValue == null) {
+      Toast.showErrorToast(
+        msg: LangKeys.youMustChooseFieldOfUnitType.tr(),
+        context: context,
+      );
+    } else {
       getDynamicFormsData();
     }
   }
 
-
-  void handleNextSteps(BuildContext context ) {
+  void handleNextSteps(BuildContext context) {
     if (currentStepNumber < 5) {
       moveNextStep(currentStepNumber + 1);
     } else {
       context.pushNamed(Routes.assignToBrokerView);
     }
   }
-
-
 }

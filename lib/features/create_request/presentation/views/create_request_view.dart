@@ -29,8 +29,7 @@ class CreateRequestView extends StatelessWidget {
                     itemCount: createRequestCubit.categories.length,
                     itemBuilder: (context, index) {
                       final category = createRequestCubit.categories[index];
-
-                      return CategoryItem(index: index, image: category.image, name: category.name);
+                      return CategoryItem(index: index, image: category.image, name: category.name , des : category.des);
                     },
                   ),
                 ),
@@ -46,8 +45,6 @@ class CreateRequestView extends StatelessWidget {
                             'category': createRequestCubit.categories[createRequestCubit.selectedIndex],
                           },
                         );
-
-
                       },
                       text: LangKeys.next.tr(),
                     ),

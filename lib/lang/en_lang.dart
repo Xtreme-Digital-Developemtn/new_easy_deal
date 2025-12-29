@@ -407,7 +407,19 @@ class EnLang {
     "article6Title": "Administrative Offices Downtown",
     "article6Description": "Modern office spaces in the heart of Cairo, suitable for companies and institutions, parking and integrated service facilities.",
     "article7Title": "Luxury Villas in Sheikh Zayed",
-    "article7Description": "Exclusive villas with modern design, private gardens, and premium finishes in the heart of Sheikh Zayed City."
+    "article7Description": "Exclusive villas with modern design, private gardens, and premium finishes in the heart of Sheikh Zayed City.",
+    "rentingHotelUnitPart1": "renting",
+    "rentingHotelUnitPart2": "Hotel Unit",
+    "rentHotelUnitPart1": "rent",
+    "rentHotelUnitPart2": "Hotel Unit",
+    "rentingPropertyPart1": "renting",
+    "rentingPropertyPart2": "Property",
+    "propertyForSalePart1": "property",
+    "propertyForSalePart2": "For Sale",
+    "propertyRentalPart1": "property",
+    "propertyRentalPart2": "Rental",
+    "buyingPropertyPart1": "buying",
+    "buyingPropertyPart2": "Property",
 
 
 

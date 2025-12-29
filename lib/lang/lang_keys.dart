@@ -170,12 +170,22 @@ abstract class LangKeys {
   static const String uploadRequiredLegalDocuments =
       'uploadRequiredLegalDocuments';
   static const String createNewRequest = 'createNewRequest';
-  static const String rentingHotelUnit = 'rentingHotelUnit';
-  static const String rentHotelUnit = 'rentHotelUnit';
-  static const String rentingProperty = 'rentingProperty';
-  static const String propertyForSale = 'propertyForSale';
-  static const String propertyRental = 'propertyRental';
-  static const String buyingProperty = 'buyingProperty';
+// Part 1: First word
+  static const String rentingHotelUnitPart1 = 'renting';
+  static const String rentHotelUnitPart1 = 'rent';
+  static const String rentingPropertyPart1 = 'renting';
+  static const String propertyForSalePart1 = 'property';
+  static const String propertyRentalPart1 = 'property';
+  static const String buyingPropertyPart1 = 'buying';
+
+// Part 2: Rest of the words
+  static const String rentingHotelUnitPart2 = 'HotelUnit';
+  static const String rentHotelUnitPart2 = 'HotelUnit';
+  static const String rentingPropertyPart2 = 'Property';
+  static const String propertyForSalePart2 = 'ForSale';
+  static const String propertyRentalPart2 = 'Rental';
+  static const String buyingPropertyPart2 = 'Property';
+
   static const String newRequest = 'newRequest';
   static const String requestInformation = 'requestInformation';
   static const String scopeOfSpecialization = 'scopeOfSpecialization';

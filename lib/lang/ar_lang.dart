@@ -404,6 +404,19 @@ class ArLang {
     "article6Description": "مساحات مكتبية حديثة في قلب القاهرة، مناسبة للشركات والمؤسسات، مواقف سيارات ومرافق خدمية متكاملة.",
     "article7Title": "فيلات فاخرة في الشيخ زايد",
     "article7Description": "فيلات حصرية بتصميم عصري، حدائق خاصة وتشطيبات راقية في قلب مدينة الشيخ زايد.",
+    "rentingHotelUnitPart1": "تأجير",
+    "rentingHotelUnitPart2": "وحدة فندقية",
+    "rentHotelUnitPart1": "إيجار",
+    "rentHotelUnitPart2": "وحدة فندقية",
+    "rentingPropertyPart1": "تأجير",
+    "rentingPropertyPart2": "عقار",
+    "propertyForSalePart1": "عقار",
+    "propertyForSalePart2": "للبيع",
+    "propertyRentalPart1": "عقار",
+    "propertyRentalPart2": "للإيجار",
+    "buyingPropertyPart1": "شراء",
+    "buyingPropertyPart2": "عقار",
+    
 
 
 
