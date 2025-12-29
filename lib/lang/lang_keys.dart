@@ -171,20 +171,20 @@ abstract class LangKeys {
       'uploadRequiredLegalDocuments';
   static const String createNewRequest = 'createNewRequest';
 // Part 1: First word
-  static const String rentingHotelUnitPart1 = 'renting';
-  static const String rentHotelUnitPart1 = 'rent';
-  static const String rentingPropertyPart1 = 'renting';
-  static const String propertyForSalePart1 = 'property';
-  static const String propertyRentalPart1 = 'property';
-  static const String buyingPropertyPart1 = 'buying';
+  static const String rentingHotelUnitPart1 = 'rentingHotelUnitPart1';
+  static const String rentHotelUnitPart1 = 'rentHotelUnitPart1';
+  static const String rentingPropertyPart1 = 'rentingPropertyPart1';
+  static const String propertyForSalePart1 = 'propertyForSalePart1';
+  static const String propertyRentalPart1 = 'propertyRentalPart1';
+  static const String buyingPropertyPart1 = 'buyingPropertyPart1';
 
 // Part 2: Rest of the words
-  static const String rentingHotelUnitPart2 = 'HotelUnit';
-  static const String rentHotelUnitPart2 = 'HotelUnit';
-  static const String rentingPropertyPart2 = 'Property';
-  static const String propertyForSalePart2 = 'ForSale';
-  static const String propertyRentalPart2 = 'Rental';
-  static const String buyingPropertyPart2 = 'Property';
+  static const String rentingHotelUnitPart2 = 'rentingHotelUnitPart2';
+  static const String rentHotelUnitPart2 = 'rentHotelUnitPart2';
+  static const String rentingPropertyPart2 = 'rentingPropertyPart2';
+  static const String propertyForSalePart2 = 'propertyForSalePart2';
+  static const String propertyRentalPart2 = 'propertyRentalPart2';
+  static const String buyingPropertyPart2 = 'buyingPropertyPart2';
 
   static const String newRequest = 'newRequest';
   static const String requestInformation = 'requestInformation';

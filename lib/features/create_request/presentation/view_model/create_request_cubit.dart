@@ -28,31 +28,31 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     CategoryModel(
       id: 2,
       name: LangKeys.propertyRentalPart1.tr(),
-      des: LangKeys.buyingPropertyPart2.tr(),
+      des: LangKeys.propertyRentalPart2.tr(),
       image: SvgImages.key,
     ),
     CategoryModel(
       id: 3,
       name: LangKeys.propertyForSalePart1.tr(),
-      des: LangKeys.buyingPropertyPart2.tr(),
+      des: LangKeys.propertyForSalePart2.tr(),
       image: SvgImages.buy,
     ),
     CategoryModel(
       id: 4,
       name: LangKeys.rentingPropertyPart1.tr(),
-      des: LangKeys.buyingPropertyPart2.tr(),
+      des: LangKeys.rentingPropertyPart2.tr(),
       image: SvgImages.transfer,
     ),
     CategoryModel(
       id: 5,
       name: LangKeys.rentHotelUnitPart1.tr(),
-      des: LangKeys.buyingPropertyPart2.tr(),
+      des: LangKeys.rentHotelUnitPart2.tr(),
       image: SvgImages.hands,
     ),
     CategoryModel(
       id: 6,
       name: LangKeys.rentingHotelUnitPart1.tr(),
-      des: LangKeys.buyingPropertyPart2.tr(),
+      des: LangKeys.rentingHotelUnitPart2.tr(),
       image: SvgImages.welfare,
     ),
   ];
