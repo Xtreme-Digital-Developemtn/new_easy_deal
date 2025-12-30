@@ -105,8 +105,8 @@ abstract class LangKeys {
   static const String lightMode = "lightMode";
   static const String darkMode = "darkMode";
   static const String useDeviceSettings = "useDeviceSettings";
-  static const String appearance = "appearance";
   static const String useDeviceSettingsMsg = "useDeviceSettingsMsg";
+  static const String appearance = "appearance";
   static const String language = "language";
   static const String selectLang = "selectLang";
   static const String requests = "requests";
@@ -170,22 +170,18 @@ abstract class LangKeys {
   static const String uploadRequiredLegalDocuments =
       'uploadRequiredLegalDocuments';
   static const String createNewRequest = 'createNewRequest';
-// Part 1: First word
   static const String rentingHotelUnitPart1 = 'rentingHotelUnitPart1';
-  static const String rentHotelUnitPart1 = 'rentHotelUnitPart1';
-  static const String rentingPropertyPart1 = 'rentingPropertyPart1';
-  static const String propertyForSalePart1 = 'propertyForSalePart1';
-  static const String propertyRentalPart1 = 'propertyRentalPart1';
-  static const String buyingPropertyPart1 = 'buyingPropertyPart1';
-
-// Part 2: Rest of the words
   static const String rentingHotelUnitPart2 = 'rentingHotelUnitPart2';
+  static const String rentHotelUnitPart1 = 'rentHotelUnitPart1';
   static const String rentHotelUnitPart2 = 'rentHotelUnitPart2';
+  static const String rentingPropertyPart1 = 'rentingPropertyPart1';
   static const String rentingPropertyPart2 = 'rentingPropertyPart2';
+  static const String propertyForSalePart1 = 'propertyForSalePart1';
   static const String propertyForSalePart2 = 'propertyForSalePart2';
+  static const String propertyRentalPart1 = 'propertyRentalPart1';
   static const String propertyRentalPart2 = 'propertyRentalPart2';
+  static const String buyingPropertyPart1 = 'buyingPropertyPart1';
   static const String buyingPropertyPart2 = 'buyingPropertyPart2';
-
   static const String newRequest = 'newRequest';
   static const String requestInformation = 'requestInformation';
   static const String scopeOfSpecialization = 'scopeOfSpecialization';
@@ -339,26 +335,15 @@ abstract class LangKeys {
   static const String mapLocations = 'mapLocations';
   static const String tapAnyLocationToOpenInMapsApp =
       'tapAnyLocationToOpenInMapsApp';
-
-
-
- ///////////////////////////////////////////////////////////////////////////////
-  /// SPECIALIZATION_SCOPE_OPTIONS
   static const String purchaseSellOutsideCompound = 'purchaseSellOutsideCompound';
   static const String primaryInsideCompound = 'primaryInsideCompound';
   static const String resaleInsideCompound = 'resaleInsideCompound';
   static const String rentalsOutsideCompound = 'rentalsOutsideCompound';
   static const String rentalsInsideCompound = 'rentalsInsideCompound';
-
-
-  /// TYPE_OPTIONS
   static const String purchasing = 'purchasing';
   static const String sell = 'sell';
   static const String rentOut = 'rentOut';
   static const String rentIn = 'rentIn';
-  //////////////////////////////////////////////////////////////////////////////
-
-  /// UNITS
   static const String apartments = 'apartments';
   static const String duplexes = 'duplexes';
   static const String penthouses = 'penthouses';
@@ -383,47 +368,25 @@ abstract class LangKeys {
   static const String twinHouses = 'twinHouses';
   static const String townHouses = 'townHouses';
   static const String standaloneVillas = 'standaloneVillas';
-
   static const String youMustChooseFieldOfSpecialization = 'youMustChooseFieldOfSpecialization';
   static const String youMustChooseFieldOfDealType = 'youMustChooseFieldOfDealType';
   static const String youMustChooseFieldOfUnitType = 'youMustChooseFieldOfUnitType';
-
-
-
-
-  static const String articlesTitle = "ArticlesThatInterestYou";
-  static const String allArticles = "AllArticles";
-
-// Article 1
-  static const String article1Title = "ModernFinishingMaterialsShopWithTheBest";
-  static const String article1Description = "AVeryQuietAreaAwayFromTheNoiseAndHustleOfTheCitySuitableForLargeAndSmallFamiliesSpaciousAreaWithAPrivateGarden";
-
-// Article 2
-  static const String article2Title = "InvestYourMoneyWithHotelProperty";
-  static const String article2Description = "ExcellentInvestmentOpportunityInTheHeartOfTheCityGuaranteedReturnsAndIntegratedManagementStrategicLocationNearTheAirportAndCommercialCenters";
-
-// Article 3
-  static const String article3Title = "Villa6OctoberApril2019";
-  static const String article3Description = "LatestInternationalFinishingMaterialsHighQualityAndCompetitivePricesSpecializedTeamToImplementFinishingWorksToTheHighestStandards";
-
-// Article 4
-  static const String article4Title = "ApartmentInNewCairo";
-  static const String article4Description = "ModernApartmentInTheFinestNeighborhoodsOfNewCairoLuxuryFinishesAndIntegratedFacilitiesCloseToUniversitiesAndInternationalSchools";
-
-// Article 5
-  static const String article5Title = "NorthCoastProperties";
-  static const String article5Description = "ResidentialUnitsDirectlyOnTheSeaWonderfulPanoramicViewIntegratedRecreationalFacilitiesAndSuitableForSummerInvestment";
-
-// Article 6
-  static const String article6Title = "AdministrativeOfficesDowntown";
-  static const String article6Description = "ModernOfficeSpacesInTheHeartOfCairoSuitableForCompaniesAndInstitutionsParkingAndIntegratedServiceFacilities";
-
-// Article 7
-  static const String article7Title = "LuxuryVillasInSheikhZayed";
-  static const String article7Description = "ExclusiveVillasWithModernDesignPrivateGardensAndPremiumFinishesInTheHeartOfSheikhZayedCity";
-
-
-
+  static const String articlesTitle = "articlesTitle";
+  static const String allArticles = "allArticles";
+  static const String article1Title = "article1Title";
+  static const String article1Description = "article1Description";
+  static const String article2Title = "article2Title";
+  static const String article2Description = "article2Description";
+  static const String article3Title = "article3Title";
+  static const String article3Description = "article3Description";
+  static const String article4Title = "article4Title";
+  static const String article4Description = "article4Description";
+  static const String article5Title = "article5Title";
+  static const String article5Description = "article5Description";
+  static const String article6Title = "article6Title";
+  static const String article6Description = "article6Description";
+  static const String article7Title = "article7Title";
+  static const String article7Description = "article7Description";
   static const String location1Title = "location1Title";
   static const String location2Title = "location2Title";
   static const String location3Title = "location3Title";
