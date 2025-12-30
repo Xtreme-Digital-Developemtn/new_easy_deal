@@ -43,6 +43,7 @@ class VerifyOtpButton extends StatelessWidget {
         // }
       },
       builder: (context, state) {
+        print(CacheHelper.getData(key: "role"));
         return ConditionalBuilder(
           condition: state is! VerifyOtpLoadingState,
           fallback: (context) => const CustomLoading(),
@@ -68,7 +69,7 @@ class VerifyOtpButton extends StatelessWidget {
                   //     },
                   // );
                   ///
-                  if(CacheHelper.getData(key: "role")=="client"){
+                  if(CacheHelper.getData(key: "userRole")=="client"){
                     context.pushNamedAndRemoveUntil(Routes.successView);
                   }else{
                     context.pushNamed(Routes.uploadBrokerDocView,arguments: {

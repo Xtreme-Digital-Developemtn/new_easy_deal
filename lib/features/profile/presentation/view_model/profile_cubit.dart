@@ -1,6 +1,5 @@
 import 'package:easy_deal/features/profile/data/models/client_profile_model.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
-
 import '../../../../main_imports.dart';
 import '../../data/models/logout_model.dart';
 import '../../data/repos/profile_repo.dart';

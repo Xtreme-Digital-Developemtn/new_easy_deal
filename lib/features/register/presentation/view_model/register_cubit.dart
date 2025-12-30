@@ -160,6 +160,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         phone: data.data!.phone.toString(),
         id:  data.data!.id!,
         email: "${data.data!.email}",
+        role: "${data.data!.role}",
       );
       clearControllers();
     });
@@ -179,12 +180,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String phone ,
     required int id ,
     required String email,
+    required String role,
   })
   async {
     await CacheTokenManger.saveUserToken(token);
     CacheHelper.saveData(key: "userPhone", value: phone);
     CacheHelper.saveData(key: "userId", value: id);
     CacheHelper.saveData(key: "userEmail", value: email);
-    CacheHelper.saveData(key: "userRole", value: "client");
+    CacheHelper.saveData(key: "userRole", value: role);
   }
 }

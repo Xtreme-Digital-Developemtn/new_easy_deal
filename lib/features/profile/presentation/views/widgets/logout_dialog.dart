@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
+import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
@@ -14,6 +15,8 @@ void showLogoutDialog(BuildContext context) {
         if(state is LogoutSuccessState){
           Toast.showSuccessToast(msg: state.logoutModel.message.toString(), context: context);
           context.pushNamedAndRemoveUntil(Routes.loginView);
+          LayoutCubit.pageIndex=0;
+            CacheTokenManger.clearUserToken();
         }
         else if(state is LogoutErrorState){
           Toast.showErrorToast(msg: state.error.toString(), context: context);

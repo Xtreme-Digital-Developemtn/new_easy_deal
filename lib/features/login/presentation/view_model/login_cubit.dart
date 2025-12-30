@@ -68,10 +68,6 @@ class LoginCubit extends Cubit<LoginStates> {
       },
           (data) async {
         loginModel = data;
-        print(data.data!.id);
-        print(data.data!.authToken);
-        print("0123456789");
-    //await cacheTokenAndIDAndVerified(token: data.data!.authToken.toString(),id: data.data!.id.toString());
         emit(LoginSuccessState(data));
         CacheHelper.saveData(key: "userId", value: data.data!.id);
         await CacheTokenManger.saveUserToken(data.data!.authToken!);

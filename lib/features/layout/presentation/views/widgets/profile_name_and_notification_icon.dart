@@ -9,7 +9,6 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(CacheTokenManger.userToken);
     return BlocBuilder<ProfileCubit, ProfileStates>(
       buildWhen: (previous, current) {
         return current is GetClientProfileLoadingState ||
