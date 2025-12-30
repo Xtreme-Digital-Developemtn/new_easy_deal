@@ -4,7 +4,6 @@ import 'package:easy_deal/features/home/presentation/view_model/home_states.dart
 import 'package:easy_deal/features/home/presentation/views/widgets/unit_item.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:skeletonizer/skeletonizer.dart'; // تأكد من استيراد هذا
 import 'best_seller_empty_list.dart';
 import 'best_seller_shimmer_loading_list.dart';
 

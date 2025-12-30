@@ -7,7 +7,8 @@ class UnitItem extends StatelessWidget {
   final Data? unit;
   @override
   Widget build(BuildContext context) {
-    print(unit!.pricePerMeterInCash);
+
+
     return InkWell(
       onTap: (){
         context.pushNamed(Routes.unitDetailsView,arguments: {
@@ -69,7 +70,7 @@ class UnitItem extends StatelessWidget {
                          children: [
                            SvgPicture.asset(SvgImages.money,height: 8.h,),
                            Gap(6.w),
-                           Text(unit?.pricePerMeterInCash??"2150.50000",style: AppStyles.gray8Medium,),
+                           Text(unit?.totalPriceInCash??"2150.50000",style: AppStyles.gray8Medium,),
                          ],
                        ),
                      ),
@@ -105,7 +106,7 @@ class UnitItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.r),
                       color: AppColors.primaryDark,
                     ),
-                    child: Text(unit?.status ?? "Apartment",style: AppStyles.white12Medium,),
+                    child: Text(unit?.deliveryStatus ?? "Apartment",style: AppStyles.white12Medium,),
                   ),
                 ),
                 Positioned(
