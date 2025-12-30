@@ -10,60 +10,69 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeCubit(this.homeRepo) : super(HomeInitState());
 
   HomeRepo? homeRepo;
+
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
   int currentSliderIndex = 0;
-  changeHomeSliderImages(index)
-  {
+
+  changeHomeSliderImages(index) {
     currentSliderIndex = index;
     emit(ChangeHomeSliderImageState());
   }
 
-//  List<String> sliderImagesList = ["assets/images/pngs/banner.png" , "assets/images/pngs/banner.png2.png"];
-  List<String> sliderImagesList = ["https://images.unsplash.com/photo-1469022563428-aa04fef9f5a2?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" ,
-    "https://images.unsplash.com/photo-1626036144963-33ded4a8ab8d?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"];
+  //  List<String> sliderImagesList = ["assets/images/pngs/banner.png" , "assets/images/pngs/banner.png2.png"];
+  List<String> sliderImagesList = [
+    "https://images.unsplash.com/photo-1469022563428-aa04fef9f5a2?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1626036144963-33ded4a8ab8d?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  ];
 
-  List<String> categories = ["Residential" , "Medical" , "Commercial" , "Admission" , "Admission" , "Commercial"];
-
-
+  List<String> categories = [
+    LangKeys.requestToPurchaseProperty.tr(),
+    LangKeys.requestToRentalProperty.tr(),
+    LangKeys.requestToSaleProperty.tr(),
+    LangKeys.requestToRentProperty.tr(),
+    LangKeys.requestToRentingHotelUnit.tr(),
+    LangKeys.requestToRentHotelUnit.tr(),
+  ];
 
   int selectCategory = 0;
-  chooseCategory(index)
-  {
+
+  chooseCategory(index) {
     selectCategory = index;
     emit(ChooseCategoryState());
   }
 
-
-
   BestSellerUnitsModel? bestSellerUnitsModel;
+
   Future<void> getBestSellerUnitsInHome() async {
     emit(GetBestSellerUnitsInHomeLoadingState());
     var result = await homeRepo!.getBestSellerUnitsInHome();
-    return result.fold((failure) {
-      emit(GetBestSellerUnitsInHomeErrorState(failure.errMessage));
-    }, (data) async {
-      bestSellerUnitsModel = data;
-      emit(GetBestSellerUnitsInHomeSuccessState(data));
-    });
+    return result.fold(
+      (failure) {
+        emit(GetBestSellerUnitsInHomeErrorState(failure.errMessage));
+      },
+      (data) async {
+        bestSellerUnitsModel = data;
+        emit(GetBestSellerUnitsInHomeSuccessState(data));
+      },
+    );
   }
 
-
-
   UnitTypesModel? unitTypesModel;
+
   Future<void> getUnitTypes() async {
     emit(GetUnitTypesLoadingState());
     var result = await homeRepo!.getUnitTypes();
-    return result.fold((failure) {
-      emit(GetUnitTypesErrorState(failure.errMessage));
-    }, (data) async {
-      unitTypesModel = data;
-      emit(GetUnitTypesSuccessState(data));
-    });
+    return result.fold(
+      (failure) {
+        emit(GetUnitTypesErrorState(failure.errMessage));
+      },
+      (data) async {
+        unitTypesModel = data;
+        emit(GetUnitTypesSuccessState(data));
+      },
+    );
   }
-
-
 
   List<String> lastArticlesImages = [
     "assets/images/jpgs/1.jpg",
@@ -75,7 +84,7 @@ class HomeCubit extends Cubit<HomeStates> {
     "assets/images/jpgs/7.jpg",
   ];
 
-  List<String> lastArticlesTitles  = [
+  List<String> lastArticlesTitles = [
     LangKeys.article1Title.tr(),
     LangKeys.article2Title.tr(),
     LangKeys.article3Title.tr(),
@@ -85,7 +94,7 @@ class HomeCubit extends Cubit<HomeStates> {
     LangKeys.article7Title.tr(),
   ];
 
-  List<String> lastArticlesDescription  = [
+  List<String> lastArticlesDescription = [
     LangKeys.article1Description.tr(),
     LangKeys.article2Description.tr(),
     LangKeys.article3Description.tr(),
@@ -93,10 +102,7 @@ class HomeCubit extends Cubit<HomeStates> {
     LangKeys.article5Description.tr(),
     LangKeys.article6Description.tr(),
     LangKeys.article7Description.tr(),
-
-
   ];
-
 
   List<String> locationsTitles = [
     LangKeys.location1Title.tr(),
@@ -111,5 +117,4 @@ class HomeCubit extends Cubit<HomeStates> {
     "assets/images/jpgs/locations/3.jpg",
     "assets/images/jpgs/locations/4.jpg",
   ];
-
 }

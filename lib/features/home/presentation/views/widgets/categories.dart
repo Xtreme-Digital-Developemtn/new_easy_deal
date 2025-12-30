@@ -23,10 +23,11 @@ class Categories extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     homeCubit.chooseCategory(index);
-                    context.pushNamed(
-                      Routes.categoryUnitsView,
-                      arguments: {"categoryName": homeCubit.categories[index]},
-                    );
+                    context.pushNamed(Routes.createRequestView);
+                    // context.pushNamed(
+                    //   Routes.categoryUnitsView,
+                    //   arguments: {"categoryName": homeCubit.categories[index]},
+                    // );
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
