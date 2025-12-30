@@ -7,6 +7,7 @@ class OnboardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(CacheTokenManger.userToken);
     return Scaffold(
       body: OnBoardingSlider(
         headerBackgroundColor: Colors.white,

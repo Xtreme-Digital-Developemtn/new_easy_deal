@@ -2,7 +2,6 @@ import 'dart:math';
 
 import '../../../../main_imports.dart';
 
-
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -35,8 +34,10 @@ class _SplashViewState extends State<SplashView>
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         final String? userToken = CacheTokenManger.userToken;
-        if (userToken != null && userToken.isNotEmpty && CacheHelper.getData(key: "rememberMe") == true) {
-         context.pushNamed(Routes.layoutView);
+        if (userToken != null &&
+            userToken.isNotEmpty &&
+            CacheHelper.getData(key: "rememberMe") == true) {
+          context.pushNamed(Routes.layoutView);
         } else {
           context.pushNamedAndRemoveUntil(Routes.onBoardingView);
         }
@@ -60,10 +61,7 @@ class _SplashViewState extends State<SplashView>
             angle: _rotationAnimation.value,
             child: Transform.scale(
               scale: _scaleAnimation.value,
-              child: Center(
-                  child: Image.asset(
-                PngImages.logo,
-              )),
+              child: Center(child: Image.asset(PngImages.logo)),
             ),
           );
         },

@@ -27,50 +27,50 @@ class BestSellerUnitsModel {
 }
 
 class Data {
-  int? id;
+  dynamic id;
   dynamic modelCode;
-  String? type;
-  String? unitArea;
-  String? buildingNumber;
-  String? unitNumber;
+  dynamic type;
+  dynamic unitArea;
+  dynamic buildingNumber;
+  dynamic unitNumber;
   dynamic floor;
   Area? area;
   City? city;
   SubArea? subArea;
   List<OtherSubAreas>? otherSubAreas;
-  String? ownerPhone;
-  String? ownerName;
-  String? detailedAddress;
+  dynamic ownerPhone;
+  dynamic ownerName;
+  dynamic detailedAddress;
   dynamic dailyRent;
   dynamic monthlyRent;
-  String? deliveryStatus;
-  String? numberOfRooms;
-  String? numberOfBathrooms;
-  String? finishingType;
-  String? unitOperation;
-  String? compoundType;
-  String? status;
+  dynamic deliveryStatus;
+  dynamic numberOfRooms;
+  dynamic numberOfBathrooms;
+  dynamic finishingType;
+  dynamic unitOperation;
+  dynamic compoundType;
+  dynamic status;
   dynamic view;
   dynamic deliveryDate;
-  String? diagram;
+  dynamic diagram;
   dynamic locationInMasterPlan;
   dynamic location;
-  String? paymentSystem;
+  dynamic paymentSystem;
   dynamic pricePerMeterInInstallment;
   dynamic pricePerMeterInCash;
   dynamic totalPriceInInstallment;
-  String? totalPriceInCash;
+  dynamic totalPriceInCash;
   List<Advertisers>? advertisers;
-  String? isArchived;
+  dynamic isArchived;
   AdditionalDetails? additionalDetails;
   List<String>? otherAccessories;
   dynamic modelId;
-  String? brokerId;
+  dynamic brokerId;
   Broker? broker;
   dynamic projectName;
   dynamic developerName;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   List<dynamic>? gallery;
 
   Data({this.id, this.modelCode, this.type, this.unitArea, this.buildingNumber, this.unitNumber, this.floor, this.area, this.city, this.subArea, this.otherSubAreas, this.ownerPhone, this.ownerName, this.detailedAddress, this.dailyRent, this.monthlyRent, this.deliveryStatus, this.numberOfRooms, this.numberOfBathrooms, this.finishingType, this.unitOperation, this.compoundType, this.status, this.view, this.deliveryDate, this.diagram, this.locationInMasterPlan, this.location, this.paymentSystem, this.pricePerMeterInInstallment, this.pricePerMeterInCash, this.totalPriceInInstallment, this.totalPriceInCash, this.advertisers, this.isArchived, this.additionalDetails, this.otherAccessories, this.modelId, this.brokerId, this.broker, this.projectName, this.developerName, this.createdAt, this.updatedAt, this.gallery});
@@ -193,9 +193,9 @@ class Data {
 }
 
 class Broker {
-  int? id;
-  String? name;
-  String? phone;
+  dynamic id;
+  dynamic name;
+  dynamic phone;
 
   Broker({this.id, this.name, this.phone});
 
@@ -215,18 +215,20 @@ class Broker {
 }
 
 class AdditionalDetails {
-  String? notes;
-  String? legalStatus;
-  String? unitLayoutStatus;
-  String? buildingLayoutStatus;
+  dynamic notes;
+  dynamic legalStatus;
+  dynamic unitLayoutStatus;
+  dynamic buildingLayoutStatus;
+  dynamic unitFacing;
 
-  AdditionalDetails({this.notes, this.legalStatus, this.unitLayoutStatus, this.buildingLayoutStatus});
+  AdditionalDetails({this.notes, this.legalStatus, this.unitLayoutStatus, this.buildingLayoutStatus ,this.unitFacing});
 
   AdditionalDetails.fromJson(Map<String, dynamic> json) {
     notes = json["notes"];
     legalStatus = json["legalStatus"];
     unitLayoutStatus = json["unitLayoutStatus"];
     buildingLayoutStatus = json["buildingLayoutStatus"];
+    unitFacing = json["unitFacing"];
   }
 
   Map<String, dynamic> toJson() {
@@ -240,13 +242,13 @@ class AdditionalDetails {
 }
 
 class Advertisers {
-  String? caption;
-  String? creatorId;
-  int? advertiserId;
-  String? advertiserFullName;
+  dynamic caption;
+  dynamic creatorId;
+  dynamic advertiserId;
+  dynamic advertiserFullName;
   dynamic advertiserEmail;
-  String? advertiserPhone;
-  String? createdAt;
+  dynamic advertiserPhone;
+  dynamic createdAt;
 
   Advertisers({this.caption, this.creatorId, this.advertiserId, this.advertiserFullName, this.advertiserEmail, this.advertiserPhone, this.createdAt});
 
@@ -274,9 +276,9 @@ class Advertisers {
 }
 
 class OtherSubAreas {
-  int? id;
-  String? name;
-  String? subAreaId;
+  dynamic id;
+  dynamic name;
+  dynamic subAreaId;
 
   OtherSubAreas({this.id, this.name, this.subAreaId});
 
@@ -296,12 +298,12 @@ class OtherSubAreas {
 }
 
 class SubArea {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-  String? areaId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic nameEn;
+  dynamic nameAr;
+  dynamic areaId;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   SubArea({this.id, this.nameEn, this.nameAr, this.areaId, this.createdAt, this.updatedAt});
 
@@ -327,11 +329,11 @@ class SubArea {
 }
 
 class City {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic nameEn;
+  dynamic nameAr;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   City({this.id, this.nameEn, this.nameAr, this.createdAt, this.updatedAt});
 
@@ -355,12 +357,12 @@ class City {
 }
 
 class Area {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-  String? cityId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic nameEn;
+  dynamic nameAr;
+  dynamic cityId;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Area({this.id, this.nameEn, this.nameAr, this.cityId, this.createdAt, this.updatedAt});
 

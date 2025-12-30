@@ -155,13 +155,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
     }, (data) async {
       registerModel = data;
       emit(SignUpSuccess(data));
-      await cacheUserInfo(
-        token: "${data.data!.authToken}",
-        phone: data.data!.phone.toString(),
-        id:  data.data!.id!,
-        email: "${data.data!.email}",
-        role: "${data.data!.role}",
-      );
+      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      CacheHelper.saveData(key: "userRole", value: data.data!.role);
+      print(CacheHelper.getData(key: "userRole"));
+      print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+      CacheHelper.saveData(key: "userEmail", value: data.data!.email);
+      CacheHelper.saveData(key: "userId", value: data.data!.id);
+      CacheHelper.saveData(key: "userPhone", value: data.data!.phone);
+      await CacheTokenManger.saveUserToken(data.data!.authToken!);
+      print(CacheTokenManger.userToken);
+      print("ccccccccccccccccccccccccccccccccc");
+      // await cacheUserInfo(
+      //   token: "${data.data!.authToken}",
+      //   phone: data.data!.phone.toString(),
+      //   id:  data.data!.id!,
+      //   email: "${data.data!.email}",
+      //   role: "${data.data!.role}",
+      // );
       clearControllers();
     });
   }

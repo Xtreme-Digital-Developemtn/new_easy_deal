@@ -49,6 +49,9 @@ class HomeCubit extends Cubit<HomeStates> {
     var result = await homeRepo!.getBestSellerUnitsInHome();
     return result.fold(
       (failure) {
+        print(failure);
+        print("ssssssssssssssss");
+        print(failure.errMessage);
         emit(GetBestSellerUnitsInHomeErrorState(failure.errMessage));
       },
       (data) async {
