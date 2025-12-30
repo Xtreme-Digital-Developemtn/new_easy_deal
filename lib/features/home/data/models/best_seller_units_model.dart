@@ -30,48 +30,48 @@ class Data {
   int? id;
   dynamic modelCode;
   String? type;
-  int? unitArea;
+  String? unitArea;
   String? buildingNumber;
   String? unitNumber;
-  String? floor;
+  dynamic floor;
   Area? area;
   City? city;
   SubArea? subArea;
-  List<dynamic>? otherSubAreas;
+  List<OtherSubAreas>? otherSubAreas;
   String? ownerPhone;
   String? ownerName;
   String? detailedAddress;
   dynamic dailyRent;
   dynamic monthlyRent;
   String? deliveryStatus;
-  int? numberOfRooms;
-  int? numberOfBathrooms;
+  String? numberOfRooms;
+  String? numberOfBathrooms;
   String? finishingType;
   String? unitOperation;
   String? compoundType;
   String? status;
-  String? view;
+  dynamic view;
   dynamic deliveryDate;
   String? diagram;
   dynamic locationInMasterPlan;
   dynamic location;
   String? paymentSystem;
   dynamic pricePerMeterInInstallment;
-  int? pricePerMeterInCash;
+  dynamic pricePerMeterInCash;
   dynamic totalPriceInInstallment;
-  int? totalPriceInCash;
+  String? totalPriceInCash;
   List<Advertisers>? advertisers;
-  int? isArchived;
+  String? isArchived;
   AdditionalDetails? additionalDetails;
   List<String>? otherAccessories;
   dynamic modelId;
-  int? brokerId;
+  String? brokerId;
   Broker? broker;
   dynamic projectName;
   dynamic developerName;
   String? createdAt;
   String? updatedAt;
-  List<Gallery>? gallery;
+  List<dynamic>? gallery;
 
   Data({this.id, this.modelCode, this.type, this.unitArea, this.buildingNumber, this.unitNumber, this.floor, this.area, this.city, this.subArea, this.otherSubAreas, this.ownerPhone, this.ownerName, this.detailedAddress, this.dailyRent, this.monthlyRent, this.deliveryStatus, this.numberOfRooms, this.numberOfBathrooms, this.finishingType, this.unitOperation, this.compoundType, this.status, this.view, this.deliveryDate, this.diagram, this.locationInMasterPlan, this.location, this.paymentSystem, this.pricePerMeterInInstallment, this.pricePerMeterInCash, this.totalPriceInInstallment, this.totalPriceInCash, this.advertisers, this.isArchived, this.additionalDetails, this.otherAccessories, this.modelId, this.brokerId, this.broker, this.projectName, this.developerName, this.createdAt, this.updatedAt, this.gallery});
 
@@ -86,7 +86,7 @@ class Data {
     area = json["area"] == null ? null : Area.fromJson(json["area"]);
     city = json["city"] == null ? null : City.fromJson(json["city"]);
     subArea = json["subArea"] == null ? null : SubArea.fromJson(json["subArea"]);
-    otherSubAreas = json["otherSubAreas"] ?? [];
+    otherSubAreas = json["otherSubAreas"] == null ? null : (json["otherSubAreas"] as List).map((e) => OtherSubAreas.fromJson(e)).toList();
     ownerPhone = json["ownerPhone"];
     ownerName = json["ownerName"];
     detailedAddress = json["detailedAddress"];
@@ -120,7 +120,7 @@ class Data {
     developerName = json["developerName"];
     createdAt = json["createdAt"];
     updatedAt = json["updatedAt"];
-    gallery = json["gallery"] == null ? null : (json["gallery"] as List).map((e) => Gallery.fromJson(e)).toList();
+    gallery = json["gallery"] ?? [];
   }
 
   Map<String, dynamic> toJson() {
@@ -142,7 +142,7 @@ class Data {
       _data["subArea"] = subArea?.toJson();
     }
     if(otherSubAreas != null) {
-      _data["otherSubAreas"] = otherSubAreas;
+      _data["otherSubAreas"] = otherSubAreas?.map((e) => e.toJson()).toList();
     }
     _data["ownerPhone"] = ownerPhone;
     _data["ownerName"] = ownerName;
@@ -186,30 +186,8 @@ class Data {
     _data["createdAt"] = createdAt;
     _data["updatedAt"] = updatedAt;
     if(gallery != null) {
-      _data["gallery"] = gallery?.map((e) => e.toJson()).toList();
+      _data["gallery"] = gallery;
     }
-    return _data;
-  }
-}
-
-class Gallery {
-  int? id;
-  String? url;
-  String? type;
-
-  Gallery({this.id, this.url, this.type});
-
-  Gallery.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    url = json["url"];
-    type = json["type"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["url"] = url;
-    _data["type"] = type;
     return _data;
   }
 }
@@ -238,32 +216,35 @@ class Broker {
 
 class AdditionalDetails {
   String? notes;
-  String? unitFacing;
   String? legalStatus;
+  String? unitLayoutStatus;
+  String? buildingLayoutStatus;
 
-  AdditionalDetails({this.notes, this.unitFacing, this.legalStatus});
+  AdditionalDetails({this.notes, this.legalStatus, this.unitLayoutStatus, this.buildingLayoutStatus});
 
   AdditionalDetails.fromJson(Map<String, dynamic> json) {
     notes = json["notes"];
-    unitFacing = json["unitFacing"];
     legalStatus = json["legalStatus"];
+    unitLayoutStatus = json["unitLayoutStatus"];
+    buildingLayoutStatus = json["buildingLayoutStatus"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["notes"] = notes;
-    _data["unitFacing"] = unitFacing;
     _data["legalStatus"] = legalStatus;
+    _data["unitLayoutStatus"] = unitLayoutStatus;
+    _data["buildingLayoutStatus"] = buildingLayoutStatus;
     return _data;
   }
 }
 
 class Advertisers {
   String? caption;
-  int? creatorId;
+  String? creatorId;
   int? advertiserId;
   String? advertiserFullName;
-  String? advertiserEmail;
+  dynamic advertiserEmail;
   String? advertiserPhone;
   String? createdAt;
 
@@ -292,11 +273,33 @@ class Advertisers {
   }
 }
 
+class OtherSubAreas {
+  int? id;
+  String? name;
+  String? subAreaId;
+
+  OtherSubAreas({this.id, this.name, this.subAreaId});
+
+  OtherSubAreas.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    name = json["name"];
+    subAreaId = json["subAreaId"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    _data["id"] = id;
+    _data["name"] = name;
+    _data["subAreaId"] = subAreaId;
+    return _data;
+  }
+}
+
 class SubArea {
   int? id;
   String? nameEn;
   String? nameAr;
-  int? areaId;
+  String? areaId;
   String? createdAt;
   String? updatedAt;
 
@@ -355,7 +358,7 @@ class Area {
   int? id;
   String? nameEn;
   String? nameAr;
-  int? cityId;
+  String? cityId;
   String? createdAt;
   String? updatedAt;
 

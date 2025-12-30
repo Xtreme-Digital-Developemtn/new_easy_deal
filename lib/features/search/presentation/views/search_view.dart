@@ -24,7 +24,7 @@ class SearchView extends StatelessWidget {
                     enabled: searchCubit.allUnitsModel==null || state is GetAllUnitsLoadingState,
                     child: ListView.separated(
                       itemBuilder: (context,index){
-                        return UnitItem(unit: searchCubit.allUnitsModel?.data?[index]??null,);
+                        return UnitItem( );
                       },
                       separatorBuilder: (context,index){
                         return Gap(12.h);

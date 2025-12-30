@@ -1,4 +1,4 @@
- import 'package:easy_deal/features/search/data/models/all_units_model.dart';
+ import 'package:easy_deal/features/home/data/models/best_seller_units_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -7,6 +7,7 @@ class UnitItem extends StatelessWidget {
   final Data? unit;
   @override
   Widget build(BuildContext context) {
+    print(unit!.pricePerMeterInCash);
     return InkWell(
       onTap: (){
         context.pushNamed(Routes.unitDetailsView,arguments: {
