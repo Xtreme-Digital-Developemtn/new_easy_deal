@@ -109,6 +109,7 @@ flutter:
     - assets/images/svgs/
     - assets/images/pngs/
     - assets/images/jpgs/
+    - assets/images/jpgs/locations/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

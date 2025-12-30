@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                         backgroundColor: AppColors.white,
                       ),
                     ),
-                    initialRoute: Routes.brokerHomeView,
+                    initialRoute: Routes.splashView,
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {
                       SystemChrome.setSystemUIOverlayStyle(

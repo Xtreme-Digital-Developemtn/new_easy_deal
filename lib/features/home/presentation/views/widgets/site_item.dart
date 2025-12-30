@@ -1,22 +1,35 @@
 import 'package:easy_deal/main_imports.dart';
 
+import '../../view_model/home_cubit.dart';
+
 class SiteItem extends StatelessWidget {
-  const SiteItem({super.key});
+  const SiteItem({super.key, required this.index});
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
       child: Stack(
         children: [
-          CustomNetWorkImage(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: Image.asset(
+              context.read<HomeCubit>().locationsImages[index],
               width: 120.w,
               height: 120.h,
               fit: BoxFit.cover,
-              imageUrl: "https://sattvagroup.com/wp-content/uploads/2024/09/flats-vs-apartment.jpg",
-              raduis: 8 .r),
+            ),
+          ),
+          // CustomNetWorkImage(
+          //   width: 120.w,
+          //   height: 120.h,
+          //   fit: BoxFit.cover,
+          //   imageUrl:
+          //       "https://sattvagroup.com/wp-content/uploads/2024/09/flats-vs-apartment.jpg",
+          //   raduis: 8.r,
+          // ),
 
           Positioned(
             bottom: 0,
@@ -39,19 +52,23 @@ class SiteItem extends StatelessWidget {
             ),
           ),
           Positioned(
-              bottom: 25.h,
-              left: 5.w,
-              child: Row(
-                children: [
-                  SvgPicture.asset(SvgImages.location,height: 16.h,),
-                  Text("New Cairo",style: AppStyles.white14SemiBold,),
-                ],
-              ),
+            bottom: 25.h,
+            left: 5.w,
+            child: Row(
+              children: [
+                SvgPicture.asset(SvgImages.location, height: 16.h),
+                Text(context.read<HomeCubit>().locationsTitles[index], style: AppStyles.white14SemiBold),
+              ],
+            ),
           ),
-          Positioned(
-              bottom: 10.h,
-              left: 10.w,
-              child: Text("157866 Listing available",style: AppStyles.white8Regular,))
+          // Positioned(
+          //   bottom: 10.h,
+          //   left: 10.w,
+          //   child: Text(
+          //     "157866 Listing available",
+          //     style: AppStyles.white8Regular,
+          //   ),
+          // ),
         ],
       ),
     );

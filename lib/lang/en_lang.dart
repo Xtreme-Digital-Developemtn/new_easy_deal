@@ -420,6 +420,10 @@ class EnLang {
     "propertyRentalPart2": "Rental",
     "buyingPropertyPart1": "buying",
     "buyingPropertyPart2": "Property",
+    "location1Title": "Mostakbal City",
+    "location2Title": "15 May",
+    "location3Title": "New Cairo",
+    "location4Title": "Maadi",
 
 
 

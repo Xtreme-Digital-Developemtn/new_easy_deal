@@ -424,6 +424,13 @@ abstract class LangKeys {
 
 
 
+  static const String location1Title = "location1Title";
+  static const String location2Title = "location2Title";
+  static const String location3Title = "location3Title";
+  static const String location4Title = "location4Title";
+
+
+
 
 
 }

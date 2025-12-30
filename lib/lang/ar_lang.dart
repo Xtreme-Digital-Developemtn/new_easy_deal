@@ -416,7 +416,10 @@ class ArLang {
     "propertyRentalPart2": "للإيجار",
     "buyingPropertyPart1": "شراء",
     "buyingPropertyPart2": "عقار",
-    
+    "location1Title": "مدينة المستقبل",
+    "location2Title": "15 مايو",
+    "location3Title": "القاهرة الجديدة",
+    "location4Title": "المعادي",
 
 
 

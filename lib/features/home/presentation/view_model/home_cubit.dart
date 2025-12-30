@@ -97,4 +97,19 @@ class HomeCubit extends Cubit<HomeStates> {
 
   ];
 
+
+  List<String> locationsTitles = [
+    LangKeys.location1Title.tr(),
+    LangKeys.location2Title.tr(),
+    LangKeys.location3Title.tr(),
+    LangKeys.location4Title.tr(),
+  ];
+
+  List<String> locationsImages = [
+    "assets/images/jpgs/locations/1.jpg",
+    "assets/images/jpgs/locations/2.jpg",
+    "assets/images/jpgs/locations/3.jpg",
+    "assets/images/jpgs/locations/4.jpg",
+  ];
+
 }

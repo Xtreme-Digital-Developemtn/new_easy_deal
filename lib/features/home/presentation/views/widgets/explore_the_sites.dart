@@ -2,6 +2,8 @@ import 'package:easy_deal/features/home/presentation/views/widgets/site_item.dar
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../view_model/home_cubit.dart';
+
 class ExploreTheSites extends StatelessWidget {
   const ExploreTheSites({super.key});
 
@@ -19,12 +21,12 @@ class ExploreTheSites extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
                 itemBuilder: (context,index){
-                return SiteItem();
+                return SiteItem(index: index);
                 },
                 separatorBuilder: (context,index){
                 return Gap(12.w);
                 },
-                itemCount: 10,
+              itemCount: context.read<HomeCubit>().locationsImages.length,
             ),
           ),
         ],
