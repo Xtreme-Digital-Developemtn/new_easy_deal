@@ -391,6 +391,21 @@ abstract class LangKeys {
   static const String location2Title = "location2Title";
   static const String location3Title = "location3Title";
   static const String location4Title = "location4Title";
+  static const String shops = 'shops';
+  static const String warehouses = 'warehouses';
+  static const String propertyType = 'propertyType';
+  static const String theProcess = 'theProcess';
+  static const String priceFrom = 'priceFrom';
+  static const String priceTo = 'priceTo';
+  static const String areaFrom = 'areaFrom';
+  static const String areaTo = 'areaTo';
+  static const String underConstruction = 'underConstruction';
+  static const String immediateDelivery = 'immediateDelivery';
+  static const String outsideCompound = 'outsideCompound';
+  static const String insideCompound = 'insideCompound';
+
+
+  static const String noUnitsFound = 'noUnitsFound';
 
 
 

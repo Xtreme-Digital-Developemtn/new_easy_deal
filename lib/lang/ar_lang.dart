@@ -381,6 +381,18 @@ class ArLang {
     "location2Title": "15 مايو",
     "location3Title": "القاهرة الجديدة",
     "location4Title": "المعادي",
+    "shops": "متاجر",
+    "warehouses": "مستودعات",
+    "propertyType": "نوع العقار",
+    "theProcess": "العملية",
+    "priceFrom": "السعر من",
+    "priceTo": "السعر إلى",
+    "areaFrom": "المساحة من",
+    "areaTo": "المساحة إلى",
+    "underConstruction": "تحت الإنشاء",
+    "immediateDelivery": "تسليم فوري",
+    "outsideCompound": "خارج المجمع",
+    "insideCompound": "داخل المجمع",
 
 
 

@@ -381,6 +381,18 @@ class EnLang {
     "location2Title": "15 May",
     "location3Title": "New Cairo",
     "location4Title": "Maadi",
+    "shops": "Shops",
+    "warehouses": "Warehouses",
+    "propertyType": "Property Type",
+    "theProcess": "Process",
+    "priceFrom": "Price From",
+    "priceTo": "Price To",
+    "areaFrom": "Area From",
+    "areaTo": "Area To",
+    "underConstruction": "Under Construction",
+    "immediateDelivery": "Immediate Delivery",
+    "outsideCompound": "Outside Compound",
+    "insideCompound": "Inside Compound"
 
 
 
