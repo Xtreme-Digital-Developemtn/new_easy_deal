@@ -28,19 +28,28 @@ class SearchView extends StatelessWidget {
                 ),
                 Gap(20.h),
                 Expanded(
-                  child: Skeletonizer(
-                    enabled: searchCubit.allUnitsModel==null || state is GetAllUnitsLoadingState,
-                    child:
-            searchCubit.allUnitsModel!=null  &&  searchCubit.allUnitsModel!.data!.isEmpty
-            ? EmptyWidget(msg: LangKeys.noUnitsFound):
-                    ListView.separated(
-                      itemBuilder: (context,index){
-                        return UnitItem();
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await searchCubit.getAllUnits(reset: true);
+                    },
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (scrollNotification) {
+                        // التحقق إذا وصلنا لنهاية الـ ListView
+                        if (scrollNotification is ScrollEndNotification) {
+                          final metrics = scrollNotification.metrics;
+                          if (metrics.atEdge && metrics.pixels != 0) {
+                            // تحميل المزيد من البيانات
+                            searchCubit.loadMoreUnits();
+                          }
+                        }
+                        return false;
                       },
-                      separatorBuilder: (context,index){
-                        return Gap(12.h);
-                      },
-                      itemCount:searchCubit.allUnitsModel?.data?.length ?? 10,
+                      child: Skeletonizer(
+                        enabled: (searchCubit.allUnitsModel == null ||
+                            state is GetAllUnitsLoadingState) &&
+                            !searchCubit.isLoadingMore,
+                        child: _buildContent(searchCubit, state, context),
+                      ),
                     ),
                   ),
                 )
@@ -53,4 +62,51 @@ class SearchView extends StatelessWidget {
       )),
     );
   }
+}
+Widget _buildContent(SearchCubit cubit, SearchStates state, BuildContext context) {
+  // حالة عدم وجود بيانات
+  if (cubit.allUnitsModel?.data?.isEmpty == true &&
+      !cubit.isLoadingMore &&
+      state is! GetAllUnitsLoadingState) {
+    return EmptyWidget(msg: LangKeys.noUnitsFound);
+  }
+
+  // حالة وجود بيانات
+  return Column(
+    children: [
+      Expanded(
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            // التحقق إذا وصلنا لعنصر الـ Loading
+            if (index >= (cubit.allUnitsModel?.data?.length ?? 0)) {
+              return _buildLoadingMoreWidget(cubit);
+            }
+
+            return UnitItem(
+              unit: cubit.allUnitsModel?.data?[index] ?? null,
+            );
+          },
+          separatorBuilder: (context, index) {
+            if (index >= (cubit.allUnitsModel?.data?.length ?? 0) - 1) {
+              return SizedBox.shrink();
+            }
+            return Gap(12.h);
+          },
+          itemCount: (cubit.allUnitsModel?.data?.length ?? 0) +
+              (cubit.hasMore && cubit.isLoadingMore ? 1 : 0),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildLoadingMoreWidget(SearchCubit cubit) {
+  if (!cubit.isLoadingMore) return SizedBox.shrink();
+
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 20.h),
+    child: Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
 }

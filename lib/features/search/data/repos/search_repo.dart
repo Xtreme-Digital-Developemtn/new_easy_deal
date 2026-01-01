@@ -5,6 +5,8 @@ import '../../../../core/errors/failure.dart';
 abstract class SearchRepo{
 
   Future<Either<Failure,BestSellerUnitsModel>> getAllUnits({
+    required int limit,
+    required int offset,
     required String unitType,
     required String unitOperation,
     required String area,

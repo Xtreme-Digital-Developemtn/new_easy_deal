@@ -10,6 +10,8 @@ class SearchRepoImpl implements SearchRepo {
 
   @override
   Future<Either<Failure, BestSellerUnitsModel>> getAllUnits({
+    required int limit,
+    required int offset,
     required String unitOperation,
     required String area,
     required String priceFrom,
@@ -21,7 +23,10 @@ class SearchRepoImpl implements SearchRepo {
     required String unitType,
   }) async {
     try {
-      Map<String, String> queryParams = {};
+      Map<String, String> queryParams = {
+        'limit': limit.toString(),
+        'offset': offset.toString(),
+      };
 
       // دالة مساعدة للتحقق من القيمة
       bool isValidValue(String value) {
@@ -39,7 +44,7 @@ class SearchRepoImpl implements SearchRepo {
       if (isValidValue(unitType)) queryParams["unitType"] = unitType;
 
       var response = await apiService!.getData(
-        endPoint: EndPoints.bestSellerUnitsInHome,
+        endPoint: EndPoints.bestSellerUnitsInSearch,
         query: queryParams,
       );
 

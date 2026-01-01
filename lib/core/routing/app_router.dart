@@ -276,7 +276,7 @@ class AppRouter {
         child: BrokerHomeView(),
       ),
       BlocProvider(
-          create: (context)=>SearchCubit(getIt.get<SearchRepoImpl>())..getAllUnits(),
+          create: (context)=>SearchCubit(getIt.get<SearchRepoImpl>())..getAllUnits( ),
           child: SearchView()),
       BlocProvider(
           create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),

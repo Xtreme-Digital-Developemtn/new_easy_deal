@@ -12,12 +12,37 @@ class SearchCubit extends Cubit<SearchStates> {
   static SearchCubit get(context) => BlocProvider.of(context);
 
   BestSellerUnitsModel? allUnitsModel;
-
+  List<Data> allUnits = [];
+  int currentPage = 1;
+  int itemsPerPage = 12;
+  bool hasMore = true;
+  bool isLoadingMore = false;
   Future<void> getAllUnits({
       bool? isFilter,
-}) async {
-    emit(GetAllUnitsLoadingState());
+    bool loadMore = false,
+    bool reset = false,
+})
+  async {
+    if (reset) {
+      allUnits = [];
+      currentPage = 1;
+      hasMore = true;
+      allUnitsModel = null;
+    }
+    // إذا كان التحميل للصفحات التالية
+    if (loadMore) {
+      if (!hasMore || isLoadingMore) return;
+      isLoadingMore = true;
+      currentPage++;
+      emit(GetAllUnitsLoadingMoreState());
+    } else {
+      emit(GetAllUnitsLoadingState());
+    }
+
+    int offset = (currentPage - 1) * itemsPerPage;
     var result = await searchRepo!.getAllUnits(
+      limit: 12,
+      offset: offset,
       unitOperation: theProcess.toString(),
       area: "",
       unitType: properType.toString(),
@@ -30,15 +55,40 @@ class SearchCubit extends Cubit<SearchStates> {
     );
     return result.fold(
       (failure) {
+        if (loadMore) {
+          currentPage--; // تراجع عن زيادة الصفحة
+          isLoadingMore = false;
+        }
         emit(GetAllUnitsErrorState(failure.errMessage));
       },
       (data) async {
-        allUnitsModel = data;
-        isFilter==true ? emit(GetAllUnitsFilterSuccessState(data)):
-        emit(GetAllUnitsSuccessState(data));
+        isLoadingMore = false;
+        hasMore = data.data != null && data.data!.length >= itemsPerPage;
+        if (loadMore) {
+          // إضافة البيانات الجديدة للقائمة الحالية
+          allUnits.addAll(data.data ?? []);
+          // تحديث النموذج مع البيانات الكاملة
+          allUnitsModel = data;
+        } else {
+          // حفظ البيانات الجديدة
+          allUnits = data.data ?? [];
+          allUnitsModel = data;
+        }
+        if (isFilter == true) {
+          emit(GetAllUnitsFilterSuccessState(allUnitsModel!));
+        } else {
+          emit(GetAllUnitsSuccessState(allUnitsModel!));
+        }
       },
     );
   }
+
+  // دالة لتحميل المزيد من البيانات
+  Future<void> loadMoreUnits() async {
+    if (!hasMore || isLoadingMore) return;
+    await getAllUnits(loadMore: true);
+  }
+
 
   String? properType;
 
@@ -123,6 +173,8 @@ class SearchCubit extends Cubit<SearchStates> {
     areaFromCon.clear();
     areaToCon.clear();
 
+    // إعادة تعيين البيانات وتحميل الصفحة الأولى
+    getAllUnits(reset: true);
     emit(ResetFiltersState());
   }
 }

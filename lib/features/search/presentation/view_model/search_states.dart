@@ -7,6 +7,7 @@ abstract class SearchStates{}
 class SearchInitState extends SearchStates{}
 
 class GetAllUnitsLoadingState extends SearchStates{}
+class GetAllUnitsLoadingMoreState extends SearchStates{}
 class GetAllUnitsSuccessState extends SearchStates{
   final BestSellerUnitsModel allUnitsModel;
   GetAllUnitsSuccessState(this.allUnitsModel);

@@ -2,10 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_cubit.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
+import 'package:easy_deal/features/search/presentation/views/widgets/price_from_price_to.dart';
 import 'package:easy_deal/features/search/presentation/views/widgets/property_type_and_process.dart';
+import 'package:easy_deal/features/search/presentation/views/widgets/type_delivery_status.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import '../../../../../core/shared_widgets/general_bottom_sheet.dart';
 import 'filter_text_and_reset_data.dart';
 
@@ -57,83 +58,18 @@ class FilterContainer extends StatelessWidget {
                                   Gap(24.h),
                                   /// property Type & Process
                                   PropertyTypeAndProcess(),
-                                  // Gap(12.h),
-                                  // Row(
-                                  //   children: [
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.type.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomDropdown(
-                                  //             value: cubit.type,
-                                  //             items: cubit.types.keys.toList(),
-                                  //             hint: LangKeys.type.tr(),
-                                  //             itemDisplayBuilder: (item) => item.toString(),
-                                  //             onChanged: (val) {
-                                  //               cubit.selectType(val);
-                                  //             },
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     Gap(8.w),
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.deliveryStatus.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomDropdown(
-                                  //             value: cubit.deliveryStatus,
-                                  //             items: cubit.status.keys.toList(),
-                                  //             hint: LangKeys.deliveryStatus.tr(),
-                                  //             itemDisplayBuilder: (item) => item.toString(),
-                                  //             onChanged: (val) {
-                                  //               cubit.selectDeliveryStatus(val);
-                                  //             },
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // Gap(12.h),
-                                  // Row(
-                                  //   children: [
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.priceFrom.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomTextFormField(
-                                  //             controller: cubit.priceFromCon,
-                                  //             hintText: LangKeys.priceFrom.tr(),
-                                  //             keyboardType: TextInputType.number,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     Gap(8.w),
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.priceTo.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomTextFormField(
-                                  //             controller: cubit.priceToCon,
-                                  //             hintText: LangKeys.priceTo.tr(),
-                                  //             keyboardType: TextInputType.number,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // Gap(12.h),
+                                   Gap(12.h),
+
+                                  /// Type & Delivery Status
+                                  TypeDeliveryStatus(),
+
+                                  /// Price From & Price To
+                                  PriceFromPriceTo(),
+                                  Gap(12.h),
+
+                                  /// Area From & Area To
+                                   Gap(12.h),
+                                  // AreaFromAreaTo()
                                   // Row(
                                   //   children: [
                                   //     Expanded(
@@ -175,15 +111,7 @@ class FilterContainer extends StatelessWidget {
                                       return CustomButton(
                                         text: LangKeys.filter.tr(),
                                         onPressed: (){
-                                          print(cubit.properType);
-                                          print(cubit.theProcess);
-                                          // print(cubit.type);
-                                          // print(cubit.deliveryStatus);
-                                          // print(cubit.priceFromCon);
-                                          // print(cubit.priceToCon);
-                                          // print(cubit.areaFromCon);
-                                          // print(cubit.areaToCon);
-                                          cubit.getAllUnits(isFilter: true);
+                                          cubit.getAllUnits(isFilter: true,);
                                         },
                                       );
                                     },
