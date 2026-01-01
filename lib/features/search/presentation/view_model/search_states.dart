@@ -23,7 +23,10 @@ class GetAllUnitsErrorState extends SearchStates{
   GetAllUnitsErrorState(this.error);
 
 }
-
+class GetAllUnitsLoadMoreSuccessState extends SearchStates {
+  final BestSellerUnitsModel model;
+  GetAllUnitsLoadMoreSuccessState(this.model);
+}
 
 class SelectProperTypeState extends SearchStates{}
 class SelectTheProcessState extends SearchStates{}

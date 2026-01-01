@@ -4,6 +4,7 @@ import '../../../../main_imports.dart';
 import '../../../home/data/models/best_seller_units_model.dart';
 import '../../data/repos/search_repo.dart';
 
+
 class SearchCubit extends Cubit<SearchStates> {
   SearchCubit(this.searchRepo) : super(SearchInitState());
 
@@ -14,34 +15,43 @@ class SearchCubit extends Cubit<SearchStates> {
   BestSellerUnitsModel? allUnitsModel;
   List<Data> allUnits = [];
   int currentPage = 1;
-  int itemsPerPage = 12;
+  int itemsPerPage = 3;
   bool hasMore = true;
   bool isLoadingMore = false;
+  bool isLoading = false;
+
   Future<void> getAllUnits({
-      bool? isFilter,
+    bool? isFilter,
     bool loadMore = false,
     bool reset = false,
-})
-  async {
+  }) async {
+    // منع التحميل المزدوج
+    if (loadMore) {
+      if (!hasMore || isLoadingMore || isLoading) return;
+    } else {
+      if (isLoading) return;
+    }
+
     if (reset) {
       allUnits = [];
       currentPage = 1;
       hasMore = true;
       allUnitsModel = null;
     }
+
     // إذا كان التحميل للصفحات التالية
     if (loadMore) {
-      if (!hasMore || isLoadingMore) return;
       isLoadingMore = true;
       currentPage++;
-      emit(GetAllUnitsLoadingMoreState());
+      emit(GetAllUnitsLoadingMoreState()); // حالة تحميل إضافي
     } else {
-      emit(GetAllUnitsLoadingState());
+      isLoading = true;
+      emit(GetAllUnitsLoadingState()); // حالة تحميل أولي
     }
 
     int offset = (currentPage - 1) * itemsPerPage;
     var result = await searchRepo!.getAllUnits(
-      limit: 12,
+      limit: itemsPerPage,
       offset: offset,
       unitOperation: theProcess.toString(),
       area: "",
@@ -53,31 +63,43 @@ class SearchCubit extends Cubit<SearchStates> {
       deliveryStatus: deliveryStatus.toString(),
       compoundType: type.toString(),
     );
+
     return result.fold(
-      (failure) {
+          (failure) {
+        isLoading = false;
+        isLoadingMore = false;
         if (loadMore) {
           currentPage--; // تراجع عن زيادة الصفحة
-          isLoadingMore = false;
         }
         emit(GetAllUnitsErrorState(failure.errMessage));
       },
-      (data) async {
+          (data) async {
+        isLoading = false;
         isLoadingMore = false;
-        hasMore = data.data != null && data.data!.length >= itemsPerPage;
+
+        // التحقق إذا كانت هناك بيانات
+        bool hasData = data.data != null && data.data!.isNotEmpty;
+        hasMore = hasData && data.data!.length >= itemsPerPage;
+
         if (loadMore) {
           // إضافة البيانات الجديدة للقائمة الحالية
           allUnits.addAll(data.data ?? []);
           // تحديث النموذج مع البيانات الكاملة
-          allUnitsModel = data;
+          allUnitsModel = BestSellerUnitsModel(
+            data: allUnits,
+            message: data.message,
+            status: data.status,
+          );
+          emit(GetAllUnitsLoadMoreSuccessState(allUnitsModel!)); // نجاح تحميل إضافي
         } else {
           // حفظ البيانات الجديدة
           allUnits = data.data ?? [];
           allUnitsModel = data;
-        }
-        if (isFilter == true) {
-          emit(GetAllUnitsFilterSuccessState(allUnitsModel!));
-        } else {
-          emit(GetAllUnitsSuccessState(allUnitsModel!));
+          if (isFilter == true) {
+            emit(GetAllUnitsFilterSuccessState(allUnitsModel!));
+          } else {
+            emit(GetAllUnitsSuccessState(allUnitsModel!));
+          }
         }
       },
     );
@@ -85,11 +107,10 @@ class SearchCubit extends Cubit<SearchStates> {
 
   // دالة لتحميل المزيد من البيانات
   Future<void> loadMoreUnits() async {
-    if (!hasMore || isLoadingMore) return;
     await getAllUnits(loadMore: true);
   }
 
-
+  // باقي الكود كما هو...
   String? properType;
 
   void selectProperType(type) {
@@ -97,7 +118,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SelectProperTypeState());
   }
 
-    final Map<String, String> properTypes = {
+  final Map<String, String> properTypes = {
     LangKeys.apartments.tr(): 'apartments',
     LangKeys.duplexes.tr(): 'duplexes',
     LangKeys.studios.tr(): 'studios',
@@ -116,7 +137,6 @@ class SearchCubit extends Cubit<SearchStates> {
     LangKeys.shops.tr(): 'shops',
   };
 
-
   String? theProcess;
   void selectTheProcess(process) {
     theProcess = process;
@@ -128,9 +148,7 @@ class SearchCubit extends Cubit<SearchStates> {
     LangKeys.purchasing.tr(): 'purchasing',
   };
 
-
   String? deliveryStatus;
-
   void selectDeliveryStatus(newDeliveryStatus) {
     deliveryStatus = newDeliveryStatus;
     emit(SelectDeliveryStatusState());
@@ -141,9 +159,7 @@ class SearchCubit extends Cubit<SearchStates> {
     LangKeys.underConstruction.tr(): 'under_construction',
   };
 
-
   String? type;
-
   void selectType(newType) {
     type = newType;
     emit(SelectTypeState());
@@ -154,13 +170,10 @@ class SearchCubit extends Cubit<SearchStates> {
     LangKeys.outsideCompound.tr(): 'outside_compound',
   };
 
-
-
   var priceFromCon = TextEditingController();
   var priceToCon = TextEditingController();
   var areaToCon = TextEditingController();
   var areaFromCon = TextEditingController();
-
 
   void resetFilters() {
     properType = null;
@@ -173,7 +186,6 @@ class SearchCubit extends Cubit<SearchStates> {
     areaFromCon.clear();
     areaToCon.clear();
 
-    // إعادة تعيين البيانات وتحميل الصفحة الأولى
     getAllUnits(reset: true);
     emit(ResetFiltersState());
   }
