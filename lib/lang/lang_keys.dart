@@ -406,6 +406,7 @@ abstract class LangKeys {
 
 
   static const String noUnitsFound = 'noUnitsFound';
+  static const String cities = 'cities';
 
 
 

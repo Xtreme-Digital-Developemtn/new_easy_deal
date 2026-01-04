@@ -1,3 +1,5 @@
+import 'package:easy_deal/features/search/data/models/areas_model.dart';
+import 'package:easy_deal/features/search/data/models/cities_model.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
@@ -180,6 +182,8 @@ class SearchCubit extends Cubit<SearchStates> {
     theProcess = null;
     deliveryStatus = null;
     type = null;
+    city = null;
+    area = null;
 
     priceFromCon.clear();
     priceToCon.clear();
@@ -189,4 +193,60 @@ class SearchCubit extends Cubit<SearchStates> {
     getAllUnits(reset: true);
     emit(ResetFiltersState());
   }
+
+
+
+
+
+  CitiesModel? citiesModel;
+  AreasModel? areasModel;
+
+  Future<void> getAllCities() async {
+    emit(GetAllCitiesLoadingState());
+    var result = await searchRepo!.getAllCities();
+    result.fold(
+          (failure) => emit(GetAllCitiesErrorState(failure.errMessage)),
+          (data) {
+        citiesModel = data;
+        emit(GetAllCitiesSuccessState(data));
+      },
+    );
+  }
+
+  Future<void> getAllAreas({required int cityId}) async {
+    emit(GetAllAreasLoadingState());
+    var result = await searchRepo!.getAllAreas(cityId: cityId);
+    result.fold(
+          (failure) => emit(GetAllAreasErrorState(failure.errMessage)),
+          (data) {
+        areasModel = data;
+        emit(GetAllAreasSuccessState(data));
+      },
+    );
+  }
+
+  String? city;
+  int? cityId;
+  void selectTheCity(Cities newCity) {
+    city = newCity.nameAr;
+    cityId = newCity.id;
+    areasModel = null; // عمل Reset للمناطق
+    getAllAreas(cityId: cityId!);
+    // emit(SelectTheCityState());
+  }
+
+  String? area;
+  int? areaId;
+  void selectTheArea(Areas newArea) {
+    area = newArea.nameAr;
+    areaId = newArea.id;
+    emit(SelectTheAreaState());
+  }
+
+
+
+
+
+
+
 }

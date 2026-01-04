@@ -12,6 +12,8 @@ class EndPoints {
   static const String requests = 'requests';
   static const String users = 'users';
   static const String allUnits = 'unit?limit=20&offset=0';
+  static const String cities = 'location/city?limit=100&offset=0&sort=asc&sortBy=id';
+  static const String areas = 'location/area?limit=100&offset=0&sort=asc&sortBy=id';
 
 
 

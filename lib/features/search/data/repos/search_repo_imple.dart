@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/search/data/repos/search_repo.dart';
 import '../../../../main_imports.dart';
 import '../../../home/data/models/best_seller_units_model.dart';
+import '../models/areas_model.dart';
+import '../models/cities_model.dart';
 
 class SearchRepoImpl implements SearchRepo {
   final ApiService? apiService;
@@ -21,7 +23,8 @@ class SearchRepoImpl implements SearchRepo {
     required String deliveryStatus,
     required String compoundType,
     required String unitType,
-  }) async {
+  })
+  async {
     try {
       Map<String, String> queryParams = {
         'limit': limit.toString(),
@@ -49,6 +52,39 @@ class SearchRepoImpl implements SearchRepo {
       );
 
       BestSellerUnitsModel result = BestSellerUnitsModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, CitiesModel>> getAllCities()
+  async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: EndPoints.cities,
+      );
+      CitiesModel result = CitiesModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, AreasModel>> getAllAreas({required int cityId})
+  async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: EndPoints.areas,
+        query: {
+          "cityId" : cityId,
+        }
+      );
+      AreasModel result = AreasModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

@@ -8,6 +8,8 @@ import 'package:easy_deal/features/search/presentation/views/widgets/type_delive
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/shared_widgets/general_bottom_sheet.dart';
+import 'area_from_area_to.dart';
+import 'cities_and_areas.dart';
 import 'filter_text_and_reset_data.dart';
 
 class FilterContainer extends StatelessWidget {
@@ -56,12 +58,19 @@ class FilterContainer extends StatelessWidget {
                                   /// Filter Text & ResetData
                                   FilterTextAndResetData(),
                                   Gap(24.h),
+
+                                  /// Cities & Areas
+                                  CitiesAndAreas(),
+                                  Gap(12.h),
+
+
                                   /// property Type & Process
                                   PropertyTypeAndProcess(),
                                    Gap(12.h),
 
                                   /// Type & Delivery Status
                                   TypeDeliveryStatus(),
+                                  Gap(12.h),
 
                                   /// Price From & Price To
                                   PriceFromPriceTo(),
@@ -69,40 +78,8 @@ class FilterContainer extends StatelessWidget {
 
                                   /// Area From & Area To
                                    Gap(12.h),
-                                  // AreaFromAreaTo()
-                                  // Row(
-                                  //   children: [
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.areaFrom.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomTextFormField(
-                                  //             controller: cubit.areaFromCon,
-                                  //             hintText: LangKeys.areaFrom.tr(),
-                                  //             keyboardType: TextInputType.number,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     Gap(8.w),
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(LangKeys.areaTo.tr()),
-                                  //           Gap(4.h),
-                                  //           CustomTextFormField(
-                                  //             controller: cubit.areaToCon,
-                                  //             hintText: LangKeys.areaTo.tr(),
-                                  //             keyboardType: TextInputType.number,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
+                                 AreaFromAreaTo(),
+
                                   Gap(24.h),
                                   ConditionalBuilder(
                                     condition: state is ! GetAllUnitsLoadingState,
@@ -150,3 +127,13 @@ class FilterContainer extends StatelessWidget {
     );
   }
 }
+
+
+///  &unitOperation=sell
+///  &priceFrom=100
+///  &priceTo=200
+///  &unitAreaFrom=300
+///  &unitAreaTo=400
+///  &deliveryStatus=immediate_delivery
+///  &compoundType=inside_compound
+///  &unitType=town_houses

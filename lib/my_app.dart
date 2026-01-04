@@ -7,6 +7,8 @@ import 'core/routing/app_router.dart';
 import 'core/shared_cubits/auth_cubit/auth_cubit.dart';
 import 'core/shared_cubits/lang_cubit/lang_cubit.dart';
 import 'features/profile/data/repos/profile_repo_imple.dart';
+import 'features/search/data/repos/search_repo_imple.dart';
+import 'features/search/presentation/view_model/search_cubit.dart';
 import 'main_imports.dart';
 
 class MyApp extends StatelessWidget {
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => LanguageCubit()),
                 BlocProvider(create: (context) => ProfileCubit(
                     getIt.get<ProfileRepoImpl>())..getClientProfile(clientId:CacheHelper.getData(key: "userId"))),
+
               ],
               child: BlocBuilder<LanguageCubit, Locale>(
                 builder: (context, locale) {
