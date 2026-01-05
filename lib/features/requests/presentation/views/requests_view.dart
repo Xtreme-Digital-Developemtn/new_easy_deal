@@ -22,7 +22,6 @@ class RequestsView extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // تلقيم للعنصر العلوي فقط
                   Skeletonizer(
                     enabled: isLoading,
                     child: RequestsCount(
@@ -30,7 +29,6 @@ class RequestsView extends StatelessWidget {
                     ),
                   ),
                   Gap(24.h),
-                  // قائمة الطلبات مع تلقيم داخلي
                   RequestsList(
                     data: requestsCubit.allRequestModel?.data?.data ?? [],
                     isLoading: isLoading,

@@ -401,7 +401,12 @@ class EnLang {
     "totalBalance": "Total Balance",
     "activePackages": "Active Packages",
     "remainingMinutes": "Remaining Minutes",
-    "renewalDate": "Renewal Date"
+    "renewalDate": "Renewal Date",
+    "noUnitsFound": "No units found",
+    "cities": "Cities",
+    "noAddressFound": "No address found",
+
+
 
 
 

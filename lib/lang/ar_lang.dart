@@ -401,7 +401,12 @@ class ArLang {
     "totalBalance": "إجمالي الرصيد",
     "activePackages": "الباقات النشطة",
     "remainingMinutes": "الدقائق المتبقية",
-    "renewalDate": "تاريخ التجديد"
+    "renewalDate": "تاريخ التجديد",
+    "noUnitsFound": "لم يتم العثور على وحدات",
+    "cities": "المدن",
+    "noAddressFound": "لم يتم العثور على عنوان",
+
+
 
 
 

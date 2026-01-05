@@ -403,10 +403,9 @@ abstract class LangKeys {
   static const String immediateDelivery = 'immediateDelivery';
   static const String outsideCompound = 'outsideCompound';
   static const String insideCompound = 'insideCompound';
-
-
   static const String noUnitsFound = 'noUnitsFound';
   static const String cities = 'cities';
+  static const String noAddressFound = 'noAddressFound';
 
 
 
