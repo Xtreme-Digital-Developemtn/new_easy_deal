@@ -63,7 +63,9 @@ class _SearchViewState extends State<SearchView> {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: ContainerSearchWidget()),
+                      Expanded(child: ContainerSearchWidget(
+
+                      )),
                       Gap(8.w),
                       FilterContainer(),
                     ],

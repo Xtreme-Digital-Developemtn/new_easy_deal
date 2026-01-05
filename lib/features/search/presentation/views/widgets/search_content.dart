@@ -1,7 +1,6 @@
 import 'package:easy_deal/features/search/presentation/view_model/search_cubit.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
 import 'package:easy_deal/features/search/presentation/views/widgets/skeleton_loader.dart';
-
 import '../../../../../core/shared_widgets/empty_widget.dart';
 import '../../../../../main_imports.dart';
 import '../../../../home/presentation/views/widgets/unit_item.dart';

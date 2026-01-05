@@ -392,7 +392,16 @@ class EnLang {
     "underConstruction": "Under Construction",
     "immediateDelivery": "Immediate Delivery",
     "outsideCompound": "Outside Compound",
-    "insideCompound": "Inside Compound"
+    "insideCompound": "Inside Compound",
+    "noTeachersFound": "No teachers found",
+    "followUsOnSocialMedia": "Follow us on social media",
+    "bookNow": "Book Now",
+    "reserved": "Reserved",
+    "noMessagesFound": "No messages found",
+    "totalBalance": "Total Balance",
+    "activePackages": "Active Packages",
+    "remainingMinutes": "Remaining Minutes",
+    "renewalDate": "Renewal Date"
 
 
 

@@ -26,7 +26,8 @@ class SearchCubit extends Cubit<SearchStates> {
     bool? isFilter,
     bool loadMore = false,
     bool reset = false,
-  }) async {
+  })
+  async {
     // منع التحميل المزدوج
     if (loadMore) {
       if (!hasMore || isLoadingMore || isLoading) return;

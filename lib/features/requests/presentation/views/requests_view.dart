@@ -14,27 +14,33 @@ class RequestsView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(12.r),
-          child: BlocBuilder<RequestsCubit , RequestsStates>(
-            builder: (context,state){
+          child: BlocBuilder<RequestsCubit, RequestsStates>(
+            builder: (context, state) {
               var requestsCubit = context.read<RequestsCubit>();
-              return Skeletonizer(
-                enabled: state is GetAllRequestsLoadingState || requestsCubit.allRequestModel==null ,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RequestsCount(count: requestsCubit.allRequestModel?.data?.count??0,),
-                    Gap(24.h),
-                    RequestsList(data: requestsCubit.allRequestModel?.data?.data??[],),
+              final isLoading = state is GetAllRequestsLoadingState || requestsCubit.allRequestModel == null;
 
-                  ],
-                ),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // تلقيم للعنصر العلوي فقط
+                  Skeletonizer(
+                    enabled: isLoading,
+                    child: RequestsCount(
+                      count: requestsCubit.allRequestModel?.data?.count ?? 0,
+                    ),
+                  ),
+                  Gap(24.h),
+                  // قائمة الطلبات مع تلقيم داخلي
+                  RequestsList(
+                    data: requestsCubit.allRequestModel?.data?.data ?? [],
+                    isLoading: isLoading,
+                  ),
+                ],
               );
             },
-
           ),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           context.pushNamed(Routes.createRequestView);
@@ -44,6 +50,4 @@ class RequestsView extends StatelessWidget {
       ),
     );
   }
-
-
 }
