@@ -405,6 +405,10 @@ class ArLang {
     "noUnitsFound": "لم يتم العثور على وحدات",
     "cities": "المدن",
     "noAddressFound": "لم يتم العثور على عنوان",
+    "getStarted": "ابدأ الآن",
+    "readyToMakeAMove": "مستعد لاتخاذ خطوة",
+    "buySellOrRentYourPropertyToday": "اشترِ أو بِع أو أجر عقارك اليوم",
+
 
 
 

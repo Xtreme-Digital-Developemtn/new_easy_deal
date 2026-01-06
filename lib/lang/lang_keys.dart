@@ -406,6 +406,9 @@ abstract class LangKeys {
   static const String noUnitsFound = 'noUnitsFound';
   static const String cities = 'cities';
   static const String noAddressFound = 'noAddressFound';
+  static const String getStarted = 'getStarted';
+  static const String readyToMakeAMove = "readyToMakeAMove";
+  static const String buySellOrRentYourPropertyToday = "buySellOrRentYourPropertyToday";
 
 
 

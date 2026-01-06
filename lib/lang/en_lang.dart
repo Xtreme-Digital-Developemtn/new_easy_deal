@@ -405,6 +405,10 @@ class EnLang {
     "noUnitsFound": "No units found",
     "cities": "Cities",
     "noAddressFound": "No address found",
+    "getStarted": "Get Started",
+    "readyToMakeAMove": "Ready to Make a Move",
+    "buySellOrRentYourPropertyToday": "Buy, Sell, or Rent Your Property Today",
+
 
 
 
