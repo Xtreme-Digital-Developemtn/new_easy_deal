@@ -15,40 +15,81 @@ class EditProfileView extends StatelessWidget {
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.editProfile),
       body: Padding(
-        padding:   EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           children: [
-            EditProfileListItem(title: LangKeys.mobileNumber, subTitle: "01110690299", onTap: (){
-
-            }),
-            EditProfileListItem(title: LangKeys.fullName, subTitle: "Mostafa", onTap: (){
-              StandardBottomSheet.show(
-                context: context,
-                child: Container(
-                  padding: EdgeInsets.all(20.r),
-                  child: EditName(),
-                ),
-              );
-            }),
-            EditProfileListItem(title: LangKeys.emailAddress, subTitle: "mostafa@gmail.com", onTap: (){
-              context.pushNamed(Routes.editEmailView);
-            }),
-            EditProfileListItem(title: LangKeys.driverCode, subTitle: "123456", onTap: (){}),
-            EditProfileListItem(title: LangKeys.changePassword, subTitle: "", onTap: (){
-              context.pushNamed(Routes.changePasswordView);
-            }, isLast:CacheHelper.getData(key: "role")=="broker" ? false: true,),
-            if(    CacheHelper.getData(key: "role")=="broker" )
-              EditProfileListItem(title: LangKeys.advertisementAndPropertyDetails, subTitle: "", onTap: (){
-                context.pushNamed(Routes.editAdvertisementAndPropertyDetailsView,arguments: {
-                  "profileCubit" : profileCubit,
-                });
-              } ),
-            if(    CacheHelper.getData(key: "role")=="broker" )
-              EditProfileListItem(title: LangKeys.registrationPapers, subTitle: "", onTap: (){
-                context.pushNamed(Routes.editRegistrationPapersView,arguments: {
-                  "editProfileCubit" : editProfileCubit,
-                });
-              },isLast: true,),
+            EditProfileListItem(
+              title: LangKeys.mobileNumber,
+              subTitle: "01110690299",
+              onTap: () {},
+            ),
+            EditProfileListItem(
+              title: LangKeys.fullName,
+              subTitle:  profileCubit
+                  .clientProfileModel
+                  ?.data
+                  ?.fullName ??
+                  "",
+              onTap: () {
+                StandardBottomSheet.show(
+                  context: context,
+                  child: Container(
+                    padding: EdgeInsets.all(20.r),
+                    child: EditName(),
+                  ),
+                );
+              },
+            ),
+            EditProfileListItem(
+              title: LangKeys.emailAddress,
+              subTitle:
+              profileCubit
+                      .clientProfileModel
+                      ?.data
+                      ?.email ??
+                  "",
+              onTap: () {
+                context.pushNamed(Routes.editEmailView);
+              },
+            ),
+            EditProfileListItem(
+              title: LangKeys.driverCode,
+              subTitle: "123456",
+              onTap: () {},
+            ),
+            EditProfileListItem(
+              title: LangKeys.changePassword,
+              subTitle: "",
+              onTap: () {
+                context.pushNamed(Routes.changePasswordView);
+              },
+              isLast: CacheHelper.getData(key: "role") == "broker"
+                  ? false
+                  : true,
+            ),
+            if (CacheHelper.getData(key: "role") == "broker")
+              EditProfileListItem(
+                title: LangKeys.advertisementAndPropertyDetails,
+                subTitle: "",
+                onTap: () {
+                  context.pushNamed(
+                    Routes.editAdvertisementAndPropertyDetailsView,
+                    arguments: {"profileCubit": profileCubit},
+                  );
+                },
+              ),
+            if (CacheHelper.getData(key: "role") == "broker")
+              EditProfileListItem(
+                title: LangKeys.registrationPapers,
+                subTitle: "",
+                onTap: () {
+                  context.pushNamed(
+                    Routes.editRegistrationPapersView,
+                    arguments: {"editProfileCubit": editProfileCubit},
+                  );
+                },
+                isLast: true,
+              ),
           ],
         ),
       ),

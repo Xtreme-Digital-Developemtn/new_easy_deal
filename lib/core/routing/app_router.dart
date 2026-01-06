@@ -1,6 +1,4 @@
-
-
- import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
+import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
 import 'package:easy_deal/features/change_password/presentation/views/change_password_view.dart';
 import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
@@ -11,7 +9,7 @@ import 'package:easy_deal/features/edit_profile/presentation/views/edit_registra
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
 import 'package:easy_deal/features/home/presentation/views/home_view.dart';
 import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
- import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
+import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
@@ -30,7 +28,7 @@ import '../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.d
 import '../../features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
 import '../../features/assign_to_broker/presentation/views/assign_to_broker_view.dart';
 import '../../features/assign_to_broker/presentation/views/success_assign_view.dart';
- import '../../features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
+import '../../features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
 import '../../features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
 import '../../features/broker_features/boker_data/presentation/views/broker_data_view.dart';
 import '../../features/broker_features/broker_ads/data/repos/broker_ads_repo_imple.dart';
@@ -105,6 +103,7 @@ import '../app_services/remote_services/service_locator.dart';
 
 class AppRouter {
   final String userRole;
+
   Route? generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
     PageTransition transition<T extends Cubit<Object>>({
@@ -116,10 +115,7 @@ class AppRouter {
       Alignment alignment = Alignment.center,
     }) {
       final child = cubit != null
-          ? BlocProvider<T>(
-              create: (context) => cubit,
-              child: screen,
-            )
+          ? BlocProvider<T>(create: (context) => cubit, child: screen)
           : screen;
 
       return PageTransition(
@@ -135,77 +131,124 @@ class AppRouter {
       case Routes.splashView:
         return transition(screen: const SplashView());
       case Routes.loginView:
-        return transition(screen: const LoginView(),cubit: LoginCubit(getIt.get<LoginRepoImpl>()));
+        return transition(
+          screen: const LoginView(),
+          cubit: LoginCubit(getIt.get<LoginRepoImpl>()),
+        );
       case Routes.layoutView:
-        return transition(screen: const LayoutView(),cubit: LayoutCubit(getScreens()));
+        return transition(
+          screen: const LayoutView(),
+          cubit: LayoutCubit(getScreens()),
+        );
       case Routes.editProfileView:
-        return transition(screen: const EditProfileView(),cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()));
+        return transition(
+          screen: const EditProfileView(),
+          cubit: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
+        );
       case Routes.editEmailView:
-        return transition(screen: BlocProvider.value(
+        return transition(
+          screen: BlocProvider.value(
             value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
-            child: const EditEmailView()),);
+            child: EditEmailView(),
+          ),
+        );
       case Routes.notificationsView:
-        return transition(screen: const NotificationsView(),cubit: NotificationsCubit(getIt.get<NotificationsRepoImpl>()));
-        case Routes.categoryUnitsView:
+        return transition(
+          screen: const NotificationsView(),
+          cubit: NotificationsCubit(getIt.get<NotificationsRepoImpl>()),
+        );
+      case Routes.categoryUnitsView:
         final args = arguments as Map<String, dynamic>;
-        return transition(screen:   CategoryUnitsView(
-          categoryName: args["categoryName"] as String,
-        )
-            ,cubit: CategoryUnitsCubit(getIt.get<CategoryUnitsRepoImpl>()));
+        return transition(
+          screen: CategoryUnitsView(
+            categoryName: args["categoryName"] as String,
+          ),
+          cubit: CategoryUnitsCubit(getIt.get<CategoryUnitsRepoImpl>()),
+        );
       case Routes.searchView:
-        return transition(screen: const SearchView(),cubit: SearchCubit(getIt.get<SearchRepoImpl>()));
+        return transition(
+          screen: const SearchView(),
+          cubit: SearchCubit(getIt.get<SearchRepoImpl>()),
+        );
       case Routes.otpView:
         final args = arguments as Map<String, dynamic>;
-        return transition(screen:   OtpView(
-          contact: args["contact"] as String,
-          isMobile: args["isMobile"] as bool,
-          selectIndex: args["selectIndex"] as int,
-        ),cubit: OtpCubit(getIt.get<OtpRepoImpl>()));
+        return transition(
+          screen: OtpView(
+            contact: args["contact"] as String,
+            isMobile: args["isMobile"] as bool,
+            selectIndex: args["selectIndex"] as int,
+          ),
+          cubit: OtpCubit(getIt.get<OtpRepoImpl>()),
+        );
       case Routes.changePasswordView:
-        return transition(screen: const ChangePasswordView(),
-            cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()));
+        return transition(
+          screen: const ChangePasswordView(),
+          cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()),
+        );
       case Routes.aboutUsView:
-        return transition(screen: const AboutUsView(),
-            cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()));
+        return transition(
+          screen: const AboutUsView(),
+          cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()),
+        );
       case Routes.unitDetailsView:
         final args = arguments as Map<String, dynamic>;
-        return transition(screen:   UnitDetailsView(
-            unitId: args["unitId"] as int,
-        ),
-            cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>())..getUnitDetails(unitId: args["unitId"] as int));
+        return transition(
+          screen: UnitDetailsView(unitId: args["unitId"] as int),
+          cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>())
+            ..getUnitDetails(unitId: args["unitId"] as int),
+        );
       case Routes.userChatView:
-        return transition(screen: const UserChatView(),
-            cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()));
+        return transition(
+          screen: const UserChatView(),
+          cubit: UserChatCubit(getIt.get<UserChatRepoImpl>()),
+        );
       case Routes.reportIssueView:
-        return transition(screen: const ReportIssueView(),
-            cubit: ReportIssueCubit(getIt.get<ReportIssueRepoImpl>()));
+        return transition(
+          screen: const ReportIssueView(),
+          cubit: ReportIssueCubit(getIt.get<ReportIssueRepoImpl>()),
+        );
       case Routes.privacyTermsView:
-        return transition(screen: const PrivacyTermsView(),
-            cubit: PrivacyTermsCubit(getIt.get<PrivacyTermsRepoImpl>()));
+        return transition(
+          screen: const PrivacyTermsView(),
+          cubit: PrivacyTermsCubit(getIt.get<PrivacyTermsRepoImpl>()),
+        );
       case Routes.faqsView:
-        return transition(screen: const FAQsView(),
-            cubit: FAQsCubit(getIt.get<FAQsRepoImpl>()));
+        return transition(
+          screen: const FAQsView(),
+          cubit: FAQsCubit(getIt.get<FAQsRepoImpl>()),
+        );
       case Routes.contactUsView:
-        return transition(screen: const ContactUsView(),
-            cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>()));
+        return transition(
+          screen: const ContactUsView(),
+          cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>()),
+        );
       case Routes.appSettingsView:
-        return transition(screen: const AppSettingsView(),
-            cubit: AppSettingsCubit(getIt.get<AppSettingsRepoImpl>()));
+        return transition(
+          screen: const AppSettingsView(),
+          cubit: AppSettingsCubit(getIt.get<AppSettingsRepoImpl>()),
+        );
       case Routes.onBoardingView:
         return transition(screen: const OnboardingView());
       case Routes.registerView:
-        return transition(screen: const RegisterView(),
-            cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()));
+        return transition(
+          screen: const RegisterView(),
+          cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()),
+        );
       case Routes.successView:
-        return transition(screen: const SuccessView(),);
+        return transition(screen: const SuccessView());
       case Routes.uploadBrokerDocView:
         final args = arguments as Map<String, dynamic>;
-        return transition(screen:   UploadBrokerDocView(selectedIndex: args["selectIndex"] as int,),
-            cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>(),),
+        return transition(
+          screen: UploadBrokerDocView(
+            selectedIndex: args["selectIndex"] as int,
+          ),
+          cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
         );
       case Routes.createRequestView:
-        return transition(screen: const CreateRequestView(),
-            cubit: CreateRequestCubit(getIt.get<CreateRequestRepoImpl>()));
+        return transition(
+          screen: const CreateRequestView(),
+          cubit: CreateRequestCubit(getIt.get<CreateRequestRepoImpl>()),
+        );
       case Routes.createRequestByCategoryView:
         final args = arguments as Map<String, dynamic>;
         final createRequestCubit = args['cubit'] as CreateRequestCubit;
@@ -218,15 +261,23 @@ class AppRouter {
           ),
         );
       case Routes.assignToBrokerView:
-        return transition(screen: const AssignToBrokerView(),
-            cubit: AssignToBrokerCubit(getIt.get<AssignToBrokerRepoImpl>()));
+        return transition(
+          screen: const AssignToBrokerView(),
+          cubit: AssignToBrokerCubit(getIt.get<AssignToBrokerRepoImpl>()),
+        );
       case Routes.successAssignView:
         return transition(screen: const SuccessAssignView());
       case Routes.requestDetailsView:
-        return transition(screen: const RequestDetailsView(),cubit: RequestDetailsCubit(getIt.get<RequestDetailsRepoImpl>())..requestDetails(requestId: 10));
+        return transition(
+          screen: const RequestDetailsView(),
+          cubit: RequestDetailsCubit(getIt.get<RequestDetailsRepoImpl>())
+            ..requestDetails(requestId: 10),
+        );
       case Routes.brokerHomeView:
-        return transition(screen: const BrokerHomeView(),
-            cubit: BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()));
+        return transition(
+          screen: const BrokerHomeView(),
+          cubit: BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
+        );
       case Routes.editAdvertisementAndPropertyDetailsView:
         final args = arguments as Map<String, dynamic>;
         final profileCubit = args['profileCubit'] as ProfileCubit;
@@ -246,48 +297,62 @@ class AppRouter {
           ),
         );
       case Routes.brokerDevelopersView:
-        return transition(screen: const BrokerDevelopersView(),
-            cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()));
+        return transition(
+          screen: const BrokerDevelopersView(),
+          cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()),
+        );
       case Routes.brokerDataView:
-        return transition(screen: const BrokerDataView(),
-            cubit: BrokerDataCubit(getIt.get<BrokerDataRepoImpl>()));
+        return transition(
+          screen: const BrokerDataView(),
+          cubit: BrokerDataCubit(getIt.get<BrokerDataRepoImpl>()),
+        );
       case Routes.brokerAdsView:
-        return transition(screen: const BrokerAdsView(),
-            cubit: BrokerAdsCubit(getIt.get<BrokerAdsRepoImpl>()));
+        return transition(
+          screen: const BrokerAdsView(),
+          cubit: BrokerAdsCubit(getIt.get<BrokerAdsRepoImpl>()),
+        );
       case Routes.brokerMapsView:
-        return transition(screen: const BrokerMapsView(),
-            cubit: BrokerMapsCubit(getIt.get<BrokerMapsRepoImpl>()));
-        default:
+        return transition(
+          screen: const BrokerMapsView(),
+          cubit: BrokerMapsCubit(getIt.get<BrokerMapsRepoImpl>()),
+        );
+      default:
         return null;
     }
   }
-
 
   ///الـ AppRouter بيتبني قبل ما Cache يجهز فعليًا
   List<Widget> getScreens() {
     return [
       userRole == "client"
           ? BlocProvider(
-        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())..getBestSellerUnitsInHome()..getUnitTypes(),
-        child: HomeView(),
-      )
+              create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())
+                ..getBestSellerUnitsInHome()
+                ..getUnitTypes(),
+              child: HomeView(),
+            )
           : BlocProvider(
-        create: (_) => BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
-        child: BrokerHomeView(),
+              create: (_) => BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
+              child: BrokerHomeView(),
+            ),
+      BlocProvider(
+        create: (context) => SearchCubit(getIt.get<SearchRepoImpl>())
+          ..getAllUnits()
+          ..getAllCities(),
+        child: SearchView(),
       ),
       BlocProvider(
-          create: (context)=>SearchCubit(getIt.get<SearchRepoImpl>())..getAllUnits( )..getAllCities(),
-          child: SearchView()),
+        create: (context) =>
+            RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),
+        child: RequestsView(),
+      ),
       BlocProvider(
-          create: (context)=>RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),
-          child: RequestsView()),
-      BlocProvider(
-          create: (context)=>ChatsCubit(getIt.get<ChatsRepoImpl>()),
-          child: ChatsView()),
+        create: (context) => ChatsCubit(getIt.get<ChatsRepoImpl>()),
+        child: ChatsView(),
+      ),
       ProfileView(),
     ];
   }
 
   AppRouter({required this.userRole});
 }
-
