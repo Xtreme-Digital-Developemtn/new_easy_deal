@@ -408,6 +408,10 @@ class EnLang {
     "getStarted": "Get Started",
     "readyToMakeAMove": "Ready to Make a Move",
     "buySellOrRentYourPropertyToday": "Buy, Sell, or Rent Your Property Today",
+    "editMobileNumber": "Edit Mobile Number",
+    "editMobileNumberMsg": "Edit mobile number message",
+    "enterMobileNumber": "Enter mobile number",
+
 
 
 

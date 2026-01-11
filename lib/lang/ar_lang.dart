@@ -408,6 +408,10 @@ class ArLang {
     "getStarted": "ابدأ الآن",
     "readyToMakeAMove": "مستعد لاتخاذ خطوة",
     "buySellOrRentYourPropertyToday": "اشترِ أو بِع أو أجر عقارك اليوم",
+    "editMobileNumber": "تعديل رقم الهاتف",
+    "editMobileNumberMsg": "رسالة تعديل رقم الهاتف",
+    "enterMobileNumber": "أدخل رقم الهاتف",
+
 
 
 

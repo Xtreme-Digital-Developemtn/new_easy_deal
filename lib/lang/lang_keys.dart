@@ -409,9 +409,6 @@ abstract class LangKeys {
   static const String getStarted = 'getStarted';
   static const String readyToMakeAMove = "readyToMakeAMove";
   static const String buySellOrRentYourPropertyToday = "buySellOrRentYourPropertyToday";
-
-
-
   static const String editMobileNumber = "editMobileNumber";
   static const String editMobileNumberMsg = "editMobileNumberMsg";
   static const String enterMobileNumber = "enterMobileNumber";

@@ -24,26 +24,31 @@ class BottomNavigationBarWidget extends StatelessWidget {
           backgroundColor: AppColors.white,
           items: [
             _buildTabItem(
+              context: context,
               icon: SvgImages.home,
               title: LangKeys.home ,
               index: 0,
             ),
             _buildTabItem(
+              context: context,
               icon: SvgImages.search,
               title: LangKeys.search ,
               index: 1,
             ),
             _buildTabItem(
+              context: context,
               icon: SvgImages.add,
               title: LangKeys.request ,
               index: 2,
             ),
             _buildTabItem(
+              context: context,
               icon: SvgImages.chat,
               title: LangKeys.messages ,
               index: 3,
             ),
             _buildTabItem(
+              context: context,
               icon: SvgImages.profile,
               title: LangKeys.profile ,
               index: 4,
@@ -58,6 +63,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
     required String icon,
     required String title,
     required int index,
+    required BuildContext context,
   }) {
     return FlashyTabBarItem(
       activeColor: AppColors.primaryDark,
@@ -72,7 +78,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           BlendMode.srcIn,
         ),
       ),
-      title: Text(title.tr()),
+      title: Text(context.tr(title)),
     );
   }
 }

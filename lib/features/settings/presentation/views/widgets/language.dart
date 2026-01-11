@@ -11,7 +11,6 @@ class Language  extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, Locale>(
      builder: (context, currentLocale){
-       final currentLang = currentLocale.languageCode == 'ar' ? 'العربية' : 'English';
        return Column(
          crossAxisAlignment: CrossAxisAlignment.start,
          children: [
@@ -36,9 +35,9 @@ class Language  extends StatelessWidget {
                  ),
                  Row(
                    children: [
-                     Text(currentLang, style: AppStyles.gray14Medium),
+                     Text(context.isArabic ? 'العربية' : 'English', style: AppStyles.gray14Medium),
                      Gap(8.w),
-                     SvgPicture.asset(SvgImages.arrowLeft),
+                     SvgPicture.asset(context.isArabic ? SvgImages.arrow: SvgImages.arrowLeft),
                    ],
                  ),
                ],
