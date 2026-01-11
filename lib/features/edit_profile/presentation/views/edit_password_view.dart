@@ -1,14 +1,13 @@
-import 'package:easy_deal/features/change_password/presentation/views/widgets/change_password_button.dart';
-import 'package:easy_deal/features/change_password/presentation/views/widgets/change_password_form.dart';
+ import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_password_widgets/edit_password_button.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_password_widgets/edit_password_form.dart';
 import 'package:easy_deal/main_imports.dart';
 
-class ChangePasswordView extends StatelessWidget {
-  const ChangePasswordView({super.key});
+class EditPasswordView extends StatelessWidget {
+  const EditPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.changePassword),
       body: Padding(
@@ -17,9 +16,9 @@ class ChangePasswordView extends StatelessWidget {
           key: formKey,
           child: Column(
             children: [
-              const ChangePasswordForm(),
+              const EditPasswordForm(),
               Gap(20.h),
-              ChangePasswordButton(formKey: formKey,),
+              EditPasswordButton(formKey: formKey,),
             ],
           ),
         ),

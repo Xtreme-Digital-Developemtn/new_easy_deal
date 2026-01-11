@@ -1,6 +1,5 @@
 
 import 'package:dio/dio.dart';
-import 'package:easy_deal/features/change_password/data/repos/change_password_repo_imple.dart';
  import 'package:easy_deal/features/notifications/data/repos/notifications_repo_imple.dart';
  import 'package:easy_deal/features/otp/data/repos/otp_repo_imple.dart';
  import 'package:easy_deal/features/search/data/repos/search_repo_imple.dart';
@@ -59,9 +58,6 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<SearchRepoImpl>(SearchRepoImpl(
-    getIt.get<ApiService>(),
-  ));
-  getIt.registerSingleton<ChangePasswordRepoImpl>(ChangePasswordRepoImpl(
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<AboutUsRepoImpl>(AboutUsRepoImpl(

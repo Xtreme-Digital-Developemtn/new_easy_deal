@@ -55,8 +55,6 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   UpdateProfileDataModel? updateProfileDataModel;
   Future<void> updateProfileData({
     String? phone,
-    String? password,
-    String? passwordConfirmation,
     String? gender,
   }) async {
     emit(EditProfileDataLoadingState());
@@ -64,8 +62,8 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
       fullName: nameCon.text,
       phone: phone,
       email: emailCon.text,
-      passwordConfirmation: passwordConfirmation,
-      password: password,
+      passwordConfirmation: newPasswordCon.text,
+      password: confirmNewPasswordCon.text,
       gender: gender,
 
     );
@@ -95,5 +93,26 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
     final isValid = formKey.currentState?.validate() ?? false;
     isFormValid.value = isValid;
+  }
+
+
+
+  var newPasswordCon = TextEditingController();
+  var confirmNewPasswordCon = TextEditingController();
+  bool isNewPasswordVisible = true;
+  bool isConfirmNewPasswordVisible = true;
+
+
+  editNewPasswordVisible()
+  {
+    isNewPasswordVisible = !isNewPasswordVisible;
+    emit(EditNewPasswordVisibleState());
+  }
+
+
+  changeConfirmNewPasswordVisible()
+  {
+    isConfirmNewPasswordVisible = !isConfirmNewPasswordVisible;
+    emit(EditConfirmNewPasswordVisibleState());
   }
 }

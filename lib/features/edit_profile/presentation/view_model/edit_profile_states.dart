@@ -20,3 +20,6 @@ class EditProfileDataSuccessState extends EditProfileStates{
   EditProfileDataSuccessState(this.updateProfileDataModel);
 
 }
+
+class EditNewPasswordVisibleState extends EditProfileStates{}
+class EditConfirmNewPasswordVisibleState extends EditProfileStates{}

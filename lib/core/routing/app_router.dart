@@ -1,6 +1,5 @@
 import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
-import 'package:easy_deal/features/change_password/presentation/views/change_password_view.dart';
-import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
+ import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_advertisement_properties_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
@@ -45,9 +44,7 @@ import '../../features/broker_features/broker_maps/presentation/view_model/broke
 import '../../features/broker_features/broker_maps/presentation/views/broker_maps_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
-import '../../features/change_password/data/repos/change_password_repo_imple.dart';
-import '../../features/change_password/presentation/view_model/change_password_cubit.dart';
-import '../../features/chats/data/repos/chats_repo_imple.dart';
+  import '../../features/chats/data/repos/chats_repo_imple.dart';
 import '../../features/chats/presentation/view_model/chats_cubit.dart';
 import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
@@ -58,6 +55,7 @@ import '../../features/create_request/data/repos/create_request_repo_imple.dart'
 import '../../features/create_request/presentation/view_model/create_request_cubit.dart';
 import '../../features/create_request/presentation/views/create_request_view.dart';
 import '../../features/create_request/presentation/views/create_request_by_category_view.dart';
+import '../../features/edit_profile/presentation/views/edit_password_view.dart';
 import '../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../features/faqs/presentation/view_model/faqs_cubit.dart';
 import '../../features/faqs/presentation/views/faqs_view.dart';
@@ -180,10 +178,12 @@ class AppRouter {
           ),
           cubit: OtpCubit(getIt.get<OtpRepoImpl>()),
         );
-      case Routes.changePasswordView:
+      case Routes.editPasswordView:
         return transition(
-          screen: const ChangePasswordView(),
-          cubit: ChangePasswordCubit(getIt.get<ChangePasswordRepoImpl>()),
+          screen: BlocProvider.value(
+            value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
+            child: EditPasswordView(),
+          ),
         );
       case Routes.aboutUsView:
         return transition(

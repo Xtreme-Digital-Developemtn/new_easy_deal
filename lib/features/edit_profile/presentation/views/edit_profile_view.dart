@@ -61,7 +61,7 @@ class EditProfileView extends StatelessWidget {
               title: LangKeys.changePassword,
               subTitle: "",
               onTap: () {
-                context.pushNamed(Routes.changePasswordView);
+                context.pushNamed(Routes.editPasswordView);
               },
               isLast: CacheHelper.getData(key: "role") == "broker"
                   ? false
