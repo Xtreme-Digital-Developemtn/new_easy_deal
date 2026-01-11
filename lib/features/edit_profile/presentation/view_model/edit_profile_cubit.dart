@@ -54,13 +54,12 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
   UpdateProfileDataModel? updateProfileDataModel;
   Future<void> updateProfileData({
-    String? phone,
     String? gender,
   }) async {
     emit(EditProfileDataLoadingState());
     var result = await editProfileRepo!.updateProfileData(
       fullName: nameCon.text,
-      phone: phone,
+      phone: mobileNumberCon.text,
       email: emailCon.text,
       passwordConfirmation: newPasswordCon.text,
       password: confirmNewPasswordCon.text,
@@ -83,6 +82,8 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   final formKey = GlobalKey<FormState>();
   var emailCon = TextEditingController();
   var nameCon = TextEditingController();
+  var mobileNumberCon = TextEditingController();
+  String phoneNumber = '';
   bool hasUserInteracted = false;
   void onUserInteraction() {
     hasUserInteracted = true;
@@ -114,5 +115,14 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   {
     isConfirmNewPasswordVisible = !isConfirmNewPasswordVisible;
     emit(EditConfirmNewPasswordVisibleState());
+  }
+
+
+
+  void clearPasswordsCon()
+  {
+    confirmNewPasswordCon.clear();
+    newPasswordCon.clear();
+    emit(ClearPasswordsConState());
   }
 }

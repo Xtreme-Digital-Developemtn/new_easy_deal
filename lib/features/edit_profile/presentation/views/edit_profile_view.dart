@@ -20,8 +20,14 @@ class EditProfileView extends StatelessWidget {
           children: [
             EditProfileListItem(
               title: LangKeys.mobileNumber,
-              subTitle: "01110690299",
-              onTap: () {},
+              subTitle:  profileCubit
+                  .clientProfileModel
+                  ?.data
+                  ?.phone ??
+                  "",
+              onTap: () {
+                context.pushNamed(Routes.editMobileNumberView);
+              },
             ),
             EditProfileListItem(
               title: LangKeys.fullName,
@@ -35,7 +41,7 @@ class EditProfileView extends StatelessWidget {
                   context: context,
                   child: Container(
                     padding: EdgeInsets.all(20.r),
-                    child: EditName(),
+                    child: EditName(editProfileCubit: context.read<EditProfileCubit>(),),
                   ),
                 );
               },

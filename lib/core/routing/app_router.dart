@@ -3,6 +3,7 @@ import 'package:easy_deal/features/category_units/data/repos/category_units_repo
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_advertisement_properties_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_mobile_number_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_registration_papers_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
@@ -15,11 +16,9 @@ import 'package:easy_deal/features/login/presentation/views/login_view.dart';
 import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/register/presentation/views/register_view.dart';
-import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
 import 'package:easy_deal/features/request_details/data/repos/request_repo_imple.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
-
 import '../../features/about_us/data/repos/about_us_repo_imple.dart';
 import '../../features/about_us/presentation/view_model/about_us_cubit.dart';
 import '../../features/about_us/presentation/views/about_us_view.dart';
@@ -145,10 +144,7 @@ class AppRouter {
         );
       case Routes.editEmailView:
         return transition(
-          screen: BlocProvider.value(
-            value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
-            child: EditEmailView(),
-          ),
+          screen: EditEmailView(),
         );
       case Routes.notificationsView:
         return transition(
@@ -180,10 +176,11 @@ class AppRouter {
         );
       case Routes.editPasswordView:
         return transition(
-          screen: BlocProvider.value(
-            value: EditProfileCubit(getIt.get<EditProfileRepoImpl>()),
-            child: EditPasswordView(),
-          ),
+          screen: EditPasswordView(),
+        );
+      case Routes.editMobileNumberView:
+        return transition(
+          screen: EditMobileNumberView(),
         );
       case Routes.aboutUsView:
         return transition(

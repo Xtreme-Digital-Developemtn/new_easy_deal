@@ -20,6 +20,7 @@ class EditPasswordButton extends StatelessWidget {
               msg: state.updateProfileDataModel.message.toString(),
               context: context);
           context.pop();
+          context.read<EditProfileCubit>().clearPasswordsCon();
         }
         if(state is EditProfileDataErrorState){
           ScaffoldMessenger.of(context).showSnackBar(

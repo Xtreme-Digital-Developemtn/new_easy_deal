@@ -412,6 +412,12 @@ abstract class LangKeys {
 
 
 
+  static const String editMobileNumber = "editMobileNumber";
+  static const String editMobileNumberMsg = "editMobileNumberMsg";
+  static const String enterMobileNumber = "enterMobileNumber";
+
+
+
 
 
 }

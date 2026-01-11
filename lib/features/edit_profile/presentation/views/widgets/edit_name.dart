@@ -8,8 +8,8 @@ import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit
 import '../../../../../core/utils/toast/toast.dart';
 
 class EditName extends StatefulWidget {
-  const EditName({super.key});
-
+  const EditName({super.key, required this.editProfileCubit});
+  final EditProfileCubit editProfileCubit;
   @override
   State<EditName> createState() => _EditNameState();
 }
@@ -19,18 +19,19 @@ class _EditNameState extends State<EditName> {
   void initState() {
     super.initState();
     final currentName = context.read<ProfileCubit>().clientProfileModel?.data?.fullName ?? "";
-    context.read<EditProfileCubit>().nameCon = TextEditingController(text: currentName);
+  widget.editProfileCubit.nameCon = TextEditingController(text: currentName);
   }
 
   @override
   void dispose() {
-    context.read<EditProfileCubit>().nameCon.dispose();
+    widget.editProfileCubit.nameCon.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EditProfileCubit, EditProfileStates>(
+      bloc: widget.editProfileCubit,
       listener: (context, state) {
         if (state is EditProfileDataSuccessState) {
           Toast.showSuccessToast(
@@ -49,11 +50,9 @@ class _EditNameState extends State<EditName> {
         }
       },
       builder: (context, state) {
-        final editProfileCubit = context.read<EditProfileCubit>();
-
         return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(20.0.r),
+          child: Form(
+            key: widget.editProfileCubit.formKey,
             child: Column(
               children: [
                 Row(
@@ -70,10 +69,10 @@ class _EditNameState extends State<EditName> {
                 ),
                 Gap(12.h),
                 CustomTextFormField(
-                  controller: editProfileCubit.nameCon,
+                  controller: widget.editProfileCubit.nameCon,
                   validator: (value) => AppValidators.displayNameValidator(value),
                   hintText: LangKeys.enterYourName.tr(),
-                  onChanged: (_) => editProfileCubit.onUserInteraction(),
+                  onChanged: (_) => widget.editProfileCubit.onUserInteraction(),
                 ),
                 Gap(12.h),
                 ConditionalBuilder(
@@ -82,8 +81,8 @@ class _EditNameState extends State<EditName> {
                   builder: (context) {
                     return CustomButton(
                       onPressed: () {
-                        if(editProfileCubit.formKey.currentState!.validate()){
-                          editProfileCubit.updateProfileData( );
+                        if(widget.editProfileCubit.formKey.currentState!.validate()){
+                          widget.editProfileCubit.updateProfileData( );
                         }
                       },
                       text: LangKeys.save.tr(),
