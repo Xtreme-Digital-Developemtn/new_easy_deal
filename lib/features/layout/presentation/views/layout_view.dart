@@ -3,11 +3,6 @@
 import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_deal/features/layout/presentation/views/widgets/bottom_navigation_bar_widget.dart';
 import 'package:easy_deal/features/layout/presentation/views/widgets/profile_name_and_notification_icon.dart';
-import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
-import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
-import 'package:skeletonizer/skeletonizer.dart';
-
-import '../../../../core/routing/app_router.dart';
 import '../../../../main_imports.dart';
 import '../view_model/layout_cubit.dart';
 import '../view_model/layout_states.dart';
