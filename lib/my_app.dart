@@ -1,4 +1,3 @@
-import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
@@ -9,8 +8,6 @@ import 'core/routing/app_router.dart';
 import 'core/shared_cubits/auth_cubit/auth_cubit.dart';
 import 'core/shared_cubits/lang_cubit/lang_cubit.dart';
 import 'features/profile/data/repos/profile_repo_imple.dart';
-import 'features/search/data/repos/search_repo_imple.dart';
-import 'features/search/presentation/view_model/search_cubit.dart';
 import 'main_imports.dart';
 
 class MyApp extends StatelessWidget {
@@ -89,4 +86,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/// test
