@@ -134,7 +134,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String gender,
     required String email,
     required File? image,
-  }) async {
+  })
+  async {
     emit(SignUpLoading());
     FormData formData = FormData.fromMap({
       "fullName": fullName,
@@ -155,16 +156,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
     }, (data) async {
       registerModel = data;
       emit(SignUpSuccess(data));
-      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
       CacheHelper.saveData(key: "userRole", value: data.data!.role);
-      print(CacheHelper.getData(key: "userRole"));
-      print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
       CacheHelper.saveData(key: "userEmail", value: data.data!.email);
       CacheHelper.saveData(key: "userId", value: data.data!.id);
       CacheHelper.saveData(key: "userPhone", value: data.data!.phone);
       await CacheTokenManger.saveUserToken(data.data!.authToken!);
-      print(CacheTokenManger.userToken);
-      print("ccccccccccccccccccccccccccccccccc");
       // await cacheUserInfo(
       //   token: "${data.data!.authToken}",
       //   phone: data.data!.phone.toString(),

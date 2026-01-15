@@ -406,6 +406,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_assets_cleaner:
+    dependency: "direct main"
+    description:
+      name: flutter_assets_cleaner
+      sha256: e6ae9b511087b3955e86dd24c35bac6c5518269230f2ab11240dafdb03cf626d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10"
   flutter_bloc:
     dependency: "direct main"
     description:

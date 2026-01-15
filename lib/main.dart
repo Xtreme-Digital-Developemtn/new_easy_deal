@@ -8,6 +8,7 @@ import 'core/utils/bloc_observer.dart';
 import 'lang/codegen_loader.g.dart';
 import 'main_imports.dart';
 import 'my_app.dart';
+import 'dart:developer';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ void main() async {
   await CacheHelper.init();
   await EasyLocalization.ensureInitialized();
   setup();
+  getVmUri();
     Bloc.observer = MyBlocObserver();
   final userRole = CacheHelper.getData(key: "userRole") ?? "client";
   runApp(
@@ -39,4 +41,10 @@ void main() async {
       ),
     ),
   );
+}
+
+Future<Uri?> getVmUri() async {
+  ServiceProtocolInfo serviceProtocolInfo = await Service.getInfo();
+  print("dddddddddddddddd : ${serviceProtocolInfo.serverUri}");
+  return serviceProtocolInfo.serverUri;
 }
