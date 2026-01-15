@@ -1,6 +1,8 @@
+import '../../../../core/errors/failure.dart';
+
 abstract class ReportIssueRepo{
 
-  // Future<Either<Failure,MainCategoriesModel>> getAllMainCategories();
+ //  Future<Either<Failure,AllReportsIssuesModel>> GetAllReportsIssues();
 
 
 
