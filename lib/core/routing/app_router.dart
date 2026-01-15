@@ -217,7 +217,7 @@ class AppRouter {
       case Routes.contactUsView:
         return transition(
           screen: const ContactUsView(),
-          cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>()),
+          cubit: ContactUsCubit(getIt.get<ContactUsRepoImpl>(),),
         );
       case Routes.appSettingsView:
         return transition(

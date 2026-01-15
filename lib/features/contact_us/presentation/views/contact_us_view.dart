@@ -1,12 +1,23 @@
+import 'package:easy_deal/core/shared_widgets/error_ui.dart';
 import 'package:easy_deal/features/contact_us/presentation/view_model/contact_us_cubit.dart';
 import 'package:easy_deal/features/contact_us/presentation/view_model/contact_us_states.dart';
 import 'package:easy_deal/features/contact_us/presentation/views/widgets/contact_us_item.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class ContactUsView extends StatelessWidget {
+class ContactUsView extends StatefulWidget {
   const ContactUsView({super.key});
 
+  @override
+  State<ContactUsView> createState() => _ContactUsViewState();
+}
+
+class _ContactUsViewState extends State<ContactUsView> {
+  @override
+  void initState() {
+   context.read<ContactUsCubit>().contactUs();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +27,12 @@ class ContactUsView extends StatelessWidget {
           var contactUsCubit = context.read<ContactUsCubit>();
           return Padding(
             padding:   EdgeInsets.all(20.0.r),
-            child: Column(
+            child:
+            state is ContactUsLoadingState ? CustomLoading():
+                state is ContactUsErrorState ?ErrorWidgetUi(onRetry: (){
+                  contactUsCubit.contactUs();
+                }):
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(LangKeys.contactInformation.tr(),style: AppStyles.primary16SemiBold,),
