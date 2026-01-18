@@ -16,6 +16,7 @@ class ReportIssueButton extends StatelessWidget {
         if(state is ReportIssueSuccessState){
           Toast.showSuccessToast(msg: state.reportIssueModel.message.toString(), context: context);
           context.read<ReportIssueCubit>().clearControllers;
+          context.pop();
         }else if (state is ReportIssueErrorState){
           Toast.showErrorToast(msg: state.error.toString(), context: context);
         }

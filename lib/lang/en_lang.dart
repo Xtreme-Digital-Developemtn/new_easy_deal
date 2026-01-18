@@ -411,6 +411,8 @@ class EnLang {
     "editMobileNumber": "Edit Mobile Number",
     "editMobileNumberMsg": "Edit mobile number message",
     "enterMobileNumber": "Enter mobile number",
+    "enterTheIssueTitle": "Enter Issue Title",
+    "title": "Title",
 
 
 

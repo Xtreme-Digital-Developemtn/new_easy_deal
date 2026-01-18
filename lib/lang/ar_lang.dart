@@ -411,6 +411,9 @@ class ArLang {
     "editMobileNumber": "تعديل رقم الهاتف",
     "editMobileNumberMsg": "رسالة تعديل رقم الهاتف",
     "enterMobileNumber": "أدخل رقم الهاتف",
+    "enterTheIssueTitle": "أدخل عنوان القضية",
+    "title": "العنوان",
+
 
 
 
