@@ -37,17 +37,17 @@ class _ContactUsViewState extends State<ContactUsView> {
               children: [
                 Text(LangKeys.contactInformation.tr(),style: AppStyles.primary16SemiBold,),
                 Gap(24.h),
-                ContactUsItem(svgImage: SvgImages.location2, title: "Cairo", onTap: (){
-                  contactUsCubit.openMap("Cairo");
+                ContactUsItem(svgImage: SvgImages.location2, title: "${contactUsCubit.contactUsModel?.data?.address}", onTap: (){
+                  contactUsCubit.openMap("${contactUsCubit.contactUsModel?.data?.address}");
                 }),
-                ContactUsItem(svgImage: SvgImages.email, title: "mostafa@gmail.com", onTap: (){
-                  contactUsCubit.sendEmail("mostafa@gmail.com");
+                ContactUsItem(svgImage: SvgImages.email, title: "${contactUsCubit.contactUsModel?.data?.email}", onTap: (){
+                  contactUsCubit.sendEmail("${contactUsCubit.contactUsModel?.data?.email}");
                 }),
-                ContactUsItem(svgImage: SvgImages.phone, title: "01110690299", onTap: (){
-                  contactUsCubit.makeCall("01110690299");
+                ContactUsItem(svgImage: SvgImages.phone, title: "${contactUsCubit.contactUsModel?.data?.phone}", onTap: (){
+                  contactUsCubit.makeCall("${contactUsCubit.contactUsModel?.data?.phone}");
                 }),
-                ContactUsItem(svgImage: SvgImages.global, title: "https://easydeal.com", onTap: (){
-                  contactUsCubit.openWebsite("https://new.easydealmasr.com");
+                ContactUsItem(svgImage: SvgImages.global, title: "${contactUsCubit.contactUsModel?.data?.whatsapp}", onTap: (){
+                  contactUsCubit.openWebsite("${contactUsCubit.contactUsModel?.data?.whatsapp}");
                 }),
               ],
             ),
