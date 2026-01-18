@@ -19,6 +19,7 @@ class EndPoints {
   static const String contactUs = 'contact-us';
   static const String reportsIssues = 'reports-issues';
   static const String socialMedia = 'social-media';
+  static const String contentTerms = 'content/terms';
 
 
 

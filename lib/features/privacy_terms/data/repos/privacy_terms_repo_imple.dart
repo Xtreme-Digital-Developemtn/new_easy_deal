@@ -1,7 +1,7 @@
-
+import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/privacy_terms/data/repos/privacy_terms_repo.dart';
-
-import '../../../../core/app_services/remote_services/api_service.dart';
+import '../../../../main_imports.dart';
+import '../models/terms_model.dart';
 
 
 class PrivacyTermsRepoImpl implements PrivacyTermsRepo {
@@ -11,18 +11,18 @@ class PrivacyTermsRepoImpl implements PrivacyTermsRepo {
 
 
 
-// @override
-// Future<Either<Failure, TryThisProductsModel>> getTryThisProductsData() async{
-//   try {
-//     var response = await apiService!.getData(
-//       endPoint: EndPoints.mostSellingProducts,
-//     );
-//     TryThisProductsModel result = TryThisProductsModel.fromJson(response.data);
-//     return right(result);
-//   } catch (e) {
-//     return left(handleError(e));
-//   }
-// }
+@override
+Future<Either<Failure, TermsModel>> getTerms() async{
+  try {
+    var response = await apiService!.getData(
+      endPoint: EndPoints.contentTerms,
+    );
+    TermsModel result = TermsModel.fromJson(response.data);
+    return right(result);
+  } catch (e) {
+    return left(handleError(e));
+  }
+}
 
 
 
