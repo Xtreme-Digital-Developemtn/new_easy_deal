@@ -31,7 +31,7 @@ class PrivacyTermsView extends StatelessWidget {
                   children: [
                     Text(LangKeys.whoWeAre.tr(),style: AppStyles.black16SemiBold,),
                     Gap(20.h),
-                 Text(privacyTermsCubit.termsModel!.data!.content.toString())
+                    Text(privacyTermsCubit.termsModel!.data!.content.toString())
 
                   ],
                 ),
