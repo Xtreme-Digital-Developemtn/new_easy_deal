@@ -1,5 +1,7 @@
 import 'package:easy_deal/features/profile/data/models/client_profile_model.dart';
+import 'package:easy_deal/features/profile/data/models/social_media_model.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../main_imports.dart';
 import '../../data/models/logout_model.dart';
 import '../../data/repos/profile_repo.dart';
@@ -37,6 +39,29 @@ class ProfileCubit extends Cubit<ProfileStates> {
       clientProfileModel = data;
       emit(GetClientProfileSuccessState(data));
     });
+  }
+
+
+
+  SocialMediaModel? socialMediaModel;
+
+  Future<void> getSocialMedia() async {
+    emit(GetSocialMediaLoadingState());
+    var result = await profileRepo!.getSocialMedia();
+    return result.fold((failure) {
+      emit(GetSocialMediaErrorState(failure.errMessage));
+    }, (data) async {
+      socialMediaModel = data;
+      emit(GetSocialMediaSuccessState(data));
+    });
+  }
+
+
+  Future<void> openSocialLink(String link) async {
+    final Uri url = Uri.parse(link);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    }
   }
 
 }

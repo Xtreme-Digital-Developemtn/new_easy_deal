@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/profile/presentation/views/widgets/profile_data_name_code_image.dart';
 import 'package:easy_deal/features/profile/presentation/views/widgets/profile_list_items.dart';
+import 'package:easy_deal/features/profile/presentation/views/widgets/social_media_icons.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -17,14 +18,7 @@ class ProfileView extends StatelessWidget {
             Gap(16.h),
             ProfileListItems(),
             Gap(16.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgImages.facebook)),
-                IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgImages.linkedin)),
-                IconButton(onPressed: (){}, icon: SvgPicture.asset(SvgImages.twitter)),
-              ],
-            ),
+            SocialMediaIcons(),
             Gap(16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,6 +1,7 @@
 import 'package:easy_deal/features/profile/data/models/logout_model.dart';
 
 import '../../data/models/client_profile_model.dart';
+import '../../data/models/social_media_model.dart';
 
 abstract class ProfileStates{}
 
@@ -28,4 +29,17 @@ class  GetClientProfileErrorState extends ProfileStates{
 class  GetClientProfileSuccessState extends ProfileStates{
   final ClientProfileModel clientProfileModel;
   GetClientProfileSuccessState(this.clientProfileModel);
+}
+
+
+
+class  GetSocialMediaLoadingState extends ProfileStates{}
+class  GetSocialMediaErrorState extends ProfileStates{
+  final String error;
+  GetSocialMediaErrorState(this.error);
+
+}
+class  GetSocialMediaSuccessState extends ProfileStates{
+  final SocialMediaModel socialMediaModel;
+  GetSocialMediaSuccessState(this.socialMediaModel);
 }
