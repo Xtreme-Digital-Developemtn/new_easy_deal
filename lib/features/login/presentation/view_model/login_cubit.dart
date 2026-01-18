@@ -55,7 +55,8 @@ class LoginCubit extends Cubit<LoginStates> {
   Future<void> login({
     required String password,
     required String phone,
-  }) async {
+  })
+  async {
     emit(LoginLoadingState());
     FormData formData = FormData.fromMap({
       "password": password,

@@ -1,6 +1,8 @@
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../view_model/report_issue_cubit.dart';
+
 class ReportIssueMessage extends StatelessWidget {
   const ReportIssueMessage({super.key});
 
@@ -10,8 +12,9 @@ class ReportIssueMessage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(LangKeys.typeTheMessageIfYouWant.tr(),style: AppStyles.primary16SemiBold,),
-        Gap(20.h),
+        Gap(12.h),
         TextField(
+          controller: context.read<ReportIssueCubit>().messageCon,
           maxLines: 5,
           decoration: InputDecoration(
             alignLabelWithHint: true,

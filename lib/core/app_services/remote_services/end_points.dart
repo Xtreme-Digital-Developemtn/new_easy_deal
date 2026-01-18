@@ -17,6 +17,7 @@ class EndPoints {
   static const String faqs = 'faqs';
   static const String aboutUs = 'about-us';
   static const String contactUs = 'contact-us';
+  static const String reportsIssues = 'reports-issues';
 
 
 

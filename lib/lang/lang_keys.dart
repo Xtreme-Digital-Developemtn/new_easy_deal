@@ -415,6 +415,11 @@ abstract class LangKeys {
 
 
 
+  static const String enterTheIssueTitle = "enterTheIssueTitle";
+  static const String title = "title";
+
+
+
 
 
 }
