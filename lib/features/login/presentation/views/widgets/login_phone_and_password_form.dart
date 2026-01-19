@@ -48,10 +48,10 @@ class LoginPhoneAndPasswordForm extends StatelessWidget {
               ),
               obscureText: loginCubit.isPasswordVisible,
               onChanged: (_) => loginCubit.validateForm(),
-              validator: (String? value) {
-                return AppValidators.passwordValidator(value);
-
-              },
+              // validator: (String? value) {
+              //   return AppValidators.passwordValidator(value);
+              //
+              // },
             ),
           ],
         );
