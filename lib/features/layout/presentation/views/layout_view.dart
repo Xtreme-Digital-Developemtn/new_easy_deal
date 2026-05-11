@@ -11,6 +11,8 @@ class LayoutView extends StatelessWidget {
   const LayoutView({super.key});
   @override
   Widget build(BuildContext context) {
+    print(CacheTokenManger.userToken);
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     return BlocBuilder<LayoutCubit, LayoutStates>(
       builder: (context, state) {
         logSuccess(CacheHelper.getData(key: "clientId").toString());
