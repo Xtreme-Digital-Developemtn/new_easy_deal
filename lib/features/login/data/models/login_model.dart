@@ -36,8 +36,9 @@ class Data {
   dynamic parentId;
   String? authToken;
   String? gender;
+  String? mobauthToken;
 
-  Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.authToken, this.gender});
+  Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.authToken, this.gender,this.mobauthToken});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -52,6 +53,7 @@ class Data {
     parentId = json["parentId"];
     authToken = json["authToken"];
     gender = json["gender"];
+    mobauthToken = json["mobauthToken"];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +72,7 @@ class Data {
     _data["parentId"] = parentId;
     _data["authToken"] = authToken;
     _data["gender"] = gender;
+    _data["mobauthToken"] = mobauthToken;
     return _data;
   }
 }

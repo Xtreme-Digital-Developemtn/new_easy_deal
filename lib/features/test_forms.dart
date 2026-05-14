@@ -73,7 +73,7 @@ class _CreateRequestWebViewState extends State<CreateRequestWebView> {
       )
       ..loadRequest(
         Uri.parse(
-          "https://new.easydealmasr.com/angular/iframe/stepper-modal?userId=${CacheHelper.getData(key: "userId")}&token=${CacheTokenManger.userToken}&theme=flutter&preselect=true&scope=inside-compound&transactionType=sell&unitType=apartment",
+          "https://new.easydealmasr.com/iframe/stepper-modal?userId=${CacheHelper.getData(key: "userId")}&token=${CacheTokenManger.userToken}&theme=flutter&preselect=true&scope=inside-compound&transactionType=sell&unitType=apartment",
         ),
       );
   }

@@ -71,9 +71,9 @@ class LoginCubit extends Cubit<LoginStates> {
         loginModel = data;
         emit(LoginSuccessState(data));
         CacheHelper.saveData(key: "userId", value: data.data!.id);
+        CacheHelper.saveData(key: "mobauthToken", value: data.data!.mobauthToken);
         await CacheTokenManger.saveUserToken(data.data!.authToken!);
-        print(CacheTokenManger.userToken);
-        print("nnnnnnnnnnnnnnnnnnnnnnnnnn");
+
         clearControllers();
       },
     );
