@@ -16,6 +16,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
     await NotificationService.init();
+
   String? token = await CacheTokenManger.getUserToken();
   debugPrint("Retrieved token: $token");
   await CacheHelper.init();

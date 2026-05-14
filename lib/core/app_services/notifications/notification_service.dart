@@ -4,40 +4,71 @@ import 'package:flutter/material.dart';
 
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+
   static final FlutterLocalNotificationsPlugin _local =
   FlutterLocalNotificationsPlugin();
 
-  // تشغيل الإشعارات
   static Future<void> init() async {
-    // 1. طلب إذن الإشعارات
-    await _messaging.requestPermission();
+    /// ==============================
+    /// 1) Request permissions (FCM)
+    /// ==============================
+    await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-    // 2. إعداد إشعارات ال foreground
+    /// ==============================
+    /// 2) Local notifications setup
+    /// ==============================
+
+    /// Android
     const AndroidInitializationSettings android =
     AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings settings =
-    InitializationSettings(android: android);
+
+    /// iOS/macOS (MANDATORY ⚠️)
+    const DarwinInitializationSettings ios =
+    DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
+
+    /// Combine both
+    const InitializationSettings settings = InitializationSettings(
+      android: android,
+      iOS: ios,
+    );
 
     await _local.initialize(settings);
 
-    // 3. استقبال الإشعارات لو التطبيق مفتوح
+    /// ==============================
+    /// 3) Foreground messages
+    /// ==============================
     FirebaseMessaging.onMessage.listen((message) {
       _showNotification(message);
     });
 
-    // 4. استقبال الإشعارات لما المستخدم يدوس على Notification
+    /// ==============================
+    /// 4) When user taps notification
+    /// ==============================
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       debugPrint("🔔 Notification Clicked: ${message.data}");
     });
 
-    // 5. لو التطبيق كان مقفول وفتح بسبب إشعار
+    /// ==============================
+    /// 5) Terminated state
+    /// ==============================
     final initialMessage = await _messaging.getInitialMessage();
     if (initialMessage != null) {
-      debugPrint("🚀 App opened from terminated state with data: ${initialMessage.data}");
+      debugPrint(
+          "🚀 App opened from terminated state with data: ${initialMessage.data}");
     }
   }
 
-  // إظهار الإشعار داخل التطبيق
+  /// ==============================
+  /// Show local notification
+  /// ==============================
   static Future<void> _showNotification(RemoteMessage message) async {
     const AndroidNotificationDetails androidDetails =
     AndroidNotificationDetails(
@@ -47,8 +78,13 @@ class NotificationService {
       priority: Priority.high,
     );
 
-    const NotificationDetails platformDetails =
-    NotificationDetails(android: androidDetails);
+    const DarwinNotificationDetails iosDetails =
+    DarwinNotificationDetails();
+
+    const NotificationDetails platformDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
 
     await _local.show(
       message.hashCode,
