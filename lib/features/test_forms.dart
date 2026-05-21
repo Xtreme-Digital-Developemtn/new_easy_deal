@@ -32,9 +32,7 @@ class _CreateRequestWebViewState
       key: "userId",
     );
 
-    final token = Uri.encodeComponent(
-      CacheTokenManger.userToken ?? "",
-    );
+    final token =  CacheTokenManger.userToken ?? "";
 
     final initialUrl =
         "https://new.easydealmasr.com/iframe/stepper-modal"
@@ -178,7 +176,7 @@ class _CreateRequestWebViewState
             } catch (e) {
 
               debugPrint(
-                "ERROR => $e",
+                "Mostafa ERROR => ${e.toString()}",
               );
             }
           }
