@@ -196,6 +196,9 @@ abstract class LangKeys {
   static const String unitNumber = 'unitNumber';
   static const String floor = 'floor';
   static const String unitArea = 'unitArea';
+  static const String unitAreaMin = 'unitAreaMin';
+  static const String unitAreaMax = 'unitAreaMax';
+  static const String areaSuggestions = 'areaSuggestions';
   static const String numberOfRooms = 'numberOfRooms';
   static const String bathrooms = 'bathrooms';
   static const String unitLocationFromTheFront = 'unitLocationFromTheFront';
@@ -205,8 +208,8 @@ abstract class LangKeys {
   static const String otherLuxuries = 'otherLuxuries';
   static const String notes = 'notes';
   static const String mainImage = 'mainImage';
-  static const String masterPlanImage = 'masterPlanImage';
-  static const String financialStatementImage = 'financialStatementImage';
+  static const String unitInMasterPlanImage = 'unitInMasterPlanImage';
+  static const String galleryImages = 'galleryImages';
   static const String video = 'video';
   static const String paymentSystem = 'paymentSystem';
   static const String price = 'price';
@@ -215,6 +218,10 @@ abstract class LangKeys {
   static const String unitData = 'unitData';
   static const String siteInformation = 'siteInformation';
   static const String orderSettings = 'orderSettings';
+  static const String requestPriceQuotes = 'requestPriceQuotes';
+  static const String requestPriceQuotesHint = 'requestPriceQuotesHint';
+  static const String other = 'other';
+  static const String otherSubArea = 'otherSubArea';
   static const String assignToBroker = 'assignToBroker';
   static const String createRequest = 'createRequest';
   static const String selectBroker = 'selectBroker';

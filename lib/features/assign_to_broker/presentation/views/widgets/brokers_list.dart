@@ -65,17 +65,27 @@ class AssignBrokersList extends StatelessWidget {
               ),
             ),
             Gap(12.h),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: assignToBrokerCubit.assignBrokersList.length,
-              separatorBuilder: (context, index) => Gap(8.h),
-              itemBuilder: (context, index) {
-                final item = assignToBrokerCubit.assignBrokersList[index];
-                final isSelected = assignToBrokerCubit.selectedItems.contains(item);
-                return AssignBrokerItem(isSelected : isSelected,item: item,);
-              },
-            ),
+            if (assignToBrokerCubit.isLoading)
+              Center(child: CircularProgressIndicator())
+            else if (assignToBrokerCubit.assignBrokersList.isEmpty)
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.r),
+                  child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr(), style: AppStyles.gray14Medium),
+                ),
+              )
+            else
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: assignToBrokerCubit.assignBrokersList.length,
+                separatorBuilder: (context, index) => Gap(8.h),
+                itemBuilder: (context, index) {
+                  final item = assignToBrokerCubit.assignBrokersList[index];
+                  final isSelected = assignToBrokerCubit.selectedItems.contains(item);
+                  return AssignBrokerItem(isSelected : isSelected,item: item,);
+                },
+              ),
           ],
         );
       },

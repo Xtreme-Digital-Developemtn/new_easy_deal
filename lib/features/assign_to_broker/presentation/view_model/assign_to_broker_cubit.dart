@@ -10,56 +10,89 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
 
   static AssignToBrokerCubit get(context) => BlocProvider.of(context);
 
+  int requestId = 0;
+  int senderId = 0;
 
-
-  List<ItemModel> selectedItems = [];
+  List<BrokerModel> selectedItems = [];
   bool selectAll = false;
-  final assignBrokersList = [
-    ItemModel(
-      id: '1',
-      name: 'Broker 1',
-      type: 'Type A',
-      imageUrl:
-      'https://assets-news.housing.com/news/wp-content/uploads/2022/03/28143140/Difference-between-flat-and-apartment.jpg',
-    ),
-    ItemModel(
-      id: '2',
-      name: 'Broker 2',
-      type: 'Type B',
-      imageUrl:
-      'https://assets-news.housing.com/news/wp-content/uploads/2022/03/28143140/Difference-between-flat-and-apartment.jpg',
-    ),
-    ItemModel(
-      id: '3',
-      name: 'Broker 3',
-      type: 'Type C',
-      imageUrl:
-      'https://assets-news.housing.com/news/wp-content/uploads/2022/03/28143140/Difference-between-flat-and-apartment.jpg',
-    ),
-  ];
+  List<BrokerModel> assignBrokersList = [];
+  bool isLoading = false;
 
-  void toggleItemSelection(ItemModel item) {
+
+  void setRequestId(int id) {
+    requestId = id;
+  }
+
+  void setSenderId(int id) {
+    senderId = id;
+  }
+
+  Future<void> getRecommendedBrokers() async {
+    emit(GetRecommendedBrokersLoadingState());
+    isLoading = true;
+
+    var result = await assignToBrokerRepo!.getRecommendedBrokers(requestId);
+    return result.fold(
+      (failure) {
+        isLoading = false;
+        emit(GetRecommendedBrokersErrorState(failure.errMessage));
+      },
+      (brokers) {
+        isLoading = false;
+        assignBrokersList = brokers;
+        selectedItems.clear();
+        selectAll = false;
+        emit(GetRecommendedBrokersSuccessState());
+      },
+    );
+  }
+
+  void toggleItemSelection(BrokerModel item) {
       if (selectedItems.contains(item)) {
         selectedItems.remove(item);
       } else {
         selectedItems.add(item);
       }
       selectAll = selectedItems.length == assignBrokersList.length;
-      // onSelectionChanged(selectedItems);
 
     emit(ToggleItemSelectionState());
   }
 
   void toggleSelectAll() {
-
       if (selectAll) {
         selectedItems.clear();
       } else {
         selectedItems = List.from(assignBrokersList);
       }
       selectAll = !selectAll;
-       //onSelectionChanged(selectedItems);
 
     emit(ToggleSelectAllState());
+  }
+
+  Future<void> assignToBrokers(BuildContext context) async {
+    if (selectedItems.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please select at least one broker')),
+      );
+      return;
+    }
+
+    emit(AssignBrokersLoadingState());
+
+    final brokerIds = selectedItems.map((b) => b.id).toList();
+
+    var result = await assignToBrokerRepo!.assignBrokers(requestId, senderId, brokerIds);
+    return result.fold(
+      (failure) {
+        emit(AssignBrokersErrorState(failure.errMessage));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(failure.errMessage)),
+        );
+      },
+      (data) {
+        emit(AssignBrokersSuccessState());
+        context.pushNamedAndRemoveUntil(Routes.successAssignView);
+      },
+    );
   }
 }

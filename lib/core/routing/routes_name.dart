@@ -35,9 +35,4 @@ class Routes {
   static const String brokerMapsView = 'brokerMapsView';
   static const String editMobileNumberView = 'editMobileNumberView';
 
-
-  static const String createRequestWebView = 'createRequestWebView';
-
-
-
 }

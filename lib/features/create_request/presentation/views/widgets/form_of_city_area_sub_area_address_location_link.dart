@@ -3,77 +3,143 @@ import 'package:easy_deal/features/create_request/presentation/view_model/create
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../../../../core/shared_widgets/custom_drop_down.dart';
-
-class FormOfCityAreaSubAreaAddressLocationLink extends StatelessWidget {
+class FormOfCityAreaSubAreaAddressLocationLink extends StatefulWidget {
   const FormOfCityAreaSubAreaAddressLocationLink({super.key});
 
   @override
+  State<FormOfCityAreaSubAreaAddressLocationLink> createState() =>
+      _FormOfCityAreaSubAreaAddressLocationLinkState();
+}
+
+class _FormOfCityAreaSubAreaAddressLocationLinkState
+    extends State<FormOfCityAreaSubAreaAddressLocationLink> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CreateRequestCubit>().getCities();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateRequestCubit , CreateRequestStates>(
-      builder: (context , state){
-        var createRequestCubit = context.read<CreateRequestCubit>();
-        return  Column(
+    return BlocBuilder<CreateRequestCubit, CreateRequestStates>(
+      builder: (context, state) {
+        var cubit = context.read<CreateRequestCubit>();
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(LangKeys.city.tr(),style: AppStyles.black14Regular,),
+            /// City
+            Text(LangKeys.city.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
-            CustomDropdown(
-              value: createRequestCubit.selectedCity,
-              items: ["city 1", "city 2", "city 3"],
-              onChanged: (val) {
-                createRequestCubit.selectCity(val);
+            CustomDropdown<String>(
+              value: cubit.selectedCityObj != null
+                  ? (context.isArabic
+                      ? cubit.selectedCityObj!.nameAr
+                      : cubit.selectedCityObj!.nameEn)
+                  : null,
+              items: cubit.citiesList
+                  .map((c) => context.isArabic ? c.nameAr ?? '' : c.nameEn ?? '')
+                  .toList(),
+              hint: state is GetCitiesLoadingState
+                  ? 'Loading...'
+                  : LangKeys.city.tr(),
+              itemDisplayBuilder: (name) => name,
+              onChanged: (selectedName) {
+                if (selectedName != null) {
+                  final city = cubit.citiesList.firstWhere(
+                    (c) =>
+                        (context.isArabic ? c.nameAr : c.nameEn) ==
+                        selectedName,
+                  );
+                  cubit.selectCity(city);
+                  cubit.getAreas(cityId: city.id!);
+                }
               },
-              hint: LangKeys.city.tr(),
-              itemDisplayBuilder: (city) => city.toString(),
             ),
             Gap(12.h),
-            ///
-            Text(LangKeys.area.tr(),style: AppStyles.black14Regular,),
+
+            /// Area
+            Text(LangKeys.area.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
-            CustomDropdown(
-              value: createRequestCubit.selectedArea,
-              items: ["area 1", "area 2", "area 3"],
-              onChanged: (val) {
-                createRequestCubit.selectArea(val);
+            CustomDropdown<String>(
+              value: cubit.selectedAreaObj != null
+                  ? (context.isArabic
+                      ? cubit.selectedAreaObj!.nameAr
+                      : cubit.selectedAreaObj!.nameEn)
+                  : null,
+              items: cubit.areasList
+                  .map((a) => context.isArabic ? a.nameAr ?? '' : a.nameEn ?? '')
+                  .toList(),
+              hint: state is GetAreasLoadingState
+                  ? 'Loading...'
+                  : LangKeys.area.tr(),
+              itemDisplayBuilder: (name) => name,
+              onChanged: (selectedName) {
+                if (selectedName != null) {
+                  final area = cubit.areasList.firstWhere(
+                    (a) =>
+                        (context.isArabic ? a.nameAr : a.nameEn) ==
+                        selectedName,
+                  );
+                  cubit.selectArea(area);
+                  cubit.getSubAreas(areaId: area.id!);
+                }
               },
-              hint: LangKeys.area.tr(),
-              itemDisplayBuilder: (area) => area.toString(),
             ),
             Gap(12.h),
-            ///
-            Text(LangKeys.subArea.tr(),style: AppStyles.black14Regular,),
+
+            /// Sub Area
+            Text(LangKeys.subArea.tr(), style: AppStyles.black14Regular),
             Gap(12.h),
-            CustomDropdown(
-              value: createRequestCubit.selectedSubArea,
-              items: ["subArea 1", "subArea 2", "subArea 3"],
-              onChanged: (val) {
-                createRequestCubit.selectSubArea(val);
+            CustomDropdown<String>(
+              value: cubit.isSubAreaOther
+                  ? LangKeys.other.tr()
+                  : cubit.selectedSubAreaObj != null
+                      ? (context.isArabic
+                          ? cubit.selectedSubAreaObj!.nameAr
+                          : cubit.selectedSubAreaObj!.nameEn)
+                      : null,
+              items: cubit.subAreasList.isEmpty
+                  ? [LangKeys.other.tr()]
+                  : cubit.subAreasList.map(
+                      (s) => context.isArabic ? s.nameAr ?? '' : s.nameEn ?? '',
+                    ).toList(),
+              hint: state is GetSubAreasLoadingState
+                  ? 'Loading...'
+                  : cubit.subAreasList.isEmpty
+                      ? LangKeys.other.tr()
+                      : LangKeys.subArea.tr(),
+              itemDisplayBuilder: (name) => name,
+              onChanged: (selectedName) {
+                if (selectedName != null) {
+                  final otherLabel = LangKeys.other.tr();
+                  if (selectedName == otherLabel) {
+                    cubit.selectSubAreaOther();
+                  } else {
+                    final subArea = cubit.subAreasList.firstWhere(
+                      (s) =>
+                          (context.isArabic ? s.nameAr : s.nameEn) ==
+                          selectedName,
+                    );
+                    cubit.selectSubArea(subArea);
+                  }
+                }
               },
-              hint: LangKeys.subArea.tr(),
-              itemDisplayBuilder: (subArea) => subArea.toString(),
             ),
-            Gap(12.h),
-            ///
-            Text(LangKeys.address.tr(),style: AppStyles.black14Regular,),
-            Gap(12.h),
-            CustomTextFormField(
-              controller: createRequestCubit.addressCon,
-              hintText: LangKeys.address.tr(),
-            ),
-            Gap(12.h),
-            ///
-            Text(LangKeys.locationLink.tr(),style: AppStyles.black14Regular,),
-            Gap(12.h),
-            CustomTextFormField(
-              controller: createRequestCubit.locationLinkCon,
-              hintText: LangKeys.locationLink.tr(),
-            ),
+            if (cubit.isSubAreaOther) ...[
+              Gap(12.h),
+              Text(LangKeys.otherSubArea.tr(), style: AppStyles.black14Regular),
+              Gap(6.h),
+              CustomTextFormField(
+                controller: cubit.otherSubAreaCon,
+                hintText: LangKeys.otherSubArea.tr(),
+              ),
+            ],
             Gap(12.h),
           ],
         );
       },
-
     );
   }
 }

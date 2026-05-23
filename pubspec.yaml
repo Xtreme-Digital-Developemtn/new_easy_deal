@@ -78,7 +78,6 @@ dependencies:
   adaptive_dialog: ^2.6.0
   skeletonizer: ^2.1.2
   flutter_assets_cleaner: ^0.0.9
-  webview_flutter:
 
 
 

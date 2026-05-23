@@ -25,16 +25,16 @@ class StepNumber extends StatelessWidget {
                   children: [
                    Row(
                      children: [
-                       Text("${createRequestCubit.currentStepNumber}",style: AppStyles.primary16SemiBold,),
-                       Text(" / 5 ",style: AppStyles.black16SemiBold,),
+                        Text("${createRequestCubit.adjustedCurrentStep}",style: AppStyles.primary16SemiBold,),
+                        Text(" / ${createRequestCubit.titleNames.length} ",style: AppStyles.black16SemiBold,),
                      ],
                    ),
                     Text(createRequestCubit.titleNames[createRequestCubit.currentStepNumber-1],style: AppStyles.gray14Medium,),
                   ],
                 ),
                 StepProgressIndicator(
-                  totalSteps: 6,
-                  currentStep: createRequestCubit.currentStepNumber,
+                  totalSteps: createRequestCubit.titleNames.length,
+                  currentStep: createRequestCubit.adjustedCurrentStep,
                   selectedColor: AppColors.primaryDark,
                   unselectedColor: AppColors.gray,
                 )

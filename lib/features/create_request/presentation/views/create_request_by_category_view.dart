@@ -18,15 +18,13 @@ class CreateRequestByCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         title: Text(category.name.toString()),
         leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
-          icon: SvgPicture.asset(context.isArabic ? SvgImages.arrowLeft: SvgImages.arrow , colorFilter: ColorFilter.mode(AppColors.black,
-            BlendMode.srcIn,
-          ),
+          onPressed: () { context.pop(); },
+          icon: SvgPicture.asset(
+            context.isArabic ? SvgImages.arrowLeft : SvgImages.arrow,
+            colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcIn),
           ),
         ),
       ),
@@ -51,8 +49,11 @@ class CreateRequestByCategoryView extends StatelessWidget {
                   if (cubit.currentStepNumber == 3)
                     FormOfUnitInfoDetails(),
 
-                  if (cubit.currentStepNumber == 4)
+                  if (cubit.currentStepNumber == 4 && cubit.shouldShowStep4)
                     FormOfUnitUploadUnitDocuments(),
+
+                  if (cubit.currentStepNumber == 4 && !cubit.shouldShowStep4)
+                    PaymentSystemAndPrice(),
 
                   if (cubit.currentStepNumber == 5)
                     PaymentSystemAndPrice(),
@@ -64,7 +65,6 @@ class CreateRequestByCategoryView extends StatelessWidget {
           ),
         ),
       ),
-
       bottomNavigationBar: BlocBuilder<CreateRequestCubit, CreateRequestStates>(
         builder: (context, state) {
           var cubit = context.read<CreateRequestCubit>();
@@ -77,9 +77,7 @@ class CreateRequestByCategoryView extends StatelessWidget {
                   Expanded(child: PastButton()),
                 if (cubit.currentStepNumber > 1)
                   Gap(10.w),
-                Expanded(child: NextButton(
-
-                )),
+                Expanded(child: NextButton()),
               ],
             ),
           );
@@ -88,4 +86,3 @@ class CreateRequestByCategoryView extends StatelessWidget {
     );
   }
 }
-

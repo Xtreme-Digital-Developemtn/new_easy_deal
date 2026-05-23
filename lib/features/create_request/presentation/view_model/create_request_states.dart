@@ -30,6 +30,8 @@ class SelectOtherLuxuriesState extends CreateRequestStates{}
 class SelectFloorState extends CreateRequestStates{}
 class SelectFinishingConditionState extends CreateRequestStates{}
 class SelectPaymentSystemState extends CreateRequestStates{}
+class RequestPriceQuotesState extends CreateRequestStates{}
+class AreaSuggestionsState extends CreateRequestStates{}
 
 class UploadMainImageSuccessState extends CreateRequestStates {}
 class ClearMainImageSuccessState extends CreateRequestStates {}
@@ -39,11 +41,11 @@ class UploadImageErrorState extends CreateRequestStates {}
 class UploadVideoSuccessState extends CreateRequestStates {}
 class ClearVideoSuccessState extends CreateRequestStates {}
 
-class UploadFinancialStatementSuccessState extends CreateRequestStates {}
-class ClearFinancialStatementSuccessState extends CreateRequestStates {}
+class UploadGalleryImagesSuccessState extends CreateRequestStates {}
+class ClearGalleryImagesSuccessState extends CreateRequestStates {}
 
-class UploadMasterPlanSuccessState extends CreateRequestStates {}
-class ClearMasterPlanSuccessState extends CreateRequestStates {}
+class UploadUnitInMasterPlanSuccessState extends CreateRequestStates {}
+class ClearUnitInMasterPlanSuccessState extends CreateRequestStates {}
 
 
 class GetDynamicFormsDataLoadingState extends CreateRequestStates {}
@@ -57,3 +59,36 @@ class GetDynamicFormsDataErrorState extends CreateRequestStates {
   GetDynamicFormsDataErrorState(this.error);
 
 }
+
+class CreateRequestLoadingState extends CreateRequestStates {}
+class CreateRequestSuccessState extends CreateRequestStates {
+  final int requestId;
+  CreateRequestSuccessState(this.requestId);
+}
+class CreateRequestErrorState extends CreateRequestStates {
+  final String error;
+  CreateRequestErrorState(this.error);
+}
+
+class GetCitiesLoadingState extends CreateRequestStates {}
+class GetCitiesSuccessState extends CreateRequestStates {}
+class GetCitiesErrorState extends CreateRequestStates {
+  final String error;
+  GetCitiesErrorState(this.error);
+}
+
+class GetAreasLoadingState extends CreateRequestStates {}
+class GetAreasSuccessState extends CreateRequestStates {}
+class GetAreasErrorState extends CreateRequestStates {
+  final String error;
+  GetAreasErrorState(this.error);
+}
+
+class GetSubAreasLoadingState extends CreateRequestStates {}
+class GetSubAreasSuccessState extends CreateRequestStates {}
+class GetSubAreasErrorState extends CreateRequestStates {
+  final String error;
+  GetSubAreasErrorState(this.error);
+}
+
+class FormValueChangedState extends CreateRequestStates {}

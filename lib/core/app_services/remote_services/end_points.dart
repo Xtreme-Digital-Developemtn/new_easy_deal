@@ -8,21 +8,22 @@ class EndPoints {
   static const String bestSellerUnitsInHome = 'unit/advertisement-shuffle';
   static const String bestSellerUnitsInSearch = 'unit/advertisement-shuffle';
   static const String unitUniTypes = 'unit/unit-types';
-  static const String dynamicForms = 'test';
+  static const String dynamicForms = 'requests/create/dynamic-fields';
   static const String requests = 'requests';
   static const String users = 'users';
   static const String allUnits = 'unit?limit=20&offset=0';
-  static const String cities = 'location/city?limit=100&offset=0&sort=asc&sortBy=id';
-  static const String areas = 'location/area?limit=100&offset=0&sort=asc&sortBy=id';
+  static const String cities = 'location/city';
+  static const String areas = 'location/area';
+  static const String subAreas = 'location/sub-area';
   static const String faqs = 'faqs';
   static const String aboutUs = 'about-us';
   static const String contactUs = 'contact-us';
   static const String reportsIssues = 'reports-issues';
   static const String socialMedia = 'social-media';
   static const String contentTerms = 'content/terms';
-
-
-
+  static const String createRequest = 'requests/create';
+  static const String recommendBrokers = 'requests/recommend/brokers';
+  static const String assignToBrokers = 'requests/assign-to-brokers';
 
 
 

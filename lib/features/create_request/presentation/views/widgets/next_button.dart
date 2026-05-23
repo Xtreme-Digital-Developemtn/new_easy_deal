@@ -13,31 +13,26 @@ class NextButton extends StatelessWidget {
     return BlocBuilder<CreateRequestCubit , CreateRequestStates>(
       builder: (context,state){
         var createRequestCubit = context.read<CreateRequestCubit>();
+        final isLoading = state is CreateRequestLoadingState;
         return ConditionalBuilder(
-          condition: state is ! GetDynamicFormsDataLoadingState,
+          condition: !isLoading,
           fallback: (context)=>CustomLoading(),
           builder: (context){
             return CustomButton(
               onPressed: (){
-                print(createRequestCubit.currentStepNumber);
-                if(createRequestCubit.currentStepNumber==1){
+                if (createRequestCubit.currentStepNumber == 1) {
                   createRequestCubit.handleStepOne(context);
-
+                } else {
+                  createRequestCubit.handleNextSteps(context);
                 }
-                // if(createRequestCubit.currentStepNumber<5){
-                //   createRequestCubit.moveNextStep(createRequestCubit.currentStepNumber+1);
-                // }
-                // else{
-                //   context.pushNamed(Routes.assignToBrokerView);
-                // }
               },
-              text: LangKeys.next.tr(),
+              text: createRequestCubit.currentStepNumber < createRequestCubit.totalSteps
+                  ? LangKeys.next.tr()
+                  : LangKeys.save.tr(),
             );
           },
-
         );
       },
-
     );
   }
 }

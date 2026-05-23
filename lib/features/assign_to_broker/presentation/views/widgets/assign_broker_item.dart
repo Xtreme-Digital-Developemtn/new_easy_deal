@@ -6,7 +6,7 @@ import '../../view_model/assign_to_broker_cubit.dart';
 class AssignBrokerItem extends StatelessWidget {
   const AssignBrokerItem({super.key, required this.isSelected, required this.item});
   final bool isSelected;
-  final ItemModel item;
+  final BrokerModel item;
   @override
   Widget build(BuildContext context) {
     return Card(
