@@ -86,23 +86,23 @@ const buildingLayoutStatusTypesOptions = [
 
 const sellOutBuildingLayoutStatusTypesOptions = [
   OptionItem(key: 'Open Space', value: 'open_space'),
-  OptionItem(key: 'Fully Built', value: 'fully_built'),
+  OptionItem(key: 'Fully Built ', value: 'fully_built'),
   OptionItem(key: 'Under Construction', value: 'under_construction'),
 ];
 
 const sellOutAdministrativeBuildingLayoutStatusTypesOptions = [
-  OptionItem(key: 'Fully Built', value: 'fully_built'),
+  OptionItem(key: 'Fully Built ', value: 'fully_built'),
   OptionItem(key: 'Under Construction', value: 'under_construction'),
 ];
 
 const specialRentBuildingLayoutStatusTypesOptions = [
   OptionItem(key: 'Open Space', value: 'open_space'),
-  OptionItem(key: 'Fully Built', value: 'fully_built'),
+  OptionItem(key: 'Fully Built ', value: 'fully_built'),
 ];
 
 const rentBuildingLayoutStatusTypesOptions = [
   OptionItem(key: 'Open Space', value: 'open_space'),
-  OptionItem(key: 'Fully Built', value: 'fully_built'),
+  OptionItem(key: 'Fully Built ', value: 'fully_built'),
   OptionItem(key: 'All Acceptable', value: 'all_acceptable'),
 ];
 

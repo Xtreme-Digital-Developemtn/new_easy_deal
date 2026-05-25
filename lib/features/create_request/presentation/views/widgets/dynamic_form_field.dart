@@ -4,6 +4,7 @@ import 'package:easy_deal/features/create_request/data/stepper_config/stepper_co
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DynamicFormField extends StatelessWidget {
   final InputConfig config;
@@ -63,11 +64,11 @@ class DynamicFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label, style: AppStyles.black14Regular),
+        Text(config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         CustomTextFormField(
           controller: cubit.getOrCreateController(config.name),
-          hintText: config.label,
+          hintText: config.label.tr(),
           keyboardType: keyboardType,
           maxLines: maxLines,
           onChanged: (val) => cubit.setFormValue(config.name, val),
@@ -87,26 +88,26 @@ class DynamicFormField extends StatelessWidget {
         (o) => o!.value == currentValue,
         orElse: () => null,
       );
-      displayValue = match?.key ?? currentValue;
+      displayValue = match?.key.tr() ?? currentValue;
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label, style: AppStyles.black14Regular),
+        Text(config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         CustomDropdown<String>(
           value: displayValue,
-          items: options.map((o) => o.key).toList(),
+          items: options.map((o) => o.key.tr()).toList(),
           onChanged: (val) {
             if (val != null) {
               final matched = options.cast<OptionItem?>().firstWhere(
-                (o) => o!.key == val,
+                (o) => o!.key.tr() == val,
               );
               cubit.setFormValue(config.name, matched!.value);
             }
           },
-          hint: config.label,
+          hint: config.label.tr(),
           itemDisplayBuilder: (v) => v,
         ),
         Gap(12.h),
@@ -121,7 +122,7 @@ class DynamicFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label, style: AppStyles.black14Regular),
+        Text(config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         Wrap(
           spacing: 8.w,
@@ -129,7 +130,7 @@ class DynamicFormField extends StatelessWidget {
           children: options.map((o) {
             final isSelected = selectedValues.contains(o.value);
             return FilterChip(
-              label: Text(o.key),
+              label: Text(o.key.tr()),
               selected: isSelected,
               onSelected: (selected) {
                 final updated = List<String>.from(selectedValues);
@@ -159,7 +160,7 @@ class DynamicFormField extends StatelessWidget {
           onChanged: (v) => cubit.setFormValue(config.name, v ?? false),
           activeColor: AppColors.primaryDark,
           checkColor: AppColors.white,
-          title: Text(config.label, style: AppStyles.black14Regular),
+          title: Text(config.label.tr(), style: AppStyles.black14Regular),
           contentPadding: EdgeInsets.zero,
           controlAffinity: ListTileControlAffinity.leading,
         ),
@@ -173,7 +174,7 @@ class DynamicFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label, style: AppStyles.black14Regular),
+        Text(config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         GestureDetector(
           onTap: () async {
@@ -199,7 +200,7 @@ class DynamicFormField extends StatelessWidget {
             child: Align(
               alignment: AlignmentDirectional.centerStart,
               child: Text(
-                currentValue ?? config.label,
+                currentValue ?? config.label.tr(),
                 style: TextStyle(
                   color: currentValue != null ? AppColors.black : AppColors.gray,
                   fontSize: 14,
@@ -281,7 +282,7 @@ class DynamicFormField extends StatelessWidget {
                   ),
                   Gap(8.h),
                   Text(
-                    config.label,
+                    config.label.tr(),
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: Colors.black87),
                   ),
                   Gap(4.h),

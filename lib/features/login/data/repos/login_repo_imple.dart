@@ -14,6 +14,7 @@ class LoginRepoImpl implements LoginRepo {
       var response = await apiService!.postData(
         endPoint: EndPoints.login,
         data: data,
+        public: true,
       );
       LoginModel result = LoginModel.fromJson(response.data);
       return right(result);

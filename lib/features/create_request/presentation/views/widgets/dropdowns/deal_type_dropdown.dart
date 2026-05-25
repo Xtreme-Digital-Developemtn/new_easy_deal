@@ -35,7 +35,7 @@ class DealTypeDropdown extends StatelessWidget {
           value: cubit.selectedDealTypeLabel,
           items: dealTypeItems.map((e) => e['label']!).toList(),
           hint: LangKeys.dealType.tr(),
-          itemDisplayBuilder: (label) => label.toString(),
+          itemDisplayBuilder: (label) => label.toString().tr(),
           onChanged: (selectedLabel) {
             final selectedItem = dealTypeItems.firstWhere(
                   (e) => e['label'] == selectedLabel,

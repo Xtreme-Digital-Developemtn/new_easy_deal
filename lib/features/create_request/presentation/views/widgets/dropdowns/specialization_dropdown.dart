@@ -23,7 +23,7 @@ class SpecializationDropdown extends StatelessWidget {
         Text(LangKeys.scopeOfSpecialization.tr(), style: AppStyles.black14Regular),
         Gap(12.h),
         CustomDropdown(
-          itemDisplayBuilder: (label) => label.toString(),
+          itemDisplayBuilder: (label) => label.toString().tr(),
           hint: LangKeys.scopeOfSpecialization.tr(),
           value: cubit.selectedSpecializationLabel,
           items: specializationItems.map((e) => e['label']!).toList(),

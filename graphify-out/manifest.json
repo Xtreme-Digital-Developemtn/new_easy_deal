@@ -1,0 +1,2992 @@
+{
+  "D:\\projects\\new_easy_deal\\firebase.json": {
+    "mtime": 1778590632.7636068,
+    "ast_hash": "f97b3bd78ffada9398120efd17a32eb4",
+    "semantic_hash": "f97b3bd78ffada9398120efd17a32eb4"
+  },
+  "D:\\projects\\new_easy_deal\\.opencode\\opencode.json": {
+    "mtime": 1779699622.8610332,
+    "ast_hash": "1efe24ecf938911d4f23e4b1c6ec91f7",
+    "semantic_hash": "1efe24ecf938911d4f23e4b1c6ec91f7"
+  },
+  "D:\\projects\\new_easy_deal\\.opencode\\package.json": {
+    "mtime": 1779699654.106462,
+    "ast_hash": "878115d31c721840fc3330b89a3f8c20",
+    "semantic_hash": "878115d31c721840fc3330b89a3f8c20"
+  },
+  "D:\\projects\\new_easy_deal\\.opencode\\plugins\\graphify.js": {
+    "mtime": 1779699597.6063886,
+    "ast_hash": "32b67963417a30cb80544e0b2a56a98d",
+    "semantic_hash": "32b67963417a30cb80544e0b2a56a98d"
+  },
+  "D:\\projects\\new_easy_deal\\android\\build.gradle.kts": {
+    "mtime": 1778590632.4507802,
+    "ast_hash": "803fe22651fbe96ed401eb0b66a492d1",
+    "semantic_hash": "803fe22651fbe96ed401eb0b66a492d1"
+  },
+  "D:\\projects\\new_easy_deal\\android\\gradlew": {
+    "mtime": 1778590772.4726973,
+    "ast_hash": "7f1cd7eb3f75a1dc85cd37753972a6e2",
+    "semantic_hash": "7f1cd7eb3f75a1dc85cd37753972a6e2"
+  },
+  "D:\\projects\\new_easy_deal\\android\\settings.gradle.kts": {
+    "mtime": 1778590632.45252,
+    "ast_hash": "84ab5a7460c15615ff6089dc465a963e",
+    "semantic_hash": "84ab5a7460c15615ff6089dc465a963e"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\build.gradle.kts": {
+    "mtime": 1778590632.4455354,
+    "ast_hash": "8b4333719d2cffd5cdd1e345ed9d6f0a",
+    "semantic_hash": "8b4333719d2cffd5cdd1e345ed9d6f0a"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\google-services.json": {
+    "mtime": 1778590632.4455354,
+    "ast_hash": "b671b54dec65fd082d7c296fff5385c0",
+    "semantic_hash": "b671b54dec65fd082d7c296fff5385c0"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\java\\io\\flutter\\plugins\\GeneratedPluginRegistrant.java": {
+    "mtime": 1779373552.297423,
+    "ast_hash": "104a2290ce55f313d00eecb11984565a",
+    "semantic_hash": "104a2290ce55f313d00eecb11984565a"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\kotlin\\com\\xtreme\\easy_deal\\MainActivity.kt": {
+    "mtime": 1778590632.4475288,
+    "ast_hash": "7960ad7dbd04c0f127c0ce8bb9ab96b2",
+    "semantic_hash": "7960ad7dbd04c0f127c0ce8bb9ab96b2"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Flutter\\flutter_export_environment.sh": {
+    "mtime": 1779097535.915905,
+    "ast_hash": "09f5aa39b65ff15c364d7731a5077a4a",
+    "semantic_hash": "09f5aa39b65ff15c364d7731a5077a4a"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Flutter\\ephemeral\\flutter_lldb_helper.py": {
+    "mtime": 1779097535.9099202,
+    "ast_hash": "98fc75412162af387e2e3461e4e58094",
+    "semantic_hash": "98fc75412162af387e2e3461e4e58094"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\AppDelegate.swift": {
+    "mtime": 1778590632.765627,
+    "ast_hash": "e277c49e98c9f80e9e71c0524a5cb60f",
+    "semantic_hash": "e277c49e98c9f80e9e71c0524a5cb60f"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\GeneratedPluginRegistrant.h": {
+    "mtime": 1778590771.734224,
+    "ast_hash": "decb9041b5e91a07e66f4664e5dac408",
+    "semantic_hash": "decb9041b5e91a07e66f4664e5dac408"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\GeneratedPluginRegistrant.m": {
+    "mtime": 1779373552.3156507,
+    "ast_hash": "bb6673a4dd6bbd19ceff380786a230cd",
+    "semantic_hash": "bb6673a4dd6bbd19ceff380786a230cd"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Runner-Bridging-Header.h": {
+    "mtime": 1778590632.780362,
+    "ast_hash": "7ad7b5cea096132de13ba526b2b9efbe",
+    "semantic_hash": "7ad7b5cea096132de13ba526b2b9efbe"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Contents.json": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "c4934619d6c806643ed52094ff68adaf",
+    "semantic_hash": "c4934619d6c806643ed52094ff68adaf"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\Contents.json": {
+    "mtime": 1778590632.779627,
+    "ast_hash": "b9e927ac17345f2d5f052fe68a3487f9",
+    "semantic_hash": "b9e927ac17345f2d5f052fe68a3487f9"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\RunnerTests\\RunnerTests.swift": {
+    "mtime": 1778590632.781579,
+    "ast_hash": "24e5d095048eb86c30423f4e04b6e57b",
+    "semantic_hash": "24e5d095048eb86c30423f4e04b6e57b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\firebase_options.dart": {
+    "mtime": 1778590632.8682995,
+    "ast_hash": "5bafb13740d6225304c22e075a022a83",
+    "semantic_hash": "5bafb13740d6225304c22e075a022a83"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\main.dart": {
+    "mtime": 1779091130.333756,
+    "ast_hash": "fdd80b7d9566a0efac9409f367375b93",
+    "semantic_hash": "fdd80b7d9566a0efac9409f367375b93"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\main_imports.dart": {
+    "mtime": 1778590632.8693936,
+    "ast_hash": "0ef4125815b08281518d6759879c6e8d",
+    "semantic_hash": "0ef4125815b08281518d6759879c6e8d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\my_app.dart": {
+    "mtime": 1778590632.8703907,
+    "ast_hash": "29eb6c6a183fb260d910cc4619d7bf5d",
+    "semantic_hash": "29eb6c6a183fb260d910cc4619d7bf5d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\local_services\\cache_helper.dart": {
+    "mtime": 1778590632.781579,
+    "ast_hash": "35f541441b7fa235985cd85868849122",
+    "semantic_hash": "35f541441b7fa235985cd85868849122"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\local_services\\secure_storage_service.dart": {
+    "mtime": 1778590632.781579,
+    "ast_hash": "a2b07c62066d535271d230396d929444",
+    "semantic_hash": "a2b07c62066d535271d230396d929444"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\notifications\\firebase_messaging_handler.dart": {
+    "mtime": 1778590632.7824392,
+    "ast_hash": "996a6295c859758f366604cb9b7f1e8a",
+    "semantic_hash": "996a6295c859758f366604cb9b7f1e8a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\notifications\\notification_service.dart": {
+    "mtime": 1779091130.3327553,
+    "ast_hash": "08a11e1bb29f8568519c966d8e20f66c",
+    "semantic_hash": "08a11e1bb29f8568519c966d8e20f66c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\remote_services\\api_service.dart": {
+    "mtime": 1778590632.7824392,
+    "ast_hash": "769ecf40e394850405d358eab81e1e51",
+    "semantic_hash": "769ecf40e394850405d358eab81e1e51"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\remote_services\\end_points.dart": {
+    "mtime": 1779374923.7423034,
+    "ast_hash": "08e895921a33e8a4383ad27aa748797f",
+    "semantic_hash": "08e895921a33e8a4383ad27aa748797f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\app_services\\remote_services\\service_locator.dart": {
+    "mtime": 1778590632.7824392,
+    "ast_hash": "cddde45f6a0e9270caf450c07abc79ef",
+    "semantic_hash": "cddde45f6a0e9270caf450c07abc79ef"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\data\\static_form_data.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "c5c6dbbd6ebe7b7d9e7940252ae5e2f1",
+    "semantic_hash": "c5c6dbbd6ebe7b7d9e7940252ae5e2f1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\errors\\error_handler.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "e70f6b84532e72153bf3f1ed33de864f",
+    "semantic_hash": "e70f6b84532e72153bf3f1ed33de864f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\errors\\error_ui.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "da551cba00e9d9fe7d6764dd444818f4",
+    "semantic_hash": "da551cba00e9d9fe7d6764dd444818f4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\errors\\failure.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "dc046471116d0ac3abf95a17da9a897f",
+    "semantic_hash": "dc046471116d0ac3abf95a17da9a897f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\extensions\\lang.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "9568c1f1382a3891d6d203c73fe35720",
+    "semantic_hash": "9568c1f1382a3891d6d203c73fe35720"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\extensions\\log_util.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "0dce514ce76481faa4e284727e491757",
+    "semantic_hash": "0dce514ce76481faa4e284727e491757"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\extensions\\navigation_extension.dart": {
+    "mtime": 1778590632.7834604,
+    "ast_hash": "7414e08ffe9d449a329d9718c1ee2161",
+    "semantic_hash": "7414e08ffe9d449a329d9718c1ee2161"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\helpers\\convert_date.dart": {
+    "mtime": 1778590632.7844336,
+    "ast_hash": "84b088f77022f86ab437453d931fbef5",
+    "semantic_hash": "84b088f77022f86ab437453d931fbef5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\routing\\app_router.dart": {
+    "mtime": 1779372938.4118774,
+    "ast_hash": "062eb739aafc2d398f89a86e7ab05a40",
+    "semantic_hash": "062eb739aafc2d398f89a86e7ab05a40"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\routing\\routes_name.dart": {
+    "mtime": 1779372937.185745,
+    "ast_hash": "9e9f0bf2c90450041f80b5c1c540afb1",
+    "semantic_hash": "9e9f0bf2c90450041f80b5c1c540afb1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_cubits\\auth_cubit\\auth_cubit.dart": {
+    "mtime": 1778590632.7844336,
+    "ast_hash": "103996c7c1f2fc0ffa90e938264e38be",
+    "semantic_hash": "103996c7c1f2fc0ffa90e938264e38be"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_cubits\\auth_cubit\\auth_states.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "76c33174238736a8d256de55c2215e99",
+    "semantic_hash": "76c33174238736a8d256de55c2215e99"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_cubits\\lang_cubit\\lang_cubit.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "816892eb2d16f8b8cce0c22a925d87eb",
+    "semantic_hash": "816892eb2d16f8b8cce0c22a925d87eb"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\container_search_widget.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "ac05822bba6084154e110ee3573bd807",
+    "semantic_hash": "ac05822bba6084154e110ee3573bd807"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_button.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "46d2d56feffa19a3dc293bf48502b8af",
+    "semantic_hash": "46d2d56feffa19a3dc293bf48502b8af"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_cached_network_image.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "6a51632d3307d673096040bdbe91325f",
+    "semantic_hash": "6a51632d3307d673096040bdbe91325f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_drop_down.dart": {
+    "mtime": 1778590632.785431,
+    "ast_hash": "d9fe4fc5fc91f4641dada5ccbc938d8c",
+    "semantic_hash": "d9fe4fc5fc91f4641dada5ccbc938d8c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_loading.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "80670182cdbd51c5006b3c43ce6bca96",
+    "semantic_hash": "80670182cdbd51c5006b3c43ce6bca96"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_phone_text_field.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "74e66087f0f5d73ff77f347438354b82",
+    "semantic_hash": "74e66087f0f5d73ff77f347438354b82"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\custom_text_form_filed.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "d91c4fd8a15b951d63fddf05e42a6cf2",
+    "semantic_hash": "d91c4fd8a15b951d63fddf05e42a6cf2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\empty_widget.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "bc8c96e9198a3612e293968f47469a87",
+    "semantic_hash": "bc8c96e9198a3612e293968f47469a87"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\error_ui.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "30edaea552c862f5248322cf85a013b5",
+    "semantic_hash": "30edaea552c862f5248322cf85a013b5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\general_bottom_sheet.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "31b33cac597f58ef6fc3d50d6d092c63",
+    "semantic_hash": "31b33cac597f58ef6fc3d50d6d092c63"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\global_app_bar.dart": {
+    "mtime": 1778590632.7864282,
+    "ast_hash": "b2a2ef4e5feb1f9706973f2a082f2e48",
+    "semantic_hash": "b2a2ef4e5feb1f9706973f2a082f2e48"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\no_data_widget.dart": {
+    "mtime": 1778590632.7874498,
+    "ast_hash": "7c5f5098e6b91b72bc1eb735689e823c",
+    "semantic_hash": "7c5f5098e6b91b72bc1eb735689e823c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\shared_widgets\\phone_widget.dart": {
+    "mtime": 1778590632.7874498,
+    "ast_hash": "5890204f5d377adda03d1f5e50094551",
+    "semantic_hash": "5890204f5d377adda03d1f5e50094551"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\themes\\app_colors.dart": {
+    "mtime": 1778590632.7874498,
+    "ast_hash": "f5478657142841394e6c1ab12f4e3fcb",
+    "semantic_hash": "f5478657142841394e6c1ab12f4e3fcb"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\themes\\app_styles.dart": {
+    "mtime": 1778590632.7874498,
+    "ast_hash": "6316efef7cf8ed290c5fa7763621e5bf",
+    "semantic_hash": "6316efef7cf8ed290c5fa7763621e5bf"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\themes\\themes.dart": {
+    "mtime": 1778590632.7874498,
+    "ast_hash": "7446b646a79a93c6a6313fe543bc344a",
+    "semantic_hash": "7446b646a79a93c6a6313fe543bc344a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\bloc_observer.dart": {
+    "mtime": 1778590632.789421,
+    "ast_hash": "407296b771761f9ca688e5c5cff93a2d",
+    "semantic_hash": "407296b771761f9ca688e5c5cff93a2d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\get_file_icon.dart": {
+    "mtime": 1778590632.789421,
+    "ast_hash": "2fc90c27f807042363bf5afa866c9e4e",
+    "semantic_hash": "2fc90c27f807042363bf5afa866c9e4e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_consts\\app_strings.dart": {
+    "mtime": 1778590632.7884471,
+    "ast_hash": "fff33aca52733bb529902f6896a4ec5f",
+    "semantic_hash": "fff33aca52733bb529902f6896a4ec5f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_consts\\storage_keys.dart": {
+    "mtime": 1778590632.7884471,
+    "ast_hash": "593345fa151c677251f516e04b4159cc",
+    "semantic_hash": "593345fa151c677251f516e04b4159cc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_images\\jpg_images.dart": {
+    "mtime": 1778590632.7884471,
+    "ast_hash": "3a60aa89839e073d7fa35e377a52881e",
+    "semantic_hash": "3a60aa89839e073d7fa35e377a52881e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_images\\png_images.dart": {
+    "mtime": 1778590632.7884471,
+    "ast_hash": "365eb0cb02ade98277e28d28e349eee3",
+    "semantic_hash": "365eb0cb02ade98277e28d28e349eee3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_images\\svg_images.dart": {
+    "mtime": 1778590632.7884471,
+    "ast_hash": "c8df3a452243cfdedc325ce4e2348970",
+    "semantic_hash": "c8df3a452243cfdedc325ce4e2348970"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\app_validator\\app_validator.dart": {
+    "mtime": 1778590632.789421,
+    "ast_hash": "240f727740355f3a4a03b91626610216",
+    "semantic_hash": "240f727740355f3a4a03b91626610216"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\params\\report_issue_parms.dart": {
+    "mtime": 1778590632.789421,
+    "ast_hash": "e91f235d0c1416940a41754e1a570ebc",
+    "semantic_hash": "e91f235d0c1416940a41754e1a570ebc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\core\\utils\\toast\\toast.dart": {
+    "mtime": 1778590632.789421,
+    "ast_hash": "ba281e51a912e1416c4b46cda2ea5441",
+    "semantic_hash": "ba281e51a912e1416c4b46cda2ea5441"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\data\\models\\about_us_model.dart": {
+    "mtime": 1778590632.7904177,
+    "ast_hash": "9852aa88caccac28d757e0bdb1aabe64",
+    "semantic_hash": "9852aa88caccac28d757e0bdb1aabe64"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\data\\repos\\about_us_repo.dart": {
+    "mtime": 1778590632.7904177,
+    "ast_hash": "e66f2a84e1f27c0cff1c5747621ba64e",
+    "semantic_hash": "e66f2a84e1f27c0cff1c5747621ba64e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\data\\repos\\about_us_repo_imple.dart": {
+    "mtime": 1778590632.7904177,
+    "ast_hash": "727a56a0e380ae6d2ab4d09e48fc58ea",
+    "semantic_hash": "727a56a0e380ae6d2ab4d09e48fc58ea"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\presentation\\views\\about_us_view.dart": {
+    "mtime": 1778590632.7973988,
+    "ast_hash": "384d8066980b0f4f974bccf15aac19fa",
+    "semantic_hash": "384d8066980b0f4f974bccf15aac19fa"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\presentation\\views\\widgets\\about_us_view_body.dart": {
+    "mtime": 1778590632.7973988,
+    "ast_hash": "ece47d0232577e41c45431a44ab1c11a",
+    "semantic_hash": "ece47d0232577e41c45431a44ab1c11a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\presentation\\view_model\\about_us_cubit.dart": {
+    "mtime": 1778590632.7973988,
+    "ast_hash": "1a65fd5392d8e256410becdba4d92c2a",
+    "semantic_hash": "1a65fd5392d8e256410becdba4d92c2a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\about_us\\presentation\\view_model\\about_us_states.dart": {
+    "mtime": 1778590632.7973988,
+    "ast_hash": "287718b9d71bee13cdb31aa34e5f25dc",
+    "semantic_hash": "287718b9d71bee13cdb31aa34e5f25dc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\data\\models\\broker_model.dart": {
+    "mtime": 1779373050.621973,
+    "ast_hash": "e30a563ed826770436aa5b7a71c442b4",
+    "semantic_hash": "e30a563ed826770436aa5b7a71c442b4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\data\\repos\\assign_to_broker_repo.dart": {
+    "mtime": 1779373048.295738,
+    "ast_hash": "b5bc0d9f82970fdb6bdfd4e2265db2a9",
+    "semantic_hash": "b5bc0d9f82970fdb6bdfd4e2265db2a9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\data\\repos\\assign_to_broker_repo_imple.dart": {
+    "mtime": 1779373304.9785025,
+    "ast_hash": "faf8d8b87cd8821eb2febe2368717169",
+    "semantic_hash": "faf8d8b87cd8821eb2febe2368717169"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\views\\assign_to_broker_view.dart": {
+    "mtime": 1779373140.912246,
+    "ast_hash": "ff46e1a7794c1e68d6f25b020dcd8437",
+    "semantic_hash": "ff46e1a7794c1e68d6f25b020dcd8437"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\views\\success_assign_view.dart": {
+    "mtime": 1778590632.7993934,
+    "ast_hash": "42576e12a376e01db80aec50dbc3d877",
+    "semantic_hash": "42576e12a376e01db80aec50dbc3d877"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\views\\widgets\\assign_broker_item.dart": {
+    "mtime": 1779373059.8401082,
+    "ast_hash": "4f2d0238865f025bf42cd5d440282eb8",
+    "semantic_hash": "4f2d0238865f025bf42cd5d440282eb8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\views\\widgets\\brokers_list.dart": {
+    "mtime": 1779373068.9215586,
+    "ast_hash": "d8a826641afc107296cad5bf43925c36",
+    "semantic_hash": "d8a826641afc107296cad5bf43925c36"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\views\\widgets\\search_and_filter.dart": {
+    "mtime": 1778590632.8001332,
+    "ast_hash": "55ae96a4ef6decd5ab96bddfeaf8476d",
+    "semantic_hash": "55ae96a4ef6decd5ab96bddfeaf8476d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\view_model\\assign_to_broker_cubit.dart": {
+    "mtime": 1779374200.3678412,
+    "ast_hash": "f9b3a7eca3b608dd76eafb4849a823e8",
+    "semantic_hash": "f9b3a7eca3b608dd76eafb4849a823e8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\assign_to_broker\\presentation\\view_model\\assign_to_broker_states.dart": {
+    "mtime": 1779373087.7728753,
+    "ast_hash": "04f97692dcc044b4c033eae3167c6c46",
+    "semantic_hash": "04f97692dcc044b4c033eae3167c6c46"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\data\\repos\\broker_data_repo.dart": {
+    "mtime": 1778590632.8001332,
+    "ast_hash": "42b6edd28f7f5b9d73322e2478d69c07",
+    "semantic_hash": "42b6edd28f7f5b9d73322e2478d69c07"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\data\\repos\\broker_data_repo_imple.dart": {
+    "mtime": 1778590632.8001332,
+    "ast_hash": "9eb28250b1f02b40240397641bb691d7",
+    "semantic_hash": "9eb28250b1f02b40240397641bb691d7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\presentation\\views\\broker_data_view.dart": {
+    "mtime": 1778590632.8013077,
+    "ast_hash": "a27df184026dba25e9b4173c145d0a07",
+    "semantic_hash": "a27df184026dba25e9b4173c145d0a07"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\presentation\\views\\widgets\\data_table_widget.dart": {
+    "mtime": 1778590632.8013077,
+    "ast_hash": "1a02f216ecaaeddeee07bbe2bb6948e9",
+    "semantic_hash": "1a02f216ecaaeddeee07bbe2bb6948e9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\presentation\\view_model\\broker_data_cubit.dart": {
+    "mtime": 1778590632.8013077,
+    "ast_hash": "e35470085bd10d24c84a3f2d5a4f2531",
+    "semantic_hash": "e35470085bd10d24c84a3f2d5a4f2531"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\boker_data\\presentation\\view_model\\broker_data_states.dart": {
+    "mtime": 1778590632.8013077,
+    "ast_hash": "6992dc86d1640682cd478855192bf134",
+    "semantic_hash": "6992dc86d1640682cd478855192bf134"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\data\\repos\\broker_ads_repo.dart": {
+    "mtime": 1778590632.8023047,
+    "ast_hash": "d47795f2bf8754eb184351eab8197dfe",
+    "semantic_hash": "d47795f2bf8754eb184351eab8197dfe"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\data\\repos\\broker_ads_repo_imple.dart": {
+    "mtime": 1778590632.8023047,
+    "ast_hash": "381f69a57688e1202b9b501c2c8710df",
+    "semantic_hash": "381f69a57688e1202b9b501c2c8710df"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\presentation\\views\\broker_ads_view.dart": {
+    "mtime": 1778590632.803302,
+    "ast_hash": "d40a7adf7a7733237389c13c150b0946",
+    "semantic_hash": "d40a7adf7a7733237389c13c150b0946"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\presentation\\views\\widgets\\ads_table_widget.dart": {
+    "mtime": 1778590632.803302,
+    "ast_hash": "5fcf1ebc32b6bee5cac0879be0babcc6",
+    "semantic_hash": "5fcf1ebc32b6bee5cac0879be0babcc6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\presentation\\view_model\\broker_ads_cubit.dart": {
+    "mtime": 1778590632.8023047,
+    "ast_hash": "2e3717eae67ed391844c4e5bd8bbb2f6",
+    "semantic_hash": "2e3717eae67ed391844c4e5bd8bbb2f6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_ads\\presentation\\view_model\\broker_ads_states.dart": {
+    "mtime": 1778590632.8023047,
+    "ast_hash": "8621b4f1378ee77c638386c1ffd3535e",
+    "semantic_hash": "8621b4f1378ee77c638386c1ffd3535e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\data\\repos\\broker_developers_repo.dart": {
+    "mtime": 1778590632.803302,
+    "ast_hash": "84a22fd718d433d4c8eb3b8bd0a149ee",
+    "semantic_hash": "84a22fd718d433d4c8eb3b8bd0a149ee"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\data\\repos\\broker_developers_repo_imple.dart": {
+    "mtime": 1778590632.803302,
+    "ast_hash": "5fee2101c2b052077cf17f8f8e87a2c9",
+    "semantic_hash": "5fee2101c2b052077cf17f8f8e87a2c9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\presentation\\views\\broker_developers_view.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "3da417cbefebbae9e6b2b93b9f16af4c",
+    "semantic_hash": "3da417cbefebbae9e6b2b93b9f16af4c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\presentation\\views\\widgets\\developers_table_data.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "beb9aaf9f4a101ba46ddcda80dd34dc5",
+    "semantic_hash": "beb9aaf9f4a101ba46ddcda80dd34dc5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\presentation\\views\\widgets\\developer_column_item.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "c8ab6b46e65c4a00f6df783d5be45503",
+    "semantic_hash": "c8ab6b46e65c4a00f6df783d5be45503"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\presentation\\view_model\\broker_developers_cubit.dart": {
+    "mtime": 1778590632.803302,
+    "ast_hash": "4cec50c1adba15a0274b761f72f0827c",
+    "semantic_hash": "4cec50c1adba15a0274b761f72f0827c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_developers\\presentation\\view_model\\broker_developers_states.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "4650265fcd84bd6b7885236259ff90f6",
+    "semantic_hash": "4650265fcd84bd6b7885236259ff90f6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\data\\repos\\broker_home_repo.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "2c4c09ac9a322a2f73c882e9228cafe1",
+    "semantic_hash": "2c4c09ac9a322a2f73c882e9228cafe1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\data\\repos\\broker_home_repo_imple.dart": {
+    "mtime": 1778590632.8042996,
+    "ast_hash": "3a4841ce65748e992137aa8514fcae9c",
+    "semantic_hash": "3a4841ce65748e992137aa8514fcae9c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\broker_home_view.dart": {
+    "mtime": 1778590632.8053863,
+    "ast_hash": "c15a8e0373cb42cb20092b70246282aa",
+    "semantic_hash": "c15a8e0373cb42cb20092b70246282aa"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\broker_categories.dart": {
+    "mtime": 1778590632.8053863,
+    "ast_hash": "5c080f1ef77e3c771394c7b39330c12d",
+    "semantic_hash": "5c080f1ef77e3c771394c7b39330c12d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\broker_main_sections.dart": {
+    "mtime": 1778590632.8053863,
+    "ast_hash": "1993a15a310e5f728c6f393f5dc3de06",
+    "semantic_hash": "1993a15a310e5f728c6f393f5dc3de06"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\category_item.dart": {
+    "mtime": 1778590632.8062942,
+    "ast_hash": "70f7fe9b3da73727d418298b768446cd",
+    "semantic_hash": "70f7fe9b3da73727d418298b768446cd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\last_requests.dart": {
+    "mtime": 1778590632.8062942,
+    "ast_hash": "fec9fd37e8a8eb883606c32f5df5e0d4",
+    "semantic_hash": "fec9fd37e8a8eb883606c32f5df5e0d4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\statistics.dart": {
+    "mtime": 1778590632.8062942,
+    "ast_hash": "739d9b90d160cf2b477f94f73eb35952",
+    "semantic_hash": "739d9b90d160cf2b477f94f73eb35952"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\views\\widgets\\stat_card.dart": {
+    "mtime": 1778590632.8062942,
+    "ast_hash": "ca625a27039cf3b8ebd626f45447387d",
+    "semantic_hash": "ca625a27039cf3b8ebd626f45447387d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\view_model\\broker_home_cubit.dart": {
+    "mtime": 1778590632.8053863,
+    "ast_hash": "dd809a7d172ba277e8f6a72f80e8a06d",
+    "semantic_hash": "dd809a7d172ba277e8f6a72f80e8a06d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_home\\presentation\\view_model\\broker_home_states.dart": {
+    "mtime": 1778590632.8053863,
+    "ast_hash": "38023455405438b5ad26db0d5cdf781d",
+    "semantic_hash": "38023455405438b5ad26db0d5cdf781d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\data\\models\\map_location_model.dart": {
+    "mtime": 1778590632.8062942,
+    "ast_hash": "197adf8de144209fbfec012099c3dd33",
+    "semantic_hash": "197adf8de144209fbfec012099c3dd33"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\data\\repos\\broker_maps_repo.dart": {
+    "mtime": 1778590632.8072915,
+    "ast_hash": "a539bb68a3669dce64349eb5f3a0077e",
+    "semantic_hash": "a539bb68a3669dce64349eb5f3a0077e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\data\\repos\\broker_maps_repo_imple.dart": {
+    "mtime": 1778590632.8072915,
+    "ast_hash": "bc964fb203b3f2c25dbd5834f28c57d3",
+    "semantic_hash": "bc964fb203b3f2c25dbd5834f28c57d3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\views\\broker_maps_view.dart": {
+    "mtime": 1778590632.8082888,
+    "ast_hash": "1b23bdc36f89adc6b89d710bc31dbcfd",
+    "semantic_hash": "1b23bdc36f89adc6b89d710bc31dbcfd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\views\\widgets\\header_section.dart": {
+    "mtime": 1778590632.8082888,
+    "ast_hash": "175de6e426906b50c0e661e136975d1e",
+    "semantic_hash": "175de6e426906b50c0e661e136975d1e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\views\\widgets\\locations_list_view.dart": {
+    "mtime": 1778590632.8082888,
+    "ast_hash": "61112927757cb4809d04cd44b486d1ae",
+    "semantic_hash": "61112927757cb4809d04cd44b486d1ae"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\views\\widgets\\location_card.dart": {
+    "mtime": 1778590632.8082888,
+    "ast_hash": "c599c6c9c8b773bf6afa6cd2776b26cd",
+    "semantic_hash": "c599c6c9c8b773bf6afa6cd2776b26cd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\view_model\\broker_maps_cubit.dart": {
+    "mtime": 1778590632.8072915,
+    "ast_hash": "d3d43651f1fc36bcc44babae0b1f5db2",
+    "semantic_hash": "d3d43651f1fc36bcc44babae0b1f5db2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\broker_features\\broker_maps\\presentation\\view_model\\broker_maps_states.dart": {
+    "mtime": 1778590632.8072915,
+    "ast_hash": "756c6566b6d9ded78c9c63fb3df97331",
+    "semantic_hash": "756c6566b6d9ded78c9c63fb3df97331"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\data\\repos\\category_units_repo.dart": {
+    "mtime": 1778590632.8090246,
+    "ast_hash": "1d1d3411ab3305eab06dbe75583796e3",
+    "semantic_hash": "1d1d3411ab3305eab06dbe75583796e3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\data\\repos\\category_units_repo_imple.dart": {
+    "mtime": 1778590632.8090246,
+    "ast_hash": "24b8fb45e3a47cfe012a2fed05ed05ff",
+    "semantic_hash": "24b8fb45e3a47cfe012a2fed05ed05ff"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\presentation\\views\\category_units_view.dart": {
+    "mtime": 1778590632.8095317,
+    "ast_hash": "22cda18f8ca61bf1ea92de633aae81f1",
+    "semantic_hash": "22cda18f8ca61bf1ea92de633aae81f1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\presentation\\views\\widgets\\category_units_list.dart": {
+    "mtime": 1778590632.8095317,
+    "ast_hash": "8b8062c9c8bddae7f10cf45ae387e676",
+    "semantic_hash": "8b8062c9c8bddae7f10cf45ae387e676"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\presentation\\view_model\\category_units_cubit.dart": {
+    "mtime": 1778590632.8095317,
+    "ast_hash": "078115b61e9db07664fb918eb84d9a64",
+    "semantic_hash": "078115b61e9db07664fb918eb84d9a64"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\category_units\\presentation\\view_model\\category_units_states.dart": {
+    "mtime": 1778590632.8095317,
+    "ast_hash": "a5f9f15f2bb91c13e4bc0f4c4552b1b8",
+    "semantic_hash": "a5f9f15f2bb91c13e4bc0f4c4552b1b8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\data\\models\\chat_type_model.dart": {
+    "mtime": 1778590632.8105264,
+    "ast_hash": "6066139086015c32a5fcc07f25264d97",
+    "semantic_hash": "6066139086015c32a5fcc07f25264d97"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\data\\repos\\chats_repo.dart": {
+    "mtime": 1778590632.8105264,
+    "ast_hash": "7f3377d7f0f418f072e51a81348326db",
+    "semantic_hash": "7f3377d7f0f418f072e51a81348326db"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\data\\repos\\chats_repo_imple.dart": {
+    "mtime": 1778590632.8105264,
+    "ast_hash": "956bc7acb8e9d0e61aa0c0046f7fd02d",
+    "semantic_hash": "956bc7acb8e9d0e61aa0c0046f7fd02d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\views\\chats_view.dart": {
+    "mtime": 1778590632.8116586,
+    "ast_hash": "194047af697d83450f5557a893866418",
+    "semantic_hash": "194047af697d83450f5557a893866418"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\views\\widgets\\chats_list.dart": {
+    "mtime": 1778590632.8116586,
+    "ast_hash": "2cb802cebcc21fe7bd66e9f8ec35c995",
+    "semantic_hash": "2cb802cebcc21fe7bd66e9f8ec35c995"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\views\\widgets\\chats_types.dart": {
+    "mtime": 1778590632.8116586,
+    "ast_hash": "74838b73436dd45e499df00e71131aa3",
+    "semantic_hash": "74838b73436dd45e499df00e71131aa3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\views\\widgets\\chats_types_item.dart": {
+    "mtime": 1778590632.8116586,
+    "ast_hash": "b25b3cf54fb97d2b0ae8f8703d6d3e86",
+    "semantic_hash": "b25b3cf54fb97d2b0ae8f8703d6d3e86"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\view_model\\chats_cubit.dart": {
+    "mtime": 1778590632.8105264,
+    "ast_hash": "accbdd7b2058c376d9691227f6b239b2",
+    "semantic_hash": "accbdd7b2058c376d9691227f6b239b2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\chats\\presentation\\view_model\\chats_states.dart": {
+    "mtime": 1778590632.8116586,
+    "ast_hash": "8691a6f8809ca29de565e5b7371e6692",
+    "semantic_hash": "8691a6f8809ca29de565e5b7371e6692"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\data\\models\\contact_us_model.dart": {
+    "mtime": 1778590632.8125217,
+    "ast_hash": "8692e9c029acf8db6cd96cae4ff0de1b",
+    "semantic_hash": "8692e9c029acf8db6cd96cae4ff0de1b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\data\\repos\\contact_us_repo.dart": {
+    "mtime": 1778590632.8125217,
+    "ast_hash": "86ad6f5f518cb0a1944d71b4df9cd677",
+    "semantic_hash": "86ad6f5f518cb0a1944d71b4df9cd677"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\data\\repos\\contact_us_repo_imple.dart": {
+    "mtime": 1778590632.8125217,
+    "ast_hash": "781085340747b98c3bc08f5e58f128f6",
+    "semantic_hash": "781085340747b98c3bc08f5e58f128f6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\presentation\\views\\contact_us_view.dart": {
+    "mtime": 1778590632.8135185,
+    "ast_hash": "3b04b1a8969e8d49d0020af73e4bb960",
+    "semantic_hash": "3b04b1a8969e8d49d0020af73e4bb960"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\presentation\\views\\widgets\\contact_us_item.dart": {
+    "mtime": 1778590632.8135185,
+    "ast_hash": "0f6013e3130566e83e2bbdd652db13c7",
+    "semantic_hash": "0f6013e3130566e83e2bbdd652db13c7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\presentation\\view_model\\contact_us_cubit.dart": {
+    "mtime": 1778590632.8125217,
+    "ast_hash": "82913adcb3b54be431ad68b4da13ba31",
+    "semantic_hash": "82913adcb3b54be431ad68b4da13ba31"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\contact_us\\presentation\\view_model\\contact_us_states.dart": {
+    "mtime": 1778590632.8125217,
+    "ast_hash": "e40126136f27a25d42c55138cc1a404f",
+    "semantic_hash": "e40126136f27a25d42c55138cc1a404f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\models\\category_model.dart": {
+    "mtime": 1778590632.8135185,
+    "ast_hash": "eef5ec3716070eac09ee4087b32b4bc4",
+    "semantic_hash": "eef5ec3716070eac09ee4087b32b4bc4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\models\\dynamic_forms_data_model.dart": {
+    "mtime": 1778590632.8135185,
+    "ast_hash": "835d2a919fb63bcaf7cb3a706d658d5e",
+    "semantic_hash": "835d2a919fb63bcaf7cb3a706d658d5e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\models\\sub_areas_model.dart": {
+    "mtime": 1779374941.4711266,
+    "ast_hash": "ddb955a7a7461ae64c822215967eb241",
+    "semantic_hash": "ddb955a7a7461ae64c822215967eb241"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\repos\\create_request_repo.dart": {
+    "mtime": 1779374948.114071,
+    "ast_hash": "7e1afe9477cd00207136ee95991c01fb",
+    "semantic_hash": "7e1afe9477cd00207136ee95991c01fb"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\repos\\create_request_repo_imple.dart": {
+    "mtime": 1779374957.0572965,
+    "ast_hash": "8c55f83399742b9ef0946ff7a0d2b515",
+    "semantic_hash": "8c55f83399742b9ef0946ff7a0d2b515"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\base_config_service.dart": {
+    "mtime": 1779542936.9192767,
+    "ast_hash": "96fde3d40e7c290991fc0b7b47ba60dd",
+    "semantic_hash": "96fde3d40e7c290991fc0b7b47ba60dd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\input_config_model.dart": {
+    "mtime": 1779542871.2518933,
+    "ast_hash": "e9fc4433d373588d47919cf68ab2ed8e",
+    "semantic_hash": "e9fc4433d373588d47919cf68ab2ed8e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\purchase_outside_config_service.dart": {
+    "mtime": 1779543381.627778,
+    "ast_hash": "2e0dbd3cf35493ab15337b933efc003a",
+    "semantic_hash": "2e0dbd3cf35493ab15337b933efc003a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\purchasing_config_service.dart": {
+    "mtime": 1779543227.2490296,
+    "ast_hash": "e48a5026cdbc66c902a5a0bf9360db61",
+    "semantic_hash": "e48a5026cdbc66c902a5a0bf9360db61"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\rental_config_service.dart": {
+    "mtime": 1779543085.0600853,
+    "ast_hash": "1f2f4c33690b59783b21ea2cf763d3bd",
+    "semantic_hash": "1f2f4c33690b59783b21ea2cf763d3bd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\rental_outside_config_service.dart": {
+    "mtime": 1779543247.534566,
+    "ast_hash": "c510500b6328c4ae26849449b22f158d",
+    "semantic_hash": "c510500b6328c4ae26849449b22f158d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\sell_config_service.dart": {
+    "mtime": 1779543059.6718218,
+    "ast_hash": "b04f7ed659c9cd36183514017cd4315a",
+    "semantic_hash": "b04f7ed659c9cd36183514017cd4315a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\sell_outside_config_service.dart": {
+    "mtime": 1779543039.0890515,
+    "ast_hash": "59943c3072c94a968bdaeb45a539f807",
+    "semantic_hash": "59943c3072c94a968bdaeb45a539f807"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\stepper_config_factory.dart": {
+    "mtime": 1779543450.2236722,
+    "ast_hash": "02ad4aa0c823db9781d54409c8110caa",
+    "semantic_hash": "02ad4aa0c823db9781d54409c8110caa"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\data\\stepper_config\\stepper_constants.dart": {
+    "mtime": 1779542865.1127832,
+    "ast_hash": "333974c4fd9f210b4db77b6d8869c24b",
+    "semantic_hash": "333974c4fd9f210b4db77b6d8869c24b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\create_request_by_category_view.dart": {
+    "mtime": 1779543505.0489688,
+    "ast_hash": "5375637fa7149752db7f7666781dce48",
+    "semantic_hash": "5375637fa7149752db7f7666781dce48"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\create_request_view.dart": {
+    "mtime": 1778590632.8155136,
+    "ast_hash": "603893a55c33daf57343dd28ce86f22c",
+    "semantic_hash": "603893a55c33daf57343dd28ce86f22c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\category_item.dart": {
+    "mtime": 1778590632.8155136,
+    "ast_hash": "ddc2557d245b084b7147ab20592e49b9",
+    "semantic_hash": "ddc2557d245b084b7147ab20592e49b9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\dynamic_form_field.dart": {
+    "mtime": 1779544033.2335,
+    "ast_hash": "0bda1a0d1a663e9b1032fa7ea3acfbca",
+    "semantic_hash": "0bda1a0d1a663e9b1032fa7ea3acfbca"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\form_of_city_area_sub_area_address_location_link.dart": {
+    "mtime": 1779538144.0112946,
+    "ast_hash": "4c00d2e6bd4350748fc34f1e986b7b47",
+    "semantic_hash": "4c00d2e6bd4350748fc34f1e986b7b47"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\form_of_specialization_and_deal_type_unit_type.dart": {
+    "mtime": 1778590632.816511,
+    "ast_hash": "d0ea3f5e1ef767efb4327e74b830e197",
+    "semantic_hash": "d0ea3f5e1ef767efb4327e74b830e197"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\form_of_unit_info_details.dart": {
+    "mtime": 1779543976.1391072,
+    "ast_hash": "d31c5b432bb239e26e0bf1a2d130aea7",
+    "semantic_hash": "d31c5b432bb239e26e0bf1a2d130aea7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\form_of_unit_upload_unit_documents.dart": {
+    "mtime": 1779543996.6573243,
+    "ast_hash": "4d4289935e1dbd2f72a7d1e9c2ba693d",
+    "semantic_hash": "4d4289935e1dbd2f72a7d1e9c2ba693d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\next_button.dart": {
+    "mtime": 1779543544.0725667,
+    "ast_hash": "003f295d890cf52ce1e4690ebde9f5d2",
+    "semantic_hash": "003f295d890cf52ce1e4690ebde9f5d2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\past_button.dart": {
+    "mtime": 1778590632.8175082,
+    "ast_hash": "143dbc04dee9e3143e83554908d307be",
+    "semantic_hash": "143dbc04dee9e3143e83554908d307be"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\payment_system_price.dart": {
+    "mtime": 1779544078.1072514,
+    "ast_hash": "bdd1659c0b538e5e87b40ca3233cca2c",
+    "semantic_hash": "bdd1659c0b538e5e87b40ca3233cca2c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\step_number.dart": {
+    "mtime": 1779543520.6917064,
+    "ast_hash": "5657a92e33c4b70f193b645c2212b3a3",
+    "semantic_hash": "5657a92e33c4b70f193b645c2212b3a3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\dropdowns\\deal_type_dropdown.dart": {
+    "mtime": 1778590632.8155136,
+    "ast_hash": "0a304380f55e9c0c2adc79945b055738",
+    "semantic_hash": "0a304380f55e9c0c2adc79945b055738"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\dropdowns\\specialization_dropdown.dart": {
+    "mtime": 1778590632.8155136,
+    "ast_hash": "6d019323fa86248a5f811844b18a4761",
+    "semantic_hash": "6d019323fa86248a5f811844b18a4761"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\views\\widgets\\dropdowns\\unit_type_dropdown.dart": {
+    "mtime": 1778590632.8155136,
+    "ast_hash": "92925ca83cc917213059710a9939e71f",
+    "semantic_hash": "92925ca83cc917213059710a9939e71f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\view_model\\create_request_cubit.dart": {
+    "mtime": 1779544072.4293463,
+    "ast_hash": "fc8c08c555a4290388a591c5ccdccdee",
+    "semantic_hash": "fc8c08c555a4290388a591c5ccdccdee"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\create_request\\presentation\\view_model\\create_request_states.dart": {
+    "mtime": 1779543495.434836,
+    "ast_hash": "b49a66cc11dd009d27251a61c868a243",
+    "semantic_hash": "b49a66cc11dd009d27251a61c868a243"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\data\\models\\update_profile_data_model.dart": {
+    "mtime": 1778590632.8175082,
+    "ast_hash": "2aaa5b52a640f5cd9edfaf4ba9bdd602",
+    "semantic_hash": "2aaa5b52a640f5cd9edfaf4ba9bdd602"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\data\\repos\\edit_profile_repo.dart": {
+    "mtime": 1778590632.8183596,
+    "ast_hash": "54c2ab06760f271b6de74abb186d3571",
+    "semantic_hash": "54c2ab06760f271b6de74abb186d3571"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\data\\repos\\edit_profile_repo_imple.dart": {
+    "mtime": 1778590632.8183596,
+    "ast_hash": "ef1318552546e2ddd81236dc6ac4de6b",
+    "semantic_hash": "ef1318552546e2ddd81236dc6ac4de6b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\edit_advertisement_properties_view.dart": {
+    "mtime": 1778590632.8183596,
+    "ast_hash": "f3bfcaf20571628ebeabd623de79bfd1",
+    "semantic_hash": "f3bfcaf20571628ebeabd623de79bfd1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\edit_email.dart": {
+    "mtime": 1778590632.8193548,
+    "ast_hash": "a438fb6c243c918422c5087d1239550b",
+    "semantic_hash": "a438fb6c243c918422c5087d1239550b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\edit_mobile_number_view.dart": {
+    "mtime": 1778590632.8193548,
+    "ast_hash": "ae2d4084488f059f154374aacd5abeae",
+    "semantic_hash": "ae2d4084488f059f154374aacd5abeae"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\edit_profile_view.dart": {
+    "mtime": 1778590632.8193548,
+    "ast_hash": "de65a3429e876376ab4fb8ae144b572b",
+    "semantic_hash": "de65a3429e876376ab4fb8ae144b572b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\edit_registration_papers_view.dart": {
+    "mtime": 1778590632.8193548,
+    "ast_hash": "30f2947d7bc4213b40011e15d35a6dd5",
+    "semantic_hash": "30f2947d7bc4213b40011e15d35a6dd5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\edit_name.dart": {
+    "mtime": 1778590632.8203518,
+    "ast_hash": "8f19d42b535134120337169234d17cb0",
+    "semantic_hash": "8f19d42b535134120337169234d17cb0"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\edit_profile_list_item.dart": {
+    "mtime": 1778590632.820566,
+    "ast_hash": "f2893147592a3675085702a4630d952b",
+    "semantic_hash": "f2893147592a3675085702a4630d952b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\registration_papers_widgets\\paper_card.dart": {
+    "mtime": 1778590632.8210697,
+    "ast_hash": "589d850dc0ad3acadb22c341d90faae5",
+    "semantic_hash": "589d850dc0ad3acadb22c341d90faae5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\specializations_areas_widgets\\add_bottom_sheet.dart": {
+    "mtime": 1778590632.8210697,
+    "ast_hash": "e6be61d2087fba21a84b4872f52c2cd4",
+    "semantic_hash": "e6be61d2087fba21a84b4872f52c2cd4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\specializations_areas_widgets\\chip_item.dart": {
+    "mtime": 1778590632.8215775,
+    "ast_hash": "d65786a2365645814774e9e107ff6094",
+    "semantic_hash": "d65786a2365645814774e9e107ff6094"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\views\\widgets\\specializations_areas_widgets\\main_section.dart": {
+    "mtime": 1778590632.8215775,
+    "ast_hash": "4a5710d13ec0abbb339b2b49be1e5ee3",
+    "semantic_hash": "4a5710d13ec0abbb339b2b49be1e5ee3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\view_model\\edit_profile_cubit.dart": {
+    "mtime": 1778590632.8183596,
+    "ast_hash": "a5dd369e78be29c8bb38b6755b3442d1",
+    "semantic_hash": "a5dd369e78be29c8bb38b6755b3442d1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\edit_profile\\presentation\\view_model\\edit_profile_states.dart": {
+    "mtime": 1778590632.8183596,
+    "ast_hash": "bb3ebfda6ce42367f5566860da9b5fd9",
+    "semantic_hash": "bb3ebfda6ce42367f5566860da9b5fd9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\data\\models\\faqs_model.dart": {
+    "mtime": 1778590632.8215775,
+    "ast_hash": "b5c94f37f0540744083dc210f72d9e8d",
+    "semantic_hash": "b5c94f37f0540744083dc210f72d9e8d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\data\\repos\\faqs_repo.dart": {
+    "mtime": 1778590632.8215775,
+    "ast_hash": "2a8e3998d906a55a3b16410090bee585",
+    "semantic_hash": "2a8e3998d906a55a3b16410090bee585"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\data\\repos\\faqs_repo_imple.dart": {
+    "mtime": 1778590632.8226054,
+    "ast_hash": "670a4f719df563fa3bd67515d96cafbf",
+    "semantic_hash": "670a4f719df563fa3bd67515d96cafbf"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\presentation\\views\\faqs_view.dart": {
+    "mtime": 1778590632.8226054,
+    "ast_hash": "1c01caa93a8978369e3e9605901438bd",
+    "semantic_hash": "1c01caa93a8978369e3e9605901438bd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\presentation\\views\\widgets\\faqs_list.dart": {
+    "mtime": 1778590632.8226054,
+    "ast_hash": "29c31afc5008f623d1dbc5f02d856df1",
+    "semantic_hash": "29c31afc5008f623d1dbc5f02d856df1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\presentation\\views\\widgets\\faqs_view_body.dart": {
+    "mtime": 1778590632.8235972,
+    "ast_hash": "4db2302d96bc7f7fdad04149fb9ec5ba",
+    "semantic_hash": "4db2302d96bc7f7fdad04149fb9ec5ba"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\presentation\\view_model\\faqs_cubit.dart": {
+    "mtime": 1778590632.8226054,
+    "ast_hash": "5ac5a53263f32bd00ef928122b6217cd",
+    "semantic_hash": "5ac5a53263f32bd00ef928122b6217cd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\faqs\\presentation\\view_model\\faqs_states.dart": {
+    "mtime": 1778590632.8226054,
+    "ast_hash": "d06713af8d19f4351cd7838695a22546",
+    "semantic_hash": "d06713af8d19f4351cd7838695a22546"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\data\\models\\best_seller_units_model.dart": {
+    "mtime": 1778590632.8235972,
+    "ast_hash": "57764dace5536c9672f0789d0eb89fb7",
+    "semantic_hash": "57764dace5536c9672f0789d0eb89fb7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\data\\models\\unit_types_model.dart": {
+    "mtime": 1778590632.8235972,
+    "ast_hash": "e8f59f4228b8edefc44bc2de99c44661",
+    "semantic_hash": "e8f59f4228b8edefc44bc2de99c44661"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\data\\repos\\home_repo.dart": {
+    "mtime": 1778590632.8235972,
+    "ast_hash": "8e785f98195c6b2d545b368ed4a75ec0",
+    "semantic_hash": "8e785f98195c6b2d545b368ed4a75ec0"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\data\\repos\\home_repo_imple.dart": {
+    "mtime": 1778590632.8245723,
+    "ast_hash": "34d233ffa7784a8074722553aa7449fa",
+    "semantic_hash": "34d233ffa7784a8074722553aa7449fa"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\home_view.dart": {
+    "mtime": 1778590632.8255968,
+    "ast_hash": "06179d7afc93f5d7c746303f0bffd523",
+    "semantic_hash": "06179d7afc93f5d7c746303f0bffd523"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\best_seller_empty_list.dart": {
+    "mtime": 1778590632.8255968,
+    "ast_hash": "73818007b946a4b7d2c8e68a06b63117",
+    "semantic_hash": "73818007b946a4b7d2c8e68a06b63117"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\best_seller_shimmer_loading_list.dart": {
+    "mtime": 1778590632.8255968,
+    "ast_hash": "8b1bf77feae1fdebe7f5f4952004a9dc",
+    "semantic_hash": "8b1bf77feae1fdebe7f5f4952004a9dc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\best_seller_units.dart": {
+    "mtime": 1778590632.8255968,
+    "ast_hash": "1b48dac198b3a89198f1e839a040f27a",
+    "semantic_hash": "1b48dac198b3a89198f1e839a040f27a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\categories.dart": {
+    "mtime": 1778590632.826594,
+    "ast_hash": "e8d1eda617c67717444e98da2e34e18a",
+    "semantic_hash": "e8d1eda617c67717444e98da2e34e18a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\explore_the_sites.dart": {
+    "mtime": 1778590632.826594,
+    "ast_hash": "db316221cec0fe3ef69d1af70c8f7806",
+    "semantic_hash": "db316221cec0fe3ef69d1af70c8f7806"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\get_started.dart": {
+    "mtime": 1778590632.826594,
+    "ast_hash": "9be91658970e7bf8fbe14aa8bb8a2c28",
+    "semantic_hash": "9be91658970e7bf8fbe14aa8bb8a2c28"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\home_slider_images.dart": {
+    "mtime": 1778590632.826594,
+    "ast_hash": "8b69ca691252624fdd873bb7e5762a9b",
+    "semantic_hash": "8b69ca691252624fdd873bb7e5762a9b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\latest_articles.dart": {
+    "mtime": 1778590632.826594,
+    "ast_hash": "559bbb402cfdfc18def242cecd9c23d1",
+    "semantic_hash": "559bbb402cfdfc18def242cecd9c23d1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\latest_articles_item.dart": {
+    "mtime": 1778590632.8275592,
+    "ast_hash": "b7e03ce055346bc86f6a57b804708a32",
+    "semantic_hash": "b7e03ce055346bc86f6a57b804708a32"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\services_bottom_sheet.dart": {
+    "mtime": 1778590632.8275592,
+    "ast_hash": "624af57f7fc3273b76e000aafd682c87",
+    "semantic_hash": "624af57f7fc3273b76e000aafd682c87"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\service_item.dart": {
+    "mtime": 1778590632.8275592,
+    "ast_hash": "f7802c8f8443af47c1b611c07e6f9628",
+    "semantic_hash": "f7802c8f8443af47c1b611c07e6f9628"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\site_item.dart": {
+    "mtime": 1778590632.8275592,
+    "ast_hash": "e85bec71163fa50c5567e17b5370842f",
+    "semantic_hash": "e85bec71163fa50c5567e17b5370842f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\views\\widgets\\unit_item.dart": {
+    "mtime": 1778590632.8275592,
+    "ast_hash": "427434c23f1841a09e2ab6a83d6b46ad",
+    "semantic_hash": "427434c23f1841a09e2ab6a83d6b46ad"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\view_model\\home_cubit.dart": {
+    "mtime": 1778590632.8245723,
+    "ast_hash": "4976c482c6d752c885e89e73a1ac46e5",
+    "semantic_hash": "4976c482c6d752c885e89e73a1ac46e5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\home\\presentation\\view_model\\home_states.dart": {
+    "mtime": 1778590632.8245723,
+    "ast_hash": "0ab86393ae4bf3f0385115354810159a",
+    "semantic_hash": "0ab86393ae4bf3f0385115354810159a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\layout\\presentation\\views\\layout_view.dart": {
+    "mtime": 1778590632.8285565,
+    "ast_hash": "d9da73a38423751a4e6a12f5b602a842",
+    "semantic_hash": "d9da73a38423751a4e6a12f5b602a842"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\layout\\presentation\\views\\widgets\\bottom_navigation_bar_widget.dart": {
+    "mtime": 1778590632.8285565,
+    "ast_hash": "dc1f7cfab58d475482f40b38cabc870c",
+    "semantic_hash": "dc1f7cfab58d475482f40b38cabc870c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\layout\\presentation\\views\\widgets\\profile_name_and_notification_icon.dart": {
+    "mtime": 1778590632.8285565,
+    "ast_hash": "de24e2a04d1e531ce5377131735d0254",
+    "semantic_hash": "de24e2a04d1e531ce5377131735d0254"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\layout\\presentation\\view_model\\layout_cubit.dart": {
+    "mtime": 1778590632.8285565,
+    "ast_hash": "59fa0836a64c233bf17d316ea063e133",
+    "semantic_hash": "59fa0836a64c233bf17d316ea063e133"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\layout\\presentation\\view_model\\layout_states.dart": {
+    "mtime": 1778590632.8285565,
+    "ast_hash": "87552936cae15483668f22a7243f9cdf",
+    "semantic_hash": "87552936cae15483668f22a7243f9cdf"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\data\\models\\login_model.dart": {
+    "mtime": 1778749750.4031832,
+    "ast_hash": "6d967b95d5908247a525e23f356687cd",
+    "semantic_hash": "6d967b95d5908247a525e23f356687cd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\data\\repos\\login_repo.dart": {
+    "mtime": 1778590632.8295536,
+    "ast_hash": "82daafec9a3d43dc32a8611aa1e706b5",
+    "semantic_hash": "82daafec9a3d43dc32a8611aa1e706b5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\data\\repos\\login_repo_imple.dart": {
+    "mtime": 1778590632.8295536,
+    "ast_hash": "d1f43a8e42297699561bcc153ab1a1c8",
+    "semantic_hash": "d1f43a8e42297699561bcc153ab1a1c8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\views\\login_view.dart": {
+    "mtime": 1778590632.8305578,
+    "ast_hash": "47393868868b828e7f96f9681ec5da02",
+    "semantic_hash": "47393868868b828e7f96f9681ec5da02"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\views\\widgets\\do_not_have_account.dart": {
+    "mtime": 1778590632.8305578,
+    "ast_hash": "3526fd58a327d4d2c3717341706303f1",
+    "semantic_hash": "3526fd58a327d4d2c3717341706303f1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\views\\widgets\\login_as_guest.dart": {
+    "mtime": 1778590632.8305578,
+    "ast_hash": "8f7f35ebaa7367702972719469971275",
+    "semantic_hash": "8f7f35ebaa7367702972719469971275"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\views\\widgets\\login_button.dart": {
+    "mtime": 1778590632.8305578,
+    "ast_hash": "10d234937103b43f684b0a8ea010e386",
+    "semantic_hash": "10d234937103b43f684b0a8ea010e386"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\views\\widgets\\logo.dart": {
+    "mtime": 1778590632.8316796,
+    "ast_hash": "7a5268ce857389cb010af37590b6b91b",
+    "semantic_hash": "7a5268ce857389cb010af37590b6b91b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\view_model\\login_cubit.dart": {
+    "mtime": 1778749750.3944032,
+    "ast_hash": "9255dec0dc433fa99f50e5ff4e185fc3",
+    "semantic_hash": "9255dec0dc433fa99f50e5ff4e185fc3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\login\\presentation\\view_model\\login_states.dart": {
+    "mtime": 1778590632.8305578,
+    "ast_hash": "f3c2742ab28de13006bf4762846ad285",
+    "semantic_hash": "f3c2742ab28de13006bf4762846ad285"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\data\\repos\\notifications_repo.dart": {
+    "mtime": 1778590632.8316796,
+    "ast_hash": "106101346085acaf8d80125688e75d2d",
+    "semantic_hash": "106101346085acaf8d80125688e75d2d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\data\\repos\\notifications_repo_imple.dart": {
+    "mtime": 1778590632.8316796,
+    "ast_hash": "7d948745afa77a6adafdf01e7372d294",
+    "semantic_hash": "7d948745afa77a6adafdf01e7372d294"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\presentation\\views\\notifications_view.dart": {
+    "mtime": 1778590632.8324363,
+    "ast_hash": "a0ab6bdd03184e543d2654c8831ad58c",
+    "semantic_hash": "a0ab6bdd03184e543d2654c8831ad58c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\presentation\\views\\widgets\\notify_item.dart": {
+    "mtime": 1778590632.8324363,
+    "ast_hash": "1b48a060c50b423462374f27afdd2eab",
+    "semantic_hash": "1b48a060c50b423462374f27afdd2eab"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\presentation\\view_model\\notifications_cubit.dart": {
+    "mtime": 1778590632.8324363,
+    "ast_hash": "904fc273124966319df1ee03a0654cf5",
+    "semantic_hash": "904fc273124966319df1ee03a0654cf5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\notifications\\presentation\\view_model\\notifications_states.dart": {
+    "mtime": 1778590632.8324363,
+    "ast_hash": "351c75b33e8c143d909738d61e88b139",
+    "semantic_hash": "351c75b33e8c143d909738d61e88b139"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\onbaording\\presentation\\views\\onboarding_view.dart": {
+    "mtime": 1778590632.8334334,
+    "ast_hash": "cfc60c9bffab4ea32e1792177a573af4",
+    "semantic_hash": "cfc60c9bffab4ea32e1792177a573af4"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\onbaording\\presentation\\views\\widgets\\onboarding_item.dart": {
+    "mtime": 1778590632.8334334,
+    "ast_hash": "b87043bbb83715d4084b7e0b16f21837",
+    "semantic_hash": "b87043bbb83715d4084b7e0b16f21837"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\data\\repos\\otp_repo.dart": {
+    "mtime": 1778590632.8334334,
+    "ast_hash": "5000726aa3a029222e91328e127dfc4f",
+    "semantic_hash": "5000726aa3a029222e91328e127dfc4f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\data\\repos\\otp_repo_imple.dart": {
+    "mtime": 1778590632.8334334,
+    "ast_hash": "3dc8cb14328930007077f894b3aadc07",
+    "semantic_hash": "3dc8cb14328930007077f894b3aadc07"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\views\\otp_view.dart": {
+    "mtime": 1778590632.8344595,
+    "ast_hash": "98f9d75e21c24309bba49160d683a2c5",
+    "semantic_hash": "98f9d75e21c24309bba49160d683a2c5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\views\\widgets\\otp_texts.dart": {
+    "mtime": 1778590632.8344595,
+    "ast_hash": "392be4911eaafbaa73fa30c122cfa0f7",
+    "semantic_hash": "392be4911eaafbaa73fa30c122cfa0f7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\views\\widgets\\pin_code_fields_widget.dart": {
+    "mtime": 1778590632.8344595,
+    "ast_hash": "7ba8a2f5ff3daa556aac61f0f9ec7997",
+    "semantic_hash": "7ba8a2f5ff3daa556aac61f0f9ec7997"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\views\\widgets\\resend_otp.dart": {
+    "mtime": 1778590632.835436,
+    "ast_hash": "4c5ab95a1f54cc38b2a499ca292910ce",
+    "semantic_hash": "4c5ab95a1f54cc38b2a499ca292910ce"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\views\\widgets\\verify_otp_button.dart": {
+    "mtime": 1778590632.835436,
+    "ast_hash": "912f9fcd182282d18570c3ea528025e7",
+    "semantic_hash": "912f9fcd182282d18570c3ea528025e7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\view_model\\otp_cubit.dart": {
+    "mtime": 1778590632.8344595,
+    "ast_hash": "3be22a7e1e5bed541f95b741dd905fa9",
+    "semantic_hash": "3be22a7e1e5bed541f95b741dd905fa9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\otp\\presentation\\view_model\\otp_states.dart": {
+    "mtime": 1778590632.8344595,
+    "ast_hash": "36fc0d1ea3aa7e6cc38cd28475b00278",
+    "semantic_hash": "36fc0d1ea3aa7e6cc38cd28475b00278"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\data\\models\\terms_model.dart": {
+    "mtime": 1778590632.835436,
+    "ast_hash": "6735fe83c9d05cc278d65e53b5ed89fd",
+    "semantic_hash": "6735fe83c9d05cc278d65e53b5ed89fd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\data\\repos\\privacy_terms_repo.dart": {
+    "mtime": 1778590632.8364255,
+    "ast_hash": "136ce9c3f39b583fe085bafe923beb6b",
+    "semantic_hash": "136ce9c3f39b583fe085bafe923beb6b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\data\\repos\\privacy_terms_repo_imple.dart": {
+    "mtime": 1778590632.836573,
+    "ast_hash": "c7a9e9d43e6275e7666ae7cd8ef64903",
+    "semantic_hash": "c7a9e9d43e6275e7666ae7cd8ef64903"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\presentation\\views\\privacy_terms_view.dart": {
+    "mtime": 1778590632.836573,
+    "ast_hash": "3d872ea22ef2e6e4c99f9a1252b57f24",
+    "semantic_hash": "3d872ea22ef2e6e4c99f9a1252b57f24"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\presentation\\view_model\\privacy_terms_cubit.dart": {
+    "mtime": 1778590632.836573,
+    "ast_hash": "0eb47c516d8bb360e745097fa147726f",
+    "semantic_hash": "0eb47c516d8bb360e745097fa147726f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\privacy_terms\\presentation\\view_model\\privacy_terms_states.dart": {
+    "mtime": 1778590632.836573,
+    "ast_hash": "7f3d23556271db519635a180c66f99f6",
+    "semantic_hash": "7f3d23556271db519635a180c66f99f6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\data\\models\\client_profile_model.dart": {
+    "mtime": 1778590632.836573,
+    "ast_hash": "d20a553147db8f46cd944517de173928",
+    "semantic_hash": "d20a553147db8f46cd944517de173928"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\data\\models\\logout_model.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "f034faf70374fc1e3ccfaee2e01dc761",
+    "semantic_hash": "f034faf70374fc1e3ccfaee2e01dc761"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\data\\models\\social_media_model.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "4ac5471ee9b17d70e908cffa43a35c80",
+    "semantic_hash": "4ac5471ee9b17d70e908cffa43a35c80"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\data\\repos\\profile_repo.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "a3ede1267282529f51b41cc1ac62f853",
+    "semantic_hash": "a3ede1267282529f51b41cc1ac62f853"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\data\\repos\\profile_repo_imple.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "0d8c12839e9c72836cc6dff8d6343dbc",
+    "semantic_hash": "0d8c12839e9c72836cc6dff8d6343dbc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\profile_view.dart": {
+    "mtime": 1778590632.8386853,
+    "ast_hash": "391eede4db2fff0290c43bf0eaea9b97",
+    "semantic_hash": "391eede4db2fff0290c43bf0eaea9b97"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\logout_dialog.dart": {
+    "mtime": 1778590632.8386853,
+    "ast_hash": "f86c017a6b4dbcf0253d884ae9de840c",
+    "semantic_hash": "f86c017a6b4dbcf0253d884ae9de840c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\profile_data_name_code_image.dart": {
+    "mtime": 1778590632.8386853,
+    "ast_hash": "c29e8576a4a1c1ce19e06537fd5380d9",
+    "semantic_hash": "c29e8576a4a1c1ce19e06537fd5380d9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\profile_image.dart": {
+    "mtime": 1778590632.8386853,
+    "ast_hash": "2cf5dc7b8a9581fd0a4e0c18171094c8",
+    "semantic_hash": "2cf5dc7b8a9581fd0a4e0c18171094c8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\profile_list_item.dart": {
+    "mtime": 1778590632.8386853,
+    "ast_hash": "f10afcb2f57baf2a2ed989b74c6a71b5",
+    "semantic_hash": "f10afcb2f57baf2a2ed989b74c6a71b5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\profile_list_items.dart": {
+    "mtime": 1778590632.8395495,
+    "ast_hash": "e83c1447f85d280730709e7e5b172c89",
+    "semantic_hash": "e83c1447f85d280730709e7e5b172c89"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\social_icons_shimmer.dart": {
+    "mtime": 1778590632.8395495,
+    "ast_hash": "4b999bfef9f7d37703b4cb045cf99555",
+    "semantic_hash": "4b999bfef9f7d37703b4cb045cf99555"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\views\\widgets\\social_media_icons.dart": {
+    "mtime": 1778590632.8395495,
+    "ast_hash": "ba19e989ce6995a7e5f3ba596982bef7",
+    "semantic_hash": "ba19e989ce6995a7e5f3ba596982bef7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\view_model\\profile_cubit.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "219463d9d0ec0c29062e1918c9456f13",
+    "semantic_hash": "219463d9d0ec0c29062e1918c9456f13"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\profile\\presentation\\view_model\\profile_states.dart": {
+    "mtime": 1778590632.837689,
+    "ast_hash": "9d6aeefa2b217e48f90f5c41942c8da2",
+    "semantic_hash": "9d6aeefa2b217e48f90f5c41942c8da2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\data\\models\\register_model.dart": {
+    "mtime": 1778590632.8395495,
+    "ast_hash": "bcfb08a7b4b6890a6d328050a5e09e3b",
+    "semantic_hash": "bcfb08a7b4b6890a6d328050a5e09e3b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\data\\repos\\register_repo.dart": {
+    "mtime": 1778590632.8405454,
+    "ast_hash": "840ea2c475054a720b7104a5cfbfafa8",
+    "semantic_hash": "840ea2c475054a720b7104a5cfbfafa8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\data\\repos\\register_repo_imple.dart": {
+    "mtime": 1778590632.8405454,
+    "ast_hash": "f8066d1330f513d87d2c8ea1ad55d79f",
+    "semantic_hash": "f8066d1330f513d87d2c8ea1ad55d79f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\register_view.dart": {
+    "mtime": 1778590632.8405454,
+    "ast_hash": "c0de032fbf9424f7e07efe67fe73eb88",
+    "semantic_hash": "c0de032fbf9424f7e07efe67fe73eb88"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\custom_stepper.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "d918bc4b7d8218c90856bdda4c675dc9",
+    "semantic_hash": "d918bc4b7d8218c90856bdda4c675dc9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\account_type_widgets\\account_type_body.dart": {
+    "mtime": 1778590632.8415744,
+    "ast_hash": "30b103558b81a63c2c4b2dcbf24d2702",
+    "semantic_hash": "30b103558b81a63c2c4b2dcbf24d2702"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\account_type_widgets\\selection_account_type_button.dart": {
+    "mtime": 1778590632.8415744,
+    "ast_hash": "cb00817d589f80328fc5f631e7f54b69",
+    "semantic_hash": "cb00817d589f80328fc5f631e7f54b69"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\account_type_widgets\\select_account_type.dart": {
+    "mtime": 1778590632.8415744,
+    "ast_hash": "d892ca24c74fe99581c0e58e8ef9d7c2",
+    "semantic_hash": "d892ca24c74fe99581c0e58e8ef9d7c2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\broker_type_widget\\broker_type_body.dart": {
+    "mtime": 1778590632.8415744,
+    "ast_hash": "6174163d6da55771d43da3c3d95c0f1a",
+    "semantic_hash": "6174163d6da55771d43da3c3d95c0f1a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\broker_type_widget\\selection_broker_type_button.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "b7f86066abd2f1e5dc9d6f3c5f38d6f9",
+    "semantic_hash": "b7f86066abd2f1e5dc9d6f3c5f38d6f9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\broker_type_widget\\select_broker_type.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "3b704959daf682ac75ca1fbdc67ca27f",
+    "semantic_hash": "3b704959daf682ac75ca1fbdc67ca27f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\client_info_widgets\\client_info_body.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "a61439397b3c99cb0b09d89ee121072f",
+    "semantic_hash": "a61439397b3c99cb0b09d89ee121072f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\client_info_widgets\\client_info_buttons.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "c676a0a3c350bd8f928c35520a59c33c",
+    "semantic_hash": "c676a0a3c350bd8f928c35520a59c33c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\client_info_widgets\\client_info_form.dart": {
+    "mtime": 1778590632.8425407,
+    "ast_hash": "be783c8b9c6aa81878a01f37a0be23f3",
+    "semantic_hash": "be783c8b9c6aa81878a01f37a0be23f3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\gender_widgets\\gender_body.dart": {
+    "mtime": 1778590632.8436577,
+    "ast_hash": "79c7689e8509c23c07381257f95d33d1",
+    "semantic_hash": "79c7689e8509c23c07381257f95d33d1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\gender_widgets\\selection_gender_type_button.dart": {
+    "mtime": 1778590632.8436577,
+    "ast_hash": "19413a9355c3af66c0ccc8d056738d22",
+    "semantic_hash": "19413a9355c3af66c0ccc8d056738d22"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\views\\widgets\\gender_widgets\\select_gender_type.dart": {
+    "mtime": 1778590632.8436577,
+    "ast_hash": "670e58a8de4ec109983bf8ff0564562c",
+    "semantic_hash": "670e58a8de4ec109983bf8ff0564562c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\view_model\\register_cubit.dart": {
+    "mtime": 1778590632.8405454,
+    "ast_hash": "ba265d2515580690095246004c5cd5ff",
+    "semantic_hash": "ba265d2515580690095246004c5cd5ff"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\register\\presentation\\view_model\\register_states.dart": {
+    "mtime": 1778590632.8405454,
+    "ast_hash": "d5b5b917111768548b4d49bc2abf8cd7",
+    "semantic_hash": "d5b5b917111768548b4d49bc2abf8cd7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\data\\models\\all_reports_issues_model.dart": {
+    "mtime": 1778590632.844562,
+    "ast_hash": "0f43a368a29b396337349dff532aa4a1",
+    "semantic_hash": "0f43a368a29b396337349dff532aa4a1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\data\\models\\report_issue_model.dart": {
+    "mtime": 1778590632.844562,
+    "ast_hash": "03d5039646c877f47eaf635da8876fe7",
+    "semantic_hash": "03d5039646c877f47eaf635da8876fe7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\data\\repos\\report_issue_repo.dart": {
+    "mtime": 1778590632.844562,
+    "ast_hash": "913a6c474e09c0b7b449028c59befac9",
+    "semantic_hash": "913a6c474e09c0b7b449028c59befac9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\data\\repos\\report_issue_repo_imple.dart": {
+    "mtime": 1778590632.8455327,
+    "ast_hash": "8c4d1f673645c0d44d23862936aa5f4d",
+    "semantic_hash": "8c4d1f673645c0d44d23862936aa5f4d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\report_issue_view.dart": {
+    "mtime": 1778590632.8455327,
+    "ast_hash": "f01547565e486365466ad3c2e9011fe1",
+    "semantic_hash": "f01547565e486365466ad3c2e9011fe1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\widgets\\issues_list.dart": {
+    "mtime": 1778590632.8455327,
+    "ast_hash": "f98bd30f61b60a45d18d98394eb0f059",
+    "semantic_hash": "f98bd30f61b60a45d18d98394eb0f059"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\widgets\\issues_list_item.dart": {
+    "mtime": 1778590632.8465297,
+    "ast_hash": "3744445ebfc67025fa5bb1839e01107e",
+    "semantic_hash": "3744445ebfc67025fa5bb1839e01107e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\widgets\\report_issue_button.dart": {
+    "mtime": 1778590632.8465297,
+    "ast_hash": "02a0964331c6b44cf0e5e1142717672d",
+    "semantic_hash": "02a0964331c6b44cf0e5e1142717672d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\widgets\\report_issue_message.dart": {
+    "mtime": 1778590632.8465297,
+    "ast_hash": "917e8cabac8a764476330188c846246d",
+    "semantic_hash": "917e8cabac8a764476330188c846246d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\views\\widgets\\report_issue_view_body.dart": {
+    "mtime": 1778590632.8465297,
+    "ast_hash": "e6b9c4c2234202be44b1694bf9186ce5",
+    "semantic_hash": "e6b9c4c2234202be44b1694bf9186ce5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\view_model\\report_issue_cubit.dart": {
+    "mtime": 1778590632.8455327,
+    "ast_hash": "3f8bda2add836e2d51c391e880b79a1c",
+    "semantic_hash": "3f8bda2add836e2d51c391e880b79a1c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\report_issue\\presentation\\view_model\\report_issue_states.dart": {
+    "mtime": 1778590632.8455327,
+    "ast_hash": "e7817bedd23cb41d9bf47630b6d91e13",
+    "semantic_hash": "e7817bedd23cb41d9bf47630b6d91e13"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\data\\models\\all_request_model.dart": {
+    "mtime": 1778590632.8514938,
+    "ast_hash": "060b9971f09ddcfc3514d5ab78bde64b",
+    "semantic_hash": "060b9971f09ddcfc3514d5ab78bde64b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\data\\repos\\requests_repo.dart": {
+    "mtime": 1778590632.8514938,
+    "ast_hash": "45d62be21f47f84e66cab6636af0c949",
+    "semantic_hash": "45d62be21f47f84e66cab6636af0c949"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\data\\repos\\requests_repo_imple.dart": {
+    "mtime": 1778590632.8514938,
+    "ast_hash": "8c2d3bcdfe3f1aeda5dbc26809bd3a05",
+    "semantic_hash": "8c2d3bcdfe3f1aeda5dbc26809bd3a05"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\requests_view.dart": {
+    "mtime": 1779372938.9063163,
+    "ast_hash": "b042b7ac1ff5548ca36728641df8c884",
+    "semantic_hash": "b042b7ac1ff5548ca36728641df8c884"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\address.dart": {
+    "mtime": 1778590632.8524919,
+    "ast_hash": "115050188625ff11e125d3fa989f62f0",
+    "semantic_hash": "115050188625ff11e125d3fa989f62f0"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\date_and_type.dart": {
+    "mtime": 1778590632.8524919,
+    "ast_hash": "7c5105f7ab5eed59992b0d039e19f9c2",
+    "semantic_hash": "7c5105f7ab5eed59992b0d039e19f9c2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\name_and_status.dart": {
+    "mtime": 1778590632.8524919,
+    "ast_hash": "5e72954fcd1257555bbed83708615dce",
+    "semantic_hash": "5e72954fcd1257555bbed83708615dce"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\range_and_id.dart": {
+    "mtime": 1778590632.8524919,
+    "ast_hash": "e3525f86c0f8ad1d6d9064449ac2fe52",
+    "semantic_hash": "e3525f86c0f8ad1d6d9064449ac2fe52"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\requests_count.dart": {
+    "mtime": 1778590632.8534892,
+    "ast_hash": "f58531734e85fc4be7d73998851646d9",
+    "semantic_hash": "f58531734e85fc4be7d73998851646d9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\requests_list.dart": {
+    "mtime": 1778590632.8534892,
+    "ast_hash": "c6edb4e44775d358af34e780030a4e81",
+    "semantic_hash": "c6edb4e44775d358af34e780030a4e81"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\request_list_item_card.dart": {
+    "mtime": 1778590632.8534892,
+    "ast_hash": "18267c76a2cce6340203e2e622c488a1",
+    "semantic_hash": "18267c76a2cce6340203e2e622c488a1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\views\\widgets\\request_list_item_skeleton.dart": {
+    "mtime": 1778590632.8534892,
+    "ast_hash": "533c6c33d5aaa32c833f3c5526fa91dd",
+    "semantic_hash": "533c6c33d5aaa32c833f3c5526fa91dd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\view_model\\requests_cubit.dart": {
+    "mtime": 1778590632.8514938,
+    "ast_hash": "9822aba8f6d3e88b9ffd8119e1fe7606",
+    "semantic_hash": "9822aba8f6d3e88b9ffd8119e1fe7606"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\requests\\presentation\\view_model\\requests_states.dart": {
+    "mtime": 1778590632.8514938,
+    "ast_hash": "33a95ef1322a85cbb8f3bdda9c672a8c",
+    "semantic_hash": "33a95ef1322a85cbb8f3bdda9c672a8c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\data\\models\\request_details_model.dart": {
+    "mtime": 1778590632.8465297,
+    "ast_hash": "2b36f87d2e96e300a22268e16eff2295",
+    "semantic_hash": "2b36f87d2e96e300a22268e16eff2295"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\data\\repos\\request_repo.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "94ad6bbbe68848f9a09867ac95c6e300",
+    "semantic_hash": "94ad6bbbe68848f9a09867ac95c6e300"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\data\\repos\\request_repo_imple.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "77b454fa9b9e286161663be3ef8c5db2",
+    "semantic_hash": "77b454fa9b9e286161663be3ef8c5db2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\request_details_view.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "efd9c75b29e919ca21cd0d31ea1eb3bc",
+    "semantic_hash": "efd9c75b29e919ca21cd0d31ea1eb3bc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\additional_Information.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "4a8f75dcc2825d10fa76ec38a04b64c7",
+    "semantic_hash": "4a8f75dcc2825d10fa76ec38a04b64c7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\basic_info_section.dart": {
+    "mtime": 1778590632.8485246,
+    "ast_hash": "224b127dc8368b36e20ec70c5e6f1848",
+    "semantic_hash": "224b127dc8368b36e20ec70c5e6f1848"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\broker_info_section.dart": {
+    "mtime": 1778590632.8495216,
+    "ast_hash": "ca3c7c2fe6dff528e09307f036eedfa6",
+    "semantic_hash": "ca3c7c2fe6dff528e09307f036eedfa6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\finances_and_notes.dart": {
+    "mtime": 1778590632.8495216,
+    "ast_hash": "9f34d2ed3be1e91ca6c18ea633bee3be",
+    "semantic_hash": "9f34d2ed3be1e91ca6c18ea633bee3be"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\order_Information.dart": {
+    "mtime": 1778590632.8495216,
+    "ast_hash": "bc36ff4066d80cc4c05048547892d8fa",
+    "semantic_hash": "bc36ff4066d80cc4c05048547892d8fa"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\property_details.dart": {
+    "mtime": 1778590632.8495216,
+    "ast_hash": "0290bbe505f411b2620aa6a427ad26de",
+    "semantic_hash": "0290bbe505f411b2620aa6a427ad26de"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\request_details_item.dart": {
+    "mtime": 1778590632.850499,
+    "ast_hash": "c791166b2e1571648280b4bfff199b78",
+    "semantic_hash": "c791166b2e1571648280b4bfff199b78"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\site_details.dart": {
+    "mtime": 1778590632.850499,
+    "ast_hash": "dc2cbd8ec815204f430bad50f8b762d0",
+    "semantic_hash": "dc2cbd8ec815204f430bad50f8b762d0"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\views\\widgets\\status_information.dart": {
+    "mtime": 1778590632.850499,
+    "ast_hash": "22107ed57e684364bdbf735d55e7829c",
+    "semantic_hash": "22107ed57e684364bdbf735d55e7829c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\view_model\\request_details_cubit.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "9cdd5fc566335c1ebb9f600de64968ed",
+    "semantic_hash": "9cdd5fc566335c1ebb9f600de64968ed"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\request_details\\presentation\\view_model\\request_details_states.dart": {
+    "mtime": 1778590632.847527,
+    "ast_hash": "643b40ab424e3d2c5c96bdd2abc6bdb3",
+    "semantic_hash": "643b40ab424e3d2c5c96bdd2abc6bdb3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\data\\models\\all_units_model.dart": {
+    "mtime": 1778590632.854486,
+    "ast_hash": "63122db09b21fd73cefcab29c1869da9",
+    "semantic_hash": "63122db09b21fd73cefcab29c1869da9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\data\\models\\areas_model.dart": {
+    "mtime": 1778590632.854486,
+    "ast_hash": "d094e3857c67d988e4e997f60f8e3366",
+    "semantic_hash": "d094e3857c67d988e4e997f60f8e3366"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\data\\models\\cities_model.dart": {
+    "mtime": 1778590632.854486,
+    "ast_hash": "82d0df17a85275d57258735152cab5a5",
+    "semantic_hash": "82d0df17a85275d57258735152cab5a5"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\data\\repos\\search_repo.dart": {
+    "mtime": 1778590632.854486,
+    "ast_hash": "83581a49a60515b0cc3a37bdfea02c58",
+    "semantic_hash": "83581a49a60515b0cc3a37bdfea02c58"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\data\\repos\\search_repo_imple.dart": {
+    "mtime": 1778590632.854486,
+    "ast_hash": "8a2996e64c5b71886d669f7ec2711460",
+    "semantic_hash": "8a2996e64c5b71886d669f7ec2711460"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\search_view.dart": {
+    "mtime": 1778590632.8554833,
+    "ast_hash": "3bed0e79e81ead0b2661facbc18e9bee",
+    "semantic_hash": "3bed0e79e81ead0b2661facbc18e9bee"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\area_from_area_to.dart": {
+    "mtime": 1778590632.8554833,
+    "ast_hash": "39ef2c35412941e9dc79934687a29306",
+    "semantic_hash": "39ef2c35412941e9dc79934687a29306"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\cities_and_areas.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "b4ca5459ab9bffc0bdf5014391ba87c9",
+    "semantic_hash": "b4ca5459ab9bffc0bdf5014391ba87c9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\filter_container.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "8b4dfdd9ac959c66a90299ed95757df3",
+    "semantic_hash": "8b4dfdd9ac959c66a90299ed95757df3"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\filter_text_and_reset_data.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "e068ea4da1e829339c0351852c7af396",
+    "semantic_hash": "e068ea4da1e829339c0351852c7af396"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\load_more_indicator.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "d9a3cb576f3dd8fa2d1642ed67a380b2",
+    "semantic_hash": "d9a3cb576f3dd8fa2d1642ed67a380b2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\price_from_price_to.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "ce24647a2ee7910474240008b81e1726",
+    "semantic_hash": "ce24647a2ee7910474240008b81e1726"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\property_type_and_process.dart": {
+    "mtime": 1778590632.8564806,
+    "ast_hash": "2f79d2378e1025a5f6f98fe657934267",
+    "semantic_hash": "2f79d2378e1025a5f6f98fe657934267"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\search_content.dart": {
+    "mtime": 1778590632.857478,
+    "ast_hash": "a43c2e651563fd45abe0848550b2452a",
+    "semantic_hash": "a43c2e651563fd45abe0848550b2452a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\skeleton_loader.dart": {
+    "mtime": 1778590632.857478,
+    "ast_hash": "90bf4575ad6db2f513a4c9a8db2a2f07",
+    "semantic_hash": "90bf4575ad6db2f513a4c9a8db2a2f07"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\views\\widgets\\type_delivery_status.dart": {
+    "mtime": 1778590632.857478,
+    "ast_hash": "8e76a079c86b3f7833a5de54fb9b98dd",
+    "semantic_hash": "8e76a079c86b3f7833a5de54fb9b98dd"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\view_model\\search_cubit.dart": {
+    "mtime": 1778590632.8554833,
+    "ast_hash": "4a744599d3ca0102d2549eecc22c903b",
+    "semantic_hash": "4a744599d3ca0102d2549eecc22c903b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\search\\presentation\\view_model\\search_states.dart": {
+    "mtime": 1778590632.8554833,
+    "ast_hash": "f1a38e76577e28791f05ffd5cd7ee26b",
+    "semantic_hash": "f1a38e76577e28791f05ffd5cd7ee26b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\data\\repos\\app_settings_repo.dart": {
+    "mtime": 1778590632.8584745,
+    "ast_hash": "97b712cca28a3578934aa94eb353d3cf",
+    "semantic_hash": "97b712cca28a3578934aa94eb353d3cf"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\data\\repos\\app_settings_repo_imple.dart": {
+    "mtime": 1778590632.8584745,
+    "ast_hash": "756fa66459234ac3eb231cc701711661",
+    "semantic_hash": "756fa66459234ac3eb231cc701711661"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\settings_view.dart": {
+    "mtime": 1778590632.8584745,
+    "ast_hash": "cb6652f3a54e149368a54a64f32c393f",
+    "semantic_hash": "cb6652f3a54e149368a54a64f32c393f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\appearance.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "0ec1eaf3f1fc0680495a61991c391ead",
+    "semantic_hash": "0ec1eaf3f1fc0680495a61991c391ead"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\app_settings_view_body.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "6c370cc99127237c9a3eff038df8654b",
+    "semantic_hash": "6c370cc99127237c9a3eff038df8654b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\language.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "99e75ca005c79592d91d7ff0e1b15bd7",
+    "semantic_hash": "99e75ca005c79592d91d7ff0e1b15bd7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\language_selection_bottom_sheet.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "445a040fce5d9af2f5083083932f46bf",
+    "semantic_hash": "445a040fce5d9af2f5083083932f46bf"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\mode_item.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "fb37c5fae94445b49e2c0087cdbbf260",
+    "semantic_hash": "fb37c5fae94445b49e2c0087cdbbf260"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\views\\widgets\\notifications_alert.dart": {
+    "mtime": 1778590632.8594725,
+    "ast_hash": "121873b6a7aa1b4882eefb8d080478ea",
+    "semantic_hash": "121873b6a7aa1b4882eefb8d080478ea"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\view_model\\settings_cubit.dart": {
+    "mtime": 1778590632.8584745,
+    "ast_hash": "3d2d371fdb709cee352fa442995e11a0",
+    "semantic_hash": "3d2d371fdb709cee352fa442995e11a0"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\settings\\presentation\\view_model\\settings_states.dart": {
+    "mtime": 1778590632.8584745,
+    "ast_hash": "571173076b9c45f81fecdb95a59ae716",
+    "semantic_hash": "571173076b9c45f81fecdb95a59ae716"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\splash\\presentation\\screens\\splash_screen.dart": {
+    "mtime": 1778590632.86047,
+    "ast_hash": "328f5156922a64ee46a163d4b5391ba6",
+    "semantic_hash": "328f5156922a64ee46a163d4b5391ba6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\success\\presentation\\views\\success_view.dart": {
+    "mtime": 1778590632.86047,
+    "ast_hash": "b8be29d303b9509cfa34eff6b7b1093b",
+    "semantic_hash": "b8be29d303b9509cfa34eff6b7b1093b"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\data\\models\\unit_details_model.dart": {
+    "mtime": 1778590632.8616064,
+    "ast_hash": "76b12655bc33b0b6d7c72f40d5f63183",
+    "semantic_hash": "76b12655bc33b0b6d7c72f40d5f63183"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\data\\repos\\unit_details_repo.dart": {
+    "mtime": 1778590632.8616064,
+    "ast_hash": "dd10148874be59c9f6edfd3929436542",
+    "semantic_hash": "dd10148874be59c9f6edfd3929436542"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\data\\repos\\unit_details_repo_imple.dart": {
+    "mtime": 1778590632.8616064,
+    "ast_hash": "942fdeb3d3977985696b0d7068fa911e",
+    "semantic_hash": "942fdeb3d3977985696b0d7068fa911e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\unit_details_view.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "03b24539882d25bf911e3a97527f1be6",
+    "semantic_hash": "03b24539882d25bf911e3a97527f1be6"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\bottom_navigation_bar_widget.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "75688801cb6d1b449f969a2708fb602c",
+    "semantic_hash": "75688801cb6d1b449f969a2708fb602c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\broker_name_image_rate_selling.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "8f5c3d9eda8146a6dedc81e04c737e56",
+    "semantic_hash": "8f5c3d9eda8146a6dedc81e04c737e56"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\broker_specializations_list.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "a11c6dc34c3dd7adf3ce4c4cc2f30418",
+    "semantic_hash": "a11c6dc34c3dd7adf3ce4c4cc2f30418"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\broker_verified_mark.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "2bf3a3ccb02ca7dd31cfb4487b10cbb8",
+    "semantic_hash": "2bf3a3ccb02ca7dd31cfb4487b10cbb8"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_broker_info.dart": {
+    "mtime": 1778590632.8634617,
+    "ast_hash": "42b4e99d650afb5ae21a508c07eb3988",
+    "semantic_hash": "42b4e99d650afb5ae21a508c07eb3988"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_description.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "7f5b1cdb04c632d4145376e9f6b14655",
+    "semantic_hash": "7f5b1cdb04c632d4145376e9f6b14655"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_features.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "68a547062826fca12fa50e82458746b2",
+    "semantic_hash": "68a547062826fca12fa50e82458746b2"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_image_type_location.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "359904c774b2658e06920c57391f22d1",
+    "semantic_hash": "359904c774b2658e06920c57391f22d1"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_information.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "cdc29bac9786956414be04d3e17a4c96",
+    "semantic_hash": "cdc29bac9786956414be04d3e17a4c96"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_location.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "1a347b96d127a96873d96c64f6e51807",
+    "semantic_hash": "1a347b96d127a96873d96c64f6e51807"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\views\\widgets\\unit_price_status_indoor.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "0b2fa2592a18904deec4a8b0136d3c6d",
+    "semantic_hash": "0b2fa2592a18904deec4a8b0136d3c6d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\view_model\\unit_details_cubit.dart": {
+    "mtime": 1778590632.8616064,
+    "ast_hash": "77ecce5296be4f75a52be8b6063acb3e",
+    "semantic_hash": "77ecce5296be4f75a52be8b6063acb3e"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\unit_details\\presentation\\view_model\\unit_details_states.dart": {
+    "mtime": 1778590632.8624644,
+    "ast_hash": "4bbc35f0dcadaa257c1cb02dab1c3601",
+    "semantic_hash": "4bbc35f0dcadaa257c1cb02dab1c3601"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\data\\repos\\upload_broker_doc_repo.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "a59013477839e59c9edfdc3de0a52bde",
+    "semantic_hash": "a59013477839e59c9edfdc3de0a52bde"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\data\\repos\\upload_broker_doc_repo_imple.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "8ee9b4829e9fa582821f87fa347b58cc",
+    "semantic_hash": "8ee9b4829e9fa582821f87fa347b58cc"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\views\\upload_broker_doc_view.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "8b687d3b4b2e7b46710336f97a353aa7",
+    "semantic_hash": "8b687d3b4b2e7b46710336f97a353aa7"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\views\\widgets\\broker_documents_images.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "9cf6e09e6330b5210c5061a5a580ec98",
+    "semantic_hash": "9cf6e09e6330b5210c5061a5a580ec98"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\views\\widgets\\broker_profile_image.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "b21687305ffc15a658c84aac386c6f01",
+    "semantic_hash": "b21687305ffc15a658c84aac386c6f01"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\views\\widgets\\build_image_container.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "cfd0945e9b883e810140e621f707d600",
+    "semantic_hash": "cfd0945e9b883e810140e621f707d600"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\views\\widgets\\button_for_upload_images.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "8701b94c227c164c545acc6c75084b3f",
+    "semantic_hash": "8701b94c227c164c545acc6c75084b3f"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\view_model\\upload_broker_doc_cubit.dart": {
+    "mtime": 1778590632.8636768,
+    "ast_hash": "6656c2f5dc7b175a73f8e65a6396e1e9",
+    "semantic_hash": "6656c2f5dc7b175a73f8e65a6396e1e9"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\upload_broker_doc\\presentation\\view_model\\upload_broker_doc_states.dart": {
+    "mtime": 1778590632.865499,
+    "ast_hash": "851747e3c3e9ad6a12c1535ee5b2c281",
+    "semantic_hash": "851747e3c3e9ad6a12c1535ee5b2c281"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\data\\repos\\user_repo.dart": {
+    "mtime": 1778590632.8664963,
+    "ast_hash": "71e50564fee847a7fb18e5b381451d6a",
+    "semantic_hash": "71e50564fee847a7fb18e5b381451d6a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\data\\repos\\user_repo_imple.dart": {
+    "mtime": 1778590632.8664963,
+    "ast_hash": "2a4d85f92c216928eaf4a78bf420b161",
+    "semantic_hash": "2a4d85f92c216928eaf4a78bf420b161"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\views\\user_chat_view.dart": {
+    "mtime": 1778590632.8674936,
+    "ast_hash": "36773373bd0cb5aae5b18fed0183b87c",
+    "semantic_hash": "36773373bd0cb5aae5b18fed0183b87c"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\views\\widgets\\left_message_from_user.dart": {
+    "mtime": 1778590632.8674936,
+    "ast_hash": "2089f87df417dfc2df3122b692b6e30d",
+    "semantic_hash": "2089f87df417dfc2df3122b692b6e30d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\views\\widgets\\message_input.dart": {
+    "mtime": 1778590632.8674936,
+    "ast_hash": "eec475ec3cf6c28f9a5a1af1af758738",
+    "semantic_hash": "eec475ec3cf6c28f9a5a1af1af758738"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\views\\widgets\\message_list.dart": {
+    "mtime": 1778590632.8674936,
+    "ast_hash": "58508b5472575d8676126b68b7661a9a",
+    "semantic_hash": "58508b5472575d8676126b68b7661a9a"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\views\\widgets\\right_message_by_me.dart": {
+    "mtime": 1778590632.8681912,
+    "ast_hash": "6c6b35d349f1ff48ab8756f9fbbf2579",
+    "semantic_hash": "6c6b35d349f1ff48ab8756f9fbbf2579"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\view_model\\user_chat_cubit.dart": {
+    "mtime": 1778590632.8664963,
+    "ast_hash": "338475c71a3e0d3a53e6c13688e778fe",
+    "semantic_hash": "338475c71a3e0d3a53e6c13688e778fe"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\features\\user_chat\\presentation\\view_model\\user_chat_states.dart": {
+    "mtime": 1778590632.8664963,
+    "ast_hash": "edb07a0b67e8ab1f58bb5bfeaef3b2ce",
+    "semantic_hash": "edb07a0b67e8ab1f58bb5bfeaef3b2ce"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\lang\\ar_lang.dart": {
+    "mtime": 1779539438.80723,
+    "ast_hash": "00bb79494c17b74baf3c7296b443bbbe",
+    "semantic_hash": "00bb79494c17b74baf3c7296b443bbbe"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\lang\\codegen_loader.g.dart": {
+    "mtime": 1778590632.8693936,
+    "ast_hash": "cbc78bd32f5e60e91b4b7838407f13fe",
+    "semantic_hash": "cbc78bd32f5e60e91b4b7838407f13fe"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\lang\\en_lang.dart": {
+    "mtime": 1779539443.6491435,
+    "ast_hash": "b53b5a9e7a82cc53c3a2704d8456be5d",
+    "semantic_hash": "b53b5a9e7a82cc53c3a2704d8456be5d"
+  },
+  "D:\\projects\\new_easy_deal\\lib\\lang\\lang_keys.dart": {
+    "mtime": 1779539433.596418,
+    "ast_hash": "d07eade53a51d8fcc410fa4a5f018215",
+    "semantic_hash": "d07eade53a51d8fcc410fa4a5f018215"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\flutter\\generated_plugin_registrant.cc": {
+    "mtime": 1778590771.7267044,
+    "ast_hash": "e18c5c2821ed864c8f47b32bc793e88a",
+    "semantic_hash": "e18c5c2821ed864c8f47b32bc793e88a"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\flutter\\generated_plugin_registrant.h": {
+    "mtime": 1778590771.7247097,
+    "ast_hash": "d295462c9da9f7fef22dc86c34492318",
+    "semantic_hash": "d295462c9da9f7fef22dc86c34492318"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\runner\\main.cc": {
+    "mtime": 1778590632.8713882,
+    "ast_hash": "539395bcd63dba20afed0838d136189f",
+    "semantic_hash": "539395bcd63dba20afed0838d136189f"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\runner\\my_application.cc": {
+    "mtime": 1778590632.8713882,
+    "ast_hash": "3812e2efa96cfe8751c845ef7a8c8ce2",
+    "semantic_hash": "3812e2efa96cfe8751c845ef7a8c8ce2"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\runner\\my_application.h": {
+    "mtime": 1778590632.8713882,
+    "ast_hash": "f6b37d58752c8671078b6f660e33e8c1",
+    "semantic_hash": "f6b37d58752c8671078b6f660e33e8c1"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Flutter\\GeneratedPluginRegistrant.swift": {
+    "mtime": 1779373552.3186407,
+    "ast_hash": "b1bdb1a41a2dbd2f84c8e73777ff02cd",
+    "semantic_hash": "b1bdb1a41a2dbd2f84c8e73777ff02cd"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Flutter\\ephemeral\\flutter_export_environment.sh": {
+    "mtime": 1779097535.9179006,
+    "ast_hash": "41841fde080fff970a0960e3a95ea782",
+    "semantic_hash": "41841fde080fff970a0960e3a95ea782"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\AppDelegate.swift": {
+    "mtime": 1778590632.8744428,
+    "ast_hash": "4b52e0b89ebfef9baf45b04548c463d6",
+    "semantic_hash": "4b52e0b89ebfef9baf45b04548c463d6"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\MainFlutterWindow.swift": {
+    "mtime": 1778590632.8774323,
+    "ast_hash": "93c22dae2d93f3dc1402e121901f582b",
+    "semantic_hash": "93c22dae2d93f3dc1402e121901f582b"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Contents.json": {
+    "mtime": 1778590632.8745108,
+    "ast_hash": "1d48e925145d4b573a3b5d7960a1c585",
+    "semantic_hash": "1d48e925145d4b573a3b5d7960a1c585"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\RunnerTests\\RunnerTests.swift": {
+    "mtime": 1778590632.87843,
+    "ast_hash": "8059f5d27a19c556eeafb49b3f9b7bdd",
+    "semantic_hash": "8059f5d27a19c556eeafb49b3f9b7bdd"
+  },
+  "D:\\projects\\new_easy_deal\\web\\manifest.json": {
+    "mtime": 1778590632.880424,
+    "ast_hash": "4159f8c7e09dac5d5879e30f3186dcf2",
+    "semantic_hash": "4159f8c7e09dac5d5879e30f3186dcf2"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\flutter\\generated_plugin_registrant.cc": {
+    "mtime": 1778590771.7312303,
+    "ast_hash": "ecbe233ecf10f2b031b013836cadbc9e",
+    "semantic_hash": "ecbe233ecf10f2b031b013836cadbc9e"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\flutter\\generated_plugin_registrant.h": {
+    "mtime": 1778590771.730203,
+    "ast_hash": "0ea33875f9f8e118f9c2ded03e2e2835",
+    "semantic_hash": "0ea33875f9f8e118f9c2ded03e2e2835"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\flutter_window.cpp": {
+    "mtime": 1778590632.8814218,
+    "ast_hash": "2f463f9b7da67a2d692a012f9ea85e0c",
+    "semantic_hash": "2f463f9b7da67a2d692a012f9ea85e0c"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\flutter_window.h": {
+    "mtime": 1778590632.8814218,
+    "ast_hash": "7defcc89d4a26d56e801241d624d48fb",
+    "semantic_hash": "7defcc89d4a26d56e801241d624d48fb"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\main.cpp": {
+    "mtime": 1778590632.8814218,
+    "ast_hash": "edbcb4d9875aa5df78fe16e412d16a3c",
+    "semantic_hash": "edbcb4d9875aa5df78fe16e412d16a3c"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\resource.h": {
+    "mtime": 1778590632.8814218,
+    "ast_hash": "1ade5dd15e613479a15e8832ed276f2b",
+    "semantic_hash": "1ade5dd15e613479a15e8832ed276f2b"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\utils.cpp": {
+    "mtime": 1778590632.882419,
+    "ast_hash": "432461b09d862a2f8dadf380ff0e34e5",
+    "semantic_hash": "432461b09d862a2f8dadf380ff0e34e5"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\utils.h": {
+    "mtime": 1778590632.882419,
+    "ast_hash": "fd81e143f5614eb6fd75efe539002853",
+    "semantic_hash": "fd81e143f5614eb6fd75efe539002853"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\win32_window.cpp": {
+    "mtime": 1778590632.882419,
+    "ast_hash": "571eb8234dbc2661be03aa5f2a4d2fca",
+    "semantic_hash": "571eb8234dbc2661be03aa5f2a4d2fca"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\win32_window.h": {
+    "mtime": 1778590632.8834164,
+    "ast_hash": "7569387d58711ab975940f4df3b4bcda",
+    "semantic_hash": "7569387d58711ab975940f4df3b4bcda"
+  },
+  "D:\\projects\\new_easy_deal\\analysis_options.yaml": {
+    "mtime": 1778590632.4455354,
+    "ast_hash": "9e65f4b9beebb674c0dc252f70a5c177",
+    "semantic_hash": "9e65f4b9beebb674c0dc252f70a5c177"
+  },
+  "D:\\projects\\new_easy_deal\\devtools_options.yaml": {
+    "mtime": 1778590632.7636068,
+    "ast_hash": "1b16e156b9f8b9f43ca52a78a6f72e80",
+    "semantic_hash": "1b16e156b9f8b9f43ca52a78a6f72e80"
+  },
+  "D:\\projects\\new_easy_deal\\pubspec.yaml": {
+    "mtime": 1779372983.0633025,
+    "ast_hash": "e80ad732dcb241a7c9fe22b9f3279e8d",
+    "semantic_hash": "e80ad732dcb241a7c9fe22b9f3279e8d"
+  },
+  "D:\\projects\\new_easy_deal\\README.md": {
+    "mtime": 1778590632.4455354,
+    "ast_hash": "9719ba4d1a59cb62a0f1ed3b8a9ad057",
+    "semantic_hash": "9719ba4d1a59cb62a0f1ed3b8a9ad057"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Cairo\\OFL.txt": {
+    "mtime": 1778590632.4565487,
+    "ast_hash": "5d8ac57c9bb5f4e79157eee8b8edddc9",
+    "semantic_hash": "5d8ac57c9bb5f4e79157eee8b8edddc9"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Cairo\\README.txt": {
+    "mtime": 1778590632.4565487,
+    "ast_hash": "77fc9645f0cca76f35bbccf6ffb7c1f9",
+    "semantic_hash": "77fc9645f0cca76f35bbccf6ffb7c1f9"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Roboto_Condensed\\OFL.txt": {
+    "mtime": 1778590632.4665534,
+    "ast_hash": "3e5df346fd8c0867bac65e8a215771dd",
+    "semantic_hash": "3e5df346fd8c0867bac65e8a215771dd"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Roboto_Condensed\\README.txt": {
+    "mtime": 1778590632.4665534,
+    "ast_hash": "ef2403c1baf307cd1a59bf6bbd6f7c01",
+    "semantic_hash": "ef2403c1baf307cd1a59bf6bbd6f7c01"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\README.md": {
+    "mtime": 1778590632.780362,
+    "ast_hash": "f7ee1b402881509d197f34963e569927",
+    "semantic_hash": "f7ee1b402881509d197f34963e569927"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\CMakeLists.txt": {
+    "mtime": 1778590632.8703907,
+    "ast_hash": "cc866ebdfc0ac282dde54e1389f931bb",
+    "semantic_hash": "cc866ebdfc0ac282dde54e1389f931bb"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\flutter\\CMakeLists.txt": {
+    "mtime": 1778590632.8703907,
+    "ast_hash": "2195470ce31675d31db5a37590d011f6",
+    "semantic_hash": "2195470ce31675d31db5a37590d011f6"
+  },
+  "D:\\projects\\new_easy_deal\\linux\\runner\\CMakeLists.txt": {
+    "mtime": 1778590632.8713882,
+    "ast_hash": "30cc1614b16214b66c014af09ba699eb",
+    "semantic_hash": "30cc1614b16214b66c014af09ba699eb"
+  },
+  "D:\\projects\\new_easy_deal\\web\\index.html": {
+    "mtime": 1778590632.8794272,
+    "ast_hash": "2437a450c6cac47e000cd70c576f691a",
+    "semantic_hash": "2437a450c6cac47e000cd70c576f691a"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\CMakeLists.txt": {
+    "mtime": 1778590632.880424,
+    "ast_hash": "40b56069db83a236e1ea6fc90ab38aaa",
+    "semantic_hash": "40b56069db83a236e1ea6fc90ab38aaa"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\flutter\\CMakeLists.txt": {
+    "mtime": 1778590632.880424,
+    "ast_hash": "bbf66fed5180bd9ae8198b8d7c4a0001",
+    "semantic_hash": "bbf66fed5180bd9ae8198b8d7c4a0001"
+  },
+  "D:\\projects\\new_easy_deal\\windows\\runner\\CMakeLists.txt": {
+    "mtime": 1778590632.8814218,
+    "ast_hash": "028602ab9754bffe716659ada7590d29",
+    "semantic_hash": "028602ab9754bffe716659ada7590d29"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png": {
+    "mtime": 1778590632.4485373,
+    "ast_hash": "bf7135f6fd6ccbd1274efbb301cdee11",
+    "semantic_hash": "bf7135f6fd6ccbd1274efbb301cdee11"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png": {
+    "mtime": 1778590632.4485373,
+    "ast_hash": "92eff2e6f5491d1c497808092a292bb2",
+    "semantic_hash": "92eff2e6f5491d1c497808092a292bb2"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png": {
+    "mtime": 1778590632.4485373,
+    "ast_hash": "d5b7b439ad80f5c88f6f14b40fac912d",
+    "semantic_hash": "d5b7b439ad80f5c88f6f14b40fac912d"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png": {
+    "mtime": 1778590632.4485373,
+    "ast_hash": "b1d6f088d970471cad473da87f6dcb9e",
+    "semantic_hash": "b1d6f088d970471cad473da87f6dcb9e"
+  },
+  "D:\\projects\\new_easy_deal\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png": {
+    "mtime": 1778590632.449525,
+    "ast_hash": "deeeb1340ebb7d8e258a625576d4f2c8",
+    "semantic_hash": "deeeb1340ebb7d8e258a625576d4f2c8"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\1.jpg": {
+    "mtime": 1778590632.5226088,
+    "ast_hash": "4e1817ecbc40c8f57f504fc3e93537ac",
+    "semantic_hash": "4e1817ecbc40c8f57f504fc3e93537ac"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\2.jpg": {
+    "mtime": 1778590632.5226088,
+    "ast_hash": "6b07172d86d825ee728adb40c123bf3a",
+    "semantic_hash": "6b07172d86d825ee728adb40c123bf3a"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\3.jpg": {
+    "mtime": 1778590632.526597,
+    "ast_hash": "0455072713ce067eee414e367f2575a7",
+    "semantic_hash": "0455072713ce067eee414e367f2575a7"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\4.jpg": {
+    "mtime": 1778590632.5494072,
+    "ast_hash": "aa1a151c48361309a33edf89459310dd",
+    "semantic_hash": "aa1a151c48361309a33edf89459310dd"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\5.jpg": {
+    "mtime": 1778590632.5578535,
+    "ast_hash": "d1defbee95f392238a5c6d7120267478",
+    "semantic_hash": "d1defbee95f392238a5c6d7120267478"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\6.jpg": {
+    "mtime": 1778590632.5638795,
+    "ast_hash": "465d44e7dcaa68ce8e0d27c1840ec84d",
+    "semantic_hash": "465d44e7dcaa68ce8e0d27c1840ec84d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\7.jpg": {
+    "mtime": 1778590632.5838623,
+    "ast_hash": "85ce6d25759dcf97fcbb320fe456e3de",
+    "semantic_hash": "85ce6d25759dcf97fcbb320fe456e3de"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding1.jpg": {
+    "mtime": 1778590632.693659,
+    "ast_hash": "555e91a6e3058d255b7d34312419b8f1",
+    "semantic_hash": "555e91a6e3058d255b7d34312419b8f1"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding2.jpg": {
+    "mtime": 1778590632.7048657,
+    "ast_hash": "19b67d1f8295d4ddd83fa47213c2e687",
+    "semantic_hash": "19b67d1f8295d4ddd83fa47213c2e687"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding3.jpg": {
+    "mtime": 1778590632.731872,
+    "ast_hash": "ec7f3fcc0ed00db61b16461d57c2ad1b",
+    "semantic_hash": "ec7f3fcc0ed00db61b16461d57c2ad1b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\1.jpg": {
+    "mtime": 1778590632.5858972,
+    "ast_hash": "4e1817ecbc40c8f57f504fc3e93537ac",
+    "semantic_hash": "4e1817ecbc40c8f57f504fc3e93537ac"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\10.jpg": {
+    "mtime": 1778590632.5918858,
+    "ast_hash": "465d44e7dcaa68ce8e0d27c1840ec84d",
+    "semantic_hash": "465d44e7dcaa68ce8e0d27c1840ec84d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\11.jpg": {
+    "mtime": 1778590632.611388,
+    "ast_hash": "85ce6d25759dcf97fcbb320fe456e3de",
+    "semantic_hash": "85ce6d25759dcf97fcbb320fe456e3de"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\2.jpg": {
+    "mtime": 1778590632.615408,
+    "ast_hash": "3430d974e3c5260c8b49a5efdf5d468b",
+    "semantic_hash": "3430d974e3c5260c8b49a5efdf5d468b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\3.jpg": {
+    "mtime": 1778590632.6184142,
+    "ast_hash": "ab7b47a6ab130e0553952a34ed0ff80d",
+    "semantic_hash": "ab7b47a6ab130e0553952a34ed0ff80d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\4.jpg": {
+    "mtime": 1778590632.6184142,
+    "ast_hash": "6b07172d86d825ee728adb40c123bf3a",
+    "semantic_hash": "6b07172d86d825ee728adb40c123bf3a"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\5.jpg": {
+    "mtime": 1778590632.6214025,
+    "ast_hash": "0455072713ce067eee414e367f2575a7",
+    "semantic_hash": "0455072713ce067eee414e367f2575a7"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\6.jpg": {
+    "mtime": 1778590632.644847,
+    "ast_hash": "aa1a151c48361309a33edf89459310dd",
+    "semantic_hash": "aa1a151c48361309a33edf89459310dd"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\7.jpg": {
+    "mtime": 1778590632.6524167,
+    "ast_hash": "d1defbee95f392238a5c6d7120267478",
+    "semantic_hash": "d1defbee95f392238a5c6d7120267478"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\8.jpg": {
+    "mtime": 1778590632.6583946,
+    "ast_hash": "465d44e7dcaa68ce8e0d27c1840ec84d",
+    "semantic_hash": "465d44e7dcaa68ce8e0d27c1840ec84d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\9.jpg": {
+    "mtime": 1778590632.6763048,
+    "ast_hash": "85ce6d25759dcf97fcbb320fe456e3de",
+    "semantic_hash": "85ce6d25759dcf97fcbb320fe456e3de"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\Container.png": {
+    "mtime": 1778590632.731872,
+    "ast_hash": "9f3a834c7b8685271c845664f07fdd7e",
+    "semantic_hash": "9f3a834c7b8685271c845664f07fdd7e"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\logo.png": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "a3042b721a93443f9e5f611ebc391229",
+    "semantic_hash": "a3042b721a93443f9e5f611ebc391229"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\share.png": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "f4baa8d686a2959658a934e55b2af72e",
+    "semantic_hash": "f4baa8d686a2959658a934e55b2af72e"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\success.png": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "0cc62e2e988f537a0ab42f623cad387b",
+    "semantic_hash": "0cc62e2e988f537a0ab42f623cad387b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\2.svg": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "d3b6b7f0b203eb0d3346127ab9b0e602",
+    "semantic_hash": "d3b6b7f0b203eb0d3346127ab9b0e602"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\3.svg": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "68e0fcd614844dc1bc421a04f6aee2f7",
+    "semantic_hash": "68e0fcd614844dc1bc421a04f6aee2f7"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\4.svg": {
+    "mtime": 1778590632.7328694,
+    "ast_hash": "13017e09e9427c8e9cfcde4dfbce60d2",
+    "semantic_hash": "13017e09e9427c8e9cfcde4dfbce60d2"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\5.svg": {
+    "mtime": 1778590632.7338667,
+    "ast_hash": "ff614d39faa5e98977f4857f15f3199b",
+    "semantic_hash": "ff614d39faa5e98977f4857f15f3199b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\6.svg": {
+    "mtime": 1778590632.7338667,
+    "ast_hash": "a5b9a14d68a81935308e5d443559af00",
+    "semantic_hash": "a5b9a14d68a81935308e5d443559af00"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\add-icon-svgrepo-com.svg": {
+    "mtime": 1778590632.734898,
+    "ast_hash": "9fe96b6ca060590f32aab9fadd0606df",
+    "semantic_hash": "9fe96b6ca060590f32aab9fadd0606df"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\ads-svgrepo-com.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "b64c4dfc8a9368c08efd135107ac01ac",
+    "semantic_hash": "b64c4dfc8a9368c08efd135107ac01ac"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\arrow-down-svgrepo-com.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "552123f4b890b288fb2e00a990665b6e",
+    "semantic_hash": "552123f4b890b288fb2e00a990665b6e"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\arrow-left.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "92cc3e1e7538217e00e112025db8e646",
+    "semantic_hash": "92cc3e1e7538217e00e112025db8e646"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\arrow-right.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "55822e09262eb33fcf0d0edc3b7ffdc6",
+    "semantic_hash": "55822e09262eb33fcf0d0edc3b7ffdc6"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\broker.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "55cafa86e729b1b27ebd6d96d6093238",
+    "semantic_hash": "55cafa86e729b1b27ebd6d96d6093238"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\bug_report.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "2cf181a46d5060cae65825979634a73a",
+    "semantic_hash": "2cf181a46d5060cae65825979634a73a"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\buy-svgrepo-com.svg": {
+    "mtime": 1778590632.7358613,
+    "ast_hash": "a3605ce05e539d1544d70cb5ac53247e",
+    "semantic_hash": "a3605ce05e539d1544d70cb5ac53247e"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\calendar-mark-svgrepo-com.svg": {
+    "mtime": 1778590632.7368934,
+    "ast_hash": "f79a3fb09b0e097b4b02ed0f071fb194",
+    "semantic_hash": "f79a3fb09b0e097b4b02ed0f071fb194"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\call-calling.svg": {
+    "mtime": 1778590632.7368934,
+    "ast_hash": "9d70f4bd063da2755e29c02387e2ae32",
+    "semantic_hash": "9d70f4bd063da2755e29c02387e2ae32"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\camera-svgrepo-com.svg": {
+    "mtime": 1778590632.7368934,
+    "ast_hash": "48ac62052c82e282527998bf40778642",
+    "semantic_hash": "48ac62052c82e282527998bf40778642"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\close.svg": {
+    "mtime": 1778590632.7368934,
+    "ast_hash": "480e4fa17a936b3760b8f447c4f48352",
+    "semantic_hash": "480e4fa17a936b3760b8f447c4f48352"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\code-compare-regular 1.svg": {
+    "mtime": 1778590632.7368934,
+    "ast_hash": "33e340aae6413c27af58a1ca9c505c72",
+    "semantic_hash": "33e340aae6413c27af58a1ca9c505c72"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\company.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "14687cffd2875fe093e1fb65f7c44c70",
+    "semantic_hash": "14687cffd2875fe093e1fb65f7c44c70"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\edit.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "82b8d0a877d79e53c04816035945144d",
+    "semantic_hash": "82b8d0a877d79e53c04816035945144d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\edit2.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "18067cfb832adf98bedd6b44ccf93ec8",
+    "semantic_hash": "18067cfb832adf98bedd6b44ccf93ec8"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\egypt.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "ddf7c0241e96359866002b3952113c1c",
+    "semantic_hash": "ddf7c0241e96359866002b3952113c1c"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\empty-set-slash-svgrepo-com.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "5dfeee6cb8a808b81db440519743be5a",
+    "semantic_hash": "5dfeee6cb8a808b81db440519743be5a"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\eye.svg": {
+    "mtime": 1778590632.737856,
+    "ast_hash": "c89213bbc3f660867ef239810b703744",
+    "semantic_hash": "c89213bbc3f660867ef239810b703744"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\facebook.svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "0bfc884dbbd80cc92a03dfdab463db68",
+    "semantic_hash": "0bfc884dbbd80cc92a03dfdab463db68"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\FAQs.svg": {
+    "mtime": 1778590632.7338667,
+    "ast_hash": "88a454ef95b571d797515f6e49b68d3e",
+    "semantic_hash": "88a454ef95b571d797515f6e49b68d3e"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\feamaleIcon.svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "271810e20726dad0364e0a6358e84c01",
+    "semantic_hash": "271810e20726dad0364e0a6358e84c01"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\filter.svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "a678813d9bbee1ac13a43c52037abbce",
+    "semantic_hash": "a678813d9bbee1ac13a43c52037abbce"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\g3660 (1).svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "dd7fc775e04a1740e4f70310ffe849e3",
+    "semantic_hash": "dd7fc775e04a1740e4f70310ffe849e3"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\g3660.svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "61045f046d75d520d1cef350ec8057ef",
+    "semantic_hash": "61045f046d75d520d1cef350ec8057ef"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\global.svg": {
+    "mtime": 1778590632.7388787,
+    "ast_hash": "562bf3243cb7e125ecc873f868e91872",
+    "semantic_hash": "562bf3243cb7e125ecc873f868e91872"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\hands-helping-solid-svgrepo-com.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "64f4d93256f6887535931379c8ca0849",
+    "semantic_hash": "64f4d93256f6887535931379c8ca0849"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Heart.svg": {
+    "mtime": 1778590632.7338667,
+    "ast_hash": "07a640dd3298d7a2e6edd38389fdb21d",
+    "semantic_hash": "07a640dd3298d7a2e6edd38389fdb21d"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\home-2.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "8ce9eb6aa8683dfaa28220b0fcb70693",
+    "semantic_hash": "8ce9eb6aa8683dfaa28220b0fcb70693"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\home.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "5b2c921061ae676dd8398c8ec972f876",
+    "semantic_hash": "5b2c921061ae676dd8398c8ec972f876"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\house-svgrepo-com.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "ca910af68ea1d427445dcc085426a57a",
+    "semantic_hash": "ca910af68ea1d427445dcc085426a57a"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Icon.svg": {
+    "mtime": 1778590632.7338667,
+    "ast_hash": "31612a346941d59543b226c5f52321c4",
+    "semantic_hash": "31612a346941d59543b226c5f52321c4"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\key-square-2-svgrepo-com.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "8b36bc044f48b4fc67a7fe9e2b8c37b8",
+    "semantic_hash": "8b36bc044f48b4fc67a7fe9e2b8c37b8"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\language-translate-svgrepo-com.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "862af9f8bc846220606c00c4123ba58b",
+    "semantic_hash": "862af9f8bc846220606c00c4123ba58b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Leader-pana 1.svg": {
+    "mtime": 1778590632.734898,
+    "ast_hash": "da155f4150f1087ca5e534f8df1fa522",
+    "semantic_hash": "da155f4150f1087ca5e534f8df1fa522"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\linkedin.svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "a12f1f89325053a6202588354d80afe1",
+    "semantic_hash": "a12f1f89325053a6202588354d80afe1"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\location (1).svg": {
+    "mtime": 1778590632.7398505,
+    "ast_hash": "2f87a9c2febcec305ac715ba30430b54",
+    "semantic_hash": "2f87a9c2febcec305ac715ba30430b54"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Location.svg": {
+    "mtime": 1778590632.734898,
+    "ast_hash": "878767369dabebc676f25c3a907a8021",
+    "semantic_hash": "878767369dabebc676f25c3a907a8021"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\lock.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "ac65dabe6202401138ad83281ba2c719",
+    "semantic_hash": "ac65dabe6202401138ad83281ba2c719"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\logo.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "d3c09150021fac9e62f8513a44e8f769",
+    "semantic_hash": "d3c09150021fac9e62f8513a44e8f769"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\logout.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "6b7d922b579f6780776237de7e991087",
+    "semantic_hash": "6b7d922b579f6780776237de7e991087"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\mail.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "69849c9cb7d1d00c9b733e9d6034bd72",
+    "semantic_hash": "69849c9cb7d1d00c9b733e9d6034bd72"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\maleIcon.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "39dab818b888e701b60048128fc4b37b",
+    "semantic_hash": "39dab818b888e701b60048128fc4b37b"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\map-pin-svgrepo-com 1.svg": {
+    "mtime": 1778590632.7408478,
+    "ast_hash": "d46de6813e73cee533050e0ba4098b2f",
+    "semantic_hash": "d46de6813e73cee533050e0ba4098b2f"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\map.svg": {
+    "mtime": 1778590632.7596629,
+    "ast_hash": "a7daf91769dc59241cb525706cf31042",
+    "semantic_hash": "a7daf91769dc59241cb525706cf31042"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\messages-3-svgrepo-com.svg": {
+    "mtime": 1778590632.7596629,
+    "ast_hash": "072a9e74a422ef328f33a9c9387a65b4",
+    "semantic_hash": "072a9e74a422ef328f33a9c9387a65b4"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\mobile.svg": {
+    "mtime": 1778590632.7596629,
+    "ast_hash": "51f37d74912925a86df1db29a2ce49d8",
+    "semantic_hash": "51f37d74912925a86df1db29a2ce49d8"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\money.svg": {
+    "mtime": 1778590632.7596629,
+    "ast_hash": "65f366c1ecb86215f2cc2d6d93b6f77f",
+    "semantic_hash": "65f366c1ecb86215f2cc2d6d93b6f77f"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\notify.svg": {
+    "mtime": 1778590632.7606137,
+    "ast_hash": "3b6c37c93a6da9b3a1a60bdee57051f7",
+    "semantic_hash": "3b6c37c93a6da9b3a1a60bdee57051f7"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\onboarding1.svg": {
+    "mtime": 1778590632.7606137,
+    "ast_hash": "2a55c4d25f1b9c15fe1a2b574b9cc6ed",
+    "semantic_hash": "2a55c4d25f1b9c15fe1a2b574b9cc6ed"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\open_eye.svg": {
+    "mtime": 1778590632.7606137,
+    "ast_hash": "a3a1824bc24ce1c2c7364edef838b063",
+    "semantic_hash": "a3a1824bc24ce1c2c7364edef838b063"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\profile icons.svg": {
+    "mtime": 1778590632.7606137,
+    "ast_hash": "b0afd1c4867eb677e2886cba8016feb9",
+    "semantic_hash": "b0afd1c4867eb677e2886cba8016feb9"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\search.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "c0c0492ddb8c685704834bbc7c2705f3",
+    "semantic_hash": "c0c0492ddb8c685704834bbc7c2705f3"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\settings.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "42fc9cba66e9b55515a734c01486f4dd",
+    "semantic_hash": "42fc9cba66e9b55515a734c01486f4dd"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\sort.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "076376cf95b83db78960a7eb2f03a133",
+    "semantic_hash": "076376cf95b83db78960a7eb2f03a133"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\star_icon.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "fb072df4e7c6ffc17f70b938495c2169",
+    "semantic_hash": "fb072df4e7c6ffc17f70b938495c2169"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\terms.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "08f7f35e292071750b551ebcb3c38026",
+    "semantic_hash": "08f7f35e292071750b551ebcb3c38026"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\tick-circle.svg": {
+    "mtime": 1778590632.7616675,
+    "ast_hash": "5a3df8370a1899dceead376894f8e9cd",
+    "semantic_hash": "5a3df8370a1899dceead376894f8e9cd"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\transfer-svgrepo-com.svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "0d9e58923cb4992776c8eff895659193",
+    "semantic_hash": "0d9e58923cb4992776c8eff895659193"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\trash-bin-minimalistic-svgrepo-com.svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "f0b7d398b562e97853d7201b691cc1e1",
+    "semantic_hash": "f0b7d398b562e97853d7201b691cc1e1"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\twitter.svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "20ce7dec3a38827000655defc7f758f0",
+    "semantic_hash": "20ce7dec3a38827000655defc7f758f0"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\user (1).svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "37db2ac41a29f18a4def413017137cad",
+    "semantic_hash": "37db2ac41a29f18a4def413017137cad"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\user.svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "7f1f2a24f47d6b537d2d4e94e5e781a2",
+    "semantic_hash": "7f1f2a24f47d6b537d2d4e94e5e781a2"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Verified.svg": {
+    "mtime": 1778590632.734898,
+    "ast_hash": "a245d93cd08a9afebaded5bb79d6436c",
+    "semantic_hash": "a245d93cd08a9afebaded5bb79d6436c"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\warning-2.svg": {
+    "mtime": 1778590632.7626092,
+    "ast_hash": "0c264c03efb2fe5d390f6af7dd824e93",
+    "semantic_hash": "0c264c03efb2fe5d390f6af7dd824e93"
+  },
+  "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\welfare-pension-insurance-premium-svgrepo-com.svg": {
+    "mtime": 1778590632.7636068,
+    "ast_hash": "c8879404dcfdf6cea0206c0e5062061b",
+    "semantic_hash": "c8879404dcfdf6cea0206c0e5062061b"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\100.png": {
+    "mtime": 1778590632.7665985,
+    "ast_hash": "fa51310cd27364ae53d39e949f5cd27c",
+    "semantic_hash": "fa51310cd27364ae53d39e949f5cd27c"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\102.png": {
+    "mtime": 1778590632.7665985,
+    "ast_hash": "6b4383ab3edc9bd03395b86ef7a431ec",
+    "semantic_hash": "6b4383ab3edc9bd03395b86ef7a431ec"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\1024.png": {
+    "mtime": 1778590632.7705264,
+    "ast_hash": "a5228c19d1c32df9f7119708fb1712bf",
+    "semantic_hash": "a5228c19d1c32df9f7119708fb1712bf"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\108.png": {
+    "mtime": 1778590632.7705264,
+    "ast_hash": "0e7d1fbf48d44daa1edeb3b6d895c42d",
+    "semantic_hash": "0e7d1fbf48d44daa1edeb3b6d895c42d"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\114.png": {
+    "mtime": 1778590632.7705264,
+    "ast_hash": "409f735bf8603d2c1c34bc9e524f5512",
+    "semantic_hash": "409f735bf8603d2c1c34bc9e524f5512"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\120.png": {
+    "mtime": 1778590632.7705264,
+    "ast_hash": "6d4df12893fa89da0483a0af970fb889",
+    "semantic_hash": "6d4df12893fa89da0483a0af970fb889"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\128.png": {
+    "mtime": 1778590632.7715244,
+    "ast_hash": "54d2d0582bfc501e0a90ec7d61d88ee6",
+    "semantic_hash": "54d2d0582bfc501e0a90ec7d61d88ee6"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\144.png": {
+    "mtime": 1778590632.7715244,
+    "ast_hash": "06a67cfabaa6fdff88fb785e61159ae9",
+    "semantic_hash": "06a67cfabaa6fdff88fb785e61159ae9"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\152.png": {
+    "mtime": 1778590632.7715244,
+    "ast_hash": "fa29ceea92620a050b9fc57bc426b290",
+    "semantic_hash": "fa29ceea92620a050b9fc57bc426b290"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\16.png": {
+    "mtime": 1778590632.7721138,
+    "ast_hash": "daccb0f606e346d40f9b5290a61e2ffe",
+    "semantic_hash": "daccb0f606e346d40f9b5290a61e2ffe"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\167.png": {
+    "mtime": 1778590632.7721138,
+    "ast_hash": "9e9496211520a488bbddc5331ca9bcd7",
+    "semantic_hash": "9e9496211520a488bbddc5331ca9bcd7"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\172.png": {
+    "mtime": 1778590632.7726207,
+    "ast_hash": "7b33d8620dc4834c016a968cf9abe640",
+    "semantic_hash": "7b33d8620dc4834c016a968cf9abe640"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\180.png": {
+    "mtime": 1778590632.7726207,
+    "ast_hash": "51d11ceca714d13b8a2174e88e8f302d",
+    "semantic_hash": "51d11ceca714d13b8a2174e88e8f302d"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\196.png": {
+    "mtime": 1778590632.7726207,
+    "ast_hash": "533073bc939270e1d146e9ce0635d614",
+    "semantic_hash": "533073bc939270e1d146e9ce0635d614"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\20.png": {
+    "mtime": 1778590632.7726207,
+    "ast_hash": "1b6f71d65ff347f1eed7c1edfc410315",
+    "semantic_hash": "1b6f71d65ff347f1eed7c1edfc410315"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\216.png": {
+    "mtime": 1778590632.7736168,
+    "ast_hash": "955ad9d712c2541d256bdf2eb6ca7bdc",
+    "semantic_hash": "955ad9d712c2541d256bdf2eb6ca7bdc"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\234.png": {
+    "mtime": 1778590632.7736168,
+    "ast_hash": "3946444db4cbf101e4c9cf23fe222910",
+    "semantic_hash": "3946444db4cbf101e4c9cf23fe222910"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\256.png": {
+    "mtime": 1778590632.7736168,
+    "ast_hash": "e852624c8d30f6f10371f5dd9b265bfe",
+    "semantic_hash": "e852624c8d30f6f10371f5dd9b265bfe"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\258.png": {
+    "mtime": 1778590632.7746475,
+    "ast_hash": "236eee418a4c2c200382abddcf775303",
+    "semantic_hash": "236eee418a4c2c200382abddcf775303"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\29.png": {
+    "mtime": 1778590632.7746475,
+    "ast_hash": "86d6d11714ac5b9bf4e2f93393507507",
+    "semantic_hash": "86d6d11714ac5b9bf4e2f93393507507"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\32.png": {
+    "mtime": 1778590632.7746475,
+    "ast_hash": "9c66140d96801156d845de1f951c70b2",
+    "semantic_hash": "9c66140d96801156d845de1f951c70b2"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\40.png": {
+    "mtime": 1778590632.7756307,
+    "ast_hash": "e6ccec2e0e6e8c01f8d33422fbcd0f7b",
+    "semantic_hash": "e6ccec2e0e6e8c01f8d33422fbcd0f7b"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\48.png": {
+    "mtime": 1778590632.7756307,
+    "ast_hash": "b1fb0867931f517211facc5a60685159",
+    "semantic_hash": "b1fb0867931f517211facc5a60685159"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\50.png": {
+    "mtime": 1778590632.7756307,
+    "ast_hash": "f3f1528ec28830480ad4370870a31427",
+    "semantic_hash": "f3f1528ec28830480ad4370870a31427"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\512.png": {
+    "mtime": 1778590632.776635,
+    "ast_hash": "fb79ae316302eada58cdc4c2827dd456",
+    "semantic_hash": "fb79ae316302eada58cdc4c2827dd456"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\55.png": {
+    "mtime": 1778590632.776635,
+    "ast_hash": "272f845910a77a421f9ca4fa39538541",
+    "semantic_hash": "272f845910a77a421f9ca4fa39538541"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\57.png": {
+    "mtime": 1778590632.7776315,
+    "ast_hash": "0942910f4ad92de3c3ba0e925c752e32",
+    "semantic_hash": "0942910f4ad92de3c3ba0e925c752e32"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\58.png": {
+    "mtime": 1778590632.7776315,
+    "ast_hash": "e3797cb79905a97d9610635d258b4bb1",
+    "semantic_hash": "e3797cb79905a97d9610635d258b4bb1"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\60.png": {
+    "mtime": 1778590632.7776315,
+    "ast_hash": "4b5782fe4d9c4b1d72c476b7a0e45909",
+    "semantic_hash": "4b5782fe4d9c4b1d72c476b7a0e45909"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\64.png": {
+    "mtime": 1778590632.7776315,
+    "ast_hash": "c0809a12a68595992ef27152dd84e1c0",
+    "semantic_hash": "c0809a12a68595992ef27152dd84e1c0"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\66.png": {
+    "mtime": 1778590632.7776315,
+    "ast_hash": "017c272b6af865cc99a765e087810c08",
+    "semantic_hash": "017c272b6af865cc99a765e087810c08"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\72.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "07e6ccdbfd0c89a4c4cd392efb72e479",
+    "semantic_hash": "07e6ccdbfd0c89a4c4cd392efb72e479"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\76.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "54e982c0e0031cb51a39a2214cc4ca79",
+    "semantic_hash": "54e982c0e0031cb51a39a2214cc4ca79"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\80.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "e311720ba09c0466572e0e374883b92e",
+    "semantic_hash": "e311720ba09c0466572e0e374883b92e"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\87.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "2afd47b25e150ee7db7f3fb4cf018ffd",
+    "semantic_hash": "2afd47b25e150ee7db7f3fb4cf018ffd"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\88.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "27da01f0119925c454ad9c9e81b2d298",
+    "semantic_hash": "27da01f0119925c454ad9c9e81b2d298"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\92.png": {
+    "mtime": 1778590632.7786038,
+    "ast_hash": "24822ccf2c349f3208b6b7bd8c0494d4",
+    "semantic_hash": "24822ccf2c349f3208b6b7bd8c0494d4"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage.png": {
+    "mtime": 1778590632.779627,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage@2x.png": {
+    "mtime": 1778590632.779627,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage@3x.png": {
+    "mtime": 1778590632.78023,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_1024.png": {
+    "mtime": 1778590632.8754382,
+    "ast_hash": "c9becc9105f8cabce934d20c7bfb6aac",
+    "semantic_hash": "c9becc9105f8cabce934d20c7bfb6aac"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_128.png": {
+    "mtime": 1778590632.8754382,
+    "ast_hash": "3ded30823804caaa5ccc944067c54a36",
+    "semantic_hash": "3ded30823804caaa5ccc944067c54a36"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_16.png": {
+    "mtime": 1778590632.8754382,
+    "ast_hash": "8bf511604bc6ed0a6aeb380c5113fdcf",
+    "semantic_hash": "8bf511604bc6ed0a6aeb380c5113fdcf"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_256.png": {
+    "mtime": 1778590632.8754382,
+    "ast_hash": "dfe2c93d1536ae02f085cc63faa3430e",
+    "semantic_hash": "dfe2c93d1536ae02f085cc63faa3430e"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_32.png": {
+    "mtime": 1778590632.876435,
+    "ast_hash": "8e0ae58e362a6636bdfccbc04da2c58c",
+    "semantic_hash": "8e0ae58e362a6636bdfccbc04da2c58c"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_512.png": {
+    "mtime": 1778590632.876435,
+    "ast_hash": "0ad44039155424738917502c69667699",
+    "semantic_hash": "0ad44039155424738917502c69667699"
+  },
+  "D:\\projects\\new_easy_deal\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_64.png": {
+    "mtime": 1778590632.876435,
+    "ast_hash": "04e7b6ef05346c70b663ca1d97de3ad5",
+    "semantic_hash": "04e7b6ef05346c70b663ca1d97de3ad5"
+  },
+  "D:\\projects\\new_easy_deal\\web\\favicon.png": {
+    "mtime": 1778590632.87843,
+    "ast_hash": "5dcef449791fa27946b3d35ad8803796",
+    "semantic_hash": "5dcef449791fa27946b3d35ad8803796"
+  },
+  "D:\\projects\\new_easy_deal\\web\\icons\\Icon-192.png": {
+    "mtime": 1778590632.8794272,
+    "ast_hash": "ac9a721a12bbc803b44f645561ecb1e1",
+    "semantic_hash": "ac9a721a12bbc803b44f645561ecb1e1"
+  },
+  "D:\\projects\\new_easy_deal\\web\\icons\\Icon-512.png": {
+    "mtime": 1778590632.8794272,
+    "ast_hash": "96e752610906ba2a93c65f8abe1645f1",
+    "semantic_hash": "96e752610906ba2a93c65f8abe1645f1"
+  },
+  "D:\\projects\\new_easy_deal\\web\\icons\\Icon-maskable-192.png": {
+    "mtime": 1778590632.8794272,
+    "ast_hash": "c457ef57daa1d16f64b27b786ec2ea3c",
+    "semantic_hash": "c457ef57daa1d16f64b27b786ec2ea3c"
+  },
+  "D:\\projects\\new_easy_deal\\web\\icons\\Icon-maskable-512.png": {
+    "mtime": 1778590632.8794272,
+    "ast_hash": "301a7604d45b3e739efc881eb04896ea",
+    "semantic_hash": "301a7604d45b3e739efc881eb04896ea"
+  }
+}

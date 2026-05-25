@@ -16,6 +16,7 @@ class RegisterRepoImpl implements RegisterRepo {
         endPoint: EndPoints.register,
         data: data,
         isMultipart: true,
+        public: true,
       );
       final result = RegisterModel.fromJson(response.data);
       return right(result);

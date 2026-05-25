@@ -18,10 +18,13 @@ class ApiService {
           // Add default headers
           options.headers["Accept"] = "application/json";
 
-         /// Add user token if available
-          if (CacheTokenManger.userToken != null &&
-              CacheTokenManger.userToken!.isNotEmpty) {
-            options.headers["Authorization"] = "Bearer ${CacheTokenManger.userToken}";
+         /// Skip auth for public endpoints (login, register, etc.)
+          if (options.extra['public'] != true) {
+            /// Add user token if available
+            if (CacheTokenManger.userToken != null &&
+                CacheTokenManger.userToken!.isNotEmpty) {
+              options.headers["Authorization"] = "Bearer ${CacheTokenManger.userToken}";
+            }
           }
          // options.headers["Authorization"] =   "Bearer 8|FurotwrspzstJxqZdfmCRh8Jd1jz9jXzNEZqv8Bf982d34f3";
           debugPrint("➡️ [REQUEST] ${options.method} ${options.uri}");
@@ -70,11 +73,16 @@ class ApiService {
     dynamic data,
     Map<String, dynamic>? query,
     bool isMultipart = false,
+    bool public = false,
   }) async {
+    Options? options;
     if (isMultipart) {
       _dio.options.headers["Content-Type"] = "multipart/form-data";
     }
-    return await _dio.post(endPoint, data: data, queryParameters: query);
+    if (public) {
+      options = Options(extra: {'public': true});
+    }
+    return await _dio.post(endPoint, data: data, queryParameters: query, options: options);
   }
 
   Future<Response> getData({

@@ -1,0 +1,128 @@
+[
+  {
+    "chunk_num": 1,
+    "total_chunks": 4,
+    "files": [
+      "D:\\projects\\new_easy_deal\\analysis_options.yaml",
+      "D:\\projects\\new_easy_deal\\devtools_options.yaml",
+      "D:\\projects\\new_easy_deal\\pubspec.yaml",
+      "D:\\projects\\new_easy_deal\\README.md",
+      "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Cairo\\OFL.txt",
+      "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Cairo\\README.txt",
+      "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Roboto_Condensed\\OFL.txt",
+      "D:\\projects\\new_easy_deal\\assets\\fonts\\Cairo,Roboto_Condensed\\Roboto_Condensed\\README.txt",
+      "D:\\projects\\new_easy_deal\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\README.md",
+      "D:\\projects\\new_easy_deal\\linux\\CMakeLists.txt",
+      "D:\\projects\\new_easy_deal\\linux\\flutter\\CMakeLists.txt",
+      "D:\\projects\\new_easy_deal\\linux\\runner\\CMakeLists.txt",
+      "D:\\projects\\new_easy_deal\\web\\index.html",
+      "D:\\projects\\new_easy_deal\\windows\\CMakeLists.txt",
+      "D:\\projects\\new_easy_deal\\windows\\flutter\\CMakeLists.txt",
+      "D:\\projects\\new_easy_deal\\windows\\runner\\CMakeLists.txt"
+    ],
+    "types": [
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc",
+      "doc"
+    ]
+  },
+  {
+    "chunk_num": 2,
+    "total_chunks": 4,
+    "files": [
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\1.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\2.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\3.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\4.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\5.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\6.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\7.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding1.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding2.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\onboarding3.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\1.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\10.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\11.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\2.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\3.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\4.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\5.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\6.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\7.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\8.jpg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\jpgs\\locations\\9.jpg"
+    ],
+    "types": [
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image"
+    ]
+  },
+  {
+    "chunk_num": 3,
+    "total_chunks": 4,
+    "files": [
+      "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\Container.png",
+      "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\logo.png",
+      "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\share.png",
+      "D:\\projects\\new_easy_deal\\assets\\images\\pngs\\success.png",
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\broker.svg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\company.svg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\Leader-pana 1.svg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\onboarding1.svg",
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\profile icons.svg"
+    ],
+    "types": [
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image",
+      "image"
+    ]
+  },
+  {
+    "chunk_num": 4,
+    "total_chunks": 4,
+    "files": [
+      "D:\\projects\\new_easy_deal\\assets\\images\\svgs\\onboarding1.svg"
+    ],
+    "types": [
+      "image"
+    ]
+  }
+]

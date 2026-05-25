@@ -39,7 +39,7 @@ class UnitTypeDropdown extends StatelessWidget {
           value: cubit.selectedUnitTypeLabel,
           items: unitTypeItems.map((e) => e['label']!).toList(),
           hint: LangKeys.unitType.tr(),
-          itemDisplayBuilder: (label) => label.toString(),
+          itemDisplayBuilder: (label) => label.toString().tr(),
           onChanged: (selectedLabel) {
             final selectedItem = unitTypeItems.firstWhere(
                   (e) => e['label'] == selectedLabel,
