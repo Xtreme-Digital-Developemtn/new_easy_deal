@@ -1,6 +1,7 @@
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:easy_deal/features/create_request/presentation/views/widgets/dynamic_form_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class FormOfCityAreaSubAreaAddressLocationLink extends StatefulWidget {
@@ -137,6 +138,12 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
               ),
             ],
             Gap(12.h),
+            ...cubit.currentStepInputs
+                .where((input) => !['cityId', 'areaId', 'subAreaId'].contains(input.name))
+                .map((input) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: DynamicFormField(config: input),
+                    )),
           ],
         );
       },

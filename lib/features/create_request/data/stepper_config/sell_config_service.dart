@@ -673,7 +673,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -785,7 +785,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -897,7 +897,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -1009,7 +1009,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -1124,7 +1124,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -1232,7 +1232,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -1341,7 +1341,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(
@@ -1449,7 +1449,7 @@ class SellConfigService {
         step: 3,
         name: 'deliveryDate',
         type: InputFieldType.date,
-        label: 'Delivery date',
+        label: 'Delivery Date',
         visibility: () => true,
       ),
       InputConfig(

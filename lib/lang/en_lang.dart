@@ -808,5 +808,7 @@ class EnLang {
     "PREFERRED_FURNISHING_STATUS": "Preferred Furnishing Status",
     "MINIMUM_BUILDING_AREA": "Minimum Building Area (m²)",
     "MAXIMUM_BUILDING_AREA": "Maximum Building Area (m²)",
+    "Minimum Average Daily Rent Price": "Minimum Average Daily Rent Price",
+    "Maximum Average Daily Rent Price": "Maximum Average Daily Rent Price",
   };
 }

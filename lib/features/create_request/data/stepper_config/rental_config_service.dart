@@ -1040,13 +1040,13 @@ class RentalConfigService {
         step: 5,
         name: 'averageUnitPriceDailyMin',
         type: InputFieldType.number,
-        label: 'الحد الأدنى للسعر اليومي المتوسط',
+        label: 'Minimum Average Daily Rent Price',
       ),
       InputConfig(
         step: 5,
         name: 'averageUnitPriceDailyMax',
         type: InputFieldType.number,
-        label: 'الحد الأقصى للسعر اليومي المتوسط',
+        label: 'Maximum Average Daily Rent Price',
       ),
       InputConfig(
         step: 5,
@@ -1328,7 +1328,7 @@ class RentalConfigService {
         step: 3,
         name: 'gardenArea',
         type: InputFieldType.number,
-        label: 'garden Area (m²)',
+        label: 'Garden Area (m²)',
       ),
       const InputConfig(
         step: 3,
