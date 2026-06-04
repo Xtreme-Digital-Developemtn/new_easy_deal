@@ -20,15 +20,13 @@ class FormOfSpecializationAndDealTypeAndUnitType extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SpecializationDropdown(cubit: cubit, transactionTypes: transactionTypes),
-            Gap(12.h),
+            Gap(20.h),
             DealTypeDropdown(cubit: cubit, transactionTypes: transactionTypes),
-            Gap(12.h),
+            Gap(20.h),
             UnitTypeDropdown(cubit: cubit, transactionTypes: transactionTypes),
-
           ],
         );
       },
     );
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../../main_imports.dart';
 import '../../../view_model/create_request_cubit.dart';
 
@@ -20,22 +21,64 @@ class SpecializationDropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LangKeys.scopeOfSpecialization.tr(), style: AppStyles.black14Regular),
-        Gap(12.h),
-        CustomDropdown(
-          itemDisplayBuilder: (label) => label.toString().tr(),
-          hint: LangKeys.scopeOfSpecialization.tr(),
-          value: cubit.selectedSpecializationLabel,
-          items: specializationItems.map((e) => e['label']!).toList(),
-          onChanged: (selectedLabel) {
-            final selectedItem = specializationItems.firstWhere(
+        Text(
+          LangKeys.scopeOfSpecialization.tr(),
+          style: AppStyles.black14SemiBold,
+        ),
+        Gap(8.h),
+        Container(
+          width: double.infinity,
+          height: 52.h,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            border: Border.all(
+              color: cubit.selectedSpecializationValue != null
+                  ? AppColors.primaryDark
+                  : AppColors.blueLight,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: DropdownButton<String>(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            isExpanded: true,
+            underline: const SizedBox.shrink(),
+            value: cubit.selectedSpecializationLabel,
+            hint: Text(
+              LangKeys.scopeOfSpecialization.tr(),
+              style: TextStyle(
+                color: const Color(0xFF969696),
+                fontSize: 14.sp,
+              ),
+            ),
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppColors.primaryDark,
+              size: 24.sp,
+            ),
+            items: specializationItems.map((item) {
+              return DropdownMenuItem<String>(
+                value: item['label'],
+                child: Text(item['label']!.tr()),
+              );
+            }).toList(),
+            onChanged: (selectedLabel) {
+              if (selectedLabel != null) {
+                final selectedItem = specializationItems.firstWhere(
                   (e) => e['label'] == selectedLabel,
-            );
-            cubit.selectSpecialization(
-              value: selectedItem['value'],
-              label: selectedItem['label'],
-            );
-          },
+                );
+                cubit.selectSpecialization(
+                  value: selectedItem['value'],
+                  label: selectedItem['label'],
+                );
+              }
+            },
+          ),
         ),
       ],
     );

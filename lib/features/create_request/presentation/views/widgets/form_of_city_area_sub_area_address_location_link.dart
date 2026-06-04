@@ -91,51 +91,31 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
             Gap(12.h),
 
             /// Sub Area
-            Text(LangKeys.subArea.tr(), style: AppStyles.black14Regular),
-            Gap(12.h),
-            CustomDropdown<String>(
-              value: cubit.isSubAreaOther
-                  ? LangKeys.other.tr()
-                  : cubit.selectedSubAreaObj != null
-                      ? (context.isArabic
-                          ? cubit.selectedSubAreaObj!.nameAr
-                          : cubit.selectedSubAreaObj!.nameEn)
-                      : null,
-              items: cubit.subAreasList.isEmpty
-                  ? [LangKeys.other.tr()]
-                  : cubit.subAreasList.map(
-                      (s) => context.isArabic ? s.nameAr ?? '' : s.nameEn ?? '',
-                    ).toList(),
-              hint: state is GetSubAreasLoadingState
-                  ? 'Loading...'
-                  : cubit.subAreasList.isEmpty
-                      ? LangKeys.other.tr()
-                      : LangKeys.subArea.tr(),
-              itemDisplayBuilder: (name) => name,
-              onChanged: (selectedName) {
-                if (selectedName != null) {
-                  final otherLabel = LangKeys.other.tr();
-                  if (selectedName == otherLabel) {
-                    cubit.selectSubAreaOther();
-                  } else {
-                    final subArea = cubit.subAreasList.firstWhere(
-                      (s) =>
-                          (context.isArabic ? s.nameAr : s.nameEn) ==
-                          selectedName,
-                    );
-                    cubit.selectSubArea(subArea);
-                  }
-                }
-              },
-            ),
-            if (cubit.isSubAreaOther) ...[
+            if (cubit.selectedAreaObj != null) ...[
+              Text(LangKeys.subArea.tr(), style: AppStyles.black14Regular),
               Gap(12.h),
-              Text(LangKeys.otherSubArea.tr(), style: AppStyles.black14Regular),
-              Gap(6.h),
-              CustomTextFormField(
-                controller: cubit.otherSubAreaCon,
-                hintText: LangKeys.otherSubArea.tr(),
+              CustomDropdown<String>(
+                value: cubit.isSubAreaOther
+                    ? LangKeys.other.tr()
+                    : null,
+                items: [LangKeys.other.tr()],
+                hint: '',
+                itemDisplayBuilder: (name) => name,
+                onChanged: (selectedName) {
+                  if (selectedName != null) {
+                    cubit.selectSubAreaOther();
+                  }
+                },
               ),
+              if (cubit.isSubAreaOther) ...[
+                Gap(12.h),
+                Text(LangKeys.otherSubArea.tr(), style: AppStyles.black14Regular),
+                Gap(6.h),
+                CustomTextFormField(
+                  controller: cubit.otherSubAreaCon,
+                  hintText: LangKeys.otherSubArea.tr(),
+                ),
+              ],
             ],
             Gap(12.h),
             ...cubit.currentStepInputs

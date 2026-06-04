@@ -14,10 +14,9 @@ class DealTypeDropdown extends StatelessWidget {
     List<Map<String, String>> dealTypeItems = [];
     if (cubit.selectedSpecializationValue != null) {
       final selectedTransaction = transactionTypes.firstWhere(
-            (item) => item['value'] == cubit.selectedSpecializationValue,
+        (item) => item['value'] == cubit.selectedSpecializationValue,
       );
       final subtypes = selectedTransaction['subtypes'] as List<dynamic>;
-
       dealTypeItems = subtypes.map<Map<String, String>>((sub) {
         return {
           'label': sub['label'] as String,
@@ -26,25 +25,68 @@ class DealTypeDropdown extends StatelessWidget {
       }).toList();
     }
 
+    final bool hasItems = dealTypeItems.isNotEmpty;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LangKeys.dealType.tr(), style: AppStyles.black14Regular),
-        Gap(12.h),
-        CustomDropdown(
-          value: cubit.selectedDealTypeLabel,
-          items: dealTypeItems.map((e) => e['label']!).toList(),
-          hint: LangKeys.dealType.tr(),
-          itemDisplayBuilder: (label) => label.toString().tr(),
-          onChanged: (selectedLabel) {
-            final selectedItem = dealTypeItems.firstWhere(
-                  (e) => e['label'] == selectedLabel,
-            );
-            cubit.selectDealType(
-              value: selectedItem['value'],
-              label: selectedItem['label'],
-            );
-          },
+        Text(LangKeys.dealType.tr(), style: AppStyles.black14SemiBold),
+        Gap(8.h),
+        Container(
+          width: double.infinity,
+          height: 52.h,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            border: Border.all(
+              color: cubit.selectedDealTypeValue != null
+                  ? AppColors.primaryDark
+                  : AppColors.blueLight,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: DropdownButton<String>(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            isExpanded: true,
+            underline: const SizedBox.shrink(),
+            value: cubit.selectedDealTypeLabel,
+            hint: Text(
+              LangKeys.dealType.tr(),
+              style: TextStyle(
+                color: const Color(0xFF969696),
+                fontSize: 14.sp,
+              ),
+            ),
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: hasItems ? AppColors.primaryDark : AppColors.grayLight,
+              size: 24.sp,
+            ),
+            items: dealTypeItems.map((item) {
+              return DropdownMenuItem<String>(
+                value: item['label'],
+                child: Text(item['label']!.tr()),
+              );
+            }).toList(),
+            onChanged: hasItems
+                ? (selectedLabel) {
+                    if (selectedLabel != null) {
+                      final selectedItem = dealTypeItems.firstWhere(
+                        (e) => e['label'] == selectedLabel,
+                      );
+                      cubit.selectDealType(
+                        value: selectedItem['value'],
+                        label: selectedItem['label'],
+                      );
+                    }
+                  }
+                : null,
+          ),
         ),
       ],
     );
