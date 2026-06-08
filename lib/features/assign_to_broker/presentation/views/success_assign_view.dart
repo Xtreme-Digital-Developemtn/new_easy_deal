@@ -23,10 +23,10 @@ class SuccessAssignView extends StatelessWidget {
             ),
             CustomButton(
               onPressed: (){
-                context.read<LayoutCubit>().changeBottomNav(0, context);
-                context.pushNamedAndRemoveUntil(Routes.layoutView);
+                // context.read<LayoutCubit>().changeBottomNav(0, context);
+                context.pushNamedAndRemoveUntil(Routes.assignToBrokerView);
               },
-              text: LangKeys.backToHome.tr(),
+              text: LangKeys.assignToBroker.tr(),
             ),
           ],
         ),
