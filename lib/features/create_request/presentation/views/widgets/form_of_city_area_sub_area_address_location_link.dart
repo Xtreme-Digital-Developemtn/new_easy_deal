@@ -58,6 +58,14 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                 }
               },
             ),
+            if (cubit.validationAttempted && cubit.formErrors['cityId'] != null)
+              Padding(
+                padding: EdgeInsets.only(top: 4.h),
+                child: Text(
+                  cubit.formErrors['cityId']!,
+                  style: TextStyle(color: Colors.red, fontSize: 12.sp),
+                ),
+              ),
             Gap(12.h),
 
             /// Area
@@ -88,6 +96,14 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                 }
               },
             ),
+            if (cubit.validationAttempted && cubit.formErrors['areaId'] != null)
+              Padding(
+                padding: EdgeInsets.only(top: 4.h),
+                child: Text(
+                  cubit.formErrors['areaId']!,
+                  style: TextStyle(color: Colors.red, fontSize: 12.sp),
+                ),
+              ),
             Gap(12.h),
 
             /// Sub Area

@@ -23,6 +23,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   // ========================================================================
   Map<String, dynamic> formValues = {};
   Map<String, dynamic> formErrors = {};
+  bool validationAttempted = false;
 
   void setFormValue(String name, dynamic value) {
     formValues[name] = value;
@@ -37,6 +38,67 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     if (v is List) return v.cast<String>();
     if (v is String && v.isNotEmpty) return [v];
     return [];
+  }
+
+  String? getFieldError(InputConfig config) {
+    if (!config.required) return null;
+    return formErrors[config.name] as String?;
+  }
+
+  bool _isFieldEmpty(String name) {
+    final v = formValues[name];
+    if (v == null) return true;
+    if (v is String && v.trim().isEmpty) return true;
+    if (v is List && v.isEmpty) return true;
+    return false;
+  }
+
+  bool _isValidUrl(String value) {
+    return Uri.tryParse(value)?.hasScheme == true && value.contains('.');
+  }
+
+  bool validateCurrentStep() {
+    validationAttempted = true;
+    final inputs = currentStepInputs;
+    debugPrint('=== validateCurrentStep: step=$currentStepNumber, inputs count=${inputs.length}');
+    for (final input in inputs) {
+      debugPrint('  input: name=${input.name}, type=${input.type}, required=${input.required}, visible=${input.isVisible()}');
+    }
+    final errors = <String, String>{};
+
+    if (currentStepNumber == 2) {
+      if (selectedCityObj == null) errors['cityId'] = LangKeys.fieldRequired.tr();
+      if (selectedAreaObj == null) errors['areaId'] = LangKeys.fieldRequired.tr();
+    }
+
+    for (final input in inputs) {
+      if (!input.required || !input.isVisible()) continue;
+
+      if (input.type == InputFieldType.url) {
+        final val = getFormValueString(input.name);
+        if (val != null && val.isNotEmpty && !_isValidUrl(val)) {
+          errors[input.name] = LangKeys.validUrlRequired.tr();
+        } else if (val == null || val.trim().isEmpty) {
+          errors[input.name] = LangKeys.fieldRequired.tr();
+        }
+      } else if (input.type == InputFieldType.text || input.type == InputFieldType.number || input.type == InputFieldType.textarea) {
+        if (_isFieldEmpty(input.name) || (getFormValueString(input.name)?.trim().isEmpty == true)) {
+          errors[input.name] = LangKeys.fieldRequired.tr();
+        }
+      } else if (input.type == InputFieldType.select) {
+        if (_isFieldEmpty(input.name)) {
+          errors[input.name] = LangKeys.fieldRequired.tr();
+        }
+      } else if (input.type == InputFieldType.date) {
+        if (_isFieldEmpty(input.name)) {
+          errors[input.name] = LangKeys.fieldRequired.tr();
+        }
+      }
+    }
+
+    formErrors = errors;
+    emit(FormValidationState());
+    return errors.isEmpty;
   }
 
   // ========================================================================
@@ -362,8 +424,16 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     );
   }
 
-  void selectCity(Cities city) { selectedCityObj = city; emit(SelectCityState()); }
-  void selectArea(Areas area) { selectedAreaObj = area; emit(SelectAreaState()); }
+  void selectCity(Cities city) {
+    selectedCityObj = city;
+    setFormValue('cityId', city.id);
+    emit(SelectCityState());
+  }
+  void selectArea(Areas area) {
+    selectedAreaObj = area;
+    setFormValue('areaId', area.id);
+    emit(SelectAreaState());
+  }
   void selectSubArea(SubArea subArea) { selectedSubAreaObj = subArea; isSubAreaOther = false; emit(SelectSubAreaState()); }
 
   // Legacy selection methods
@@ -378,6 +448,8 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   // Step validation & navigation
   // ========================================================================
   void handleStepOne(BuildContext context) {
+    debugPrint('=== handleStepOne: step=$currentStepNumber');
+    debugPrint('  spec=$selectedSpecializationValue, dealType=$selectedDealTypeValue, unitType=$selectedUnitTypeValue');
     if (selectedSpecializationValue == null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(LangKeys.youMustChooseFieldOfSpecialization.tr())));
     } else if (selectedDealTypeValue == null) {
@@ -390,12 +462,21 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   }
 
   void handleNextSteps(BuildContext context) {
+    debugPrint('=== handleNextSteps: step=$currentStepNumber');
     // Sync all controller values to formValues
     for (final entry in controllers.entries) {
       if (entry.value.text.isNotEmpty) {
         formValues[entry.key] = entry.value.text;
+        debugPrint('  synced controller: ${entry.key} = ${entry.value.text}');
       }
     }
+
+    debugPrint('  formValues keys: ${formValues.keys}');
+    if (!validateCurrentStep()) {
+      debugPrint('  validation FAILED, errors: ${formErrors}');
+      return;
+    }
+    debugPrint('  validation PASSED');
 
     final total = totalSteps;
     if (currentStepNumber < total) {

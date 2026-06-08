@@ -22,7 +22,19 @@ class InputConfig {
   });
 
   bool isVisible() => visibility?.call() ?? true;
+  bool get required => _requiredFields.contains(name);
 }
+
+const _requiredFields = <String>{
+  'compoundName',
+  'detailedAddress',
+  'addressLink',
+  'projectManagement',
+  'projectConstructor',
+  'mallName',
+  'cityId',
+  'areaId',
+};
 
 class StepperConfiguration {
   final String key;

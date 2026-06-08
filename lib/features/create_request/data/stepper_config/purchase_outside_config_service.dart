@@ -195,6 +195,9 @@ class PurchaseOutsideCompoundConfigService {
 
   List<InputConfig> _createPurchaseOutsideCompoundLocationInputs() {
     return [
+      const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
+      const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
+      const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
       const InputConfig(step: 2, name: 'locationSuggestions', type: InputFieldType.checkbox, label: 'Location Suggestion'),
     ];
   }

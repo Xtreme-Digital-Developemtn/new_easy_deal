@@ -6,10 +6,17 @@ import 'package:easy_deal/features/create_request/presentation/view_model/create
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class DynamicFormField extends StatelessWidget {
+class DynamicFormField extends StatefulWidget {
   final InputConfig config;
 
   const DynamicFormField({super.key, required this.config});
+
+  @override
+  State<DynamicFormField> createState() => _DynamicFormFieldState();
+}
+
+class _DynamicFormFieldState extends State<DynamicFormField> {
+  bool _touched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +30,8 @@ class DynamicFormField extends StatelessWidget {
   }
 
   bool _isVisible(CreateRequestCubit cubit) {
-    if (!config.isVisible()) return false;
-    switch (config.name) {
+    if (!widget.config.isVisible()) return false;
+    switch (widget.config.name) {
       case 'cashPrice':
         return cubit.shouldShowCashPrice;
       case 'installmentPrice':
@@ -39,18 +46,34 @@ class DynamicFormField extends StatelessWidget {
   }
 
   Widget _buildField(BuildContext context, CreateRequestCubit cubit) {
-    switch (config.type) {
+    final error = _touched || cubit.validationAttempted ? cubit.getFieldError(widget.config) : null;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldContent(context, cubit, error),
+        if (error != null)
+          Padding(
+            padding: EdgeInsets.only(top: 4.h),
+            child: Text(error, style: TextStyle(color: Colors.red, fontSize: 12.sp)),
+          ),
+        Gap(12.h),
+      ],
+    );
+  }
+
+  Widget _buildFieldContent(BuildContext context, CreateRequestCubit cubit, String? error) {
+    switch (widget.config.type) {
       case InputFieldType.text:
       case InputFieldType.url:
-        return _buildTextField(cubit, keyboardType: config.type == InputFieldType.url ? TextInputType.url : TextInputType.text);
+        return _buildTextField(cubit, error, keyboardType: widget.config.type == InputFieldType.url ? TextInputType.url : TextInputType.text);
       case InputFieldType.number:
-        return _buildTextField(cubit, keyboardType: TextInputType.number);
+        return _buildTextField(cubit, error, keyboardType: TextInputType.number);
       case InputFieldType.textarea:
-        return _buildTextField(cubit, maxLines: 4);
+        return _buildTextField(cubit, error, maxLines: 4);
       case InputFieldType.date:
-        return _buildDateField(context, cubit);
+        return _buildDateField(context, cubit, error);
       case InputFieldType.select:
-        return _buildDropdown(context, cubit);
+        return _buildDropdown(context, cubit, error);
       case InputFieldType.multiSelect:
         return _buildMultiSelect(context, cubit);
       case InputFieldType.checkbox:
@@ -60,27 +83,30 @@ class DynamicFormField extends StatelessWidget {
     }
   }
 
-  Widget _buildTextField(CreateRequestCubit cubit, {TextInputType? keyboardType, int maxLines = 1}) {
+  Widget _buildTextField(CreateRequestCubit cubit, String? error, {TextInputType? keyboardType, int maxLines = 1}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label.tr(), style: AppStyles.black14Regular),
+        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         CustomTextFormField(
-          controller: cubit.getOrCreateController(config.name),
-          hintText: config.label.tr(),
+          controller: cubit.getOrCreateController(widget.config.name),
+          hintText: widget.config.label.tr(),
           keyboardType: keyboardType,
           maxLines: maxLines,
-          onChanged: (val) => cubit.setFormValue(config.name, val),
+          onChanged: (val) {
+            cubit.setFormValue(widget.config.name, val);
+            if (!_touched) setState(() => _touched = true);
+          },
+          onTap: () { if (!_touched) setState(() => _touched = true); },
         ),
-        Gap(12.h),
       ],
     );
   }
 
-  Widget _buildDropdown(BuildContext context, CreateRequestCubit cubit) {
-    final options = config.options ?? [];
-    final currentValue = cubit.getFormValueString(config.name);
+  Widget _buildDropdown(BuildContext context, CreateRequestCubit cubit, String? error) {
+    final options = widget.config.options ?? [];
+    final currentValue = cubit.getFormValueString(widget.config.name);
 
     String? displayValue;
     if (currentValue != null) {
@@ -94,7 +120,7 @@ class DynamicFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label.tr(), style: AppStyles.black14Regular),
+        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         CustomDropdown<String>(
           value: displayValue,
@@ -104,25 +130,25 @@ class DynamicFormField extends StatelessWidget {
               final matched = options.cast<OptionItem?>().firstWhere(
                 (o) => o!.key.tr() == val,
               );
-              cubit.setFormValue(config.name, matched!.value);
+              cubit.setFormValue(widget.config.name, matched!.value);
+              if (!_touched) setState(() => _touched = true);
             }
           },
-          hint: config.label.tr(),
+          hint: widget.config.label.tr(),
           itemDisplayBuilder: (v) => v,
         ),
-        Gap(12.h),
       ],
     );
   }
 
   Widget _buildMultiSelect(BuildContext context, CreateRequestCubit cubit) {
-    final options = config.options ?? [];
-    final selectedValues = cubit.getFormValueList(config.name);
+    final options = widget.config.options ?? [];
+    final selectedValues = cubit.getFormValueList(widget.config.name);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label.tr(), style: AppStyles.black14Regular),
+        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         Wrap(
           spacing: 8.w,
@@ -139,45 +165,45 @@ class DynamicFormField extends StatelessWidget {
                 } else {
                   updated.remove(o.value);
                 }
-                cubit.setFormValue(config.name, updated);
+                cubit.setFormValue(widget.config.name, updated);
+                if (!_touched) setState(() => _touched = true);
               },
               selectedColor: AppColors.primaryDark.withValues(alpha: 0.2),
               checkmarkColor: AppColors.primaryDark,
             );
           }).toList(),
         ),
-        Gap(12.h),
       ],
     );
   }
 
   Widget _buildCheckbox(BuildContext context, CreateRequestCubit cubit) {
-    final value = cubit.getFormValue(config.name) as bool? ?? false;
+    final value = cubit.getFormValue(widget.config.name) as bool? ?? false;
     return Column(
       children: [
         CheckboxListTile(
           value: value,
-          onChanged: (v) => cubit.setFormValue(config.name, v ?? false),
+          onChanged: (v) => cubit.setFormValue(widget.config.name, v ?? false),
           activeColor: AppColors.primaryDark,
           checkColor: AppColors.white,
-          title: Text(config.label.tr(), style: AppStyles.black14Regular),
+          title: Text(widget.config.label.tr(), style: AppStyles.black14Regular),
           contentPadding: EdgeInsets.zero,
           controlAffinity: ListTileControlAffinity.leading,
         ),
-        Gap(12.h),
       ],
     );
   }
 
-  Widget _buildDateField(BuildContext context, CreateRequestCubit cubit) {
-    final currentValue = cubit.getFormValueString(config.name);
+  Widget _buildDateField(BuildContext context, CreateRequestCubit cubit, String? error) {
+    final currentValue = cubit.getFormValueString(widget.config.name);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(config.label.tr(), style: AppStyles.black14Regular),
+        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
         Gap(6.h),
         GestureDetector(
           onTap: () async {
+            if (!_touched) setState(() => _touched = true);
             final date = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
@@ -185,7 +211,7 @@ class DynamicFormField extends StatelessWidget {
               lastDate: DateTime(2100),
             );
             if (date != null) {
-              cubit.setFormValue(config.name, date.toIso8601String().split('T')[0]);
+              cubit.setFormValue(widget.config.name, date.toIso8601String().split('T')[0]);
             }
           },
           child: Container(
@@ -193,14 +219,14 @@ class DynamicFormField extends StatelessWidget {
             height: 56.h,
             padding: EdgeInsets.symmetric(horizontal: 15.w),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.blueLight),
+              border: Border.all(color: error != null ? Colors.red : AppColors.blueLight),
               borderRadius: BorderRadius.circular(8),
               color: AppColors.white,
             ),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
               child: Text(
-                currentValue ?? config.label.tr(),
+                currentValue ?? widget.config.label.tr(),
                 style: TextStyle(
                   color: currentValue != null ? AppColors.black : AppColors.gray,
                   fontSize: 14,
@@ -209,7 +235,6 @@ class DynamicFormField extends StatelessWidget {
             ),
           ),
         ),
-        Gap(12.h),
       ],
     );
   }
@@ -224,7 +249,7 @@ class DynamicFormField extends StatelessWidget {
     VoidCallback? onPick;
     VoidCallback? onClear;
 
-    switch (config.name) {
+    switch (widget.config.name) {
       case 'mainImage':
         file = cubit.mainImage;
         isEmpty = file == null;
@@ -253,8 +278,8 @@ class DynamicFormField extends StatelessWidget {
         return SizedBox.shrink();
     }
 
-    final fileCount = (config.name == 'galleryImages') ? cubit.galleryImages.length : (isEmpty ? 0 : 1);
-    final isVideo = config.name == 'video';
+    final fileCount = (widget.config.name == 'galleryImages') ? cubit.galleryImages.length : (isEmpty ? 0 : 1);
+    final isVideo = widget.config.name == 'video';
 
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
@@ -282,7 +307,7 @@ class DynamicFormField extends StatelessWidget {
                   ),
                   Gap(8.h),
                   Text(
-                    config.label.tr(),
+                    widget.config.label.tr(),
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: Colors.black87),
                   ),
                   Gap(4.h),

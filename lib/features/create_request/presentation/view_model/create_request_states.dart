@@ -92,3 +92,4 @@ class GetSubAreasErrorState extends CreateRequestStates {
 }
 
 class FormValueChangedState extends CreateRequestStates {}
+class FormValidationState extends CreateRequestStates {}
