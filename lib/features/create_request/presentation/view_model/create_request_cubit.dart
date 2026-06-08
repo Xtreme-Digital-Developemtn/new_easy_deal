@@ -60,15 +60,16 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   bool validateCurrentStep() {
     validationAttempted = true;
     final inputs = currentStepInputs;
-    debugPrint('=== validateCurrentStep: step=$currentStepNumber, inputs count=${inputs.length}');
-    for (final input in inputs) {
-      debugPrint('  input: name=${input.name}, type=${input.type}, required=${input.required}, visible=${input.isVisible()}');
-    }
     final errors = <String, String>{};
 
     if (currentStepNumber == 2) {
       if (selectedCityObj == null) errors['cityId'] = LangKeys.fieldRequired.tr();
       if (selectedAreaObj == null) errors['areaId'] = LangKeys.fieldRequired.tr();
+    }
+
+    if (currentStepNumber == 4 || currentStepNumber == 5) {
+      if (_isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
+      if (_isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
     }
 
     for (final input in inputs) {
@@ -448,8 +449,6 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   // Step validation & navigation
   // ========================================================================
   void handleStepOne(BuildContext context) {
-    debugPrint('=== handleStepOne: step=$currentStepNumber');
-    debugPrint('  spec=$selectedSpecializationValue, dealType=$selectedDealTypeValue, unitType=$selectedUnitTypeValue');
     if (selectedSpecializationValue == null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(LangKeys.youMustChooseFieldOfSpecialization.tr())));
     } else if (selectedDealTypeValue == null) {
@@ -462,21 +461,14 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   }
 
   void handleNextSteps(BuildContext context) {
-    debugPrint('=== handleNextSteps: step=$currentStepNumber');
     // Sync all controller values to formValues
     for (final entry in controllers.entries) {
       if (entry.value.text.isNotEmpty) {
         formValues[entry.key] = entry.value.text;
-        debugPrint('  synced controller: ${entry.key} = ${entry.value.text}');
       }
     }
 
-    debugPrint('  formValues keys: ${formValues.keys}');
-    if (!validateCurrentStep()) {
-      debugPrint('  validation FAILED, errors: ${formErrors}');
-      return;
-    }
-    debugPrint('  validation PASSED');
+    if (!validateCurrentStep()) return;
 
     final total = totalSteps;
     if (currentStepNumber < total) {
