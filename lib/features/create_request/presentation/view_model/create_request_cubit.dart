@@ -583,7 +583,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
         final requestId = data['data']?['id'] ?? data['id'];
         if (requestId != null) {
           emit(CreateRequestSuccessState(requestId));
-          context.pushNamed(Routes.assignToBrokerView, arguments: {'requestId': requestId});
+          context.pushNamedAndRemoveUntil(Routes.successAssignView);
         } else {
           emit(CreateRequestErrorState('Failed to get request ID'));
         }

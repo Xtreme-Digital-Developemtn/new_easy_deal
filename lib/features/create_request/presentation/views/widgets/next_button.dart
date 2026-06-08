@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,23 +13,41 @@ class NextButton extends StatelessWidget {
       builder: (context,state){
         var createRequestCubit = context.read<CreateRequestCubit>();
         final isLoading = state is CreateRequestLoadingState;
-        return ConditionalBuilder(
-          condition: !isLoading,
-          fallback: (context)=>CustomLoading(),
-          builder: (context){
-            return CustomButton(
-              onPressed: (){
-                if (createRequestCubit.currentStepNumber == 1) {
-                  createRequestCubit.handleStepOne(context);
-                } else {
-                  createRequestCubit.handleNextSteps(context);
-                }
-              },
-              text: createRequestCubit.currentStepNumber < createRequestCubit.totalSteps
-                  ? LangKeys.next.tr()
-                  : LangKeys.save.tr(),
-            );
+        final isLastStep = createRequestCubit.currentStepNumber >= createRequestCubit.totalSteps;
+        return GestureDetector(
+          onTap: isLoading ? null : (){
+            if (createRequestCubit.currentStepNumber == 1) {
+              createRequestCubit.handleStepOne(context);
+            } else {
+              createRequestCubit.handleNextSteps(context);
+            }
           },
+          child: Container(
+            width: double.infinity,
+            height: 50.h,
+            decoration: BoxDecoration(
+              gradient: isLoading ? null : const LinearGradient(
+                colors: [AppColors.primaryDark, AppColors.primaryLight],
+                end: Alignment.topRight,
+                begin: Alignment.bottomLeft,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              color: isLoading ? AppColors.blueVeryLight : null,
+            ),
+            child: Center(
+              child: isLoading
+                  ? LoadingAnimationWidget.threeArchedCircle(
+                      size: 24, color: AppColors.primaryDark,
+                    )
+                  : Text(
+                      isLastStep ? LangKeys.send.tr() : LangKeys.next.tr(),
+                      style: AppStyles.black14Medium.copyWith(
+                        color: AppColors.scaffoldBackground,
+                        fontSize: 20,
+                      ),
+                    ),
+            ),
+          ),
         );
       },
     );
