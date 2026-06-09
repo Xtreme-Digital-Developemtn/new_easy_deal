@@ -25,12 +25,16 @@ class AssignToBrokerRepoImpl implements AssignToBrokerRepo {
   @override
   Future<Either<Failure, Map<String, dynamic>>> assignBrokers(int requestId, int senderId, List<int> brokerIds) async {
     try {
+      final formMap = <String, dynamic>{
+        'senderId': senderId.toString(),
+      };
+      for (var i = 0; i < brokerIds.length; i++) {
+        formMap['brokerIds[$i]'] = brokerIds[i].toString();
+      }
       var response = await apiService!.postData(
         endPoint: '${EndPoints.assignToBrokers}/$requestId',
-        data: {
-          'senderId': senderId,
-          'brokerIds': brokerIds,
-        },
+        data: FormData.fromMap(formMap),
+        isMultipart: true,
       );
       return right(Map<String, dynamic>.from(response.data));
     } catch (e) {

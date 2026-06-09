@@ -1,4 +1,3 @@
-import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -23,10 +22,9 @@ class SuccessAssignView extends StatelessWidget {
             ),
             CustomButton(
               onPressed: (){
-                // context.read<LayoutCubit>().changeBottomNav(0, context);
-                // context.pushNamed(Routes.assignToBrokerView, arguments: {'requestId': requestId});
+                Navigator.of(context).pushNamedAndRemoveUntil(Routes.layoutView, (route) => false);
               },
-              text: LangKeys.assignToBroker.tr(),
+              text: LangKeys.backToHome.tr(),
             ),
           ],
         ),
@@ -34,9 +32,3 @@ class SuccessAssignView extends StatelessWidget {
     );
   }
 }
-/// اسم الوسيط
-/// نوع الحساب
-/// النوع
-/// المنطقه
-/// التخصص
-/// التخصص الفرعي
