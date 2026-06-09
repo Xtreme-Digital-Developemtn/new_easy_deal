@@ -34,3 +34,9 @@ class SuccessAssignView extends StatelessWidget {
     );
   }
 }
+/// اسم الوسيط
+/// نوع الحساب
+/// النوع
+/// المنطقه
+/// التخصص
+/// التخصص الفرعي

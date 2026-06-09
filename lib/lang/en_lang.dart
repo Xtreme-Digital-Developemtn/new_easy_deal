@@ -810,5 +810,9 @@ class EnLang {
     "MAXIMUM_BUILDING_AREA": "Maximum Building Area (m²)",
     "Minimum Average Daily Rent Price": "Minimum Average Daily Rent Price",
     "Maximum Average Daily Rent Price": "Maximum Average Daily Rent Price",
+    "brokerName": "Broker Name",
+    "accountType": "Account Type",
+    "specialization": "Specialization",
+    "specializationScope": "Specialization Scope",
   };
 }

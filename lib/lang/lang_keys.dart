@@ -547,8 +547,10 @@ abstract class LangKeys {
   static const String enterMobileNumber = "enterMobileNumber";
   static const String enterTheIssueTitle = "enterTheIssueTitle";
   static const String title = "title";
-
-
+  static const String brokerName = 'brokerName';
+  static const String accountType = 'accountType';
+  static const String specialization = 'specialization';
+  static const String specializationScope = 'specializationScope';
 
 
 

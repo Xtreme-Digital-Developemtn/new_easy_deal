@@ -810,5 +810,9 @@ class ArLang {
     "MAXIMUM_BUILDING_AREA": "الحد الأقصى لمساحة المبنى (م²)",
     "Minimum Average Daily Rent Price": "الحد الأدنى لمتوسط الإيجار اليومي",
     "Maximum Average Daily Rent Price": "الحد الأقصى لمتوسط الإيجار اليومي",
+    "brokerName": "اسم الوسيط",
+    "accountType": "نوع الحساب",
+    "specialization": "التخصص",
+    "specializationScope": "التخصص الفرعي",
   };
 }

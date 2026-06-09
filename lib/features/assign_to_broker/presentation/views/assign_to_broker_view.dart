@@ -35,8 +35,8 @@ class _AssignToBrokerViewState extends State<AssignToBrokerView> {
         padding:   EdgeInsets.all(20.0.r),
         child: Column(
           children: [
-            SearchAndFilter(),
-            Gap(12.h),
+            // SearchAndFilter(),
+            // Gap(12.h),
             AssignBrokersList(),
           ],
         ),
