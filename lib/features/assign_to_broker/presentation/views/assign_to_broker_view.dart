@@ -33,12 +33,14 @@ class _AssignToBrokerViewState extends State<AssignToBrokerView> {
       appBar: GlobalAppBar(title: LangKeys.assignToBroker),
       body: Padding(
         padding:   EdgeInsets.all(20.0.r),
-        child: Column(
-          children: [
-            // SearchAndFilter(),
-            // Gap(12.h),
-            AssignBrokersList(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // SearchAndFilter(),
+              // Gap(12.h),
+              AssignBrokersList(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BlocBuilder<AssignToBrokerCubit, AssignToBrokerStates>(

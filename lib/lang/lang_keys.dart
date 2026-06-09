@@ -551,6 +551,39 @@ abstract class LangKeys {
   static const String accountType = 'accountType';
   static const String specialization = 'specialization';
   static const String specializationScope = 'specializationScope';
+  static const String freeAccount = 'freeAccount';
+  static const String silverAccount = 'silverAccount';
+  static const String bronzeAccount = 'bronzeAccount';
+  static const String goldenAccount = 'goldenAccount';
+  static const String realEstateBrokageCompany = 'realEstateBrokageCompany';
+  static const String independent = 'independent';
+
+  static const String purchasingSellResidentialOutsideCompound = 'PURCHASING_SELL_RESIDENTIAL_OUTSIDE_COMPOUND';
+  static const String purchasingSellNationalHousingProjectsOutsideCompound = 'PURCHASING_SELL_NATIONAL_HOUSING_PROJECTS_OUTSIDE_COMPOUND';
+  static const String purchasingSellAdministrativeCommercialUnitsOutsideCompound = 'PURCHASING_SELL_ADMINISTRATIVE_COMMERCIAL_UNITS_OUTSIDE_COMPOUND';
+  static const String purchasingSellIndustrialAndWarehousingOutsideCompound = 'PURCHASING_SELL_INDUSTRIAL_AND_WAREHOUSING_OUTSIDE_COMPOUND';
+  static const String purchasingSellLandsAndReadyProjectsOutsideCompound = 'PURCHASING_SELL_LANDS_AND_READY_PROJECTS_OUTSIDE_COMPOUND';
+  static const String purchasingSellVillasAndBuildingsOutsideCompound = 'PURCHASING_SELL_VILLAS_AND_BUILDINGS_OUTSIDE_COMPOUND';
+  static const String purchasingSellVacationUnitsOutsideCompound = 'PURCHASING_SELL_VACATION_UNITS_OUTSIDE_COMPOUND';
+  static const String purchasingSellResidentialInsideCompound = 'PURCHASING_SELL_RESIDENTIAL_INSIDE_COMPOUND';
+  static const String purchasingSellVillasInsideCompound = 'PURCHASING_SELL_VILLAS_INSIDE_COMPOUND';
+  static const String purchasingSellAdministrativeCommercialUnitsInsideCompound = 'PURCHASING_SELL_ADMINISTRATIVE_COMMERCIAL_UNITS_INSIDE_COMPOUND';
+  static const String purchasingSellVacationUnitsInsideCompound = 'PURCHASING_SELL_VACATION_UNITS_INSIDE_COMPOUND';
+  static const String rentResidentialInsideCompound = 'RENT_RESIDENTIAL_INSIDE_COMPOUND';
+  static const String rentHotelVacationUnitsInsideCompound = 'RENT_HOTEL_VACATION_UNITS_INSIDE_COMPOUND';
+  static const String rentAdministrativeCommercialUnitsInsideCompound = 'RENT_ADMINISTRATIVE_COMMERCIAL_UNITS_INSIDE_COMPOUND';
+  static const String rentResidentialOutsideCompound = 'RENT_RESIDENTIAL_OUTSIDE_COMPOUND';
+  static const String rentNationalHousingProjectsOutsideCompound = 'RENT_NATIONAL_HOUSING_PROJECTS_OUTSIDE_COMPOUND';
+  static const String rentAdministrativeCommercialUnitsOutsideCompound = 'RENT_ADMINISTRATIVE_COMMERCIAL_UNITS_OUTSIDE_COMPOUND';
+  static const String rentIndustrialAndWarehousingOutsideCompound = 'RENT_INDUSTRIAL_AND_WAREHOUSING_OUTSIDE_COMPOUND';
+  static const String rentHotelVacationUnitsOutsideCompound = 'RENT_HOTEL_VACATION_UNITS_OUTSIDE_COMPOUND';
+
+  static const String purchasingSellOutsideCompound = 'PURCHASING_SELL_OUTSIDE_COMPOUND';
+  static const String purchasingSellInsideCompound = 'PURCHASING_SELL_INSIDE_COMPOUND';
+  static const String primaryInsideCompoundKey = 'PRIMARY_INSIDE_COMPOUND';
+  static const String resaleInsideCompoundKey = 'RESALE_INSIDE_COMPOUND';
+  static const String rentalsOutsideCompoundKey = 'RENTALS_OUTSIDE_COMPOUND';
+  static const String rentalsInsideCompoundKey = 'RENTALS_INSIDE_COMPOUND';
 
 
 
