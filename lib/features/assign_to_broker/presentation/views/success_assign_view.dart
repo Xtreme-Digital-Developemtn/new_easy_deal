@@ -24,7 +24,7 @@ class SuccessAssignView extends StatelessWidget {
             CustomButton(
               onPressed: (){
                 // context.read<LayoutCubit>().changeBottomNav(0, context);
-                context.pushNamedAndRemoveUntil(Routes.assignToBrokerView);
+                // context.pushNamed(Routes.assignToBrokerView, arguments: {'requestId': requestId});
               },
               text: LangKeys.assignToBroker.tr(),
             ),
