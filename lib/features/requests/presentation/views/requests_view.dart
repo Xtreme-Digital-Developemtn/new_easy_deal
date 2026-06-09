@@ -3,6 +3,7 @@ import 'package:easy_deal/features/requests/presentation/view_model/requests_sta
 import 'package:easy_deal/features/requests/presentation/views/widgets/requests_count.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/requests_list.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class RequestsView extends StatelessWidget {
@@ -17,6 +18,23 @@ class RequestsView extends StatelessWidget {
           child: BlocBuilder<RequestsCubit, RequestsStates>(
             builder: (context, state) {
               var requestsCubit = context.read<RequestsCubit>();
+
+              if (state is GetAllRequestsErrorState) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(state.error, style: AppStyles.gray14Medium, textAlign: TextAlign.center),
+                      Gap(16.h),
+                      CustomButton(
+                        onPressed: () => requestsCubit.getAllRequests(),
+                        text: LangKeys.reload.tr(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+
               final isLoading = state is GetAllRequestsLoadingState || requestsCubit.allRequestModel == null;
 
               return Column(

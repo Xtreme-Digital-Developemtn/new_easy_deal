@@ -8,7 +8,7 @@ import '../../../data/models/all_request_model.dart';
 class RequestsList extends StatelessWidget {
   const RequestsList({super.key, this.data, required this.isLoading});
 
-  final List<Data1>? data;
+  final List<RequestItem>? data;
   final bool isLoading;
 
   @override

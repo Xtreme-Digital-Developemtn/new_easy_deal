@@ -1,488 +1,370 @@
 class AllRequestModel {
-  String? status;
-  String? message;
-  Data? data;
+  final dynamic status;
+  final dynamic message;
+  final RequestsData data;
 
-  AllRequestModel({this.status, this.message, this.data});
+  AllRequestModel({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
 
-  AllRequestModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    data = json["data"] == null ? null : Data.fromJson(json["data"]);
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
-    _data["message"] = message;
-    if (data != null) {
-      _data["data"] = data?.toJson();
-    }
-    return _data;
+  factory AllRequestModel.fromJson(Map<dynamic, dynamic>? json) {
+    return AllRequestModel(
+      status: json?['status'] ?? '',
+      message: json?['message'] ?? '',
+      data: RequestsData.fromJson(json?['data']),
+    );
   }
 }
 
-class Data {
-  List<Data1>? data;
-  int? count;
-  int? newRequestsCount;
+class RequestsData {
+  final List<RequestItem> data;
+  final dynamic count;
+  final dynamic newRequestsCount;
 
-  Data({this.data, this.count, this.newRequestsCount});
+  RequestsData({
+    required this.data,
+    required this.count,
+    required this.newRequestsCount,
+  });
 
-  Data.fromJson(Map<String, dynamic> json) {
-    data = json["data"] == null
-        ? null
-        : (json["data"] as List).map((e) => Data1.fromJson(e)).toList();
-    count = json["count"];
-    newRequestsCount = json["newRequestsCount"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if (data != null) {
-      _data["data"] = data?.map((e) => e.toJson()).toList();
-    }
-    _data["count"] = count;
-    _data["newRequestsCount"] = newRequestsCount;
-    return _data;
+  factory RequestsData.fromJson(Map<dynamic, dynamic>? json) {
+    return RequestsData(
+      data: (json?['data'] as List? ?? [])
+          .map((e) => RequestItem.fromJson(e))
+          .toList(),
+      count: json?['count'] ?? 0,
+      newRequestsCount: json?['newRequestsCount'] ?? 0,
+    );
   }
 }
 
-class Data1 {
-  int? id;
-  String? title;
-  String? specializationScope;
-  String? type;
-  String? unit;
-  String? status;
-  int? numberOfReplies;
-  User? user;
-  String? createdAt;
-  String? updatedAt;
-  dynamic detailedAddress;
-  List<Locations>? locations;
-  Map<String, dynamic>? attributes; // تغيير إلى Map
-  List<Brokers>? brokers;
-  dynamic mainImage;
-  dynamic unitInMasterPlanImage;
-  List<dynamic>? gallery;
-  List<AssignedBrokers>? assignedBrokers;
+class RequestItem {
+  final dynamic id;
+  final dynamic title;
+  final dynamic specializationScope;
+  final dynamic type;
+  final dynamic unit;
+  final dynamic status;
+  final dynamic numberOfReplies;
+  final User user;
+  final dynamic createdAt;
+  final dynamic updatedAt;
+  final dynamic detailedAddress;
+  final List<LocationModel> locations;
+  final RequestAttributes attributes;
+  final List<Broker> brokers;
+  final List<AssignedBroker> assignedBrokers;
 
-  Data1({
-    this.id,
-    this.title,
-    this.specializationScope,
-    this.type,
-    this.unit,
-    this.status,
-    this.numberOfReplies,
-    this.user,
-    this.createdAt,
-    this.updatedAt,
+  RequestItem({
+    required this.id,
+    required this.title,
+    required this.specializationScope,
+    required this.type,
+    required this.unit,
+    required this.status,
+    required this.numberOfReplies,
+    required this.user,
+    required this.createdAt,
+    required this.updatedAt,
     this.detailedAddress,
-    this.locations,
-    this.attributes,
-    this.brokers,
-    this.mainImage,
-    this.unitInMasterPlanImage,
-    this.gallery,
-    this.assignedBrokers,
+    required this.locations,
+    required this.attributes,
+    required this.brokers,
+    required this.assignedBrokers,
   });
 
-  Data1.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    title = json["title"];
-    specializationScope = json["specializationScope"];
-    type = json["type"];
-    unit = json["unit"];
-    status = json["status"];
-    numberOfReplies = json["numberOfReplies"];
-    user = json["user"] == null ? null : User.fromJson(json["user"]);
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
-    detailedAddress = json["detailedAddress"];
-    locations = json["locations"] == null
-        ? null
-        : (json["locations"] as List).map((e) => Locations.fromJson(e)).toList();
-
-    // التعامل مع attributes كـ Map ديناميكي
-    attributes = json["attributes"] != null
-        ? Map<String, dynamic>.from(json["attributes"])
-        : null;
-
-    brokers = json["brokers"] == null
-        ? null
-        : (json["brokers"] as List).map((e) => Brokers.fromJson(e)).toList();
-    mainImage = json["mainImage"];
-    unitInMasterPlanImage = json["unitInMasterPlanImage"];
-    gallery = json["gallery"] ?? [];
-    assignedBrokers = json["assignedBrokers"] == null
-        ? null
-        : (json["assignedBrokers"] as List)
-        .map((e) => AssignedBrokers.fromJson(e))
-        .toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["title"] = title;
-    _data["specializationScope"] = specializationScope;
-    _data["type"] = type;
-    _data["unit"] = unit;
-    _data["status"] = status;
-    _data["numberOfReplies"] = numberOfReplies;
-    if (user != null) {
-      _data["user"] = user?.toJson();
-    }
-    _data["createdAt"] = createdAt;
-    _data["updatedAt"] = updatedAt;
-    _data["detailedAddress"] = detailedAddress;
-    if (locations != null) {
-      _data["locations"] = locations?.map((e) => e.toJson()).toList();
-    }
-    if (attributes != null) {
-      _data["attributes"] = attributes;
-    }
-    if (brokers != null) {
-      _data["brokers"] = brokers?.map((e) => e.toJson()).toList();
-    }
-    _data["mainImage"] = mainImage;
-    _data["unitInMasterPlanImage"] = unitInMasterPlanImage;
-    if (gallery != null) {
-      _data["gallery"] = gallery;
-    }
-    if (assignedBrokers != null) {
-      _data["assignedBrokers"] = assignedBrokers?.map((e) => e.toJson()).toList();
-    }
-    return _data;
-  }
-}
-
-class AssignedBrokers {
-  int? brokerId;
-  String? receiverName;
-  int? senderId;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
-  String? name;
-  String? phone;
-  String? role;
-
-  AssignedBrokers({
-    this.brokerId,
-    this.receiverName,
-    this.senderId,
-    this.status,
-    this.createdAt,
-    this.updatedAt,
-    this.name,
-    this.phone,
-    this.role,
-  });
-
-  AssignedBrokers.fromJson(Map<String, dynamic> json) {
-    brokerId = json["brokerId"];
-    receiverName = json["receiverName"];
-    senderId = json["senderId"];
-    status = json["status"];
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
-    name = json["name"];
-    phone = json["phone"];
-    role = json["role"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["brokerId"] = brokerId;
-    _data["receiverName"] = receiverName;
-    _data["senderId"] = senderId;
-    _data["status"] = status;
-    _data["createdAt"] = createdAt;
-    _data["updatedAt"] = updatedAt;
-    _data["name"] = name;
-    _data["phone"] = phone;
-    _data["role"] = role;
-    return _data;
-  }
-}
-
-class Brokers {
-  int? id;
-  String? accountType;
-  String? fullName;
-  String? image;
-  dynamic averageRating;
-  int? ratingCount;
-  String? type;
-  List<Specializations>? specializations;
-  List<Areas1>? areas;
-
-  Brokers({
-    this.id,
-    this.accountType,
-    this.fullName,
-    this.image,
-    this.averageRating,
-    this.ratingCount,
-    this.type,
-    this.specializations,
-    this.areas,
-  });
-
-  Brokers.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    accountType = json["accountType"];
-    fullName = json["fullName"];
-    image = json["image"];
-    averageRating = json["averageRating"];
-    ratingCount = json["ratingCount"];
-    type = json["type"];
-    specializations = json["specializations"] == null
-        ? null
-        : (json["specializations"] as List)
-        .map((e) => Specializations.fromJson(e))
-        .toList();
-    areas = json["areas"] == null
-        ? null
-        : (json["areas"] as List).map((e) => Areas1.fromJson(e)).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["accountType"] = accountType;
-    _data["fullName"] = fullName;
-    _data["image"] = image;
-    _data["averageRating"] = averageRating;
-    _data["ratingCount"] = ratingCount;
-    _data["type"] = type;
-    if (specializations != null) {
-      _data["specializations"] = specializations?.map((e) => e.toJson()).toList();
-    }
-    if (areas != null) {
-      _data["areas"] = areas?.map((e) => e.toJson()).toList();
-    }
-    return _data;
-  }
-}
-
-class Areas1 {
-  String? nameEn;
-  String? nameAr;
-  int? cityId;
-
-  Areas1({this.nameEn, this.nameAr, this.cityId});
-
-  Areas1.fromJson(Map<String, dynamic> json) {
-    nameEn = json["nameEn"];
-    nameAr = json["nameAr"];
-    cityId = json["cityId"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["nameEn"] = nameEn;
-    _data["nameAr"] = nameAr;
-    _data["cityId"] = cityId;
-    return _data;
-  }
-}
-
-class Specializations {
-  int? id;
-  String? specialization;
-  String? specializationScope;
-
-  Specializations({this.id, this.specialization, this.specializationScope});
-
-  Specializations.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    specialization = json["specialization"];
-    specializationScope = json["specializationScope"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["specialization"] = specialization;
-    _data["specializationScope"] = specializationScope;
-    return _data;
-  }
-}
-
-// إزالة class Attributes القديم واستخدام Map بدلاً منه
-
-class Locations {
-  City? city;
-  List<Areas>? areas;
-
-  Locations({this.city, this.areas});
-
-  Locations.fromJson(Map<String, dynamic> json) {
-    city = json["city"] == null ? null : City.fromJson(json["city"]);
-    areas = json["areas"] == null
-        ? null
-        : (json["areas"] as List).map((e) => Areas.fromJson(e)).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if (city != null) {
-      _data["city"] = city?.toJson();
-    }
-    if (areas != null) {
-      _data["areas"] = areas?.map((e) => e.toJson()).toList();
-    }
-    return _data;
-  }
-}
-
-class Areas {
-  Area? area;
-  List<SubAreas>? subAreas;
-
-  Areas({this.area, this.subAreas});
-
-  Areas.fromJson(Map<String, dynamic> json) {
-    area = json["area"] == null ? null : Area.fromJson(json["area"]);
-    subAreas = json["sub_areas"] == null
-        ? null
-        : (json["sub_areas"] as List).map((e) => SubAreas.fromJson(e)).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if (area != null) {
-      _data["area"] = area?.toJson();
-    }
-    if (subAreas != null) {
-      _data["sub_areas"] = subAreas?.map((e) => e.toJson()).toList();
-    }
-    return _data;
-  }
-}
-
-class SubAreas {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-  List<OtherSubAreas>? otherSubAreas;
-
-  SubAreas({this.id, this.nameEn, this.nameAr, this.otherSubAreas});
-
-  SubAreas.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-    otherSubAreas = json["other_sub_areas"] == null
-        ? null
-        : (json["other_sub_areas"] as List)
-        .map((e) => OtherSubAreas.fromJson(e))
-        .toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name_en"] = nameEn;
-    _data["name_ar"] = nameAr;
-    if (otherSubAreas != null) {
-      _data["other_sub_areas"] = otherSubAreas?.map((e) => e.toJson()).toList();
-    }
-    return _data;
-  }
-}
-
-class OtherSubAreas {
-  int? id;
-  String? name;
-
-  OtherSubAreas({this.id, this.name});
-
-  OtherSubAreas.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    name = json["name"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    return _data;
-  }
-}
-
-class Area {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-
-  Area({this.id, this.nameEn, this.nameAr});
-
-  Area.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name_en"] = nameEn;
-    _data["name_ar"] = nameAr;
-    return _data;
-  }
-}
-
-class City {
-  int? id;
-  String? nameEn;
-  String? nameAr;
-
-  City({this.id, this.nameEn, this.nameAr});
-
-  City.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name_en"] = nameEn;
-    _data["name_ar"] = nameAr;
-    return _data;
+  factory RequestItem.fromJson(Map<dynamic, dynamic>? json) {
+    return RequestItem(
+      id: json?['id'] ?? 0,
+      title: json?['title'] ?? '',
+      specializationScope: json?['specializationScope'] ?? '',
+      type: json?['type'] ?? '',
+      unit: json?['unit'] ?? '',
+      status: json?['status'] ?? '',
+      numberOfReplies: json?['numberOfReplies'] ?? 0,
+      user: User.fromJson(json?['user']),
+      createdAt: json?['createdAt'] ?? '',
+      updatedAt: json?['updatedAt'] ?? '',
+      detailedAddress: json?['detailedAddress'],
+      locations: (json?['locations'] as List? ?? [])
+          .map((e) => LocationModel.fromJson(e))
+          .toList(),
+      attributes: RequestAttributes.fromJson(json?['attributes']),
+      brokers: (json?['brokers'] as List? ?? [])
+          .map((e) => Broker.fromJson(e))
+          .toList(),
+      assignedBrokers: (json?['assignedBrokers'] as List? ?? [])
+          .map((e) => AssignedBroker.fromJson(e))
+          .toList(),
+    );
   }
 }
 
 class User {
-  String? name;
-  String? role;
-  int? id;
-  String? image;
-  String? phone;
+  final dynamic id;
+  final dynamic name;
+  final dynamic role;
+  final dynamic image;
+  final dynamic phone;
 
-  User({this.name, this.role, this.id, this.image, this.phone});
+  User({
+    required this.id,
+    required this.name,
+    required this.role,
+    required this.image,
+    required this.phone,
+  });
 
-  User.fromJson(Map<String, dynamic> json) {
-    name = json["name"];
-    role = json["role"];
-    id = json["id"];
-    image = json["image"];
-    phone = json["phone"];
+  factory User.fromJson(Map<dynamic, dynamic>? json) {
+    return User(
+      id: json?['id'] ?? 0,
+      name: json?['name'] ?? '',
+      role: json?['role'] ?? '',
+      image: json?['image'] ?? '',
+      phone: json?['phone'] ?? '',
+    );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["name"] = name;
-    _data["role"] = role;
-    _data["id"] = id;
-    _data["image"] = image;
-    _data["phone"] = phone;
-    return _data;
+class LocationModel {
+  final City city;
+  final List<AreaModel> areas;
+
+  LocationModel({
+    required this.city,
+    required this.areas,
+  });
+
+  factory LocationModel.fromJson(Map<dynamic, dynamic>? json) {
+    return LocationModel(
+      city: City.fromJson(json?['city']),
+      areas: (json?['areas'] as List? ?? [])
+          .map((e) => AreaModel.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class City {
+  final dynamic id;
+  final dynamic nameEn;
+  final dynamic nameAr;
+
+  City({
+    required this.id,
+    required this.nameEn,
+    required this.nameAr,
+  });
+
+  factory City.fromJson(Map<dynamic, dynamic>? json) {
+    return City(
+      id: json?['id'] ?? 0,
+      nameEn: json?['name_en'] ?? '',
+      nameAr: json?['name_ar'] ?? '',
+    );
+  }
+}
+
+class AreaModel {
+  final Area area;
+  final List<SubArea> subAreas;
+
+  AreaModel({
+    required this.area,
+    required this.subAreas,
+  });
+
+  factory AreaModel.fromJson(Map<dynamic, dynamic>? json) {
+    return AreaModel(
+      area: Area.fromJson(json?['area']),
+      subAreas: (json?['sub_areas'] as List? ?? [])
+          .map((e) => SubArea.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class Area {
+  final dynamic id;
+  final dynamic nameEn;
+  final dynamic nameAr;
+
+  Area({
+    required this.id,
+    required this.nameEn,
+    required this.nameAr,
+  });
+
+  factory Area.fromJson(Map<dynamic, dynamic>? json) {
+    return Area(
+      id: json?['id'] ?? 0,
+      nameEn: json?['name_en'] ?? '',
+      nameAr: json?['name_ar'] ?? '',
+    );
+  }
+}
+
+class SubArea {
+  final dynamic id;
+  final dynamic nameEn;
+  final dynamic nameAr;
+  final List<OtherSubArea> otherSubAreas;
+
+  SubArea({
+    required this.id,
+    required this.nameEn,
+    required this.nameAr,
+    required this.otherSubAreas,
+  });
+
+  factory SubArea.fromJson(Map<dynamic, dynamic>? json) {
+    return SubArea(
+      id: json?['id'] ?? 0,
+      nameEn: json?['name_en'] ?? '',
+      nameAr: json?['name_ar'] ?? '',
+      otherSubAreas: (json?['otherSubAreas'] as List? ?? [])
+          .map((e) => OtherSubArea.fromJson(e))
+          .toList(),
+    );
+  }
+}
+
+class OtherSubArea {
+  final dynamic id;
+  final dynamic name;
+
+  OtherSubArea({
+    required this.id,
+    required this.name,
+  });
+
+  factory OtherSubArea.fromJson(Map<dynamic, dynamic>? json) {
+    return OtherSubArea(
+      id: json?['id'] ?? 0,
+      name: json?['name'] ?? '',
+    );
+  }
+}
+
+class RequestAttributes {
+  final dynamic locationSuggestions;
+  final dynamic floor;
+  final dynamic unitAreaMin;
+  final dynamic unitAreaMax;
+  final dynamic rooms;
+  final dynamic bathRooms;
+  final dynamic unitView;
+  final dynamic finishingStatus;
+  final dynamic deliveryStatus;
+  final dynamic notes;
+  final List<dynamic> otherAccessories;
+  final dynamic paymentMethod;
+  final dynamic averageUnitPriceMin;
+  final dynamic averageUnitPriceMax;
+
+  RequestAttributes({
+    required this.locationSuggestions,
+    required this.floor,
+    required this.unitAreaMin,
+    required this.unitAreaMax,
+    required this.rooms,
+    required this.bathRooms,
+    required this.unitView,
+    required this.finishingStatus,
+    required this.deliveryStatus,
+    required this.notes,
+    required this.otherAccessories,
+    required this.paymentMethod,
+    required this.averageUnitPriceMin,
+    required this.averageUnitPriceMax,
+  });
+
+  factory RequestAttributes.fromJson(Map<dynamic, dynamic>? json) {
+    return RequestAttributes(
+      locationSuggestions: json?['locationSuggestions'] ?? '',
+      floor: json?['floor'] ?? '',
+      unitAreaMin: json?['unitAreaMin'] ?? '',
+      unitAreaMax: json?['unitAreaMax'] ?? '',
+      rooms: json?['rooms'] ?? '',
+      bathRooms: json?['bathRooms'] ?? '',
+      unitView: json?['unitView'] ?? '',
+      finishingStatus: json?['finishingStatus'] ?? '',
+      deliveryStatus: json?['deliveryStatus'] ?? '',
+      notes: json?['notes'] ?? '',
+      otherAccessories:
+      List<dynamic>.from(json?['otherAccessories'] ?? []),
+      paymentMethod: json?['paymentMethod'] ?? '',
+      averageUnitPriceMin: json?['averageUnitPriceMin'] ?? '',
+      averageUnitPriceMax: json?['averageUnitPriceMax'] ?? '',
+    );
+  }
+}
+
+class Broker {
+  final dynamic id;
+  final dynamic accountType;
+  final dynamic fullName;
+  final dynamic image;
+  final dynamic type;
+
+  Broker({
+    required this.id,
+    required this.accountType,
+    required this.fullName,
+    required this.image,
+    required this.type,
+  });
+
+  factory Broker.fromJson(Map<dynamic, dynamic>? json) {
+    return Broker(
+      id: json?['id'] ?? 0,
+      accountType: json?['accountType'] ?? '',
+      fullName: json?['fullName'] ?? '',
+      image: json?['image'] ?? '',
+      type: json?['type'] ?? '',
+    );
+  }
+}
+
+class AssignedBroker {
+  final dynamic brokerId;
+  final dynamic name;
+  final dynamic senderId;
+  final dynamic role;
+  final dynamic phone;
+  final dynamic receiverName;
+  final dynamic receiverRole;
+  final dynamic status;
+  final dynamic createdAt;
+  final dynamic updatedAt;
+
+  AssignedBroker({
+    required this.brokerId,
+    required this.name,
+    required this.senderId,
+    required this.role,
+    required this.phone,
+    required this.receiverName,
+    required this.receiverRole,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory AssignedBroker.fromJson(Map<dynamic, dynamic>? json) {
+    return AssignedBroker(
+      brokerId: json?['brokerId'] ?? 0,
+      name: json?['name'] ?? '',
+      senderId: json?['senderId'] ?? 0,
+      role: json?['role'] ?? '',
+      phone: json?['phone'] ?? '',
+      receiverName: json?['receiverName'] ?? '',
+      receiverRole: json?['receiverRole'] ?? '',
+      status: json?['status'] ?? '',
+      createdAt: json?['createdAt'] ?? '',
+      updatedAt: json?['updatedAt'] ?? '',
+    );
   }
 }

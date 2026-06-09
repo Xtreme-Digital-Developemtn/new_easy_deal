@@ -341,7 +341,7 @@ class AppRouter {
       ),
       BlocProvider(
         create: (context) =>
-            RequestsCubit(getIt.get<RequestsRepoImpl>()) ,
+            RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),
         child: RequestsView(),
       ),
       BlocProvider(
