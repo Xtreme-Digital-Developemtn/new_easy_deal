@@ -1,9 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
+import 'package:easy_deal/features/otp/presentation/view_model/otp_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import '../../../../../otp/presentation/view_model/otp_states.dart';
 
 class CreatePasswordButtons extends StatelessWidget {
   const CreatePasswordButtons({super.key, required this.formKey});
@@ -43,10 +46,10 @@ class CreatePasswordButtons extends StatelessWidget {
             ),
             Gap(12.h),
             if (registerCubit.activeStep == 4)
-              BlocConsumer<RegisterCubit , RegisterStates>(
+              BlocConsumer<OtpCubit , OtpStates>(
                 listener:(context,state){
-                  if(state is SignUpSuccess){
-                    Toast.showSuccessToast(msg: state.registerModel.message.toString(), context: context);
+                  if(state is SendOtpSuccessState){
+                    Toast.showSuccessToast(msg: state.sendOtpModel.message.toString(), context: context);
                     context.pushNamed(
                       Routes.otpView,
                       arguments: {
@@ -56,27 +59,28 @@ class CreatePasswordButtons extends StatelessWidget {
                       },
                     );
                   }
-                  else if (state is SignUpError){
-                    Toast.showErrorToast(msg: state.message.toString(), context: context);
+                  else if (state is SendOtpErrorState){
+                    Toast.showErrorToast(msg: state.error.toString(), context: context);
                   }
                 } ,
                 builder: (context,state){
                  return   ConditionalBuilder(
-                   condition: state is ! SignUpLoading,
+                   condition: state is ! SendOtpLoadingState,
                    fallback: (context)=>CustomLoading(),
                   builder: (context){
                      return CustomButton(
                        onPressed: () {
                          if (formKey.currentState!.validate()) {
-                           registerCubit.register(
-                             fullName: registerCubit.nameCon.text,
-                             phone: registerCubit.phoneCon.text,
-                             password:registerCubit.passwordCon.text,
-                             passwordConfirmation: registerCubit.confirmPasswordCon.text,
-                             gender: registerCubit.gender.toString(),
-                             email: registerCubit.emailCon.text,
-                             image: null,
-                           );
+                           context.read<OtpCubit>().sendOtp(phone: registerCubit.phoneCon.text);
+                           // registerCubit.register(
+                           //   fullName: registerCubit.nameCon.text,
+                           //   phone: registerCubit.phoneCon.text,
+                           //   password:registerCubit.passwordCon.text,
+                           //   passwordConfirmation: registerCubit.confirmPasswordCon.text,
+                           //   gender: registerCubit.gender.toString(),
+                           //   email: registerCubit.emailCon.text,
+                           //   image: null,
+                           // );
 
                          }
                        },
