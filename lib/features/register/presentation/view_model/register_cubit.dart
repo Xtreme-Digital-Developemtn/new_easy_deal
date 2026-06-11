@@ -4,6 +4,8 @@ import 'package:easy_deal/features/register/data/models/register_model.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
+import '../../data/models/send_otp_model.dart';
+import '../../data/models/verify_otp_model.dart';
 import '../../data/repos/register_repo.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -194,5 +196,47 @@ class RegisterCubit extends Cubit<RegisterStates> {
     CacheHelper.saveData(key: "userId", value: id);
     CacheHelper.saveData(key: "userEmail", value: email);
     CacheHelper.saveData(key: "userRole", value: role);
+  }
+
+
+
+  // ==================== Send Otp ====================
+  SendOtpModel? sendOtpModel;
+  Future<void> sendOtp({
+    required String phone,
+  })
+  async {
+    emit(SendOtpLoadingState());
+    final result = await registerRepo!.sendOtp(phone:phone);
+    return result.fold(
+          (failure) {
+        emit(SendOtpErrorState(failure.errMessage));
+      },
+          (data) async {
+        sendOtpModel = data;
+        emit(SendOtpSuccessState(data));
+        CacheHelper.saveData(key: "phone", value: phone);
+      },
+    );
+  }
+
+
+  // ==================== Verify Otp ====================
+  VerifyOtpModel? verifyOtpModel;
+  Future<void> verifyOtp({
+    required String otp,required String phone
+  })
+  async {
+    emit(VerifyOtpLoadingState());
+    final result = await registerRepo!.verifyOtp(phone:phone,otp: otp);
+    return result.fold(
+          (failure) {
+        emit(VerifyOtpErrorState(failure.errMessage));
+      },
+          (data) async {
+        verifyOtpModel = data;
+        emit(VerifyOtpSuccessState(data));
+      },
+    );
   }
 }

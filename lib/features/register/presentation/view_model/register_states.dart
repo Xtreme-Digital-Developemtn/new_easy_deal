@@ -1,4 +1,6 @@
 import '../../data/models/register_model.dart';
+import '../../data/models/send_otp_model.dart';
+import '../../data/models/verify_otp_model.dart';
 
 abstract class RegisterStates{}
 
@@ -34,4 +36,25 @@ class SignUpSuccess  extends RegisterStates{
 class SignUpError  extends RegisterStates{
   final String message;
   SignUpError(this.message);
+}
+
+
+class VerifyOtpLoadingState extends RegisterStates{}
+class VerifyOtpSuccessState extends RegisterStates{
+  VerifyOtpModel verifyOtpModel;
+  VerifyOtpSuccessState(this.verifyOtpModel);
+}
+class VerifyOtpErrorState extends RegisterStates{
+  final String error;
+  VerifyOtpErrorState(this.error);
+}
+
+class SendOtpLoadingState extends RegisterStates{}
+class SendOtpSuccessState extends RegisterStates{
+  SendOtpModel sendOtpModel;
+  SendOtpSuccessState(this.sendOtpModel);
+}
+class SendOtpErrorState extends RegisterStates{
+  final String error;
+  SendOtpErrorState(this.error);
 }

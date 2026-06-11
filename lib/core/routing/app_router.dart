@@ -62,9 +62,6 @@ import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../features/notifications/presentation/views/notifications_view.dart';
-
-import '../../features/otp/data/repos/otp_repo_imple.dart';
-import '../../features/otp/presentation/view_model/otp_cubit.dart';
 import '../../features/otp/presentation/views/otp_view.dart';
 import '../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
 import '../../features/privacy_terms/presentation/view_model/privacy_terms_cubit.dart';
@@ -172,8 +169,16 @@ class AppRouter {
             contact: args["contact"] as String,
             isMobile: args["isMobile"] as bool,
             selectIndex: args["selectIndex"] as int,
+            name: args["name"] as String,
+            email: args["email"] as String,
+            role: args["role"] as String,
+            gender: args["gender"] as String,
+            password: args["password"] as String,
+            confirmPassword: args["confirmPassword"] as String,
+            phone: args["phone"] as String,
+
           ),
-          cubit: OtpCubit(getIt.get<OtpRepoImpl>()),
+          cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()),
         );
       case Routes.editPasswordView:
         return transition(
@@ -233,7 +238,16 @@ class AppRouter {
           cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()),
         );
       case Routes.successView:
-        return transition(screen: const SuccessView());
+        final args = arguments as Map<String, dynamic>;
+        return transition(screen:   SuccessView(
+          name: args["name"] as String,
+          email: args["email"] as String,
+          role: args["role"] as String,
+          gender: args["gender"] as String,
+          password: args["password"] as String,
+          confirmPassword: args["confirmPassword"] as String,
+          phone: args["phone"] as String,
+        ));
       case Routes.uploadBrokerDocView:
         final args = arguments as Map<String, dynamic>;
         return transition(
