@@ -6,6 +6,7 @@ import '../models/all_request_model.dart';
 
 abstract class RequestsRepo{
 
-  Future<Either<Failure,AllRequestModel>> getAllRequest();
+  Future<Either<Failure,AllRequestModel>> getAllRequest({  required int limit,
+    required int offset,});
 
 }

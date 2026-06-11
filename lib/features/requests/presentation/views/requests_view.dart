@@ -6,8 +6,33 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class RequestsView extends StatelessWidget {
+class RequestsView extends StatefulWidget {
   const RequestsView({super.key});
+
+  @override
+  State<RequestsView> createState() => _RequestsViewState();
+}
+
+class _RequestsViewState extends State<RequestsView> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        context.read<RequestsCubit>().loadMoreRequests();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +42,18 @@ class RequestsView extends StatelessWidget {
           padding: EdgeInsets.all(12.r),
           child: BlocBuilder<RequestsCubit, RequestsStates>(
             builder: (context, state) {
-              var requestsCubit = context.read<RequestsCubit>();
+              final requestsCubit = context.read<RequestsCubit>();
 
               if (state is GetAllRequestsErrorState) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(state.error, style: AppStyles.gray14Medium, textAlign: TextAlign.center),
+                      Text(
+                        state.error,
+                        style: AppStyles.gray14Medium,
+                        textAlign: TextAlign.center,
+                      ),
                       Gap(16.h),
                       CustomButton(
                         onPressed: () => requestsCubit.getAllRequests(),
@@ -35,7 +64,9 @@ class RequestsView extends StatelessWidget {
                 );
               }
 
-              final isLoading = state is GetAllRequestsLoadingState || requestsCubit.allRequestModel == null;
+              final isLoading =
+                  state is GetAllRequestsLoadingState &&
+                      requestsCubit.requests.isEmpty;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,13 +74,16 @@ class RequestsView extends StatelessWidget {
                   Skeletonizer(
                     enabled: isLoading,
                     child: RequestsCount(
-                      count: requestsCubit.allRequestModel?.data?.count ?? 0,
+                      count: requestsCubit.allRequestModel?.data.count ?? 0,
                     ),
                   ),
                   Gap(24.h),
                   RequestsList(
-                    data: requestsCubit.allRequestModel?.data?.data ?? [],
+                    controller: scrollController,
+                    data: requestsCubit.requests,
                     isLoading: isLoading,
+                    hasMore: requestsCubit.hasMore,
+                    isLoadingMore: requestsCubit.isLoadingMore,
                   ),
                 ],
               );
@@ -59,11 +93,10 @@ class RequestsView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
           context.pushNamed(Routes.createRequestView);
         },
         backgroundColor: AppColors.primaryDark,
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

@@ -12,13 +12,15 @@ class RequestsRepoImpl implements RequestsRepo {
 
 
 @override
-Future<Either<Failure, AllRequestModel>> getAllRequest() async{
+Future<Either<Failure, AllRequestModel>> getAllRequest({  required int limit,
+  required int offset,}) async{
   try {
     var response = await apiService!.getData(
       endPoint: EndPoints.requests,
       query: {
-        "limit" : "100",
-        "offset" : "0",
+        "limit" : limit,
+        "offset" : offset,
+        "userId" : "${CacheHelper.getData(key: "userId")}",
       }
     );
     AllRequestModel result = AllRequestModel.fromJson(response.data);

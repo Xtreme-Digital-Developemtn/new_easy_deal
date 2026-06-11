@@ -6,10 +6,20 @@ import '../../../../../main_imports.dart';
 import '../../../data/models/all_request_model.dart';
 
 class RequestsList extends StatelessWidget {
-  const RequestsList({super.key, this.data, required this.isLoading});
+  const RequestsList({
+    super.key,
+    required this.controller,
+    required this.isLoading,
+    required this.hasMore,
+    required this.isLoadingMore,
+    this.data,
+  });
 
+  final ScrollController controller;
   final List<RequestItem>? data;
   final bool isLoading;
+  final bool hasMore;
+  final bool isLoadingMore;
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +27,38 @@ class RequestsList extends StatelessWidget {
       child: Skeletonizer(
         enabled: isLoading,
         child: ListView.separated(
-          itemCount: isLoading ? 5 : data!.length,
+          controller: controller,
+          itemCount: isLoading
+              ? 5
+              : data!.length + (hasMore || isLoadingMore ? 1 : 0),
           separatorBuilder: (context, index) => Gap(12.h),
           itemBuilder: (context, index) {
             if (isLoading) {
-              return RequestListItemSkeleton();
+              return const RequestListItemSkeleton();
             }
+
+            if (index == data!.length) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Center(
+                  child: CustomLoading(),
+                ),
+              );
+            }
+
             final request = data![index];
+
             return RequestListItemCard(
               title: request.title.toString(),
               statusColor: AppColors.primaryDark,
               status: request.status.toString(),
-              date: DateTime.now().subtract(Duration(days: 2)),
+              date: DateTime.now().subtract(
+                const Duration(days: 2),
+              ),
               type: request.type.toString(),
-              address: request.detailedAddress?? LangKeys.noAddressFound.tr(),
+              address:
+              request.detailedAddress ??
+                  LangKeys.noAddressFound.tr(),
               range: request.specializationScope.toString(),
               id: request.id.toString(),
             );

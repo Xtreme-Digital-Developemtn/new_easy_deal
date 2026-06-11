@@ -11,19 +11,59 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
   static RequestsCubit get(context) => BlocProvider.of(context);
 
+  int limit = 3;
+  int offset = 0;
 
+  bool hasMore = true;
+  bool isLoadingMore = false;
+
+  List<RequestItem> requests = [];
   AllRequestModel? allRequestModel;
   Future<void> getAllRequests() async {
+    offset = 0;
+    hasMore = true;
     emit(GetAllRequestsLoadingState());
-    var result = await requestsRepo!.getAllRequest();
+    var result = await requestsRepo!.getAllRequest(limit: limit, offset: offset);
     return result.fold((failure) {
       emit(GetAllRequestsErrorState(failure.errMessage));
     }, (data) async {
-      allRequestModel = data;
+      requests = data.data.data ;
+
+      hasMore = requests.length >= limit;
       emit(GetAllRequestsSuccessState(data));
     });
   }
+  Future<void> loadMoreRequests() async {
+    if (isLoadingMore || !hasMore) return;
 
+    isLoadingMore = true;
+
+    offset += limit;
+
+    var result = await requestsRepo!.getAllRequest(
+      limit: limit,
+      offset: offset,
+    );
+
+    result.fold(
+          (failure) {
+        isLoadingMore = false;
+      },
+          (data) {
+        final newRequests = data.data.data  ;
+
+        requests.addAll(newRequests);
+
+        if (newRequests.length < limit) {
+          hasMore = false;
+        }
+
+        isLoadingMore = false;
+
+        emit(GetAllRequestsSuccessState(data));
+      },
+    );
+  }
 
 
 }
