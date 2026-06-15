@@ -70,10 +70,16 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
   }
 
   Future<void> assignToBrokers(BuildContext context) async {
-    if (selectedItems.isEmpty) {
+    if (assignBrokersList.isNotEmpty && selectedItems.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please select at least one broker')),
       );
+      return;
+    }
+
+    if (selectedItems.isEmpty) {
+      emit(AssignBrokersSuccessState());
+      context.pushNamedAndRemoveUntil(Routes.successAssignView);
       return;
     }
 

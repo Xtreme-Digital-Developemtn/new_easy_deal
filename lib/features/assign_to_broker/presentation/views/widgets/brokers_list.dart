@@ -64,16 +64,7 @@ class AssignBrokersList extends StatelessWidget {
                       TableRow(
                         children: List.filled(7, const Center(child: CircularProgressIndicator())),
                       )
-                    else if (cubit.assignBrokersList.isEmpty)
-                      TableRow(
-                        children: List.filled(7, Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(16.r),
-                            child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr(), style: AppStyles.gray14Medium),
-                          ),
-                        )),
-                      )
-                    else
+                    else if (cubit.assignBrokersList.isNotEmpty)
                       ...cubit.assignBrokersList.map((item) {
                         final isSelected = cubit.selectedItems.contains(item);
                         final areas = item.areas.map((a) => context.isArabic ? (a.nameAr ?? '') : (a.nameEn ?? '')).join(' - ');
