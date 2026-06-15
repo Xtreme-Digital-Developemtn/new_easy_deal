@@ -32,6 +32,16 @@ class AppStyles {
     fontWeight: semiBold,
     color: AppColors.black,
   );
+  static final TextStyle gray12Regular = _createStyle(
+    fontSize: 12.sp,
+    fontWeight: semiBold,
+    color: AppColors.errorDark,
+  );
+  static final TextStyle error13SemiBold = _createStyle(
+    fontSize: 13.sp,
+    fontWeight: regular,
+    color: AppColors.gray,
+  );
 
   static final TextStyle white12Medium = _createStyle(
     fontSize: 12.sp,

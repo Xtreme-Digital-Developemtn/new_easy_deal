@@ -16,7 +16,9 @@ class AboutUsViewBody extends StatelessWidget {
           var aboutUsCubit = context.read<AboutUsCubit>();
           return
             state is GetAboutUsLoadingState ? CustomLoading():
-                state is GetAboutUsErrorState ? ErrorWidgetUi(onRetry: (){
+                state is GetAboutUsErrorState ? ErrorWidgetUi(
+                  isFullScreen: true,
+                    onRetry: (){
                   aboutUsCubit.getAboutUs();
                 }):
             Column(

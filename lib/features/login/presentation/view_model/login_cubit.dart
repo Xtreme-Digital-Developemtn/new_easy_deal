@@ -13,7 +13,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
   // Controllers
   final TextEditingController passwordCon = TextEditingController();
-  final TextEditingController emailCon = TextEditingController();
+
   final TextEditingController phoneCon = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -24,7 +24,6 @@ class LoginCubit extends Cubit<LoginStates> {
   bool isPasswordVisible = true;
   bool _rememberMe = false;
   String phoneNumber = '';
-
 
 
   // Value notifiers
@@ -94,7 +93,6 @@ class LoginCubit extends Cubit<LoginStates> {
   void clearControllers() {
     passwordCon.clear();
     phoneCon.clear();
-    emailCon.clear();
     emit(LoginInitState());
   }
 
@@ -102,7 +100,6 @@ class LoginCubit extends Cubit<LoginStates> {
   Future<void> close() {
     // Dispose controllers
     passwordCon.dispose();
-    emailCon.dispose();
     phoneCon.dispose();
 
     // Dispose value notifiers

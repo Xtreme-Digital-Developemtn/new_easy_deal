@@ -13,9 +13,6 @@ class AboutUsView extends StatelessWidget {
     return Scaffold(
       appBar: GlobalAppBar(
         title: LangKeys.aboutUs.tr(),
-        actions: [
-          IconButton(onPressed: () {}, icon: Image.asset(PngImages.share)),
-        ],
       ),
       body: BlocProvider(
           create: (context)=>AboutUsCubit(getIt.get<AboutUsRepoImpl>())..getAboutUs(),
