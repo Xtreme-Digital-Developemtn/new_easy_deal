@@ -566,6 +566,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     addAttr('unitArea', getFormValueString('unitArea'));
     addAttr('rooms', getFormValueString('rooms') ?? numberOfRoomsCon.text);
     addAttr('bathRooms', getFormValueString('bathRooms') ?? bathroomsCon.text);
+    addAttr('subUnitType', getFormValueString('subUnitType'));
     addAttr('unitView', selectedTheUnitView ?? getFormValueString('unitView'));
     addAttr('finishingStatus', selectedFinishingCondition ?? getFormValueString('finishingStatus'));
     addAttr('deliveryStatus', selectedDeliveryStatus ?? getFormValueString('deliveryStatus'));

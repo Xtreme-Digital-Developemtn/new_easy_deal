@@ -43,12 +43,19 @@ class _ContactUsViewState extends State<ContactUsView> {
                 ContactUsItem(svgImage: SvgImages.email, title: "${contactUsCubit.contactUsModel?.data?.email}", onTap: (){
                   contactUsCubit.sendEmail("${contactUsCubit.contactUsModel?.data?.email}");
                 }),
-                ContactUsItem(svgImage: SvgImages.phone, title: "${contactUsCubit.contactUsModel?.data?.phone}", onTap: (){
+                ContactUsItem(
+                    svgImage: SvgImages.phone,
+                    title: "${contactUsCubit.contactUsModel?.data?.phone}",
+                    onTap: (){
                   contactUsCubit.makeCall("${contactUsCubit.contactUsModel?.data?.phone}");
                 }),
-                ContactUsItem(svgImage: SvgImages.global, title: "${contactUsCubit.contactUsModel?.data?.whatsapp}", onTap: (){
-                  contactUsCubit.openWebsite("${contactUsCubit.contactUsModel?.data?.whatsapp}");
-                }),
+                // ContactUsItem(
+                //     svgImage: SvgImages.global,
+                //     title: "${contactUsCubit.contactUsModel?.data?.whatsapp}",
+                //     onTap: (){
+                //
+                //   contactUsCubit.openWebsite("${contactUsCubit.contactUsModel?.data?.whatsapp}");
+                // }),
               ],
             ),
           );

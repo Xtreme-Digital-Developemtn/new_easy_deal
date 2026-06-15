@@ -4,8 +4,7 @@ import 'package:easy_deal/features/create_request/presentation/views/widgets/for
 import 'package:easy_deal/features/create_request/presentation/views/widgets/form_of_specialization_and_deal_type_unit_type.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/form_of_unit_info_details.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/form_of_unit_upload_unit_documents.dart';
-import 'package:easy_deal/features/create_request/presentation/views/widgets/next_button.dart';
-import 'package:easy_deal/features/create_request/presentation/views/widgets/past_button.dart';
+import 'package:easy_deal/features/create_request/presentation/views/widgets/next_and_prevoius_buttons.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/payment_system_price.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/step_number.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -65,24 +64,7 @@ class CreateRequestByCategoryView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BlocBuilder<CreateRequestCubit, CreateRequestStates>(
-        builder: (context, state) {
-          var cubit = context.read<CreateRequestCubit>();
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            color: Colors.white,
-            child: Row(
-              children: [
-                if (cubit.currentStepNumber > 1)
-                  Expanded(child: PastButton()),
-                if (cubit.currentStepNumber > 1)
-                  Gap(10.w),
-                Expanded(child: NextButton()),
-              ],
-            ),
-          );
-        },
-      ),
+      bottomNavigationBar: NextAndPreviousButtons(),
     );
   }
 }
