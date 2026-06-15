@@ -1,9 +1,7 @@
 import 'package:easy_deal/features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
-import 'package:easy_deal/features/assign_to_broker/presentation/view_model/assign_to_broker_states.dart';
+import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/assign_button.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/brokers_list.dart';
-import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/search_and_filter.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class AssignToBrokerView extends StatefulWidget {
   const AssignToBrokerView({super.key});
@@ -34,30 +32,10 @@ class _AssignToBrokerViewState extends State<AssignToBrokerView> {
       body: Padding(
         padding:   EdgeInsets.all(20.0.r),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // SearchAndFilter(),
-              // Gap(12.h),
-              AssignBrokersList(),
-            ],
-          ),
+          child: AssignBrokersList(),
         ),
       ),
-      bottomNavigationBar: BlocBuilder<AssignToBrokerCubit, AssignToBrokerStates>(
-        builder: (context, state) {
-          final isAssigning = state is AssignBrokersLoadingState;
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            color: Colors.white,
-            child: CustomButton(
-              onPressed: isAssigning ? null : () {
-                context.read<AssignToBrokerCubit>().assignToBrokers(context);
-              },
-              text: LangKeys.save.tr(),
-            ),
-          );
-        },
-      ),
+      bottomNavigationBar: AssignButton(),
     );
   }
 }
