@@ -14,7 +14,7 @@ class BrokerHomeView extends StatelessWidget {
         child: ListView(children: [
           BrokerMainSections(),
           Gap(12.h),
-          Statistics(),
+          Statistics(brokerId: CacheHelper.getData(key: "userId"),),
           Gap(12.h),
           LastRequests(),
         ],),
