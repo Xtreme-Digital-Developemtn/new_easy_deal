@@ -3,7 +3,9 @@ import 'package:easy_deal/features/profile/data/models/social_media_model.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../main_imports.dart';
+import '../../data/models/apply_promo_code_model.dart';
 import '../../data/models/logout_model.dart';
+import '../../data/models/promo_codes_last_applied_model.dart';
 import '../../data/repos/profile_repo.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
@@ -38,6 +40,10 @@ class ProfileCubit extends Cubit<ProfileStates> {
     }, (data) async {
       clientProfileModel = data;
       emit(GetClientProfileSuccessState(data));
+      if(clientProfileModel!.data!.role=="broker"){
+       getPromoCodesLastApplied(brokerId: clientProfileModel!.data!.id!);
+      }
+
     });
   }
 
@@ -63,5 +69,60 @@ class ProfileCubit extends Cubit<ProfileStates> {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
+
+
+  Future<void> openWhatsApp() async {
+    const String phone = '201551590735';
+
+    final Uri whatsappUrl = Uri.parse(
+      'https://wa.me/$phone',
+    );
+
+    if (await canLaunchUrl(whatsappUrl)) {
+      await launchUrl(
+        whatsappUrl,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      throw Exception('Could not launch WhatsApp');
+    }
+  }
+
+  PromoCodesLastAppliedModel? promoCodesLastAppliedModel;
+
+  Future<void> getPromoCodesLastApplied({required int brokerId}) async {
+    emit(GetPromoCodesLastAppliedLoadingState());
+    var result = await profileRepo!.getPromoCodesLastApplied(brokerId: brokerId);
+    return result.fold((failure) {
+      emit(GetPromoCodesLastAppliedErrorState(failure.errMessage));
+    }, (data) async {
+      promoCodesLastAppliedModel = data;
+      emit(GetPromoCodesLastAppliedSuccessState(data));
+    });
+  }
+
+
+  ApplyPromoCodeModel? applyPromoCodeModel;
+
+  Future<void> applyPromoCode({required String promoCode}) async {
+    emit(ApplyPromoCodeLoadingState());
+    var result = await profileRepo!.applyPromoCode(promoCode: promoCode);
+    return result.fold((failure) {
+      emit(ApplyPromoCodeErrorState(failure.errMessage));
+    }, (data) async {
+      if(data.success==true){
+        applyPromoCodeModel = data;
+        emit(ApplyPromoCodeSuccessState(data));
+      } else {
+        emit(
+          ApplyPromoCodeErrorState(
+            data.message ?? 'حدث خطأ أثناء تطبيق كود الخصم',
+          ),
+        );
+      }
+
+    });
+  }
+
 
 }

@@ -29,7 +29,7 @@ class ButtonForUploadImages extends StatelessWidget {
                 } else {
                   cubit.submitIndividualDocuments();
                 }
-                context.pushNamedAndRemoveUntil(Routes.successView);
+                context.pushNamed(Routes.successView);
               }
                   : null,
             );

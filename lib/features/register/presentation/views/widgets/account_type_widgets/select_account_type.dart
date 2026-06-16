@@ -29,7 +29,7 @@ class SelectAccountType extends StatelessWidget {
                     height : 45.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40.r),
-                      color: registerCubit.selectTypeIndex==1 ? AppColors.blue : AppColors.white,
+                      color: registerCubit.selectTypeIndex==1 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -42,7 +42,7 @@ class SelectAccountType extends StatelessWidget {
                               registerCubit.selectTypeIndex==1 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.client.tr(),style:registerCubit.selectTypeIndex==1 ? AppStyles.white16SemiBold : AppStyles.black14SemiBold,),
+                        Text(LangKeys.client.tr(),style:registerCubit.selectTypeIndex==1 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),
@@ -58,7 +58,7 @@ class SelectAccountType extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40.r),
-                      color: registerCubit.selectTypeIndex==2 ? AppColors.blue : AppColors.white,
+                      color: registerCubit.selectTypeIndex==2 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),

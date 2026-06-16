@@ -6,7 +6,7 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SuccessView extends StatelessWidget {
-  const SuccessView({super.key, required this.name, required this.email, required this.password, required this.confirmPassword, required this.gender, required this.role, required this.phone});
+  const SuccessView({super.key, required this.name, required this.email, required this.password, required this.confirmPassword, required this.gender, required this.role, required this.phone, this.selectIndex = 0});
   final String name;
   final String email;
   final String password;
@@ -14,6 +14,7 @@ class SuccessView extends StatelessWidget {
   final String gender;
   final String role;
   final String phone;
+  final int selectIndex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +56,7 @@ class SuccessView extends StatelessWidget {
                             gender: gender,
                             email: email,
                             image: null,
+                            brokerTypeIndex: selectIndex,
                         );
                       },
                     );

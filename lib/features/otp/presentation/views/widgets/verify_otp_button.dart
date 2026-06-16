@@ -25,7 +25,7 @@ class VerifyOtpButton extends StatelessWidget {
       listener: (context, state) {
       if(state is VerifyOtpSuccessState){
         Toast.showSuccessToast(msg: state.verifyOtpModel.message.toString(), context: context);
-        context.pushNamedAndRemoveUntil(Routes.successView,
+        context.pushNamed(Routes.successView,
           arguments: {
             "gender": gender,
             "role": role,
@@ -34,7 +34,7 @@ class VerifyOtpButton extends StatelessWidget {
             "password": password,
             "confirmPassword": confirmPassword,
             "phone": phone2,
-
+            "selectIndex": selectIndex,
           },
         );
         // var registerCubit = context.read<RegisterCubit>();

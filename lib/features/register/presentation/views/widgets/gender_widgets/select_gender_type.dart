@@ -29,7 +29,7 @@ class SelectGenderType extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40.r),
-                      color: registerCubit.selectGenderIndex==1 ? AppColors.blue : AppColors.white,
+                      color: registerCubit.selectGenderIndex==1 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),
@@ -58,7 +58,7 @@ class SelectGenderType extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40.r),
-                      color: registerCubit.selectGenderIndex==2 ? AppColors.blue : AppColors.white,
+                      color: registerCubit.selectGenderIndex==2 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
                       ),

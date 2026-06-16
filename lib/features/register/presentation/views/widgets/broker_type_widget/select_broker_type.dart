@@ -23,11 +23,12 @@ class SelectBrokerType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectBroker(1);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    height : 45.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(40.r),
                       color: registerCubit.selectBrokerIndex==1 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
@@ -36,12 +37,12 @@ class SelectBrokerType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.broker,height: 30.h,
+                        SvgPicture.asset(SvgImages.broker,height: 20.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectBrokerIndex==1 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.individual.tr(),style:registerCubit.selectBrokerIndex==1 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.individual.tr(),style:registerCubit.selectBrokerIndex==1 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),
@@ -51,11 +52,12 @@ class SelectBrokerType extends StatelessWidget {
                   onTap: (){
                     registerCubit.selectBroker(2);
                   },
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(40.r),
                   child: Container(
-                    padding: EdgeInsets.all(16.r),
+                    height : 45.h,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(40.r),
                       color: registerCubit.selectBrokerIndex==2 ? AppColors.primaryDark : AppColors.white,
                       border: Border.all(
                         color: Color.fromRGBO(213, 224, 252, 1),
@@ -64,12 +66,12 @@ class SelectBrokerType extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(SvgImages.company,height: 30.h,
+                        SvgPicture.asset(SvgImages.company,height: 20.h,
                           colorFilter: ColorFilter.mode(
                               registerCubit.selectBrokerIndex==2 ? AppColors.white : AppColors.black , BlendMode.srcIn),
                         ),
                         Gap(8.w),
-                        Text(LangKeys.company.tr(),style:registerCubit.selectBrokerIndex==2 ? AppStyles.white16SemiBold : AppStyles.black16SemiBold,),
+                        Text(LangKeys.company.tr(),style:registerCubit.selectBrokerIndex==2 ? AppStyles.white14SemiBold : AppStyles.black14SemiBold,),
                       ],
                     ),
                   ),

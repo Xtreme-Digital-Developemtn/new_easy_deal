@@ -166,17 +166,16 @@ class AppRouter {
         final args = arguments as Map<String, dynamic>;
         return transition(
           screen: OtpView(
-            contact: args["contact"] as String,
-            isMobile: args["isMobile"] as bool,
-            selectIndex: args["selectIndex"] as int,
-            name: args["name"] as String,
-            email: args["email"] as String,
-            role: args["role"] as String,
-            gender: args["gender"] as String,
-            password: args["password"] as String,
-            confirmPassword: args["confirmPassword"] as String,
-            phone: args["phone"] as String,
-
+            contact: args["contact"] as String? ?? '',
+            isMobile: args["isMobile"] as bool? ?? false,
+            selectIndex: args["selectIndex"] as int? ?? 0,
+            name: args["name"] as String? ?? '',
+            email: args["email"] as String? ?? '',
+            role: args["role"] as String? ?? '',
+            gender: args["gender"] as String? ?? '',
+            password: args["password"] as String? ?? '',
+            confirmPassword: args["confirmPassword"] as String? ?? '',
+            phone: args["phone"] as String? ?? '',
           ),
           cubit: RegisterCubit(getIt.get<RegisterRepoImpl>()),
         );
@@ -247,6 +246,7 @@ class AppRouter {
           password: args["password"] as String,
           confirmPassword: args["confirmPassword"] as String,
           phone: args["phone"] as String,
+          selectIndex: args["selectIndex"] as int? ?? 0,
         ));
       case Routes.uploadBrokerDocView:
         final args = arguments as Map<String, dynamic>;

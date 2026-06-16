@@ -15,7 +15,6 @@ class ProfileDataNameCodeImage extends StatelessWidget {
         var profileCubit = context.read<ProfileCubit>();
         return Container(
           padding: EdgeInsets.all(12.r),
-          height: 135.h,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
@@ -40,29 +39,29 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                             style: AppStyles.black18SemiBold,
                           ),
                           Gap(8.h),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.r),
-                            height: 24.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(6.r),
-                              border: Border.all(color: AppColors.grayLighter),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "${LangKeys.driverCode.tr()} : ",
-                                  style: AppStyles.black12Medium.copyWith(
-                                    color: AppColors.secondBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "123456",
-                                  style: AppStyles.black12SemiBold,
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.symmetric(horizontal: 8.r),
+                          //   height: 24.h,
+                          //   decoration: BoxDecoration(
+                          //     color: AppColors.white,
+                          //     borderRadius: BorderRadius.circular(6.r),
+                          //     border: Border.all(color: AppColors.grayLighter),
+                          //   ),
+                          //   child: Row(
+                          //     children: [
+                          //       Text(
+                          //         "${LangKeys.driverCode.tr()} : ",
+                          //         style: AppStyles.black12Medium.copyWith(
+                          //           color: AppColors.secondBlack,
+                          //         ),
+                          //       ),
+                          //       Text(
+                          //         "123456",
+                          //         style: AppStyles.black12SemiBold,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],

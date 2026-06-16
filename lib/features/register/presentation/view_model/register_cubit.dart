@@ -136,13 +136,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String gender,
     required String email,
     required File? image,
+    int brokerTypeIndex = 0,
   })
   async {
     emit(SignUpLoading());
-    FormData formData = FormData.fromMap({
+    final Map<String, dynamic> formFields = {
       "fullName": fullName,
       "phone": "0$phone",
-      "role": "client",
+      "role": CacheHelper.getData(key: "userRole")  ,
       "password": password,
       "password_confirmation": passwordConfirmation,
       "email": email!="" ? email : "",
@@ -150,8 +151,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
       "image": image != null
           ? await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)
           : null,
-
-    });
+    };
+    if (CacheHelper.getData(key: "userRole") == "broker") {
+      formFields["brokerType"] = brokerTypeIndex;
+    }
+    FormData formData = FormData.fromMap(formFields);
     final result = await registerRepo!.register(data: formData);
     return result.fold((failure) {
       emit(SignUpError(failure.errMessage));
