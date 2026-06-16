@@ -58,7 +58,7 @@ class ProfileListItems extends StatelessWidget {
                     onSubmit: (code) {
                       context
                           .read<ProfileCubit>()
-                          .applyPromoCode(promoCode: code);
+                          .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
                     },
                   ),
                 );

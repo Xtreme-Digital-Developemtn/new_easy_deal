@@ -16,7 +16,7 @@ abstract class ProfileRepo{
    Future<Either<Failure,SocialMediaModel>> getSocialMedia();
    Future<Either<Failure,ClientProfileModel>> getClientProfile({required int clientId});
    Future<Either<Failure,PromoCodesLastAppliedModel>> getPromoCodesLastApplied({required int brokerId});
-   Future<Either<Failure,ApplyPromoCodeModel>> applyPromoCode({required String promoCode});
+   Future<Either<Failure,ApplyPromoCodeModel>> applyPromoCode({required String promoCode , required int brokerId});
 
 
 

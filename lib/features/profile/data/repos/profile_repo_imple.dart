@@ -75,13 +75,14 @@ Future<Either<Failure, LogoutModel>> logout() async{
 
 
   @override
-  Future<Either<Failure, ApplyPromoCodeModel>> applyPromoCode({required String promoCode})
+  Future<Either<Failure, ApplyPromoCodeModel>> applyPromoCode({required String promoCode , required int brokerId})
   async{
     try {
       var response = await apiService!.postData(
           endPoint: EndPoints.promoCodesApply,
           query: {
             "promo_code" : promoCode,
+            "user_id" : brokerId,
           }
       );
       ApplyPromoCodeModel result = ApplyPromoCodeModel.fromJson(response.data);

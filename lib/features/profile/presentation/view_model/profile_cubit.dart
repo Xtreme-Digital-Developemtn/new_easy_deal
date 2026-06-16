@@ -104,9 +104,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   ApplyPromoCodeModel? applyPromoCodeModel;
 
-  Future<void> applyPromoCode({required String promoCode}) async {
+  Future<void> applyPromoCode({required String promoCode,required int brokerId}) async {
     emit(ApplyPromoCodeLoadingState());
-    var result = await profileRepo!.applyPromoCode(promoCode: promoCode);
+    var result = await profileRepo!.applyPromoCode(promoCode: promoCode,brokerId: brokerId);
     return result.fold((failure) {
       emit(ApplyPromoCodeErrorState(failure.errMessage));
     }, (data) async {
