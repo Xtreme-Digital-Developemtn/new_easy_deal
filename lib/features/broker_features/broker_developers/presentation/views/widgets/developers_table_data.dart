@@ -1,9 +1,11 @@
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/data/models/developers_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DevelopersTableData extends StatelessWidget {
-  const DevelopersTableData({super.key});
+  final List<DeveloperData> data;
+  const DevelopersTableData({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -47,43 +49,65 @@ class DevelopersTableData extends StatelessWidget {
           ),
         ],
         rows: List<DataRow>.generate(
-          11,
-          (index) => DataRow(
-            cells: [
-              DataCell(
-                Row(
-                  children: [
-                    CustomNetWorkImage(
-                      imageUrl:
-                          "https://wallpapers.com/images/featured-full/cool-profile-picture-87h46gcobjl5e4xu.jpg",
-                      raduis: 50,
-                      height: 30.h,
-                      width: 30.w,
-                      fit: BoxFit.cover,
-                    ),
-                    Gap(4.w),
-                    Text("mostafa"),
-                  ],
+          data.length,
+          (index) {
+            var item = data[index];
+            return DataRow(
+              cells: [
+                DataCell(
+                  Row(
+                    children: [
+                      if (item.image != null)
+                        CustomNetWorkImage(
+                          imageUrl: item.image!,
+                          raduis: 50,
+                          height: 30.h,
+                          width: 30.w,
+                          fit: BoxFit.cover,
+                        )
+                      else
+                        Container(
+                          height: 30.h,
+                          width: 30.w,
+                          decoration: BoxDecoration(
+                            color: AppColors.blueLight,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Icon(Icons.person, size: 16.sp),
+                        ),
+                      Gap(4.w),
+                      Expanded(
+                        child: Text(
+                          item.fullName ?? '',
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              DataCell(Text("mostafa.bahr@gmail.com")),
-              DataCell(Text("01110690299")),
-              DataCell(Center(child: Text("5"))),
-              DataCell(Text('done')),
-              DataCell(
-                Center(
-                  child: Container(
-                    padding: EdgeInsets.all(4.r),
-                    color: AppColors.blueLight,
-                    child: InkWell(
-                      onTap: () {},
-                      child: SvgPicture.asset(SvgImages.eye),
+                DataCell(Text(item.email ?? '')),
+                DataCell(Text(item.phone ?? '')),
+                DataCell(Center(child: Text('${item.numberOfProjects ?? 0}'))),
+                DataCell(
+                  Text(
+                    item.isActive == true ? LangKeys.active.tr() : LangKeys.inactive.tr(),
+                  ),
+                ),
+                DataCell(
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(4.r),
+                      color: AppColors.blueLight,
+                      child: InkWell(
+                        onTap: () {},
+                        child: SvgPicture.asset(SvgImages.eye),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          },
         ),
       ),
     );

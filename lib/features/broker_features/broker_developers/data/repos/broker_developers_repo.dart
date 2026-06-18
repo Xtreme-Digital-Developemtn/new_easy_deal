@@ -1,6 +1,7 @@
-abstract class BrokerDevelopersRepo{
+import 'package:dartz/dartz.dart';
+import '../../../../../core/errors/failure.dart';
+import '../models/developers_model.dart';
 
-  // Future<Either<Failure,MainCategoriesModel>> getAllMainCategories();
-
-
+abstract class BrokerDevelopersRepo {
+  Future<Either<Failure, DevelopersModel>> getDevelopers();
 }
