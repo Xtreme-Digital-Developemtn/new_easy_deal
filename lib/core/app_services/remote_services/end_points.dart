@@ -32,6 +32,7 @@ class EndPoints {
   static const String requestsStatistics = 'requests/statistics';
   static const String advertisementShuffle = 'unit/advertisement-shuffle?limit=4&offset=0';
   static const String developers = 'developers?limit=10&offset=0&sort=desc&sortBy=id';
+  static const String brokerMaps = 'broker/maps';
 
 
 

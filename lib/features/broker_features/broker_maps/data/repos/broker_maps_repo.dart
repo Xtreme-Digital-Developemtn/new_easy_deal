@@ -1,6 +1,7 @@
-abstract class BrokerMapsRepo{
+import 'package:dartz/dartz.dart';
+import '../../../../../core/errors/failure.dart';
+import '../models/map_location_model.dart';
 
-  // Future<Either<Failure,MainCategoriesModel>> getAllMainCategories();
-
-
+abstract class BrokerMapsRepo {
+  Future<Either<Failure, BrokerMapsModel>> getMaps({required int brokerId});
 }

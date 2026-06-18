@@ -3,9 +3,9 @@ import '../../../../../../main_imports.dart';
 import '../../../data/models/map_location_model.dart';
 
 class LocationCard extends StatelessWidget {
-  const LocationCard(this.location, {super.key});
+  const LocationCard({super.key, required this.location});
 
-  final MapLocation location;
+  final MapLocationData location;
 
   Future<void> _openMap(double lat, double lng, String label) async {
     final url = Uri.parse(
@@ -41,11 +41,11 @@ class LocationCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: InkWell(
         onTap: () =>
-            _openMap(location.latitude, location.longitude, location.name),
+            _openMap(location.latitude ?? 0, location.longitude ?? 0, location.name ?? ''),
         onLongPress: () => _openMapDirections(
-          location.latitude,
-          location.longitude,
-          location.name,
+          location.latitude ?? 0,
+          location.longitude ?? 0,
+          location.name ?? '',
         ),
         borderRadius: BorderRadius.circular(16.r),
         child: SizedBox(
@@ -53,7 +53,6 @@ class LocationCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Image Section
               ClipRRect(
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(16),
@@ -76,24 +75,6 @@ class LocationCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    // Container(
-                    //   height: 120.h,
-                    //   width: double.infinity,
-                    //   color: Colors.grey[200],
-                    //   child: location.imageUrl.isNotEmpty
-                    //       ? Image.network(
-                    //     location.imageUrl,
-                    //     fit: BoxFit.cover,
-                    //     errorBuilder: (context, error, stackTrace) {
-                    //       return Center(
-                    //         child: Icon(Icons.location_on, size: 50.sp, color: Colors.grey),
-                    //       );
-                    //     },
-                    //   )
-                    //       : Center(
-                    //     child: Icon(Icons.location_on, size: 50.sp, color: Colors.grey),
-                    //   ),
-                    // ),
                     Positioned(
                       top: 8.h,
                       right: 8.w,
@@ -107,7 +88,7 @@ class LocationCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Text(
-                          location.category,
+                          location.category ?? '',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.sp,
@@ -117,9 +98,13 @@ class LocationCard extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      child: SvgPicture.asset(SvgImages.location2,height: 50.h,colorFilter: ColorFilter.mode(AppColors.primaryLight,
+                      child: SvgPicture.asset(
+                        SvgImages.location2,
+                        height: 50.h,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.primaryLight,
                           BlendMode.srcIn,
-                      ),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -154,7 +139,6 @@ class LocationCard extends StatelessWidget {
                 ),
               ),
 
-              // Content Section
               Padding(
                 padding: EdgeInsets.all(12.r),
                 child: Column(
@@ -164,7 +148,7 @@ class LocationCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          location.name,
+                          location.name ?? '',
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -175,14 +159,13 @@ class LocationCard extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            SvgPicture.asset(SvgImages.star,height: 20.h,),
+                            SvgPicture.asset(SvgImages.star, height: 20.h),
                             Gap(4.w),
-                            Text("2.5",style: AppStyles.black16SemiBold,),
+                            Text("2.5", style: AppStyles.black16SemiBold),
                             Gap(4.w),
-                            Text("(55)",style: AppStyles.gray12Medium,),
+                            Text("(55)", style: AppStyles.gray12Medium),
                           ],
                         ),
-
                       ],
                     ),
                     Gap(4.h),
@@ -196,7 +179,7 @@ class LocationCard extends StatelessWidget {
                         Gap(4.w),
                         Expanded(
                           child: Text(
-                            location.address,
+                            location.address ?? '',
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: Colors.grey[600],
@@ -208,7 +191,6 @@ class LocationCard extends StatelessWidget {
                       ],
                     ),
                     Gap(8.h),
-                    // Coordinates
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(
@@ -217,21 +199,15 @@ class LocationCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xffF8F9FA),
-                       // color: Colors.blue[50],
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset("assets/images/svgs/Icon.svg"),
-                          // Icon(
-                          //   Icons.my_location,
-                          //   size: 12.sp,
-                          //   color: Colors.blue[700],
-                          // ),
                           Gap(4.w),
                           Text(
-                            '${location.latitude.toStringAsFixed(4)}, ${location.longitude.toStringAsFixed(4)}',
+                            '${(location.latitude ?? 0).toStringAsFixed(4)}, ${(location.longitude ?? 0).toStringAsFixed(4)}',
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: Color(0xff4A5565),
@@ -242,13 +218,12 @@ class LocationCard extends StatelessWidget {
                       ),
                     ),
                     Gap(8.h),
-                    // Action Button
                     CustomButton(
                       text: 'Open in Maps',
                       onPressed: () => _openMap(
-                        location.latitude,
-                        location.longitude,
-                        location.name,
+                        location.latitude ?? 0,
+                        location.longitude ?? 0,
+                        location.name ?? '',
                       ),
                     ),
                   ],
