@@ -30,6 +30,7 @@ class EndPoints {
   static const String promoCodesLastApplied = 'promo-codes/last-applied';
   static const String promoCodesApply = 'promo-codes/apply';
   static const String requestsStatistics = 'requests/statistics';
+  static const String advertisementShuffle = 'unit/advertisement-shuffle?limit=4&offset=0';
 
 
 

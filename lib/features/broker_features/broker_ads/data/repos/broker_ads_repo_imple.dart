@@ -1,4 +1,6 @@
-  import '../../../../../core/app_services/remote_services/api_service.dart';
+  import 'package:dartz/dartz.dart';
+import '../../../../../main_imports.dart';
+import '../models/advertisement_shuffle_model.dart';
 import 'broker_ads_repo.dart';
 
 
@@ -9,18 +11,18 @@ class BrokerAdsRepoImpl implements BrokerAdsRepo {
 
 
 
-// @override
-// Future<Either<Failure, TryThisProductsModel>> getTryThisProductsData() async{
-//   try {
-//     var response = await apiService!.getData(
-//       endPoint: EndPoints.mostSellingProducts,
-//     );
-//     TryThisProductsModel result = TryThisProductsModel.fromJson(response.data);
-//     return right(result);
-//   } catch (e) {
-//     return left(handleError(e));
-//   }
-// }
+@override
+Future<Either<Failure, AdvertisementShuffleModel>> getAdvertisementShuffle() async{
+  try {
+    var response = await apiService!.getData(
+      endPoint: EndPoints.advertisementShuffle,
+    );
+    AdvertisementShuffleModel result = AdvertisementShuffleModel.fromJson(response.data);
+    return right(result);
+  } catch (e) {
+    return left(handleError(e));
+  }
+}
 
 
 

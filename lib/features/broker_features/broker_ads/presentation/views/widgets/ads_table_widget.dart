@@ -1,37 +1,42 @@
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_deal/features/broker_features/broker_ads/data/models/advertisement_shuffle_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class AdsTableWidget extends StatefulWidget {
-  const AdsTableWidget({super.key});
+  final List<Data> data;
+  const AdsTableWidget({super.key, required this.data});
 
   @override
   State<AdsTableWidget> createState() => _AdsTableWidgetState();
 }
 
 class _AdsTableWidgetState extends State<AdsTableWidget> {
-  // قائمة لتتبع العناصر المحددة
   List<bool> selectedItems = [];
-  // حالة زر "تحديد الكل"
   bool selectAll = false;
 
   @override
   void initState() {
     super.initState();
-    // تهيئة البيانات المزيفة (10 عناصر)
-    selectedItems = List.generate(10, (index) => false);
+    selectedItems = List.generate(widget.data.length, (index) => false);
   }
 
-  // دالة لتحديد/إلغاء تحديد عنصر معين
+  @override
+  void didUpdateWidget(AdsTableWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.data.length != widget.data.length) {
+      selectedItems = List.generate(widget.data.length, (index) => false);
+      selectAll = false;
+    }
+  }
+
   void toggleSelection(int index) {
     setState(() {
       selectedItems[index] = !selectedItems[index];
-      // تحديث حالة "تحديد الكل"
       selectAll = selectedItems.every((item) => item);
     });
   }
 
-  // دالة لتحديد/إلغاء تحديد كل العناصر
   void toggleSelectAll() {
     setState(() {
       selectAll = !selectAll;
@@ -134,69 +139,72 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
         ],
 
         rows: List<DataRow2>.generate(
-          selectedItems.length,
-              (index) => DataRow2(
-            // هذه الخاصية هي التي تغير لون الصف عند التحديد
-            selected: selectedItems[index],
-            color: WidgetStateColor.resolveWith(
-                  (states) => selectedItems[index]
-                  ? AppColors.blueLight.withValues(alpha: 0.3)
-                  : Colors.transparent,
-            ),
-            // onSelectChanged: (selected) {
-            //   toggleSelection(index);
-            // },
-            cells: [
-              DataCell(
-                Checkbox(
-                  value: selectedItems[index],
-                  activeColor: AppColors.primaryDark,
-                  onChanged: (value) {
-                    toggleSelection(index);
-                  },
-                ),
+          widget.data.length,
+              (index) {
+            var item = widget.data[index];
+            return DataRow2(
+              selected: selectedItems[index],
+              color: WidgetStateColor.resolveWith(
+                    (states) => selectedItems[index]
+                    ? AppColors.blueLight.withValues(alpha: 0.3)
+                    : Colors.transparent,
               ),
-              DataCell(Text("Ad ${index + 1}")),
-              DataCell(Text("City ${index + 1}")),
-              DataCell(Text("Area ${index + 1}")),
-              DataCell(Text(index % 2 == 0 ? 'rent' : 'sale')),
-              DataCell(Text('Location ${index + 1}')),
-              DataCell(Text('${index + 1}')),
-              DataCell(Text('View ${index + 1}')),
-              DataCell(Text('${100 + index * 10} m²')),
-              DataCell(Text('${2 + index % 4}')),
-              DataCell(Text('Thing 1, Thing 2')),
-              DataCell(Text('\$${50000 + index * 10000}')),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                  decoration: BoxDecoration(
-                    color: index % 3 == 0
-                        ? Colors.green.withValues(alpha: 0.2)
-                        : index % 3 == 1
-                        ? Colors.orange.withValues(alpha: 0.2)
-                        : Colors.red.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(4.r),
+              cells: [
+                DataCell(
+                  Checkbox(
+                    value: selectedItems[index],
+                    activeColor: AppColors.primaryDark,
+                    onChanged: (value) {
+                      toggleSelection(index);
+                    },
                   ),
-                  child: Text(
-                    index % 3 == 0
-                        ? 'Active'
-                        : index % 3 == 1
-                        ? 'Pending'
-                        : 'Inactive',
-                    style: TextStyle(
-                      color: index % 3 == 0
-                          ? Colors.green
-                          : index % 3 == 1
-                          ? Colors.orange
-                          : Colors.red,
-                      fontSize: 12.sp,
+                ),
+                DataCell(Text(item.type ?? 'Ad ${index + 1}')),
+                DataCell(Text(item.city?.nameEn ?? item.city?.nameAr ?? '')),
+                DataCell(Text(item.area?.nameEn ?? item.area?.nameAr ?? '')),
+                DataCell(Text(item.unitOperation ?? '')),
+                DataCell(Text(item.detailedAddress ?? '')),
+                DataCell(Text(item.floor ?? '')),
+                DataCell(Text(item.view ?? '')),
+                DataCell(Text(item.unitArea != null ? '${item.unitArea} m\u00B2' : '')),
+                DataCell(Text('${item.numberOfRooms ?? 0}')),
+                DataCell(Text(item.otherAccessories?.join(', ') ?? '')),
+                DataCell(Text(
+                  item.totalPriceInCash != null
+                      ? '\$${item.totalPriceInCash}'
+                      : item.totalPriceInInstallment != null
+                      ? '\$${item.totalPriceInInstallment}'
+                      : item.monthlyRent != null
+                      ? '\$${item.monthlyRent}'
+                      : '\$${item.dailyRent ?? 0}',
+                )),
+                DataCell(
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: item.status == 'active'
+                          ? Colors.green.withValues(alpha: 0.2)
+                          : item.status == 'pending'
+                          ? Colors.orange.withValues(alpha: 0.2)
+                          : Colors.red.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    child: Text(
+                      item.status?.tr() ?? LangKeys.inactive.tr(),
+                      style: TextStyle(
+                        color: item.status == 'active'
+                            ? Colors.green
+                            : item.status == 'pending'
+                            ? Colors.orange
+                            : Colors.red,
+                        fontSize: 12.sp,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          },
         ),
       ),
     );
