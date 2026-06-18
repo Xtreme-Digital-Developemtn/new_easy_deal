@@ -1,6 +1,7 @@
-abstract class BrokerDataRepo{
+import 'package:dartz/dartz.dart';
+import '../../../../../core/errors/failure.dart';
+import '../models/broker_units_model.dart';
 
-  // Future<Either<Failure,MainCategoriesModel>> getAllMainCategories();
-
-
+abstract class BrokerDataRepo {
+  Future<Either<Failure, BrokerUnitsModel>> getBrokerUnits({required int brokerId});
 }

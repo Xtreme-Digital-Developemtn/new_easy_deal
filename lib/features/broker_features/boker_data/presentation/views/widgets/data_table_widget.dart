@@ -1,9 +1,11 @@
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DataTableWidget extends StatelessWidget {
-  const DataTableWidget({super.key});
+  final List<BrokerUnitData> data;
+  const DataTableWidget({super.key, required this.data});
 
   void _showMessage(BuildContext context, String message) {
     showDialog(
@@ -21,23 +23,16 @@ class DataTableWidget extends StatelessWidget {
     );
   }
 
-  // Function to handle menu item selection
   void _handleMenuAction(String value, BuildContext context) {
     switch (value) {
       case 'view':
         _showMessage(context, LangKeys.viewingDetails.tr());
-        // Navigate to details screen
-        // context.pushNamed(Routes.brokerDataDetails);
         break;
       case 'edit':
         _showMessage(context, LangKeys.editingItem.tr());
-        // Navigate to edit screen
-        // context.pushNamed(Routes.editBrokerData);
         break;
       case 'status':
         _showMessage(context, LangKeys.changingStatus.tr());
-        // Show status change dialog
-        // _showStatusDialog(context);
         break;
       case 'delete':
         _showDeleteConfirmation(context);
@@ -45,7 +40,6 @@ class DataTableWidget extends StatelessWidget {
     }
   }
 
-  // Function to show delete confirmation dialog
   void _showDeleteConfirmation(BuildContext context) {
     showDialog(
       context: context,
@@ -64,8 +58,6 @@ class DataTableWidget extends StatelessWidget {
                 style: const TextStyle(color: Colors.red),
               ),
               onPressed: () {
-                // TODO: Implement delete functionality
-                // await _deleteItem();
                 Navigator.of(context).pop();
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -174,111 +166,114 @@ class DataTableWidget extends StatelessWidget {
           ),
         ],
         rows: List<DataRow>.generate(
-          1,
-          (index) => DataRow(
-            cells: [
-              DataCell(Text("mostafa")),
-              DataCell(Text("01110690299")),
-              DataCell(Text("خارج الكمبوند")),
-              DataCell(Text('rent')),
-              DataCell(Text('float')),
-              DataCell(Text('city')),
-              DataCell(Text('area')),
-              DataCell(Text('address')),
-              DataCell(Text('location')),
-              DataCell(Text('thing 1 , thing 2')),
-              DataCell(Text('notes')),
-              DataCell(Text('description')),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.all(8.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.blueLight,
-                    borderRadius: BorderRadius.circular(8.r),
+          data.length,
+          (index) {
+            var item = data[index];
+            return DataRow(
+              cells: [
+                DataCell(Text(item.ownerName ?? '')),
+                DataCell(Text(item.ownerPhone ?? '')),
+                DataCell(Text(item.compoundType ?? '')),
+                DataCell(Text(item.unitOperation ?? '')),
+                DataCell(Text(item.type ?? '')),
+                DataCell(Text(item.city ?? '')),
+                DataCell(Text(item.area ?? '')),
+                DataCell(Text(item.detailedAddress ?? '')),
+                DataCell(Text(item.location ?? '')),
+                DataCell(Text(item.otherAccessories?.join(' , ') ?? '')),
+                DataCell(Text(item.notes ?? '')),
+                DataCell(Text(item.description ?? '')),
+                DataCell(
+                  Container(
+                    padding: EdgeInsets.all(8.r),
+                    decoration: BoxDecoration(
+                      color: AppColors.blueLight,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.file_copy, color: AppColors.primaryDark),
+                        Text(
+                          LangKeys.show.tr(),
+                          style: TextStyle(color: AppColors.primaryDark),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.file_copy, color: AppColors.primaryDark),
-                      Text(
-                        LangKeys.show.tr(),
-                        style: TextStyle(color: AppColors.primaryDark),
+                ),
+                DataCell(
+                  Container(
+                    padding: EdgeInsets.all(8.r),
+                    decoration: BoxDecoration(
+                      color: AppColors.blueLight,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      item.status ?? '',
+                      style: TextStyle(color: AppColors.primaryDark),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  PopupMenuButton<String>(
+                    icon: const Icon(Icons.more_horiz),
+                    onSelected: (value) => _handleMenuAction(value, context),
+                    itemBuilder: (BuildContext context) => [
+                      PopupMenuItem<String>(
+                        value: 'view',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.visibility_outlined, size: 20),
+                            SizedBox(width: 8.w),
+                            Text(LangKeys.viewDetails.tr()),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'edit',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.edit_outlined, size: 20),
+                            SizedBox(width: 8.w),
+                            Text(LangKeys.edit.tr()),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'status',
+                        child: Row(
+                          children: [
+                            const Icon(Icons.change_circle_outlined, size: 20),
+                            SizedBox(width: 8.w),
+                            Text(LangKeys.changeStatus.tr()),
+                          ],
+                        ),
+                      ),
+                      const PopupMenuDivider(),
+                      PopupMenuItem<String>(
+                        value: 'delete',
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.delete_outline,
+                              size: 20,
+                              color: Colors.red,
+                            ),
+                            SizedBox(width: 8.w),
+                            Text(
+                              LangKeys.delete.tr(),
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              DataCell(
-                Container(
-                  padding: EdgeInsets.all(8.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.blueLight,
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Text(
-                    "status",
-                    style: TextStyle(color: AppColors.primaryDark),
-                  ),
-                ),
-              ),
-              DataCell(
-                PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_horiz),
-                  onSelected: (value) => _handleMenuAction(value, context),
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem<String>(
-                      value: 'view',
-                      child: Row(
-                        children: [
-                          const Icon(Icons.visibility_outlined, size: 20),
-                          SizedBox(width: 8.w),
-                          Text(LangKeys.viewDetails.tr()),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'edit',
-                      child: Row(
-                        children: [
-                          const Icon(Icons.edit_outlined, size: 20),
-                          SizedBox(width: 8.w),
-                          Text(LangKeys.edit.tr()),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'status',
-                      child: Row(
-                        children: [
-                          const Icon(Icons.change_circle_outlined, size: 20),
-                          SizedBox(width: 8.w),
-                          Text(LangKeys.changeStatus.tr()),
-                        ],
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    PopupMenuItem<String>(
-                      value: 'delete',
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.delete_outline,
-                            size: 20,
-                            color: Colors.red,
-                          ),
-                          SizedBox(width: 8.w),
-                          Text(
-                            LangKeys.delete.tr(),
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+              ],
+            );
+          },
         ),
       ),
     );
