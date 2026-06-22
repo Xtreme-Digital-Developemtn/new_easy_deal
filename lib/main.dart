@@ -24,7 +24,6 @@ void main() async {
   setup();
   getVmUri();
     Bloc.observer = MyBlocObserver();
-  final userRole = CacheHelper.getData(key: "userRole") ?? "client";
   runApp(
     EasyLocalization(
       startLocale: const Locale('en', ""),
@@ -38,7 +37,7 @@ void main() async {
       useOnlyLangCode: true,
       assetLoader: const CodegenLoader(),
       child: MyApp(
-        appRouter: AppRouter(userRole: userRole),
+        appRouter: AppRouter( ),
       ),
     ),
   );

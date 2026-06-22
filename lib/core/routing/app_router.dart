@@ -97,7 +97,7 @@ import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
 class AppRouter {
-  final String userRole;
+ 
 
   Route? generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -336,7 +336,7 @@ class AppRouter {
   ///الـ AppRouter بيتبني قبل ما Cache يجهز فعليًا
   List<Widget> getScreens() {
     return [
-      userRole == "client"
+      CacheHelper.getData(key: "userRole") == "client"
           ? BlocProvider(
               create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())
                 ..getBestSellerUnitsInHome()
@@ -366,5 +366,5 @@ class AppRouter {
     ];
   }
 
-  AppRouter({required this.userRole});
+  AppRouter( );
 }
