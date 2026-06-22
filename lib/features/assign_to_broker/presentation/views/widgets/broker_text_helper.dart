@@ -162,4 +162,32 @@ class BrokerTextHelper {
         return scope;
     }
   }
+
+  static String projectTypeText(String type) {
+    final key = type.toUpperCase().replaceAll(RegExp(r'\s+'), '_');
+    switch (key) {
+      case 'INSIDE_COMPOUND':
+      case 'PURCHASING_SELL_INSIDE_COMPOUND':
+        return LangKeys.purchasingSellInsideCompound.tr();
+
+      case 'OUTSIDE_COMPOUND':
+      case 'PURCHASING_SELL_OUTSIDE_COMPOUND':
+        return LangKeys.purchasingSellOutsideCompound.tr();
+
+      case 'PRIMARY_INSIDE_COMPOUND':
+        return LangKeys.primaryInsideCompoundKey.tr();
+
+      case 'RESALE_INSIDE_COMPOUND':
+        return LangKeys.resaleInsideCompoundKey.tr();
+
+      case 'RENTALS_OUTSIDE_COMPOUND':
+        return LangKeys.rentalsOutsideCompoundKey.tr();
+
+      case 'RENTALS_INSIDE_COMPOUND':
+        return LangKeys.rentalsInsideCompoundKey.tr();
+
+      default:
+        return type;
+    }
+  }
 }

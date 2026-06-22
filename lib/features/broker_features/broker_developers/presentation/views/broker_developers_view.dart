@@ -20,13 +20,15 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<BrokerDevelopersCubit>();
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.developers),
       body: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
         builder: (context, state) {
-          if (state is GetDevelopersLoadingState) {
+          if (state is GetDevelopersLoadingState && cubit.developersModel == null) {
             return const CustomLoading();
-          } else if (state is GetDevelopersErrorState) {
+          }
+          if (state is GetDevelopersErrorState && cubit.developersModel == null) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -36,35 +38,33 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                   CustomButton(
                     text: LangKeys.reload,
                     onPressed: () {
-                      context.read<BrokerDevelopersCubit>().getDevelopers();
+                      cubit.getDevelopers();
                     },
                   ),
                 ],
               ),
             );
-          } else if (state is GetDevelopersSuccessState) {
-            var data = state.developersModel?.data ?? [];
-            if (data.isEmpty) {
-              return Center(
-                child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
-              );
-            }
-            return DevelopersTableData(
-              data: data,
-              onProceduresTap: (developerId) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => DeveloperProjectsView(
-                      developerId: developerId,
-                      cubit: context.read<BrokerDevelopersCubit>(),
-                    ),
-                  ),
-                );
-              },
+          }
+          var data = cubit.developersModel?.data ?? [];
+          if (data.isEmpty) {
+            return Center(
+              child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
             );
           }
-          return const SizedBox.shrink();
+          return DevelopersTableData(
+            data: data,
+            onProceduresTap: (developerId) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DeveloperProjectsView(
+                    developerId: developerId,
+                    cubit: cubit,
+                  ),
+                ),
+              );
+            },
+          );
         },
       ),
     );

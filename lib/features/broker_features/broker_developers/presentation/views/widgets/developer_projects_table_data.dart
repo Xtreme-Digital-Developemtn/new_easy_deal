@@ -141,7 +141,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
                     : null,
                 cells: [
                   DataCell(Text(item.name, style: AppStyles.black12Medium)),
-                  DataCell(Text(BrokerTextHelper.typeText(item.type), style: AppStyles.black12Medium)),
+                  DataCell(Text(BrokerTextHelper.projectTypeText(item.type), style: AppStyles.black12Medium)),
                   DataCell(Text(item.projectType, style: AppStyles.black12Medium)),
                   DataCell(Text(item.projectExecutor, style: AppStyles.black12Medium)),
                   DataCell(Text(_cityName(context, item.city), style: AppStyles.black12Medium)),
