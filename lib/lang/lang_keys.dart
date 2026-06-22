@@ -186,6 +186,7 @@ abstract class LangKeys {
   static const String requestInformation = 'requestInformation';
   static const String scopeOfSpecialization = 'scopeOfSpecialization';
   static const String dealType = 'dealType';
+  static const String subUnitType = 'subUnitType';
   static const String unitType = 'unitType';
   static const String city = 'city';
   static const String area = 'area';
@@ -424,6 +425,7 @@ abstract class LangKeys {
   static const String preferredFurnishingStatus = 'preferredFurnishingStatus';
   static const String activityStatus = 'activityStatus';
   static const String monthlyPriceSuggestions = 'monthlyPriceSuggestions';
+  static const String dailyRent = 'dailyRent';
   static const String dailyPriceSuggestions = 'dailyPriceSuggestions';
   static const String locationSuggestions = 'locationSuggestions';
   static const String compoundName = 'compoundName';

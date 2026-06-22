@@ -45,11 +45,6 @@ class _BrokerDataViewState extends State<BrokerDataView> {
             );
           } else if (state is GetBrokerUnitsSuccessState) {
             var data = state.brokerUnitsModel?.data ?? [];
-            if (data.isEmpty) {
-              return Center(
-                child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
-              );
-            }
             return DataTableWidget(data: data);
           }
           return const SizedBox.shrink();
