@@ -14,7 +14,7 @@ class UnitDetailsCubit extends Cubit<UnitDetailsStates> {
 
 
   UnitDetailsModel? unitDetailsModel;
-  Future<void> getUnitDetails({required int unitId}) async {
+  Future<void> getUnitDetails({required dynamic unitId}) async {
     emit(GetUnitDetailsLoadingState());
     var result = await unitDetailsRepo!.getUnitDetails(unitId: unitId);
     return result.fold((failure) {

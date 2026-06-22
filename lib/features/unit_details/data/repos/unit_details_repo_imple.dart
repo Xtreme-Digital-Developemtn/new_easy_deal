@@ -9,7 +9,7 @@ class UnitDetailsRepoImpl implements UnitDetailsRepo {
   UnitDetailsRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, UnitDetailsModel>> getUnitDetails({required int unitId}) async {
+  Future<Either<Failure, UnitDetailsModel>> getUnitDetails({required dynamic unitId}) async {
     try {
       var response = await apiService!.getData(
         endPoint: "${EndPoints.unitDetails}/$unitId",

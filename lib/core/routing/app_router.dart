@@ -195,9 +195,9 @@ class AppRouter {
       case Routes.unitDetailsView:
         final args = arguments as Map<String, dynamic>;
         return transition(
-          screen: UnitDetailsView(unitId: args["unitId"] as int),
+          screen: UnitDetailsView(unitId: args["unitId"] as dynamic),
           cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>())
-            ..getUnitDetails(unitId: args["unitId"] as int),
+            ..getUnitDetails(unitId: args["unitId"] as dynamic),
         );
       case Routes.userChatView:
         return transition(

@@ -16,7 +16,7 @@ class BrokerHomeView extends StatelessWidget {
           Gap(12.h),
           Statistics(brokerId: CacheHelper.getData(key: "userId"),),
           Gap(12.h),
-          LastRequests(),
+          // LastRequests(),
         ],),
       )),
     );

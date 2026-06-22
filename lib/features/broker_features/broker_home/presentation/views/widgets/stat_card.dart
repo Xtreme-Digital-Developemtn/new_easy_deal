@@ -121,7 +121,7 @@ class StatCard extends StatelessWidget {
               Gap(12.h),
 
 
-              _buildAdditionalInfo(mainColor),
+              // _buildAdditionalInfo(mainColor),
             ],
           ),
         ],
