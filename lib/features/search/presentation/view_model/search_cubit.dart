@@ -65,6 +65,7 @@ class SearchCubit extends Cubit<SearchStates> {
       unitAreaTo: areaToCon.text,
       deliveryStatus: deliveryStatus.toString(),
       compoundType: type.toString(),
+      search: keyword,
     );
 
     return result.fold(
@@ -173,10 +174,17 @@ class SearchCubit extends Cubit<SearchStates> {
     LangKeys.outsideCompound.tr(): 'outside_compound',
   };
 
+  var searchCon = TextEditingController();
+  String keyword = '';
   var priceFromCon = TextEditingController();
   var priceToCon = TextEditingController();
   var areaToCon = TextEditingController();
   var areaFromCon = TextEditingController();
+
+  void onSearchChanged(String value) {
+    keyword = value;
+    getAllUnits(reset: true);
+  }
 
   void resetFilters() {
     properType = null;
@@ -186,6 +194,8 @@ class SearchCubit extends Cubit<SearchStates> {
     city = null;
     area = null;
 
+    searchCon.clear();
+    keyword = '';
     priceFromCon.clear();
     priceToCon.clear();
     areaFromCon.clear();

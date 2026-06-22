@@ -23,6 +23,7 @@ class SearchRepoImpl implements SearchRepo {
     required String deliveryStatus,
     required String compoundType,
     required String unitType,
+    String search = '',
   })
   async {
     try {
@@ -45,6 +46,7 @@ class SearchRepoImpl implements SearchRepo {
       if (isValidValue(deliveryStatus)) queryParams["deliveryStatus"] = deliveryStatus;
       if (isValidValue(compoundType)) queryParams["compoundType"] = compoundType;
       if (isValidValue(unitType)) queryParams["unitType"] = unitType;
+      if (search.isNotEmpty) queryParams["search"] = search;
 
       var response = await apiService!.getData(
         endPoint: EndPoints.bestSellerUnitsInSearch,

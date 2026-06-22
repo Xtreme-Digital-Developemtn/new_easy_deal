@@ -18,6 +18,7 @@ abstract class SearchRepo{
     required String unitAreaTo,
     required String deliveryStatus,
     required String compoundType,
+    String search = '',
 });
 
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_cubit.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
@@ -14,6 +15,7 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   late ScrollController _scrollController;
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _SearchViewState extends State<SearchView> {
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -63,9 +66,17 @@ class _SearchViewState extends State<SearchView> {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: ContainerSearchWidget(
-
-                      )),
+                      Expanded(
+                        child: ContainerSearchWidget(
+                          controller: searchCubit.searchCon,
+                          onChanged: (value) {
+                            _debounce?.cancel();
+                            _debounce = Timer(const Duration(milliseconds: 400), () {
+                              searchCubit.onSearchChanged(value);
+                            });
+                          },
+                        ),
+                      ),
                       Gap(8.w),
                       FilterContainer(),
                     ],
