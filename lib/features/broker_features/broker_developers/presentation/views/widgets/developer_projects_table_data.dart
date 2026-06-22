@@ -10,22 +10,22 @@ class DeveloperProjectsTableData extends StatelessWidget {
   const DeveloperProjectsTableData({super.key, required this.data});
 
   String _cityName(BuildContext context, CityModel? city) {
-    if (city == null) return '—';
+    if (city == null) return LangKeys.notAvailable.tr();
     return context.locale.languageCode == 'ar' ? city.nameAr : city.nameEn;
   }
 
   String _areaName(BuildContext context, AreaModel? area) {
-    if (area == null) return '—';
+    if (area == null) return LangKeys.notAvailable.tr();
     return context.locale.languageCode == 'ar' ? area.nameAr : area.nameEn;
   }
 
   String _subAreaName(BuildContext context, SubAreaModel? subArea) {
-    if (subArea == null) return '—';
+    if (subArea == null) return LangKeys.notAvailable.tr();
     return context.locale.languageCode == 'ar' ? subArea.nameAr : subArea.nameEn;
   }
 
   String _otherSubAreasText(List<OtherSubAreaModel> list) {
-    if (list.isEmpty) return '—';
+    if (list.isEmpty) return LangKeys.notAvailable.tr();
     return list.map((e) => e.name).join(', ');
   }
 
@@ -46,7 +46,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
     if (item.medicalClinicsCount > 0) parts.add('${LangKeys.medicalClinics.tr()}: ${item.medicalClinicsCount}');
     if (item.pharmaciesCount > 0) parts.add('${LangKeys.pharmacies.tr()}: ${item.pharmaciesCount}');
     if (item.commercialAdministrativeBuildingCount > 0) parts.add('${LangKeys.commercialAdministrativeBuildings.tr()}: ${item.commercialAdministrativeBuildingCount}');
-    if (parts.isEmpty) return '—';
+    if (parts.isEmpty) return LangKeys.notAvailable.tr();
     return parts.join('\n');
   }
 
@@ -64,7 +64,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
   }
 
   Widget _iconCell(Widget? icon) {
-    return Center(child: icon ?? Text('—', style: AppStyles.black12Medium));
+    return Center(child: icon ?? Text(LangKeys.notAvailable.tr(), style: AppStyles.black12Medium));
   }
 
   Widget _urlIcon(IconData icon, String url) {

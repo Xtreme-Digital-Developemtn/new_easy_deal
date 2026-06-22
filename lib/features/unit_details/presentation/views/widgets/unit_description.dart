@@ -2,7 +2,9 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitDescription extends StatelessWidget {
-  const UnitDescription({super.key});
+  const UnitDescription({super.key, this.notes});
+
+  final String? notes;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class UnitDescription extends StatelessWidget {
         children: [
           Text(LangKeys.propertyDetails.tr(),style: AppStyles.blueDark14Bold,),
           Gap(16.h),
-          Text("des"*100),
+          Text(notes ?? LangKeys.notAvailable.tr()),
         ],
       ),
     );

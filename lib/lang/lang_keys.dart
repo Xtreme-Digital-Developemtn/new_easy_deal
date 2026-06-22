@@ -260,6 +260,7 @@ abstract class LangKeys {
       'advertisementAndPropertyDetails';
   static const String specializations = 'specializations';
   static const String areas = 'areas';
+  static const String notAvailable = 'notAvailable';
   static const String thereAreNoItemsCurrentlyAvailable =
       'thereAreNoItemsCurrentlyAvailable';
   static const String addElement = 'addElement';

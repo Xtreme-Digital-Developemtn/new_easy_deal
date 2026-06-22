@@ -86,6 +86,10 @@ class DataTableWidget extends StatelessWidget {
     );
   }
 
+  String _val(String? value) {
+    return (value != null && value.isNotEmpty) ? value : LangKeys.notAvailable.tr();
+  }
+
   Widget _cell(String text, {double fontSize = 10}) {
     return Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp));
   }
@@ -149,33 +153,33 @@ class DataTableWidget extends StatelessWidget {
                     ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.05))
                     : null,
                 cells: [
-                  DataCell(_cell(item.ownerName ?? '—')),
-                  DataCell(_cell(item.ownerPhone ?? '—')),
-                  DataCell(_cell(BrokerTextHelper.projectTypeText(item.compoundType ?? '—'))),
-                  DataCell(_cell(BrokerTextHelper.projectTypeText(item.unitOperation ?? '—'))),
-                  DataCell(_cell(item.type ?? '—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell(item.city ?? '—')),
-                  DataCell(_cell(item.area ?? '—')),
-                  DataCell(_cell(item.detailedAddress ?? '—')),
-                  DataCell(_cell(item.location ?? '—')),
-                  DataCell(_cell(item.buildingNumber ?? '—')),
-                  DataCell(_cell(item.unitNumber ?? '—')),
-                  DataCell(_cell(item.floor ?? '—')),
-                  DataCell(_cell(item.unitArea?.toString() ?? '—')),
-                  DataCell(_cell(item.numberOfRooms?.toString() ?? '—')),
-                  DataCell(_cell(item.numberOfBathrooms?.toString() ?? '—')),
-                  DataCell(_cell(item.view ?? '—')),
-                  DataCell(_cell(item.finishingType ?? '—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell(item.deliveryStatus ?? '—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell(item.dailyRent ?? '—')),
-                  DataCell(_cell(item.otherAccessories?.join(' , ') ?? '—')),
-                  DataCell(_cell('—')),
-                  DataCell(_cell(item.notes ?? '—')),
+                  DataCell(_cell(_val(item.ownerName))),
+                  DataCell(_cell(_val(item.ownerPhone))),
+                  DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.compoundType ?? '')))),
+                  DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.unitOperation ?? '')))),
+                  DataCell(_cell(_val(item.type))),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(_val(item.city))),
+                  DataCell(_cell(_val(item.area))),
+                  DataCell(_cell(_val(item.detailedAddress))),
+                  DataCell(_cell(_val(item.location))),
+                  DataCell(_cell(_val(item.buildingNumber))),
+                  DataCell(_cell(_val(item.unitNumber))),
+                  DataCell(_cell(_val(item.floor))),
+                  DataCell(_cell(_val(item.unitArea?.toString()))),
+                  DataCell(_cell(_val(item.numberOfRooms?.toString()))),
+                  DataCell(_cell(_val(item.numberOfBathrooms?.toString()))),
+                  DataCell(_cell(_val(item.view))),
+                  DataCell(_cell(_val(item.finishingType))),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(_val(item.deliveryStatus))),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(_val(item.dailyRent))),
+                  DataCell(_cell(_val(item.otherAccessories?.join(' , ')))),
+                  DataCell(_cell(LangKeys.notAvailable.tr())),
+                  DataCell(_cell(_val(item.notes))),
                   DataCell(
                     Center(
                       child: item.diagram != null && item.diagram!.isNotEmpty
@@ -190,7 +194,7 @@ class DataTableWidget extends StatelessWidget {
                                 child: Icon(Icons.file_copy, size: 16.h, color: AppColors.primaryDark),
                               ),
                             )
-                          : _cell('—'),
+                          : _cell(LangKeys.notAvailable.tr()),
                     ),
                   ),
                   DataCell(
@@ -201,7 +205,7 @@ class DataTableWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: Text(
-                        item.status ?? '—',
+                        _val(item.status),
                         style: AppStyles.black12Medium.copyWith(fontSize: 10.sp, color: AppColors.primaryDark),
                       ),
                     ),

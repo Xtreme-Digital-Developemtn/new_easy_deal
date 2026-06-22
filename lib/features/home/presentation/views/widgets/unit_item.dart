@@ -39,64 +39,66 @@ class UnitItem extends StatelessWidget {
                     width: double.infinity,
                     height: 190.h,
                     fit: BoxFit.cover,
-                    imageUrl:
-                        unit?.diagram.toString() ??
-                        "https://media.istockphoto.com/id/1499019570/photo/roof-garden.jpg?s=1024x1024&w=is&k=20&c=6fNpGPOAcQ8xDZ5BmvkShZekQ-nomhgZZaMs5dXxZ5c=",
+                    imageUrl: unit?.diagram?.toString() ?? '',
                     raduis: 0,
                   ),
                 ),
-                Positioned(
-                  top: 16.h,
-                  left: context.isArabic ? null : 16.w,
-                  right: context.isArabic ? 16.w : null,
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 6.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
-                          color: AppColors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(SvgImages.star, height: 8.h),
-                            Gap(6.w),
-                            Text(
-                              unit?.type.toString() ?? "Feature 1",
-                              style: AppStyles.gray8Medium,
+                if (unit?.type != null || unit?.totalPriceInCash != null)
+                  Positioned(
+                    top: 16.h,
+                    left: context.isArabic ? null : 16.w,
+                    right: context.isArabic ? 16.w : null,
+                    child: Row(
+                      children: [
+                        if (unit?.type != null)
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 6.h,
                             ),
-                          ],
-                        ),
-                      ),
-                      Gap(8.w),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 6.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
-                          color: AppColors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(SvgImages.money, height: 8.h),
-                            Gap(6.w),
-                            Text(
-                              unit?.totalPriceInCash.toString() ?? "2150.50000",
-                              style: AppStyles.gray8Medium,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.r),
+                              color: AppColors.white,
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SvgPicture.asset(SvgImages.star, height: 8.h),
+                                Gap(6.w),
+                                Text(
+                                  unit!.type!,
+                                  style: AppStyles.gray8Medium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (unit?.totalPriceInCash != null) ...[
+                          Gap(8.w),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 6.h,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.r),
+                              color: AppColors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SvgPicture.asset(SvgImages.money, height: 8.h),
+                                Gap(6.w),
+                                Text(
+                                  '${unit!.totalPriceInCash} ${LangKeys.egp.tr()}',
+                                  style: AppStyles.gray8Medium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
-                ),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -116,65 +118,65 @@ class UnitItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 50.h,
-                  left: context.isArabic ? null : 16.w,
-                  right: context.isArabic ? 16.w : null,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 6.h,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: AppColors.primaryDark,
-                    ),
-                    child: Text(
-                      unit?.deliveryStatus.toString() ?? "Apartment",
-                      style: AppStyles.white12Medium,
+                if (unit?.deliveryStatus != null)
+                  Positioned(
+                    bottom: 50.h,
+                    left: context.isArabic ? null : 16.w,
+                    right: context.isArabic ? 16.w : null,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 6.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: AppColors.primaryDark,
+                      ),
+                      child: Text(
+                        unit!.deliveryStatus!,
+                        style: AppStyles.white12Medium,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 25.h,
-                  left: context.isArabic ? null : 16.w,
-                  right: context.isArabic ? 16.w : null,
-                  child: Row(
-                    children: [
-                      Text(
-                        context.isArabic
-                            ? unit?.city?.nameAr.toString() ??
-                                  "Marasem, New Cairo"
-                            : unit?.city?.nameEn.toString() ?? "Marasem, New Cairo",
-                        style: AppStyles.white14SemiBold,
-                      ),
-                      Gap(4.w),
-                      SvgPicture.asset(SvgImages.verified),
-                    ],
+                if (unit?.city != null || unit?.area != null || unit?.subArea != null)
+                  Positioned(
+                    bottom: 25.h,
+                    left: context.isArabic ? null : 16.w,
+                    right: context.isArabic ? 16.w : null,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (unit?.city != null)
+                          Text(
+                            context.isArabic
+                                ? unit!.city!.nameAr ?? LangKeys.notAvailable.tr()
+                                : unit!.city!.nameEn ?? LangKeys.notAvailable.tr(),
+                            style: AppStyles.white14SemiBold,
+                          ),
+                        if (unit?.area != null || unit?.subArea != null)
+                          Row(
+                            children: [
+                              if (unit?.area != null)
+                                Text(
+                                  context.isArabic
+                                      ? unit!.area!.nameAr ?? LangKeys.notAvailable.tr()
+                                      : unit!.area!.nameEn ?? LangKeys.notAvailable.tr(),
+                                  style: AppStyles.white10Regular,
+                                ),
+                              if (unit?.area != null && unit?.subArea != null)
+                                Gap(4.w),
+                              if (unit?.subArea != null)
+                                Text(
+                                  context.isArabic
+                                      ? unit!.subArea!.nameAr ?? LangKeys.notAvailable.tr()
+                                      : unit!.subArea!.nameEn ?? LangKeys.notAvailable.tr(),
+                                  style: AppStyles.white10Regular,
+                                ),
+                            ],
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned(
-                  bottom: 10.h,
-                  left: context.isArabic ? null : 16.w,
-                  right: context.isArabic ? 16.w : null,
-                  child: Row(
-                    children: [
-                      Text(
-                        context.isArabic
-                            ? unit?.area?.nameAr.toString() ?? "Marasem, New Cairo"
-                            : unit?.area?.nameEn.toString() ?? "Marasem, New Cairo",
-                        style: AppStyles.white10Regular,
-                      ),
-                      Gap(4.w),
-                      Text(
-                        context.isArabic
-                            ? unit?.subArea?.nameAr.toString() ?? "Marasem, New Cairo"
-                            : unit?.subArea?.nameEn.toString() ?? "Marasem, New Cairo",
-                        style: AppStyles.white10Regular,
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
             Expanded(

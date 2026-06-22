@@ -14,7 +14,7 @@ class UnitInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> infoNames = ["bed", "bath", "sqft", "area", "pool", "built"];
-    List<String> infoValues = ["1", "3", "7", "2000", "0", "1900"];
+    List<dynamic> infoValues = [beds, baths, sqft, areaSize, poal, builtIn];
 
     return Container(
       padding: EdgeInsets.all(12.r),
@@ -44,7 +44,7 @@ class UnitInformation extends StatelessWidget {
             itemBuilder: (context, index) {
               return _buildInfoItem(
                 name: infoNames[index],
-                value: infoValues[index],
+                value: infoValues[index]?.toString() ?? LangKeys.notAvailable.tr(),
               );
             },
           ),

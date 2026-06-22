@@ -12,7 +12,7 @@ class UnitPriceStatusIndoor extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(price ?? "6000000.00 ${LangKeys.egp.tr()}",style: AppStyles.green20ExtraBold,),
+        Text(price != null ? '$price ${LangKeys.egp.tr()}' : LangKeys.notAvailable.tr(),style: AppStyles.green20ExtraBold,),
         Gap(12.h),
         Row(
           children: [
@@ -34,7 +34,7 @@ class UnitPriceStatusIndoor extends StatelessWidget {
                     ),
                   ),
                   Gap(4.w),
-                  Text(type ?? "Compound",style: AppStyles.white12Medium.copyWith(
+                  Text(type ?? LangKeys.notAvailable.tr(),style: AppStyles.white12Medium.copyWith(
                     color: Color.fromRGBO(44, 161, 241, 1),
                   ),),
                 ],

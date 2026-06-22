@@ -2,11 +2,13 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class UnitFeatures extends StatelessWidget {
-  const UnitFeatures({super.key});
+  const UnitFeatures({super.key, this.otherAccessories});
+
+  final List<String>? otherAccessories;
 
   @override
   Widget build(BuildContext context) {
-    List<String> featuresList = ["Equipped Kitchen", "Back yard", "Media Room", "Gym", "Media Room", "Garage Attached"];
+    List<String> featuresList = otherAccessories ?? [LangKeys.notAvailable.tr()];
     return Container(
       padding: EdgeInsets.all(12.r),
       width: double.infinity,

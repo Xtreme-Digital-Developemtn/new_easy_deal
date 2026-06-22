@@ -252,6 +252,7 @@ class EnLang {
     "advertisementAndPropertyDetails": "Advertisement and Property Details",
     "specializations": "Specializations",
     "areas": "Areas",
+    "notAvailable": "N/A",
     "thereAreNoItemsCurrentlyAvailable": "There are no items currently available",
     "addElement": "Add Element",
     "add": "Add",

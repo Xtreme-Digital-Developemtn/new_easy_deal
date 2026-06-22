@@ -43,60 +43,37 @@ class UnitDetailsView extends StatelessWidget {
                 : ListView(
                     children: [
                       UnitImageTypeLocation(
-                        image: unitDetailsCubit.unitDetailsModel!.data!.diagram,
+                        image: unitDetailsCubit.unitDetailsModel?.data?.diagram,
                         apartment:
-                            unitDetailsCubit.unitDetailsModel!.data!.type,
+                            unitDetailsCubit.unitDetailsModel?.data?.type,
                         city: context.isArabic
                             ? unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .city!
-                                  .nameAr
+                                  .unitDetailsModel?.data?.city?.nameAr
                             : unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .city!
-                                  .nameEn,
+                                  .unitDetailsModel?.data?.city?.nameEn,
                         area: context.isArabic
                             ? unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .area!
-                                  .nameAr
+                                  .unitDetailsModel?.data?.area?.nameAr
                             : unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .area!
-                                  .nameEn,
+                                  .unitDetailsModel?.data?.area?.nameEn,
                         subArea: context.isArabic
                             ? unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .subArea!
-                                  .nameAr
+                                  .unitDetailsModel?.data?.subArea?.nameAr
                             : unitDetailsCubit
-                                  .unitDetailsModel!
-                                  .data!
-                                  .subArea!
-                                  .nameEn,
+                                  .unitDetailsModel?.data?.subArea?.nameEn,
                       ),
                       Gap(12.h),
                       UnitPriceStatusIndoor(
                         price: unitDetailsCubit
-                            .unitDetailsModel!
-                            .data!
-                            .totalPriceInCash
-                            .toString(),
-                        type: unitDetailsCubit.unitDetailsModel!.data!.type,
-                        status: unitDetailsCubit.unitDetailsModel!.data!.status,
+                            .unitDetailsModel?.data?.totalPriceInCash
+                            ?.toString(),
+                        type: unitDetailsCubit.unitDetailsModel?.data?.type,
+                        status: unitDetailsCubit.unitDetailsModel?.data?.status,
                       ),
                       Gap(24.h),
                       UnitBrokerInfo(
                         brokerName: unitDetailsCubit
-                            .unitDetailsModel!
-                            .data!
-                            .broker!
-                            .name,
+                            .unitDetailsModel?.data?.broker?.name,
                         brokerRate: "5.0",
                         brokerImage: "",
                         brokerVerify: true,
@@ -105,17 +82,21 @@ class UnitDetailsView extends StatelessWidget {
                       ),
                       Gap(24.h),
                       UnitInformation(
-                        beds: unitDetailsCubit.unitDetailsModel!.data!.numberOfRooms,
-                        baths: unitDetailsCubit.unitDetailsModel!.data!.numberOfBathrooms,
-                        sqft:unitDetailsCubit.unitDetailsModel!.data!.unitArea,
-                        areaSize: unitDetailsCubit.unitDetailsModel!.data!.unitArea,
-                        poal: unitDetailsCubit.unitDetailsModel!.data!.id,
-                        builtIn: unitDetailsCubit.unitDetailsModel!.data!.buildingNumber,
+                        beds: unitDetailsCubit.unitDetailsModel?.data?.numberOfRooms,
+                        baths: unitDetailsCubit.unitDetailsModel?.data?.numberOfBathrooms,
+                        sqft:unitDetailsCubit.unitDetailsModel?.data?.unitArea,
+                        areaSize: unitDetailsCubit.unitDetailsModel?.data?.unitArea,
+                        poal: unitDetailsCubit.unitDetailsModel?.data?.id,
+                        builtIn: unitDetailsCubit.unitDetailsModel?.data?.buildingNumber,
                       ),
                       Gap(24.h),
-                      UnitFeatures(),
+                      UnitFeatures(
+                        otherAccessories: unitDetailsCubit.unitDetailsModel?.data?.otherAccessories,
+                      ),
                       Gap(24.h),
-                      UnitDescription(),
+                      UnitDescription(
+                        notes: unitDetailsCubit.unitDetailsModel?.data?.additionalDetails?.notes,
+                      ),
                       Gap(24.h),
                       UnitLocation(),
                     ],

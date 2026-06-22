@@ -252,6 +252,7 @@ class ArLang {
     "advertisementAndPropertyDetails": "تفاصيل الإعلان والعقار",
     "specializations": "التخصصات",
     "areas": "المناطق",
+    "notAvailable": "لا يوجد",
     "thereAreNoItemsCurrentlyAvailable": "لا توجد عناصر متاحة حالياً",
     "addElement": "إضافة عنصر",
     "add": "إضافة",
