@@ -311,7 +311,7 @@ class AppRouter {
       case Routes.brokerDevelopersView:
         return transition(
           screen: const BrokerDevelopersView(),
-          cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()),
+          // cubit: BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>()),
         );
       case Routes.brokerDataView:
         return transition(

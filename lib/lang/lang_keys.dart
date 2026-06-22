@@ -268,8 +268,16 @@ abstract class LangKeys {
   static const String noFilesCurrentlyAvailable = 'noFilesCurrentlyAvailable';
   static const String tapToEditOrDelete = 'tapToEditOrDelete';
   static const String developerName = 'developerName';
+  static const String projectName = 'projectName';
   static const String numberOfProjects = 'numberOfProjects';
   static const String projects = 'projects';
+  static const String projectType = 'projectType';
+  static const String implementer = 'implementer';
+  static const String googleMapsLink = 'googleMapsLink';
+  static const String designer = 'designer';
+  static const String operationManagement = 'operationManagement';
+  static const String unitsSummary = 'unitsSummary';
+  static const String projectVideo = 'projectVideo';
   static const String status = 'status';
   static const String procedures = 'procedures';
   static const String developer = 'developer';

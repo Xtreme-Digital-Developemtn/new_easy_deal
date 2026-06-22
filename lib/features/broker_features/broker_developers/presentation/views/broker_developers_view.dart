@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_projects_view.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developers_table_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -48,7 +49,20 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                 child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
               );
             }
-            return DevelopersTableData(data: data);
+            return DevelopersTableData(
+              data: data,
+              onProceduresTap: (developerId) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DeveloperProjectsView(
+                      developerId: developerId,
+                      cubit: context.read<BrokerDevelopersCubit>(),
+                    ),
+                  ),
+                );
+              },
+            );
           }
           return const SizedBox.shrink();
         },

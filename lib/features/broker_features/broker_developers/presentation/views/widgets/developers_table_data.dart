@@ -5,7 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class DevelopersTableData extends StatelessWidget {
   final List<DeveloperData> data;
-  const DevelopersTableData({super.key, required this.data});
+  final void Function(int developerId)? onProceduresTap;
+  const DevelopersTableData({super.key, required this.data, this.onProceduresTap});
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +100,7 @@ class DevelopersTableData extends StatelessWidget {
                       padding: EdgeInsets.all(4.r),
                       color: AppColors.blueLight,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () => onProceduresTap?.call(item.developerId ?? 0),
                         child: SvgPicture.asset(SvgImages.eye),
                       ),
                     ),

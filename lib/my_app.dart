@@ -8,6 +8,8 @@ import 'core/app_services/remote_services/service_locator.dart';
 import 'core/routing/app_router.dart';
 import 'core/shared_cubits/auth_cubit/auth_cubit.dart';
 import 'core/shared_cubits/lang_cubit/lang_cubit.dart';
+import 'features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
+import 'features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
 import 'features/profile/data/repos/profile_repo_imple.dart';
 import 'features/register/data/repos/register_repo_imple.dart';
 import 'main_imports.dart';
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
                 BlocProvider(create: (context) => LanguageCubit()),
                 BlocProvider(create: (context) => EditProfileCubit(getIt.get<EditProfileRepoImpl>())),
                  BlocProvider(create: (context) => RegisterCubit(getIt.get<RegisterRepoImpl>())),
+                 BlocProvider(create: (context) => BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>())),
                 BlocProvider(create: (context) => ProfileCubit(
                     getIt.get<ProfileRepoImpl>())..getClientProfile(clientId:CacheHelper.getData(key: "userId"))..getSocialMedia()),
 
@@ -60,7 +63,7 @@ class MyApp extends StatelessWidget {
                         backgroundColor: AppColors.white,
                       ),
                     ),
-                    initialRoute: Routes.brokerHomeView,
+                    initialRoute: Routes.splashView,
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {
                       SystemChrome.setSystemUIOverlayStyle(
