@@ -9,7 +9,6 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/shared_widgets/general_bottom_sheet.dart';
 import 'area_from_area_to.dart';
-import 'cities_and_areas.dart';
 import 'filter_text_and_reset_data.dart';
 
 class FilterContainer extends StatelessWidget {
@@ -24,7 +23,6 @@ class FilterContainer extends StatelessWidget {
       listener: (context,state){
         if(state is GetAllUnitsFilterSuccessState){
           Navigator.of(context).pop();
-          context.read<SearchCubit>().resetFilters();
           Toast.showSuccessToast(msg: state.allUnitsModel.message.toString(), context: context);
         }
         else if (state is GetAllUnitsErrorState){
@@ -51,7 +49,7 @@ class FilterContainer extends StatelessWidget {
                         ),
                         child: BlocBuilder<SearchCubit, SearchStates>(
                           builder: (context, state) {
-                            final cubit = context.watch<SearchCubit>();
+                            final cubit = context.read<SearchCubit>();
                             return SingleChildScrollView(
                               child: Column(
                                 children: [
@@ -59,9 +57,7 @@ class FilterContainer extends StatelessWidget {
                                   FilterTextAndResetData(),
                                   Gap(24.h),
 
-                                  /// Cities & Areas
-                                  CitiesAndAreas(),
-                                  Gap(12.h),
+
 
 
                                   /// property Type & Process

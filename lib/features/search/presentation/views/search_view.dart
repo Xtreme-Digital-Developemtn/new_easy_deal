@@ -26,6 +26,7 @@ class _SearchViewState extends State<SearchView> {
       if (cubit.allUnitsModel == null) {
         cubit.getAllUnits();
       }
+
     });
   }
 

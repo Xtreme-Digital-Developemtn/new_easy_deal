@@ -11,7 +11,7 @@ class AreaFromAreaTo extends StatelessWidget {
   Widget build(BuildContext context) {
     return             BlocBuilder<SearchCubit , SearchStates>(
       builder: (context,state){
-        var cubit = context.watch<SearchCubit>();
+        var cubit = context.read<SearchCubit>();
         return Row(
           children: [
             Expanded(

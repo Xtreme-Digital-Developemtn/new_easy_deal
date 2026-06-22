@@ -57,7 +57,7 @@ class SearchCubit extends Cubit<SearchStates> {
       limit: itemsPerPage,
       offset: offset,
       unitOperation: theProcess.toString(),
-      area: "",
+      area: areaId?.toString() ?? "",
       unitType: properType.toString(),
       priceFrom: priceFromCon.text,
       priceTo: priceToCon.text,
@@ -241,9 +241,10 @@ class SearchCubit extends Cubit<SearchStates> {
   void selectTheCity(Cities newCity) {
     city = newCity.nameAr;
     cityId = newCity.id;
-    areasModel = null; // عمل Reset للمناطق
+    area = null;
+    areaId = null;
+    areasModel = null;
     getAllAreas(cityId: cityId!);
-    // emit(SelectTheCityState());
   }
 
   String? area;

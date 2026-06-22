@@ -21,8 +21,8 @@ class TypeDeliveryStatus extends StatelessWidget {
                 items: cubit.types.values.toList(),
                 hint: LangKeys.type.tr(),
                 itemDisplayBuilder: (item) {
-                  final key = cubit.types.entries.firstWhere((entry) => entry.value == item).key;
-                  return key;
+                  final entry = cubit.types.entries.firstWhere((entry) => entry.value == item, orElse: () => MapEntry('', ''));
+                  return entry.key;
                 },
                 onChanged: (val) {
                   cubit.selectType(val);
@@ -43,8 +43,8 @@ class TypeDeliveryStatus extends StatelessWidget {
                 items: cubit.status.values.toList(),
                 hint: LangKeys.deliveryStatus.tr(),
                 itemDisplayBuilder: (item) {
-                  final key = cubit.status.entries.firstWhere((entry) => entry.value == item).key;
-                  return key;
+                  final entry = cubit.status.entries.firstWhere((entry) => entry.value == item, orElse: () => MapEntry('', ''));
+                  return entry.key;
                 },
                 onChanged: (val) {
                   cubit.selectDeliveryStatus(val);

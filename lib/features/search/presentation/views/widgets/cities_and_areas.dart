@@ -23,7 +23,19 @@ class CitiesAndAreas extends StatelessWidget {
 
     return BlocBuilder<SearchCubit , SearchStates>(
       builder: (context,state){
-        var cubit = context.watch<SearchCubit>();
+        var cubit = context.read<SearchCubit>();
+        var isArabic = EasyLocalization.of(context)!.currentLocale!.languageCode == "ar";
+        var citiesList = cubit.citiesModel?.data ?? [];
+        var areasList = cubit.areasModel?.data ?? [];
+
+        var cityNames = citiesList.map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? '')).toList();
+        var areaNames = areasList.map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? '')).toList();
+
+        var currentCityName = cubit.city == null ? null
+            : isArabic ? cubit.city : citiesList.where((e) => e.nameAr == cubit.city).map((e) => e.nameEn ?? '').firstOrNull;
+        var currentAreaName = cubit.area == null ? null
+            : isArabic ? cubit.area : areasList.where((e) => e.nameAr == cubit.area).map((e) => e.nameEn ?? '').firstOrNull;
+
         return Row(
           children: [
             Expanded(
@@ -32,25 +44,31 @@ class CitiesAndAreas extends StatelessWidget {
                 children: [
                   Text(LangKeys.cities.tr()),
                   Gap(4.h),
-                  CustomDropdown<Cities>(
-                    value: cubit.city == null
-                        ? null
-                        : cubit.citiesModel!.data!
-                        .firstWhere((e) => e.nameAr == cubit.city),
-
-                    items: cubit.citiesModel?.data ?? [],
-
-                    hint: LangKeys.cities.tr(),
-
-                    itemDisplayBuilder: (item) =>
-                    EasyLocalization.of(context)!.currentLocale!.languageCode == "ar"
-                        ? item.nameAr ?? ""
-                        : item.nameEn ?? "",
-
-                    onChanged: (val) {
-                      cubit.selectTheCity(val!);
-                    },
-                  ),
+                  if (cityNames.isNotEmpty)
+                    CustomDropdown<String>(
+                      value: currentCityName,
+                      items: cityNames,
+                      hint: LangKeys.cities.tr(),
+                      itemDisplayBuilder: (item) => item,
+                      onChanged: (val) {
+                        if (val != null) {
+                          var city = citiesList.firstWhere(
+                            (e) => (isArabic ? e.nameAr : e.nameEn) == val,
+                            orElse: () => Cities(id: 0, nameAr: val, nameEn: val),
+                          );
+                          cubit.selectTheCity(city);
+                        }
+                      },
+                    )
+                  else if (state is GetAllCitiesErrorState)
+                    SizedBox(
+                      height: 56.h,
+                      child: Center(
+                        child: Text(LangKeys.notAvailable.tr(), style: AppStyles.gray12Medium),
+                      ),
+                    )
+                  else
+                    SizedBox(height: 56.h, child: Center(child: CustomLoading(size: 24.sp))),
                 ],
               ),
             ),
@@ -63,35 +81,32 @@ class CitiesAndAreas extends StatelessWidget {
                 children: [
                   Text(LangKeys.areas.tr()),
                   Gap(4.h),
-                  if (state is GetAllAreasLoadingState)
-                      CustomLoading(size: 30.sp,)
+                  if (areaNames.isNotEmpty)
+                    CustomDropdown<String>(
+                      value: currentAreaName,
+                      items: areaNames,
+                      hint: LangKeys.areas.tr(),
+                      itemDisplayBuilder: (item) => item,
+                      onChanged: (val) {
+                        if (val != null) {
+                          var area = areasList.firstWhere(
+                            (e) => (isArabic ? e.nameAr : e.nameEn) == val,
+                            orElse: () => Areas(id: 0, nameAr: val, nameEn: val, cityId: 0),
+                          );
+                          cubit.selectTheArea(area);
+                        }
+                      },
+                    )
+                  else if (cubit.city != null && state is! GetAllAreasErrorState)
+                    SizedBox(height: 56.h, child: Center(child: CustomLoading(size: 24.sp)))
                   else
-                  CustomDropdown<Areas>(
-                    value: cubit.area == null || cubit.areasModel == null
-                        ? null
-                        : cubit.areasModel!.data!
-                        .firstWhere((e) => e.nameAr == cubit.area),
-
-                    items: cubit.areasModel?.data ?? [],
-
-                    hint: LangKeys.areas.tr(),
-
-                    itemDisplayBuilder: (item) =>
-                    EasyLocalization.of(context)!.currentLocale!.languageCode == "ar"
-                        ? item.nameAr ?? ""
-                        : item.nameEn ?? "",
-
-                    onChanged: (val) {
-                      cubit.selectTheArea(val!);
-                    },
-                  ),
+                    SizedBox(height: 56.h, child: Center(child: Text(LangKeys.notAvailable.tr(), style: AppStyles.gray12Medium))),
                 ],
               ),
             ),
           ],
         );
       },
-
     );
   }
 }

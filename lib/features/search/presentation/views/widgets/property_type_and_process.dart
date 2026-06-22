@@ -21,8 +21,8 @@ class PropertyTypeAndProcess extends StatelessWidget {
                 items: cubit.properTypes.values.toList(),
                 hint: LangKeys.propertyType.tr(),
                 itemDisplayBuilder: (item) {
-                  final key = cubit.properTypes.entries.firstWhere((entry) => entry.value == item).key;
-                  return key;
+                  final entry = cubit.properTypes.entries.firstWhere((entry) => entry.value == item, orElse: () => MapEntry('', ''));
+                  return entry.key;
                 },
                 onChanged: (val) {
                   cubit.selectProperType(val);
@@ -43,8 +43,8 @@ class PropertyTypeAndProcess extends StatelessWidget {
                 items: cubit.process.values.toList(),
                 hint: LangKeys.theProcess.tr(),
                 itemDisplayBuilder: (item) {
-                  final key = cubit.process.entries.firstWhere((entry) => entry.value == item).key;
-                  return key;
+                  final entry = cubit.process.entries.firstWhere((entry) => entry.value == item, orElse: () => MapEntry('', ''));
+                  return entry.key;
                 },
                 onChanged: (val) {
                   cubit.selectTheProcess(val);
