@@ -156,15 +156,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
       MapEntry("gender", gender),
     ]);
     if (image != null) {
-      formData.files.add(MapEntry("files",
+      formData.files.add(MapEntry("image",
           await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)));
     }
     if (idFront != null) {
-      formData.files.add(MapEntry("files",
+      formData.files.add(MapEntry("idFront",
           await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last)));
     }
     if (idBack != null) {
-      formData.files.add(MapEntry("files",
+      formData.files.add(MapEntry("idBack",
           await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)));
     }
     if (CacheHelper.getData(key: "userRole") == "broker") {
