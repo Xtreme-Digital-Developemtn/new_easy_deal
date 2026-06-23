@@ -90,6 +90,7 @@ import '../../features/unit_details/presentation/views/unit_details_view.dart';
 import '../../features/upload_broker_doc/data/repos/upload_broker_doc_repo_imple.dart';
 import '../../features/upload_broker_doc/presentation/view_model/upload_broker_doc_cubit.dart';
 import '../../features/upload_broker_doc/presentation/views/upload_broker_doc_view.dart';
+import '../../features/upload_broker_doc/presentation/views/broker_specialization_view.dart';
 import '../../features/user_chat/data/repos/user_repo_imple.dart';
 import '../../features/user_chat/presentation/view_model/user_chat_cubit.dart';
 import '../../features/user_chat/presentation/views/user_chat_view.dart';
@@ -262,6 +263,23 @@ class AppRouter {
             phone: args["phone"] as String? ?? '',
           ),
           cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
+        );
+      case Routes.brokerSpecializationView:
+        final args = arguments as Map<String, dynamic>;
+        return transition(
+          screen: BrokerSpecializationView(
+            selectedIndex: args["selectedIndex"] as int? ?? 0,
+            name: args["name"] as String? ?? '',
+            email: args["email"] as String? ?? '',
+            password: args["password"] as String? ?? '',
+            confirmPassword: args["confirmPassword"] as String? ?? '',
+            gender: args["gender"] as String? ?? '',
+            role: args["role"] as String? ?? '',
+            phone: args["phone"] as String? ?? '',
+            profileImagePath: args["profileImagePath"] as String?,
+            frontIdPath: args["frontIdPath"] as String?,
+            backIdPath: args["backIdPath"] as String?,
+          ),
         );
       case Routes.createRequestView:
         return transition(

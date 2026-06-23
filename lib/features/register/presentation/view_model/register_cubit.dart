@@ -138,32 +138,46 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required File? image,
     File? idFront,
     File? idBack,
+    List<int>? areaids,
+    List<int>? subAreas,
+    Map<String, List<String>>? specializationScopes,
     int brokerTypeIndex = 0,
   })
   async {
     emit(SignUpLoading());
-    final Map<String, dynamic> formFields = {
-      "fullName": fullName,
-      "phone": "0$phone",
-      "role": CacheHelper.getData(key: "userRole")  ,
-      "password": password,
-      "password_confirmation": passwordConfirmation,
-      "email": email!="" ? email : "",
-      "gender": gender,
-      "image": image != null
-          ? await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)
-          : null,
-      "idFront": idFront != null
-          ? await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last)
-          : null,
-      "idBack": idBack != null
-          ? await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)
-          : null,
-    };
-    if (CacheHelper.getData(key: "userRole") == "broker") {
-      formFields["brokerType"] = brokerTypeIndex;
+    final formData = FormData();
+    formData.fields.addAll([
+      MapEntry("fullName", fullName),
+      MapEntry("phone", "0$phone"),
+      MapEntry("role", CacheHelper.getData(key: "userRole")),
+      MapEntry("password", password),
+      MapEntry("password_confirmation", passwordConfirmation),
+      MapEntry("email", email != "" ? email : ""),
+      MapEntry("gender", gender),
+    ]);
+    if (image != null) {
+      formData.files.add(MapEntry("files",
+          await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)));
     }
-    FormData formData = FormData.fromMap(formFields);
+    if (idFront != null) {
+      formData.files.add(MapEntry("files",
+          await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last)));
+    }
+    if (idBack != null) {
+      formData.files.add(MapEntry("files",
+          await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)));
+    }
+    if (CacheHelper.getData(key: "userRole") == "broker") {
+      final type = brokerTypeIndex == 1 ? "independent" : "real_estate_brokage_company";
+      formData.fields.add(MapEntry("type", type));
+    }
+    if (specializationScopes != null) {
+      specializationScopes.forEach((category, values) {
+        for (final value in values) {
+          formData.fields.add(MapEntry("specializationScopes[$category][]", value));
+        }
+      });
+    }
     final result = await registerRepo!.register(data: formData);
     return result.fold((failure) {
       emit(SignUpError(failure.errMessage));

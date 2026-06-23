@@ -19,6 +19,42 @@ const specializationScopeOptions = [
   TranslatableOptionItem(key: 'Rentals Inside Compound', value: 'rentals_inside_compound', translationKey: 'RENTALS_INSIDE_COMPOUND'),
 ];
 
+const specializationScopeSubOptions = <String, List<String>>{
+  'purchase_sell_outside_compound': [
+    'purchasing_sell_residential_outside_compound',
+    'purchasing_sell_national_housing_projects_outside_compound',
+    'purchasing_sell_administrative_commercial_units_outside_compound',
+    'purchasing_sell_industrial_and_warehousing_outside_compound',
+    'purchasing_sell_lands_and_ready_projects_outside_compound',
+    'purchasing_sell_villas_and_buildings_outside_compound',
+    'purchasing_sell_vacation_units_outside_compound',
+  ],
+  'resale_inside_compound': [
+    'purchasing_sell_residential_inside_compound',
+    'purchasing_sell_villas_inside_compound',
+    'purchasing_sell_administrative_commercial_units_inside_compound',
+    'purchasing_sell_vacation_units_inside_compound',
+  ],
+  'primary_inside_compound': [
+    'purchasing_sell_residential_inside_compound',
+    'purchasing_sell_villas_inside_compound',
+    'purchasing_sell_administrative_commercial_units_inside_compound',
+    'purchasing_sell_vacation_units_inside_compound',
+  ],
+  'rentals_inside_compound': [
+    'rent_residential_inside_compound',
+    'rent_hotel_vacation_units_inside_compound',
+    'rent_administrative_commercial_units_inside_compound',
+  ],
+  'rentals_outside_compound': [
+    'rent_residential_outside_compound',
+    'rent_national_housing_projects_outside_compound',
+    'rent_administrative_commercial_units_outside_compound',
+    'rent_industrial_and_warehousing_outside_compound',
+    'rent_hotel_vacation_units_outside_compound',
+  ],
+};
+
 const typeOptions = [
   TranslatableOptionItem(key: 'Purchasing', value: 'purchasing', translationKey: 'PURCHASING'),
   TranslatableOptionItem(key: 'Sell', value: 'sell', translationKey: 'SELL'),

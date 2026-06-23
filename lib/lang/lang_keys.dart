@@ -441,7 +441,9 @@ abstract class LangKeys {
   static const String selectDealTypePlaceholder = 'selectDealTypePlaceholder';
   static const String selectUnitTypePlaceholder = 'selectUnitTypePlaceholder';
   static const String selectCity = 'selectCity';
+  static const String selectCityFirst = 'selectCityFirst';
   static const String selectArea = 'selectArea';
+  static const String selectAreaFirst = 'selectAreaFirst';
   static const String selectSubArea = 'selectSubArea';
   static const String enterCompoundName = 'enterCompoundName';
   static const String enterDetailedAddress = 'enterDetailedAddress';
@@ -591,6 +593,7 @@ abstract class LangKeys {
 
   static const String purchasingSellOutsideCompound = 'PURCHASING_SELL_OUTSIDE_COMPOUND';
   static const String purchasingSellInsideCompound = 'PURCHASING_SELL_INSIDE_COMPOUND';
+  static const String purchaseSellOutsideCompoundKey = 'PURCHASE_SELL_OUTSIDE_COMPOUND';
   static const String primaryInsideCompoundKey = 'PRIMARY_INSIDE_COMPOUND';
   static const String resaleInsideCompoundKey = 'RESALE_INSIDE_COMPOUND';
   static const String rentalsOutsideCompoundKey = 'RENTALS_OUTSIDE_COMPOUND';
