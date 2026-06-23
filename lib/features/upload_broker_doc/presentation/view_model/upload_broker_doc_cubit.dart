@@ -175,23 +175,19 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   }
 
 
-  final ValueNotifier<bool> isIndividualDocumentsValid = ValueNotifier(false);
-  final ValueNotifier<bool> isCompanyDocumentsValid = ValueNotifier(false);
+  bool isIndividualDocumentsValid = false;
+  bool isCompanyDocumentsValid = false;
 
   void validateIndividualDocuments() {
-    bool isValid = profileImage != null &&
+    isIndividualDocumentsValid = profileImage != null &&
         frontIdCardImage != null &&
         backIdCardImage != null;
-
-    isIndividualDocumentsValid.value = isValid;
   }
 
   void validateCompanyDocuments() {
-    bool isValid = companyLogo != null &&
+    isCompanyDocumentsValid = companyLogo != null &&
         commercialFile != null &&
         taxFile != null;
-
-    isCompanyDocumentsValid.value = isValid;
   }
 
 

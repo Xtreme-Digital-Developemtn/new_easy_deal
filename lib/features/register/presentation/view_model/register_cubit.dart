@@ -136,6 +136,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String gender,
     required String email,
     required File? image,
+    File? idFront,
+    File? idBack,
     int brokerTypeIndex = 0,
   })
   async {
@@ -150,6 +152,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
       "gender": gender,
       "image": image != null
           ? await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)
+          : null,
+      "idFront": idFront != null
+          ? await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last)
+          : null,
+      "idBack": idBack != null
+          ? await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)
           : null,
     };
     if (CacheHelper.getData(key: "userRole") == "broker") {

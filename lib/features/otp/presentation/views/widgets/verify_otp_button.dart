@@ -25,28 +25,33 @@ class VerifyOtpButton extends StatelessWidget {
       listener: (context, state) {
       if(state is VerifyOtpSuccessState){
         Toast.showSuccessToast(msg: state.verifyOtpModel.message.toString(), context: context);
-        context.pushNamed(Routes.successView,
-          arguments: {
-            "gender": gender,
-            "role": role,
-            "name": name,
-            "email": email,
-            "password": password,
-            "confirmPassword": confirmPassword,
-            "phone": phone2,
-            "selectIndex": selectIndex,
-          },
-        );
-        // var registerCubit = context.read<RegisterCubit>();
-        // registerCubit.register(
-        //   fullName: registerCubit.nameCon.text,
-        //   phone: registerCubit.phoneCon.text,
-        //   password:registerCubit.passwordCon.text,
-        //   passwordConfirmation: registerCubit.confirmPasswordCon.text,
-        //   gender: registerCubit.gender.toString(),
-        //   email: registerCubit.emailCon.text,
-        //   image: null,
-        // );
+        if (role == "broker" && selectIndex == 1) {
+          context.pushNamed(Routes.uploadBrokerDocView,
+            arguments: {
+              "gender": gender,
+              "role": role,
+              "name": name,
+              "email": email,
+              "password": password,
+              "confirmPassword": confirmPassword,
+              "phone": phone2,
+              "selectIndex": selectIndex,
+            },
+          );
+        } else {
+          context.pushNamed(Routes.successView,
+            arguments: {
+              "gender": gender,
+              "role": role,
+              "name": name,
+              "email": email,
+              "password": password,
+              "confirmPassword": confirmPassword,
+              "phone": phone2,
+              "selectIndex": selectIndex,
+            },
+          );
+        }
       }
       // else if (state is SignUpSuccess && state is VerifyOtpSuccessState&&CacheHelper.getData(key: "userRole")=="client"){
       //   Toast.showSuccessToast(msg: state.registerModel.message.toString(), context: context);

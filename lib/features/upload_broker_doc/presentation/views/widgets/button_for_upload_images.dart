@@ -14,26 +14,21 @@ class ButtonForUploadImages extends StatelessWidget {
       builder: (context, state) {
         var cubit = context.read<UploadBrokerDocCubit>();
 
-        return ValueListenableBuilder<bool>(
-          valueListenable: isCompany
-              ? cubit.isCompanyDocumentsValid
-              : cubit.isIndividualDocumentsValid,
-          builder: (context, isValid, child) {
-            return CustomButton(
-              text: LangKeys.continuee.tr(),
-              onPressed: isValid
-                  ? () {
-                // هنا يمكنك إضافة منطق مختلف للشركة والفرد
-                if (isCompany) {
-                  cubit.submitCompanyDocuments();
-                } else {
-                  cubit.submitIndividualDocuments();
-                }
-                context.pushNamed(Routes.successView);
-              }
-                  : null,
-            );
-          },
+        final isValid = isCompany
+            ? cubit.isCompanyDocumentsValid
+            : cubit.isIndividualDocumentsValid;
+        return CustomButton(
+          text: LangKeys.continuee.tr(),
+          onPressed: isValid
+              ? () {
+            if (isCompany) {
+              cubit.submitCompanyDocuments();
+            } else {
+              cubit.submitIndividualDocuments();
+            }
+            context.pushNamed(Routes.successView);
+          }
+              : null,
         );
       },
     );

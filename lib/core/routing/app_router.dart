@@ -252,7 +252,14 @@ class AppRouter {
         final args = arguments as Map<String, dynamic>;
         return transition(
           screen: UploadBrokerDocView(
-            selectedIndex: args["selectIndex"] as int,
+            selectedIndex: args["selectIndex"] as int? ?? 0,
+            name: args["name"] as String? ?? '',
+            email: args["email"] as String? ?? '',
+            password: args["password"] as String? ?? '',
+            confirmPassword: args["confirmPassword"] as String? ?? '',
+            gender: args["gender"] as String? ?? '',
+            role: args["role"] as String? ?? '',
+            phone: args["phone"] as String? ?? '',
           ),
           cubit: UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
         );
