@@ -3,6 +3,7 @@ import 'package:easy_deal/features/register/presentation/view_model/register_cub
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import '../../../../main_imports.dart';
 import 'widgets/pin_code_fields_widget.dart';
+import 'widgets/resend_otp.dart';
 import 'widgets/verify_otp_button.dart';
 
 
@@ -28,7 +29,13 @@ class _OtpViewState extends State<OtpView> {
 
   @override
   void dispose() {
+    _otpController.dispose();
     super.dispose();
+  }
+
+  void _resendCode() {
+    context.read<RegisterCubit>().sendOtp(phone: widget.phone);
+    _otpController.clear();
   }
 
   @override
@@ -51,8 +58,8 @@ class _OtpViewState extends State<OtpView> {
                   OtpTexts(contact:widget.contact,isMobile: true,),
                   Gap(20.h),
                   PinCodeFieldsWidget(controller: _otpController),
-                  // Gap(12.h),
-                  // ResendOtp(),
+                  Gap(12.h),
+                  ResendOtp(onResend: _resendCode),
                   Gap(24.h),
                   VerifyOtpButton(
                     controller: _otpController,
