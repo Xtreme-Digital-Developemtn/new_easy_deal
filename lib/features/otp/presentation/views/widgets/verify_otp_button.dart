@@ -25,7 +25,7 @@ class VerifyOtpButton extends StatelessWidget {
       listener: (context, state) {
       if(state is VerifyOtpSuccessState){
         Toast.showSuccessToast(msg: state.verifyOtpModel.message.toString(), context: context);
-        if (role == "broker" && selectIndex == 1) {
+        if (role == "broker") {
           context.pushNamed(Routes.uploadBrokerDocView,
             arguments: {
               "gender": gender,

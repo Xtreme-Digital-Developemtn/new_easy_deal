@@ -71,8 +71,8 @@ class UploadBrokerDocView extends StatelessWidget {
                                   'role': role,
                                   'phone': phone,
                                   'profileImagePath': docCubit.companyLogo?.path,
-                                  'frontIdPath': docCubit.commercialFile?.path,
-                                  'backIdPath': docCubit.taxFile?.path,
+                                  'commercialRegistryImagePath': docCubit.commercialFile?.path,
+                                  'taxCardImagePath': docCubit.taxFile?.path,
                                 },
                               );
                             } else {

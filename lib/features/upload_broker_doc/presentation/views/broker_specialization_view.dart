@@ -18,6 +18,8 @@ class BrokerSpecializationView extends StatefulWidget {
   final String? profileImagePath;
   final String? frontIdPath;
   final String? backIdPath;
+  final String? commercialRegistryImagePath;
+  final String? taxCardImagePath;
 
   const BrokerSpecializationView({
     super.key,
@@ -32,6 +34,8 @@ class BrokerSpecializationView extends StatefulWidget {
     this.profileImagePath,
     this.frontIdPath,
     this.backIdPath,
+    this.commercialRegistryImagePath,
+    this.taxCardImagePath,
   });
 
   @override
@@ -272,6 +276,12 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
           : null,
       idBack: widget.backIdPath != null
           ? File(widget.backIdPath!)
+          : null,
+      commercialRegistryImage: widget.commercialRegistryImagePath != null
+          ? File(widget.commercialRegistryImagePath!)
+          : null,
+      taxCardImage: widget.taxCardImagePath != null
+          ? File(widget.taxCardImagePath!)
           : null,
       specializationScopes: scopes.isNotEmpty ? scopes : null,
       brokerTypeIndex: widget.selectedIndex,

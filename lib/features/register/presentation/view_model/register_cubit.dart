@@ -138,6 +138,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required File? image,
     File? idFront,
     File? idBack,
+    File? commercialRegistryImage,
+    File? taxCardImage,
     List<int>? areaids,
     List<int>? subAreas,
     Map<String, List<String>>? specializationScopes,
@@ -166,6 +168,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
     if (idBack != null) {
       formData.files.add(MapEntry("idBack",
           await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)));
+    }
+    if (commercialRegistryImage != null) {
+      formData.files.add(MapEntry("commercialRegistryImage",
+          await MultipartFile.fromFile(commercialRegistryImage.path, filename: commercialRegistryImage.path.split('/').last)));
+    }
+    if (taxCardImage != null) {
+      formData.files.add(MapEntry("taxCardImage",
+          await MultipartFile.fromFile(taxCardImage.path, filename: taxCardImage.path.split('/').last)));
     }
     if (CacheHelper.getData(key: "userRole") == "broker") {
       final type = brokerTypeIndex == 1 ? "independent" : "real_estate_brokage_company";
