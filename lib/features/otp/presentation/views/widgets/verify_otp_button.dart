@@ -66,41 +66,20 @@ class VerifyOtpButton extends StatelessWidget {
           condition: state is! VerifyOtpLoadingState,
           fallback: (context) => const CustomLoading(),
           builder: (context) {
-            return CustomButton(
-              text:context.tr(LangKeys.verifyCode),
-              onPressed: () {
-                if (controller.text.length == 6) {
-                  context.read<RegisterCubit>().verifyOtp(
-                    otp: controller.text,
-                    phone: phone,
-                  );
-                  ///
-                  // GeneralBottomSheet.show(
-                  //   heightRatio: 0.45,
-                  //     context: context,
-                  //     image: SvgPicture.asset(SvgImages.tickCircle,height: 100.h,width: 100.w,),
-                  //     title:isMobile ? LangKeys.mobileNumberChangedSuccessfully.tr(): LangKeys.emailAddressChangedSuccessfully.tr(),
-                  //     description: "",
-                  //     buttonText: LangKeys.done.tr(),
-                  //     onButtonPressed: (){
-                  //     context.pushNamed(Routes.layoutView);
-                  //     },
-                  // );
-                  ///
-                  // if(CacheHelper.getData(key: "userRole")=="client"){
-                  //   context.pushNamedAndRemoveUntil(Routes.successView);
-                  // }else{
-                  //   context.pushNamed(Routes.uploadBrokerDocView,arguments: {
-                  //     "selectIndex" : selectIndex,
-                  //   });
-                  // }
-
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(context.tr(LangKeys.pleaseEnterValidOtp,),),
-                      backgroundColor: AppColors.errorLight,),
-                  );
-                }
+            return ListenableBuilder(
+              listenable: controller,
+              builder: (context, _) {
+                return CustomButton(
+                  text: context.tr(LangKeys.verifyCode),
+                  onPressed: controller.text.length == 6
+                      ? () {
+                          context.read<RegisterCubit>().verifyOtp(
+                            otp: controller.text,
+                            phone: phone,
+                          );
+                        }
+                      : null,
+                );
               },
             );
           },
