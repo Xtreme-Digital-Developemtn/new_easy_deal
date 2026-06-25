@@ -33,7 +33,8 @@ class RegisterRepoImpl implements RegisterRepo {
   async{
     try {
       var data = FormData.fromMap({
-        'phone':phone,
+         'phone':"0$phone",
+
       });
       var response = await apiService!.postData(
         endPoint: EndPoints.sendOtp,

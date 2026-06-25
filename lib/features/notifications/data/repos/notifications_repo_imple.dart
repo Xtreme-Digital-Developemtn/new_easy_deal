@@ -1,5 +1,9 @@
 
-import '../../../../core/app_services/remote_services/api_service.dart';
+import 'package:dartz/dartz.dart';
+
+
+import '../../../../main_imports.dart';
+import '../models/notifications_model.dart';
 import 'notifications_repo.dart';
 
 
@@ -10,18 +14,18 @@ class NotificationsRepoImpl implements NotificationsRepo {
 
 
 
-// @override
-// Future<Either<Failure, TryThisProductsModel>> getTryThisProductsData() async{
-//   try {
-//     var response = await apiService!.getData(
-//       endPoint: EndPoints.mostSellingProducts,
-//     );
-//     TryThisProductsModel result = TryThisProductsModel.fromJson(response.data);
-//     return right(result);
-//   } catch (e) {
-//     return left(handleError(e));
-//   }
-// }
+@override
+Future<Either<Failure, NotificationsModel>> getNotifications() async{
+  try {
+    var response = await apiService!.getData(
+      endPoint: EndPoints.brokerNotifications,
+    );
+    NotificationsModel result = NotificationsModel.fromJson(response.data);
+    return right(result);
+  } catch (e) {
+    return left(handleError(e));
+  }
+}
 
 
 

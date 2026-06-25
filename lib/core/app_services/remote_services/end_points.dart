@@ -37,6 +37,7 @@ class EndPoints {
   static const String brokerUnits = 'unit';
   static const String brokerFcmToken = 'broker/fcm-token';
   static const String brokerNotificationsCount = 'broker/notifications/count';
+  static const String brokerNotifications = 'broker/notifications';
 
 
 

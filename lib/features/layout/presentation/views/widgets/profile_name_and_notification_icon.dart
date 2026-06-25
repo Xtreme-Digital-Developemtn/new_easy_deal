@@ -17,8 +17,10 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
   @override
   void initState() {
     super.initState();
+    if(CacheHelper.getData(key: "userRole")=="broker"){
+      context.read<LayoutCubit>().getUnReadNotificationsCount();
+    }
 
-    context.read<LayoutCubit>().getUnReadNotificationsCount();
   }
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                   ),
                 ],
               ),
+              if(CacheHelper.getData(key: "userRole")=="broker")
               BlocSelector<LayoutCubit, LayoutStates, int>(
                 selector: (state) {
                   return context
