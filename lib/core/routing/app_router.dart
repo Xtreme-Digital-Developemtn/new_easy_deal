@@ -59,6 +59,7 @@ import '../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../features/faqs/presentation/view_model/faqs_cubit.dart';
 import '../../features/faqs/presentation/views/faqs_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
+import '../../features/layout/data/repos/layout_repo_imple.dart';
 import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../features/notifications/presentation/views/notifications_view.dart';
@@ -134,7 +135,7 @@ class AppRouter {
       case Routes.layoutView:
         return transition(
           screen: const LayoutView(),
-          cubit: LayoutCubit(getScreens()),
+          cubit: LayoutCubit(getScreens(),getIt.get<LayoutRepoImpl>())..sendFcmToken(),
         );
       case Routes.editProfileView:
         return transition(

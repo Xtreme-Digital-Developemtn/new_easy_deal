@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -9,6 +10,7 @@ import 'lang/codegen_loader.g.dart';
 import 'main_imports.dart';
 import 'my_app.dart';
 import 'dart:developer';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +23,10 @@ void main() async {
   debugPrint("Retrieved token: $token");
   await CacheHelper.init();
   await EasyLocalization.ensureInitialized();
+
   setup();
   getVmUri();
+  getFcmToken();
     Bloc.observer = MyBlocObserver();
   runApp(
     EasyLocalization(
@@ -47,4 +51,9 @@ Future<Uri?> getVmUri() async {
   ServiceProtocolInfo serviceProtocolInfo = await Service.getInfo();
   print("dddddddddddddddd : ${serviceProtocolInfo.serverUri}");
   return serviceProtocolInfo.serverUri;
+}
+Future<void> getFcmToken() async {
+  String? token = await FirebaseMessaging.instance.getToken();
+  logSuccess('FCM Token: $token');
+  CacheHelper.saveData(key: "FCMToken", value: token);
 }

@@ -1,10 +1,12 @@
+import 'package:easy_deal/features/layout/data/models/send_fcm_model.dart';
+import 'package:easy_deal/features/layout/data/repos/layout_repo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
 import 'layout_states.dart';
 
 
 class LayoutCubit extends Cubit<LayoutStates> {
-  LayoutCubit(this.screens) : super(LayoutInitState());
+  LayoutCubit(this.screens ,this.layoutRepo) : super(LayoutInitState());
 
   static LayoutCubit get(context) => BlocProvider.of(context);
 
@@ -12,6 +14,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
   final List<Widget> screens;
 
+  LayoutRepo? layoutRepo;
 
 
 
@@ -43,5 +46,23 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
     }
 
+  }
+
+
+
+  SendFcmModel? sendFcmModel;
+
+  Future<void> sendFcmToken() async {
+    emit(SendFcmTokenLoading());
+    var result = await layoutRepo!.sendFcmToken(fcmToken: CacheHelper.getData(key: "FCMToken"));
+    return result.fold(
+          (failure) {
+        emit(SendFcmTokenError(failure.errMessage));
+      },
+          (data) async {
+            sendFcmModel = data;
+        emit(SendFcmTokenSuccess(data));
+      },
+    );
   }
 }

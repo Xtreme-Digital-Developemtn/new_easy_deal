@@ -17,6 +17,7 @@ import '../../../features/create_request/data/repos/create_request_repo_imple.da
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import '../../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
+import '../../../features/layout/data/repos/layout_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
  import '../../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
@@ -117,5 +118,9 @@ void setup() {
   getIt.registerSingleton<BrokerMapsRepoImpl>(BrokerMapsRepoImpl(
     getIt.get<ApiService>(),
   ));
+  getIt.registerSingleton<LayoutRepoImpl>(LayoutRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+
 
 }

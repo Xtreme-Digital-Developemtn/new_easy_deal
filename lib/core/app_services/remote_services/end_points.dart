@@ -35,6 +35,7 @@ class EndPoints {
   static const String developerProjects = 'developers/projects';
   static const String brokerMaps = 'broker/maps';
   static const String brokerUnits = 'unit';
+  static const String brokerFcmToken = 'broker/fcm-token';
 
 
 
