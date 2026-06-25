@@ -2,6 +2,7 @@ import 'package:easy_deal/features/layout/data/models/send_fcm_model.dart';
 import 'package:easy_deal/features/layout/data/repos/layout_repo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
+import '../../data/models/un_read_notifications_count_model.dart';
 import 'layout_states.dart';
 
 
@@ -62,6 +63,21 @@ class LayoutCubit extends Cubit<LayoutStates> {
           (data) async {
             sendFcmModel = data;
         emit(SendFcmTokenSuccess(data));
+      },
+    );
+  }
+  UnReadNotificationsCountModel? unReadNotificationsCountModel;
+
+  Future<void> getUnReadNotificationsCount() async {
+    emit(GetUnReadNotificationsCountLoadingState());
+    var result = await layoutRepo!.getUnReadNotificationsCount();
+    return result.fold(
+          (failure) {
+        emit(GetUnReadNotificationsCountErrorState(failure.errMessage));
+      },
+          (data) async {
+        unReadNotificationsCountModel = data;
+        emit(GetUnReadNotificationsCountSuccessState(data));
       },
     );
   }

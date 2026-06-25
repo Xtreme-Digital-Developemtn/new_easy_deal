@@ -3,10 +3,23 @@ import 'package:easy_deal/features/profile/presentation/view_model/profile_state
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../main_imports.dart';
+import '../../view_model/layout_cubit.dart';
+import '../../view_model/layout_states.dart';
 
-class ProfileNameAndNotificationIcon extends StatelessWidget {
+class ProfileNameAndNotificationIcon extends StatefulWidget {
   const ProfileNameAndNotificationIcon({super.key});
 
+  @override
+  State<ProfileNameAndNotificationIcon> createState() => _ProfileNameAndNotificationIconState();
+}
+
+class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificationIcon> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<LayoutCubit>().getUnReadNotificationsCount();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileStates>(
@@ -46,18 +59,58 @@ class ProfileNameAndNotificationIcon extends StatelessWidget {
                   ),
                 ],
               ),
-              InkWell(
-                onTap: () {
-                  context.pushNamed(Routes.notificationsView);
+              BlocSelector<LayoutCubit, LayoutStates, int>(
+                selector: (state) {
+                  return context
+                      .read<LayoutCubit>()
+                      .unReadNotificationsCountModel
+                      ?.data
+                      ?.unreadCount ??
+                      0;
                 },
-                child: SvgPicture.asset(
-                  SvgImages.notify2,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.primaryDark,
-                    BlendMode.srcIn,
-                  ),
-                ),
-              ),
+                builder: (context, unreadCount) {
+                  return InkWell(
+                    onTap: () {
+                      context.pushNamed(Routes.notificationsView);
+                    },
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        SvgPicture.asset(
+                          SvgImages.notify2,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.primaryDark,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+
+                        if (unreadCount > 0)
+                          Positioned(
+                            top: -6.h,
+                            right: -6.w,
+                            child: Container(
+                              width: 18.w,
+                              height: 18.h,
+                              alignment: Alignment.center,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Text(
+                                unreadCount > 99 ? '99+' : '$unreadCount',
+                                style:   TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              )
             ],
           ),
         );

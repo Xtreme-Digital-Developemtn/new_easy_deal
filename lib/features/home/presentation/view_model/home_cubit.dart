@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/models/best_seller_units_model.dart';
+import '../../../layout/data/models/un_read_notifications_count_model.dart';
 import '../../data/repos/home_repo.dart';
 import 'home_states.dart';
 
@@ -120,4 +121,7 @@ class HomeCubit extends Cubit<HomeStates> {
     "assets/images/jpgs/locations/3.jpg",
     "assets/images/jpgs/locations/4.jpg",
   ];
+
+
+
 }

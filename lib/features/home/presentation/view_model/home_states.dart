@@ -1,6 +1,8 @@
 import 'package:easy_deal/features/home/data/models/best_seller_units_model.dart';
 import 'package:easy_deal/features/home/data/models/unit_types_model.dart';
 
+import '../../../layout/data/models/un_read_notifications_count_model.dart';
+
 abstract class HomeStates {}
 
 class HomeInitState extends HomeStates {}
@@ -37,3 +39,5 @@ class GetUnitTypesSuccessState extends HomeStates {
 
   GetUnitTypesSuccessState(this.unitTypesModel);
 }
+
+

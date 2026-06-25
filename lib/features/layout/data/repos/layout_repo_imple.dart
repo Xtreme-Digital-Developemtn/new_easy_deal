@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import '../../../../main_imports.dart';
 import '../models/send_fcm_model.dart';
+import '../models/un_read_notifications_count_model.dart';
 import 'layout_repo.dart';
 
 
@@ -34,7 +35,18 @@ class LayoutRepoImpl implements LayoutRepo {
 
 
 
-
+  @override
+  Future<Either<Failure, UnReadNotificationsCountModel>> getUnReadNotificationsCount() async{
+    try {
+      var response = await apiService!.getData(
+        endPoint: EndPoints.brokerNotificationsCount,
+      );
+      UnReadNotificationsCountModel result = UnReadNotificationsCountModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
 
 
 
