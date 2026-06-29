@@ -12,7 +12,7 @@ class BrokerTypeBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectBrokerType(),
-        Gap(MediaQuery.of(context).size.height*0.5),
+        Gap(24.h),
         SelectionBrokerTypeButton(),
       ],
     );

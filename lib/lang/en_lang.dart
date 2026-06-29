@@ -7,6 +7,7 @@ class EnLang {
     "phoneUSInvalid": "US phone number is invalid",
     "phoneInternationalInvalid": "International phone number is invalid",
     "password": "Password",
+    "confirmPassword": "Confirm Password",
     "passwordValidate": "Password validation failed",
     "passwordMinLength": "Password must be at least 8 characters",
     "passwordMaxLength": "Password cannot exceed 20 characters",

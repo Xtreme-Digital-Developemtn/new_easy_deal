@@ -19,27 +19,16 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   changeStepperIndex(int index) {
     activeStep = index;
-
-    if (index == 3 || index == 4) {
-      if(hasPasswordInteracted!=true){
-        initPasswordStep();
-      }
-
-    }
-
     emit(ChangeStepperIndexState(activeStep));
   }
 
-
-  void initPasswordStep() {
-    hasPasswordInteracted = false;
-    isFormValid.value = false;
-  }
+  bool otpVerified = false;
 
   List<String> stepsNames = [
     LangKeys.type.tr(),
-      LangKeys.gender.tr() ,
+    LangKeys.gender.tr(),
     LangKeys.complete.tr(),
+    LangKeys.verifyCode.tr(),
     LangKeys.password.tr(),
   ];
 
@@ -120,9 +109,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   bool hasPasswordInteracted = false;
-  void onPasswordInteraction() {
+  void onPasswordInteraction(GlobalKey<FormState> formKey) {
     hasPasswordInteracted = true;
-    validateForm();
+    final isValid = formKey.currentState?.validate() ?? false;
+    isFormValid.value = isValid;
   }
 
 

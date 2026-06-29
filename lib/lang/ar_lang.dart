@@ -7,6 +7,7 @@ class ArLang {
     "phoneUSInvalid": "رقم الهاتف الأمريكي غير صحيح",
     "phoneInternationalInvalid": "رقم الهاتف الدولي غير صحيح",
     "password": "كلمة المرور",
+    "confirmPassword": "تأ كيد كلمة المرور",
     "passwordValidate": "فشل التحقق من كلمة المرور",
     "passwordMinLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
     "passwordMaxLength": "كلمة المرور لا يمكن أن تزيد عن 20 حرف",

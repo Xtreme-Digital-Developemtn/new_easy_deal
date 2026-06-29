@@ -3,7 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../../view_model/register_cubit.dart';
 
 class CreatePasswordForm extends StatelessWidget {
-  const CreatePasswordForm({super.key});
+  const CreatePasswordForm({super.key, required this.formKey});
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,9 @@ class CreatePasswordForm extends StatelessWidget {
           obscureText: !registerCubit.isPasswordVisible,
           validator: (v) =>
               AppValidators.passwordValidator(registerCubit.passwordCon.text),
-          onChanged: (_) => registerCubit.onPasswordInteraction(),
+          onChanged: (_) {
+            registerCubit.onPasswordInteraction(formKey);
+          },
         ),
 
         Gap(20.h),
@@ -47,14 +50,16 @@ class CreatePasswordForm extends StatelessWidget {
             child: SvgPicture.asset(SvgImages.lock),
           ),
           controller: registerCubit.confirmPasswordCon,
-          hintText: LangKeys.newPassword.tr(),
+          hintText: LangKeys.confirmPassword.tr(),
           obscureText: !registerCubit.isConfirmPasswordVisible,
           validator: (v) =>
               AppValidators.repeatPasswordValidator(
                 value: v,
                 password: registerCubit.passwordCon.text,
               ),
-          onChanged: (_) => registerCubit.onPasswordInteraction(),
+          onChanged: (_) {
+            registerCubit.onPasswordInteraction(formKey);
+          },
         ),
       ],
     );

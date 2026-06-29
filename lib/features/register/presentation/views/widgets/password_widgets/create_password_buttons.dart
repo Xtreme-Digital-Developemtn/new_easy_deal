@@ -12,64 +12,52 @@ class CreatePasswordButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterStates>(
       listener: (context, state) {
-        if (state is SendOtpSuccessState) {
-          var registerCubit = context.read<RegisterCubit>();
+        if (state is SignUpSuccess) {
+          context.pushNamedAndRemoveUntil(Routes.layoutView);
           Toast.showSuccessToast(
-              msg: state.sendOtpModel.message.toString(), context: context);
-          context.pushNamed(
-            Routes.otpView,
-            arguments: {
-              "isMobile": true,
-              "contact": registerCubit.phoneNumber,
-              "selectIndex": registerCubit.selectBrokerIndex,
-              "gender": registerCubit.gender,
-              "role": registerCubit.role,
-              "name": registerCubit.nameCon.text,
-              "email": registerCubit.emailCon.text,
-              "password": registerCubit.passwordCon.text,
-              "confirmPassword": registerCubit.confirmPasswordCon.text,
-              "phone": registerCubit.phoneCon.text,
-            },
+            msg: state.registerModel.message.toString(),
+            context: context,
           );
-        } else if (state is SendOtpErrorState) {
-          Toast.showErrorToast(msg: state.error.toString(), context: context);
+        } else if (state is SignUpError) {
+          Toast.showErrorToast(msg: state.message.toString(), context: context);
         }
       },
       builder: (context, state) {
         var registerCubit = context.read<RegisterCubit>();
-        return Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: CustomButton(
-                    onPressed: () => registerCubit.changeStepperIndex(2),
-                    text: LangKeys.past.tr(),
-                  ),
-                ),
-                Gap(12.w),
-                Expanded(
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: registerCubit.isFormValid,
-                    builder: (_, isValid, __) {
-                      if (state is SendOtpLoadingState) {
-                        return const CustomLoading();
-                      }
-                      return CustomButton(
-                        onPressed: isValid
-                            ? () {
-                                registerCubit.sendOtp(
-                                    phone: registerCubit.phoneCon.text);
-                              }
-                            : null,
-                        text: LangKeys.sendCode.tr(),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
+        if (state is SignUpLoading) {
+          return const CustomLoading();
+        }
+        return CustomButton(
+          onPressed: () {
+            if (!(formKey.currentState?.validate() ?? false)) return;
+            if (registerCubit.role == "broker") {
+              context.pushNamed(
+                Routes.uploadBrokerDocView,
+                arguments: {
+                  "selectIndex": registerCubit.selectBrokerIndex,
+                  "gender": registerCubit.gender,
+                  "role": registerCubit.role,
+                  "name": registerCubit.nameCon.text,
+                  "email": registerCubit.emailCon.text,
+                  "password": registerCubit.passwordCon.text,
+                  "confirmPassword": registerCubit.confirmPasswordCon.text,
+                  "phone": registerCubit.phoneCon.text,
+                },
+              );
+            } else {
+              registerCubit.register(
+                fullName: registerCubit.nameCon.text,
+                phone: registerCubit.phoneCon.text,
+                password: registerCubit.passwordCon.text,
+                passwordConfirmation: registerCubit.confirmPasswordCon.text,
+                gender: registerCubit.gender ?? '',
+                email: registerCubit.emailCon.text,
+                image: null,
+                brokerTypeIndex: registerCubit.selectBrokerIndex,
+              );
+            }
+          },
+          text: LangKeys.next.tr(),
         );
       },
     );

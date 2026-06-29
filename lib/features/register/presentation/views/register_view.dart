@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/register/presentation/views/widgets/password_widgets/otp_body.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/account_type_widgets/account_type_body.dart';
@@ -39,7 +40,7 @@ class RegisterView extends StatelessWidget {
                         case 2:
                           return ClientInfoBody();
                         case 3:
-                          return PasswordBody();
+                          return const OtpBody();
                         case 4:
                           return PasswordBody();
                         default:

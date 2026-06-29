@@ -6,6 +6,7 @@ abstract class LangKeys {
   static const String phoneUSInvalid = "phoneUSInvalid";
   static const String phoneInternationalInvalid = "phoneInternationalInvalid";
   static const String password = "password";
+  static const String confirmPassword = "confirmPassword";
   static const String passwordValidate = "passwordValidate";
   static const String passwordMinLength = "passwordMinLength";
   static const String passwordMaxLength = "passwordMaxLength";
