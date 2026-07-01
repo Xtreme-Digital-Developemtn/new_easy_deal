@@ -1,5 +1,4 @@
- import 'package:easy_localization/easy_localization.dart';
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
 import '../../view_model/layout_cubit.dart';
@@ -12,46 +11,45 @@ class BottomNavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LayoutCubit, LayoutStates>(
       builder: (context, state) {
-        return FlashyTabBar(
-          selectedIndex: LayoutCubit.pageIndex,
-          showElevation: true,
-          onItemSelected: (index) {
+        return BottomNavigationBar(
+          currentIndex: LayoutCubit.pageIndex,
+          onTap: (index) {
             context.read<LayoutCubit>().changeBottomNav(index, context);
           },
-          animationDuration: const Duration(milliseconds: 300),
-          animationCurve: Curves.easeInOut,
-          iconSize: 24,
+          type: BottomNavigationBarType.fixed,
           backgroundColor: AppColors.white,
+          elevation: 8,
+          selectedItemColor: AppColors.primaryDark,
+          unselectedItemColor: AppColors.gray,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           items: [
-            _buildTabItem(
-              context: context,
+            _buildItem(
               icon: SvgImages.home,
-              title: LangKeys.home ,
-              index: 0,
-            ),
-            _buildTabItem(
+              title: LangKeys.home,
               context: context,
+            ),
+            _buildItem(
               icon: SvgImages.search,
-              title: LangKeys.search ,
-              index: 1,
-            ),
-            _buildTabItem(
+              title: LangKeys.search,
               context: context,
-              icon: SvgImages.add,
-              title: LangKeys.request ,
-              index: 2,
             ),
-            _buildTabItem(
+            _buildItem(
+              icon: SvgImages.add2,
+              title: LangKeys.request,
               context: context,
-              icon: SvgImages.chat,
-              title: LangKeys.messages ,
-              index: 3,
             ),
-            _buildTabItem(
+            _buildItem(
+              icon: SvgImages.chat2,
+              title: LangKeys.messages,
               context: context,
+            ),
+            _buildItem(
               icon: SvgImages.profile,
-              title: LangKeys.profile ,
-              index: 4,
+              title: LangKeys.profile,
+              context: context,
             ),
           ],
         );
@@ -59,26 +57,31 @@ class BottomNavigationBarWidget extends StatelessWidget {
     );
   }
 
-  FlashyTabBarItem _buildTabItem({
+  BottomNavigationBarItem _buildItem({
     required String icon,
     required String title,
-    required int index,
     required BuildContext context,
   }) {
-    return FlashyTabBarItem(
-      activeColor: AppColors.primaryDark,
+    return BottomNavigationBarItem(
       icon: SvgPicture.asset(
         icon,
-        width: 30,
-        height: 30,
-        colorFilter: ColorFilter.mode(
-          LayoutCubit.pageIndex == index
-              ? AppColors.primaryDark
-              : AppColors.gray,
+        width: 24,
+        height: 24,
+        colorFilter: const ColorFilter.mode(
+          AppColors.gray,
           BlendMode.srcIn,
         ),
       ),
-      title: Text(context.tr(title)),
+      activeIcon: SvgPicture.asset(
+        icon,
+        width: 24,
+        height: 24,
+        colorFilter: const ColorFilter.mode(
+          AppColors.primaryDark,
+          BlendMode.srcIn,
+        ),
+      ),
+      label: context.tr(title),
     );
   }
 }

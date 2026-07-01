@@ -3,7 +3,7 @@ import 'package:easy_deal/features/profile/presentation/view_model/profile_state
 import 'package:easy_deal/features/profile/presentation/views/widgets/profile_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
-import 'logout_dialog.dart';
+import 'logout_bottom_sheet.dart';
 
 class ProfileDataNameCodeImage extends StatelessWidget {
   const ProfileDataNameCodeImage({super.key});
@@ -39,29 +39,31 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                             style: AppStyles.black18SemiBold,
                           ),
                           Gap(8.h),
-                          // Container(
-                          //   padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          //   height: 24.h,
-                          //   decoration: BoxDecoration(
-                          //     color: AppColors.white,
-                          //     borderRadius: BorderRadius.circular(6.r),
-                          //     border: Border.all(color: AppColors.grayLighter),
-                          //   ),
-                          //   child: Row(
-                          //     children: [
-                          //       Text(
-                          //         "${LangKeys.driverCode.tr()} : ",
-                          //         style: AppStyles.black12Medium.copyWith(
-                          //           color: AppColors.secondBlack,
-                          //         ),
-                          //       ),
-                          //       Text(
-                          //         "123456",
-                          //         style: AppStyles.black12SemiBold,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          if(context.watch<ProfileCubit>().promoCodesLastAppliedModel!=null)
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 8.r),
+                            height: 24.h,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(6.r),
+                              border: Border.all(color: AppColors.grayLighter),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Promo Code : ",
+                                  style: AppStyles.black12Medium.copyWith(
+                                    color: AppColors.secondBlack,
+                                  ),
+                                ),
+
+                                Text(
+                                  "${context.watch<ProfileCubit>().promoCodesLastAppliedModel!.data!.promoCode}",
+                                  style: AppStyles.black12SemiBold,
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -69,7 +71,8 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                   InkWell(
                     borderRadius: BorderRadius.circular(50.r),
                     onTap: () {
-                      showLogoutDialog(context);
+                      // showLogoutDialog(context);
+                      showLogoutBottomSheet(context);
                     },
                     child: Container(
                       padding: EdgeInsets.all(8.r),
