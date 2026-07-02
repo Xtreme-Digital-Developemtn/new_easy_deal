@@ -1,18 +1,19 @@
-import 'package:easy_localization/easy_localization.dart';
-import '../../../../../main_imports.dart';
+import 'package:flutter/material.dart';
+import '../../../data/models/onboarding_model.dart';
 
 class OnboardingItem extends StatelessWidget {
-  const OnboardingItem({super.key, required this.title});
-  final String title;
+  final OnboardingModel model;
+  const OnboardingItem({super.key, required this.model});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40.w),
-      child: ListView(
-        children: <Widget>[
-          Gap(400.h),
-          Text(title.tr(),style: AppStyles.black16Medium,textAlign: TextAlign.center,),
-        ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Image.asset(
+          model.imagePath,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
