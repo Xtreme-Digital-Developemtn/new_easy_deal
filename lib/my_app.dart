@@ -12,6 +12,7 @@ import 'features/broker_features/broker_developers/data/repos/broker_developers_
 import 'features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
 import 'features/profile/data/repos/profile_repo_imple.dart';
 import 'features/register/data/repos/register_repo_imple.dart';
+import 'features/register/presentation/views/widgets/password_widgets/password_body.dart';
 import 'main_imports.dart';
 
 class MyApp extends StatelessWidget {
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
                         backgroundColor: AppColors.white,
                       ),
                     ),
+                    // home: Scaffold(body: PasswordBody()),
                     initialRoute: Routes.splashView,
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {

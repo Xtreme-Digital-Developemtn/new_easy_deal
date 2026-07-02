@@ -21,6 +21,8 @@ class _EditMobileNumberViewState extends State<EditMobileNumberView> {
   void initState() {
     final currentMobileNumber = context.read<ProfileCubit>().clientProfileModel?.data?.phone ?? "";
     context.read<EditProfileCubit>().mobileNumberCon = TextEditingController(text: currentMobileNumber);
+    final currentEmail = context.read<ProfileCubit>().clientProfileModel?.data?.email ?? "";
+    context.read<EditProfileCubit>().emailCon = TextEditingController(text: currentEmail);
     super.initState();
   }
 

@@ -4,6 +4,7 @@ import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_pro
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_advertisement_properties_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_email.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_mobile_number_view.dart';
+import 'package:easy_deal/features/edit_profile/presentation/views/edit_name_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_profile_view.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/edit_registration_papers_view.dart';
 import 'package:easy_deal/features/home/data/repos/home_repo_imple.dart';
@@ -145,6 +146,10 @@ class AppRouter {
       case Routes.editEmailView:
         return transition(
           screen: EditEmailView(),
+        );
+      case Routes.editNameView:
+        return transition(
+          screen: const EditNameView(),
         );
       case Routes.notificationsView:
         return transition(
