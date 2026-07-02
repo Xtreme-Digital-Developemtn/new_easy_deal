@@ -83,17 +83,38 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     }
   }
 
+  Widget _buildRequiredLabel(String label) {
+    if (widget.config.required) {
+      return Text.rich(
+        TextSpan(
+          text: label.tr(),
+          style: AppStyles.black14SemiBold,
+          children: [
+            TextSpan(
+              text: ' *',
+              style: AppStyles.black14SemiBold.copyWith(color: Colors.red),
+            ),
+          ],
+        ),
+      );
+    }
+    return Text(label.tr(), style: AppStyles.black14SemiBold);
+  }
+
   Widget _buildTextField(CreateRequestCubit cubit, String? error, {TextInputType? keyboardType, int maxLines = 1}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
-        Gap(6.h),
+        _buildRequiredLabel(widget.config.label),
+        Gap(8.h),
         CustomTextFormField(
           controller: cubit.getOrCreateController(widget.config.name),
           hintText: widget.config.label.tr(),
           keyboardType: keyboardType,
           maxLines: maxLines,
+          height: 52.h,
+          borderRadius: 10.r,
+          borderWidth: 1.5,
           onChanged: (val) {
             cubit.setFormValue(widget.config.name, val);
             if (!_touched) setState(() => _touched = true);
@@ -107,6 +128,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
   Widget _buildDropdown(BuildContext context, CreateRequestCubit cubit, String? error) {
     final options = widget.config.options ?? [];
     final currentValue = cubit.getFormValueString(widget.config.name);
+    final hasValue = currentValue != null && currentValue.isNotEmpty;
 
     String? displayValue;
     if (currentValue != null) {
@@ -120,22 +142,57 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
-        Gap(6.h),
-        CustomDropdown<String>(
-          value: displayValue,
-          items: options.map((o) => o.key.tr()).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              final matched = options.cast<OptionItem?>().firstWhere(
-                (o) => o!.key.tr() == val,
+        _buildRequiredLabel(widget.config.label),
+        Gap(8.h),
+        Container(
+          width: double.infinity,
+          height: 52.h,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            border: Border.all(
+              color: hasValue ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: DropdownButton<String>(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            isExpanded: true,
+            underline: const SizedBox.shrink(),
+            value: displayValue,
+            hint: Text(
+              widget.config.label.tr(),
+              style: TextStyle(
+                color: const Color(0xFF969696),
+                fontSize: 14.sp,
+              ),
+            ),
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppColors.primaryDark,
+              size: 24.sp,
+            ),
+            items: options.map((o) {
+              return DropdownMenuItem<String>(
+                value: o.key.tr(),
+                child: Text(o.key.tr()),
               );
-              cubit.setFormValue(widget.config.name, matched!.value);
-              if (!_touched) setState(() => _touched = true);
-            }
-          },
-          hint: widget.config.label.tr(),
-          itemDisplayBuilder: (v) => v,
+            }).toList(),
+            onChanged: (val) {
+              if (val != null) {
+                final matched = options.cast<OptionItem?>().firstWhere(
+                  (o) => o!.key.tr() == val,
+                );
+                cubit.setFormValue(widget.config.name, matched!.value);
+                if (!_touched) setState(() => _touched = true);
+              }
+            },
+          ),
         ),
       ],
     );
@@ -148,8 +205,8 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
-        Gap(6.h),
+        _buildRequiredLabel(widget.config.label),
+        Gap(8.h),
         Wrap(
           spacing: 8.w,
           runSpacing: 4.h,
@@ -186,7 +243,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           onChanged: (v) => cubit.setFormValue(widget.config.name, v ?? false),
           activeColor: AppColors.primaryDark,
           checkColor: AppColors.white,
-          title: Text(widget.config.label.tr(), style: AppStyles.black14Regular),
+          title: _buildRequiredLabel(widget.config.label),
           contentPadding: EdgeInsets.zero,
           controlAffinity: ListTileControlAffinity.leading,
         ),
@@ -199,8 +256,8 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.config.label.tr(), style: AppStyles.black14Regular),
-        Gap(6.h),
+        _buildRequiredLabel(widget.config.label),
+        Gap(8.h),
         GestureDetector(
           onTap: () async {
             if (!_touched) setState(() => _touched = true);
@@ -216,11 +273,14 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           },
           child: Container(
             width: double.infinity,
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            height: 52.h,
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             decoration: BoxDecoration(
-              border: Border.all(color: error != null ? Colors.red : AppColors.blueLight),
-              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: error != null ? Colors.red : currentValue != null ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                width: 1.5,
+              ),
+              borderRadius: BorderRadius.circular(10.r),
               color: AppColors.white,
             ),
             child: Align(
@@ -228,8 +288,8 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
               child: Text(
                 currentValue ?? widget.config.label.tr(),
                 style: TextStyle(
-                  color: currentValue != null ? AppColors.black : AppColors.gray,
-                  fontSize: 14,
+                  color: currentValue != null ? AppColors.black : const Color(0xFF969696),
+                  fontSize: 14.sp,
                 ),
               ),
             ),

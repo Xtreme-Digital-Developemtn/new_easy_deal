@@ -35,8 +35,18 @@ class StepNumber extends StatelessWidget {
                 StepProgressIndicator(
                   totalSteps: createRequestCubit.titleNames.length,
                   currentStep: createRequestCubit.adjustedCurrentStep,
-                  selectedColor: AppColors.primaryDark,
+                  selectedColor: AppColors.green,
                   unselectedColor: AppColors.gray,
+                  customStep: (index, color, _) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      height: 10.h,
+                      decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(100.r),
+                      ),
+                    );
+                  },
                 )
               ],
             ),

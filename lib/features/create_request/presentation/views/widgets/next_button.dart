@@ -14,9 +14,11 @@ class NextButton extends StatelessWidget {
         var createRequestCubit = context.read<CreateRequestCubit>();
         final isLoading = state is CreateRequestLoadingState;
         final isLastStep = createRequestCubit.currentStepNumber >= createRequestCubit.totalSteps;
+
+        final bool isStepComplete = createRequestCubit.isCurrentStepComplete();
+
         return GestureDetector(
-          onTap: isLoading ? null : (){
-            print("sssssssssssssssssssssssssdddddddddddddd");
+          onTap: (isLoading || !isStepComplete) ? null : (){
             if (createRequestCubit.currentStepNumber == 1) {
               createRequestCubit.handleStepOne(context);
             } else {
@@ -27,13 +29,13 @@ class NextButton extends StatelessWidget {
             width: double.infinity,
             height: 50.h,
             decoration: BoxDecoration(
-              gradient: isLoading ? null : const LinearGradient(
+              gradient: (isLoading || !isStepComplete) ? null : const LinearGradient(
                 colors: [AppColors.primaryDark, AppColors.primaryLight],
                 end: Alignment.topRight,
                 begin: Alignment.bottomLeft,
               ),
               borderRadius: BorderRadius.circular(8),
-              color: isLoading ? AppColors.blueVeryLight : null,
+              color: (isLoading || !isStepComplete) ? AppColors.blueVeryLight : null,
             ),
             child: Center(
               child: isLoading
@@ -43,7 +45,7 @@ class NextButton extends StatelessWidget {
                   : Text(
                       isLastStep ? LangKeys.send.tr() : LangKeys.next.tr(),
                       style: AppStyles.black14Medium.copyWith(
-                        color: AppColors.scaffoldBackground,
+                        color: !isStepComplete ? AppColors.gray : AppColors.scaffoldBackground,
                         fontSize: 20,
                       ),
                     ),

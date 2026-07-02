@@ -31,32 +31,75 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// City
-            Text(LangKeys.city.tr(), style: AppStyles.black14Regular),
-            Gap(12.h),
-            CustomDropdown<String>(
-              value: cubit.selectedCityObj != null
-                  ? (context.isArabic
-                      ? cubit.selectedCityObj!.nameAr
-                      : cubit.selectedCityObj!.nameEn)
-                  : null,
-              items: cubit.citiesList
-                  .map((c) => context.isArabic ? c.nameAr ?? '' : c.nameEn ?? '')
-                  .toList(),
-              hint: state is GetCitiesLoadingState
-                  ? 'Loading...'
-                  : LangKeys.city.tr(),
-              itemDisplayBuilder: (name) => name,
-              onChanged: (selectedName) {
-                if (selectedName != null) {
-                  final city = cubit.citiesList.firstWhere(
-                    (c) =>
-                        (context.isArabic ? c.nameAr : c.nameEn) ==
-                        selectedName,
-                  );
-                  cubit.selectCity(city);
-                  cubit.getAreas(cityId: city.id!);
-                }
-              },
+            Text.rich(
+              TextSpan(
+                text: LangKeys.city.tr(),
+                style: AppStyles.black14SemiBold,
+                children: [
+                  TextSpan(
+                    text: ' *',
+                    style: AppStyles.black14SemiBold.copyWith(color: Colors.red),
+                  ),
+                ],
+              ),
+            ),
+            Gap(8.h),
+            Container(
+              width: double.infinity,
+              height: 52.h,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                border: Border.all(
+                  color: cubit.selectedCityObj != null ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: DropdownButton<String>(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                isExpanded: true,
+                underline: const SizedBox.shrink(),
+                value: cubit.selectedCityObj != null
+                    ? (context.isArabic
+                        ? cubit.selectedCityObj!.nameAr
+                        : cubit.selectedCityObj!.nameEn)
+                    : null,
+                hint: Text(
+                  state is GetCitiesLoadingState ? 'Loading...' : LangKeys.city.tr(),
+                  style: TextStyle(
+                    color: const Color(0xFF969696),
+                    fontSize: 14.sp,
+                  ),
+                ),
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.primaryDark,
+                  size: 24.sp,
+                ),
+                items: cubit.citiesList
+                    .map((c) => context.isArabic ? c.nameAr ?? '' : c.nameEn ?? '')
+                    .map((name) => DropdownMenuItem<String>(
+                          value: name,
+                          child: Text(name),
+                        ))
+                    .toList(),
+                onChanged: cubit.citiesList.isEmpty ? null : (selectedName) {
+                  if (selectedName != null) {
+                    final city = cubit.citiesList.firstWhere(
+                      (c) =>
+                          (context.isArabic ? c.nameAr : c.nameEn) ==
+                          selectedName,
+                    );
+                    cubit.selectCity(city);
+                    cubit.getAreas(cityId: city.id!);
+                  }
+                },
+              ),
             ),
             if (cubit.validationAttempted && cubit.formErrors['cityId'] != null)
               Padding(
@@ -69,32 +112,75 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
             Gap(12.h),
 
             /// Area
-            Text(LangKeys.area.tr(), style: AppStyles.black14Regular),
-            Gap(12.h),
-            CustomDropdown<String>(
-              value: cubit.selectedAreaObj != null
-                  ? (context.isArabic
-                      ? cubit.selectedAreaObj!.nameAr
-                      : cubit.selectedAreaObj!.nameEn)
-                  : null,
-              items: cubit.areasList
-                  .map((a) => context.isArabic ? a.nameAr ?? '' : a.nameEn ?? '')
-                  .toList(),
-              hint: state is GetAreasLoadingState
-                  ? 'Loading...'
-                  : LangKeys.area.tr(),
-              itemDisplayBuilder: (name) => name,
-              onChanged: (selectedName) {
-                if (selectedName != null) {
-                  final area = cubit.areasList.firstWhere(
-                    (a) =>
-                        (context.isArabic ? a.nameAr : a.nameEn) ==
-                        selectedName,
-                  );
-                  cubit.selectArea(area);
-                  cubit.getSubAreas(areaId: area.id!);
-                }
-              },
+            Text.rich(
+              TextSpan(
+                text: LangKeys.area.tr(),
+                style: AppStyles.black14SemiBold,
+                children: [
+                  TextSpan(
+                    text: ' *',
+                    style: AppStyles.black14SemiBold.copyWith(color: Colors.red),
+                  ),
+                ],
+              ),
+            ),
+            Gap(8.h),
+            Container(
+              width: double.infinity,
+              height: 52.h,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                border: Border.all(
+                  color: cubit.selectedAreaObj != null ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: DropdownButton<String>(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                isExpanded: true,
+                underline: const SizedBox.shrink(),
+                value: cubit.selectedAreaObj != null
+                    ? (context.isArabic
+                        ? cubit.selectedAreaObj!.nameAr
+                        : cubit.selectedAreaObj!.nameEn)
+                    : null,
+                hint: Text(
+                  state is GetAreasLoadingState ? 'Loading...' : LangKeys.area.tr(),
+                  style: TextStyle(
+                    color: const Color(0xFF969696),
+                    fontSize: 14.sp,
+                  ),
+                ),
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: cubit.areasList.isNotEmpty ? AppColors.primaryDark : AppColors.grayLight,
+                  size: 24.sp,
+                ),
+                items: cubit.areasList
+                    .map((a) => context.isArabic ? a.nameAr ?? '' : a.nameEn ?? '')
+                    .map((name) => DropdownMenuItem<String>(
+                          value: name,
+                          child: Text(name),
+                        ))
+                    .toList(),
+                onChanged: cubit.areasList.isEmpty ? null : (selectedName) {
+                  if (selectedName != null) {
+                    final area = cubit.areasList.firstWhere(
+                      (a) =>
+                          (context.isArabic ? a.nameAr : a.nameEn) ==
+                          selectedName,
+                    );
+                    cubit.selectArea(area);
+                    cubit.getSubAreas(areaId: area.id!);
+                  }
+                },
+              ),
             ),
             if (cubit.validationAttempted && cubit.formErrors['areaId'] != null)
               Padding(
@@ -108,28 +194,64 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
 
             /// Sub Area
             if (cubit.selectedAreaObj != null) ...[
-              Text(LangKeys.subArea.tr(), style: AppStyles.black14Regular),
-              Gap(12.h),
-              CustomDropdown<String>(
-                value: cubit.isSubAreaOther
-                    ? LangKeys.other.tr()
-                    : null,
-                items: [LangKeys.other.tr()],
-                hint: '',
-                itemDisplayBuilder: (name) => name,
-                onChanged: (selectedName) {
-                  if (selectedName != null) {
-                    cubit.selectSubAreaOther();
-                  }
-                },
+              Text(LangKeys.subArea.tr(), style: AppStyles.black14SemiBold),
+              Gap(8.h),
+              Container(
+                width: double.infinity,
+                height: 52.h,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  border: Border.all(
+                    color: cubit.isSubAreaOther ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: DropdownButton<String>(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  isExpanded: true,
+                  underline: const SizedBox.shrink(),
+                  value: cubit.isSubAreaOther ? LangKeys.other.tr() : null,
+                  hint: Text(
+                    LangKeys.subArea.tr(),
+                    style: TextStyle(
+                      color: const Color(0xFF969696),
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  icon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: AppColors.primaryDark,
+                    size: 24.sp,
+                  ),
+                  items: [
+                    DropdownMenuItem<String>(
+                      value: LangKeys.other.tr(),
+                      child: Text(LangKeys.other.tr()),
+                    )
+                  ],
+                  onChanged: (selectedName) {
+                    if (selectedName != null) {
+                      cubit.selectSubAreaOther();
+                    }
+                  },
+                ),
               ),
               if (cubit.isSubAreaOther) ...[
                 Gap(12.h),
-                Text(LangKeys.otherSubArea.tr(), style: AppStyles.black14Regular),
-                Gap(6.h),
+                Text(LangKeys.otherSubArea.tr(), style: AppStyles.black14SemiBold),
+                Gap(8.h),
                 CustomTextFormField(
                   controller: cubit.otherSubAreaCon,
                   hintText: LangKeys.otherSubArea.tr(),
+                  height: 52.h,
+                  borderRadius: 10.r,
+                  borderWidth: 1.5,
                 ),
               ],
             ],

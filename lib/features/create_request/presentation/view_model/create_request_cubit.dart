@@ -350,6 +350,27 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     return configFactory.getInputsForKey(configKey, step);
   }
 
+  bool isCurrentStepComplete() {
+    if (currentStepNumber == 1) {
+      return selectedSpecializationValue != null &&
+          selectedDealTypeValue != null &&
+          selectedUnitTypeValue != null;
+    }
+    if (currentStepNumber == 2) {
+      if (selectedCityObj == null || selectedAreaObj == null) return false;
+    }
+    if (currentStepNumber == 4 || currentStepNumber == 5) {
+      if (_isFieldEmpty('averageUnitPriceMin')) return false;
+      if (_isFieldEmpty('averageUnitPriceMax')) return false;
+    }
+    for (final input in currentStepInputs) {
+      if (!input.required || !input.isVisible()) continue;
+      if (input.type == InputFieldType.file || input.type == InputFieldType.checkbox || input.type == InputFieldType.multiSelect) continue;
+      if (_isFieldEmpty(input.name)) return false;
+    }
+    return true;
+  }
+
   bool get shouldShowStep4 => !configFactory.shouldSkipStep4(selectedDealTypeValue);
   bool get isInsideCompound => configFactory.getInsideCompoundPrivilege(selectedSpecializationValue);
   bool get isOutsideCompound => configFactory.getOutsideCompoundPrivilege(selectedSpecializationValue);

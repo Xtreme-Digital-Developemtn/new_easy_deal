@@ -21,9 +21,17 @@ class SpecializationDropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          LangKeys.scopeOfSpecialization.tr(),
-          style: AppStyles.black14SemiBold,
+        Text.rich(
+          TextSpan(
+            text: LangKeys.scopeOfSpecialization.tr(),
+            style: AppStyles.black14SemiBold,
+            children: [
+              TextSpan(
+                text: ' *',
+                style: AppStyles.black14SemiBold.copyWith(color: Colors.red),
+              ),
+            ],
+          ),
         ),
         Gap(8.h),
         Container(
@@ -33,7 +41,7 @@ class SpecializationDropdown extends StatelessWidget {
             color: AppColors.white,
             border: Border.all(
               color: cubit.selectedSpecializationValue != null
-                  ? AppColors.primaryDark
+                  ? AppColors.primaryDark.withValues(alpha: 0.35)
                   : AppColors.blueLight,
               width: 1.5,
             ),

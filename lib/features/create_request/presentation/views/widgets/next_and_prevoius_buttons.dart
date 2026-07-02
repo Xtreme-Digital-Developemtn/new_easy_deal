@@ -19,7 +19,7 @@ class NextAndPreviousButtons extends StatelessWidget {
           child: Row(
             children: [
               if (cubit.currentStepNumber > 1)
-                Expanded(child: PastButton()),
+                PastButton(),
               if (cubit.currentStepNumber > 1)
                 Gap(10.w),
               Expanded(child: NextButton()),
