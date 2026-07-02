@@ -12,6 +12,7 @@ class DataTableWidget extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         title: Text(LangKeys.notifications.tr()),
         content: Text(message),
         actions: [
@@ -46,6 +47,7 @@ class DataTableWidget extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
           title: Text(LangKeys.deleteConfirmation.tr()),
           content: Text(LangKeys.deleteConfirmationMessage.tr()),
           actions: <Widget>[
@@ -65,6 +67,8 @@ class DataTableWidget extends StatelessWidget {
                     SnackBar(
                       content: Text(LangKeys.itemDeleted.tr()),
                       backgroundColor: Colors.green,
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                     ),
                   );
                 }
@@ -94,24 +98,67 @@ class DataTableWidget extends StatelessWidget {
     return Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp));
   }
 
+  // لون مناسب لكل حالة، ولو الحالة مش معروفة بيرجع اللون الأساسي
+  Color _statusColor(String? status) {
+    switch (status?.toLowerCase()) {
+      case 'active':
+      case 'available':
+      case 'sold':
+        return Colors.green;
+      case 'pending':
+      case 'reserved':
+        return Colors.orange;
+      case 'inactive':
+      case 'rejected':
+      case 'cancelled':
+        return Colors.red;
+      default:
+        return AppColors.primaryDark;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.r),
-      child: Card(
-        elevation: 2,
-        color: AppColors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
         child: DataTable2(
           columnSpacing: 2.w,
           horizontalMargin: 6.w,
           minWidth: 4200.w,
-          dataRowHeight: 56.h,
-          headingRowHeight: 48.h,
-          headingRowDecoration: BoxDecoration(
-            color: AppColors.grayLight.withValues(alpha: 0.3),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(8.r)),
+          dataRowHeight: 58.h,
+          headingRowHeight: 50.h,
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              color: Colors.grey.shade200,
+              width: 1,
+            ),
+            verticalInside: BorderSide(
+              color: Colors.grey.shade100,
+              width: 1,
+            ),
           ),
+          headingRowDecoration: BoxDecoration(
+            color: AppColors.blueLight.withValues(alpha: 0.35),
+          ),
+          dataRowColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
+              return AppColors.blueLight.withValues(alpha: 0.12);
+            }
+            return Colors.transparent;
+          }),
           columns: [
             _col(LangKeys.ownerName.tr(), 90),
             _col(LangKeys.phoneNumber.tr(), 90),
@@ -146,8 +193,10 @@ class DataTableWidget extends StatelessWidget {
           ],
           rows: List<DataRow>.generate(
             data.length,
-            (index) {
+                (index) {
               var item = data[index];
+              final statusColor = _statusColor(item.status);
+
               return DataRow(
                 color: index.isEven
                     ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.05))
@@ -183,36 +232,48 @@ class DataTableWidget extends StatelessWidget {
                   DataCell(
                     Center(
                       child: item.diagram != null && item.diagram!.isNotEmpty
-                          ? InkWell(
-                              onTap: () {},
-                              child: Container(
-                                padding: EdgeInsets.all(6.r),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primaryDark.withValues(alpha: 0.08),
-                                  borderRadius: BorderRadius.circular(6.r),
-                                ),
-                                child: Icon(Icons.file_copy, size: 16.h, color: AppColors.primaryDark),
-                              ),
-                            )
+                          ? _AnimatedIconButton(
+                        icon: Icons.file_copy,
+                        color: AppColors.primaryDark,
+                        onTap: () {},
+                      )
                           : _cell(LangKeys.notAvailable.tr()),
                     ),
                   ),
                   DataCell(
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                       decoration: BoxDecoration(
-                        color: AppColors.primaryDark.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(6.r),
+                        color: statusColor.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(20.r),
                       ),
-                      child: Text(
-                        _val(item.status),
-                        style: AppStyles.black12Medium.copyWith(fontSize: 10.sp, color: AppColors.primaryDark),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 7.w,
+                            height: 7.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: statusColor,
+                            ),
+                          ),
+                          Gap(5.w),
+                          Text(
+                            _val(item.status),
+                            style: AppStyles.black12Medium.copyWith(
+                              fontSize: 10.sp,
+                              color: statusColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   DataCell(
-                    PopupMenuButton<String>(
-                      icon: Icon(Icons.more_horiz, color: AppColors.primaryDark),
+                    _HoverMenuButton(
+                      color: AppColors.primaryDark,
                       onSelected: (value) => _handleMenuAction(value, context),
                       itemBuilder: (BuildContext context) => [
                         PopupMenuItem<String>(
@@ -263,6 +324,102 @@ class DataTableWidget extends StatelessWidget {
               );
             },
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// زرار أيقونة بسيط بأنيميشن hover/press (يستخدم مع onTap عادي، زي أيقونة الدياجرام)
+class _AnimatedIconButton extends StatefulWidget {
+  final IconData icon;
+  final Color color;
+  final VoidCallback? onTap;
+  final BoxShape shape;
+
+  const _AnimatedIconButton({
+    required this.icon,
+    required this.color,
+    this.onTap,
+    this.shape = BoxShape.circle,
+  });
+
+  @override
+  State<_AnimatedIconButton> createState() => _AnimatedIconButtonState();
+}
+
+class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
+  bool _hovering = false;
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTapDown: (_) => setState(() => _pressed = true),
+        onTapUp: (_) => setState(() => _pressed = false),
+        onTapCancel: () => setState(() => _pressed = false),
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _pressed ? 0.88 : 1.0,
+          duration: const Duration(milliseconds: 120),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: EdgeInsets.all(6.r),
+            decoration: BoxDecoration(
+              color: widget.color.withValues(alpha: _hovering ? 0.16 : 0.08),
+              shape: widget.shape,
+              borderRadius: widget.shape == BoxShape.rectangle ? BorderRadius.circular(6.r) : null,
+            ),
+            child: Icon(widget.icon, size: 16.h, color: widget.color),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// نفس فكرة الـ hover/press لكن ملفوفة حوالين PopupMenuButton الحقيقي
+/// (بنستخدم PopupMenuButton نفسه كـ child عشان نضمن إن القائمة تفتح صح
+/// من غير ما نكرر الـ widget أو نلعب بـ Stack معقدة).
+class _HoverMenuButton extends StatefulWidget {
+  final Color color;
+  final void Function(String value) onSelected;
+  final List<PopupMenuEntry<String>> Function(BuildContext context) itemBuilder;
+
+  const _HoverMenuButton({
+    required this.color,
+    required this.onSelected,
+    required this.itemBuilder,
+  });
+
+  @override
+  State<_HoverMenuButton> createState() => _HoverMenuButtonState();
+}
+
+class _HoverMenuButtonState extends State<_HoverMenuButton> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      cursor: SystemMouseCursors.click,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: widget.color.withValues(alpha: _hovering ? 0.12 : 0.0),
+          shape: BoxShape.circle,
+        ),
+        child: PopupMenuButton<String>(
+          icon: Icon(Icons.more_horiz, color: widget.color),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+          onSelected: widget.onSelected,
+          itemBuilder: widget.itemBuilder,
         ),
       ),
     );
