@@ -391,10 +391,10 @@ class AppRouter {
             RequestsCubit(getIt.get<RequestsRepoImpl>())..getAllRequests(),
         child: RequestsView(),
       ),
-      BlocProvider(
-        create: (context) => ChatsCubit(getIt.get<ChatsRepoImpl>()),
-        child: ChatsView(),
-      ),
+      // BlocProvider(
+      //   create: (context) => ChatsCubit(getIt.get<ChatsRepoImpl>()),
+      //   child: ChatsView(),
+      // ),
       ProfileView(),
     ];
   }

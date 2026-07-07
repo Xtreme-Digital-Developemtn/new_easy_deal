@@ -77,15 +77,15 @@ void showLogoutBottomSheet(BuildContext context) {
                     children: [
                       Expanded(
                         child: CustomButton(
-                          isEnabled: true,
+                          isEnabled: state is! LogoutLoadingState,
                           gradientColors: false,
                           borderColor: BorderSide(
                             color: AppColors.grayLightest
                           ),
                           color: AppColors.white,
-                          onPressed: (){
+                          onPressed: state is! LogoutLoadingState ? () {
                             Navigator.pop(context);
-                          },
+                          } : null,
                           text: "إلغاء",
                           textColor: AppColors.primaryDark,
                         ),
@@ -93,19 +93,21 @@ void showLogoutBottomSheet(BuildContext context) {
 
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: CustomButton(
-                          isEnabled: true,
-                          gradientColors: false,
-                          borderColor: BorderSide(
-                              color: AppColors.errorLight
+                        child: state is LogoutLoadingState
+                          ? const CustomLoading()
+                          : CustomButton(
+                            isEnabled: true,
+                            gradientColors: false,
+                            borderColor: BorderSide(
+                                color: AppColors.errorLight
+                            ),
+                            color: AppColors.white,
+                            onPressed: (){
+                              profileCubit.logout();
+                            },
+                            text: "تسجيل الخروج",
+                            textColor: AppColors.errorDark,
                           ),
-                          color: AppColors.white,
-                          onPressed: (){
-                            profileCubit.logout();
-                          },
-                          text: "إلغاء",
-                          textColor: AppColors.errorDark,
-                        ),
                       ),
                     ],
                   ),
