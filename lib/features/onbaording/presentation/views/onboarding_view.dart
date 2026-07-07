@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/app_services/local_services/cache_helper.dart';
 import '../../data/models/onboarding_model.dart';
 import 'widgets/bottom_card.dart';
 import 'widgets/header.dart';
@@ -20,36 +21,40 @@ class _OnboardingViewState extends State<OnboardingView> {
       badgeLabel: "The first AI-Powered real\nestate platform",
       title: "EASY DEAL",
       description:
-          "Built around brokers' needs to streamline daily work and boost productivity.",
+          "Built around brokers' needs to streamline \ndaily work and boost productivity.",
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding2.png',
       badgeLabel: "Never lose a lead again",
       title: "A Full CRM",
       description:
-          "Keep all your clients, properties, and communications perfectly organized in one powerful hub.",
+          "Keep all your clients, properties, and \ncommunications perfectly organized in \none powerful hub.",
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding3.png',
-      badgeLabel: "Smart Property Recommendations",
+      badgeLabel: "Smart Property \nRecommendations",
       title: "AI Auto-\nMatching",
       description:
-          "Automatically matches client requests based on location and property type.",
+          "Automatically matches client requests \nbased on location and property type.",
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding4.png',
       badgeLabel: "Collaborate seamlessly",
       title: "Share & Track",
       description:
-          "Easily share orders and monitor their progress in real-time. ",
+          "Easily share orders and monitor their \nprogress in real-time. ",
     ),
   ];
 
   bool get _isLastPage => _currentIndex == _pages.length - 1;
 
-  void _onNext() {
+  Future<void> _onNext() async {
     if (_isLastPage) {
       Navigator.of(context).pushNamedAndRemoveUntil('loginView', (route) => false);
+      await CacheHelper.saveData(
+        key: 'onboarding_done',
+        value: true,
+      );
     } else {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 400),
@@ -58,8 +63,12 @@ class _OnboardingViewState extends State<OnboardingView> {
     }
   }
 
-  void _onSkip() {
+  Future<void> _onSkip() async {
     Navigator.of(context).pushNamedAndRemoveUntil('loginView', (route) => false);
+    await CacheHelper.saveData(
+      key: 'onboarding_done',
+      value: true,
+    );
   }
 
   @override
@@ -75,7 +84,7 @@ class _OnboardingViewState extends State<OnboardingView> {
       body: SafeArea(
         child: Column(
           children: [
-            OnboardingHeader(onSkip: _onSkip),
+            OnboardingHeader(onSkip: _onSkip,currentIndex: _currentIndex,),
             Expanded(
               child: PageView.builder(
                 controller: _pageController,

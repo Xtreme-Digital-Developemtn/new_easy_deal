@@ -32,28 +32,31 @@ class SplashViewState extends State<SplashView>
   }
 
   Future<void> _checkUserTokenAndNavigate() async {
-    // Check if widget is still mounted before async operations
     if (!mounted) return;
 
     try {
-      // Await the token retrieval
+      final bool isOnboardingDone =
+          await CacheHelper.getData(key: 'onboarding_done') ?? false;
+
+      if (!mounted) return;
+
+      if (!isOnboardingDone) {
+        context.pushReplacementNamed(Routes.onBoardingView);
+        return;
+      }
+
       final String? userToken = await CacheTokenManger.getUserToken();
 
-      // Check mounted again after async operation
       if (!mounted) return;
 
       if (userToken != null && userToken.isNotEmpty) {
-        print(" User logged in, navigating to LayoutView");
-        context.pushNamed(Routes.layoutView);
+        context.pushReplacementNamed(Routes.layoutView);
       } else {
-        print(" No token found, navigating to LoginView");
-        context.pushNamed(Routes.loginView);
+        context.pushReplacementNamed(Routes.loginView);
       }
     } catch (e) {
-      print(" Error checking token: $e");
       if (mounted) {
-        context.pushNamed(Routes.loginView);
-
+        context.pushReplacementNamed(Routes.loginView);
       }
     }
   }

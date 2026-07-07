@@ -1,11 +1,24 @@
-import 'package:flutter/material.dart';
+import '../../../../../main_imports.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final VoidCallback onSkip;
-  const OnboardingHeader({super.key, required this.onSkip});
+  final int currentIndex;
+
+  const OnboardingHeader({
+    super.key,
+    required this.onSkip,
+    required this.currentIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final icons = [
+      "assets/images/svgs/onboardnig_icon_1.svg",
+      "assets/images/svgs/onboardnig_icon_2.svg",
+      "assets/images/svgs/onboardnig_icon_3.svg",
+      "assets/images/svgs/onboardnig_icon_4.svg",
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
@@ -14,6 +27,7 @@ class OnboardingHeader extends StatelessWidget {
           Container(
             width: 45,
             height: 45,
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
@@ -24,7 +38,9 @@ class OnboardingHeader extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Icon(Icons.auto_awesome, color: Color(0xff0A1E5E)),
+            child: SvgPicture.asset(
+              icons[currentIndex],
+            ),
           ),
           TextButton(
             onPressed: onSkip,
