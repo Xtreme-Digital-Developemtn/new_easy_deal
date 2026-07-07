@@ -42,7 +42,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
               context: context,
             ),
             _buildItem(
-              icon: SvgImages.chat2,
+              icon: SvgImages.chat3,
               title: LangKeys.messages,
               context: context,
             ),

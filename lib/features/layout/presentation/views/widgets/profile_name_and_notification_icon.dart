@@ -17,10 +17,10 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
   @override
   void initState() {
     super.initState();
-    if(CacheHelper.getData(key: "userRole")=="broker"){
-      context.read<LayoutCubit>().getUnReadNotificationsCount();
-    }
-
+    // if(CacheHelper.getData(key: "userRole")=="broker"){
+    //   context.read<LayoutCubit>().getUnReadNotificationsCount();
+    // }
+    context.read<LayoutCubit>().getUnReadNotificationsCount();
   }
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,14 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
             children: [
               Row(
                 children: [
-                  CustomNetWorkImage(
-                    raduis: 50,
-                    imageUrl: profileCubit.clientProfileModel?.data?.image ?? "",
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                  ),
-                  Gap(6),
+                  // CustomNetWorkImage(
+                  //   raduis: 50,
+                  //   imageUrl: profileCubit.clientProfileModel?.data?.image ?? "",
+                  //   width: 40,
+                  //   height: 40,
+                  //   fit: BoxFit.cover,
+                  // ),
+                  // Gap(6),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

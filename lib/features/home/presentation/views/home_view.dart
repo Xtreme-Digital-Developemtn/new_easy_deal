@@ -14,6 +14,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+
           SliverToBoxAdapter(
             child: HomeSliderImages(),
           ),
@@ -23,6 +24,7 @@ class HomeView extends StatelessWidget {
               children: [
                 Gap(20.h),
                 const Categories(),
+
               ],
             ),
           ),
@@ -50,6 +52,7 @@ class HomeView extends StatelessWidget {
           SliverToBoxAdapter(
             child: const LatestArticles(),
           ),
+
         ],
       ),
     );

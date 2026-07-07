@@ -65,6 +65,7 @@ class SvgImages
   static const String trash = "$svgPath/trash-bin-minimalistic-svgrepo-com.svg";
   static const String logout = "$svgPath/logout.svg";
   static const String chat2 = "$svgPath/chat1.svg";
+  static const String chat3 = "$svgPath/svgviewer-output.svg";
   static const String add2 = "$svgPath/+.svg";
   static const String sheetIcons = "$svgPath/sheet-icons.svg";
 
