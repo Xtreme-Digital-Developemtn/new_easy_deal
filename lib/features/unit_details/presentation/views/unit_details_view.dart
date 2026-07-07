@@ -75,7 +75,8 @@ class UnitDetailsView extends StatelessWidget {
                         brokerName: unitDetailsCubit
                             .unitDetailsModel?.data?.broker?.name,
                         brokerRate: "5.0",
-                        brokerImage: "",
+                        brokerImage: unitDetailsCubit
+                        .unitDetailsModel?.data?.brokerUserImage,
                         brokerVerify: true,
                         brokerSpecializationsList: [],
                         brokerLicense: "brokerLicense",
@@ -104,7 +105,20 @@ class UnitDetailsView extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: UnitBottomNavigationBarWidget(),
+      bottomNavigationBar: BlocBuilder<UnitDetailsCubit, UnitDetailsStates>(
+        builder: (context, state) {
+          final unit =
+              context.read<UnitDetailsCubit>().unitDetailsModel?.data;
+
+          if (unit == null) {
+            return const SizedBox.shrink();
+          }
+
+          return UnitBottomNavigationBarWidget(
+            phone: unit.ownerPhone ?? "",
+          );
+        },
+      ),
     );
   }
 }

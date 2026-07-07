@@ -66,15 +66,17 @@ class Data {
   Broker? broker;
   String? projectName;
   String? developerName;
+  String? brokerUserImage;
   String? createdAt;
   String? updatedAt;
   List<dynamic>? gallery;
 
-  Data({this.id, this.modelCode, this.type, this.unitArea, this.buildingNumber, this.unitNumber, this.floor, this.area, this.city, this.subArea, this.otherSubAreas, this.ownerPhone, this.ownerName, this.detailedAddress, this.dailyRent, this.monthlyRent, this.deliveryStatus, this.numberOfRooms, this.numberOfBathrooms, this.finishingType, this.unitOperation, this.compoundType, this.status, this.view, this.deliveryDate, this.diagram, this.locationInMasterPlan, this.location, this.paymentSystem, this.pricePerMeterInInstallment, this.pricePerMeterInCash, this.totalPriceInInstallment, this.totalPriceInCash, this.advertisers, this.isArchived, this.additionalDetails, this.otherAccessories, this.modelId, this.brokerId, this.broker, this.projectName, this.developerName, this.createdAt, this.updatedAt, this.gallery});
+  Data({this.id, this.modelCode,this.brokerUserImage, this.type, this.unitArea, this.buildingNumber, this.unitNumber, this.floor, this.area, this.city, this.subArea, this.otherSubAreas, this.ownerPhone, this.ownerName, this.detailedAddress, this.dailyRent, this.monthlyRent, this.deliveryStatus, this.numberOfRooms, this.numberOfBathrooms, this.finishingType, this.unitOperation, this.compoundType, this.status, this.view, this.deliveryDate, this.diagram, this.locationInMasterPlan, this.location, this.paymentSystem, this.pricePerMeterInInstallment, this.pricePerMeterInCash, this.totalPriceInInstallment, this.totalPriceInCash, this.advertisers, this.isArchived, this.additionalDetails, this.otherAccessories, this.modelId, this.brokerId, this.broker, this.projectName, this.developerName, this.createdAt, this.updatedAt, this.gallery});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     modelCode = json["modelCode"];
+    brokerUserImage = json["broker_user_image"];
     type = json["type"];
     unitArea = json["unitArea"];
     buildingNumber = json["buildingNumber"];
@@ -124,6 +126,7 @@ class Data {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["id"] = id;
     _data["modelCode"] = modelCode;
+    _data["broker_user_image"] = brokerUserImage;
     _data["type"] = type;
     _data["unitArea"] = unitArea;
     _data["buildingNumber"] = buildingNumber;
