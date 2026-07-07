@@ -17,8 +17,12 @@ class _EditNameViewState extends State<EditNameView> {
   @override
   void initState() {
     super.initState();
-    final currentName = context.read<ProfileCubit>().clientProfileModel?.data?.fullName ?? "";
-    context.read<EditProfileCubit>().nameCon = TextEditingController(text: currentName);
+    final profile = context.read<ProfileCubit>().clientProfileModel?.data;
+    final cubit = context.read<EditProfileCubit>();
+    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
+    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
+    cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
+    cubit.role = profile?.role;
   }
 
   @override

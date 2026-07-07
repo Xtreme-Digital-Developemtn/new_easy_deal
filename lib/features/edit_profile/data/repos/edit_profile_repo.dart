@@ -10,6 +10,6 @@ abstract class EditProfileRepo {
      String? email,
      String? password,
      String? passwordConfirmation,
-     String? gender,
+     String? role,
   });
 }

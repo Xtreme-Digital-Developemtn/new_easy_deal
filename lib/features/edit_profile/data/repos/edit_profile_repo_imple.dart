@@ -16,7 +16,7 @@ Future<Either<Failure, UpdateProfileDataModel>> updateProfileData(
       String? email,
       String? password,
       String? passwordConfirmation,
-      String? gender,
+      String? role,
     }
     ) async{
   try {
@@ -25,9 +25,9 @@ Future<Either<Failure, UpdateProfileDataModel>> updateProfileData(
       "fullName": fullName,
       "phone": phone,
       "email": email,
+      "role": role,
       "password": password,
       "password_confirmation": passwordConfirmation,
-      "gender": gender,
     };
     data.removeWhere((key, value) => value == null || (value is String && value.trim().isEmpty));
     var response = await apiService!.putData(

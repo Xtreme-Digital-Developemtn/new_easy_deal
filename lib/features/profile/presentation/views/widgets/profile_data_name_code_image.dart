@@ -24,54 +24,79 @@ class ProfileDataNameCodeImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      ProfileImage(),
-                      Gap(20.w),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${profileCubit.clientProfileModel?.data?.fullName}",
-                            style: AppStyles.black18SemiBold,
-                          ),
-                          Gap(8.h),
-                          if(context.watch<ProfileCubit>().promoCodesLastAppliedModel!=null)
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.r),
-                            height: 24.h,
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(6.r),
-                              border: Border.all(color: AppColors.grayLighter),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Promo Code : ",
-                                  style: AppStyles.black12Medium.copyWith(
-                                    color: AppColors.secondBlack,
+                  Expanded(
+                    child: Row(
+                      children: [
+                        ProfileImage(),
+
+                        Gap(20.w),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                profileCubit.clientProfileModel?.data?.fullName ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppStyles.black18SemiBold,
+                              ),
+
+                              Gap(8.h),
+
+                              if (context.watch<ProfileCubit>().promoCodesLastAppliedModel !=
+                                  null)
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.r,
+                                  ),
+                                  height: 24.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(6.r),
+                                    border: Border.all(
+                                      color: AppColors.grayLighter,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        "Promo Code : ",
+                                        style: AppStyles.black12Medium.copyWith(
+                                          color: AppColors.secondBlack,
+                                        ),
+                                      ),
+
+                                      Flexible(
+                                        child: Text(
+                                          context
+                                              .watch<ProfileCubit>()
+                                              .promoCodesLastAppliedModel!
+                                              .data!
+                                              .promoCode ??
+                                              "",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: AppStyles.black12SemiBold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-
-                                Text(
-                                  "${context.watch<ProfileCubit>().promoCodesLastAppliedModel!.data!.promoCode}",
-                                  style: AppStyles.black12SemiBold,
-                                ),
-                              ],
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
+
+                  Gap(12.w),
+
                   InkWell(
                     borderRadius: BorderRadius.circular(50.r),
                     onTap: () {
-                      // showLogoutDialog(context);
                       showLogoutBottomSheet(context);
                     },
                     child: Container(

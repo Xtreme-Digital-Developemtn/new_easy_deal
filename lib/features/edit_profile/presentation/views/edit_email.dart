@@ -17,9 +17,13 @@ class EditEmailView extends StatefulWidget {
 class _EditEmailViewState extends State<EditEmailView> {
   @override
   void initState() {
-    final currentEmail = context.read<ProfileCubit>().clientProfileModel?.data?.email ?? "";
-    context.read<EditProfileCubit>().emailCon = TextEditingController(text: currentEmail);
     super.initState();
+    final profile = context.read<ProfileCubit>().clientProfileModel?.data;
+    final cubit = context.read<EditProfileCubit>();
+    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
+    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
+    cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
+    cubit.role = profile?.role;
   }
 
   @override

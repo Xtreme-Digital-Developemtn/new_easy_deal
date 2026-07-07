@@ -52,18 +52,18 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
 
 
+  String? role;
   UpdateProfileDataModel? updateProfileDataModel;
-  Future<void> updateProfileData({
-    String? gender,
-  }) async {
+  Future<void> updateProfileData() async {
     emit(EditProfileDataLoadingState());
     var result = await editProfileRepo!.updateProfileData(
       fullName: nameCon.text,
       phone: mobileNumberCon.text,
       email: emailCon.text,
+      role: role,
       passwordConfirmation: newPasswordCon.text,
       password: confirmNewPasswordCon.text,
-      gender: gender,
+
 
     );
     return result.fold(

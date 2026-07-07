@@ -19,11 +19,13 @@ class EditMobileNumberView extends StatefulWidget {
 class _EditMobileNumberViewState extends State<EditMobileNumberView> {
   @override
   void initState() {
-    final currentMobileNumber = context.read<ProfileCubit>().clientProfileModel?.data?.phone ?? "";
-    context.read<EditProfileCubit>().mobileNumberCon = TextEditingController(text: currentMobileNumber);
-    final currentEmail = context.read<ProfileCubit>().clientProfileModel?.data?.email ?? "";
-    context.read<EditProfileCubit>().emailCon = TextEditingController(text: currentEmail);
     super.initState();
+    final profile = context.read<ProfileCubit>().clientProfileModel?.data;
+    final cubit = context.read<EditProfileCubit>();
+    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
+    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
+    cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
+    cubit.role = profile?.role;
   }
 
   @override
