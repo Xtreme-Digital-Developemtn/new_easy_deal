@@ -41,11 +41,11 @@ class BottomNavigationBarWidget extends StatelessWidget {
               title: LangKeys.request,
               context: context,
             ),
-            _buildItem(
-              icon: SvgImages.chat3,
-              title: LangKeys.messages,
-              context: context,
-            ),
+            // _buildItem(
+            //   icon: SvgImages.chat3,
+            //   title: LangKeys.messages,
+            //   context: context,
+            // ),
             _buildItem(
               icon: SvgImages.profile,
               title: LangKeys.profile,

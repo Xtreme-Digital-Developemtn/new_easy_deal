@@ -69,7 +69,9 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                                           color: AppColors.secondBlack,
                                         ),
                                       ),
-
+if( context
+    .read<ProfileCubit>()
+    .promoCodesLastAppliedModel!.data!=null)
                                       Flexible(
                                         child: Text(
                                           context
