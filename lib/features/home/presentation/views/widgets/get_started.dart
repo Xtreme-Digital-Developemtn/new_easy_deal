@@ -46,25 +46,26 @@ class GetStarted extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  StandardBottomSheet.show(
-                    context: context,
-                    isScrollControlled: true,
-                    child: Builder(
-                      builder: (sheetContext) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            top: 20.r,
-                            left: 20.r,
-                            right: 20.r,
-                            bottom: MediaQuery.of(
-                              sheetContext,
-                            ).viewInsets.bottom,
-                          ),
-                          child: ServicesBottomSheet(),
-                        );
-                      },
-                    ),
-                  );
+                  context.pushNamed(Routes.createRequestView);
+                  // StandardBottomSheet.show(
+                  //   context: context,
+                  //   isScrollControlled: true,
+                  //   child: Builder(
+                  //     builder: (sheetContext) {
+                  //       return Padding(
+                  //         padding: EdgeInsets.only(
+                  //           top: 20.r,
+                  //           left: 20.r,
+                  //           right: 20.r,
+                  //           bottom: MediaQuery.of(
+                  //             sheetContext,
+                  //           ).viewInsets.bottom,
+                  //         ),
+                  //         child: ServicesBottomSheet(),
+                  //       );
+                  //     },
+                  //   ),
+                  // );
                 },
                 child: Text(
                   LangKeys.getStarted.tr(),

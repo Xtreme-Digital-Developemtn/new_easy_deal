@@ -3,73 +3,82 @@ import 'package:easy_deal/main_imports.dart';
 import '../../view_model/home_cubit.dart';
 
 class SiteItem extends StatelessWidget {
-  const SiteItem({super.key, required this.index});
+  const SiteItem({
+    super.key,
+    required this.index,
+  });
 
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: Image.asset(
-              context.read<HomeCubit>().locationsImages[index],
-              width: 120.w,
-              height: 120.h,
-              fit: BoxFit.cover,
-            ),
-          ),
-          // CustomNetWorkImage(
-          //   width: 120.w,
-          //   height: 120.h,
-          //   fit: BoxFit.cover,
-          //   imageUrl:
-          //       "https://sattvagroup.com/wp-content/uploads/2024/09/flats-vs-apartment.jpg",
-          //   raduis: 8.r,
-          // ),
+    final cubit = context.read<HomeCubit>();
 
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 90.h,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.black.withValues(alpha: 0.55),
-                    Colors.black.withValues(alpha: 0.25),
-                    Colors.transparent,
+    return AspectRatio(
+      aspectRatio: 1,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Stack(
+          children: [
+            /// Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Image.asset(
+                cubit.locationsImages[index],
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            /// Gradient
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.r),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black.withValues(alpha: .65),
+                      Colors.black.withValues(alpha: .25),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            /// Bottom Content
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.all(10.w),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      SvgImages.location,
+                      height: 16.h,
+                      width: 16.w,
+                    ),
+                    Gap(6.w),
+                    Flexible(
+                      child: Text(
+                        cubit.locationsTitles[index],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppStyles.white14SemiBold,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 25.h,
-            left: 5.w,
-            child: Row(
-              children: [
-                SvgPicture.asset(SvgImages.location, height: 16.h),
-                Text(context.read<HomeCubit>().locationsTitles[index], style: AppStyles.white14SemiBold),
-              ],
-            ),
-          ),
-          // Positioned(
-          //   bottom: 10.h,
-          //   left: 10.w,
-          //   child: Text(
-          //     "157866 Listing available",
-          //     style: AppStyles.white8Regular,
-          //   ),
-          // ),
-        ],
+          ],
+        ),
       ),
     );
   }
