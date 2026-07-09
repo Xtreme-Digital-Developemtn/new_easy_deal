@@ -25,6 +25,7 @@ class ClientProfileModel {
 
 class Data {
   int? id;
+  int? brokerId;
   String? fullName;
   String? email;
   String? phone;
@@ -36,10 +37,11 @@ class Data {
   dynamic parentId;
   dynamic gender;
 
-  Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.gender});
+  Data({this.id, this.brokerId,this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.gender});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
+    brokerId = json["brokerId"];
     fullName = json["fullName"];
     email = json["email"];
     phone = json["phone"];
@@ -55,6 +57,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["id"] = id;
+    _data["brokerId"] = brokerId;
     _data["fullName"] = fullName;
     _data["email"] = email;
     _data["phone"] = phone;

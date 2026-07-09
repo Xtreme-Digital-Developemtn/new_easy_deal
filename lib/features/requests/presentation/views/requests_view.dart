@@ -6,6 +6,8 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/utils/enums.dart';
+
 class RequestsView extends StatefulWidget {
   const RequestsView({super.key});
 
@@ -23,7 +25,7 @@ class _RequestsViewState extends State<RequestsView> {
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent - 200) {
-        context.read<RequestsCubit>().loadMoreRequests();
+        context.read<RequestsCubit>().loadMoreRequests(context: context);
       }
     });
   }
@@ -32,6 +34,39 @@ class _RequestsViewState extends State<RequestsView> {
   void dispose() {
     scrollController.dispose();
     super.dispose();
+  }
+
+  Widget _buildToggleButton({
+    required BuildContext context,
+    required String label,
+    required bool isActive,
+    required VoidCallback onPressed,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        decoration: BoxDecoration(
+          color: isActive ? AppColors.primaryDark : AppColors.white,
+          borderRadius: BorderRadius.circular(8.r),
+          border: Border.all(
+            color: isActive ? AppColors.primaryDark : AppColors.blueLight,
+            width: 1.5,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w600,
+              color: isActive ? AppColors.white : AppColors.textSecondary,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -56,7 +91,7 @@ class _RequestsViewState extends State<RequestsView> {
                       ),
                       Gap(16.h),
                       CustomButton(
-                        onPressed: () => requestsCubit.getAllRequests(),
+                        onPressed: () => requestsCubit.getAllRequests(context: context),
                         text: LangKeys.reload.tr(),
                       ),
                     ],
@@ -66,7 +101,9 @@ class _RequestsViewState extends State<RequestsView> {
 
               final isLoading =
                   state is GetAllRequestsLoadingState &&
-                      requestsCubit.requests.isEmpty;
+                      (requestsCubit.currentType == RequestType.assigned
+                          ? requestsCubit.assignedRequests.isEmpty
+                          : requestsCubit.requests.isEmpty);
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +115,48 @@ class _RequestsViewState extends State<RequestsView> {
                     ),
                   ),
                   Gap(24.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildToggleButton(
+                          context: context,
+                          label: "بواسطتي",
+                          isActive: requestsCubit.currentType == RequestType.assigned,
+                          onPressed: () {
+                            requestsCubit.changeType(RequestType.assigned, context);
+                          },
+                        ),
+                      ),
+                      Gap(8.w),
+                      Expanded(
+                        child: _buildToggleButton(
+                          context: context,
+                          label: "المرسلة",
+                          isActive: requestsCubit.currentType == RequestType.sent,
+                          onPressed: () {
+                            requestsCubit.changeType(RequestType.sent, context);
+                          },
+                        ),
+                      ),
+                      Gap(8.w),
+                      Expanded(
+                        child: _buildToggleButton(
+                          context: context,
+                          label: "المستلمة",
+                          isActive: requestsCubit.currentType == RequestType.received,
+                          onPressed: () {
+                            requestsCubit.changeType(RequestType.received, context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(24.h),
                   RequestsList(
                     controller: scrollController,
-                    data: requestsCubit.requests,
+                    data: requestsCubit.currentType == RequestType.assigned
+                        ? requestsCubit.assignedRequests
+                        : requestsCubit.requests,
                     isLoading: isLoading,
                     hasMore: requestsCubit.hasMore,
                     isLoadingMore: requestsCubit.isLoadingMore,

@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/requests/data/repos/requests_repo.dart';
+import '../../../../core/utils/enums.dart';
 import '../../../../main_imports.dart';
 import '../models/all_request_model.dart';
 
@@ -10,27 +12,51 @@ class RequestsRepoImpl implements RequestsRepo {
 
 
 
+  RequestType currentType = RequestType.sent;
+  @override
+  Future<Either<Failure, AllRequestModel>> getAllRequests({
+    required int limit,
+    required int offset,
+    required RequestType type,
+    required BuildContext context,
+  }) async {
+    try {
+      final Map<String, dynamic> query = {
+        "limit": limit,
+        "offset": offset,
+        "sort": "desc",
+        "sortBy": "id",
+      };
 
-@override
-Future<Either<Failure, AllRequestModel>> getAllRequest({  required int limit,
-  required int offset,}) async{
-  try {
-    var response = await apiService!.getData(
-      endPoint: EndPoints.requests,
-      query: {
-        "limit" : limit,
-        "offset" : offset,
-        "userId" : "${CacheHelper.getData(key: "userId")}",
+      switch (type) {
+        case RequestType.sent:
+          query["userId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
+          break;
+
+        case RequestType.received:
+          query["brokerId"] = context.read<ProfileCubit>().clientProfileModel!.data!.brokerId;
+          break;
+
+        case RequestType.assigned:
+          query["senderId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
+          break;
       }
-    );
-    AllRequestModel result = AllRequestModel.fromJson(response.data);
-    return right(result);
-  } catch (e) {
-    return left(handleError(e));
+
+      var response = await apiService!.getData(
+        endPoint: EndPoints.requests,
+        query: query,
+      );
+
+      return right(AllRequestModel.fromJson(response.data));
+    } catch (e) {
+      return left(handleError(e));
+    }
   }
-}
 
-
+  void changeType(RequestType type , dynamic limit , dynamic offset , BuildContext context) {
+    currentType = type;
+    getAllRequests(limit: limit, offset: offset, type: type,context: context);
+  }
 
 
 
