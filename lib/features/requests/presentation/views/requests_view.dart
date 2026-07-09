@@ -21,13 +21,6 @@ class _RequestsViewState extends State<RequestsView> {
   @override
   void initState() {
     super.initState();
-
-    scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent - 200) {
-        context.read<RequestsCubit>().loadMoreRequests(context: context);
-      }
-    });
   }
 
   @override
@@ -39,6 +32,7 @@ class _RequestsViewState extends State<RequestsView> {
   Widget _buildToggleButton({
     required BuildContext context,
     required String label,
+    required int count,
     required bool isActive,
     required VoidCallback onPressed,
   }) {
@@ -56,13 +50,35 @@ class _RequestsViewState extends State<RequestsView> {
           ),
         ),
         child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
-              color: isActive ? AppColors.white : AppColors.textSecondary,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w600,
+                  color: isActive ? AppColors.white : AppColors.textSecondary,
+                ),
+              ),
+              Gap(6.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: isActive ? AppColors.white.withValues(alpha: 0.2) : AppColors.blueLight,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Text(
+                  count.toString(),
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.w600,
+                    color: isActive ? AppColors.white : AppColors.primaryDark,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -77,7 +93,7 @@ class _RequestsViewState extends State<RequestsView> {
           padding: EdgeInsets.all(12.r),
           child: BlocBuilder<RequestsCubit, RequestsStates>(
             builder: (context, state) {
-              final requestsCubit = context.read<RequestsCubit>();
+              final cubit = context.read<RequestsCubit>();
 
               if (state is GetAllRequestsErrorState) {
                 return Center(
@@ -91,7 +107,7 @@ class _RequestsViewState extends State<RequestsView> {
                       ),
                       Gap(16.h),
                       CustomButton(
-                        onPressed: () => requestsCubit.getAllRequests(context: context),
+                        onPressed: () => cubit.fetchAllTypes(context: context),
                         text: LangKeys.reload.tr(),
                       ),
                     ],
@@ -99,11 +115,7 @@ class _RequestsViewState extends State<RequestsView> {
                 );
               }
 
-              final isLoading =
-                  state is GetAllRequestsLoadingState &&
-                      (requestsCubit.currentType == RequestType.assigned
-                          ? requestsCubit.assignedRequests.isEmpty
-                          : requestsCubit.requests.isEmpty);
+              final isLoading = state is GetAllRequestsLoadingState && cubit.currentList.isEmpty;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +123,7 @@ class _RequestsViewState extends State<RequestsView> {
                   Skeletonizer(
                     enabled: isLoading,
                     child: RequestsCount(
-                      count: requestsCubit.allRequestModel?.data.count ?? 0,
+                      count: cubit.currentModel?.data.count ?? cubit.currentList.length,
                     ),
                   ),
                   Gap(24.h),
@@ -121,10 +133,11 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: "بواسطتي",
-                          isActive: requestsCubit.currentType == RequestType.assigned,
-                          onPressed: () {
-                            requestsCubit.changeType(RequestType.assigned, context);
-                          },
+                          count: cubit.currentType == RequestType.assigned
+                              ? cubit.currentList.length
+                              : cubit.assignedCount,
+                          isActive: cubit.currentType == RequestType.assigned,
+                          onPressed: () => cubit.changeType(RequestType.assigned),
                         ),
                       ),
                       Gap(8.w),
@@ -132,10 +145,11 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: "المرسلة",
-                          isActive: requestsCubit.currentType == RequestType.sent,
-                          onPressed: () {
-                            requestsCubit.changeType(RequestType.sent, context);
-                          },
+                          count: cubit.currentType == RequestType.sent
+                              ? cubit.currentList.length
+                              : cubit.sentCount,
+                          isActive: cubit.currentType == RequestType.sent,
+                          onPressed: () => cubit.changeType(RequestType.sent),
                         ),
                       ),
                       Gap(8.w),
@@ -143,10 +157,11 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: "المستلمة",
-                          isActive: requestsCubit.currentType == RequestType.received,
-                          onPressed: () {
-                            requestsCubit.changeType(RequestType.received, context);
-                          },
+                          count: cubit.currentType == RequestType.received
+                              ? cubit.currentList.length
+                              : cubit.receivedCount,
+                          isActive: cubit.currentType == RequestType.received,
+                          onPressed: () => cubit.changeType(RequestType.received),
                         ),
                       ),
                     ],
@@ -154,12 +169,10 @@ class _RequestsViewState extends State<RequestsView> {
                   Gap(24.h),
                   RequestsList(
                     controller: scrollController,
-                    data: requestsCubit.currentType == RequestType.assigned
-                        ? requestsCubit.assignedRequests
-                        : requestsCubit.requests,
+                    data: cubit.currentList,
                     isLoading: isLoading,
-                    hasMore: requestsCubit.hasMore,
-                    isLoadingMore: requestsCubit.isLoadingMore,
+                    hasMore: false,
+                    isLoadingMore: false,
                   ),
                 ],
               );

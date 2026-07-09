@@ -21,15 +21,15 @@ class RequestsCount extends StatelessWidget {
             ),
           ],
         ),
-        IconButton(
-          icon: const Icon(Icons.filter_list),
-          onPressed: () async {
-            final result = await showFilterBottomSheet(context);
-            if (result != null && context.mounted) {
-              // TODO: apply filter to request list
-            }
-          },
-        )
+        // IconButton(
+        //   icon: const Icon(Icons.filter_list),
+        //   onPressed: () async {
+        //     final result = await showFilterBottomSheet(context);
+        //     if (result != null && context.mounted) {
+        //       // TODO: apply filter to request list
+        //     }
+        //   },
+        // )
       ],
     );
   }

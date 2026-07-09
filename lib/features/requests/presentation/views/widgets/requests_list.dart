@@ -23,47 +23,68 @@ class RequestsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final items = data ?? [];
+    final isEmpty = !isLoading && items.isEmpty;
+
     return Expanded(
       child: Skeletonizer(
         enabled: isLoading,
-        child: ListView.separated(
-          controller: controller,
-          itemCount: isLoading
-              ? 5
-              : data!.length + (hasMore || isLoadingMore ? 1 : 0),
-          separatorBuilder: (context, index) => Gap(12.h),
-          itemBuilder: (context, index) {
-            if (isLoading) {
-              return const RequestListItemSkeleton();
-            }
-
-            if (index == data!.length) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Center(
-                  child: CustomLoading(),
+        child: isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.inbox_outlined,
+                      size: 64.sp,
+                      color: AppColors.grayMedium,
+                    ),
+                    Gap(16.h),
+                    Text(
+                      'لا توجد طلبات',
+                      style: AppStyles.gray14Medium,
+                    ),
+                  ],
                 ),
-              );
-            }
+              )
+            : ListView.separated(
+                controller: controller,
+                itemCount: isLoading
+                    ? 5
+                    : items.length + (isLoadingMore ? 1 : 0),
+                separatorBuilder: (context, index) => Gap(12.h),
+                itemBuilder: (context, index) {
+                  if (isLoading) {
+                    return const RequestListItemSkeleton();
+                  }
 
-            final request = data![index];
+                  if (index == items.length) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Center(
+                        child: CustomLoading(),
+                      ),
+                    );
+                  }
 
-            return RequestListItemCard(
-              title: request.title.toString(),
-              statusColor: AppColors.primaryDark,
-              status: request.status.toString(),
-              date: DateTime.now().subtract(
-                const Duration(days: 2),
+                  final request = items[index];
+
+                  return RequestListItemCard(
+                    title: request.title.toString(),
+                    statusColor: AppColors.primaryDark,
+                    status: request.status.toString(),
+                    date: DateTime.now().subtract(
+                      const Duration(days: 2),
+                    ),
+                    type: request.type.toString(),
+                    address:
+                        request.detailedAddress ??
+                            LangKeys.noAddressFound.tr(),
+                    range: request.specializationScope.toString(),
+                    id: request.id.toString(),
+                  );
+                },
               ),
-              type: request.type.toString(),
-              address:
-              request.detailedAddress ??
-                  LangKeys.noAddressFound.tr(),
-              range: request.specializationScope.toString(),
-              id: request.id.toString(),
-            );
-          },
-        ),
       ),
     );
   }

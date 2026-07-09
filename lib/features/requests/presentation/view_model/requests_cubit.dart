@@ -13,92 +13,97 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
   static RequestsCubit get(context) => BlocProvider.of(context);
 
-  int limit = 3;
-  int offset = 0;
+  int limit = 100;
 
-  bool hasMore = true;
-  bool isLoadingMore = false;
-
-  List<RequestItem> requests = [];
   List<RequestItem> assignedRequests = [];
-  AllRequestModel? allRequestModel;
-  Future<void> getAllRequests({required BuildContext context}) async {
-    offset = 0;
-    hasMore = true;
-    emit(GetAllRequestsLoadingState());
-    var result = await requestsRepo!.getAllRequests(
-      limit: limit,
-      offset: offset,
-      type: currentType,
-      context: context
-    );
-    return result.fold((failure) {
-      emit(GetAllRequestsErrorState(failure.errMessage));
-    }, (data) async {
-      requests = data.data.data;
-      allRequestModel = data;
-      final profile = ProfileCubit.get(context).clientProfileModel;
+  List<RequestItem> sentRequests = [];
+  List<RequestItem> receivedRequests = [];
+  AllRequestModel? assignedModel;
+  AllRequestModel? sentModel;
+  AllRequestModel? receivedModel;
 
-      final userId = profile?.data?.id;
-
-      assignedRequests = requests.where((request) {
-        return request.assignedBrokers.any(
-          (broker) => broker.senderId?.toString() == userId?.toString(),
-        );
-      }).toList();
-      hasMore = requests.length >= limit;
-      emit(GetAllRequestsSuccessState(data));
-    });
+  List<RequestItem> get currentList {
+    switch (currentType) {
+      case RequestType.assigned:
+        return assignedRequests;
+      case RequestType.sent:
+        return sentRequests;
+      case RequestType.received:
+        return receivedRequests;
+    }
   }
-  Future<void> loadMoreRequests({required BuildContext context }) async {
-    if (isLoadingMore || !hasMore) return;
 
-    isLoadingMore = true;
+  AllRequestModel? get currentModel {
+    switch (currentType) {
+      case RequestType.assigned:
+        return assignedModel;
+      case RequestType.sent:
+        return sentModel;
+      case RequestType.received:
+        return receivedModel;
+    }
+  }
 
-    offset += limit;
+  int get assignedCount => assignedRequests.length;
+  int get sentCount => sentRequests.length;
+  int get receivedCount => receivedRequests.length;
 
-    var result = await requestsRepo!.getAllRequests(
-      limit: limit,
-      offset: offset,
-        type : currentType,
-      context: context,
-    );
+  RequestType currentType = RequestType.assigned;
 
-    result.fold(
-          (failure) {
-        isLoadingMore = false;
-      },
-          (data) {
-        final newRequests = data.data.data;
+  Future<void> fetchAllTypes({required BuildContext context}) async {
+    emit(GetAllRequestsLoadingState());
 
-        requests.addAll(newRequests);
+    final profile = ProfileCubit.get(context).clientProfileModel;
+    if (profile?.data?.id == null) {
+      emit(GetAllRequestsErrorState("Profile not loaded. Please try again."));
+      return;
+    }
 
-        final profile = ProfileCubit.get(context).clientProfileModel;
+    try {
+      final results = await Future.wait([
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.assigned, context: context),
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.sent, context: context),
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.received, context: context),
+      ]);
+
+      for (final result in results) {
+        final error = result.fold((failure) => failure.errMessage, (data) => null);
+        if (error != null) {
+          emit(GetAllRequestsErrorState(error));
+          return;
+        }
+      }
+
+      results[0].fold((_) {}, (data) {
+        assignedModel = data;
         final userId = profile?.data?.id;
-        assignedRequests = requests.where((request) {
+        assignedRequests = data.data.data.where((request) {
           return request.assignedBrokers.any(
             (broker) => broker.senderId?.toString() == userId?.toString(),
           );
         }).toList();
+      });
+      results[1].fold((_) {}, (data) {
+        sentModel = data;
+        sentRequests = data.data.data;
+      });
+      results[2].fold((_) {}, (data) {
+        receivedModel = data;
+        receivedRequests = data.data.data;
+      });
 
-        if (newRequests.length < limit) {
-          hasMore = false;
-        }
-
-        isLoadingMore = false;
-
-        emit(GetAllRequestsSuccessState(data));
-      },
-    );
+      currentType = RequestType.assigned;
+      emit(GetAllRequestsSuccessState(assignedModel!));
+    } catch (e) {
+      emit(GetAllRequestsErrorState(e.toString()));
+    }
   }
-  RequestType currentType = RequestType.assigned;
-  void changeType(RequestType type , BuildContext context) {
+
+  void changeType(RequestType type) {
+    if (currentType == type) return;
     currentType = type;
-    getAllRequests(context: context);
+    if (currentModel != null) {
+      emit(GetAllRequestsSuccessState(currentModel!));
+    }
   }
-
-
-
-
-
 }
