@@ -27,19 +27,23 @@ class RequestsRepoImpl implements RequestsRepo {
         "sort": "desc",
         "sortBy": "id",
       };
+      if(CacheHelper.getData(key: "userRole")=="broker"){
+        switch (type) {
+          case RequestType.sent:
+            query["userId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
+            break;
 
-      switch (type) {
-        case RequestType.sent:
-          query["userId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
-          break;
+          case RequestType.received:
+            query["brokerId"] = context.read<ProfileCubit>().clientProfileModel!.data!.brokerId;
+            break;
 
-        case RequestType.received:
-          query["brokerId"] = context.read<ProfileCubit>().clientProfileModel!.data!.brokerId;
-          break;
-
-        case RequestType.assigned:
-          query["senderId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
-          break;
+          case RequestType.assigned:
+            query["senderId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
+            break;
+        }
+      }
+     else{
+        query["userId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
       }
 
       var response = await apiService!.getData(
