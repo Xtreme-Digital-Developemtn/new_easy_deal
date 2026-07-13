@@ -41,7 +41,7 @@ class RequestsList extends StatelessWidget {
                     ),
                     Gap(16.h),
                     Text(
-                      'لا توجد طلبات',
+                      LangKeys.noRequests.tr(),
                       style: AppStyles.gray14Medium,
                     ),
                   ],
@@ -69,20 +69,20 @@ class RequestsList extends StatelessWidget {
 
                   final request = items[index];
 
-                  return RequestListItemCard(
-                    title: request.title.toString(),
-                    statusColor: AppColors.primaryDark,
-                    status: request.status.toString(),
-                    date: DateTime.now().subtract(
-                      const Duration(days: 2),
-                    ),
-                    type: request.type.toString(),
-                    address:
-                        request.detailedAddress ??
-                            LangKeys.noAddressFound.tr(),
-                    range: request.specializationScope.toString(),
-                    id: request.id.toString(),
-                  );
+            return RequestListItemCard(
+              title: request.title.toString().tr(),
+              statusColor: AppColors.primaryDark,
+              status: request.status.toString().tr(),
+              date: DateTime.now().subtract(
+                const Duration(days: 2),
+              ),
+              type: request.type.toString().tr(),
+              address:
+                  request.detailedAddress ??
+                      LangKeys.noAddressFound.tr(),
+              range: request.specializationScope.toString().tr(),
+              id: request.id.toString(),
+            );
                 },
               ),
       ),

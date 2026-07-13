@@ -47,11 +47,11 @@ Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async 
   ];
 
   final unitTypeOptions = [
-    {'label': 'Apartment', 'value': 'apartment'},
-    {'label': 'Villa', 'value': 'villa'},
+    {'label': 'Apartments', 'value': 'apartment'},
+    {'label': 'Villas', 'value': 'villa'},
     {'label': 'Land', 'value': 'land'},
     {'label': 'Office', 'value': 'office'},
-    {'label': 'Shop', 'value': 'shop'},
+    {'label': 'Shops', 'value': 'shop'},
   ];
 
   final result = await showModalBottomSheet<RequestsFilterResult>(
@@ -273,7 +273,7 @@ Widget _buildFilterSection({
           items: options.map((item) {
             return DropdownMenuItem<String>(
               value: item['value'],
-              child: Text(item['label']!),
+              child: Text(_translateLabel(item['label']!)),
             );
           }).toList(),
           onChanged: onChanged,
@@ -281,4 +281,16 @@ Widget _buildFilterSection({
       ),
     ],
   );
+}
+
+String _translateLabel(String label) {
+  final keys = [
+    label.toLowerCase().replaceAll(' ', ''),
+    label.toLowerCase().replaceAll(' ', '_'),
+  ];
+  for (final key in keys) {
+    final translated = key.tr();
+    if (translated != key) return translated;
+  }
+  return label;
 }

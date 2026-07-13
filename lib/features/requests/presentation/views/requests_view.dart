@@ -133,7 +133,7 @@ class _RequestsViewState extends State<RequestsView> {
                       Expanded(
                         child: _buildToggleButton(
                           context: context,
-                          label: "بواسطتي",
+                          label: LangKeys.assigned.tr(),
                           count: cubit.currentType == RequestType.assigned
                               ? cubit.currentList.length
                               : cubit.assignedCount,
@@ -145,7 +145,7 @@ class _RequestsViewState extends State<RequestsView> {
                       Expanded(
                         child: _buildToggleButton(
                           context: context,
-                          label: "المرسلة",
+                          label: LangKeys.sentRequestsTab.tr(),
                           count: cubit.currentType == RequestType.sent
                               ? cubit.currentList.length
                               : cubit.sentCount,
@@ -157,7 +157,7 @@ class _RequestsViewState extends State<RequestsView> {
                       Expanded(
                         child: _buildToggleButton(
                           context: context,
-                          label: "المستلمة",
+                          label: LangKeys.receivedRequestsTab.tr(),
                           count: cubit.currentType == RequestType.received
                               ? cubit.currentList.length
                               : cubit.receivedCount,

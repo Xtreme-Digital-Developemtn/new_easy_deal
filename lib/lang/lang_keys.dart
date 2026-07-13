@@ -600,6 +600,27 @@ abstract class LangKeys {
   static const String rentalsOutsideCompoundKey = 'RENTALS_OUTSIDE_COMPOUND';
   static const String rentalsInsideCompoundKey = 'RENTALS_INSIDE_COMPOUND';
 
+  static const String assigned = 'assigned';
+  static const String sentRequestsTab = 'sentRequestsTab';
+  static const String receivedRequestsTab = 'receivedRequestsTab';
+  static const String noRequests = 'noRequests';
+
+  // Filter labels
+  static const String accepted = 'accepted';
+  static const String rejected = 'rejected';
+  static const String completed = 'completed';
+  static const String realEstate = 'realestate';
+  static const String cars = 'cars';
+  static const String electronics = 'electronics';
+  static const String furniture = 'furniture';
+  static const String services = 'services';
+  static const String sale = 'sale';
+  static const String rentFilter = 'rent';
+  static const String exchange = 'exchange';
+  static const String investment = 'investment';
+  static const String land = 'land';
+  static const String office = 'office';
+
 
 
 }
