@@ -1,5 +1,4 @@
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/data_table_widget.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
 import '../view_model/broker_data_cubit.dart';
 import '../view_model/broker_data_states.dart';
@@ -14,7 +13,8 @@ class _BrokerDataViewState extends State<BrokerDataView> {
   @override
   void initState() {
     super.initState();
-    var brokerId = CacheHelper.getData(key: StorageKeys.userId);
+    var brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
+    var userId = CacheHelper.getData(key: StorageKeys.userId);
     context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId ?? 0);
   }
 

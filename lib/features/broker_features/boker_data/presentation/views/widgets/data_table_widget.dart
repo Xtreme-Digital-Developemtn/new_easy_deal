@@ -13,7 +13,7 @@ class DataTableWidget extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-        title: Text(LangKeys.notifications.tr()),
+        title: Text(LangKeys.noImages.tr()),
         content: Text(message),
         actions: [
           TextButton(
@@ -98,6 +98,76 @@ class DataTableWidget extends StatelessWidget {
     return Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp));
   }
 
+  void _showGalleryDialog(BuildContext context, List<dynamic> gallery) {
+    if (gallery.isEmpty) {
+      _showMessage(context, LangKeys.noImages.tr());
+      return;
+    }
+
+    final pageController = PageController();
+    showDialog(
+      context: context,
+      builder: (ctx) => Dialog(
+        insetPadding: EdgeInsets.all(20.w),
+        child: Container(
+          height: 500.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.r),
+            color: Colors.white,
+          ),
+          child: Stack(
+            children: [
+              PageView.builder(
+                controller: pageController,
+                itemCount: gallery.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.all(16.r),
+                  child: InteractiveViewer(
+                    minScale: 1,
+                    maxScale: 5,
+                    child: CachedNetworkImage(
+                      imageUrl: gallery[index].toString(),
+                      fit: BoxFit.contain,
+                      placeholder: (c, _) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (c, _, __) => const Icon(Icons.broken_image, size: 64),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 8.h,
+                right: 8.w,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.black54),
+                  onPressed: () => Navigator.pop(ctx),
+                ),
+              ),
+              if (gallery.length > 1)
+                Positioned(
+                  bottom: 12.h,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Text(
+                        '1 / ${gallery.length}',
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   // لون مناسب لكل حالة، ولو الحالة مش معروفة بيرجع اللون الأساسي
   Color _statusColor(String? status) {
     switch (status?.toLowerCase()) {
@@ -159,37 +229,22 @@ class DataTableWidget extends StatelessWidget {
             }
             return Colors.transparent;
           }),
+
           columns: [
             _col(LangKeys.ownerName.tr(), 90),
             _col(LangKeys.phoneNumber.tr(), 90),
             _col(LangKeys.compoundType.tr(), 100),
-            _col(LangKeys.transactionType.tr(), 110),
-            _col(LangKeys.unitType.tr(), 90),
-            _col(LangKeys.subUnitType.tr(), 100),
+
             _col(LangKeys.city.tr(), 80),
             _col(LangKeys.area.tr(), 80),
-            _col(LangKeys.address.tr(), 130),
-            _col(LangKeys.locationLink.tr(), 100),
-            _col(LangKeys.propertyNumber.tr(), 90),
-            _col(LangKeys.unitNumber.tr(), 80),
-            _col(LangKeys.floor.tr(), 60),
+            _col(LangKeys.transactionType.tr(), 110),
+            _col(LangKeys.unitType.tr(), 90),
             _col(LangKeys.unitArea.tr(), 90),
-            _col(LangKeys.numberOfRooms.tr(), 80),
-            _col(LangKeys.bathrooms.tr(), 80),
-            _col(LangKeys.theView.tr(), 90),
-            _col(LangKeys.finishingCondition.tr(), 100),
-            _col(LangKeys.unitLocationFromTheFront.tr(), 120),
-            _col(LangKeys.deliveryStatus.tr(), 100),
-            _col(LangKeys.paymentSystem.tr(), 100),
-            _col(LangKeys.requiredInsurance.tr(), 110),
-            _col(LangKeys.requiredInsuranceValue.tr(), 110),
-            _col(LangKeys.dailyRent.tr(), 80),
-            _col(LangKeys.otherLuxuries.tr(), 130),
-            _col(LangKeys.otherExpenses.tr(), 100),
+            _col(LangKeys.price.tr(), 90),
+            _col(LangKeys.address.tr(), 130),
+            _col(LangKeys.images.tr(), 130),
+            _col(LangKeys.locationLink.tr(), 100),
             _col(LangKeys.notes.tr(), 120),
-            _col(LangKeys.unitDiagram.tr(), 80),
-            _col(LangKeys.status.tr(), 80),
-            _col(LangKeys.procedures.tr(), 100),
           ],
           rows: List<DataRow>.generate(
             data.length,
@@ -205,121 +260,20 @@ class DataTableWidget extends StatelessWidget {
                   DataCell(_cell(_val(item.ownerName))),
                   DataCell(_cell(_val(item.ownerPhone))),
                   DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.compoundType ?? '')))),
-                  DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.unitOperation ?? '')))),
-                  DataCell(_cell(_val(item.type))),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(_val(item.city))),
-                  DataCell(_cell(_val(item.area))),
-                  DataCell(_cell(_val(item.detailedAddress))),
-                  DataCell(_cell(_val(item.location))),
-                  DataCell(_cell(_val(item.buildingNumber))),
-                  DataCell(_cell(_val(item.unitNumber))),
-                  DataCell(_cell(_val(item.floor))),
+                  DataCell(_cell(_val(item.city!.nameAr))),
+                  DataCell(_cell(_val(item.area!.nameAr))),
+                  DataCell(_cell(_val(item.unitOperation?.tr()))),
+                  DataCell(_cell(_val(item.type?.tr()))),
                   DataCell(_cell(_val(item.unitArea?.toString()))),
-                  DataCell(_cell(_val(item.numberOfRooms?.toString()))),
-                  DataCell(_cell(_val(item.numberOfBathrooms?.toString()))),
-                  DataCell(_cell(_val(item.view))),
-                  DataCell(_cell(_val(item.finishingType))),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(_val(item.deliveryStatus))),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(_val(item.dailyRent))),
-                  DataCell(_cell(_val(item.otherAccessories?.join(' , ')))),
-                  DataCell(_cell(LangKeys.notAvailable.tr())),
-                  DataCell(_cell(_val(item.notes))),
-                  DataCell(
-                    Center(
-                      child: item.diagram != null && item.diagram!.isNotEmpty
-                          ? _AnimatedIconButton(
-                        icon: Icons.file_copy,
-                        color: AppColors.primaryDark,
-                        onTap: () {},
-                      )
-                          : _cell(LangKeys.notAvailable.tr()),
-                    ),
-                  ),
-                  DataCell(
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                      decoration: BoxDecoration(
-                        color: statusColor.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 7.w,
-                            height: 7.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: statusColor,
-                            ),
-                          ),
-                          Gap(5.w),
-                          Text(
-                            _val(item.status),
-                            style: AppStyles.black12Medium.copyWith(
-                              fontSize: 10.sp,
-                              color: statusColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  DataCell(
-                    _HoverMenuButton(
-                      color: AppColors.primaryDark,
-                      onSelected: (value) => _handleMenuAction(value, context),
-                      itemBuilder: (BuildContext context) => [
-                        PopupMenuItem<String>(
-                          value: 'view',
-                          child: Row(
-                            children: [
-                              const Icon(Icons.visibility_outlined, size: 20),
-                              SizedBox(width: 8.w),
-                              Text(LangKeys.viewDetails.tr()),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'edit',
-                          child: Row(
-                            children: [
-                              const Icon(Icons.edit_outlined, size: 20),
-                              SizedBox(width: 8.w),
-                              Text(LangKeys.edit.tr()),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'status',
-                          child: Row(
-                            children: [
-                              const Icon(Icons.change_circle_outlined, size: 20),
-                              SizedBox(width: 8.w),
-                              Text(LangKeys.changeStatus.tr()),
-                            ],
-                          ),
-                        ),
-                        const PopupMenuDivider(),
-                        PopupMenuItem<String>(
-                          value: 'delete',
-                          child: Row(
-                            children: [
-                              const Icon(Icons.delete_outline, size: 20, color: Colors.red),
-                              SizedBox(width: 8.w),
-                              Text(LangKeys.delete.tr(), style: const TextStyle(color: Colors.red)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  DataCell(_cell(_val(item.totalPriceInCash.toString()))),
+                  DataCell(_cell(_val(item.detailedAddress))),
+                  DataCell(GestureDetector(
+                    onTap: () => _showGalleryDialog(context, item.gallery ?? []),
+                    child: _cell(_val(LangKeys.images.tr())),
+                  )),
+                  DataCell(_cell(_val(item.location))),
+                  DataCell(_cell(_val(item.additionalDetails!.notes))),
+
                 ],
               );
             },

@@ -5,6 +5,7 @@ class StorageKeys {
   static const String isGuest = 'isGuest';
   static const String userPhone = 'userPhone';
   static const String userId = 'userId';
+  static const String brokerId = 'brokerId';
   static const String userEmail = 'userEmail';
   static const String userFirstName = 'userFirstName';
   static const String userLastName = 'userLastName';

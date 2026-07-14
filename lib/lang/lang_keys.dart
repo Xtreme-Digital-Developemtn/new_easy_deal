@@ -466,6 +466,7 @@ abstract class LangKeys {
   static const String selectedItemsMulti = 'selectedItemsMulti';
   static const String videos = 'videos';
   static const String images = 'images';
+  static const String noImages = 'noImages';
   static const String files = 'files';
   static const String filesUploadedSuccessfully = 'filesUploadedSuccessfully';
   static const String selectFiles = 'selectFiles';
