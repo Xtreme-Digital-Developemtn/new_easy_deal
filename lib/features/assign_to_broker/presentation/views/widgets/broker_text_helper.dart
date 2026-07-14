@@ -186,6 +186,9 @@ class BrokerTextHelper {
       case 'RENTALS_INSIDE_COMPOUND':
         return LangKeys.rentalsInsideCompoundKey.tr();
 
+      case 'VILLAGE':
+        return LangKeys.village.tr();
+
       default:
         return type;
     }

@@ -621,8 +621,8 @@ abstract class LangKeys {
   static const String investment = 'investment';
   static const String land = 'land';
   static const String office = 'office';
-
-
+  static const String village = 'village';
+  static const String apply = 'apply';
 
 }
 

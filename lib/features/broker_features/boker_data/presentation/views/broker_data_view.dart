@@ -1,3 +1,5 @@
+import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
+import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/broker_data_filter_sheet.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/data_table_widget.dart';
 import '../../../../../main_imports.dart';
 import '../view_model/broker_data_cubit.dart';
@@ -10,6 +12,27 @@ class BrokerDataView extends StatefulWidget {
 }
 
 class _BrokerDataViewState extends State<BrokerDataView> {
+  BrokerDataFilterResult? _appliedFilters;
+
+  List<BrokerUnitData> _filterData(List<BrokerUnitData> data) {
+    if (_appliedFilters == null || !_appliedFilters!.hasFilters) return data;
+    return data.where((item) {
+      if (_appliedFilters!.unitType != null &&
+          item.type != _appliedFilters!.unitType) {
+        return false;
+      }
+      if (_appliedFilters!.compoundType != null &&
+          item.compoundType != _appliedFilters!.compoundType) {
+        return false;
+      }
+      if (_appliedFilters!.operation != null &&
+          item.unitOperation != _appliedFilters!.operation) {
+        return false;
+      }
+      return true;
+    }).toList();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,7 +44,26 @@ class _BrokerDataViewState extends State<BrokerDataView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.myData),
+      appBar: GlobalAppBar(
+        title: LangKeys.myData,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final result = await showBrokerDataFilterSheet(context, _appliedFilters);
+              if (result != null) {
+                setState(() => _appliedFilters = result);
+              }
+            },
+            icon: SvgPicture.asset(
+              SvgImages.filter,
+              colorFilter: ColorFilter.mode(
+                _appliedFilters?.hasFilters == true ? AppColors.primaryDark : Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: BlocBuilder<BrokerDataCubit, BrokerDataStates>(
         builder: (context, state) {
           if (state is GetBrokerUnitsLoadingState) {
@@ -45,7 +87,8 @@ class _BrokerDataViewState extends State<BrokerDataView> {
             );
           } else if (state is GetBrokerUnitsSuccessState) {
             var data = state.brokerUnitsModel?.data ?? [];
-            return DataTableWidget(data: data);
+            var filteredData = _filterData(data);
+            return DataTableWidget(data: filteredData);
           }
           return const SizedBox.shrink();
         },

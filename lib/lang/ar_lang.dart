@@ -895,6 +895,8 @@ class ArLang {
     "investment": "استثمار",
     "land": "أرض",
     "office": "مكتب",
+    "apply": "تطبيق",
+    "village": "قرية",
     "Purchasing Apartments": "شراء شقق",
     "Purchase Sell Outside Compound": "شراء/بيع خارج الكمبوند",
     "new": "جديد",

@@ -3,6 +3,7 @@ import 'package:easy_deal/features/broker_features/boker_data/data/models/broker
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DataTableWidget extends StatelessWidget {
   final List<BrokerUnitData> data;
@@ -82,9 +83,11 @@ class DataTableWidget extends StatelessWidget {
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
-      label: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
-        child: Text(label, style: AppStyles.black14SemiBold, textAlign: TextAlign.center),
+      label: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          child: Text(label, style: AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark), textAlign: TextAlign.center),
+        ),
       ),
       fixedWidth: width.w,
     );
@@ -95,7 +98,9 @@ class DataTableWidget extends StatelessWidget {
   }
 
   Widget _cell(String text, {double fontSize = 10}) {
-    return Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp));
+    return Center(
+      child: Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp), textAlign: TextAlign.center),
+    );
   }
 
   void _showGalleryDialog(BuildContext context, List<dynamic> gallery) {
@@ -221,14 +226,15 @@ class DataTableWidget extends StatelessWidget {
             ),
           ),
           headingRowDecoration: BoxDecoration(
-            color: AppColors.blueLight.withValues(alpha: 0.35),
+            color: AppColors.primaryDark.withValues(alpha: 0.1),
           ),
           dataRowColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.hovered)) {
-              return AppColors.blueLight.withValues(alpha: 0.12);
+              return AppColors.blueLight.withValues(alpha: 0.3);
             }
             return Colors.transparent;
           }),
+          dataTextStyle: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
 
           columns: [
             _col(LangKeys.ownerName.tr(), 90),
@@ -254,8 +260,8 @@ class DataTableWidget extends StatelessWidget {
 
               return DataRow(
                 color: index.isEven
-                    ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.05))
-                    : null,
+                    ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
+                    : WidgetStatePropertyAll(Colors.white),
                 cells: [
                   DataCell(_cell(_val(item.ownerName))),
                   DataCell(_cell(_val(item.ownerPhone))),
@@ -271,7 +277,18 @@ class DataTableWidget extends StatelessWidget {
                     onTap: () => _showGalleryDialog(context, item.gallery ?? []),
                     child: _cell(_val(LangKeys.images.tr())),
                   )),
-                  DataCell(_cell(_val(item.location))),
+                  DataCell(GestureDetector(
+                    onTap: () async {
+                      final loc = item.location;
+                      if (loc != null && loc.isNotEmpty) {
+                        final uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$loc");
+                        if (await canLaunchUrl(uri)) {
+                          await launchUrl(uri, mode: LaunchMode.externalApplication);
+                        }
+                      }
+                    },
+                    child: _cell(_val(item.location)),
+                  )),
                   DataCell(_cell(_val(item.additionalDetails!.notes))),
 
                 ],

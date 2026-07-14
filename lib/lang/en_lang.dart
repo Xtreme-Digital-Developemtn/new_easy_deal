@@ -895,6 +895,8 @@ class EnLang {
     "investment": "Investment",
     "land": "Land",
     "office": "Office",
+    "apply": "Apply",
+    "village": "Village",
     "Purchasing Apartments": "Purchasing Apartments",
     "Purchase Sell Outside Compound": "Purchase Sell Outside Compound",
     "new": "new",
