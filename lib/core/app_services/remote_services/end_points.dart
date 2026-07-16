@@ -38,6 +38,8 @@ class EndPoints {
   static const String brokerFcmToken = 'broker/fcm-token';
   static const String brokerNotificationsCount = 'broker/notifications/count';
   static const String brokerNotifications = 'broker/notifications';
+  static const String requestsCheckAdvertisementCount = 'requests/check-advertisement-count';
+  static const String unitPublishAsAd = 'unit/publish-as-ad';
 
 
 

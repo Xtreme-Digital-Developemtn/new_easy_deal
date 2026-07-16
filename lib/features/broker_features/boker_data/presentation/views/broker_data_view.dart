@@ -65,6 +65,11 @@ class _BrokerDataViewState extends State<BrokerDataView> {
         ],
       ),
       body: BlocBuilder<BrokerDataCubit, BrokerDataStates>(
+        buildWhen: (previous, current){
+          return current is GetBrokerUnitsLoadingState ||
+          current is GetBrokerUnitsSuccessState ||
+          current is GetBrokerUnitsErrorState ;
+        },
         builder: (context, state) {
           if (state is GetBrokerUnitsLoadingState) {
             return const CustomLoading();

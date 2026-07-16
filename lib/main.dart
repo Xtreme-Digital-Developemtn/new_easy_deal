@@ -37,7 +37,7 @@ void main() async {
       ],
       path: 'lib/lang',
       saveLocale: true,
-      fallbackLocale: const Locale('en', ""),
+      fallbackLocale: const Locale('ar', ""),
       useOnlyLangCode: true,
       assetLoader: const CodegenLoader(),
       child: MyApp(

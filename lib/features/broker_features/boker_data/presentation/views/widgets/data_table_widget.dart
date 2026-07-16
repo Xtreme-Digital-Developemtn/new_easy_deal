@@ -1,9 +1,14 @@
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
+import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../view_model/broker_data_cubit.dart';
+import 'advertisement_dialog.dart';
 
 class DataTableWidget extends StatelessWidget {
   final List<BrokerUnitData> data;
@@ -12,72 +17,17 @@ class DataTableWidget extends StatelessWidget {
   void _showMessage(BuildContext context, String message) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
         title: Text(LangKeys.noImages.tr()),
         content: Text(message),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(dialogContext),
             child: Text(LangKeys.ok.tr()),
           ),
         ],
       ),
-    );
-  }
-
-  void _handleMenuAction(String value, BuildContext context) {
-    switch (value) {
-      case 'view':
-        _showMessage(context, LangKeys.viewingDetails.tr());
-        break;
-      case 'edit':
-        _showMessage(context, LangKeys.editingItem.tr());
-        break;
-      case 'status':
-        _showMessage(context, LangKeys.changingStatus.tr());
-        break;
-      case 'delete':
-        _showDeleteConfirmation(context);
-        break;
-    }
-  }
-
-  void _showDeleteConfirmation(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-          title: Text(LangKeys.deleteConfirmation.tr()),
-          content: Text(LangKeys.deleteConfirmationMessage.tr()),
-          actions: <Widget>[
-            TextButton(
-              child: Text(LangKeys.cancel.tr()),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              child: Text(
-                LangKeys.delete.tr(),
-                style: const TextStyle(color: Colors.red),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(LangKeys.itemDeleted.tr()),
-                      backgroundColor: Colors.green,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -86,7 +36,11 @@ class DataTableWidget extends StatelessWidget {
       label: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w),
-          child: Text(label, style: AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark), textAlign: TextAlign.center),
+          child: Text(
+            label,
+            style: AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
       fixedWidth: width.w,
@@ -99,7 +53,11 @@ class DataTableWidget extends StatelessWidget {
 
   Widget _cell(String text, {double fontSize = 10}) {
     return Center(
-      child: Text(text, style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp), textAlign: TextAlign.center),
+      child: Text(
+        text,
+        style: AppStyles.black12Medium.copyWith(fontSize: fontSize.sp),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -173,27 +131,55 @@ class DataTableWidget extends StatelessWidget {
     );
   }
 
-  // لون مناسب لكل حالة، ولو الحالة مش معروفة بيرجع اللون الأساسي
-  Color _statusColor(String? status) {
-    switch (status?.toLowerCase()) {
-      case 'active':
-      case 'available':
-      case 'sold':
-        return Colors.green;
-      case 'pending':
-      case 'reserved':
-        return Colors.orange;
-      case 'inactive':
-      case 'rejected':
-      case 'cancelled':
-        return Colors.red;
-      default:
-        return AppColors.primaryDark;
+  Future<void> _openLocation(String? loc) async {
+    if (loc == null || loc.isEmpty) return;
+    final uri = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(loc)}",
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // الـ builder هنا مش بيعتمد على الـ state خالص (الجدول بيتبني من الـ `data`
+    // الجاية كـ parameter)، فمفيش أي داعي لعمل rebuild للجدول كله لما الـ state
+    // يتغيّر. BlocListener بيسمعله من غير ما يعمل rebuild زيادة عن الحاجة.
+    return BlocListener<BrokerDataCubit, BrokerDataStates>(
+      listener: (context, state) {
+        if (state is GetRequestsCheckAdvertisementCountErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
+          return;
+        }
+
+        if (state is GetRequestsCheckAdvertisementCountSuccessState) {
+          final result = state.requestsCheckAdvertisementCountModel!.data!;
+          final current = result.currentAdvertisementCount!;
+          final max = result.maxAdvertisements!;
+
+          if (current > max) {
+            Toast.showErrorToast(msg: "لقد تخطيت الحد الاقصى من الاعلانات", context: context);
+            return;
+          }
+
+          Toast.showSuccessToast(msg: "تم بنجاح", context: context);
+          final cubit = context.read<BrokerDataCubit>();
+          final selectedUnitId = cubit.selectedUnitId;
+          cubit.getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
+          showDialog(
+            context: context,
+            // كانت هنا bug: بتفتح الديالوج على data[0].id يعني أول صف
+            // دايماً، مش الوحدة اللي المستخدم فعلاً ضغط عليها.
+            builder: (_) => AdvertisementDialog(unitId: selectedUnitId),
+          );
+        }
+      },
+      child: _buildTable(context),
+    );
+  }
+
+  Widget _buildTable(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.r),
       child: Container(
@@ -216,14 +202,8 @@ class DataTableWidget extends StatelessWidget {
           dataRowHeight: 58.h,
           headingRowHeight: 50.h,
           border: TableBorder(
-            horizontalInside: BorderSide(
-              color: Colors.grey.shade200,
-              width: 1,
-            ),
-            verticalInside: BorderSide(
-              color: Colors.grey.shade100,
-              width: 1,
-            ),
+            horizontalInside: BorderSide(color: Colors.grey.shade200, width: 1),
+            verticalInside: BorderSide(color: Colors.grey.shade100, width: 1),
           ),
           headingRowDecoration: BoxDecoration(
             color: AppColors.primaryDark.withValues(alpha: 0.1),
@@ -235,12 +215,10 @@ class DataTableWidget extends StatelessWidget {
             return Colors.transparent;
           }),
           dataTextStyle: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
-
           columns: [
             _col(LangKeys.ownerName.tr(), 90),
             _col(LangKeys.phoneNumber.tr(), 90),
             _col(LangKeys.compoundType.tr(), 100),
-
             _col(LangKeys.city.tr(), 80),
             _col(LangKeys.area.tr(), 80),
             _col(LangKeys.transactionType.tr(), 110),
@@ -251,148 +229,87 @@ class DataTableWidget extends StatelessWidget {
             _col(LangKeys.images.tr(), 130),
             _col(LangKeys.locationLink.tr(), 100),
             _col(LangKeys.notes.tr(), 120),
+            _col(LangKeys.procedures.tr(), 120),
           ],
           rows: List<DataRow>.generate(
             data.length,
-                (index) {
-              var item = data[index];
-              final statusColor = _statusColor(item.status);
+                (index) => _buildRow(context, data[index], index),
+          ),
+        ),
+      ),
+    );
+  }
 
-              return DataRow(
-                color: index.isEven
-                    ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
-                    : WidgetStatePropertyAll(Colors.white),
-                cells: [
-                  DataCell(_cell(_val(item.ownerName))),
-                  DataCell(_cell(_val(item.ownerPhone))),
-                  DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.compoundType ?? '')))),
-                  DataCell(_cell(_val(item.city!.nameAr))),
-                  DataCell(_cell(_val(item.area!.nameAr))),
-                  DataCell(_cell(_val(item.unitOperation?.tr()))),
-                  DataCell(_cell(_val(item.type?.tr()))),
-                  DataCell(_cell(_val(item.unitArea?.toString()))),
-                  DataCell(_cell(_val(item.totalPriceInCash.toString()))),
-                  DataCell(_cell(_val(item.detailedAddress))),
-                  DataCell(GestureDetector(
-                    onTap: () => _showGalleryDialog(context, item.gallery ?? []),
-                    child: _cell(_val(LangKeys.images.tr())),
-                  )),
-                  DataCell(GestureDetector(
-                    onTap: () async {
-                      final loc = item.location;
-                      if (loc != null && loc.isNotEmpty) {
-                        final uri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$loc");
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(uri, mode: LaunchMode.externalApplication);
-                        }
-                      }
-                    },
-                    child: _cell(_val(item.location)),
-                  )),
-                  DataCell(_cell(_val(item.additionalDetails!.notes))),
-
-                ],
-              );
+  DataRow _buildRow(BuildContext context, BrokerUnitData item, int index) {
+    return DataRow(
+      key: ValueKey(item.id ?? index),
+      color: index.isEven
+          ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
+          : const WidgetStatePropertyAll(Colors.white),
+      cells: [
+        DataCell(_cell(_val(item.ownerName))),
+        DataCell(_cell(_val(item.ownerPhone))),
+        DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.compoundType ?? '')))),
+        DataCell(_cell(_val(item.city?.nameAr))),
+        DataCell(_cell(_val(item.area?.nameAr))),
+        DataCell(_cell(_val(item.unitOperation?.tr()))),
+        DataCell(_cell(_val(item.type?.tr()))),
+        DataCell(_cell(_val(item.unitArea?.toString()))),
+        DataCell(_cell(_val(item.totalPriceInCash?.toString()))),
+        DataCell(_cell(_val(item.detailedAddress))),
+        DataCell(
+          GestureDetector(
+            onTap: () => _showGalleryDialog(context, item.gallery ?? []),
+            child: _cell(LangKeys.images.tr()),
+          ),
+        ),
+        DataCell(
+          GestureDetector(
+            onTap: () => _openLocation(item.location),
+            child: _cell(_val(item.location)),
+          ),
+        ),
+        DataCell(_cell(_val(item.additionalDetails?.notes))),
+        DataCell(
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) {
+              switch (value) {
+                case 'details':
+                  context.pushNamed(Routes.unitDetailsView, arguments: {"unitId": item.id});
+                  break;
+                case 'featured':
+                  final cubit = context.read<BrokerDataCubit>();
+                  cubit.selectedUnitId = item.id;
+                  cubit.requestsCheckAdvertisementCount();
+                  break;
+              }
             },
+            itemBuilder: (context) => const [
+              PopupMenuItem<String>(
+                value: 'details',
+                child: Row(
+                  children: [
+                    Icon(Icons.visibility_outlined),
+                    SizedBox(width: 10),
+                    Text('عرض التفاصيل'),
+                  ],
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'featured',
+                child: Row(
+                  children: [
+                    Icon(Icons.campaign_outlined),
+                    SizedBox(width: 10),
+                    Text('جعله كإعلان'),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// زرار أيقونة بسيط بأنيميشن hover/press (يستخدم مع onTap عادي، زي أيقونة الدياجرام)
-class _AnimatedIconButton extends StatefulWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback? onTap;
-  final BoxShape shape;
-
-  const _AnimatedIconButton({
-    required this.icon,
-    required this.color,
-    this.onTap,
-    this.shape = BoxShape.circle,
-  });
-
-  @override
-  State<_AnimatedIconButton> createState() => _AnimatedIconButtonState();
-}
-
-class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
-  bool _hovering = false;
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovering = true),
-      onExit: (_) => setState(() => _hovering = false),
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTapDown: (_) => setState(() => _pressed = true),
-        onTapUp: (_) => setState(() => _pressed = false),
-        onTapCancel: () => setState(() => _pressed = false),
-        onTap: widget.onTap,
-        child: AnimatedScale(
-          scale: _pressed ? 0.88 : 1.0,
-          duration: const Duration(milliseconds: 120),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: EdgeInsets.all(6.r),
-            decoration: BoxDecoration(
-              color: widget.color.withValues(alpha: _hovering ? 0.16 : 0.08),
-              shape: widget.shape,
-              borderRadius: widget.shape == BoxShape.rectangle ? BorderRadius.circular(6.r) : null,
-            ),
-            child: Icon(widget.icon, size: 16.h, color: widget.color),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// نفس فكرة الـ hover/press لكن ملفوفة حوالين PopupMenuButton الحقيقي
-/// (بنستخدم PopupMenuButton نفسه كـ child عشان نضمن إن القائمة تفتح صح
-/// من غير ما نكرر الـ widget أو نلعب بـ Stack معقدة).
-class _HoverMenuButton extends StatefulWidget {
-  final Color color;
-  final void Function(String value) onSelected;
-  final List<PopupMenuEntry<String>> Function(BuildContext context) itemBuilder;
-
-  const _HoverMenuButton({
-    required this.color,
-    required this.onSelected,
-    required this.itemBuilder,
-  });
-
-  @override
-  State<_HoverMenuButton> createState() => _HoverMenuButtonState();
-}
-
-class _HoverMenuButtonState extends State<_HoverMenuButton> {
-  bool _hovering = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovering = true),
-      onExit: (_) => setState(() => _hovering = false),
-      cursor: SystemMouseCursors.click,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: widget.color.withValues(alpha: _hovering ? 0.12 : 0.0),
-          shape: BoxShape.circle,
-        ),
-        child: PopupMenuButton<String>(
-          icon: Icon(Icons.more_horiz, color: widget.color),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-          onSelected: widget.onSelected,
-          itemBuilder: widget.itemBuilder,
-        ),
-      ),
+      ],
     );
   }
 }
