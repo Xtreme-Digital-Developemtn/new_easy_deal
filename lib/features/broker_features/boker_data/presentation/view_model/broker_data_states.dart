@@ -44,3 +44,15 @@ class UnitPublishAsAdErrorState extends BrokerDataStates {
   final String error;
   UnitPublishAsAdErrorState(this.error);
 }
+
+class UpdateStatusUnitSoldLoadingState extends BrokerDataStates {}
+
+class UpdateStatusUnitSoldSuccessState extends BrokerDataStates {
+  final dynamic model;
+  UpdateStatusUnitSoldSuccessState(this.model);
+}
+
+class UpdateStatusUnitSoldErrorState extends BrokerDataStates {
+  final String error;
+  UpdateStatusUnitSoldErrorState(this.error);
+}

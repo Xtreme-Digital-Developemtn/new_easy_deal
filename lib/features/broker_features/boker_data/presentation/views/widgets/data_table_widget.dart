@@ -194,6 +194,15 @@ class DataTableWidget extends StatelessWidget {
         if (state is UnitPublishAsAdSuccessState) {
           context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
         }
+
+        if (state is UpdateStatusUnitSoldSuccessState) {
+          Toast.showSuccessToast(msg: "تم البيع بنجاح", context: context);
+          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
+        }
+
+        if (state is UpdateStatusUnitSoldErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
+        }
       },
       child: _buildTable(context),
     );
@@ -300,6 +309,11 @@ class DataTableWidget extends StatelessWidget {
                   cubit.selectedUnitId = item.id;
                   cubit.requestsCheckAdvertisementCount();
                   break;
+                case 'sold':
+                  if (item.id != null) {
+                    context.read<BrokerDataCubit>().updateStatusUnitSold(id: item.id!);
+                  }
+                  break;
               }
             },
             itemBuilder: (context) {
@@ -324,6 +338,20 @@ class DataTableWidget extends StatelessWidget {
                         Icon(Icons.campaign_outlined),
                         SizedBox(width: 10),
                         Text('جعله كإعلان'),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              if (item.status != 'sold') {
+                items.add(
+                  const PopupMenuItem<String>(
+                    value: 'sold',
+                    child: Row(
+                      children: [
+                        Icon(Icons.check_circle_outline, color: Colors.green),
+                        SizedBox(width: 10),
+                        Text('جعله مباع'),
                       ],
                     ),
                   ),

@@ -36,7 +36,8 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   }
 
   @override
-  Future<Either<Failure, UnitPublishAsAdModel>> unitPublishAsAd({required int id, required String caption}) async {
+  Future<Either<Failure, UnitPublishAsAdModel>> unitPublishAsAd({required int id, required String caption})
+  async {
     try {
       var response = await apiService!.postData(
         endPoint: "${EndPoints.unitPublishAsAd}/$id",
@@ -46,6 +47,25 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
       );
       UnitPublishAsAdModel result = UnitPublishAsAdModel.fromJson(response.data);
       return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+
+  @override
+  Future<Either<Failure, dynamic>> updateStatusUnitSold({required int id })
+  async {
+    try {
+      var data = FormData.fromMap({
+        'unitIds[]': "$id"
+      });
+      var response = await apiService!.postData(
+        endPoint: EndPoints.updateStatusUnitSold,
+        data:data
+      );
+      // UnitPublishAsAdModel result = UnitPublishAsAdModel.fromJson(response.data);
+      return right(response.data);
     } catch (e) {
       return left(handleError(e));
     }

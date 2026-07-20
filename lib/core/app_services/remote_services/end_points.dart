@@ -40,6 +40,7 @@ class EndPoints {
   static const String brokerNotifications = 'broker/notifications';
   static const String requestsCheckAdvertisementCount = 'requests/check-advertisement-count';
   static const String unitPublishAsAd = 'unit/publish-as-ad';
+  static const String updateStatusUnitSold = 'unit/update-status-unit-sold';
 
 
 
