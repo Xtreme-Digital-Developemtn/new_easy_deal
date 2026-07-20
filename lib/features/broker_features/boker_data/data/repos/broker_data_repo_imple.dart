@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../main_imports.dart';
 import '../models/broker_units_model.dart';
 import '../models/requests_check_advertisement_count_model.dart';
+import '../models/unit_make_request_model.dart';
 import '../models/unit_publish_as_ad_model.dart';
 import 'broker_data_repo.dart';
 
@@ -71,5 +72,20 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
     }
   }
 
+
+  @override
+  Future<Either<Failure, UnitMakeRequestModel>> makeRequest({required int id , required int brokerId})
+  async {
+    try {
+      var response = await apiService!.postData(
+          endPoint: "${EndPoints.makeRequest}/$id/$brokerId",
+
+      );
+      UnitMakeRequestModel result = UnitMakeRequestModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
 
 }

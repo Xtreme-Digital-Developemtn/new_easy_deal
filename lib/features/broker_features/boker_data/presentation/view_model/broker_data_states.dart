@@ -56,3 +56,15 @@ class UpdateStatusUnitSoldErrorState extends BrokerDataStates {
   final String error;
   UpdateStatusUnitSoldErrorState(this.error);
 }
+
+class MakeRequestLoadingState extends BrokerDataStates {}
+
+class MakeRequestSuccessState extends BrokerDataStates {
+  final dynamic model;
+  MakeRequestSuccessState(this.model);
+}
+
+class MakeRequestErrorState extends BrokerDataStates {
+  final String error;
+  MakeRequestErrorState(this.error);
+}

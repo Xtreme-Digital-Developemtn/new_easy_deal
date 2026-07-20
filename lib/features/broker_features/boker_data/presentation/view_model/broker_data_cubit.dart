@@ -1,6 +1,7 @@
 import '../../../../../main_imports.dart';
 import '../../data/models/broker_units_model.dart';
 import '../../data/models/requests_check_advertisement_count_model.dart';
+import '../../data/models/unit_make_request_model.dart';
 import '../../data/models/unit_publish_as_ad_model.dart';
 import '../../data/repos/broker_data_repo.dart';
 import 'broker_data_states.dart';
@@ -69,6 +70,21 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
       },
           (data) async {
         emit(UpdateStatusUnitSoldSuccessState(data));
+      },
+    );
+  }
+
+  UnitMakeRequestModel? unitMakeRequestModel;
+  Future<void> makeRequest({required int id , required int brokerId }) async {
+    emit(MakeRequestLoadingState());
+    var result = await brokerDataRepo!.makeRequest(id: id ,brokerId: brokerId);
+    return result.fold(
+          (failure) {
+        emit(MakeRequestErrorState(failure.errMessage));
+      },
+          (data) async {
+            unitMakeRequestModel = data;
+        emit(MakeRequestSuccessState(data));
       },
     );
   }

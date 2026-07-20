@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
+import 'package:easy_deal/features/broker_features/boker_data/data/models/unit_make_request_model.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -203,6 +204,17 @@ class DataTableWidget extends StatelessWidget {
         if (state is UpdateStatusUnitSoldErrorState) {
           Toast.showErrorToast(msg: state.error, context: context);
         }
+
+        if (state is MakeRequestSuccessState) {
+          Toast.showSuccessToast(msg: "تم ارسال الطلب بنجاح", context: context);
+          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
+          final requestId = (state.model as UnitMakeRequestModel).data.id;
+          context.pushNamed(Routes.assignToBrokerView, arguments: {"requestId": requestId});
+        }
+
+        if (state is MakeRequestErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
+        }
       },
       child: _buildTable(context),
     );
@@ -314,6 +326,14 @@ class DataTableWidget extends StatelessWidget {
                     context.read<BrokerDataCubit>().updateStatusUnitSold(id: item.id!);
                   }
                   break;
+                case 'makeRequest':
+                  if (item.id != null) {
+                    context.read<BrokerDataCubit>().makeRequest(
+                      id: item.id!,
+                      brokerId: CacheHelper.getData(key: "brokerId"),
+                    );
+                  }
+                  break;
               }
             },
             itemBuilder: (context) {
@@ -357,6 +377,18 @@ class DataTableWidget extends StatelessWidget {
                   ),
                 );
               }
+              items.add(
+                const PopupMenuItem<String>(
+                  value: 'makeRequest',
+                  child: Row(
+                    children: [
+                      Icon(Icons.assignment_outlined),
+                      SizedBox(width: 10),
+                      Text('جعله كطلب'),
+                    ],
+                  ),
+                ),
+              );
               return items;
             },
           ),
