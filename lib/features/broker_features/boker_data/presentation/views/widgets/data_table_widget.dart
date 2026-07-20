@@ -11,8 +11,26 @@ import '../../view_model/broker_data_cubit.dart';
 import 'advertisement_dialog.dart';
 
 class DataTableWidget extends StatelessWidget {
-  final List<BrokerUnitData> data;
   const DataTableWidget({super.key, required this.data});
+
+  final List<BrokerUnitData> data;
+
+  static const _rowHeight = 58.0;
+  static const _headingHeight = 50.0;
+  static const _grayBorder = BorderSide(color: Color(0xFFE0E0E0), width: 1);
+  static const _lightBorder = BorderSide(color: Color(0xFFF5F5F5), width: 1);
+
+  static const _containerDecoration = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.all(Radius.circular(16)),
+    boxShadow: [
+      BoxShadow(
+        color: Color(0x0F000000),
+        blurRadius: 16,
+        offset: Offset(0, 6),
+      ),
+    ],
+  );
 
   void _showMessage(BuildContext context, String message) {
     showDialog(
@@ -36,16 +54,14 @@ class DataTableWidget extends StatelessWidget {
       label: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w),
-          child: Text(
-            label,
-            style: AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark),
-            textAlign: TextAlign.center,
-          ),
+          child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
         ),
       ),
       fixedWidth: width.w,
     );
   }
+
+  static final _headerStyle = AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark);
 
   String _val(String? value) {
     return (value != null && value.isNotEmpty) ? value : LangKeys.notAvailable.tr();
@@ -171,8 +187,12 @@ class DataTableWidget extends StatelessWidget {
             context: context,
             // كانت هنا bug: بتفتح الديالوج على data[0].id يعني أول صف
             // دايماً، مش الوحدة اللي المستخدم فعلاً ضغط عليها.
-            builder: (_) => AdvertisementDialog(unitId: selectedUnitId),
+            builder: (_) => AdvertisementDialog(unitId: selectedUnitId, cubit: cubit),
           );
+        }
+
+        if (state is UnitPublishAsAdSuccessState) {
+          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
         }
       },
       child: _buildTable(context),
@@ -180,64 +200,61 @@ class DataTableWidget extends StatelessWidget {
   }
 
   Widget _buildTable(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.r),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 16,
-              offset: const Offset(0, 6),
+    final columns = _buildColumns(context);
+    return RepaintBoundary(
+      child: Padding(
+        padding: EdgeInsets.all(16.r),
+        child: Container(
+          decoration: _containerDecoration,
+          clipBehavior: Clip.antiAlias,
+          child: DataTable2(
+            columnSpacing: 2.w,
+            horizontalMargin: 6.w,
+            minWidth: 4200.w,
+            dataRowHeight: _rowHeight.h,
+            headingRowHeight: _headingHeight.h,
+            border: const TableBorder(
+              horizontalInside: _grayBorder,
+              verticalInside: _lightBorder,
             ),
-          ],
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: DataTable2(
-          columnSpacing: 2.w,
-          horizontalMargin: 6.w,
-          minWidth: 4200.w,
-          dataRowHeight: 58.h,
-          headingRowHeight: 50.h,
-          border: TableBorder(
-            horizontalInside: BorderSide(color: Colors.grey.shade200, width: 1),
-            verticalInside: BorderSide(color: Colors.grey.shade100, width: 1),
-          ),
-          headingRowDecoration: BoxDecoration(
-            color: AppColors.primaryDark.withValues(alpha: 0.1),
-          ),
-          dataRowColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.hovered)) {
-              return AppColors.blueLight.withValues(alpha: 0.3);
-            }
-            return Colors.transparent;
-          }),
-          dataTextStyle: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
-          columns: [
-            _col(LangKeys.ownerName.tr(), 90),
-            _col(LangKeys.phoneNumber.tr(), 90),
-            _col(LangKeys.compoundType.tr(), 100),
-            _col(LangKeys.city.tr(), 80),
-            _col(LangKeys.area.tr(), 80),
-            _col(LangKeys.transactionType.tr(), 110),
-            _col(LangKeys.unitType.tr(), 90),
-            _col(LangKeys.unitArea.tr(), 90),
-            _col(LangKeys.price.tr(), 90),
-            _col(LangKeys.address.tr(), 130),
-            _col(LangKeys.images.tr(), 130),
-            _col(LangKeys.locationLink.tr(), 100),
-            _col(LangKeys.notes.tr(), 120),
-            _col(LangKeys.procedures.tr(), 120),
-          ],
-          rows: List<DataRow>.generate(
-            data.length,
-                (index) => _buildRow(context, data[index], index),
+            headingRowDecoration: BoxDecoration(
+              color: AppColors.primaryDark.withValues(alpha: 0.1),
+            ),
+            dataRowColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return AppColors.blueLight.withValues(alpha: 0.3);
+              }
+              return Colors.transparent;
+            }),
+            dataTextStyle: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
+            columns: columns,
+            rows: List<DataRow>.generate(
+              data.length,
+              (index) => _buildRow(context, data[index], index),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<DataColumn2> _buildColumns(BuildContext context) {
+    return [
+      _col(LangKeys.ownerName.tr(), 90),
+      _col(LangKeys.phoneNumber.tr(), 90),
+      _col(LangKeys.compoundType.tr(), 100),
+      _col(LangKeys.city.tr(), 80),
+      _col(LangKeys.area.tr(), 80),
+      _col(LangKeys.transactionType.tr(), 110),
+      _col(LangKeys.unitType.tr(), 90),
+      _col(LangKeys.unitArea.tr(), 90),
+      _col(LangKeys.price.tr(), 90),
+      _col(LangKeys.address.tr(), 130),
+      _col(LangKeys.images.tr(), 130),
+      _col(LangKeys.locationLink.tr(), 100),
+      _col(LangKeys.notes.tr(), 120),
+      _col(LangKeys.procedures.tr(), 120),
+    ];
   }
 
   DataRow _buildRow(BuildContext context, BrokerUnitData item, int index) {
@@ -285,28 +302,35 @@ class DataTableWidget extends StatelessWidget {
                   break;
               }
             },
-            itemBuilder: (context) => const [
-              PopupMenuItem<String>(
-                value: 'details',
-                child: Row(
-                  children: [
-                    Icon(Icons.visibility_outlined),
-                    SizedBox(width: 10),
-                    Text('عرض التفاصيل'),
-                  ],
+            itemBuilder: (context) {
+              final items = <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'details',
+                  child: Row(
+                    children: [
+                      Icon(Icons.visibility_outlined),
+                      SizedBox(width: 10),
+                      Text('عرض التفاصيل'),
+                    ],
+                  ),
                 ),
-              ),
-              PopupMenuItem<String>(
-                value: 'featured',
-                child: Row(
-                  children: [
-                    Icon(Icons.campaign_outlined),
-                    SizedBox(width: 10),
-                    Text('جعله كإعلان'),
-                  ],
-                ),
-              ),
-            ],
+              ];
+              if (!item.hasAdvertisers) {
+                items.add(
+                  const PopupMenuItem<String>(
+                    value: 'featured',
+                    child: Row(
+                      children: [
+                        Icon(Icons.campaign_outlined),
+                        SizedBox(width: 10),
+                        Text('جعله كإعلان'),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return items;
+            },
           ),
         ),
       ],

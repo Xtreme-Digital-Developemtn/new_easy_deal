@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../view_model/broker_data_cubit.dart';
 
 class AdvertisementDialog extends StatelessWidget {
   AdvertisementDialog({
     super.key,
     required this.unitId,
+    required this.cubit,
   });
 
   final dynamic unitId;
+  final BrokerDataCubit cubit;
 
   final TextEditingController captionController = TextEditingController();
 
@@ -49,7 +50,7 @@ class AdvertisementDialog extends StatelessWidget {
               return;
             }
 
-            context.read<BrokerDataCubit>().unitPublishAsAd(
+            cubit.unitPublishAsAd(
               id: unitId,
               caption: captionController.text.trim(),
             );
