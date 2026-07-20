@@ -1,6 +1,7 @@
 import '../../data/models/broker_units_model.dart';
 import '../../data/models/requests_check_advertisement_count_model.dart';
 import '../../data/models/unit_publish_as_ad_model.dart';
+import '../../data/models/unit_send_reply_model.dart';
 
 abstract class BrokerDataStates {}
 
@@ -67,4 +68,16 @@ class MakeRequestSuccessState extends BrokerDataStates {
 class MakeRequestErrorState extends BrokerDataStates {
   final String error;
   MakeRequestErrorState(this.error);
+}
+
+class SendReplyLoadingState extends BrokerDataStates {}
+
+class SendReplySuccessState extends BrokerDataStates {
+  final UnitSendReplyModel model;
+  SendReplySuccessState(this.model);
+}
+
+class SendReplyErrorState extends BrokerDataStates {
+  final String error;
+  SendReplyErrorState(this.error);
 }

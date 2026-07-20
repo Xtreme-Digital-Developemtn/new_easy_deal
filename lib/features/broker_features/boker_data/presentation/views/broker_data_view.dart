@@ -37,7 +37,6 @@ class _BrokerDataViewState extends State<BrokerDataView> {
   void initState() {
     super.initState();
     var brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
-    var userId = CacheHelper.getData(key: StorageKeys.userId);
     context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId ?? 0);
   }
 

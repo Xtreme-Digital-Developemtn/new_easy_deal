@@ -37,5 +37,6 @@ class Routes {
   static const String brokerMapsView = 'brokerMapsView';
   static const String editMobileNumberView = 'editMobileNumberView';
   static const String editNameView = 'editNameView';
+  static const String sendReplyView = 'sendReplyView';
 
 }

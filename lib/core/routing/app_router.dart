@@ -30,11 +30,10 @@ import '../../features/assign_to_broker/presentation/views/success_assign_view.d
 import '../../features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
 import '../../features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
 import '../../features/broker_features/boker_data/presentation/views/broker_data_view.dart';
+import '../../features/broker_features/boker_data/presentation/views/send_reply_view.dart';
 import '../../features/broker_features/broker_ads/data/repos/broker_ads_repo_imple.dart';
 import '../../features/broker_features/broker_ads/presentation/view_model/broker_ads_cubit.dart';
 import '../../features/broker_features/broker_ads/presentation/views/broker_ads_view.dart';
-import '../../features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
-import '../../features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
 import '../../features/broker_features/broker_developers/presentation/views/broker_developers_view.dart';
 import '../../features/broker_features/broker_home/data/repos/broker_home_repo_imple.dart';
 import '../../features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
@@ -44,9 +43,6 @@ import '../../features/broker_features/broker_maps/presentation/view_model/broke
 import '../../features/broker_features/broker_maps/presentation/views/broker_maps_view.dart';
 import '../../features/category_units/presentation/view_model/category_units_cubit.dart';
 import '../../features/category_units/presentation/views/category_units_view.dart';
-import '../../features/chats/data/repos/chats_repo_imple.dart';
-import '../../features/chats/presentation/view_model/chats_cubit.dart';
-import '../../features/chats/presentation/views/chats_view.dart';
 import '../../features/contact_us/data/repos/contact_us_repo_imple.dart';
 import '../../features/contact_us/presentation/view_model/contact_us_cubit.dart';
 import '../../features/contact_us/presentation/views/contact_us_view.dart';
@@ -360,6 +356,11 @@ class AppRouter {
         return transition(
           screen: const BrokerMapsView(),
           cubit: BrokerMapsCubit(getIt.get<BrokerMapsRepoImpl>()),
+        );
+      case Routes.sendReplyView:
+        return transition(
+          screen: const SendReplyView(),
+          cubit: BrokerDataCubit(getIt.get<BrokerDataRepoImpl>()),
         );
       default:
         return null;

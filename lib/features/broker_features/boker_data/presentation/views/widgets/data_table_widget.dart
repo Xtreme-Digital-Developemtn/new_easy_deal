@@ -334,6 +334,18 @@ class DataTableWidget extends StatelessWidget {
                     );
                   }
                   break;
+                case 'reply':
+                  if (item.id != null) {
+                    context.pushNamed(
+                      Routes.sendReplyView,
+                      arguments: {
+                        'unitIds': <int>[item.id!],
+                        'brokerId': CacheHelper.getData(key: "brokerId"),
+                        'senderId': CacheHelper.getData(key: "userId"),
+                      },
+                    );
+                  }
+                  break;
               }
             },
             itemBuilder: (context) {
@@ -385,6 +397,18 @@ class DataTableWidget extends StatelessWidget {
                       Icon(Icons.assignment_outlined),
                       SizedBox(width: 10),
                       Text('جعله كطلب'),
+                    ],
+                  ),
+                ),
+              );
+              items.add(
+                const PopupMenuItem<String>(
+                  value: 'reply',
+                  child: Row(
+                    children: [
+                      Icon(Icons.reply_outlined),
+                      SizedBox(width: 10),
+                      Text('ارسال كرد'),
                     ],
                   ),
                 ),

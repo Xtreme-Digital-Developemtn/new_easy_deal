@@ -4,6 +4,7 @@ import '../models/broker_units_model.dart';
 import '../models/requests_check_advertisement_count_model.dart';
 import '../models/unit_make_request_model.dart';
 import '../models/unit_publish_as_ad_model.dart';
+import '../models/unit_send_reply_model.dart';
 import 'broker_data_repo.dart';
 
 class BrokerDataRepoImpl implements BrokerDataRepo {
@@ -88,4 +89,24 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, UnitSendReplyModel>> sendReply({required int brokerId, required int requestId, required int senderId, required List<int> unitIds})
+  async {
+    try {
+      var data = FormData.fromMap({
+        'brokerId': brokerId,
+        'requestId': requestId,
+        'senderId': senderId,
+        'unitIds[]': unitIds,
+      });
+      var response = await apiService!.postData(
+        endPoint: EndPoints.requestReplies,
+        data: data,
+      );
+      UnitSendReplyModel result = UnitSendReplyModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
 }

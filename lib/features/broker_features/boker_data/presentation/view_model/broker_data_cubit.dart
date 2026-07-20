@@ -89,4 +89,16 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     );
   }
 
+  Future<void> sendReply({required int brokerId, required int requestId, required int senderId, required List<int> unitIds}) async {
+    emit(SendReplyLoadingState());
+    var result = await brokerDataRepo!.sendReply(brokerId: brokerId, requestId: requestId, senderId: senderId, unitIds: unitIds);
+    return result.fold(
+      (failure) {
+        emit(SendReplyErrorState(failure.errMessage));
+      },
+      (data) async {
+        emit(SendReplySuccessState(data));
+      },
+    );
+  }
 }

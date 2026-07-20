@@ -42,6 +42,7 @@ class EndPoints {
   static const String unitPublishAsAd = 'unit/publish-as-ad';
   static const String updateStatusUnitSold = 'unit/update-status-unit-sold';
   static const String makeRequest = 'unit/make-request';
+  static const String requestReplies = 'request/replies';
 
 
 
