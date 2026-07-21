@@ -20,7 +20,7 @@ void main() async {
     await NotificationService.init();
 
   String? token = await CacheTokenManger.getUserToken();
-  debugPrint("Retrieved token: $token");
+  logSuccess("Retrieved token: $token");
   await CacheHelper.init();
   await EasyLocalization.ensureInitialized();
 
@@ -33,7 +33,7 @@ void main() async {
       startLocale: const Locale('ar', ""),
       supportedLocales: const [
         Locale('ar', ""),
-        Locale('en', ""),
+        // Locale('en', ""),
       ],
       path: 'lib/lang',
       saveLocale: true,

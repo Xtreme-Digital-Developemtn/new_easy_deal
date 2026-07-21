@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class NotificationService {
     /// 4) When user taps notification
     /// ==============================
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      debugPrint("🔔 Notification Clicked: ${message.data}");
+      logSuccess("🔔 Notification Clicked: ${message.data}");
     });
 
     /// ==============================
@@ -61,7 +62,7 @@ class NotificationService {
     /// ==============================
     final initialMessage = await _messaging.getInitialMessage();
     if (initialMessage != null) {
-      debugPrint(
+      logSuccess(
           "🚀 App opened from terminated state with data: ${initialMessage.data}");
     }
   }
