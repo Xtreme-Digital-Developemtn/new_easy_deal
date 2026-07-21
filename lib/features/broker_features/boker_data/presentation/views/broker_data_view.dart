@@ -92,7 +92,13 @@ class _BrokerDataViewState extends State<BrokerDataView> {
           } else if (state is GetBrokerUnitsSuccessState) {
             var data = state.brokerUnitsModel?.data ?? [];
             var filteredData = _filterData(data);
-            return DataTableWidget(data: filteredData);
+            return RefreshIndicator(
+              onRefresh: () async {
+                var brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
+                await context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId ?? 0, isRefresh: true);
+              },
+              child: DataTableWidget(data: filteredData),
+            );
           }
           return const SizedBox.shrink();
         },

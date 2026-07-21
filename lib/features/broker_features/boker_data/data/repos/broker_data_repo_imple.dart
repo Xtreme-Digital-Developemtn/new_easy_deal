@@ -90,14 +90,14 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   }
 
   @override
-  Future<Either<Failure, UnitSendReplyModel>> sendReply({required int brokerId, required int requestId, required int senderId, required List<int> unitIds})
+  Future<Either<Failure, UnitSendReplyModel>> sendReply({required int brokerId, required int requestId, required int senderId, required List<dynamic> unitIds})
   async {
     try {
       var data = FormData.fromMap({
-        'brokerId': brokerId,
-        'requestId': requestId,
-        'senderId': senderId,
-        'unitIds[]': unitIds,
+        'brokerId': brokerId.toString(),
+        'requestId': requestId.toString(),
+        'senderId': senderId.toString(),
+        'unitIds[]': unitIds.map((e) => e.toString()).toList(),
       });
       var response = await apiService!.postData(
         endPoint: EndPoints.requestReplies,

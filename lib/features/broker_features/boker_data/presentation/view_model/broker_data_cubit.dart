@@ -15,8 +15,8 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
   int? selectedUnitId;
   BrokerUnitsModel? brokerUnitsModel;
 
-  Future<void> getBrokerUnits({required int brokerId}) async {
-    emit(GetBrokerUnitsLoadingState());
+  Future<void> getBrokerUnits({required int brokerId, bool isRefresh = false}) async {
+    if (!isRefresh) emit(GetBrokerUnitsLoadingState());
     var result = await brokerDataRepo!.getBrokerUnits(brokerId: brokerId);
     return result.fold(
       (failure) {
@@ -91,7 +91,12 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
 
   Future<void> sendReply({required int brokerId, required int requestId, required int senderId, required List<int> unitIds}) async {
     emit(SendReplyLoadingState());
-    var result = await brokerDataRepo!.sendReply(brokerId: brokerId, requestId: requestId, senderId: senderId, unitIds: unitIds);
+    var result = await brokerDataRepo!.sendReply(
+        brokerId: brokerId,
+        requestId: requestId,
+        senderId: senderId,
+        unitIds: unitIds
+    );
     return result.fold(
       (failure) {
         emit(SendReplyErrorState(failure.errMessage));
