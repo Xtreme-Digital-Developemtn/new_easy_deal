@@ -22,6 +22,7 @@ void main() async {
   String? token = await CacheTokenManger.getUserToken();
   logSuccess("Retrieved token: $token");
   await CacheHelper.init();
+  // CacheTokenManger.clearUserToken();
   await EasyLocalization.ensureInitialized();
 
   setup();
