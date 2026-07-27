@@ -623,6 +623,17 @@ abstract class LangKeys {
   static const String office = 'office';
   static const String village = 'village';
   static const String apply = 'apply';
+  static const String projectTypeResidential = 'projectTypeResidential';
+  static const String projectTypeCommercial = 'projectTypeCommercial';
+  static const String projectTypeAdministrative = 'projectTypeAdministrative';
+  static const String projectTypeMedical = 'projectTypeMedical';
+  static const String projectTypeMixed = 'projectTypeMixed';
+  static const String projectTypeChaletsVacationVillas = 'projectTypeChaletsVacationVillas';
+  static const String models = 'models';
+  static const String modelCode = 'modelCode';
+  static const String numberOfUnits = 'numberOfUnits';
+  static const String floors = 'floors';
+  static const String landingArea = 'landingArea';
 
 }
 

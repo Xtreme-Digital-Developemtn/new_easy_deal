@@ -285,6 +285,11 @@ class ArLang {
     "delete": "حذف",
     "changeStatus": "تغيير الحالة",
     "edit": "تعديل",
+    "models": "النماذج",
+    "modelCode": "الكود",
+    "numberOfUnits": "عدد الوحدات",
+    "floors": "عدد الأدوار",
+    "landingArea": "مساحة الأرض",
     "viewDetails": "عرض التفاصيل",
     "ok": "موافق",
     "viewingDetails": "عرض التفاصيل",
@@ -900,5 +905,11 @@ class ArLang {
     "Purchasing Apartments": "شراء شقق",
     "Purchase Sell Outside Compound": "شراء/بيع خارج الكمبوند",
     "new": "جديد",
+    "projectTypeResidential": "سكني",
+    "projectTypeCommercial": "تجاري",
+    "projectTypeAdministrative": "إداري",
+    "projectTypeMedical": "طبي",
+    "projectTypeMixed": "مختلط",
+    "projectTypeChaletsVacationVillas": "شاليهات وفيلات عطلات",
   };
 }

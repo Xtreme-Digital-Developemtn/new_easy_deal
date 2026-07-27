@@ -189,6 +189,24 @@ class BrokerTextHelper {
       case 'VILLAGE':
         return LangKeys.village.tr();
 
+      case 'RESIDENTIAL':
+        return LangKeys.projectTypeResidential.tr();
+
+      case 'COMMERCIAL':
+        return LangKeys.projectTypeCommercial.tr();
+
+      case 'ADMINISTRATIVE':
+        return LangKeys.projectTypeAdministrative.tr();
+
+      case 'MEDICAL':
+        return LangKeys.projectTypeMedical.tr();
+
+      case 'MIXED':
+        return LangKeys.projectTypeMixed.tr();
+
+      case 'CHALETS_VACATION_VILLAS':
+        return LangKeys.projectTypeChaletsVacationVillas.tr();
+
       default:
         return type;
     }

@@ -285,6 +285,11 @@ class EnLang {
     "delete": "Delete",
     "changeStatus": "Change Status",
     "edit": "Edit",
+    "models": "Models",
+    "modelCode": "Code",
+    "numberOfUnits": "Units",
+    "floors": "Floors",
+    "landingArea": "Land Area",
     "viewDetails": "View Details",
     "ok": "OK",
     "viewingDetails": "Viewing Details",
@@ -900,5 +905,11 @@ class EnLang {
     "Purchasing Apartments": "Purchasing Apartments",
     "Purchase Sell Outside Compound": "Purchase Sell Outside Compound",
     "new": "new",
+    "projectTypeResidential": "Residential",
+    "projectTypeCommercial": "Commercial",
+    "projectTypeAdministrative": "Administrative",
+    "projectTypeMedical": "Medical",
+    "projectTypeMixed": "Mixed",
+    "projectTypeChaletsVacationVillas": "Chalets & Vacation Villas",
   };
 }

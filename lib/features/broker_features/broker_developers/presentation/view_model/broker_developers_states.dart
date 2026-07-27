@@ -1,3 +1,4 @@
+import '../../data/models/models_response.dart';
 import '../../data/models/developer_projects_model.dart';
 import '../../data/models/developers_model.dart';
 
@@ -39,4 +40,16 @@ class ContractRequestSuccessState extends BrokerDevelopersStates {
 class ContractRequestErrorState extends BrokerDevelopersStates {
   final String error;
   ContractRequestErrorState(this.error);
+}
+
+class GetProjectModelsLoadingState extends BrokerDevelopersStates {}
+
+class GetProjectModelsSuccessState extends BrokerDevelopersStates {
+  final ModelsResponse? modelsResponse;
+  GetProjectModelsSuccessState(this.modelsResponse);
+}
+
+class GetProjectModelsErrorState extends BrokerDevelopersStates {
+  final String error;
+  GetProjectModelsErrorState(this.error);
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../main_imports.dart';
+import '../../data/models/models_response.dart';
 import '../../data/models/developer_projects_model.dart';
 import '../../data/models/developers_model.dart';
 import '../../data/repos/broker_developers_repo.dart';
@@ -146,6 +147,22 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
       (data) async {
         developerProjectsModel = data;
         emit(GetDeveloperProjectsSuccessState(data));
+      },
+    );
+  }
+
+  ModelsResponse? projectModelsResponse;
+
+  Future<void> getProjectModels(int projectId) async {
+    emit(GetProjectModelsLoadingState());
+    var result = await brokerDevelopersRepo!.getProjectModels(projectId);
+    return result.fold(
+      (failure) {
+        emit(GetProjectModelsErrorState(failure.errMessage));
+      },
+      (data) async {
+        projectModelsResponse = data;
+        emit(GetProjectModelsSuccessState(data));
       },
     );
   }
