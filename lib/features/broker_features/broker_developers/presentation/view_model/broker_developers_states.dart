@@ -28,3 +28,15 @@ class GetDeveloperProjectsErrorState extends BrokerDevelopersStates {
   final String error;
   GetDeveloperProjectsErrorState(this.error);
 }
+
+class ContractRequestLoadingState extends BrokerDevelopersStates {}
+
+class ContractRequestSuccessState extends BrokerDevelopersStates {
+  final String message;
+  ContractRequestSuccessState(this.message);
+}
+
+class ContractRequestErrorState extends BrokerDevelopersStates {
+  final String error;
+  ContractRequestErrorState(this.error);
+}

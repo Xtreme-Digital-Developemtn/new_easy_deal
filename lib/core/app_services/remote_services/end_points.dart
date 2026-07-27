@@ -43,6 +43,7 @@ class EndPoints {
   static const String updateStatusUnitSold = 'unit/update-status-unit-sold';
   static const String makeRequest = 'unit/make-request';
   static const String requestReplies = 'request/replies';
+  static const String brokerRequest = 'broker/request';
 
 
 

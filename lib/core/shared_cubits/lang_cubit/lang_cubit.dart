@@ -6,11 +6,7 @@ class LanguageCubit extends Cubit<Locale> {
   LanguageCubit() : super(_getSavedLocale());
 
   static Locale _getSavedLocale() {
-    final savedLanguage = CacheHelper.getData(key: StorageKeys.language);
-    if (savedLanguage != null) {
-      return Locale(savedLanguage, '');
-    }
-    return const Locale('en', '');
+    return const Locale('ar', '');
   }
 
   void changeLanguage(BuildContext context, Locale locale) {

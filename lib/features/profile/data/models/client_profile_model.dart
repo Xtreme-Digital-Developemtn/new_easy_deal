@@ -33,11 +33,12 @@ class Data {
   bool? isVerified;
   String? image;
   String? role;
+  String? type;
   List<String>? permissions;
   dynamic parentId;
   dynamic gender;
 
-  Data({this.id, this.brokerId,this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.gender});
+  Data({this.id, this.brokerId,this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.type, this.permissions, this.parentId, this.gender});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -49,6 +50,7 @@ class Data {
     isVerified = json["isVerified"];
     image = json["image"];
     role = json["role"];
+    type = json["type"];
     permissions = json["permissions"] == null ? null : List<String>.from(json["permissions"]);
     parentId = json["parentId"];
     gender = json["gender"];
