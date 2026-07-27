@@ -34,7 +34,7 @@ void main() async {
       startLocale: const Locale('ar', ""),
       supportedLocales: const [
         Locale('ar', ""),
-        // Locale('en', ""),
+        Locale('en', ""),
       ],
       path: 'lib/lang',
       saveLocale: true,

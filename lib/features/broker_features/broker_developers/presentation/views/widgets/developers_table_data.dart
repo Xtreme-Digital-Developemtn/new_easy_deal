@@ -7,11 +7,13 @@ import 'package:url_launcher/url_launcher.dart';
 class DevelopersTableData extends StatelessWidget {
   final List<DeveloperData> data;
   final void Function(int developerId)? onProceduresTap;
+  final void Function(int developerId)? onSendContractRequest;
 
   const DevelopersTableData({
     super.key,
     required this.data,
     this.onProceduresTap,
+    this.onSendContractRequest,
   });
 
   @override
@@ -144,18 +146,19 @@ class DevelopersTableData extends StatelessWidget {
                   DataColumn2(
                     label: _headerCell(LangKeys.status.tr()),
                     size: ColumnSize.S,
-                    fixedWidth: 80.w,
+                    fixedWidth: 150.w,
                   ),
                   /// developer procedures key
                   DataColumn2(
                     label: _headerCell(LangKeys.procedures.tr()),
                     size: ColumnSize.S,
-                    fixedWidth: 60.w,
+                    fixedWidth: 100.w,
                   ),
                 ],
                 rows: List<DataRow>.generate(data.length, (index) {
                   var item = data[index];
-                  final isActive = item.isActive == true;
+                  // final isActive = item.isActive == true;
+                  final status = item.brokers!.isEmpty ? "ارسال طلب عقد": "${item.brokers![0].status}";
                   final isEven = index.isEven;
 
                   return DataRow(
@@ -177,7 +180,7 @@ class DevelopersTableData extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: isActive
+                                  color: status == "ارسال طلب عقد"
                                       ? AppColors.primaryDark.withValues(alpha: 0.3)
                                       : Colors.grey.shade300,
                                   width: 2,
@@ -195,7 +198,7 @@ class DevelopersTableData extends StatelessWidget {
                                     )
                                   : CircleAvatar(
                                       radius: 16.r,
-                                      backgroundColor: isActive
+                                      backgroundColor:status == "ارسال طلب عقد"
                                           ? AppColors.primaryDark.withValues(alpha:
                                               0.15,
                                             )
@@ -203,7 +206,7 @@ class DevelopersTableData extends StatelessWidget {
                                       child: Icon(
                                         Icons.person,
                                         size: 16.sp,
-                                        color: isActive
+                                        color:status == "ارسال طلب عقد"
                                             ? AppColors.primaryDark
                                             : Colors.grey,
                                       ),
@@ -270,7 +273,13 @@ class DevelopersTableData extends StatelessWidget {
                         ),
                       ),
                       /// developer status value
-                      DataCell(_statusChip(isActive)),
+
+                      DataCell(Center(
+                        child: SizedBox(
+                          width: 150.w,
+                          child: _statusChip(status, developerId: item.developerId),
+                        ),
+                      )),
                       /// developer procedures value
                       DataCell(
                         _PopupMenuCell(
@@ -331,7 +340,7 @@ class DevelopersTableData extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(20.r),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: onTap != null
               ? AppColors.primaryDark.withValues(alpha: 0.08)
@@ -367,12 +376,72 @@ class DevelopersTableData extends StatelessWidget {
     );
   }
 
-  Widget _statusChip(bool isActive) {
+  String _displayStatus(dynamic status) {
+    if (status == "ارسال طلب عقد") return "ارسال طلب عقد";
+    if (status == "pending") return "قيد الانتظار";
+    if (status == "accepted") return "مقبول";
+    return status?.toString() ?? '';
+  }
+
+  Color _statusBgColor(dynamic status) {
+    if (status == "accepted") return Colors.green.withValues(alpha: 0.1);
+    if (status == "pending") return Colors.orange.withValues(alpha: 0.1);
+    if (status == "ارسال طلب عقد") return AppColors.primaryDark.withValues(alpha: 0.1);
+    return Colors.grey.withValues(alpha: 0.1);
+  }
+
+  Color _statusDotColor(dynamic status) {
+    if (status == "accepted") return Colors.green;
+    if (status == "pending") return Colors.orange;
+    if (status == "ارسال طلب عقد") return AppColors.primaryDark;
+    return Colors.grey;
+  }
+
+  Color _statusTextColor(dynamic status) {
+    if (status == "accepted") return Colors.green.shade700;
+    if (status == "pending") return Colors.orange.shade700;
+    if (status == "ارسال طلب عقد") return AppColors.primaryDark;
+    return Colors.grey.shade700;
+  }
+
+  Widget _statusChip(dynamic status, {int? developerId}) {
+    if (status == "ارسال طلب عقد") {
+      return InkWell(
+        onTap: onSendContractRequest != null && developerId != null
+            ? () => onSendContractRequest!(developerId)
+            : null,
+        borderRadius: BorderRadius.circular(20.r),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+          decoration: BoxDecoration(
+            color: AppColors.primaryDark,
+            borderRadius: BorderRadius.circular(20.r),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primaryDark.withValues(alpha: 0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Text(
+            _displayStatus(status),
+            style: AppStyles.black14Medium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 12.sp,
+            ),
+          ),
+        ),
+      );
+    }
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: (isActive ? Colors.green : Colors.red).withValues(alpha: 0.1),
+        color: _statusBgColor(status),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
@@ -383,14 +452,14 @@ class DevelopersTableData extends StatelessWidget {
             height: 7.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isActive ? Colors.green : Colors.red,
+              color: _statusDotColor(status),
             ),
           ),
           Gap(6.w),
           Text(
-            isActive ? LangKeys.active.tr() : LangKeys.inactive.tr(),
+            _displayStatus(status),
             style: AppStyles.black14Medium.copyWith(
-              color: isActive ? Colors.green.shade700 : Colors.red.shade700,
+              color: _statusTextColor(status),
               fontWeight: FontWeight.w600,
               fontSize: 12.sp,
             ),
