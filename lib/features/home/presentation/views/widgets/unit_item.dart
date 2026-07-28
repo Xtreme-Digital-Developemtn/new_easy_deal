@@ -28,6 +28,7 @@ class UnitItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             AspectRatio(
               aspectRatio: 16 / 10,
@@ -168,10 +169,9 @@ class UnitItem extends StatelessWidget {
             ),
 
             /// Bottom Actions
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Row(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -218,8 +218,7 @@ class UnitItem extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
         ),
       ),
     );

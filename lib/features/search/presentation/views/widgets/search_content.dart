@@ -52,13 +52,16 @@ class SearchContent extends StatelessWidget {
             controller: scrollController,
             padding: EdgeInsets.only(bottom: 20.h),
             itemBuilder: (context, index) {
-              if (isInitialLoading) {
+                  if (isInitialLoading) {
                 return _buildSkeletonItem();
               }
               if (isEmpty) {
                 return EmptyWidget(msg: LangKeys.noUnitsFound);
               }
-              if (index >= data!.length) {
+              if (data == null) {
+                return const SizedBox.shrink();
+              }
+              if (index >= data.length) {
                 return LoadMoreIndicator(
                   hasMore: searchCubit.hasMore,
                   isLoadingMore: searchCubit.isLoadingMore,
@@ -68,7 +71,7 @@ class SearchContent extends StatelessWidget {
               return UnitItem(unit: data[index]);
             },
             separatorBuilder: (context, index) {
-              if (isInitialLoading || isEmpty || index >= data!.length - 1) {
+              if (isInitialLoading || isEmpty || data == null || index >= data.length - 1) {
                 return const SizedBox.shrink();
               }
               return Gap(12.h);

@@ -21,19 +21,13 @@ class _SearchViewState extends State<SearchView> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<SearchCubit>();
       if (cubit.allUnitsModel == null) {
         cubit.getAllUnits();
       }
-
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _scrollController.addListener(_scrollListener);
   }
 
   @override
