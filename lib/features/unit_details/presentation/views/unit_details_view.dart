@@ -30,9 +30,7 @@ class UnitDetailsView extends StatelessWidget {
           var unitDetailsCubit = context.read<UnitDetailsCubit>();
           return Padding(
             padding: EdgeInsets.only(top: 20.h, right: 20.w, left: 20.w),
-            child:
-                state is GetUnitDetailsLoadingState ||
-                    unitDetailsCubit.unitDetailsModel == null
+            child: state is GetUnitDetailsLoadingState
                 ? CustomLoading()
                 : state is GetUnitDetailsErrorState
                 ? ErrorWidgetUi(
@@ -40,6 +38,8 @@ class UnitDetailsView extends StatelessWidget {
                       unitDetailsCubit.getUnitDetails(unitId: unitId);
                     },
                   )
+                : unitDetailsCubit.unitDetailsModel == null
+                ? CustomLoading()
                 : ListView(
                     children: [
                       UnitImageTypeLocation(

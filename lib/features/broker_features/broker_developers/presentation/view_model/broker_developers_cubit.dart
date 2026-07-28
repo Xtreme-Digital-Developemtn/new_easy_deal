@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../main_imports.dart';
 import '../../../../broker_features/boker_data/data/models/broker_units_model.dart';
+import '../../../../unit_details/data/models/unit_details_response.dart';
 import '../../data/models/models_response.dart';
 import '../../data/models/developer_projects_model.dart';
 import '../../data/models/developers_model.dart';
@@ -180,6 +181,22 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
       (data) async {
         modelUnitsResponse = data;
         emit(GetModelUnitsSuccessState(data));
+      },
+    );
+  }
+
+  UnitDetailsResponse? unitDetailsResponse;
+
+  Future<void> getUnitDetails(int unitId) async {
+    emit(GetUnitDetailsLoadingState());
+    var result = await brokerDevelopersRepo!.getUnitDetails(unitId);
+    return result.fold(
+      (failure) {
+        emit(GetUnitDetailsErrorState(failure.errMessage));
+      },
+      (data) async {
+        unitDetailsResponse = data;
+        emit(GetUnitDetailsSuccessState(data));
       },
     );
   }

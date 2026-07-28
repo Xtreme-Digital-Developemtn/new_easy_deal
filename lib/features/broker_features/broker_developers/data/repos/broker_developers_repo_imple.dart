@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import '../../../../../main_imports.dart';
 import '../../../boker_data/data/models/broker_units_model.dart';
+import '../../../../unit_details/data/models/unit_details_response.dart';
 import '../models/models_response.dart';
 import '../models/developer_projects_model.dart';
 import '../models/developers_model.dart';
@@ -78,6 +79,19 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
         },
       );
       BrokerUnitsModel result = BrokerUnitsModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UnitDetailsResponse>> getUnitDetails(int unitId) async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: '${EndPoints.unitDetails}/$unitId',
+      );
+      UnitDetailsResponse result = UnitDetailsResponse.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

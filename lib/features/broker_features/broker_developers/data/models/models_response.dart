@@ -31,7 +31,7 @@ class ModelsResponse {
 }
 
 class ModelData {
-  final int id;
+  final dynamic id;
   final dynamic date;
   final dynamic code;
   final dynamic unitType;
@@ -105,9 +105,9 @@ class ModelData {
 }
 
 class Project {
-  final int id;
-  final String name;
-  final String managementTeam;
+  final dynamic id;
+  final dynamic name;
+  final dynamic managementTeam;
   final Developer developer;
   final List<dynamic> otherSubAreas;
 
@@ -139,9 +139,9 @@ class Project {
 }
 
 class Developer {
-  final int id;
-  final String? name;
-  final String? email;
+  final dynamic id;
+  final dynamic name;
+  final dynamic email;
 
   Developer({
     required this.id,
