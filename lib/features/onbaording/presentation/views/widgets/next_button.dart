@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnboardingNextButton extends StatelessWidget {
   final bool isLastPage;
@@ -23,7 +24,7 @@ class OnboardingNextButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            isLastPage ? "START" : "NEXT",
+            isLastPage ? "start".tr() : "next".tr(),
             style: const TextStyle(
               color: Colors.white,
               letterSpacing: 1.5,

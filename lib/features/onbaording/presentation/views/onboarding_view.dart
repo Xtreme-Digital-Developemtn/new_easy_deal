@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/app_services/local_services/cache_helper.dart';
 import '../../data/models/onboarding_model.dart';
 import 'widgets/bottom_card.dart';
@@ -15,34 +16,34 @@ class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  final List<OnboardingModel> _pages = const [
+  final List<OnboardingModel> _pages = [
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding1.png',
-      badgeLabel: "The first AI-Powered real\nestate platform",
-      title: "EASY DEAL",
+      badgeLabel: "theFirstAIPoweredRealEstatePlatform".tr(),
+      title: "easyDeal".tr(),
       description:
-          "Built around brokers' needs to streamline \ndaily work and boost productivity.",
+          "builtAroundBrokersNeeds".tr(),
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding2.png',
-      badgeLabel: "Never lose a lead again",
-      title: "A Full CRM",
+      badgeLabel: "neverLoseALeadAgain".tr(),
+      title: "aFullCRM".tr(),
       description:
-          "Keep all your clients, properties, and \ncommunications perfectly organized in \none powerful hub.",
+          "keepAllYourClients".tr(),
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding3.png',
-      badgeLabel: "Smart Property \nRecommendations",
-      title: "AI Auto-\nMatching",
+      badgeLabel: "smartPropertyRecommendations".tr(),
+      title: "aiAutoMatching".tr(),
       description:
-          "Automatically matches client requests \nbased on location and property type.",
+          "automaticallyMatchesClientRequests".tr(),
     ),
     OnboardingModel(
       imagePath: 'assets/images/pngs/boarding4.png',
-      badgeLabel: "Collaborate seamlessly",
-      title: "Share & Track",
+      badgeLabel: "collaborateSeamlessly".tr(),
+      title: "shareAndTrack".tr(),
       description:
-          "Easily share orders and monitor their \nprogress in real-time. ",
+          "easilyShareOrders".tr(),
     ),
   ];
 

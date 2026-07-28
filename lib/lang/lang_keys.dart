@@ -635,6 +635,20 @@ abstract class LangKeys {
   static const String floors = 'floors';
   static const String landingArea = 'landingArea';
 
+  // Onboarding
+  static const String theFirstAIPoweredRealEstatePlatform = 'theFirstAIPoweredRealEstatePlatform';
+  static const String neverLoseALeadAgain = 'neverLoseALeadAgain';
+  static const String smartPropertyRecommendations = 'smartPropertyRecommendations';
+  static const String collaborateSeamlessly = 'collaborateSeamlessly';
+  static const String easyDeal = 'easyDeal';
+  static const String aFullCRM = 'aFullCRM';
+  static const String aiAutoMatching = 'aiAutoMatching';
+  static const String shareAndTrack = 'shareAndTrack';
+  static const String builtAroundBrokersNeeds = 'builtAroundBrokersNeeds';
+  static const String keepAllYourClients = 'keepAllYourClients';
+  static const String automaticallyMatchesClientRequests = 'automaticallyMatchesClientRequests';
+  static const String easilyShareOrders = 'easilyShareOrders';
+
 }
 
 

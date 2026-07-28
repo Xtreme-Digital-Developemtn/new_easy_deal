@@ -911,5 +911,17 @@ class EnLang {
     "projectTypeMedical": "Medical",
     "projectTypeMixed": "Mixed",
     "projectTypeChaletsVacationVillas": "Chalets & Vacation Villas",
+    "theFirstAIPoweredRealEstatePlatform": "The First AI-Powered Real Estate Platform",
+    "neverLoseALeadAgain": "Never Lose a Lead Again",
+    "smartPropertyRecommendations": "Smart Property Recommendations",
+    "collaborateSeamlessly": "Collaborate Seamlessly",
+    "easyDeal": "EASY DEAL",
+    "aFullCRM": "A Full CRM",
+    "aiAutoMatching": "AI Auto-Matching",
+    "shareAndTrack": "Share & Track",
+    "builtAroundBrokersNeeds": "Built Around Brokers' Needs",
+    "keepAllYourClients": "Keep All Your Clients, Properties, and Communications Perfectly Organized in One Powerful Hub",
+    "automaticallyMatchesClientRequests": "Automatically Matches Client Requests Based on Location and Property Type",
+    "easilyShareOrders": "Easily Share Orders and Monitor Their Progress in Real-Time",
   };
 }

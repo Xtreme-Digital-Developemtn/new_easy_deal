@@ -1,52 +1,77 @@
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main_imports.dart';
-
-class ApiService {
+import '../../../my_app.dart';
+ class ApiService {
   final Dio _dio;
+  bool _isRedirecting = false; // instance field بدل local variable
 
   ApiService(this._dio) {
     _dio.options.baseUrl = EndPoints.baseUrl;
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
 
-    // Attach interceptors
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // Add default headers
           options.headers["Accept"] = "application/json";
 
-         /// Skip auth for public endpoints (login, register, etc.)
           if (options.extra['public'] != true) {
-            /// Add user token if available
             if (CacheTokenManger.userToken != null &&
                 CacheTokenManger.userToken!.isNotEmpty) {
-              options.headers["Authorization"] = "Bearer ${CacheTokenManger.userToken}";
+              options.headers["Authorization"] =
+              "Bearer ${CacheTokenManger.userToken}";
             }
           }
-         // options.headers["Authorization"] =   "Bearer 8|FurotwrspzstJxqZdfmCRh8Jd1jz9jXzNEZqv8Bf982d34f3";
+
           debugPrint("➡️ [REQUEST] ${options.method} ${options.uri}");
           debugPrint("Headers: ${options.headers}");
           debugPrint("Data: ${options.data}");
           debugPrint("Query: ${options.queryParameters}");
 
-          return handler.next(options); // continue
+          return handler.next(options);
         },
         onResponse: (response, handler) {
           debugPrint(
             "✅ [RESPONSE] [${response.statusCode}] ${response.requestOptions.uri}",
           );
           debugPrint("Response Data: ${response.data}");
-          return handler.next(response); // continue
+          return handler.next(response);
         },
-        onError: (DioException error, handler) async {
+        onError: (DioException error, ErrorInterceptorHandler handler) async {
           debugPrint("❌ [ERROR] ${error.message}");
           debugPrint("Request: ${error.requestOptions.uri}");
-          // Example: handle token expiration (401 Unauthorized)
+
           final failure = ServerFailure.fromDioError(error);
           debugPrint("❌ [ERROR] ${failure.errMessage}");
+          CacheHelper.clearData();
+          if (error.response?.statusCode == 401 && !_isRedirecting) {
+            _isRedirecting = true;
+
+            SharedPreferences.getInstance().then((prefs) => prefs.clear());
+            CacheTokenManger.userToken = null;
+
+            // نتأكد إن الـ navigator جاهز، ولو لسه بيبني الشجرة ننتظر الفريم اللي جاي
+            void doNavigate() {
+              MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+                Routes.loginView,
+                    (route) => false,
+              );
+            }
+
+            if (MyApp.navigatorKey.currentState != null) {
+              doNavigate();
+            } else {
+              WidgetsBinding.instance.addPostFrameCallback((_) => doNavigate());
+            }
+
+            Future.delayed(const Duration(seconds: 1), () {
+              _isRedirecting = false;
+            });
+          }
+
           return handler.reject(error.copyWith(error: failure));
         },
       ),
@@ -67,7 +92,6 @@ class ApiService {
     }
   }
 
-  // Now no need to manually add headers everywhere
   Future<Response> postData({
     required String endPoint,
     dynamic data,
@@ -75,36 +99,50 @@ class ApiService {
     bool isMultipart = false,
     bool public = false,
   }) async {
-    Options? options;
-    if (isMultipart) {
-      _dio.options.headers["Content-Type"] = "multipart/form-data";
-    }
-    if (public) {
-      options = Options(extra: {'public': true});
-    }
+    final options = Options(
+      contentType: isMultipart ? "multipart/form-data" : null,
+      extra: {'public': public},
+    );
     return await _dio.post(endPoint, data: data, queryParameters: query, options: options);
   }
 
   Future<Response> getData({
     required String endPoint,
     Map<String, dynamic>? query,
+    bool public = false,
   }) async {
-    return await _dio.get(endPoint, queryParameters: query);
+    return await _dio.get(
+      endPoint,
+      queryParameters: query,
+      options: Options(extra: {'public': public}),
+    );
   }
 
   Future<Response> putData({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? query,
+    bool public = false,
   }) async {
-    return await _dio.put(endPoint, data: data, queryParameters: query);
+    return await _dio.put(
+      endPoint,
+      data: data,
+      queryParameters: query,
+      options: Options(extra: {'public': public}),
+    );
   }
 
   Future<Response> deleteData({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? query,
+    bool public = false,
   }) async {
-    return await _dio.delete(endPoint, data: data, queryParameters: query);
+    return await _dio.delete(
+      endPoint,
+      data: data,
+      queryParameters: query,
+      options: Options(extra: {'public': public}),
+    );
   }
 }

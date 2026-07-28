@@ -1,4 +1,5 @@
 import '../../../../../main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final VoidCallback onSkip;
@@ -44,9 +45,9 @@ class OnboardingHeader extends StatelessWidget {
           ),
           TextButton(
             onPressed: onSkip,
-            child: const Text(
-              "SKIP",
-              style: TextStyle(
+            child: Text(
+              "skip".tr(),
+              style: const TextStyle(
                 letterSpacing: 1.5,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,

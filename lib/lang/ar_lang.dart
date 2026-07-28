@@ -911,5 +911,17 @@ class ArLang {
     "projectTypeMedical": "طبي",
     "projectTypeMixed": "مختلط",
     "projectTypeChaletsVacationVillas": "شاليهات وفيلات عطلات",
+    "theFirstAIPoweredRealEstatePlatform": "أول منصة عقارية مدعومة بالذكاء الاصطناعي",
+    "neverLoseALeadAgain": "لن تخسر عميلاً مرة أخرى",
+    "smartPropertyRecommendations": "توصيات ذكية للعقارات",
+    "collaborateSeamlessly": "تعاون بسهولة",
+    "easyDeal": "EASY DEAL",
+    "aFullCRM": "A Full CRM",
+    "aiAutoMatching": "AI Auto-Matching",
+    "shareAndTrack": "Share & Track",
+    "builtAroundBrokersNeeds": "مبني حول احتياجات الوسطاء",
+    "keepAllYourClients": "احتفظ بجميع عملائك وممتلكاتك ومحادثاتك",
+    "automaticallyMatchesClientRequests": "مطابقة تلقائية لطلبات العملاء",
+    "easilyShareOrders": "شارك الطلبات وترقب تقدمها بسهولة",
   };
 }

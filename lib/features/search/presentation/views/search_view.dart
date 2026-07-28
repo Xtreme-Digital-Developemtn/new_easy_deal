@@ -45,6 +45,7 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void _scrollListener() {
+    if (!_scrollController.hasClients) return;
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 100) {
       final cubit = context.read<SearchCubit>();

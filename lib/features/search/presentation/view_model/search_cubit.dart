@@ -94,6 +94,7 @@ class SearchCubit extends Cubit<SearchStates> {
             message: data.message,
             status: data.status,
           );
+
           emit(GetAllUnitsLoadMoreSuccessState(allUnitsModel!)); // نجاح تحميل إضافي
         } else {
           // حفظ البيانات الجديدة
