@@ -1,28 +1,28 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/model_units_view.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_models_table_data.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/model_units_table_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../view_model/broker_developers_cubit.dart';
 import '../view_model/broker_developers_states.dart';
 
-class DeveloperModelsView extends StatefulWidget {
-  final int projectId;
-  const DeveloperModelsView({super.key, required this.projectId});
+class ModelUnitsView extends StatefulWidget {
+  final int modelId;
+  final String? modelCode;
+  const ModelUnitsView({super.key, required this.modelId, this.modelCode});
 
   @override
-  State<DeveloperModelsView> createState() => _DeveloperModelsViewState();
+  State<ModelUnitsView> createState() => _ModelUnitsViewState();
 }
 
-class _DeveloperModelsViewState extends State<DeveloperModelsView> {
+class _ModelUnitsViewState extends State<ModelUnitsView> {
   late final BrokerDevelopersCubit _cubit;
 
   @override
   void initState() {
     super.initState();
     _cubit = BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>());
-    _cubit.getProjectModels(widget.projectId);
+    _cubit.getModelUnits(widget.modelId);
   }
 
   @override
@@ -36,12 +36,12 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
     return BlocProvider.value(
       value: _cubit,
       child: Scaffold(
-        appBar: GlobalAppBar(title: LangKeys.models),
+        appBar: GlobalAppBar(title: LangKeys.units),
         body: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
           builder: (context, state) {
-            if (state is GetProjectModelsLoadingState) {
+            if (state is GetModelUnitsLoadingState) {
               return const CustomLoading();
-            } else if (state is GetProjectModelsErrorState) {
+            } else if (state is GetModelUnitsErrorState) {
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -50,15 +50,13 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                     Gap(16.h),
                     CustomButton(
                       text: LangKeys.reload,
-                      onPressed: () {
-                        _cubit.getProjectModels(widget.projectId);
-                      },
+                      onPressed: () => _cubit.getModelUnits(widget.modelId),
                     ),
                   ],
                 ),
               );
-            } else if (state is GetProjectModelsSuccessState) {
-              var data = state.modelsResponse?.data ?? [];
+            } else if (state is GetModelUnitsSuccessState) {
+              final data = state.unitsModel?.data ?? [];
               if (data.isEmpty) {
                 return Center(
                   child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
@@ -94,7 +92,11 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12.r),
                           ),
-                          child: Icon(Icons.dashboard_rounded, color: Colors.white, size: 24.r),
+                          child: Icon(
+                            Icons.home_work_rounded,
+                            color: Colors.white,
+                            size: 24.r,
+                          ),
                         ),
                         Gap(14.w),
                         Expanded(
@@ -102,7 +104,9 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                LangKeys.models.tr(),
+                                widget.modelCode != null
+                                    ? '${LangKeys.units.tr()} — ${widget.modelCode}'
+                                    : LangKeys.units.tr(),
                                 style: AppStyles.black14Medium.copyWith(
                                   color: Colors.white,
                                   fontSize: 16.sp,
@@ -111,7 +115,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                               ),
                               Gap(4.h),
                               Text(
-                                '${data.length} ${LangKeys.models.tr()}',
+                                '${data.length} ${LangKeys.units.tr()}',
                                 style: AppStyles.black14Medium.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                   fontSize: 13.sp,
@@ -124,20 +128,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                     ),
                   ),
                   Expanded(
-                    child: DeveloperModelsTableData(
-                      data: data,
-                      onRowTap: (item) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ModelUnitsView(
-                              modelId: item.id,
-                              modelCode: item.code?.toString(),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: ModelUnitsTableData(data: data),
                   ),
                 ],
               );

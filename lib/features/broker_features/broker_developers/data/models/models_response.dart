@@ -32,19 +32,19 @@ class ModelsResponse {
 
 class ModelData {
   final int id;
-  final String date;
-  final String code;
-  final String unitType;
-  final String? subUnitType;
-  final int numberOfUnits;
-  final int numberOfRooms;
-  final int numberOfBathrooms;
-  final int numberOfFloors;
-  final int unitArea;
-  final int landingArea;
-  final int projectId;
-  final String createdAt;
-  final String updatedAt;
+  final dynamic date;
+  final dynamic code;
+  final dynamic unitType;
+  final dynamic subUnitType;
+  final dynamic numberOfUnits;
+  final dynamic numberOfRooms;
+  final dynamic numberOfBathrooms;
+  final dynamic numberOfFloors;
+  final dynamic unitArea;
+  final dynamic landingArea;
+  final dynamic projectId;
+  final dynamic createdAt;
+  final dynamic updatedAt;
   final Project project;
 
   ModelData({

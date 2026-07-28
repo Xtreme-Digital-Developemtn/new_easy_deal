@@ -200,56 +200,56 @@ class BrokerUnitsModel {
 }
 
 class BrokerUnitData {
-  int? id;
-  String? modelCode;
-  String? type;
-  int? unitArea;
-  String? buildingNumber;
-  String? unitNumber;
-  String? floor;
+  dynamic id;
+  dynamic modelCode;
+  dynamic type;
+  dynamic unitArea;
+  dynamic buildingNumber;
+  dynamic unitNumber;
+  dynamic floor;
   Area? area;
   City? city;
   SubArea? subArea;
   List<OtherSubArea>? otherSubAreas;
-  String? ownerPhone;
-  String? ownerName;
-  String? detailedAddress;
-  int? dailyRent;
-  int? monthlyRent;
-  String? deliveryStatus;
-  int? numberOfRooms;
-  int? numberOfBathrooms;
-  String? finishingType;
-  String? unitOperation;
-  String? compoundType;
-  String? status;
-  String? view;
-  String? deliveryDate;
-  String? diagram;
-  String? locationInMasterPlan;
-  String? location;
-  String? paymentSystem;
-  int? pricePerMeterInInstallment;
-  int? pricePerMeterInCash;
-  int? totalPriceInInstallment;
-  int? totalPriceInCash;
+  dynamic ownerPhone;
+  dynamic ownerName;
+  dynamic detailedAddress;
+  dynamic dailyRent;
+  dynamic monthlyRent;
+  dynamic deliveryStatus;
+  dynamic numberOfRooms;
+  dynamic numberOfBathrooms;
+  dynamic finishingType;
+  dynamic unitOperation;
+  dynamic compoundType;
+  dynamic status;
+  dynamic view;
+  dynamic deliveryDate;
+  dynamic diagram;
+  dynamic locationInMasterPlan;
+  dynamic location;
+  dynamic paymentSystem;
+  dynamic pricePerMeterInInstallment;
+  dynamic pricePerMeterInCash;
+  dynamic totalPriceInInstallment;
+  dynamic totalPriceInCash;
   List<Advertiser>? advertisers;
-  int? isArchived;
+  dynamic isArchived;
   AdditionalDetails? additionalDetails;
-  List<String>? otherAccessories;
-  String? modelId;
-  int? brokerId;
+  List<dynamic>? otherAccessories;
+  dynamic modelId;
+  dynamic brokerId;
   Broker? broker;
-  String? brokerUserId;
-  String? brokerUserFullName;
-  String? brokerUserEmail;
-  String? brokerUserPhone;
-  String? brokerUserImage;
-  String? projectName;
-  String? developerName;
-  String? project;
-  String? createdAt;
-  String? updatedAt;
+  dynamic brokerUserId;
+  dynamic brokerUserFullName;
+  dynamic brokerUserEmail;
+  dynamic brokerUserPhone;
+  dynamic brokerUserImage;
+  dynamic projectName;
+  dynamic developerName;
+  dynamic project;
+  dynamic createdAt;
+  dynamic updatedAt;
   List<dynamic>? gallery;
   List<ReplyLog>? replyLog;
 
@@ -476,10 +476,10 @@ class BrokerUnitData {
 }
 
 class Area {
-  int? id;
+  dynamic id;
   String? nameEn;
   String? nameAr;
-  int? cityId;
+  dynamic cityId;
   String? createdAt;
   String? updatedAt;
 
@@ -514,7 +514,7 @@ class Area {
 }
 
 class City {
-  int? id;
+  dynamic id;
   String? nameEn;
   String? nameAr;
   String? createdAt;
@@ -548,10 +548,10 @@ class City {
 }
 
 class SubArea {
-  int? id;
+  dynamic id;
   String? nameEn;
   String? nameAr;
-  int? areaId;
+  dynamic areaId;
   String? createdAt;
   String? updatedAt;
 
@@ -586,7 +586,7 @@ class SubArea {
 }
 
 class OtherSubArea {
-  int? id;
+  dynamic id;
   String? name;
 
   OtherSubArea({
@@ -609,8 +609,8 @@ class OtherSubArea {
 
 class Advertiser {
   String? caption;
-  int? creatorId;
-  int? advertiserId;
+  dynamic creatorId;
+  dynamic advertiserId;
   String? advertiserFullName;
   String? advertiserEmail;
   String? advertiserPhone;
@@ -655,11 +655,11 @@ class AdditionalDetails {
   String? requestedOver;
   String? financialStatus;
   String? activity;
-  int? groundArea;
+  dynamic groundArea;
   String? unitDesign;
   String? unitFacing;
   String? legalStatus;
-  int? buildingArea;
+  dynamic buildingArea;
   String? fitOutCondition;
   String? furnishingStatus;
   String? groundLayoutStatus;
@@ -717,8 +717,8 @@ class AdditionalDetails {
 
 class ReplyLog {
   String? unitId;
-  int? senderId;
-  int? receiverId;
+  dynamic senderId;
+  dynamic receiverId;
   String? senderName;
   String? senderPhone;
   String? receiverName;
@@ -758,7 +758,7 @@ class ReplyLog {
 }
 
 class Broker {
-  int? id;
+  dynamic id;
   String? name;
 
   Broker({

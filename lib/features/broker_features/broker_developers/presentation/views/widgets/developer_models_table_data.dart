@@ -5,7 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class DeveloperModelsTableData extends StatelessWidget {
   final List<ModelData> data;
-  const DeveloperModelsTableData({super.key, required this.data});
+  final void Function(ModelData item)? onRowTap;
+  const DeveloperModelsTableData({super.key, required this.data, this.onRowTap});
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
@@ -53,6 +54,7 @@ class DeveloperModelsTableData extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: DataTable2(
+          showCheckboxColumn: false,
           columnSpacing: 4.w,
           horizontalMargin: 12.w,
           minWidth: 2000.w,
@@ -92,15 +94,18 @@ class DeveloperModelsTableData extends StatelessWidget {
                 color: index.isEven
                     ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
                     : const WidgetStatePropertyAll(Colors.white),
+                onSelectChanged: (_) {
+                  onRowTap?.call(item);
+                },
                 cells: [
-                  DataCell(_chipCell(item.code)),
-                  DataCell(_cell(item.createdAt.substring(0, 10))),
-                  DataCell(_cell(item.unitType)),
-                  DataCell(_cell(item.subUnitType ?? LangKeys.notAvailable.tr())),
-                  DataCell(_cell(item.numberOfUnits.toString())),
-                  DataCell(_cell(item.numberOfRooms.toString())),
-                  DataCell(_cell(item.numberOfBathrooms.toString())),
-                  DataCell(_cell(item.numberOfFloors.toString())),
+                  DataCell(_chipCell(item.code?.toString() ?? '')),
+                  DataCell(_cell(item.createdAt?.substring(0, 10) ?? '')),
+                  DataCell(_cell(item.unitType?.toString() ?? '')),
+                  DataCell(_cell(item.subUnitType?.toString() ?? LangKeys.notAvailable.tr())),
+                  DataCell(_cell(item.numberOfUnits?.toString() ?? '')),
+                  DataCell(_cell(item.numberOfRooms?.toString() ?? '')),
+                  DataCell(_cell(item.numberOfBathrooms?.toString() ?? '')),
+                  DataCell(_cell(item.numberOfFloors?.toString() ?? '')),
                   DataCell(_cell('${item.unitArea} m²')),
                   DataCell(_cell('${item.landingArea} m²')),
                 ],

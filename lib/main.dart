@@ -50,7 +50,6 @@ void main() async {
 
 Future<Uri?> getVmUri() async {
   ServiceProtocolInfo serviceProtocolInfo = await Service.getInfo();
-  print("dddddddddddddddd : ${serviceProtocolInfo.serverUri}");
   return serviceProtocolInfo.serverUri;
 }
 Future<void> getFcmToken() async {

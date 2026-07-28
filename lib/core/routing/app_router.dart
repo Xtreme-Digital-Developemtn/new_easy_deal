@@ -83,7 +83,8 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/success/presentation/views/success_view.dart';
 
 import '../../features/unit_details/data/repos/unit_details_repo_imple.dart';
-import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
+ import '../../features/unit_details/presentation/view_model/unit_details_cubit.dart';
+
 import '../../features/unit_details/presentation/views/unit_details_view.dart';
 import '../../features/upload_broker_doc/data/repos/upload_broker_doc_repo_imple.dart';
 import '../../features/upload_broker_doc/presentation/view_model/upload_broker_doc_cubit.dart';
@@ -96,7 +97,7 @@ import '../../main_imports.dart';
 import '../app_services/remote_services/service_locator.dart';
 
 class AppRouter {
- 
+
 
   Route? generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -202,6 +203,13 @@ class AppRouter {
           cubit: UnitDetailsCubit(getIt.get<UnitDetailsRepoImpl>())
             ..getUnitDetails(unitId: args["unitId"] as dynamic),
         );
+      // case Routes.modelDetailsView:
+      //   final args = arguments as Map<String, dynamic>;
+      //   return transition(
+      //     screen: ModelDetailsView(modelId: args["modelId"] as String),
+      //     cubit: ModelDetailsCubit(getIt.get<ModelDetailsRepoImpl>())
+      //       ..getModelDetails(modelId: args["modelId"] as String),
+      //   );
       case Routes.userChatView:
         return transition(
           screen: const UserChatView(),

@@ -45,7 +45,7 @@ class EndPoints {
   static const String requestReplies = 'request/replies';
   static const String brokerRequest = 'broker/request';
   static const String models = 'model';
-
+  static const String modelUnits = 'unit';
 
 
 }
