@@ -59,18 +59,18 @@ class CategoryItem extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Gap(4.h),
-                    Text(
-                      des,
-                      style: AppStyles.black14Medium.copyWith(
-                        color: createRequestCubit.selectedIndex == index
-                            ? AppColors.primaryLight
-                            : AppColors.primaryDark,
-                      ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    // Gap(4.h),
+                    // Text(
+                    //   des,
+                    //   style: AppStyles.black14Medium.copyWith(
+                    //     color: createRequestCubit.selectedIndex == index
+                    //         ? AppColors.primaryLight
+                    //         : AppColors.primaryDark,
+                    //   ),
+                    //   textAlign: TextAlign.center,
+                    //   maxLines: 2,
+                    //   overflow: TextOverflow.ellipsis,
+                    // ),
                   ],
                 ),
               ),
