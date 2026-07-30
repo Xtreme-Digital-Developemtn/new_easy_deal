@@ -61,6 +61,7 @@ class UnitTypeDropdown extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: DropdownButton<String>(
+            dropdownColor: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             isExpanded: true,
             underline: const SizedBox.shrink(),
