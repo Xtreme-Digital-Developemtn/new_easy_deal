@@ -112,7 +112,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           hintText: widget.config.label.tr(),
           keyboardType: keyboardType,
           maxLines: maxLines,
-          height: 52.h,
+          // height: 52.h,
           borderRadius: 10.r,
           borderWidth: 1.5,
           onChanged: (val) {
