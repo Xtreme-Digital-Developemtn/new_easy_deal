@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/broker_features/broker_developers/data/models/developer_projects_model.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/view_model/broker_developers_states.dart';
+import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +9,26 @@ import '../../../../../../core/app_services/remote_services/service_locator.dart
 import '../../../../../../core/utils/toast/toast.dart';
 import '../../view_model/broker_developers_cubit.dart';
 
-// ⚠️ عدّل السطر ده بحسب طريقة الـ Dependency Injection عندك (get_it / injectable / إلخ)
-// المفروض عندك حاجة زي: getIt<BrokerDevelopersRepo>()
+// ── قوائم القيم الثابتة (نفس ما يستخدمه BrokerTextHelper) ─────────────────────
+
+const _kTypeValues = [
+  'INSIDE_COMPOUND',
+  'OUTSIDE_COMPOUND',
+  'PRIMARY_INSIDE_COMPOUND',
+  'RESALE_INSIDE_COMPOUND',
+  'RENTALS_OUTSIDE_COMPOUND',
+  'RENTALS_INSIDE_COMPOUND',
+];
+
+const _kProjectTypeValues = [
+  'RESIDENTIAL',
+  'COMMERCIAL',
+  'ADMINISTRATIVE',
+  'MEDICAL',
+  'MIXED',
+  'VILLAGE',
+  'CHALETS_VACATION_VILLAS',
+];
 
 
 /// Bottom sheet لتعديل بيانات مشروع موجود، بنفس هوية التصميم المستخدمة
@@ -53,6 +72,9 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
   late TextEditingController _addressCtrl;
   late TextEditingController _googleMapCtrl;
 
+  late String _selectedType;
+  late String _selectedProjectType;
+
   // عدد الوحدات - نفس الحقول المستخدمة في _unitsSummary
   late TextEditingController _apartmentsCtrl;
   late TextEditingController _duplexesCtrl;
@@ -82,6 +104,14 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
     _managementCtrl = TextEditingController(text: p.managementTeam);
     _addressCtrl = TextEditingController(text: p.address);
     _googleMapCtrl = TextEditingController(text: p.googleMapUrl);
+
+    // اختر القيمة الحالية أو أول قيمة من القائمة إذا مش موجودة
+    _selectedType = _kTypeValues.contains(p.type.toUpperCase())
+        ? p.type.toUpperCase()
+        : _kTypeValues.first;
+    _selectedProjectType = _kProjectTypeValues.contains(p.projectType.toUpperCase())
+        ? p.projectType.toUpperCase()
+        : _kProjectTypeValues.first;
 
     _apartmentsCtrl = TextEditingController(text: '${p.apartmentsCount}');
     _duplexesCtrl = TextEditingController(text: '${p.duplexesCount}');
@@ -143,6 +173,8 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
       managementTeam: _managementCtrl.text.trim(),
       address: _addressCtrl.text.trim(),
       googleMapUrl: _googleMapCtrl.text.trim(),
+      type: _selectedType,
+      projectType: _selectedProjectType,
       apartmentsCount: _toInt(_apartmentsCtrl),
       duplexesCount: _toInt(_duplexesCtrl),
       penthousesCount: _toInt(_penthousesCtrl),
@@ -232,6 +264,34 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
                             child: _labeledField(
                               label: LangKeys.operationManagement.tr(),
                               child: _textField(_managementCtrl),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(20.h),
+                      // ── نطاق العقار + نوع المشروع ──────────────────────
+                      _sectionTitle('نطاق العقار'),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'نطاق العقار',
+                              child: _dropdownField(
+                                value: _selectedType,
+                                items: _kTypeValues,
+                                onChanged: (v) => setState(() => _selectedType = v!),
+                              ),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.projectType.tr(),
+                              child: _dropdownField(
+                                value: _selectedProjectType,
+                                items: _kProjectTypeValues,
+                                onChanged: (v) => setState(() => _selectedProjectType = v!),
+                              ),
                             ),
                           ),
                         ],
@@ -380,6 +440,46 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
           borderSide: BorderSide(color: AppColors.primaryDark, width: 1.4),
         ),
       ),
+    );
+  }
+
+  Widget _dropdownField({
+    required String value,
+    required List<String> items,
+    required void Function(String?) onChanged,
+  }) {
+    return DropdownButtonFormField<String>(
+      value: value,
+      onChanged: onChanged,
+      isExpanded: true,
+      style: AppStyles.black12Medium.copyWith(fontSize: 13.sp),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.primaryDark, width: 1.4),
+        ),
+      ),
+      items: items.map((v) {
+        return DropdownMenuItem<String>(
+          value: v,
+          child: Text(
+            BrokerTextHelper.projectTypeText(v),
+            style: AppStyles.black12Medium.copyWith(fontSize: 13.sp),
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      }).toList(),
     );
   }
 
