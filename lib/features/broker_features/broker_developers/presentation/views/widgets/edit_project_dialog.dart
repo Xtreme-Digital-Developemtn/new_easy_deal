@@ -1,12 +1,12 @@
 import 'package:easy_deal/features/broker_features/broker_developers/data/models/developer_projects_model.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/presentation/view_model/broker_developers_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/app_services/remote_services/service_locator.dart';
-import '../../../data/repos/broker_developers_repo.dart';
- import '../../view_model/broker_developers_states.dart';
-
+import '../../../../../../core/utils/toast/toast.dart';
+import '../../view_model/broker_developers_cubit.dart';
 
 // ⚠️ عدّل السطر ده بحسب طريقة الـ Dependency Injection عندك (get_it / injectable / إلخ)
 // المفروض عندك حاجة زي: getIt<BrokerDevelopersRepo>()
@@ -170,11 +170,12 @@ class _EditProjectDialogState extends State<EditProjectDialog> {
     return BlocConsumer<BrokerDevelopersCubit, BrokerDevelopersStates>(
       listener: (context, state) {
         if (state is EditProjectSuccess) {
+          Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
+          context.pop();
           Navigator.of(context).pop(state.project);
         } else if (state is EditProjectError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
-          );
+          Toast.showErrorToast(msg: state.message, context: context);
+          context.pop();
         }
       },
       builder: (context, state) {
