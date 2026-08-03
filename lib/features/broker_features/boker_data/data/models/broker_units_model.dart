@@ -233,7 +233,7 @@ class BrokerUnitData {
   dynamic pricePerMeterInCash;
   dynamic totalPriceInInstallment;
   dynamic totalPriceInCash;
-  List<Advertiser>? advertisers;
+  List<dynamic>? advertisers;
   dynamic isArchived;
   AdditionalDetails? additionalDetails;
   List<dynamic>? otherAccessories;
@@ -251,7 +251,7 @@ class BrokerUnitData {
   dynamic createdAt;
   dynamic updatedAt;
   List<dynamic>? gallery;
-  List<ReplyLog>? replyLog;
+  List<dynamic>? replyLog;
 
   BrokerUnitData({
     this.id,
@@ -477,11 +477,11 @@ class BrokerUnitData {
 
 class Area {
   dynamic id;
-  String? nameEn;
-  String? nameAr;
+  dynamic nameEn;
+  dynamic nameAr;
   dynamic cityId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Area({
     this.id,
@@ -515,10 +515,10 @@ class Area {
 
 class City {
   dynamic id;
-  String? nameEn;
-  String? nameAr;
-  String? createdAt;
-  String? updatedAt;
+  dynamic nameEn;
+  dynamic nameAr;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   City({
     this.id,
@@ -549,11 +549,11 @@ class City {
 
 class SubArea {
   dynamic id;
-  String? nameEn;
-  String? nameAr;
+  dynamic nameEn;
+  dynamic nameAr;
   dynamic areaId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   SubArea({
     this.id,
@@ -587,22 +587,26 @@ class SubArea {
 
 class OtherSubArea {
   dynamic id;
-  String? name;
+  dynamic name;
+  dynamic subAreaId;
 
   OtherSubArea({
     this.id,
     this.name,
+    this.subAreaId,
   });
 
   OtherSubArea.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     name = json["name"];
+    subAreaId = json["subAreaId"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["id"] = id;
     _data["name"] = name;
+    _data["subAreaId"] = subAreaId;
     return _data;
   }
 }
