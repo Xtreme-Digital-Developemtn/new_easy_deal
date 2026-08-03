@@ -22,4 +22,11 @@ abstract class BrokerDevelopersRepo {
     File? commercialRegistryImage,
     File? taxCardImage,
   });
+
+  /// تحديث بيانات مشروع موجود
+  /// endpoint: developers/projects/{projectId}
+  Future<Either<Failure, ProjectData>> updateProject({
+    required int projectId,
+    required ProjectData project,
+  });
 }

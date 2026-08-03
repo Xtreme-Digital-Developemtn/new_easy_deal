@@ -200,4 +200,16 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
       },
     );
   }
+
+  Future<void> updateProject({
+    required int projectId,
+    required ProjectData project,
+  }) async {
+    emit(EditProjectLoading());
+    final result = await brokerDevelopersRepo!.updateProject(projectId: projectId, project: project);
+    result.fold(
+          (failure) => emit(EditProjectError(failure.errMessage)),
+          (updatedProject) => emit(EditProjectSuccess(updatedProject)),
+    );
+  }
 }

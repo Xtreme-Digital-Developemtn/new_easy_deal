@@ -1,14 +1,18 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/models/developer_projects_model.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
+import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'edit_project_dialog.dart';
+
 class DeveloperProjectsTableData extends StatelessWidget {
   final List<ProjectData> data;
   final void Function(int projectId)? onModelsTap;
-  const DeveloperProjectsTableData({super.key, required this.data, this.onModelsTap});
+  final void Function(ProjectData updatedProject)? onEditSave;
+  const DeveloperProjectsTableData({super.key, required this.data, this.onModelsTap, this.onEditSave});
 
   String _cityName(BuildContext context, CityModel? city) {
     if (city == null) return LangKeys.notAvailable.tr();
@@ -155,7 +159,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
           ],
           rows: List<DataRow>.generate(
             data.length,
-            (index) {
+                (index) {
               var item = data[index];
               return DataRow(
                 color: index.isEven
@@ -175,8 +179,9 @@ class DeveloperProjectsTableData extends StatelessWidget {
                   DataCell(Text(_unitsSummary(item), style: AppStyles.black12Medium.copyWith(fontSize: 9.sp))),
                   DataCell(_iconCell(_buildVideoIcon(item.gallery))),
                   DataCell(_ProceduresPopupCell(
-                    projectId: item.id,
+                    project: item,
                     onModelsTap: onModelsTap,
+                    onEditSave: onEditSave,
                   )),
                 ],
               );
@@ -200,10 +205,11 @@ class DeveloperProjectsTableData extends StatelessWidget {
 }
 
 class _ProceduresPopupCell extends StatefulWidget {
-  final int projectId;
+  final ProjectData project;
   final void Function(int projectId)? onModelsTap;
+  final void Function(ProjectData updatedProject)? onEditSave;
 
-  const _ProceduresPopupCell({required this.projectId, this.onModelsTap});
+  const _ProceduresPopupCell({required this.project, this.onModelsTap, this.onEditSave});
 
   @override
   State<_ProceduresPopupCell> createState() => _ProceduresPopupCellState();
@@ -214,23 +220,29 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
 
   @override
   Widget build(BuildContext context) {
+    final role = context.read<ProfileCubit>().clientProfileModel?.data?.role;
+    final isBroker = role == 'broker';
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
       cursor: SystemMouseCursors.click,
       child: PopupMenuButton<String>(
         tooltip: '',
-        onSelected: (value) {
+        onSelected: (value) async {
           switch (value) {
+
             case 'edit':
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${LangKeys.editingItem.tr()} #${widget.projectId}')),
-              );
+              if(isBroker)return;
+              final updated = await showEditProjectDialog(context, widget.project);
+              if (updated != null) {
+                widget.onEditSave?.call(updated);
+              }
               break;
             case 'models':
-              widget.onModelsTap?.call(widget.projectId);
+              widget.onModelsTap?.call(widget.project.id);
               break;
           }
+
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),
@@ -254,6 +266,7 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
           ),
         ),
         itemBuilder: (context) => [
+          if (!isBroker)
           PopupMenuItem<String>(
             value: 'edit',
             height: 44.h,

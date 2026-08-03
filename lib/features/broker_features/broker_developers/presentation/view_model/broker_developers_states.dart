@@ -79,3 +79,15 @@ class GetUnitDetailsErrorState extends BrokerDevelopersStates {
   final String error;
   GetUnitDetailsErrorState(this.error);
 }
+
+class EditProjectLoading extends BrokerDevelopersStates {}
+
+class EditProjectSuccess extends BrokerDevelopersStates {
+  final ProjectData project;
+  EditProjectSuccess(this.project);
+}
+
+class EditProjectError extends BrokerDevelopersStates {
+  final String message;
+  EditProjectError(this.message);
+}

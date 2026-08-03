@@ -153,4 +153,71 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
       return left(handleError(e));
     }
   }
+
+
+
+  @override
+  Future<Either<Failure, ProjectData>> updateProject({
+    required int projectId,
+    required ProjectData project,
+  }) async {
+    try {
+      final response = await apiService!.postData(
+        endPoint:'developers/projects/$projectId',
+        data: {
+          'name': project.name,
+          'designer': project.designer,
+          'projectExecutor': project.projectExecutor,
+          'managementTeam': project.managementTeam,
+          'type': project.type,
+          'projectType': project.projectType,
+          'address': project.address,
+          'googleMapUrl': project.googleMapUrl,
+          'apartmentsCount': project.apartmentsCount,
+          'duplexesCount': project.duplexesCount,
+          'penthousesCount': project.penthousesCount,
+          'iVillaCount': project.iVillaCount,
+          'studiosCount': project.studiosCount,
+          'roofsCount': project.roofsCount,
+          'basementsCount': project.basementsCount,
+          'twinHousesCount': project.twinHousesCount,
+          'townHousesCount': project.townHousesCount,
+          'standaloneVillasCount': project.standaloneVillasCount,
+          'administrativeUnitsCount': project.administrativeUnitsCount,
+          'commercialUnitsCount': project.commercialUnitsCount,
+          'medicalClinicsCount': project.medicalClinicsCount,
+          'pharmaciesCount': project.pharmaciesCount,
+          'commercialAdministrativeBuildingCount':
+          project.commercialAdministrativeBuildingCount,
+          if (project.city != null) 'cityId': project.city!.id,
+          if (project.area != null) 'areaId': project.area!.id,
+          if (project.subArea != null) 'subAreaId': project.subArea!.id,
+          if (project.developer != null) 'developerId': project.developer!.id,
+        },
+      );
+
+      final data = response.data['data'] ?? response.data;
+      return Right(ProjectData.fromJson(data));
+    } on DioException catch (e) {
+      // 🔍 مؤقتًا: اطبع الرد كامل عشان تعرف السيرفر رافض إيه بالظبط
+      print('❌ Update Project Error Response: ${e.response?.data}');
+
+      final errors = e.response?.data['errors'];
+      String errorMessage;
+      if (errors != null && errors is Map) {
+        // Laravel validation errors: {"field": ["message1", "message2"]}
+        errorMessage = errors.values
+            .expand((v) => v is List ? v : [v.toString()])
+            .join('\n');
+      } else {
+        errorMessage = e.response?.data['message']?.toString() ??
+            e.message ??
+            'حدث خطأ أثناء التحديث';
+      }
+
+      return Left(ServerFailure(errorMessage));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
