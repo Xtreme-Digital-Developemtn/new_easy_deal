@@ -168,11 +168,11 @@ class BrokerTextHelper {
     switch (key) {
       case 'INSIDE_COMPOUND':
       case 'PURCHASING_SELL_INSIDE_COMPOUND':
-        return LangKeys.purchasingSellInsideCompound.tr();
+        return "داخل كمبوند";
 
       case 'OUTSIDE_COMPOUND':
       case 'PURCHASING_SELL_OUTSIDE_COMPOUND':
-        return LangKeys.purchasingSellOutsideCompound.tr();
+        return "خارج كمبوند";
 
       case 'PRIMARY_INSIDE_COMPOUND':
         return LangKeys.primaryInsideCompoundKey.tr();

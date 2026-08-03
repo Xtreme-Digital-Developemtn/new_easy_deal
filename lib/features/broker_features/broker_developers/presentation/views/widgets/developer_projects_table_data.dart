@@ -14,58 +14,67 @@ class DeveloperProjectsTableData extends StatelessWidget {
   final void Function(ProjectData updatedProject)? onEditSave;
   const DeveloperProjectsTableData({super.key, required this.data, this.onModelsTap, this.onEditSave});
 
-  String _cityName(BuildContext context, CityModel? city) {
-    if (city == null) return LangKeys.notAvailable.tr();
-    return context.locale.languageCode == 'ar' ? city.nameAr : city.nameEn;
-  }
-
   String _areaName(BuildContext context, AreaModel? area) {
     if (area == null) return LangKeys.notAvailable.tr();
     return context.locale.languageCode == 'ar' ? area.nameAr : area.nameEn;
   }
 
-  String _subAreaName(BuildContext context, SubAreaModel? subArea) {
-    if (subArea == null) return LangKeys.notAvailable.tr();
-    return context.locale.languageCode == 'ar' ? subArea.nameAr : subArea.nameEn;
+  List<({String label, int count, Color color})> _unitEntries(ProjectData item) {
+    final entries = <({String label, int count, Color color})>[];
+    void add(String label, int count, Color color) {
+      if (count > 0) entries.add((label: label, count: count, color: color));
+    }
+
+    add(LangKeys.apartments.tr(), item.apartmentsCount, const Color(0xFF2196F3));
+    add(LangKeys.duplexes.tr(), item.duplexesCount, const Color(0xFF9C27B0));
+    add(LangKeys.penthouses.tr(), item.penthousesCount, const Color(0xFFFF9800));
+    add(LangKeys.iVilla.tr(), item.iVillaCount, const Color(0xFF4CAF50));
+    add(LangKeys.studios.tr(), item.studiosCount, const Color(0xFF00BCD4));
+    add(LangKeys.roofs.tr(), item.roofsCount, const Color(0xFF795548));
+    add(LangKeys.basements.tr(), item.basementsCount, const Color(0xFF607D8B));
+    add(LangKeys.twinHouses.tr(), item.twinHousesCount, const Color(0xFFE91E63));
+    add(LangKeys.townHouses.tr(), item.townHousesCount, const Color(0xFF3F51B5));
+    add(LangKeys.standaloneVillas.tr(), item.standaloneVillasCount, const Color(0xFF8BC34A));
+    add(LangKeys.administrativeUnits.tr(), item.administrativeUnitsCount, const Color(0xFFCDDC39));
+    add(LangKeys.commercialStores.tr(), item.commercialUnitsCount, const Color(0xFFFF5722));
+    add(LangKeys.medicalClinics.tr(), item.medicalClinicsCount, const Color(0xFF009688));
+    add(LangKeys.pharmacies.tr(), item.pharmaciesCount, const Color(0xFF673AB7));
+    add(LangKeys.commercialAdministrativeBuildings.tr(), item.commercialAdministrativeBuildingCount, const Color(0xFF795548));
+    return entries;
   }
 
-  String _otherSubAreasText(List<OtherSubAreaModel> list) {
-    if (list.isEmpty) return LangKeys.notAvailable.tr();
-    return list.map((e) => e.name).join(', ');
-  }
-
-  String _unitsSummary(ProjectData item) {
-    List<String> parts = [];
-    if (item.apartmentsCount > 0) parts.add('${LangKeys.apartments.tr()}: ${item.apartmentsCount}');
-    if (item.duplexesCount > 0) parts.add('${LangKeys.duplexes.tr()}: ${item.duplexesCount}');
-    if (item.penthousesCount > 0) parts.add('${LangKeys.penthouses.tr()}: ${item.penthousesCount}');
-    if (item.iVillaCount > 0) parts.add('${LangKeys.iVilla.tr()}: ${item.iVillaCount}');
-    if (item.studiosCount > 0) parts.add('${LangKeys.studios.tr()}: ${item.studiosCount}');
-    if (item.roofsCount > 0) parts.add('${LangKeys.roofs.tr()}: ${item.roofsCount}');
-    if (item.basementsCount > 0) parts.add('${LangKeys.basements.tr()}: ${item.basementsCount}');
-    if (item.twinHousesCount > 0) parts.add('${LangKeys.twinHouses.tr()}: ${item.twinHousesCount}');
-    if (item.townHousesCount > 0) parts.add('${LangKeys.townHouses.tr()}: ${item.townHousesCount}');
-    if (item.standaloneVillasCount > 0) parts.add('${LangKeys.standaloneVillas.tr()}: ${item.standaloneVillasCount}');
-    if (item.administrativeUnitsCount > 0) parts.add('${LangKeys.administrativeUnits.tr()}: ${item.administrativeUnitsCount}');
-    if (item.commercialUnitsCount > 0) parts.add('${LangKeys.commercialStores.tr()}: ${item.commercialUnitsCount}');
-    if (item.medicalClinicsCount > 0) parts.add('${LangKeys.medicalClinics.tr()}: ${item.medicalClinicsCount}');
-    if (item.pharmaciesCount > 0) parts.add('${LangKeys.pharmacies.tr()}: ${item.pharmaciesCount}');
-    if (item.commercialAdministrativeBuildingCount > 0) parts.add('${LangKeys.commercialAdministrativeBuildings.tr()}: ${item.commercialAdministrativeBuildingCount}');
-    if (parts.isEmpty) return LangKeys.notAvailable.tr();
-    return parts.join('\n');
-  }
-
-  Widget? _buildVideoIcon(List<GalleryModel> gallery) {
-    var url = _projectVideo(gallery);
-    if (url.isEmpty) return null;
-    return _urlIcon(Icons.play_circle_fill, url);
-  }
-
-  String _projectVideo(List<GalleryModel> gallery) {
-    if (gallery.isEmpty) return '';
-    var videos = gallery.where((g) => g.type == 'video').toList();
-    if (videos.isEmpty) return '';
-    return videos.first.url;
+  Widget _unitsSummaryWidget(ProjectData item) {
+    final entries = _unitEntries(item);
+    if (entries.isEmpty) return Text(LangKeys.notAvailable.tr(), style: AppStyles.black12Medium);
+    return Wrap(
+      spacing: 4.w,
+      runSpacing: 4.h,
+      children: entries.map((e) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
+          decoration: BoxDecoration(
+            color: e.color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(6.r),
+            border: Border.all(color: e.color.withValues(alpha: 0.3), width: 0.5),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(e.label, style: AppStyles.black12Medium.copyWith(fontSize: 8.sp, color: e.color.withValues(alpha: 0.8))),
+              Gap(2.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                decoration: BoxDecoration(
+                  color: e.color,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+                child: Text('${e.count}', style: AppStyles.black12Medium.copyWith(fontSize: 7.sp, color: Colors.white, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
   }
 
   Widget _iconCell(Widget? icon) {
@@ -92,13 +101,13 @@ class DeveloperProjectsTableData extends StatelessWidget {
     );
   }
 
-  DataColumn2 _col(String label, double width) {
+  DataColumn2 _col(String label, {ColumnSize size = ColumnSize.L}) {
     return DataColumn2(
       label: Padding(
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
       ),
-      fixedWidth: width.w,
+      size: size,
     );
   }
 
@@ -126,7 +135,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
           columnSpacing: 4.w,
           horizontalMargin: 12.w,
           minWidth: 2600.w,
-          dataRowHeight: 56.h,
+          dataRowHeight: 80.h,
           headingRowHeight: 48.h,
           headingTextStyle: _headerStyle,
           headingRowDecoration: BoxDecoration(
@@ -143,23 +152,22 @@ class DeveloperProjectsTableData extends StatelessWidget {
             verticalInside: BorderSide(color: Colors.grey.shade50, width: 0.5),
           ),
           columns: [
-            _col(LangKeys.projectName.tr(), 150),
-            _col("نطاق العقار", 100),
-            _col(LangKeys.projectType.tr(), 110),
-            _col(LangKeys.implementer.tr(), 120),
-            // _col(LangKeys.city.tr(), 90),
-            _col(LangKeys.area.tr(), 90),
-            _col(LangKeys.address.tr(), 150),
-            _col(LangKeys.designer.tr(), 100),
-            _col(LangKeys.operationManagement.tr(), 130),
-            _col(LangKeys.googleMapsLink.tr(), 100),
-            _col(LangKeys.unitsSummary.tr(), 220),
-            _col(LangKeys.projectVideo.tr(), 80),
-            _col(LangKeys.procedures.tr(), 100),
+            _col("المشروع", size: ColumnSize.S),
+            _col("النوع", size: ColumnSize.S),
+            _col(LangKeys.projectType.tr(), size: ColumnSize.S),
+            _col(LangKeys.implementer.tr(), size: ColumnSize.S),
+            _col(LangKeys.area.tr(), size: ColumnSize.S),
+            _col(LangKeys.address.tr(), size: ColumnSize.L),
+            _col(LangKeys.designer.tr(), size: ColumnSize.S),
+            _col("ادارة وصيانة التشغيل", size: ColumnSize.S),
+            _col(LangKeys.googleMapsLink.tr(), size: ColumnSize.S),
+            _col(LangKeys.unitsSummary.tr(), size: ColumnSize.L),
+            _col(LangKeys.projectVideo.tr(), size: ColumnSize.M),
+            _col(LangKeys.procedures.tr(), size: ColumnSize.S),
           ],
           rows: List<DataRow>.generate(
             data.length,
-                (index) {
+            (index) {
               var item = data[index];
               return DataRow(
                 color: index.isEven
@@ -170,14 +178,21 @@ class DeveloperProjectsTableData extends StatelessWidget {
                   DataCell(Text(BrokerTextHelper.projectTypeText(item.type), style: AppStyles.black12Medium)),
                   DataCell(_chipCell(BrokerTextHelper.projectTypeText(item.projectType))),
                   DataCell(Text(item.projectExecutor, style: AppStyles.black12Medium)),
-                  // DataCell(Text(_cityName(context, item.city), style: AppStyles.black12Medium)),
                   DataCell(Text(_areaName(context, item.area), style: AppStyles.black12Medium)),
-                  DataCell(Text(item.address, style: AppStyles.black12Medium)),
+                  DataCell(
+                    Text(
+                      item.address,
+                      style: AppStyles.black12Medium,
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   DataCell(Text(item.designer, style: AppStyles.black12Medium)),
                   DataCell(Text(item.managementTeam, style: AppStyles.black12Medium)),
                   DataCell(_iconCell(item.googleMapUrl.isNotEmpty ? _urlIcon(Icons.map, item.googleMapUrl) : null)),
-                  DataCell(Text(_unitsSummary(item), style: AppStyles.black12Medium.copyWith(fontSize: 9.sp))),
-                  DataCell(_iconCell(_buildVideoIcon(item.gallery))),
+                  DataCell(_unitsSummaryWidget(item)),
+                  DataCell(_galleryButton(context, item)),
                   DataCell(_ProceduresPopupCell(
                     project: item,
                     onModelsTap: onModelsTap,
@@ -200,6 +215,166 @@ class DeveloperProjectsTableData extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Text(text, style: AppStyles.black12Medium.copyWith(fontSize: 10.sp)),
+    );
+  }
+
+  Widget _galleryButton(BuildContext context, ProjectData item) {
+    final images = item.gallery.where((g) => g.type != 'video').toList();
+    final hasImages = images.isNotEmpty || item.logoImage.isNotEmpty;
+    return InkWell(
+      onTap: hasImages ? () => _showGalleryDialog(context, item) : null,
+      borderRadius: BorderRadius.circular(8.r),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: hasImages ? AppColors.primaryDark.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.photo_library_rounded, size: 16.sp, color: hasImages ? AppColors.primaryDark : Colors.grey),
+            Gap(4.w),
+            Text(
+              "عرض الصور",
+              style: AppStyles.black12Medium.copyWith(
+                fontSize: 10.sp,
+                color: hasImages ? AppColors.primaryDark : Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showGalleryDialog(BuildContext context, ProjectData item) {
+    final allItems = <({String url, String type})>[];
+    if (item.logoImage.isNotEmpty) {
+      allItems.add((url: item.logoImage, type: 'logo'));
+    }
+    for (var g in item.gallery) {
+      allItems.add((url: g.url, type: g.type));
+    }
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        final controller = PageController();
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          content: SizedBox(
+            width: 0.8.sw,
+            height: 0.75.sh,
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryDark,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(16.r), topRight: Radius.circular(16.r)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.photo_library_rounded, color: Colors.white, size: 20.sp),
+                      Gap(8.w),
+                      Expanded(
+                        child: Text(item.name, style: AppStyles.white16SemiBold, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      ),
+                      if (allItems.isNotEmpty)
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                          decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(12.r)),
+                          child: Text("${allItems.length}", style: AppStyles.white14Medium.copyWith(fontSize: 12.sp)),
+                        ),
+                      Gap(8.w),
+                      GestureDetector(
+                        onTap: () => Navigator.pop(ctx),
+                        child: Container(
+                          padding: EdgeInsets.all(4.r),
+                          decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(8.r)),
+                          child: const Icon(Icons.close_rounded, color: Colors.white, size: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: allItems.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.photo_size_select_actual_rounded, size: 64.h, color: Colors.white24),
+                              Gap(12.h),
+                              Text("لا توجد صور", style: AppStyles.white14Medium.copyWith(color: Colors.white54)),
+                            ],
+                          ),
+                        )
+                      : PageView.builder(
+                          controller: controller,
+                          itemCount: allItems.length,
+                          itemBuilder: (_, index) {
+                            final media = allItems[index];
+                            if (media.type == 'video') {
+                              return Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.videocam_rounded, size: 48.h, color: Colors.white54),
+                                    Gap(8.h),
+                                    Text("فيديو", style: AppStyles.white14Medium),
+                                  ],
+                                ),
+                              );
+                            }
+                            return Center(
+                              child: Image.network(
+                                media.url,
+                                fit: BoxFit.contain,
+                                loadingBuilder: (_, w, progress) {
+                                  if (progress == null) return w;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      value: progress.expectedTotalBytes != null
+                                          ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                                          : null,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (_, __, ___) => Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.broken_image_rounded, size: 48.h, color: Colors.white24),
+                                    Gap(8.h),
+                                    Text("تعذر تحميل الصورة", style: AppStyles.white14Medium.copyWith(color: Colors.white54, fontSize: 11.sp)),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+                if (allItems.length > 1)
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    decoration: const BoxDecoration(color: Colors.black87),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.swipe_left_rounded, color: Colors.white54, size: 16.h),
+                        Gap(6.w),
+                        Text("اسحب للمتابعة", style: AppStyles.white14Medium.copyWith(color: Colors.white54, fontSize: 11.sp)),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -230,19 +405,16 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
         tooltip: '',
         onSelected: (value) async {
           switch (value) {
-
-            case 'edit':
-              if(isBroker)return;
-              final updated = await showEditProjectDialog(context, widget.project);
-              if (updated != null) {
-                widget.onEditSave?.call(updated);
-              }
-              break;
+            // case 'edit':
+            //   final updated = await showEditProjectDialog(context, widget.project);
+            //   if (updated != null) {
+            //     widget.onEditSave?.call(updated);
+            //   }
+            //   break;
             case 'models':
               widget.onModelsTap?.call(widget.project.id);
               break;
           }
-
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),
@@ -267,24 +439,24 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
         ),
         itemBuilder: (context) => [
           if (!isBroker)
-          PopupMenuItem<String>(
-            value: 'edit',
-            height: 44.h,
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5.r),
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryDark.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6.r),
+            PopupMenuItem<String>(
+              value: 'edit',
+              height: 44.h,
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5.r),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryDark.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
+                    child: Icon(Icons.edit_rounded, size: 16.sp, color: AppColors.primaryDark),
                   ),
-                  child: Icon(Icons.edit_rounded, size: 16.sp, color: AppColors.primaryDark),
-                ),
-                Gap(10.w),
-                Text(LangKeys.edit.tr(), style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
-              ],
+                  Gap(10.w),
+                  Text(LangKeys.edit.tr(), style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
+                ],
+              ),
             ),
-          ),
           PopupMenuItem<String>(
             value: 'models',
             height: 44.h,
