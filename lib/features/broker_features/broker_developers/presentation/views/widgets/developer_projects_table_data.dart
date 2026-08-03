@@ -174,30 +174,31 @@ class DeveloperProjectsTableData extends StatelessWidget {
                     ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
                     : const WidgetStatePropertyAll(Colors.white),
                 cells: [
-                  DataCell(Text(item.name, style: AppStyles.black12Medium.copyWith(fontWeight: FontWeight.w600))),
-                  DataCell(Text(BrokerTextHelper.projectTypeText(item.type), style: AppStyles.black12Medium)),
-                  DataCell(_chipCell(BrokerTextHelper.projectTypeText(item.projectType))),
-                  DataCell(Text(item.projectExecutor, style: AppStyles.black12Medium)),
-                  DataCell(Text(_areaName(context, item.area), style: AppStyles.black12Medium)),
-                  DataCell(
-                    Text(
+                  DataCell(Center(child: Text(item.name, style: AppStyles.black12Medium.copyWith(fontWeight: FontWeight.w600)))),
+                  DataCell(Center(child: Text(BrokerTextHelper.projectTypeText(item.type), style: AppStyles.black12Medium))),
+                  DataCell(Center(child: _chipCell(BrokerTextHelper.projectTypeText(item.projectType)))),
+                  DataCell(Center(child: Text(item.projectExecutor, style: AppStyles.black12Medium))),
+                  DataCell(Center(child: Text(_areaName(context, item.area), style: AppStyles.black12Medium))),
+                  DataCell(Center(
+                    child: Text(
                       item.address,
                       style: AppStyles.black12Medium,
                       softWrap: true,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  DataCell(Text(item.designer, style: AppStyles.black12Medium)),
-                  DataCell(Text(item.managementTeam, style: AppStyles.black12Medium)),
+                  )),
+                  DataCell(Center(child: Text(item.designer, style: AppStyles.black12Medium))),
+                  DataCell(Center(child: Text(item.managementTeam, style: AppStyles.black12Medium))),
                   DataCell(_iconCell(item.googleMapUrl.isNotEmpty ? _urlIcon(Icons.map, item.googleMapUrl) : null)),
-                  DataCell(_unitsSummaryWidget(item)),
-                  DataCell(_galleryButton(context, item)),
-                  DataCell(_ProceduresPopupCell(
+                  DataCell(Center(child: _unitsSummaryWidget(item))),
+                  DataCell(Center(child: _galleryButton(context, item))),
+                  DataCell(Center(child: _ProceduresPopupCell(
                     project: item,
                     onModelsTap: onModelsTap,
                     onEditSave: onEditSave,
-                  )),
+                  ))),
                 ],
               );
             },

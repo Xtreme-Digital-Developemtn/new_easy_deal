@@ -3,6 +3,8 @@ import 'package:easy_deal/features/broker_features/broker_developers/data/models
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../../assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
+
 class DeveloperModelsTableData extends StatelessWidget {
   final List<ModelData> data;
   final void Function(ModelData item)? onRowTap;
@@ -75,15 +77,14 @@ class DeveloperModelsTableData extends StatelessWidget {
             verticalInside: BorderSide(color: Colors.grey.shade50, width: 0.5),
           ),
           columns: [
-            _col(LangKeys.modelCode.tr(), 120),
-            _col(LangKeys.dateOfCreation.tr(), 100),
+            _col("التاريخ", 100),
+            _col("كود النموذج", 120),
             _col(LangKeys.unitType.tr(), 110),
-            _col(LangKeys.subUnitType.tr(), 110),
             _col(LangKeys.numberOfUnits.tr(), 100),
-            _col(LangKeys.rooms.tr(), 80),
-            _col(LangKeys.bathrooms.tr(), 90),
             _col(LangKeys.floors.tr(), 90),
             _col(LangKeys.unitArea.tr(), 100),
+            _col(LangKeys.rooms.tr(), 80),
+            _col(LangKeys.bathrooms.tr(), 90),
             _col(LangKeys.landingArea.tr(), 100),
           ],
           rows: List<DataRow>.generate(
@@ -98,16 +99,15 @@ class DeveloperModelsTableData extends StatelessWidget {
                   onRowTap?.call(item);
                 },
                 cells: [
-                  DataCell(_chipCell(item.code?.toString() ?? '')),
-                  DataCell(_cell(item.createdAt?.substring(0, 10) ?? '')),
-                  DataCell(_cell(item.unitType?.toString() ?? '')),
-                  DataCell(_cell(item.subUnitType?.toString() ?? LangKeys.notAvailable.tr())),
-                  DataCell(_cell(item.numberOfUnits?.toString() ?? '')),
-                  DataCell(_cell(item.numberOfRooms?.toString() ?? '')),
-                  DataCell(_cell(item.numberOfBathrooms?.toString() ?? '')),
-                  DataCell(_cell(item.numberOfFloors?.toString() ?? '')),
-                  DataCell(_cell('${item.unitArea} m²')),
-                  DataCell(_cell('${item.landingArea} m²')),
+                  DataCell(Center(child: _cell(item.createdAt?.substring(0, 10) ?? ''))),
+                  DataCell(Center(child: _chipCell(item.code?.toString() ?? ''))),
+                  DataCell(Center(child: Text(BrokerTextHelper.unitTypeText(item.unitType)))),
+                  DataCell(Center(child: _cell(item.numberOfUnits?.toString() ?? ''))),
+                  DataCell(Center(child: _cell(item.numberOfRooms?.toString() ?? ''))),
+                  DataCell(Center(child: _cell(item.numberOfBathrooms?.toString() ?? ''))),
+                  DataCell(Center(child: _cell(item.numberOfFloors?.toString() ?? ''))),
+                  DataCell(Center(child: _cell('${item.unitArea} m²'))),
+                  DataCell(Center(child: _cell('${item.landingArea} m²'))),
                 ],
               );
             },

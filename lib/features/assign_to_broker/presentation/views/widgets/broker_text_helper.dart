@@ -211,4 +211,50 @@ class BrokerTextHelper {
         return type;
     }
   }
+
+  static String unitTypeText(String type) {
+    final key = type.toLowerCase().trim();
+    switch (key) {
+      case 'apartments':
+        return LangKeys.apartments.tr();
+      case 'duplexes':
+        return LangKeys.duplexes.tr();
+      case 'penthouses':
+        return LangKeys.penthouses.tr();
+      case 'ivilla':
+      case 'i_villa':
+        return LangKeys.iVilla.tr();
+      case 'studios':
+        return LangKeys.studios.tr();
+      case 'roofs':
+        return LangKeys.roofs.tr();
+      case 'basements':
+        return LangKeys.basements.tr();
+      case 'twinhouses':
+      case 'twin_houses':
+        return LangKeys.twinHouses.tr();
+      case 'townhouses':
+      case 'town_houses':
+        return LangKeys.townHouses.tr();
+      case 'standalonevillas':
+      case 'standalone_villas':
+        return LangKeys.standaloneVillas.tr();
+      case 'administrativeunits':
+      case 'administrative_units':
+        return LangKeys.administrativeUnits.tr();
+      case 'commercialunits':
+      case 'commercial_units':
+        return LangKeys.commercialStores.tr();
+      case 'medicalclinics':
+      case 'medical_clinics':
+        return LangKeys.medicalClinics.tr();
+      case 'pharmacies':
+        return LangKeys.pharmacies.tr();
+      case 'commercialadministrativebuilding':
+      case 'commercial_administrative_building':
+        return LangKeys.commercialAdministrativeBuildings.tr();
+      default:
+        return type;
+    }
+  }
 }
