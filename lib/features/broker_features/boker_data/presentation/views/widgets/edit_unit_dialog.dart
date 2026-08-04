@@ -22,6 +22,7 @@ const _kUnitTypes = [
   'medicalClinics',
   'pharmacies',
   'commercialAdministrativeBuilding',
+  'commercial_stores',
 ];
 
 const _kCompoundTypes = [
@@ -40,6 +41,27 @@ const _kCompoundTypes = [
   'medical',
   'mixed',
   'chalets_vacation_villas',
+];
+
+const _kDeliveryStatuses = [
+  'immediate_delivery',
+  'under_construction',
+  'ready_for_delivery',
+];
+
+const _kPaymentSystems = [
+  'cash',
+  'installment',
+  'mixed',
+];
+
+const _kViews = [
+  'street',
+  'garden',
+  'pool',
+  'sea',
+  'landmark',
+  'park',
 ];
 
 Future<void> showEditUnitDialog(BuildContext context, BrokerUnitData unit) {
@@ -72,9 +94,19 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
   late TextEditingController _bathroomsCtrl;
   late TextEditingController _notesCtrl;
   late TextEditingController _locationCtrl;
+  late TextEditingController _buildingNumberCtrl;
+  late TextEditingController _unitNumberCtrl;
+  late TextEditingController _floorCtrl;
+  late TextEditingController _finishingTypeCtrl;
+  late TextEditingController _mallNameCtrl;
+  late TextEditingController _floorNumberCtrl;
+  late TextEditingController _shopActivityCtrl;
   late String _selectedType;
   late String _selectedOperation;
   late String _selectedCompoundType;
+  late String _selectedDeliveryStatus;
+  late String _selectedPaymentSystem;
+  late String _selectedView;
 
   bool get _isValid => _ownerNameCtrl.text.trim().isNotEmpty;
 
@@ -91,6 +123,13 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     _bathroomsCtrl = TextEditingController(text: u.numberOfBathrooms?.toString() ?? '');
     _notesCtrl = TextEditingController(text: u.additionalDetails?.notes?.toString() ?? '');
     _locationCtrl = TextEditingController(text: u.location?.toString() ?? '');
+    _buildingNumberCtrl = TextEditingController(text: u.buildingNumber?.toString() ?? '');
+    _unitNumberCtrl = TextEditingController(text: u.unitNumber?.toString() ?? '');
+    _floorCtrl = TextEditingController(text: u.floor?.toString() ?? '');
+    _finishingTypeCtrl = TextEditingController(text: u.finishingType?.toString() ?? '');
+    _mallNameCtrl = TextEditingController(text: '');
+    _floorNumberCtrl = TextEditingController(text: '');
+    _shopActivityCtrl = TextEditingController(text: '');
 
     _selectedType = _kUnitTypes.contains(u.type?.toString().toLowerCase())
         ? u.type.toString().toLowerCase()
@@ -101,6 +140,18 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     _selectedCompoundType = _kCompoundTypes.contains(u.compoundType?.toString().toLowerCase())
         ? u.compoundType.toString().toLowerCase()
         : _kCompoundTypes.first;
+
+    _selectedDeliveryStatus = _kDeliveryStatuses.contains(u.deliveryStatus?.toString())
+        ? u.deliveryStatus.toString()
+        : _kDeliveryStatuses.first;
+
+    _selectedPaymentSystem = _kPaymentSystems.contains(u.paymentSystem?.toString())
+        ? u.paymentSystem.toString()
+        : _kPaymentSystems.first;
+
+    _selectedView = _kViews.contains(u.view?.toString())
+        ? u.view.toString()
+        : _kViews.first;
 
     _ownerNameCtrl.addListener(() => setState(() {}));
   }
@@ -116,6 +167,13 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     _bathroomsCtrl.dispose();
     _notesCtrl.dispose();
     _locationCtrl.dispose();
+    _buildingNumberCtrl.dispose();
+    _unitNumberCtrl.dispose();
+    _floorCtrl.dispose();
+    _finishingTypeCtrl.dispose();
+    _mallNameCtrl.dispose();
+    _floorNumberCtrl.dispose();
+    _shopActivityCtrl.dispose();
     super.dispose();
   }
 
@@ -133,16 +191,26 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
       'unitOperation': _selectedOperation,
       'location': _locationCtrl.text.trim(),
       'compoundType': _selectedCompoundType,
+      'buildingNumber': _buildingNumberCtrl.text.trim(),
+      'unitNumber': _unitNumberCtrl.text.trim(),
+      'floor': _floorCtrl.text.trim(),
+      'finishingType': _finishingTypeCtrl.text.trim(),
+      'deliveryStatus': _selectedDeliveryStatus,
+      'paymentSystem': _selectedPaymentSystem,
+      'view': _selectedView,
       'areaId': widget.unit.area?.id,
       'cityId': widget.unit.city?.id,
+      'subAreaId': widget.unit.subArea?.id,
       'additionalDetails': {
         'notes': _notesCtrl.text.trim(),
+        'mallName': _mallNameCtrl.text.trim(),
+        'floorNumber': int.tryParse(_floorNumberCtrl.text.trim()) ?? 0,
+        'shopActivity': _shopActivityCtrl.text.trim(),
       },
     };
 
     debugPrint('================ UPDATE BODY ================');
     debugPrint(data.toString());
-    debugPrint('compound_type = ${data['compound_type']}');
     debugPrint('=============================================');
 
     context.read<BrokerDataCubit>().updateUnit(
@@ -250,6 +318,117 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
                             ),
                           ),
                         ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'رقم المبنى',
+                              child: _textField(_buildingNumberCtrl),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: 'رقم الوحدة',
+                              child: _textField(_unitNumberCtrl),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'الدور',
+                              child: _textField(_floorCtrl),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: 'نوع التشطيب',
+                              child: _textField(_finishingTypeCtrl),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'حالة التسليم',
+                              child: _dropdownField(
+                                value: _selectedDeliveryStatus,
+                                items: _kDeliveryStatuses,
+                                onChanged: (v) => setState(() => _selectedDeliveryStatus = v!),
+                              ),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: 'نظام الدفع',
+                              child: _dropdownField(
+                                value: _selectedPaymentSystem,
+                                items: _kPaymentSystems,
+                                onChanged: (v) => setState(() => _selectedPaymentSystem = v!),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'الإطلالة',
+                              child: _dropdownField(
+                                value: _selectedView,
+                                items: _kViews,
+                                onChanged: (v) => setState(() => _selectedView = v!),
+                              ),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: 'المنطقة الفرعية',
+                              child: _textField(
+                                TextEditingController(text: widget.unit.subArea?.id?.toString() ?? ''),
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(20.h),
+                      _sectionTitle('تفاصيل إضافية'),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: 'اسم المول',
+                              child: _textField(_mallNameCtrl),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: 'رقم الدور',
+                              child: _textField(_floorNumberCtrl, keyboardType: TextInputType.number),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      _labeledField(
+                        label: 'نشاط المحل',
+                        child: _textField(_shopActivityCtrl),
                       ),
                       Gap(20.h),
                       _sectionTitle(LangKeys.unitArea.tr()),
