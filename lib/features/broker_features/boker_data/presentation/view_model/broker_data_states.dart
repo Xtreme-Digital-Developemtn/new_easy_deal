@@ -81,3 +81,15 @@ class SendReplyErrorState extends BrokerDataStates {
   final String error;
   SendReplyErrorState(this.error);
 }
+
+class UpdateUnitLoadingState extends BrokerDataStates {}
+
+class UpdateUnitSuccessState extends BrokerDataStates {
+  final dynamic model;
+  UpdateUnitSuccessState(this.model);
+}
+
+class UpdateUnitErrorState extends BrokerDataStates {
+  final String error;
+  UpdateUnitErrorState(this.error);
+}

@@ -106,4 +106,17 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
       },
     );
   }
+
+  Future<void> updateUnit({required int id, required Map<String, dynamic> data}) async {
+    emit(UpdateUnitLoadingState());
+    var result = await brokerDataRepo!.updateUnit(id: id, data: data);
+    return result.fold(
+      (failure) {
+        emit(UpdateUnitErrorState(failure.errMessage));
+      },
+      (data) async {
+        emit(UpdateUnitSuccessState(data));
+      },
+    );
+  }
 }

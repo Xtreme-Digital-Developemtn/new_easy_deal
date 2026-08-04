@@ -46,6 +46,7 @@ class EndPoints {
   static const String brokerRequest = 'broker/request';
   static const String models = 'model';
   static const String modelUnits = 'unit';
+  static const String updateUnit = 'unit/update-unit';
 
 
 }

@@ -13,4 +13,5 @@ abstract class BrokerDataRepo {
   Future<Either<Failure, dynamic>> updateStatusUnitSold({required int id});
   Future<Either<Failure, UnitMakeRequestModel>> makeRequest({required int id , required int brokerId});
   Future<Either<Failure, UnitSendReplyModel>> sendReply({required int brokerId, required int requestId, required int senderId, required List<int> unitIds});
+  Future<Either<Failure, dynamic>> updateUnit({required int id, required Map<String, dynamic> data});
 }

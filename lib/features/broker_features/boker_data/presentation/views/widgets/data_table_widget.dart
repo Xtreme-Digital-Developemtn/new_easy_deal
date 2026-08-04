@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../view_model/broker_data_cubit.dart';
 import 'advertisement_dialog.dart';
+import 'edit_unit_dialog.dart';
 
 class DataTableWidget extends StatelessWidget {
   const DataTableWidget({super.key, required this.data});
@@ -215,6 +216,15 @@ class DataTableWidget extends StatelessWidget {
         if (state is MakeRequestErrorState) {
           Toast.showErrorToast(msg: state.error, context: context);
         }
+
+        if (state is UpdateUnitSuccessState) {
+          Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
+          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
+        }
+
+        if (state is UpdateUnitErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
+        }
       },
       child: _buildTable(context),
     );
@@ -313,6 +323,9 @@ class DataTableWidget extends StatelessWidget {
             icon: const Icon(Icons.more_vert),
             onSelected: (value) {
               switch (value) {
+                case 'edit':
+                  showEditUnitDialog(context, item);
+                  break;
                 case 'details':
                   context.pushNamed(Routes.unitDetailsView, arguments: {"unitId": item.id});
                   break;
@@ -350,6 +363,16 @@ class DataTableWidget extends StatelessWidget {
             },
             itemBuilder: (context) {
               final items = <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'edit',
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit_outlined),
+                      SizedBox(width: 10),
+                      Text('تعديل'),
+                    ],
+                  ),
+                ),
                 const PopupMenuItem<String>(
                   value: 'details',
                   child: Row(

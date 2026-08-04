@@ -90,7 +90,11 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   }
 
   @override
-  Future<Either<Failure, UnitSendReplyModel>> sendReply({required int brokerId, required int requestId, required int senderId, required List<dynamic> unitIds})
+  Future<Either<Failure, UnitSendReplyModel>> sendReply({
+    required int brokerId,
+    required int requestId,
+    required int senderId,
+    required List<dynamic> unitIds})
   async {
     try {
       var data = FormData.fromMap({
@@ -105,6 +109,19 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
       );
       UnitSendReplyModel result = UnitSendReplyModel.fromJson(response.data);
       return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> updateUnit({required int id, required Map<String, dynamic> data}) async {
+    try {
+      var response = await apiService!.putData(
+        endPoint: '${EndPoints.updateUnit}/$id',
+        data: data,
+      );
+      return right(response.data);
     } catch (e) {
       return left(handleError(e));
     }

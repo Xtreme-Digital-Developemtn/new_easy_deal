@@ -1,0 +1,488 @@
+import 'package:easy_deal/core/utils/toast/toast.dart';
+import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
+import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
+import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
+import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
+import 'package:easy_deal/main_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+const _kUnitTypes = [
+  'apartments',
+  'duplexes',
+  'penthouses',
+  'iVilla',
+  'studios',
+  'roofs',
+  'basements',
+  'twinHouses',
+  'townHouses',
+  'standaloneVillas',
+  'administrativeUnits',
+  'commercialUnits',
+  'medicalClinics',
+  'pharmacies',
+  'commercialAdministrativeBuilding',
+];
+
+Future<void> showEditUnitDialog(BuildContext context, BrokerUnitData unit) {
+  return showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (_) => BlocProvider.value(
+      value: context.read<BrokerDataCubit>(),
+      child: EditUnitDialog(unit: unit),
+    ),
+  );
+}
+
+class EditUnitDialog extends StatefulWidget {
+  final BrokerUnitData unit;
+  const EditUnitDialog({super.key, required this.unit});
+
+  @override
+  State<EditUnitDialog> createState() => _EditUnitDialogState();
+}
+
+class _EditUnitDialogState extends State<EditUnitDialog> {
+  late TextEditingController _ownerNameCtrl;
+  late TextEditingController _ownerPhoneCtrl;
+  late TextEditingController _addressCtrl;
+  late TextEditingController _areaCtrl;
+  late TextEditingController _priceCtrl;
+  late TextEditingController _roomsCtrl;
+  late TextEditingController _bathroomsCtrl;
+  late TextEditingController _notesCtrl;
+  late TextEditingController _locationCtrl;
+  late String _selectedType;
+  late String _selectedOperation;
+
+  bool get _isValid => _ownerNameCtrl.text.trim().isNotEmpty;
+
+  @override
+  void initState() {
+    super.initState();
+    final u = widget.unit;
+    _ownerNameCtrl = TextEditingController(text: u.ownerName?.toString() ?? '');
+    _ownerPhoneCtrl = TextEditingController(text: u.ownerPhone?.toString() ?? '');
+    _addressCtrl = TextEditingController(text: u.detailedAddress?.toString() ?? '');
+    _areaCtrl = TextEditingController(text: u.unitArea?.toString() ?? '');
+    _priceCtrl = TextEditingController(text: u.totalPriceInCash?.toString() ?? '');
+    _roomsCtrl = TextEditingController(text: u.numberOfRooms?.toString() ?? '');
+    _bathroomsCtrl = TextEditingController(text: u.numberOfBathrooms?.toString() ?? '');
+    _notesCtrl = TextEditingController(text: u.additionalDetails?.notes?.toString() ?? '');
+    _locationCtrl = TextEditingController(text: u.location?.toString() ?? '');
+
+    _selectedType = _kUnitTypes.contains(u.type?.toString().toLowerCase())
+        ? u.type.toString().toLowerCase()
+        : _kUnitTypes.first;
+
+    _selectedOperation = u.unitOperation?.toString() ?? 'sale';
+
+    _ownerNameCtrl.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _ownerNameCtrl.dispose();
+    _ownerPhoneCtrl.dispose();
+    _addressCtrl.dispose();
+    _areaCtrl.dispose();
+    _priceCtrl.dispose();
+    _roomsCtrl.dispose();
+    _bathroomsCtrl.dispose();
+    _notesCtrl.dispose();
+    _locationCtrl.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    if (!_isValid) return;
+    final data = <String, dynamic>{
+      'ownerName': _ownerNameCtrl.text.trim(),
+      'ownerPhone': _ownerPhoneCtrl.text.trim(),
+      'type': _selectedType,
+      'unitArea': double.tryParse(_areaCtrl.text.trim()) ?? 0,
+      'totalPriceInCash': double.tryParse(_priceCtrl.text.trim()) ?? 0,
+      'numberOfRooms': int.tryParse(_roomsCtrl.text.trim()) ?? 0,
+      'numberOfBathrooms': int.tryParse(_bathroomsCtrl.text.trim()) ?? 0,
+      'detailedAddress': _addressCtrl.text.trim(),
+      'unitOperation': _selectedOperation,
+      'location': _locationCtrl.text.trim(),
+      'additionalDetails': {
+        'notes': _notesCtrl.text.trim(),
+      },
+    };
+    context.read<BrokerDataCubit>().updateUnit(id: widget.unit.id, data: data);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<BrokerDataCubit, BrokerDataStates>(
+      listener: (context, state) {
+        if (state is UpdateUnitSuccessState) {
+          Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
+          Navigator.of(context).pop();
+          context.read<BrokerDataCubit>().getBrokerUnits(
+            brokerId: CacheHelper.getData(key: "brokerId"),
+            isRefresh: true,
+          );
+        } else if (state is UpdateUnitErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
+        }
+      },
+      builder: (context, state) {
+        final isLoading = state is UpdateUnitLoadingState;
+        return _buildSheet(context, isLoading);
+      },
+    );
+  }
+
+  Widget _buildSheet(BuildContext context, bool isLoading) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.85,
+      minChildSize: 0.5,
+      maxChildSize: 0.95,
+      builder: (context, scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+          ),
+          child: Column(
+            children: [
+              _buildHandle(),
+              _buildHeader(context),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _sectionTitle(LangKeys.ownerName.tr()),
+                      _labeledField(
+                        label: LangKeys.ownerName.tr(),
+                        required: true,
+                        child: _textField(_ownerNameCtrl),
+                      ),
+                      Gap(16.h),
+                      _labeledField(
+                        label: LangKeys.phoneNumber.tr(),
+                        child: _textField(_ownerPhoneCtrl, keyboardType: TextInputType.phone),
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.unitType.tr(),
+                              child: _dropdownField(
+                                value: _selectedType,
+                                items: _kUnitTypes,
+                                onChanged: (v) => setState(() => _selectedType = v!),
+                              ),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.transactionType.tr(),
+                              child: _dropdownField(
+                                value: _selectedOperation,
+                                items: const ['sale', 'rent'],
+                                onChanged: (v) => setState(() => _selectedOperation = v!),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(20.h),
+                      _sectionTitle(LangKeys.unitArea.tr()),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.unitArea.tr(),
+                              child: _textField(_areaCtrl, keyboardType: TextInputType.number),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.price.tr(),
+                              child: _textField(_priceCtrl, keyboardType: TextInputType.number),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.rooms.tr(),
+                              child: _textField(_roomsCtrl, keyboardType: TextInputType.number),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.bathrooms.tr(),
+                              child: _textField(_bathroomsCtrl, keyboardType: TextInputType.number),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(20.h),
+                      _sectionTitle(LangKeys.address.tr()),
+                      _labeledField(
+                        label: LangKeys.address.tr(),
+                        child: _textField(_addressCtrl),
+                      ),
+                      Gap(16.h),
+                      _labeledField(
+                        label: LangKeys.locationLink.tr(),
+                        child: _textField(_locationCtrl),
+                      ),
+                      Gap(20.h),
+                      _sectionTitle(LangKeys.notes.tr()),
+                      _labeledField(
+                        label: LangKeys.notes.tr(),
+                        child: _textField(_notesCtrl, maxLines: 3),
+                      ),
+                      Gap(24.h),
+                    ],
+                  ),
+                ),
+              ),
+              _buildFooter(context, isLoading),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHandle() {
+    return Padding(
+      padding: EdgeInsets.only(top: 10.h, bottom: 4.h),
+      child: Container(
+        width: 40.w,
+        height: 4.h,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(2.r),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20.w, 8.h, 12.w, 8.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            LangKeys.edit.tr(),
+            style: AppStyles.black14SemiBold.copyWith(
+              fontSize: 18.sp,
+              color: AppColors.primaryDark,
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              width: 36.w,
+              height: 36.h,
+              decoration: BoxDecoration(
+                color: AppColors.primaryDark.withValues(alpha: 0.08),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.close, size: 18.sp, color: AppColors.primaryDark),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _sectionTitle(String title) {
+    return Padding(
+      padding: EdgeInsets.only(top: 12.h, bottom: 8.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title.toUpperCase(),
+            style: AppStyles.black12Medium.copyWith(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+              color: AppColors.primaryDark,
+            ),
+          ),
+          Gap(8.h),
+          Divider(color: AppColors.grayLight.withValues(alpha: 0.6), height: 1),
+        ],
+      ),
+    );
+  }
+
+  Widget _labeledField({required String label, required Widget child, bool required = false}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: RichText(
+            text: TextSpan(
+              text: label,
+              style: AppStyles.black12Medium.copyWith(fontSize: 13.sp, color: Colors.black87),
+              children: required
+                  ? [const TextSpan(text: ' *', style: TextStyle(color: Colors.redAccent))]
+                  : [],
+            ),
+          ),
+        ),
+        child,
+      ],
+    );
+  }
+
+  Widget _textField(
+    TextEditingController controller, {
+    TextInputType keyboardType = TextInputType.text,
+    int maxLines = 1,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      maxLines: maxLines,
+      style: AppStyles.black12Medium.copyWith(fontSize: 14.sp),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.primaryDark, width: 1.4),
+        ),
+      ),
+    );
+  }
+
+  Widget _dropdownField({
+    required String value,
+    required List<String> items,
+    required void Function(String?) onChanged,
+  }) {
+    return DropdownButtonFormField<String>(
+      value: items.contains(value) ? value : items.first,
+      onChanged: onChanged,
+      isExpanded: true,
+      style: AppStyles.black12Medium.copyWith(fontSize: 13.sp),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.8)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.primaryDark, width: 1.4),
+        ),
+      ),
+      items: items.map((v) {
+        return DropdownMenuItem<String>(
+          value: v,
+          child: Text(
+            BrokerTextHelper.unitTypeText(v),
+            style: AppStyles.black12Medium.copyWith(fontSize: 13.sp),
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildFooter(BuildContext context, bool isLoading) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        20.w,
+        12.h,
+        20.w,
+        12.h + MediaQuery.of(context).viewInsets.bottom.clamp(0, 20),
+      ),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: AppColors.grayLight.withValues(alpha: 0.6))),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: isLoading ? null : () => Navigator.of(context).pop(),
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 14.h),
+                side: BorderSide(color: AppColors.primaryDark),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+              child: Text(
+                LangKeys.cancel.tr(),
+                style: AppStyles.black14SemiBold.copyWith(
+                  color: AppColors.primaryDark,
+                  fontSize: 15.sp,
+                ),
+              ),
+            ),
+          ),
+          Gap(12.w),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: (_isValid && !isLoading) ? _submit : null,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 14.h),
+                backgroundColor: AppColors.primaryDark,
+                disabledBackgroundColor: Colors.grey.shade300,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                elevation: 0,
+              ),
+              child: isLoading
+                  ? SizedBox(
+                      width: 18.w,
+                      height: 18.w,
+                      child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    )
+                  : Text(
+                      LangKeys.save.tr(),
+                      style: AppStyles.black14SemiBold.copyWith(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                      ),
+                    ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
