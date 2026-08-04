@@ -78,7 +78,16 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
           "modelId": modelId,
         },
       );
-      BrokerUnitsModel result = BrokerUnitsModel.fromJson(response.data);
+      final data = response.data;
+      Map<String, dynamic> json;
+      if (data is Map<String, dynamic>) {
+        json = data;
+      } else if (data is List) {
+        json = {"status": "success", "data": data, "count": data.length};
+      } else {
+        json = {"status": "success", "data": [], "count": 0};
+      }
+      BrokerUnitsModel result = BrokerUnitsModel.fromJson(json);
       return right(result);
     } catch (e) {
       return left(handleError(e));

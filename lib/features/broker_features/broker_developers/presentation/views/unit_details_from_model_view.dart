@@ -104,11 +104,11 @@ class _UnitDetailsBody extends StatelessWidget {
       children: [
         // ── صورة + نوع + موقع ──────────────────────────────────────────
         UnitImageTypeLocation(
-          image: unit.diagram.isNotEmpty ? unit.diagram : null,
+          image: unit.diagram != null && unit.diagram.toString().isNotEmpty ? unit.diagram : null,
           apartment: unit.type,
-          city: isAr ? unit.city.nameAr : unit.city.nameEn,
-          area: isAr ? unit.area.nameAr : unit.area.nameEn,
-          subArea: isAr ? unit.subArea.nameAr : unit.subArea.nameEn,
+          city: isAr ? unit.city?.nameAr?.toString() ?? '' : unit.city?.nameEn?.toString() ?? '',
+          area: isAr ? unit.area?.nameAr?.toString() ?? '' : unit.area?.nameEn?.toString() ?? '',
+          subArea: isAr ? unit.subArea?.nameAr?.toString() ?? '' : unit.subArea?.nameEn?.toString() ?? '',
         ),
         Gap(20.h),
 
@@ -194,7 +194,7 @@ class _UnitDetailsBody extends StatelessWidget {
             ),
             _InfoRow(
               label: LangKeys.paymentSystem.tr(),
-              value: unit.totalPriceInInstallment > 0
+              value: (unit.totalPriceInInstallment ?? 0) > 0
                   ? '${unit.totalPriceInInstallment} ${LangKeys.egp.tr()}'
                   : na,
             ),

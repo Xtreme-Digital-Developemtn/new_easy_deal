@@ -1,173 +1,3 @@
-// class BrokerUnitsModel {
-//   String? status;
-//   String? message;
-//   List<BrokerUnitData>? data;
-//   int? count;
-//
-//   BrokerUnitsModel({this.status, this.message, this.data, this.count});
-//
-//   BrokerUnitsModel.fromJson(Map<String, dynamic> json) {
-//     status = json["status"];
-//     message = json["message"];
-//     data = json["data"] == null ? null : (json["data"] as List).map((e) => BrokerUnitData.fromJson(e)).toList();
-//     count = json["count"];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> _data = <String, dynamic>{};
-//     _data["status"] = status;
-//     _data["message"] = message;
-//     if (data != null) {
-//       _data["data"] = data?.map((e) => e.toJson()).toList();
-//     }
-//     _data["count"] = count;
-//     return _data;
-//   }
-// }
-//
-// class BrokerUnitData {
-//   int? id;
-//   String? type;
-//   int? unitArea;
-//   String? buildingNumber;
-//   String? unitNumber;
-//   String? floor;
-//   String? ownerPhone;
-//   String? ownerName;
-//   String? detailedAddress;
-//   String? dailyRent;
-//   String? monthlyRent;
-//   String? deliveryStatus;
-//   int? numberOfRooms;
-//   int? numberOfBathrooms;
-//   String? finishingType;
-//   String? unitOperation;
-//   String? compoundType;
-//   String? status;
-//   String? view;
-//   String? paymentSystem;
-//   int? totalPriceInCash;
-//   int? totalPriceInInstallment;
-//   int? pricePerMeterInCash;
-//   int? pricePerMeterInInstallment;
-//   int? isArchived;
-//   List<String>? otherAccessories;
-//   String? description;
-//   String? diagram;
-//   String? location;
-//   String? city;
-//   String? area;
-//   String? notes;
-//
-//   BrokerUnitData({
-//     this.id,
-//     this.type,
-//     this.unitArea,
-//     this.buildingNumber,
-//     this.unitNumber,
-//     this.floor,
-//     this.ownerPhone,
-//     this.ownerName,
-//     this.detailedAddress,
-//     this.dailyRent,
-//     this.monthlyRent,
-//     this.deliveryStatus,
-//     this.numberOfRooms,
-//     this.numberOfBathrooms,
-//     this.finishingType,
-//     this.unitOperation,
-//     this.compoundType,
-//     this.status,
-//     this.view,
-//     this.paymentSystem,
-//     this.totalPriceInCash,
-//     this.totalPriceInInstallment,
-//     this.pricePerMeterInCash,
-//     this.pricePerMeterInInstallment,
-//     this.isArchived,
-//     this.otherAccessories,
-//     this.description,
-//     this.diagram,
-//     this.location,
-//     this.city,
-//     this.area,
-//     this.notes,
-//   });
-//
-//   BrokerUnitData.fromJson(Map<String, dynamic> json) {
-//     id = json["id"];
-//     type = json["type"];
-//     unitArea = json["unitArea"];
-//     buildingNumber = json["buildingNumber"];
-//     unitNumber = json["unitNumber"];
-//     floor = json["floor"];
-//     ownerPhone = json["ownerPhone"];
-//     ownerName = json["ownerName"];
-//     detailedAddress = json["detailedAddress"];
-//     dailyRent = json["dailyRent"]?.toString();
-//     monthlyRent = json["monthlyRent"]?.toString();
-//     deliveryStatus = json["deliveryStatus"];
-//     numberOfRooms = json["numberOfRooms"];
-//     numberOfBathrooms = json["numberOfBathrooms"];
-//     finishingType = json["finishingType"];
-//     unitOperation = json["unitOperation"];
-//     compoundType = json["compoundType"];
-//     status = json["status"];
-//     view = json["view"];
-//     paymentSystem = json["paymentSystem"];
-//     totalPriceInCash = json["totalPriceInCash"];
-//     totalPriceInInstallment = json["totalPriceInInstallment"];
-//     pricePerMeterInCash = json["pricePerMeterInCash"];
-//     pricePerMeterInInstallment = json["pricePerMeterInInstallment"];
-//     isArchived = json["isArchived"];
-//     otherAccessories = json["otherAccessories"] == null ? null : List<String>.from(json["otherAccessories"]);
-//     description = json["description"];
-//     diagram = json["diagram"];
-//     location = json["location"];
-//     city = json["city"] is String ? json["city"] : (json["city"] as Map?)?["nameEn"] ?? (json["city"] as Map?)?["nameAr"];
-//     area = json["area"] is String ? json["area"] : (json["area"] as Map?)?["nameEn"] ?? (json["area"] as Map?)?["nameAr"];
-//     notes = (json["additionalDetails"] as Map?)?["notes"];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> _data = <String, dynamic>{};
-//     _data["id"] = id;
-//     _data["type"] = type;
-//     _data["unitArea"] = unitArea;
-//     _data["buildingNumber"] = buildingNumber;
-//     _data["unitNumber"] = unitNumber;
-//     _data["floor"] = floor;
-//     _data["ownerPhone"] = ownerPhone;
-//     _data["ownerName"] = ownerName;
-//     _data["detailedAddress"] = detailedAddress;
-//     _data["dailyRent"] = dailyRent;
-//     _data["monthlyRent"] = monthlyRent;
-//     _data["deliveryStatus"] = deliveryStatus;
-//     _data["numberOfRooms"] = numberOfRooms;
-//     _data["numberOfBathrooms"] = numberOfBathrooms;
-//     _data["finishingType"] = finishingType;
-//     _data["unitOperation"] = unitOperation;
-//     _data["compoundType"] = compoundType;
-//     _data["status"] = status;
-//     _data["view"] = view;
-//     _data["paymentSystem"] = paymentSystem;
-//     _data["totalPriceInCash"] = totalPriceInCash;
-//     _data["totalPriceInInstallment"] = totalPriceInInstallment;
-//     _data["pricePerMeterInCash"] = pricePerMeterInCash;
-//     _data["pricePerMeterInInstallment"] = pricePerMeterInInstallment;
-//     _data["isArchived"] = isArchived;
-//     _data["otherAccessories"] = otherAccessories;
-//     _data["description"] = description;
-//     _data["diagram"] = diagram;
-//     _data["location"] = location;
-//     _data["city"] = city;
-//     _data["area"] = area;
-//     _data["notes"] = notes;
-//     return _data;
-//   }
-// }
-
-
 // broker_units_model.dart
 
 class BrokerUnitsModel {
@@ -179,12 +9,22 @@ class BrokerUnitsModel {
   BrokerUnitsModel({this.status, this.message, this.data, this.count});
 
   BrokerUnitsModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    data = json["data"] == null
-        ? null
-        : (json["data"] as List).map((e) => BrokerUnitData.fromJson(e)).toList();
-    count = json["count"];
+    status = json["status"]?.toString();
+    message = json["message"]?.toString();
+    count = json["count"] is int ? json["count"] : int.tryParse(json["count"]?.toString() ?? '');
+
+    final rawData = json["data"];
+    if (rawData is List) {
+      data = rawData.map((e) => BrokerUnitData.fromJson(e is Map ? Map<String, dynamic>.from(e) : {})).toList();
+    } else if (rawData is Map<String, dynamic> && rawData.containsKey("data")) {
+      final innerList = rawData["data"];
+      if (innerList is List) {
+        data = innerList.map((e) => BrokerUnitData.fromJson(e is Map ? Map<String, dynamic>.from(e) : {})).toList();
+      }
+      count = rawData["count"] is int ? rawData["count"] : int.tryParse(rawData["count"]?.toString() ?? '');
+    } else {
+      data = [];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -233,10 +73,10 @@ class BrokerUnitData {
   dynamic pricePerMeterInCash;
   dynamic totalPriceInInstallment;
   dynamic totalPriceInCash;
-  List<dynamic>? advertisers;
+  List<Advertiser>? advertisers;
   dynamic isArchived;
   AdditionalDetails? additionalDetails;
-  List<dynamic>? otherAccessories;
+  List<String>? otherAccessories;
   dynamic modelId;
   dynamic brokerId;
   Broker? broker;
@@ -251,7 +91,7 @@ class BrokerUnitData {
   dynamic createdAt;
   dynamic updatedAt;
   List<dynamic>? gallery;
-  List<dynamic>? replyLog;
+  List<ReplyLog>? replyLog;
 
   BrokerUnitData({
     this.id,
@@ -309,67 +149,93 @@ class BrokerUnitData {
   });
 
   BrokerUnitData.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    modelCode = json["modelCode"];
-    type = json["type"];
-    unitArea = json["unitArea"];
-    buildingNumber = json["buildingNumber"];
-    unitNumber = json["unitNumber"];
-    floor = json["floor"];
-    area = json["area"] != null ? Area.fromJson(json["area"]) : null;
-    city = json["city"] != null ? City.fromJson(json["city"]) : null;
-    subArea = json["subArea"] != null ? SubArea.fromJson(json["subArea"]) : null;
-    otherSubAreas = json["otherSubAreas"] != null
-        ? (json["otherSubAreas"] as List).map((e) => OtherSubArea.fromJson(e)).toList()
+    id = json.containsKey("id") ? json["id"] : null;
+    modelCode = json.containsKey("modelCode") ? json["modelCode"] : null;
+    type = json.containsKey("type") ? json["type"] : null;
+    unitArea = json.containsKey("unitArea") ? json["unitArea"] : null;
+    buildingNumber = json.containsKey("buildingNumber") ? json["buildingNumber"] : null;
+    unitNumber = json.containsKey("unitNumber") ? json["unitNumber"] : null;
+    floor = json.containsKey("floor") ? json["floor"] : null;
+
+    area = json.containsKey("area") && json["area"] != null
+        ? Area.fromJson(json["area"] is Map ? Map<String, dynamic>.from(json["area"]) : {})
         : null;
-    ownerPhone = json["ownerPhone"];
-    ownerName = json["ownerName"];
-    detailedAddress = json["detailedAddress"];
-    dailyRent = json["dailyRent"];
-    monthlyRent = json["monthlyRent"];
-    deliveryStatus = json["deliveryStatus"];
-    numberOfRooms = json["numberOfRooms"];
-    numberOfBathrooms = json["numberOfBathrooms"];
-    finishingType = json["finishingType"];
-    unitOperation = json["unitOperation"];
-    compoundType = json["compoundType"];
-    status = json["status"];
-    view = json["view"];
-    deliveryDate = json["deliveryDate"];
-    diagram = json["diagram"];
-    locationInMasterPlan = json["locationInMasterPlan"];
-    location = json["location"];
-    paymentSystem = json["paymentSystem"];
-    pricePerMeterInInstallment = json["pricePerMeterInInstallment"];
-    pricePerMeterInCash = json["pricePerMeterInCash"];
-    totalPriceInInstallment = json["totalPriceInInstallment"];
-    totalPriceInCash = json["totalPriceInCash"];
-    advertisers = json["advertisers"] != null
-        ? (json["advertisers"] as List).map((e) => Advertiser.fromJson(e)).toList()
+    city = json.containsKey("city") && json["city"] != null
+        ? City.fromJson(json["city"] is Map ? Map<String, dynamic>.from(json["city"]) : {})
         : null;
-    isArchived = json["isArchived"];
-    additionalDetails = json["additionalDetails"] != null
-        ? AdditionalDetails.fromJson(json["additionalDetails"])
+    subArea = json.containsKey("subArea") && json["subArea"] != null
+        ? SubArea.fromJson(json["subArea"] is Map ? Map<String, dynamic>.from(json["subArea"]) : {})
         : null;
-    otherAccessories = json["otherAccessories"] != null
+
+    otherSubAreas = json.containsKey("otherSubAreas") && json["otherSubAreas"] != null
+        ? (json["otherSubAreas"] as List?)?.map((e) => OtherSubArea.fromJson(e is Map ? Map<String, dynamic>.from(e) : {})).toList()
+        : null;
+
+    ownerPhone = json.containsKey("ownerPhone") ? json["ownerPhone"] : null;
+    ownerName = json.containsKey("ownerName") ? json["ownerName"] : null;
+    detailedAddress = json.containsKey("detailedAddress") ? json["detailedAddress"] : null;
+    dailyRent = json.containsKey("dailyRent") ? json["dailyRent"] : null;
+    monthlyRent = json.containsKey("monthlyRent") ? json["monthlyRent"] : null;
+    deliveryStatus = json.containsKey("deliveryStatus") ? json["deliveryStatus"] : null;
+    numberOfRooms = json.containsKey("numberOfRooms") ? json["numberOfRooms"] : null;
+    numberOfBathrooms = json.containsKey("numberOfBathrooms") ? json["numberOfBathrooms"] : null;
+    finishingType = json.containsKey("finishingType") ? json["finishingType"] : null;
+    unitOperation = json.containsKey("unitOperation") ? json["unitOperation"] : null;
+    compoundType = json.containsKey("compoundType") ? json["compoundType"] : null;
+    status = json.containsKey("status") ? json["status"] : null;
+    view = json.containsKey("view") ? json["view"] : null;
+    deliveryDate = json.containsKey("deliveryDate") ? json["deliveryDate"] : null;
+    diagram = json.containsKey("diagram") ? json["diagram"] : null;
+    locationInMasterPlan = json.containsKey("locationInMasterPlan") ? json["locationInMasterPlan"] : null;
+    location = json.containsKey("location") ? json["location"] : null;
+    paymentSystem = json.containsKey("paymentSystem") ? json["paymentSystem"] : null;
+    pricePerMeterInInstallment = json.containsKey("pricePerMeterInInstallment") ? json["pricePerMeterInInstallment"] : null;
+    pricePerMeterInCash = json.containsKey("pricePerMeterInCash") ? json["pricePerMeterInCash"] : null;
+    totalPriceInInstallment = json.containsKey("totalPriceInInstallment") ? json["totalPriceInInstallment"] : null;
+    totalPriceInCash = json.containsKey("totalPriceInCash") ? json["totalPriceInCash"] : null;
+
+    advertisers = json.containsKey("advertisers") && json["advertisers"] != null
+        ? (json["advertisers"] as List?)?.map((e) => Advertiser.fromJson(e is Map ? Map<String, dynamic>.from(e) : {})).toList()
+        : null;
+
+    isArchived = json.containsKey("isArchived") ? json["isArchived"] : null;
+
+    additionalDetails = json.containsKey("additionalDetails") && json["additionalDetails"] != null
+        ? AdditionalDetails.fromJson(json["additionalDetails"] is Map ? Map<String, dynamic>.from(json["additionalDetails"]) : {})
+        : null;
+
+    otherAccessories = json.containsKey("otherAccessories") && json["otherAccessories"] != null
         ? List<String>.from(json["otherAccessories"])
         : null;
-    modelId = json["modelId"];
-    brokerId = json["brokerId"];
-    broker = json["broker"] != null ? Broker.fromJson(json["broker"]) : null;
-    brokerUserId = json["broker_user_id"];
-    brokerUserFullName = json["broker_user_full_name"];
-    brokerUserEmail = json["broker_user_email"];
-    brokerUserPhone = json["broker_user_phone"];
-    brokerUserImage = json["broker_user_image"];
-    projectName = json["projectName"];
-    developerName = json["developerName"];
-    project = json["project"];
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
-    gallery = json["gallery"] ?? [];
-    replyLog = json["replyLog"] != null
-        ? (json["replyLog"] as List).map((e) => ReplyLog.fromJson(e)).toList()
+
+    modelId = json.containsKey("modelId") ? json["modelId"] : null;
+    brokerId = json.containsKey("brokerId") ? json["brokerId"] : null;
+
+    broker = json.containsKey("broker") && json["broker"] != null
+        ? Broker.fromJson(json["broker"] is Map ? Map<String, dynamic>.from(json["broker"]) : {})
+        : null;
+
+    brokerUserId = json.containsKey("broker_user_id") ? json["broker_user_id"] : null;
+    brokerUserFullName = json.containsKey("broker_user_full_name") ? json["broker_user_full_name"] : null;
+    brokerUserEmail = json.containsKey("broker_user_email") ? json["broker_user_email"] : null;
+    brokerUserPhone = json.containsKey("broker_user_phone") ? json["broker_user_phone"] : null;
+    brokerUserImage = json.containsKey("broker_user_image") ? json["broker_user_image"] : null;
+    projectName = json.containsKey("projectName") ? json["projectName"] : null;
+    developerName = json.containsKey("developerName") ? json["developerName"] : null;
+    project = json.containsKey("project") ? json["project"] : null;
+    createdAt = json.containsKey("createdAt") ? json["createdAt"] : null;
+    updatedAt = json.containsKey("updatedAt") ? json["updatedAt"] : null;
+    gallery = json.containsKey("gallery") && json["gallery"] != null
+        ? List<dynamic>.from(json["gallery"])
+        : null;
+
+    replyLog = json.containsKey("replyLog") && json["replyLog"] != null
+        ? (json["replyLog"] as List?)?.map((e) {
+      if (e is Map) {
+        return ReplyLog.fromJson(Map<String, dynamic>.from(e));
+      }
+      return ReplyLog.fromJson({});
+    }).toList()
         : null;
   }
 
@@ -439,7 +305,9 @@ class BrokerUnitData {
     _data["project"] = project;
     _data["createdAt"] = createdAt;
     _data["updatedAt"] = updatedAt;
-    _data["gallery"] = gallery;
+    if (gallery != null) {
+      _data["gallery"] = gallery;
+    }
     if (replyLog != null) {
       _data["replyLog"] = replyLog?.map((e) => e.toJson()).toList();
     }
@@ -448,9 +316,14 @@ class BrokerUnitData {
 
   // Helper getters
   String get fullAddress {
-    String areaName = area?.nameEn ?? '';
-    String cityName = city?.nameEn ?? '';
-    return areaName.isNotEmpty && cityName.isNotEmpty ? '$areaName, $cityName' : cityName;
+    String areaName = area?.nameEn?.toString() ?? '';
+    String cityName = city?.nameEn?.toString() ?? '';
+    if (areaName.isNotEmpty && cityName.isNotEmpty) {
+      return '$areaName, $cityName';
+    } else if (cityName.isNotEmpty) {
+      return cityName;
+    }
+    return '';
   }
 
   String get priceDisplay {
@@ -461,20 +334,24 @@ class BrokerUnitData {
   }
 
   String get unitInfo {
-    return '$type • $unitArea m² • $numberOfRooms rooms';
+    String typeStr = type?.toString() ?? 'Unit';
+    String areaStr = unitArea?.toString() ?? '0';
+    String roomsStr = numberOfRooms?.toString() ?? '0';
+    return '$typeStr • $areaStr m² • $roomsStr rooms';
   }
 
-  bool get isAvailable => status == 'available';
-  bool get isSold => status == 'sold';
-  bool get isReserved => status == 'reserved';
-  bool get isNew => status == 'new';
+  bool get isAvailable => status?.toString() == 'available';
+  bool get isSold => status?.toString() == 'sold';
+  bool get isReserved => status?.toString() == 'reserved';
+  bool get isNew => status?.toString() == 'new';
   bool get hasAdvertisers => advertisers != null && advertisers!.isNotEmpty;
   bool get hasReplyLog => replyLog != null && replyLog!.isNotEmpty;
   bool get hasGallery => gallery != null && gallery!.isNotEmpty;
-  bool get hasLocation => location != null && location!.isNotEmpty;
-  bool get hasDeliveryDate => deliveryDate != null && deliveryDate!.isNotEmpty;
+  bool get hasLocation => location != null && location!.toString().isNotEmpty;
+  bool get hasDeliveryDate => deliveryDate != null && deliveryDate!.toString().isNotEmpty;
 }
 
+// باقي الكلاسات بنفس النمط مع التحويل الآمن للـ Map...
 class Area {
   dynamic id;
   dynamic nameEn;
@@ -493,12 +370,12 @@ class Area {
   });
 
   Area.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-    cityId = json["city_id"];
-    createdAt = json["created_at"];
-    updatedAt = json["updated_at"];
+    id = json.containsKey("id") ? json["id"] : null;
+    nameEn = json.containsKey("name_en") ? json["name_en"] : null;
+    nameAr = json.containsKey("name_ar") ? json["name_ar"] : null;
+    cityId = json.containsKey("city_id") ? json["city_id"] : null;
+    createdAt = json.containsKey("created_at") ? json["created_at"] : null;
+    updatedAt = json.containsKey("updated_at") ? json["updated_at"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -529,11 +406,11 @@ class City {
   });
 
   City.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-    createdAt = json["created_at"];
-    updatedAt = json["updated_at"];
+    id = json.containsKey("id") ? json["id"] : null;
+    nameEn = json.containsKey("name_en") ? json["name_en"] : null;
+    nameAr = json.containsKey("name_ar") ? json["name_ar"] : null;
+    createdAt = json.containsKey("created_at") ? json["created_at"] : null;
+    updatedAt = json.containsKey("updated_at") ? json["updated_at"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -565,12 +442,12 @@ class SubArea {
   });
 
   SubArea.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
-    areaId = json["area_id"];
-    createdAt = json["created_at"];
-    updatedAt = json["updated_at"];
+    id = json.containsKey("id") ? json["id"] : null;
+    nameEn = json.containsKey("name_en") ? json["name_en"] : null;
+    nameAr = json.containsKey("name_ar") ? json["name_ar"] : null;
+    areaId = json.containsKey("area_id") ? json["area_id"] : null;
+    createdAt = json.containsKey("created_at") ? json["created_at"] : null;
+    updatedAt = json.containsKey("updated_at") ? json["updated_at"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -597,9 +474,9 @@ class OtherSubArea {
   });
 
   OtherSubArea.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    name = json["name"];
-    subAreaId = json["subAreaId"];
+    id = json.containsKey("id") ? json["id"] : null;
+    name = json.containsKey("name") ? json["name"] : null;
+    subAreaId = json.containsKey("subAreaId") ? json["subAreaId"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -631,13 +508,13 @@ class Advertiser {
   });
 
   Advertiser.fromJson(Map<String, dynamic> json) {
-    caption = json["caption"];
-    creatorId = json["creatorId"];
-    advertiserId = json["advertiserId"];
-    advertiserFullName = json["advertiserFullName"];
-    advertiserEmail = json["advertiserEmail"];
-    advertiserPhone = json["advertiserPhone"];
-    createdAt = json["createdAt"];
+    caption = json.containsKey("caption") ? json["caption"]?.toString() : null;
+    creatorId = json.containsKey("creatorId") ? json["creatorId"] : null;
+    advertiserId = json.containsKey("advertiserId") ? json["advertiserId"] : null;
+    advertiserFullName = json.containsKey("advertiserFullName") ? json["advertiserFullName"]?.toString() : null;
+    advertiserEmail = json.containsKey("advertiserEmail") ? json["advertiserEmail"]?.toString() : null;
+    advertiserPhone = json.containsKey("advertiserPhone") ? json["advertiserPhone"]?.toString() : null;
+    createdAt = json.containsKey("createdAt") ? json["createdAt"]?.toString() : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -668,6 +545,10 @@ class AdditionalDetails {
   String? furnishingStatus;
   String? groundLayoutStatus;
 
+  // حقول إضافية
+  dynamic numberOfFloors;
+  dynamic otherExpensesValue;
+
   AdditionalDetails({
     this.notes,
     this.otherExpenses,
@@ -682,22 +563,27 @@ class AdditionalDetails {
     this.fitOutCondition,
     this.furnishingStatus,
     this.groundLayoutStatus,
+    this.numberOfFloors,
+    this.otherExpensesValue,
   });
 
   AdditionalDetails.fromJson(Map<String, dynamic> json) {
-    notes = json["notes"];
-    otherExpenses = json["otherExpenses"];
-    requestedOver = json["requestedOver"];
-    financialStatus = json["financialStatus"];
-    activity = json["activity"];
-    groundArea = json["ground_area"];
-    unitDesign = json["unit_design"];
-    unitFacing = json["unit_facing"];
-    legalStatus = json["legal_status"];
-    buildingArea = json["building_area"];
-    fitOutCondition = json["fit_out_condition"];
-    furnishingStatus = json["furnishing_status"];
-    groundLayoutStatus = json["ground_layout_status"];
+    notes = json.containsKey("notes") ? json["notes"]?.toString() : null;
+    otherExpenses = json.containsKey("otherExpenses") ? json["otherExpenses"] as List<dynamic>? : null;
+    requestedOver = json.containsKey("requestedOver") ? json["requestedOver"]?.toString() : null;
+    financialStatus = json.containsKey("financialStatus") ? json["financialStatus"]?.toString() : null;
+    activity = json.containsKey("activity") ? json["activity"]?.toString() : null;
+    groundArea = json.containsKey("ground_area") ? json["ground_area"] : null;
+    unitDesign = json.containsKey("unit_design") ? json["unit_design"]?.toString() : null;
+    unitFacing = json.containsKey("unitFacing") ? json["unitFacing"]?.toString() : null;
+    legalStatus = json.containsKey("legal_status") ? json["legal_status"]?.toString() : null;
+    buildingArea = json.containsKey("building_area") ? json["building_area"] : null;
+    fitOutCondition = json.containsKey("fit_out_condition") ? json["fit_out_condition"]?.toString() : null;
+    furnishingStatus = json.containsKey("furnishing_status") ? json["furnishing_status"]?.toString() : null;
+    groundLayoutStatus = json.containsKey("ground_layout_status") ? json["ground_layout_status"]?.toString() : null;
+
+    numberOfFloors = json.containsKey("numberOfFloors") ? json["numberOfFloors"] : null;
+    otherExpensesValue = json.containsKey("otherExpensesValue") ? json["otherExpensesValue"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -709,12 +595,14 @@ class AdditionalDetails {
     _data["activity"] = activity;
     _data["ground_area"] = groundArea;
     _data["unit_design"] = unitDesign;
-    _data["unit_facing"] = unitFacing;
+    _data["unitFacing"] = unitFacing;
     _data["legal_status"] = legalStatus;
     _data["building_area"] = buildingArea;
     _data["fit_out_condition"] = fitOutCondition;
     _data["furnishing_status"] = furnishingStatus;
     _data["ground_layout_status"] = groundLayoutStatus;
+    _data["numberOfFloors"] = numberOfFloors;
+    _data["otherExpensesValue"] = otherExpensesValue;
     return _data;
   }
 }
@@ -727,6 +615,8 @@ class ReplyLog {
   String? senderPhone;
   String? receiverName;
   String? receiverPhone;
+  dynamic requestBrokerId;
+  dynamic replyId;
 
   ReplyLog({
     this.unitId,
@@ -736,16 +626,20 @@ class ReplyLog {
     this.senderPhone,
     this.receiverName,
     this.receiverPhone,
+    this.requestBrokerId,
+    this.replyId,
   });
 
   ReplyLog.fromJson(Map<String, dynamic> json) {
-    unitId = json["unit_id"];
-    senderId = json["sender_id"];
-    receiverId = json["receiver_id"];
-    senderName = json["sender_name"];
-    senderPhone = json["sender_phone"];
-    receiverName = json["receiver_name"];
-    receiverPhone = json["receiver_phone"];
+    unitId = json.containsKey("unit_id") ? json["unit_id"]?.toString() : null;
+    senderId = json.containsKey("sender_id") ? json["sender_id"] : null;
+    receiverId = json.containsKey("receiver_id") ? json["receiver_id"] : null;
+    senderName = json.containsKey("sender_name") ? json["sender_name"]?.toString() : null;
+    senderPhone = json.containsKey("sender_phone") ? json["sender_phone"]?.toString() : null;
+    receiverName = json.containsKey("receiver_name") ? json["receiver_name"]?.toString() : null;
+    receiverPhone = json.containsKey("receiver_phone") ? json["receiver_phone"]?.toString() : null;
+    requestBrokerId = json.containsKey("request_broker_id") ? json["request_broker_id"] : null;
+    replyId = json.containsKey("reply_id") ? json["reply_id"] : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -757,6 +651,8 @@ class ReplyLog {
     _data["sender_phone"] = senderPhone;
     _data["receiver_name"] = receiverName;
     _data["receiver_phone"] = receiverPhone;
+    _data["request_broker_id"] = requestBrokerId;
+    _data["reply_id"] = replyId;
     return _data;
   }
 }
@@ -764,21 +660,25 @@ class ReplyLog {
 class Broker {
   dynamic id;
   String? name;
+  String? phone;
 
   Broker({
     this.id,
     this.name,
+    this.phone,
   });
 
   Broker.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    name = json["name"];
+    id = json.containsKey("id") ? json["id"] : null;
+    name = json.containsKey("name") ? json["name"]?.toString() : null;
+    phone = json.containsKey("phone") ? json["phone"]?.toString() : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["id"] = id;
     _data["name"] = name;
+    _data["phone"] = phone;
     return _data;
   }
 }
