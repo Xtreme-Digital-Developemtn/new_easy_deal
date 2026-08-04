@@ -1,6 +1,6 @@
 import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
+import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/ads_table_widget.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/broker_data_filter_sheet.dart';
-import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/data_table_widget.dart';
 import '../../../../../main_imports.dart';
 import '../view_model/broker_data_cubit.dart';
 import '../view_model/broker_data_states.dart';

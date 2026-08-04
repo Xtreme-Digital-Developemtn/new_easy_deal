@@ -117,12 +117,18 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   @override
   Future<Either<Failure, dynamic>> updateUnit({required int id, required Map<String, dynamic> data}) async {
     try {
-      var response = await apiService!.putData(
+      var response = await apiService!.postData(
         endPoint: '${EndPoints.updateUnit}/$id',
         data: data,
       );
       return right(response.data);
     } catch (e) {
+      print('❌ [UPDATE UNIT ERROR] $e');
+      if (e is DioException) {
+        print('❌ [UPDATE UNIT ERROR] Status: ${e.response?.statusCode}');
+        print('❌ [UPDATE UNIT ERROR] Data: ${e.response?.data}');
+        print('❌ [UPDATE UNIT ERROR] Headers: ${e.response?.headers}');
+      }
       return left(handleError(e));
     }
   }

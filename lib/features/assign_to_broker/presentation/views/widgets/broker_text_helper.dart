@@ -257,4 +257,21 @@ class BrokerTextHelper {
         return type;
     }
   }
+
+  static String unitOperationText(String operation) {
+    final key = operation.toLowerCase().trim();
+    switch (key) {
+      case 'sell':
+      case 'sale':
+      case 'selling':
+        return LangKeys.sell.tr();
+      case 'rent':
+      case 'rent_out':
+      case 'rental':
+      case 'leasing':
+        return LangKeys.rentOut.tr();
+      default:
+        return operation;
+    }
+  }
 }

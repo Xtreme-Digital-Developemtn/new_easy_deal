@@ -5,7 +5,6 @@ import 'package:easy_deal/features/broker_features/boker_data/presentation/view_
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 const _kUnitTypes = [
   'apartments',
@@ -23,6 +22,24 @@ const _kUnitTypes = [
   'medicalClinics',
   'pharmacies',
   'commercialAdministrativeBuilding',
+];
+
+const _kCompoundTypes = [
+  'inside_compound',
+  'outside_compound',
+  'purchasing_sell_inside_compound',
+  'purchasing_sell_outside_compound',
+  'rentals_inside_compound',
+  'rentals_outside_compound',
+  'primary_inside_compound',
+  'resale_inside_compound',
+  'village',
+  'residential',
+  'commercial',
+  'administrative',
+  'medical',
+  'mixed',
+  'chalets_vacation_villas',
 ];
 
 Future<void> showEditUnitDialog(BuildContext context, BrokerUnitData unit) {
@@ -57,6 +74,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
   late TextEditingController _locationCtrl;
   late String _selectedType;
   late String _selectedOperation;
+  late String _selectedCompoundType;
 
   bool get _isValid => _ownerNameCtrl.text.trim().isNotEmpty;
 
@@ -79,6 +97,10 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
         : _kUnitTypes.first;
 
     _selectedOperation = u.unitOperation?.toString() ?? 'sale';
+
+    _selectedCompoundType = _kCompoundTypes.contains(u.compoundType?.toString().toLowerCase())
+        ? u.compoundType.toString().toLowerCase()
+        : _kCompoundTypes.first;
 
     _ownerNameCtrl.addListener(() => setState(() {}));
   }
@@ -110,11 +132,23 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
       'detailedAddress': _addressCtrl.text.trim(),
       'unitOperation': _selectedOperation,
       'location': _locationCtrl.text.trim(),
+      'compoundType': _selectedCompoundType,
+      'areaId': widget.unit.area?.id,
+      'cityId': widget.unit.city?.id,
       'additionalDetails': {
         'notes': _notesCtrl.text.trim(),
       },
     };
-    context.read<BrokerDataCubit>().updateUnit(id: widget.unit.id, data: data);
+
+    debugPrint('================ UPDATE BODY ================');
+    debugPrint(data.toString());
+    debugPrint('compound_type = ${data['compound_type']}');
+    debugPrint('=============================================');
+
+    context.read<BrokerDataCubit>().updateUnit(
+      id: widget.unit.id!,
+      data: data,
+    );
   }
 
   @override
@@ -124,8 +158,9 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
         if (state is UpdateUnitSuccessState) {
           Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
           Navigator.of(context).pop();
+          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
           context.read<BrokerDataCubit>().getBrokerUnits(
-            brokerId: CacheHelper.getData(key: "brokerId"),
+            brokerId: brokerId,
             isRefresh: true,
           );
         } else if (state is UpdateUnitErrorState) {
@@ -182,10 +217,27 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
                                 value: _selectedType,
                                 items: _kUnitTypes,
                                 onChanged: (v) => setState(() => _selectedType = v!),
+                                displayBuilder: BrokerTextHelper.unitTypeText,
                               ),
                             ),
                           ),
                           Gap(12.w),
+                          Expanded(
+                            child: _labeledField(
+                              label: LangKeys.compoundType.tr(),
+                              child: _dropdownField(
+                                value: _selectedCompoundType,
+                                items: _kCompoundTypes,
+                                onChanged: (v) => setState(() => _selectedCompoundType = v!),
+                                displayBuilder: BrokerTextHelper.projectTypeText,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16.h),
+                      Row(
+                        children: [
                           Expanded(
                             child: _labeledField(
                               label: LangKeys.transactionType.tr(),
@@ -193,6 +245,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
                                 value: _selectedOperation,
                                 items: const ['sale', 'rent'],
                                 onChanged: (v) => setState(() => _selectedOperation = v!),
+                                displayBuilder: BrokerTextHelper.unitOperationText,
                               ),
                             ),
                           ),
@@ -385,6 +438,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     required String value,
     required List<String> items,
     required void Function(String?) onChanged,
+    String Function(String)? displayBuilder,
   }) {
     return DropdownButtonFormField<String>(
       value: items.contains(value) ? value : items.first,
@@ -412,7 +466,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
         return DropdownMenuItem<String>(
           value: v,
           child: Text(
-            BrokerTextHelper.unitTypeText(v),
+            displayBuilder != null ? displayBuilder(v) : v,
             style: AppStyles.black12Medium.copyWith(fontSize: 13.sp),
             overflow: TextOverflow.ellipsis,
           ),
