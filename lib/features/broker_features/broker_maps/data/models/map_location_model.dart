@@ -1,83 +1,120 @@
 class BrokerMapsModel {
   String? status;
   String? message;
-  List<MapLocationData>? data;
-  int? count;
+  BrokerMapsData? data;
 
-  BrokerMapsModel({this.status, this.message, this.data, this.count});
+  BrokerMapsModel({
+    this.status,
+    this.message,
+    this.data,
+  });
 
   BrokerMapsModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    var innerData = json["data"];
-    if (innerData != null) {
-      data = (innerData["data"] as List?)?.map((e) => MapLocationData.fromJson(e)).toList();
-      count = innerData["count"];
-    }
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null
+        ? BrokerMapsData.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["status"] = status;
-    _data["message"] = message;
-    _data["data"] = {
-      "data": data?.map((e) => e.toJson()).toList(),
-      "count": count,
+    return {
+      'status': status,
+      'message': message,
+      'data': data?.toJson(),
     };
-    return _data;
   }
 }
 
-class MapLocationData {
-  int? id;
-  String? name;
-  String? image;
-  double? latitude;
-  double? longitude;
-  String? address;
-  String? category;
-  String? description;
-  String? createdAt;
-  String? updatedAt;
+class BrokerMapsData {
+  List<MapItem>? data;
+  int? count;
 
-  MapLocationData({
-    this.id,
-    this.name,
-    this.image,
-    this.latitude,
-    this.longitude,
-    this.address,
-    this.category,
-    this.description,
-    this.createdAt,
-    this.updatedAt,
+  BrokerMapsData({
+    this.data,
+    this.count,
   });
 
-  MapLocationData.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    name = json["name"] ?? json["title"];
-    image = json["image"] ?? json["imageUrl"];
-    latitude = (json["latitude"] as num?)?.toDouble();
-    longitude = (json["longitude"] as num?)?.toDouble();
-    address = json["address"] ?? json["location"];
-    category = json["category"] ?? json["type"];
-    description = json["description"];
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
+  BrokerMapsData.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = (json['data'] as List)
+          .map((e) => MapItem.fromJson(e))
+          .toList();
+    }
+
+    count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["image"] = image;
-    _data["latitude"] = latitude;
-    _data["longitude"] = longitude;
-    _data["address"] = address;
-    _data["category"] = category;
-    _data["description"] = description;
-    _data["createdAt"] = createdAt;
-    _data["updatedAt"] = updatedAt;
-    return _data;
+    return {
+      'data': data?.map((e) => e.toJson()).toList(),
+      'count': count,
+    };
+  }
+}
+
+class MapItem {
+  int? id;
+  int? brokerId;
+  String? description;
+  String? fileUrl;
+  ImageUrl? imageUrl;
+  String? createdAt;
+
+  MapItem({
+    this.id,
+    this.brokerId,
+    this.description,
+    this.fileUrl,
+    this.imageUrl,
+    this.createdAt,
+  });
+
+  MapItem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    brokerId = json['broker_id'];
+    description = json['description'];
+    fileUrl = json['fileUrl'];
+    imageUrl = json['imageUrl'] != null
+        ? ImageUrl.fromJson(json['imageUrl'])
+        : null;
+    createdAt = json['created_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'broker_id': brokerId,
+      'description': description,
+      'fileUrl': fileUrl,
+      'imageUrl': imageUrl?.toJson(),
+      'created_at': createdAt,
+    };
+  }
+}
+
+class ImageUrl {
+  int? id;
+  String? url;
+  String? type;
+
+  ImageUrl({
+    this.id,
+    this.url,
+    this.type,
+  });
+
+  ImageUrl.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    url = json['url'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'url': url,
+      'type': type,
+    };
   }
 }

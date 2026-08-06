@@ -1,238 +1,154 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../../../main_imports.dart';
 import '../../../data/models/map_location_model.dart';
 
 class LocationCard extends StatelessWidget {
   const LocationCard({super.key, required this.location});
 
-  final MapLocationData location;
-
-  Future<void> _openMap(double lat, double lng, String label) async {
-    final url = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=$lat,$lng&query_place_id=$label',
-    );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  Future<void> _openMapDirections(
-    double lat,
-    double lng,
-    String destination,
-  ) async {
-    final url = Uri.parse(
-      'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng&destination_place_id=$destination',
-    );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  final MapItem location;
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = location.imageUrl?.url ?? location.fileUrl;
+    final hasImage = imageUrl != null && imageUrl.isNotEmpty;
+
     return Card(
-      elevation: 4,
+      elevation: 2,
       color: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: InkWell(
-        onTap: () =>
-            _openMap(location.latitude ?? 0, location.longitude ?? 0, location.name ?? ''),
-        onLongPress: () => _openMapDirections(
-          location.latitude ?? 0,
-          location.longitude ?? 0,
-          location.name ?? '',
-        ),
+        onTap: hasImage ? () => _showImageDialog(context, imageUrl!) : null,
         borderRadius: BorderRadius.circular(16.r),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xffEFF6FF),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(12.r),
-                          topLeft: Radius.circular(12.r),
-                        ),
-                      ),
-                      child: Image.asset(
-                        "assets/images/pngs/Container.png",
-                        height: 160.h,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      top: 8.h,
-                      right: 8.w,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 4.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryDark,
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Text(
-                          location.category ?? '',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      child: SvgPicture.asset(
-                        SvgImages.location2,
-                        height: 50.h,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.primaryLight,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 8.h,
-                      left: 8.w,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 4.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/images/svgs/Icon.svg"),
-                            Gap(6.w),
-                            Text(
-                              "2.5 km",
-                              style: TextStyle(
-                                color: AppColors.primaryLight,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                    hasImage
+                        ? CachedNetworkImage(
+                            imageUrl: imageUrl!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            placeholder: (c, _) => Container(
+                              color: AppColors.grayLight,
+                              child: const Center(child: CircularProgressIndicator()),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                            errorWidget: (c, _, __) => Container(
+                              color: AppColors.grayLight,
+                              child: const Icon(Icons.broken_image, size: 48, color: Colors.grey),
+                            ),
+                          )
+                        : Container(
+                            color: AppColors.grayLight,
+                            child: const Icon(Icons.map_outlined, size: 48, color: Colors.grey),
+                          ),
+                    if (hasImage)
+                      Positioned(
+                        bottom: 8.h,
+                        left: 8.w,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.zoom_in_outlined, size: 14, color: Colors.white),
+                              Gap(4.w),
+                              Text(
+                                "تكبير".tr(),
+                                style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),
+                              ),
+
+
+
+                  ]
                 ),
               ),
-
-              Padding(
-                padding: EdgeInsets.all(12.r),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          location.name ?? '',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800],
-                          ),
-                          maxLines: 1,
+            ),
+            Padding(
+              padding: EdgeInsets.all(12.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          location.description ?? 'بدون وصف'.tr(),
+                          style: AppStyles.black14SemiBold.copyWith(fontSize: 16.sp),
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(SvgImages.star, height: 20.h),
-                            Gap(4.w),
-                            Text("2.5", style: AppStyles.black16SemiBold),
-                            Gap(4.w),
-                            Text("(55)", style: AppStyles.gray12Medium),
-                          ],
+                      ),
+                      if (location.createdAt != null)
+                        Text(
+                          _formatDate(location.createdAt!),
+                          style: AppStyles.gray12Medium,
                         ),
-                      ],
-                    ),
-                    Gap(4.h),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 14.sp,
-                          color: Colors.grey[600],
-                        ),
-                        Gap(4.w),
-                        Expanded(
-                          child: Text(
-                            location.address ?? '',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.grey[600],
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(8.h),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.w,
-                        vertical: 12.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xffF8F9FA),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset("assets/images/svgs/Icon.svg"),
-                          Gap(4.w),
-                          Text(
-                            '${(location.latitude ?? 0).toStringAsFixed(4)}, ${(location.longitude ?? 0).toStringAsFixed(4)}',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Color(0xff4A5565),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Gap(8.h),
-                    CustomButton(
-                      text: 'Open in Maps',
-                      onPressed: () => _openMap(
-                        location.latitude ?? 0,
-                        location.longitude ?? 0,
-                        location.name ?? '',
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),)
+    ]
+    )
+    ));
+  }
+
+  void _showImageDialog(BuildContext context, String url) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: EdgeInsets.all(20.r),
+        child: Stack(
+          children: [
+            InteractiveViewer(
+              minScale: 0.5,
+              maxScale: 5,
+              child: CachedNetworkImage(
+                imageUrl: url,
+                fit: BoxFit.contain,
+                placeholder: (c, _) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (c, _, __) => const Icon(Icons.broken_image, size: 64, color: Colors.grey),
+              ),
+            ),
+            Positioned(
+              top: 10.h,
+              right: 10.w,
+              child: CircleAvatar(
+                backgroundColor: Colors.black54,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (_) {
+      return dateStr;
+    }
   }
 }

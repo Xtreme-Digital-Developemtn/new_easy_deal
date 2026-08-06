@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import '../../../../../main_imports.dart';
+import '../models/add_map_model.dart';
 import '../models/map_location_model.dart';
 import 'broker_maps_repo.dart';
 
@@ -19,4 +23,26 @@ class BrokerMapsRepoImpl implements BrokerMapsRepo {
       return left(handleError(e));
     }
   }
+
+  @override
+  Future<Either<Failure, AddMapModel>> addMap({required File image,
+    required int brokerId,
+    required String description}) async {
+    try {
+      final formData = FormData.fromMap({
+        "image": await MultipartFile.fromFile(image.path, filename: "map.png"),
+        "description": description,
+      });
+      var response = await apiService!.postData(
+        endPoint: "broker/$brokerId/create-map",
+        data: formData,
+        isMultipart: true,
+      );
+      AddMapModel result = AddMapModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
 }
