@@ -1,4 +1,4 @@
-import 'package:easy_deal/features/broker_features/broker_ads/presentation/views/widgets/ads_table_widget.dart';
+import 'package:easy_deal/features/broker_features/broker_ads/presentation/views/widgets/ads_list_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
 import '../view_model/broker_ads_cubit.dart';
@@ -48,7 +48,7 @@ class _BrokerAdsViewState extends State<BrokerAdsView> {
                 child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
               );
             }
-            return AdsTableWidget(data: data);
+            return AdsListWidget(data: data);
           }
           return const SizedBox.shrink();
         },
