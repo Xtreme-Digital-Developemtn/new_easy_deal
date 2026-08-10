@@ -510,6 +510,14 @@ const purchaseOtherAccessoriesOptions = [
   OptionItem(key: 'Elevator', value: 'elevator'),
 ];
 
+const primaryInsideCompoundOtherAccessoriesOptions = [
+  OptionItem(key: 'مخزن', value: 'storage'),
+  OptionItem(key: 'اساسنير', value: 'basement'),
+  OptionItem(key: 'حمام سباحة', value: 'swimming_pool'),
+  OptionItem(key: 'حصة ارض', value: 'land_share'),
+  OptionItem(key: 'جراج', value: 'garage'),
+];
+
 const sellOutOtherAccessoriesOptions = [
   OptionItem(key: 'Garage', value: 'garage'),
   OptionItem(key: 'Storage', value: 'storage'),

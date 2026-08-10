@@ -10,7 +10,7 @@ class SellOutsideCompoundConfigService {
           ..._createSellOutsideCompoundLocationInputs(),
           ..._createSellOutsideCompoundApartmentsUnitInformationInputs(),
           ..._createSellOutsideCompoundApartmentsMediaInputs(),
-          ..._createSellOutsideCompoundFinancialInputs(),
+          ..._createSellOutsideCompoundApartmentsFinancialInputs(),
         ],
       ),
       StepperConfiguration(
@@ -232,7 +232,6 @@ class SellOutsideCompoundConfigService {
       const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'رقم الوحدة'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
-      const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -240,10 +239,8 @@ class SellOutsideCompoundConfigService {
       const InputConfig(step: 3, name: 'unitView', type: InputFieldType.select, label: 'الاطلالة', options: sellUnitViewTypesOptions),
       const InputConfig(step: 3, name: 'finishingStatus', type: InputFieldType.select, label: 'Finishing Status', options: finishingStatusTypesOptions),
       const InputConfig(step: 3, name: 'deliveryStatus', type: InputFieldType.select, label: 'Delivery Status', options: deliveryStatusTypesOptions),
-      const InputConfig(step: 3, name: 'deliveryDate', type: InputFieldType.date, label: 'Delivery Date'),
       const InputConfig(step: 3, name: 'legalStatus', type: InputFieldType.select, label: 'الموقف القانوني', options: legalStatusTypesOptions),
       const InputConfig(step: 3, name: 'otherAccessories', type: InputFieldType.multiSelect, label: 'Other Accessories', options: sellOutOtherAccessoriesOptions),
-      const InputConfig(step: 3, name: 'notes', type: InputFieldType.textarea, label: 'Notes'),
     ];
   }
 
@@ -583,6 +580,13 @@ class SellOutsideCompoundConfigService {
       const InputConfig(step: 5, name: 'unitPriceSuggestions', type: InputFieldType.checkbox, label: 'Unit Price Suggestions'),
       const InputConfig(step: 5, name: 'cashPrice', type: InputFieldType.number, label: 'cash_price'),
       const InputConfig(step: 5, name: 'installmentPrice', type: InputFieldType.number, label: 'installment_price'),
+    ];
+  }
+
+  List<InputConfig> _createSellOutsideCompoundApartmentsFinancialInputs() {
+    return [
+      const InputConfig(step: 5, name: 'paymentMethod', type: InputFieldType.select, label: 'Payment Method', options: paymentMethodOptions),
+      const InputConfig(step: 5, name: 'cashPrice', type: InputFieldType.number, label: 'ادخل كاش'),
     ];
   }
 

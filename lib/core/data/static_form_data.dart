@@ -33,8 +33,6 @@ class StaticFormData {
               {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
-
-
             ]
           },
           {
@@ -60,8 +58,6 @@ class StaticFormData {
               {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
-
-
             ]
           }
         ]
@@ -89,39 +85,8 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
-
-
-
-
-
             ]
           },
-          {
-            'label': LangKeys.sell.tr(),
-            'value': 'sell',
-            'units': [
-              {'label':  LangKeys.apartments.tr(), 'value': 'apartments'},
-              {'label':  LangKeys.duplexes.tr(), 'value': 'duplexes'},
-              {'label':  LangKeys.penthouses.tr(), 'value': 'penthouses'},
-              {'label':  LangKeys.studios.tr(), 'value': 'studios'},
-              {'label':  LangKeys.iVilla.tr(), 'value': 'i_villa'},
-              {'label':  LangKeys.twinHouses.tr(), 'value': 'twin_houses'},
-              {'label':  LangKeys.townHouses.tr(), 'value': 'town_houses'},
-              {'label':  LangKeys.standaloneVillas.tr(), 'value': 'standalone_villas'},
-              {'label':  LangKeys.administrativeUnits.tr(), 'value': 'administrative_units'},
-              {'label':  LangKeys.medicalClinics.tr(), 'value': 'medical_clinics'},
-              {'label':  LangKeys.pharmacies.tr(), 'value': 'pharmacies'},
-              {'label':  LangKeys.commercialStores.tr(), 'value': 'commercial_stores'},
-              {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
-              {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
-              {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
-
-
-
-
-
-            ]
-          }
         ]
       },
       {
@@ -147,11 +112,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
-
-
-
-
-
             ]
           },
           {
@@ -173,11 +133,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
-
-
-
-
-
             ]
           }
         ]
@@ -208,7 +163,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.factoryLands.tr(), 'value': 'factory_lands'},
               {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
-
             ]
           },
           {
@@ -233,7 +187,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.factoryLands.tr(), 'value': 'factory_lands'},
               {'label':  LangKeys.warehouseLands.tr(), 'value': 'warehouse_lands'},
-
             ]
           },
         ]
@@ -262,7 +215,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
-
             ]
           },
           {
@@ -285,7 +237,6 @@ class StaticFormData {
               {'label':  LangKeys.commercialAdministrativeBuildings.tr(), 'value': 'commercial_administrative_buildings'},
               {'label':  LangKeys.vacationVilla.tr(), 'value': 'vacation_villa'},
               {'label':  LangKeys.chalets.tr(), 'value': 'chalets'},
-
             ]
           },
         ]
