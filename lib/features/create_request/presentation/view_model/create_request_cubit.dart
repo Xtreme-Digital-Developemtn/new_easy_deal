@@ -33,6 +33,10 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       _validateAreaRange();
     }
 
+    if (name == 'bathRooms') {
+      _validateBathRooms(value);
+    }
+
     emit(FormValueChangedState());
   }
 
@@ -43,6 +47,15 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       formErrors['unitAreaMin'] = 'لا يمكن أن يكون الحد الأدنى لمساحة الوحدة أكبر من الحد الأقصى لها';
     } else {
       formErrors.remove('unitAreaMin');
+    }
+  }
+
+  void _validateBathRooms(dynamic value) {
+    final val = int.tryParse(value?.toString() ?? '');
+    if (val != null && val > 100) {
+      formErrors['bathRooms'] = 'تجاوز الحد الأقصى للعدد المسموح به (100)';
+    } else {
+      formErrors.remove('bathRooms');
     }
   }
 
