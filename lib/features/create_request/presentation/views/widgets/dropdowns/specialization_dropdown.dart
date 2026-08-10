@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../../main_imports.dart';
@@ -77,6 +78,7 @@ class SpecializationDropdown extends StatelessWidget {
               );
             }).toList(),
             onChanged: (selectedLabel) {
+
               if (selectedLabel != null) {
                 final selectedItem = specializationItems.firstWhere(
                   (e) => e['label'] == selectedLabel,
@@ -85,7 +87,11 @@ class SpecializationDropdown extends StatelessWidget {
                   value: selectedItem['value'],
                   label: selectedItem['label'],
                 );
+                logSuccess( "The Label Is : ${selectedItem['label'].toString()}");
+                logSuccess( "The Value Is : ${selectedItem['value'].toString()}");
+                logWarning("1111111111111111111111111111111111111111");
               }
+
             },
           ),
         ),

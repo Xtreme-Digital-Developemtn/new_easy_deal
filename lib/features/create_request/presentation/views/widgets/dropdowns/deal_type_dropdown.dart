@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../../../core/extensions/log_util.dart';
 import '../../../../../../main_imports.dart';
 import '../../../view_model/create_request_cubit.dart';
 
@@ -95,7 +96,11 @@ class DealTypeDropdown extends StatelessWidget {
                         value: selectedItem['value'],
                         label: selectedItem['label'],
                       );
+                      logSuccess( "The Label Is : ${selectedItem['label'].toString()}");
+                      logSuccess( "The Value Is : ${selectedItem['value'].toString()}");
+                      logWarning("222222222222222222222222222222222222222");
                     }
+
                   }
                 : null,
           ),

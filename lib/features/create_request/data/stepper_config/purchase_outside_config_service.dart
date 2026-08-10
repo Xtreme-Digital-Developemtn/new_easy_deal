@@ -211,7 +211,7 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: floorTypesOptions),
       const InputConfig(step: 3, name: 'unitAreaMin', type: InputFieldType.number, label: 'Unit Area Min (m\u00B2)'),
       const InputConfig(step: 3, name: 'unitAreaMax', type: InputFieldType.number, label: 'Unit Area Max (m\u00B2)'),
-      const InputConfig(step: 3, name: 'areaSuggestions', type: InputFieldType.checkbox, label: 'Area Suggestions'),
+      // const InputConfig(step: 3, name: 'areaSuggestions', type: InputFieldType.checkbox, label: 'Area Suggestions'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Bedrooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Bathrooms'),
       const InputConfig(step: 3, name: 'unitView', type: InputFieldType.select, label: 'View', options: specialPurchaseUnitViewTypesOptions),

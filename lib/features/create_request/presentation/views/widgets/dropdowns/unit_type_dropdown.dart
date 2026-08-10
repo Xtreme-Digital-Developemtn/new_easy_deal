@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../../../core/extensions/log_util.dart';
 import '../../../../../../main_imports.dart';
 import '../../../view_model/create_request_cubit.dart';
 
@@ -99,6 +100,9 @@ class UnitTypeDropdown extends StatelessWidget {
                         value: selectedItem['value'],
                         label: selectedItem['label'],
                       );
+                      logSuccess( "The Label Is : ${selectedItem['label'].toString()}");
+                      logSuccess( "The Value Is : ${selectedItem['value'].toString()}");
+                      logWarning("3333333333333333333333333333333333333");
                     }
                   }
                 : null,

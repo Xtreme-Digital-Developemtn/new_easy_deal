@@ -67,10 +67,13 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       if (selectedAreaObj == null) errors['areaId'] = LangKeys.fieldRequired.tr();
     }
 
+
     if (currentStepNumber == 4 || currentStepNumber == 5) {
       if (_isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
       if (_isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
     }
+
+
 
     for (final input in inputs) {
       if (!input.required || !input.isVisible()) continue;

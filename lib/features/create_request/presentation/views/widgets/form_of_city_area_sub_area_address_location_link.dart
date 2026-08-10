@@ -256,6 +256,8 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
               ],
             ],
             Gap(12.h),
+            /// هنا بحدد امته الشرطه ده هيظهر وامته هيختفي
+            if(cubit.selectedSpecializationValue!="purchase_sell_outside_compound")
             ...cubit.currentStepInputs
                 .where((input) => !['cityId', 'areaId', 'subAreaId'].contains(input.name))
                 .map((input) => Padding(

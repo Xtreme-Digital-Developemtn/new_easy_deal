@@ -60,13 +60,13 @@ class BaseConfigService {
         label: 'Unit Area Max',
         visibility: () => true,
       ),
-      InputConfig(
-        step: 3,
-        name: 'areaSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Area Suggestions',
-        visibility: () => true,
-      ),
+      // InputConfig(
+      //   step: 3,
+      //   name: 'areaSuggestions',
+      //   type: InputFieldType.checkbox,
+      //   label: 'Area Suggestions',
+      //   visibility: () => true,
+      // ),
       InputConfig(
         step: 3,
         name: 'floor',
@@ -180,13 +180,13 @@ class BaseConfigService {
         label: 'Building Area Max',
         visibility: () => true,
       ),
-      InputConfig(
-        step: 3,
-        name: 'buildingAreaSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Building Area Suggestions',
-        visibility: () => true,
-      ),
+      // InputConfig(
+      //   step: 3,
+      //   name: 'buildingAreaSuggestions',
+      //   type: InputFieldType.checkbox,
+      //   label: 'Building Area Suggestions',
+      //   visibility: () => true,
+      // ),
       InputConfig(
         step: 3,
         name: 'numberOfFloors',
@@ -292,13 +292,13 @@ class BaseConfigService {
         label: 'Average Unit Price Max',
         visibility: () => true,
       ),
-      InputConfig(
-        step: 5,
-        name: 'unitPriceSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Unit Price Suggestions',
-        visibility: () => true,
-      ),
+      // InputConfig(
+      //   step: 5,
+      //   name: 'unitPriceSuggestions',
+      //   type: InputFieldType.checkbox,
+      //   label: 'Unit Price Suggestions',
+      //   visibility: () => true,
+      // ),
       InputConfig(
         step: 5,
         name: 'paymentMethod',

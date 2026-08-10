@@ -101,7 +101,8 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     return Text(label.tr(), style: AppStyles.black14SemiBold);
   }
 
-  Widget _buildTextField(CreateRequestCubit cubit, String? error, {TextInputType? keyboardType, int maxLines = 1}) {
+  Widget _buildTextField(CreateRequestCubit cubit, String? error,
+      {TextInputType? keyboardType, int maxLines = 1}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
