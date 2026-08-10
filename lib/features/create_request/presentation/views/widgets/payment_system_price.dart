@@ -11,7 +11,7 @@ class PaymentSystemAndPrice extends StatelessWidget {
     return BlocBuilder<CreateRequestCubit, CreateRequestStates>(
       builder: (context, state) {
         var cubit = context.read<CreateRequestCubit>();
-        final inputs = cubit.getInputsForStep(5);
+        final inputs = cubit.currentStepInputs;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: inputs.map((config) => DynamicFormField(config: config)).toList(),

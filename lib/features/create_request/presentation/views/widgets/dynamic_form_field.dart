@@ -358,64 +358,71 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
 
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
-      child: GestureDetector(
-        onTap: onPick,
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: isEmpty ? AppColors.gray : AppColors.primaryDark,
-              width: 2,
-            ),
-            color: isEmpty ? Colors.grey[50] : Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.config.label.tr(),
+            style: AppStyles.black14SemiBold,
           ),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Icon(
-                    isEmpty ? Icons.cloud_upload_outlined : Icons.check_circle,
-                    size: 40,
-                    color: isEmpty ? Colors.grey : AppColors.primaryDark,
-                  ),
-                  Gap(8.h),
-                  Text(
-                    widget.config.label.tr(),
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp, color: Colors.black87),
-                  ),
-                  Gap(4.h),
-                  Text(
-                    isEmpty ? (isVideo ? 'Select videos' : 'Select images') : '$fileCount files uploaded successfully',
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                  if (!isEmpty) ...[
-                    Gap(6.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-                      decoration: BoxDecoration(color: AppColors.primaryDark, borderRadius: BorderRadius.circular(12)),
-                      child: Text('$fileCount files', style: TextStyle(fontSize: 11.sp, color: Colors.white)),
-                    ),
-                  ],
-                ],
-              ),
-              if (!isEmpty)
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: GestureDetector(
-                    onTap: onClear,
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), shape: BoxShape.circle),
-                      child: Icon(Icons.close, size: 18, color: Colors.red),
-                    ),
-                  ),
+          Gap(8.h),
+          GestureDetector(
+            onTap: onPick,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isEmpty ? AppColors.gray : AppColors.primaryDark,
+                  width: 2,
                 ),
-            ],
+                color: isEmpty ? Colors.grey[50] : Colors.white,
+              ),
+              child: Center(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Icon(
+                          isEmpty ? Icons.cloud_upload_outlined : Icons.check_circle,
+                          size: 40,
+                          color: isEmpty ? Colors.grey : AppColors.primaryDark,
+                        ),
+                        Gap(4.h),
+                        Text(
+                          isEmpty ? (isVideo ? 'اختر فيديو' : 'اختر صور') : '$fileCount files uploaded successfully',
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                        ),
+                        if (!isEmpty) ...[
+                          Gap(6.h),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                            decoration: BoxDecoration(color: AppColors.primaryDark, borderRadius: BorderRadius.circular(12)),
+                            child: Text('$fileCount files', style: TextStyle(fontSize: 11.sp, color: Colors.white)),
+                          ),
+                        ],
+                      ],
+                    ),
+                    if (!isEmpty)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: onClear,
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), shape: BoxShape.circle),
+                            child: Icon(Icons.close, size: 18, color: Colors.red),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

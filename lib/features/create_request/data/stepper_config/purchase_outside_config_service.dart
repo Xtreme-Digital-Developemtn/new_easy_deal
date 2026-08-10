@@ -7,9 +7,9 @@ class PurchaseOutsideCompoundConfigService {
       StepperConfiguration(
         key: 'purchase_sell_outside_compound_purchasing_apartments',
         inputs: [
-          ..._createPurchaseOutsideCompoundLocationInputsNoSuggestions(),
+          ..._createPurchaseOutsideCompoundLocationInputsNoSuggestionsNoAddressLink(),
           ..._createPurchaseOutsideCompoundApartmentsUnitInformationInputs(),
-          ..._createPurchaseOutsideCompoundFinancialInputs(),
+          ..._createPurchaseOutsideCompoundApartmentsFinancialInputs(),
         ],
       ),
       StepperConfiguration(
@@ -209,6 +209,14 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
       const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
+    ];
+  }
+
+  List<InputConfig> _createPurchaseOutsideCompoundLocationInputsNoSuggestionsNoAddressLink() {
+    return [
+      const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
+      const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
+      const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
     ];
   }
 
@@ -508,6 +516,14 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 5, name: 'averageUnitPriceMin', type: InputFieldType.number, label: 'Average Unit Price Min'),
       const InputConfig(step: 5, name: 'averageUnitPriceMax', type: InputFieldType.number, label: 'Average Unit Price Max'),
       // const InputConfig(step: 5, name: 'unitPriceSuggestions', type: InputFieldType.checkbox, label: 'Price Suggestion'),
+    ];
+  }
+
+  List<InputConfig> _createPurchaseOutsideCompoundApartmentsFinancialInputs() {
+    return [
+      const InputConfig(step: 4, name: 'paymentMethod', type: InputFieldType.select, label: 'Payment Method', options: paymentMethodOptions),
+      const InputConfig(step: 4, name: 'averageUnitPriceMin', type: InputFieldType.number, label: 'Average Unit Price Min'),
+      const InputConfig(step: 4, name: 'averageUnitPriceMax', type: InputFieldType.number, label: 'Average Unit Price Max'),
     ];
   }
 

@@ -9,7 +9,7 @@ class SellOutsideCompoundConfigService {
         inputs: [
           ..._createSellOutsideCompoundLocationInputs(),
           ..._createSellOutsideCompoundApartmentsUnitInformationInputs(),
-          ..._createSellOutsideCompoundMediaInputs(),
+          ..._createSellOutsideCompoundApartmentsMediaInputs(),
           ..._createSellOutsideCompoundFinancialInputs(),
         ],
       ),
@@ -566,6 +566,14 @@ class SellOutsideCompoundConfigService {
       const InputConfig(step: 4, name: 'unitInMasterPlanImage', type: InputFieldType.file, label: 'Unit in Master Plan Image'),
       const InputConfig(step: 4, name: 'galleryImages', type: InputFieldType.file, label: 'Gallery Images'),
       const InputConfig(step: 4, name: 'video', type: InputFieldType.file, label: 'Video'),
+    ];
+  }
+
+  List<InputConfig> _createSellOutsideCompoundApartmentsMediaInputs() {
+    return [
+      const InputConfig(step: 4, name: 'mainImage', type: InputFieldType.file, label: 'الصورة الرئيسية'),
+      const InputConfig(step: 4, name: 'unitInMasterPlanImage', type: InputFieldType.file, label: 'رفع صورة الماستر بلان'),
+      const InputConfig(step: 4, name: 'galleryImages', type: InputFieldType.file, label: 'صور المعرض (صورة البيان المالي ان وجد)'),
     ];
   }
 

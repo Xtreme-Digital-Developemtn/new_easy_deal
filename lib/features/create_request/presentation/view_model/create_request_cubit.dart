@@ -132,8 +132,9 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
 
     if (currentStepNumber == 4 || currentStepNumber == 5) {
-      if (_isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
-      if (_isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
+      final names = inputs.map((e) => e.name).toSet();
+      if (names.contains('averageUnitPriceMin') && _isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
+      if (names.contains('averageUnitPriceMax') && _isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
     }
 
     if (currentStepNumber == 3) {
@@ -430,8 +431,9 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       if (selectedCityObj == null || selectedAreaObj == null) return false;
     }
     if (currentStepNumber == 4 || currentStepNumber == 5) {
-      if (_isFieldEmpty('averageUnitPriceMin')) return false;
-      if (_isFieldEmpty('averageUnitPriceMax')) return false;
+      final names = currentStepInputs.map((e) => e.name).toSet();
+      if (names.contains('averageUnitPriceMin') && _isFieldEmpty('averageUnitPriceMin')) return false;
+      if (names.contains('averageUnitPriceMax') && _isFieldEmpty('averageUnitPriceMax')) return false;
     }
     for (final input in currentStepInputs) {
       if (!input.required || !input.isVisible()) continue;
