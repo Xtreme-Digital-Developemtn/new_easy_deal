@@ -412,7 +412,7 @@ class RentalOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
       const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
-      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'Address Link'),
+      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
     ];
   }
 
@@ -422,7 +422,7 @@ class RentalOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
       const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
-      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'Address Link'),
+      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
       const InputConfig(step: 2, name: 'mallName', type: InputFieldType.text, label: 'Mall Name'),
     ];
   }
@@ -434,7 +434,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -452,7 +452,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutDuplexOutsideCompoundUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -471,7 +471,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundStudiosUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -487,7 +487,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundPenthousesUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -504,7 +504,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundBasementsUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -519,7 +519,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundRoofsUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -535,7 +535,7 @@ class RentalOutsideCompoundConfigService {
 
   List<InputConfig> _createRentOutOutsideCompoundStandaloneVillasUnitInformationInputs() {
     return [
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'numberOfFloors', type: InputFieldType.number, label: 'Number of Floors'),
       const InputConfig(step: 3, name: 'unitDesign', type: InputFieldType.select, label: 'Unit Design', options: unitDesignTypesOptions),
       const InputConfig(step: 3, name: 'groundArea', type: InputFieldType.number, label: 'Ground Area (m²)'),
@@ -551,7 +551,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundAdministrativeUnitsUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -568,7 +568,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundMedicalClinicsUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -585,7 +585,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundPharmaciesUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -600,7 +600,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundCommercialStoresUnitInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
       const InputConfig(step: 3, name: 'floorNumber', type: InputFieldType.number, label: 'Floor Number'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
@@ -615,7 +615,7 @@ class RentalOutsideCompoundConfigService {
 
   List<InputConfig> _createRentOutOutsideCompoundIndustrialUnitInformationInputs() {
     return [
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'numberOfFloors', type: InputFieldType.number, label: 'Number of Floors'),
       const InputConfig(step: 3, name: 'groundArea', type: InputFieldType.number, label: 'Ground Area (m²)'),
       const InputConfig(step: 3, name: 'buildingArea', type: InputFieldType.number, label: 'Building Area (m²)'),
@@ -628,7 +628,7 @@ class RentalOutsideCompoundConfigService {
 
   List<InputConfig> _createRentOutOutsideCompoundResidentialBuildingInformationInputs() {
     return [
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'numberOfFloors', type: InputFieldType.number, label: 'Number of Floors'),
       const InputConfig(step: 3, name: 'groundArea', type: InputFieldType.number, label: 'Ground Area (m²)'),
       const InputConfig(step: 3, name: 'buildingArea', type: InputFieldType.number, label: 'Building Area (m²)'),
@@ -643,7 +643,7 @@ class RentalOutsideCompoundConfigService {
 
   List<InputConfig> _createRentOutOutsideCompoundCommercialAdministrativeBuildingsUnitInformationInputs() {
     return [
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'numberOfFloors', type: InputFieldType.number, label: 'Number of Floors'),
       const InputConfig(step: 3, name: 'groundArea', type: InputFieldType.number, label: 'Ground Area (m²)'),
       const InputConfig(step: 3, name: 'buildingArea', type: InputFieldType.number, label: 'Building Area (m²)'),
@@ -658,7 +658,7 @@ class RentalOutsideCompoundConfigService {
   List<InputConfig> _createRentOutOutsideCompoundVacationVillasInformationInputs() {
     return [
       const InputConfig(step: 3, name: 'subUnitType', type: InputFieldType.select, label: 'SubUnit Type'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -676,7 +676,7 @@ class RentalOutsideCompoundConfigService {
     return [
       const InputConfig(step: 3, name: 'subUnitType', type: InputFieldType.select, label: 'SubUnit Type'),
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
@@ -695,7 +695,7 @@ class RentalOutsideCompoundConfigService {
     return [
       const InputConfig(step: 3, name: 'subUnitType', type: InputFieldType.select, label: 'SubUnit Type'),
       const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
-      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'Building Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
       const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
       const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
       const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),

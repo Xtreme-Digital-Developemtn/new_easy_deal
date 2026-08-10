@@ -1085,7 +1085,7 @@ class RentalConfigService {
         step: 2,
         name: 'addressLink',
         type: InputFieldType.url,
-        label: 'Address Link',
+        label: 'رابط الموقع على خرائط جوجل',
       ),
       InputConfig(
         step: 2,
@@ -1138,7 +1138,7 @@ class RentalConfigService {
         step: 2,
         name: 'addressLink',
         type: InputFieldType.url,
-        label: 'Address Link',
+        label: 'رابط الموقع على خرائط جوجل',
       ),
       InputConfig(
         step: 2,
@@ -1185,7 +1185,7 @@ class RentalConfigService {
         step: 2,
         name: 'addressLink',
         type: InputFieldType.url,
-        label: 'Address Link',
+        label: 'رابط الموقع على خرائط جوجل',
       ),
       InputConfig(
         step: 2,
@@ -1224,7 +1224,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       const InputConfig(
         step: 3,
@@ -1310,7 +1310,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       const InputConfig(
         step: 3,
@@ -1414,7 +1414,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1489,7 +1489,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1651,7 +1651,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1733,7 +1733,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1803,7 +1803,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1873,7 +1873,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -1973,7 +1973,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -2054,7 +2054,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,
@@ -2142,7 +2142,7 @@ class RentalConfigService {
         step: 3,
         name: 'buildingNumber',
         type: InputFieldType.text,
-        label: 'Building Number',
+        label: 'رقم العقار',
       ),
       InputConfig(
         step: 3,

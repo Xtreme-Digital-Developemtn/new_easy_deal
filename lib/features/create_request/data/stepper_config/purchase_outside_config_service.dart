@@ -7,7 +7,7 @@ class PurchaseOutsideCompoundConfigService {
       StepperConfiguration(
         key: 'purchase_sell_outside_compound_purchasing_apartments',
         inputs: [
-          ..._createPurchaseOutsideCompoundLocationInputs(),
+          ..._createPurchaseOutsideCompoundLocationInputsNoSuggestions(),
           ..._createPurchaseOutsideCompoundApartmentsUnitInformationInputs(),
           ..._createPurchaseOutsideCompoundFinancialInputs(),
         ],
@@ -199,6 +199,16 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
       const InputConfig(step: 2, name: 'locationSuggestions', type: InputFieldType.checkbox, label: 'Location Suggestion'),
+      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
+    ];
+  }
+
+  List<InputConfig> _createPurchaseOutsideCompoundLocationInputsNoSuggestions() {
+    return [
+      const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
+      const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
+      const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
+      const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
     ];
   }
 

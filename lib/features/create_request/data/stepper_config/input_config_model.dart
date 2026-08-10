@@ -54,6 +54,11 @@ const _requiredFields = <String>{
   'unitPrice',
   'unitPriceMonthly',
   'unitPriceDaily',
+  'buildingNumber',
+  'unitNumber',
+  'unitFacing',
+  'unitView',
+  'legalStatus',
 };
 
 class StepperConfiguration {
