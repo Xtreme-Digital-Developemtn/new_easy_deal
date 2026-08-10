@@ -28,7 +28,22 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   void setFormValue(String name, dynamic value) {
     formValues[name] = value;
     formErrors.remove(name);
+
+    if (name == 'unitAreaMin' || name == 'unitAreaMax') {
+      _validateAreaRange();
+    }
+
     emit(FormValueChangedState());
+  }
+
+  void _validateAreaRange() {
+    final minArea = double.tryParse(getFormValueString('unitAreaMin') ?? '');
+    final maxArea = double.tryParse(getFormValueString('unitAreaMax') ?? '');
+    if (minArea != null && maxArea != null && minArea > maxArea) {
+      formErrors['unitAreaMin'] = 'لا يمكن أن يكون الحد الأدنى لمساحة الوحدة أكبر من الحد الأقصى لها';
+    } else {
+      formErrors.remove('unitAreaMin');
+    }
   }
 
   dynamic getFormValue(String name) => formValues[name];
@@ -41,7 +56,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   }
 
   String? getFieldError(InputConfig config) {
-    if (!config.required) return null;
+    if (!config.required && config.name != 'unitAreaMin') return null;
     return formErrors[config.name] as String?;
   }
 
@@ -71,6 +86,10 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     if (currentStepNumber == 4 || currentStepNumber == 5) {
       if (_isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
       if (_isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
+    }
+
+    if (currentStepNumber == 3) {
+      _validateAreaRange();
     }
 
 

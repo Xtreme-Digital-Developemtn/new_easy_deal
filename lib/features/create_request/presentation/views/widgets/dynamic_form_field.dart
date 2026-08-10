@@ -46,7 +46,12 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
   }
 
   Widget _buildField(BuildContext context, CreateRequestCubit cubit) {
-    final error = _touched || cubit.validationAttempted ? cubit.getFieldError(widget.config) : null;
+    final isAreaField = widget.config.name == 'unitAreaMin' || widget.config.name == 'unitAreaMax';
+    final otherAreaTouched = isAreaField && (
+      (cubit.getFormValueString('unitAreaMin')?.isNotEmpty == true) ||
+      (cubit.getFormValueString('unitAreaMax')?.isNotEmpty == true)
+    );
+    final error = (_touched || otherAreaTouched || cubit.validationAttempted) ? cubit.getFieldError(widget.config) : null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
