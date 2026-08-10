@@ -51,7 +51,16 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
       (cubit.getFormValueString('unitAreaMin')?.isNotEmpty == true) ||
       (cubit.getFormValueString('unitAreaMax')?.isNotEmpty == true)
     );
-    final error = (_touched || otherAreaTouched || cubit.validationAttempted) ? cubit.getFieldError(widget.config) : null;
+
+    final isPriceField = widget.config.name.contains('averageUnitPrice') && widget.config.name.contains('Min');
+    final priceMinKey = widget.config.name;
+    final priceMaxKey = priceMinKey.replaceAll('Min', 'Max');
+    final otherPriceTouched = isPriceField && (
+      (cubit.getFormValueString(priceMinKey)?.isNotEmpty == true) ||
+      (cubit.getFormValueString(priceMaxKey)?.isNotEmpty == true)
+    );
+
+    final error = (_touched || otherAreaTouched || otherPriceTouched || cubit.validationAttempted) ? cubit.getFieldError(widget.config) : null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

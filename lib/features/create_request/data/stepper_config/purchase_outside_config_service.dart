@@ -497,7 +497,7 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 5, name: 'paymentMethod', type: InputFieldType.select, label: 'Payment Method', options: paymentMethodOptions),
       const InputConfig(step: 5, name: 'averageUnitPriceMin', type: InputFieldType.number, label: 'Average Unit Price Min'),
       const InputConfig(step: 5, name: 'averageUnitPriceMax', type: InputFieldType.number, label: 'Average Unit Price Max'),
-      const InputConfig(step: 5, name: 'unitPriceSuggestions', type: InputFieldType.checkbox, label: 'Price Suggestion'),
+      // const InputConfig(step: 5, name: 'unitPriceSuggestions', type: InputFieldType.checkbox, label: 'Price Suggestion'),
     ];
   }
 

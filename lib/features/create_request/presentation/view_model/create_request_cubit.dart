@@ -37,6 +37,12 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       _validateBathRooms(value);
     }
 
+    if (name == 'averageUnitPriceMin' || name == 'averageUnitPriceMax' ||
+        name == 'averageUnitPriceMonthlyMin' || name == 'averageUnitPriceMonthlyMax' ||
+        name == 'averageUnitPriceDailyMin' || name == 'averageUnitPriceDailyMax') {
+      _validatePriceRange(name);
+    }
+
     emit(FormValueChangedState());
   }
 
@@ -59,6 +65,32 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
   }
 
+  void _validatePriceRange(String name) {
+    String minKey, maxKey, label;
+    if (name.contains('Monthly')) {
+      minKey = 'averageUnitPriceMonthlyMin';
+      maxKey = 'averageUnitPriceMonthlyMax';
+      label = 'الشهري';
+    } else if (name.contains('Daily')) {
+      minKey = 'averageUnitPriceDailyMin';
+      maxKey = 'averageUnitPriceDailyMax';
+      label = 'اليومي';
+    } else {
+      minKey = 'averageUnitPriceMin';
+      maxKey = 'averageUnitPriceMax';
+      label = '';
+    }
+
+    final minVal = double.tryParse(getFormValueString(minKey) ?? '');
+    final maxVal = double.tryParse(getFormValueString(maxKey) ?? '');
+    if (minVal != null && maxVal != null && minVal > maxVal) {
+      final suffix = label.isNotEmpty ? ' ($label)' : '';
+      formErrors[minKey] = 'لا يمكن أن يكون الحد الأدنى$suffix أكبر من الحد الأقصى لها';
+    } else {
+      formErrors.remove(minKey);
+    }
+  }
+
   dynamic getFormValue(String name) => formValues[name];
   String? getFormValueString(String name) => formValues[name]?.toString();
   List<String> getFormValueList(String name) {
@@ -69,7 +101,10 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   }
 
   String? getFieldError(InputConfig config) {
-    if (!config.required && config.name != 'unitAreaMin') return null;
+    if (!config.required && config.name != 'unitAreaMin' &&
+        config.name != 'averageUnitPriceMin' &&
+        config.name != 'averageUnitPriceMonthlyMin' &&
+        config.name != 'averageUnitPriceDailyMin') return null;
     return formErrors[config.name] as String?;
   }
 
