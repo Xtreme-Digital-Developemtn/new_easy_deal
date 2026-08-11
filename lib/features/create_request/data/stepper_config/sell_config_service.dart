@@ -1880,6 +1880,130 @@ class SellConfigService {
     ];
   }
 
+  List<InputConfig> _createResaleInsideCompoundSellApartmentsConfig() {
+    return [
+      _createResaleInsideCompoundLocationInputs(),
+      _createResaleInsideCompoundSellUnitInformationInputs(),
+      _createResaleInsideCompoundSellFinancialInputs(),
+    ].expand((i) => i).toList();
+  }
+
+  List<InputConfig> _createResaleInsideCompoundLocationInputs() {
+    return [
+      InputConfig(
+        step: 2,
+        name: 'compoundName',
+        type: InputFieldType.text,
+        label: 'Compound Name',
+        visibility: () => true,
+      ),
+      InputConfig(
+        step: 2,
+        name: 'cityId',
+        type: InputFieldType.select,
+        label: 'City',
+        options: const [],
+      ),
+      InputConfig(
+        step: 2,
+        name: 'areaId',
+        type: InputFieldType.select,
+        label: 'Area',
+        options: const [],
+      ),
+      InputConfig(
+        step: 2,
+        name: 'subAreaId',
+        type: InputFieldType.select,
+        label: 'Sub Area',
+        options: const [],
+      ),
+    ];
+  }
+
+  List<InputConfig> _createResaleInsideCompoundSellUnitInformationInputs() {
+    return [
+      const InputConfig(
+        step: 3,
+        name: 'unitAreaMin',
+        type: InputFieldType.number,
+        label: 'Unit Area Min (m²)',
+      ),
+      const InputConfig(
+        step: 3,
+        name: 'unitAreaMax',
+        type: InputFieldType.number,
+        label: 'Unit Area Max (m²)',
+      ),
+      InputConfig(
+        step: 3,
+        name: 'floor',
+        type: InputFieldType.select,
+        label: 'Floor',
+        options: floorTypesOptions,
+      ),
+      const InputConfig(
+        step: 3,
+        name: 'rooms',
+        type: InputFieldType.number,
+        label: 'Number of Rooms',
+      ),
+      const InputConfig(
+        step: 3,
+        name: 'bathRooms',
+        type: InputFieldType.number,
+        label: 'Number of Bathrooms',
+      ),
+      InputConfig(
+        step: 3,
+        name: 'unitView',
+        type: InputFieldType.select,
+        label: 'View',
+        options: specificRentalUnitViewTypesOptions,
+      ),
+      InputConfig(
+        step: 3,
+        name: 'finishingStatus',
+        type: InputFieldType.select,
+        label: 'Finishing Status',
+        options: purchaseSpecificFinishingStatusTypesOptions,
+      ),
+      InputConfig(
+        step: 3,
+        name: 'deliveryStatus',
+        type: InputFieldType.select,
+        label: 'Delivery Status',
+        options: purchaseDeliveryStatusTypesOptions,
+      ),
+      InputConfig(
+        step: 3,
+        name: 'otherAccessories',
+        type: InputFieldType.multiSelect,
+        label: 'الكماليات الاخري',
+        options: primaryInsideCompoundOtherAccessoriesOptions,
+      ),
+      const InputConfig(
+        step: 3,
+        name: 'notes',
+        type: InputFieldType.textarea,
+        label: 'Notes',
+      ),
+    ];
+  }
+
+  List<InputConfig> _createResaleInsideCompoundSellFinancialInputs() {
+    return [
+      InputConfig(
+        step: 5,
+        name: 'paymentMethod',
+        type: InputFieldType.select,
+        label: 'Payment Method',
+        options: paymentMethodOptions,
+        visibility: () => true,
+      ),
+    ];
+  }
+
   List<InputConfig> createInsideCompoundSellDuplexesConfig(String configKey, {bool includeRooms = true}) {
     final isResale = configKey.contains('resale');
     final compound = configKey.contains('inside');
@@ -2071,7 +2195,7 @@ class SellConfigService {
       ),
       StepperConfiguration(
         key: 'resale_inside_compound_sell_apartments',
-        inputs: createPrimaryInsideCompoundSellApartmentsConfig('resale_inside_compound_sell_apartments'),
+        inputs: _createResaleInsideCompoundSellApartmentsConfig(),
       ),
       StepperConfiguration(
         key: 'primary_inside_compound_sell_duplexes',
