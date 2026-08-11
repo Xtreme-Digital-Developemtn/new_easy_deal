@@ -1882,13 +1882,14 @@ class SellConfigService {
 
   List<InputConfig> _createResaleInsideCompoundSellApartmentsConfig() {
     return [
-      _createResaleInsideCompoundLocationInputs(),
-      _createResaleInsideCompoundSellUnitInformationInputs(),
-      _createResaleInsideCompoundSellFinancialInputs(),
-    ].expand((i) => i).toList();
+      ..._createResaleInsideCompoundSellLocationInputs(),
+      ..._createResaleInsideCompoundSellUnitInformationInputs(),
+      ..._createResaleInsideCompoundSellMediaInputs(),
+      ..._createResaleInsideCompoundSellFinancialInputs(),
+    ];
   }
 
-  List<InputConfig> _createResaleInsideCompoundLocationInputs() {
+  List<InputConfig> _createResaleInsideCompoundSellLocationInputs() {
     return [
       InputConfig(
         step: 2,
@@ -1918,6 +1919,34 @@ class SellConfigService {
         label: 'Sub Area',
         options: const [],
       ),
+      InputConfig(
+        step: 2,
+        name: 'detailedAddress',
+        type: InputFieldType.text,
+        label: 'Detailed Address',
+        visibility: () => true,
+      ),
+      InputConfig(
+        step: 2,
+        name: 'addressLink',
+        type: InputFieldType.url,
+        label: 'رابط الموقع على خرائط جوجل',
+        visibility: () => true,
+      ),
+      InputConfig(
+        step: 2,
+        name: 'projectManagement',
+        type: InputFieldType.text,
+        label: 'ادارة التشغيل',
+        visibility: () => true,
+      ),
+      InputConfig(
+        step: 2,
+        name: 'projectConstructor',
+        type: InputFieldType.text,
+        label: 'منفذ المشروع',
+        visibility: () => true,
+      ),
     ];
   }
 
@@ -1925,15 +1954,21 @@ class SellConfigService {
     return [
       const InputConfig(
         step: 3,
-        name: 'unitAreaMin',
-        type: InputFieldType.number,
-        label: 'Unit Area Min (m²)',
+        name: 'unitNumber',
+        type: InputFieldType.text,
+        label: 'Unit Number',
       ),
       const InputConfig(
         step: 3,
-        name: 'unitAreaMax',
+        name: 'buildingNumber',
+        type: InputFieldType.text,
+        label: 'رقم العقار',
+      ),
+      const InputConfig(
+        step: 3,
+        name: 'unitArea',
         type: InputFieldType.number,
-        label: 'Unit Area Max (m²)',
+        label: 'Unit Area (m²)',
       ),
       InputConfig(
         step: 3,
@@ -1977,6 +2012,16 @@ class SellConfigService {
       ),
       InputConfig(
         step: 3,
+        name: 'financialStatus',
+        type: InputFieldType.select,
+        label: 'الموقف المالي',
+        options: const [
+          OptionItem(key: 'مدفوع بالكامل', value: 'fully_paid'),
+          OptionItem(key: 'مدفوع جزئيا مع اقساط متبقية', value: 'partially_paid'),
+        ],
+      ),
+      InputConfig(
+        step: 3,
         name: 'otherAccessories',
         type: InputFieldType.multiSelect,
         label: 'الكماليات الاخري',
@@ -1991,6 +2036,29 @@ class SellConfigService {
     ];
   }
 
+  List<InputConfig> _createResaleInsideCompoundSellMediaInputs() {
+    return [
+      const InputConfig(
+        step: 4,
+        name: 'mainImage',
+        type: InputFieldType.file,
+        label: 'Main Image',
+      ),
+      const InputConfig(
+        step: 4,
+        name: 'unitInMasterPlanImage',
+        type: InputFieldType.file,
+        label: 'صورة الماستر بلان',
+      ),
+      const InputConfig(
+        step: 4,
+        name: 'galleryImages',
+        type: InputFieldType.file,
+        label: 'صور المعرض (صورة البيان المالي ان وجد)',
+      ),
+    ];
+  }
+
   List<InputConfig> _createResaleInsideCompoundSellFinancialInputs() {
     return [
       InputConfig(
@@ -2000,6 +2068,19 @@ class SellConfigService {
         label: 'Payment Method',
         options: paymentMethodOptions,
         visibility: () => true,
+      ),
+      InputConfig(
+        step: 5,
+        name: 'cashPrice',
+        type: InputFieldType.number,
+        label: 'Cash Price',
+        visibility: () => true,
+      ),
+      const InputConfig(
+        step: 5,
+        name: 'offer',
+        type: InputFieldType.textarea,
+        label: 'العرض',
       ),
     ];
   }
