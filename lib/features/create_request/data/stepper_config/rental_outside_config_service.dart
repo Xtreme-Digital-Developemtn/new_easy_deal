@@ -9,9 +9,9 @@ class RentalOutsideCompoundConfigService {
         key: 'rentals_outside_compound_rent_out_apartments',
         inputs: [
           ..._createRentOutOutsideCompoundLocationInputs(),
-          ..._createRentOutOutsideCompoundUnitInformationInputs(),
-          ..._createMediaInputs(),
-          ..._createRentOutOutsideCompoundFinancialInputs(),
+          ..._createRentOutOutsideCompoundApartmentUnitInformationInputs(),
+          ..._createRentOutOutsideCompoundApartmentMediaInputs(),
+          ..._createRentOutOutsideCompoundApartmentFinancialInputs(),
         ],
       ),
       StepperConfiguration(
@@ -190,8 +190,9 @@ class RentalOutsideCompoundConfigService {
         key: 'rentals_outside_compound_rent_in_apartments',
         inputs: [
           ..._createRentInOutsideCompoundLocationInputs(),
-          ..._createRentInOutsideCompoundUnitInformationInputs(),
-          ..._createRentInOutsideCompoundFinancialInputs(),
+          ..._createRentInOutsideCompoundApartmentUnitInformationInputs(),
+          ..._createRentInOutsideCompoundApartmentMediaInputs(),
+          ..._createRentInOutsideCompoundApartmentFinancialInputs(),
         ],
       ),
       StepperConfiguration(
@@ -772,6 +773,76 @@ class RentalOutsideCompoundConfigService {
       const InputConfig(step: 4, name: 'mainImage', type: InputFieldType.file, label: 'Main Image'),
       const InputConfig(step: 4, name: 'galleryImages', type: InputFieldType.file, label: 'Gallery Images'),
       const InputConfig(step: 4, name: 'video', type: InputFieldType.file, label: 'Video'),
+    ];
+  }
+
+  List<InputConfig> _createRentOutOutsideCompoundApartmentUnitInformationInputs() {
+    return [
+      const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
+      const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
+      const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
+      const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
+      const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
+      const InputConfig(step: 3, name: 'unitView', type: InputFieldType.select, label: 'Unit View', options: sellUnitViewTypesOptions),
+      const InputConfig(step: 3, name: 'unitFacing', type: InputFieldType.select, label: 'Unit Facing', options: unitFacingTypesOptions),
+      const InputConfig(step: 3, name: 'finishingStatus', type: InputFieldType.select, label: 'Finishing Status', options: rentalFinishingStatusTypesOptions),
+      const InputConfig(step: 3, name: 'furnishingStatus', type: InputFieldType.select, label: 'Furnishing Status', options: furnishingStatusOptions),
+      const InputConfig(step: 3, name: 'otherAccessories', type: InputFieldType.multiSelect, label: 'Available Accessories', options: purchaseOtherAccessoriesOptions),
+      const InputConfig(step: 3, name: 'notes', type: InputFieldType.textarea, label: 'Property Description'),
+    ];
+  }
+
+  List<InputConfig> _createRentOutOutsideCompoundApartmentMediaInputs() {
+    return [
+      const InputConfig(step: 4, name: 'mainImage', type: InputFieldType.file, label: 'Main Image'),
+      const InputConfig(step: 4, name: 'unitInMasterPlanImage', type: InputFieldType.file, label: 'صورة الماستر بلان'),
+    ];
+  }
+
+  List<InputConfig> _createRentOutOutsideCompoundApartmentFinancialInputs() {
+    return [
+      const InputConfig(step: 5, name: 'unitPrice', type: InputFieldType.number, label: 'الايجار الشهري المطلوب'),
+      const InputConfig(step: 5, name: 'unitPriceDaily', type: InputFieldType.number, label: 'الايجار اليومي'),
+      const InputConfig(step: 5, name: 'rentRecurrence', type: InputFieldType.select, label: 'تكرار الايجار', options: rentRecurrenceOptions),
+      const InputConfig(step: 5, name: 'requiredInsurance', type: InputFieldType.select, label: 'التامين المطلوب', options: requiredInsuranceTypesOptions),
+      const InputConfig(step: 5, name: 'requiredInsuranceValue', type: InputFieldType.number, label: 'قيمة التامين'),
+      const InputConfig(step: 5, name: 'otherExpenses', type: InputFieldType.multiSelect, label: 'مصاريف اخري', options: otherExpensesOptions),
+    ];
+  }
+
+  List<InputConfig> _createRentInOutsideCompoundApartmentUnitInformationInputs() {
+    return [
+      const InputConfig(step: 3, name: 'unitNumber', type: InputFieldType.text, label: 'Unit Number'),
+      const InputConfig(step: 3, name: 'buildingNumber', type: InputFieldType.text, label: 'رقم العقار'),
+      const InputConfig(step: 3, name: 'floor', type: InputFieldType.select, label: 'Floor', options: sellFloorTypesOptions),
+      const InputConfig(step: 3, name: 'unitArea', type: InputFieldType.number, label: 'Unit Area (m²)'),
+      const InputConfig(step: 3, name: 'rooms', type: InputFieldType.number, label: 'Number of Rooms'),
+      const InputConfig(step: 3, name: 'bathRooms', type: InputFieldType.number, label: 'Number of Bathrooms'),
+      const InputConfig(step: 3, name: 'unitView', type: InputFieldType.select, label: 'Unit View', options: sellUnitViewTypesOptions),
+      const InputConfig(step: 3, name: 'unitFacing', type: InputFieldType.select, label: 'Unit Facing', options: unitFacingTypesOptions),
+      const InputConfig(step: 3, name: 'finishingStatus', type: InputFieldType.select, label: 'Finishing Status', options: rentalFinishingStatusTypesOptions),
+      const InputConfig(step: 3, name: 'furnishingStatus', type: InputFieldType.select, label: 'Furnishing Status', options: furnishingStatusOptions),
+      const InputConfig(step: 3, name: 'otherAccessories', type: InputFieldType.multiSelect, label: 'Available Accessories', options: purchaseOtherAccessoriesOptions),
+      const InputConfig(step: 3, name: 'notes', type: InputFieldType.textarea, label: 'Property Description'),
+    ];
+  }
+
+  List<InputConfig> _createRentInOutsideCompoundApartmentMediaInputs() {
+    return [
+      const InputConfig(step: 4, name: 'mainImage', type: InputFieldType.file, label: 'Main Image'),
+      const InputConfig(step: 4, name: 'unitInMasterPlanImage', type: InputFieldType.file, label: 'صورة الماستر بلان'),
+    ];
+  }
+
+  List<InputConfig> _createRentInOutsideCompoundApartmentFinancialInputs() {
+    return [
+      const InputConfig(step: 5, name: 'unitPrice', type: InputFieldType.number, label: 'الايجار الشهري المطلوب'),
+      const InputConfig(step: 5, name: 'unitPriceDaily', type: InputFieldType.number, label: 'الايجار اليومي'),
+      const InputConfig(step: 5, name: 'rentRecurrence', type: InputFieldType.select, label: 'تكرار الايجار', options: rentRecurrenceOptions),
+      const InputConfig(step: 5, name: 'requiredInsurance', type: InputFieldType.select, label: 'التامين المطلوب', options: requiredInsuranceTypesOptions),
+      const InputConfig(step: 5, name: 'requiredInsuranceValue', type: InputFieldType.number, label: 'قيمة التامين'),
+      const InputConfig(step: 5, name: 'otherExpenses', type: InputFieldType.multiSelect, label: 'مصاريف اخري', options: otherExpensesOptions),
     ];
   }
 
