@@ -10,6 +10,7 @@ class InputConfig {
   final List<OptionItem>? options;
   final bool Function()? visibility;
   final bool isDynamic;
+  final bool? requiredOverride;
 
   const InputConfig({
     required this.step,
@@ -19,10 +20,11 @@ class InputConfig {
     this.options,
     this.visibility,
     this.isDynamic = false,
+    this.requiredOverride,
   });
 
   bool isVisible() => visibility?.call() ?? true;
-  bool get required => _requiredFields.contains(name);
+  bool get required => requiredOverride ?? _requiredFields.contains(name);
 }
 
 const _requiredFields = <String>{

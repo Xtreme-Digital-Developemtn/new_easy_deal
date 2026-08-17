@@ -143,8 +143,11 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
 
 
+    final hidden = !shouldShowHotelUnitFields
+        ? _insideCompoundApartmentHotelFields.toSet()
+        : <String>{};
     for (final input in inputs) {
-      if (!input.required || !input.isVisible()) continue;
+      if (!input.required || hidden.contains(input.name)) continue;
 
       if (input.type == InputFieldType.url) {
         final val = getFormValueString(input.name);
@@ -435,8 +438,11 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       if (names.contains('averageUnitPriceMin') && _isFieldEmpty('averageUnitPriceMin')) return false;
       if (names.contains('averageUnitPriceMax') && _isFieldEmpty('averageUnitPriceMax')) return false;
     }
+    final hidden = !shouldShowHotelUnitFields
+        ? _insideCompoundApartmentHotelFields.toSet()
+        : <String>{};
     for (final input in currentStepInputs) {
-      if (!input.required || !input.isVisible()) continue;
+      if (!input.required || hidden.contains(input.name)) continue;
       if (input.type == InputFieldType.file || input.type == InputFieldType.checkbox || input.type == InputFieldType.multiSelect) continue;
       if (_isFieldEmpty(input.name)) return false;
     }
@@ -449,6 +455,38 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   bool get isSellInside => configFactory.isSellInsideCompound(selectedSpecializationValue, selectedDealTypeValue);
   bool get isRentOutOutside => configFactory.isRentOutOutsideCompound(selectedSpecializationValue, selectedDealTypeValue);
   bool get isRentInOutside => configFactory.isRentInOutsideCompound(selectedSpecializationValue, selectedDealTypeValue);
+
+  bool get isInsideCompoundApartments =>
+      configKey == 'rentals_inside_compound_rent_in_apartments' ||
+      configKey == 'rentals_inside_compound_rent_out_apartments';
+
+  static const List<String> _insideCompoundApartmentHotelFields = [
+    'unitNumber',
+    'buildingNumber',
+    'unitArea',
+    'rooms',
+    'bathRooms',
+    'floor',
+    'unitView',
+    'finishingStatus',
+    'furnishingStatus',
+    'otherAccessories',
+    'notes',
+  ];
+
+  bool get shouldShowHotelUnitFields =>
+      isInsideCompoundApartments && getFormValueString('subUnitType') == 'hotel_unit';
+
+  bool get isSubUnitTypeEnabled {
+    if (!isInsideCompoundApartments) return true;
+    final step3 = configFactory.getInputsForKey(configKey, 3);
+    final required = step3.where((i) => i.required && i.name != 'subUnitType');
+    for (final input in required) {
+      final v = getFormValueString(input.name);
+      if (v == null || v.trim().isEmpty) return false;
+    }
+    return true;
+  }
 
   // Conditional display helpers
   bool get shouldShowDeliveryDate => getFormValueString('deliveryStatus') == 'under_construction';

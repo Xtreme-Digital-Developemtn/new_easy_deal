@@ -11,6 +11,18 @@ class TranslatableOptionItem {
   const TranslatableOptionItem({required this.key, required this.value, this.translationKey});
 }
 
+const apartmentSubUnitTypeOptions = [
+  OptionItem(key: 'شقق', value: 'apartments'),
+  OptionItem(key: 'دوبلكس', value: 'duplex'),
+  OptionItem(key: 'استديو', value: 'studio'),
+  OptionItem(key: 'بنت هاوس', value: 'penthouse'),
+  OptionItem(key: 'اي فيلا', value: 'i_villa'),
+  OptionItem(key: 'تاون هاوس', value: 'town_house'),
+  OptionItem(key: 'توين هاوس', value: 'twin_house'),
+  OptionItem(key: 'فيلات مستقلة', value: 'standalone_villa'),
+];
+
+
 const specializationScopeOptions = [
   TranslatableOptionItem(key: 'Purchase/ Sell Outside Compound', value: 'purchase_sell_outside_compound', translationKey: 'PURCHASE_SELL_OUTSIDE_COMPOUND'),
   TranslatableOptionItem(key: 'Primary Inside Compound', value: 'primary_inside_compound', translationKey: 'PRIMARY_INSIDE_COMPOUND'),

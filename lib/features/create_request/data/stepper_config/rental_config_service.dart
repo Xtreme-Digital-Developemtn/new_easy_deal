@@ -16,12 +16,6 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 2,
-        name: 'locationSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Location Suggestions',
-      ),
-      InputConfig(
-        step: 2,
         name: 'cityId',
         type: InputFieldType.select,
         label: 'Preferred City',
@@ -602,6 +596,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -708,6 +703,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -801,6 +797,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -895,6 +892,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -1002,12 +1000,6 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 5,
-        name: 'unitPriceSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Monthly Unit Price Suggestions',
-      ),
-      InputConfig(
-        step: 5,
         name: 'rentRecurrence',
         type: InputFieldType.select,
         label: 'Rent Recurrence',
@@ -1032,12 +1024,6 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 5,
-        name: 'averageUnitPriceMonthlySuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Monthly Unit Price Suggestions',
-      ),
-      InputConfig(
-        step: 5,
         name: 'averageUnitPriceDailyMin',
         type: InputFieldType.number,
         label: 'Minimum Average Daily Rent Price',
@@ -1047,12 +1033,6 @@ class RentalConfigService {
         name: 'averageUnitPriceDailyMax',
         type: InputFieldType.number,
         label: 'Maximum Average Daily Rent Price',
-      ),
-      InputConfig(
-        step: 5,
-        name: 'averageUnitPriceDailySuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Daily Unit Price Suggestions',
       ),
     ];
   }
@@ -1068,12 +1048,6 @@ class RentalConfigService {
         name: 'compoundName',
         type: InputFieldType.text,
         label: 'Compound Name',
-      ),
-      InputConfig(
-        step: 2,
-        name: 'locationSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Location Suggestions',
       ),
       InputConfig(
         step: 2,
@@ -1124,12 +1098,6 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 2,
-        name: 'locationSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Location Suggestions',
-      ),
-      InputConfig(
-        step: 2,
         name: 'detailedAddress',
         type: InputFieldType.text,
         label: 'Detailed Address',
@@ -1168,12 +1136,6 @@ class RentalConfigService {
         name: 'compoundName',
         type: InputFieldType.text,
         label: 'Compound Name',
-      ),
-      InputConfig(
-        step: 2,
-        name: 'locationSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Location Suggestions',
       ),
       InputConfig(
         step: 2,
@@ -1950,6 +1912,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -2043,6 +2006,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -2131,6 +2095,7 @@ class RentalConfigService {
         name: 'subUnitType',
         type: InputFieldType.select,
         label: 'SubUnit Type',
+        options: apartmentSubUnitTypeOptions,
       ),
       InputConfig(
         step: 3,
@@ -2226,12 +2191,6 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 5,
-        name: 'unitPriceSuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Rent Price Suggestions',
-      ),
-      InputConfig(
-        step: 5,
         name: 'rentRecurrence',
         type: InputFieldType.select,
         label: 'Rent Recurrence',
@@ -2290,21 +2249,9 @@ class RentalConfigService {
       ),
       InputConfig(
         step: 5,
-        name: 'UnitPriceMonthlySuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Monthly Price Suggestions',
-      ),
-      InputConfig(
-        step: 5,
         name: 'unitPriceDaily',
         type: InputFieldType.number,
         label: 'Daily Unit Price',
-      ),
-      InputConfig(
-        step: 5,
-        name: 'UnitPriceDailySuggestions',
-        type: InputFieldType.checkbox,
-        label: 'Daily Price Suggestions',
       ),
       InputConfig(
         step: 5,

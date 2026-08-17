@@ -17,6 +17,7 @@ class DynamicFormField extends StatefulWidget {
 
 class _DynamicFormFieldState extends State<DynamicFormField> {
   bool _touched = false;
+  bool _open = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,18 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
         return cubit.shouldShowFloorNumber;
       case 'deliveryDate':
         return cubit.shouldShowDeliveryDate;
+      case 'unitNumber':
+      case 'buildingNumber':
+      case 'unitArea':
+      case 'rooms':
+      case 'bathRooms':
+      case 'floor':
+      case 'unitView':
+      case 'finishingStatus':
+      case 'furnishingStatus':
+      case 'otherAccessories':
+      case 'notes':
+        return true;
       default:
         return true;
     }
@@ -141,17 +154,18 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
   }
 
   Widget _buildDropdown(BuildContext context, CreateRequestCubit cubit, String? error) {
-    final options = widget.config.options ?? [];
+    final options = widget.config.options ?? const <OptionItem>[];
     final currentValue = cubit.getFormValueString(widget.config.name);
     final hasValue = currentValue != null && currentValue.isNotEmpty;
+    final valueMatchesOption = options.any((o) => o.value == currentValue);
+    final selectedValue = (hasValue && valueMatchesOption) ? currentValue : null;
 
-    String? displayValue;
-    if (currentValue != null) {
-      final match = options.cast<OptionItem?>().firstWhere(
-        (o) => o!.value == currentValue,
-        orElse: () => null,
-      );
-      displayValue = match?.key.tr() ?? currentValue;
+    String displayText;
+    if (selectedValue != null) {
+      final opt = options.firstWhere((o) => o.value == selectedValue);
+      displayText = opt.key.tr();
+    } else {
+      displayText = widget.config.label.tr();
     }
 
     return Column(
@@ -159,56 +173,74 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
       children: [
         _buildRequiredLabel(widget.config.label),
         Gap(8.h),
-        Container(
-          width: double.infinity,
-          height: 52.h,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            border: Border.all(
-              color: hasValue ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
-              width: 1.5,
-            ),
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          child: DropdownButton<String>(
+        InkWell(
+          onTap: () => setState(() => _open = !_open),
+          child: Container(
+            width: double.infinity,
+            height: 52.h,
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            isExpanded: true,
-            underline: const SizedBox.shrink(),
-            value: displayValue,
-            hint: Text(
-              widget.config.label.tr(),
-              style: TextStyle(
-                color: const Color(0xFF969696),
-                fontSize: 14.sp,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(
+                color: hasValue ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                width: 1.5,
               ),
+              borderRadius: BorderRadius.circular(10.r),
             ),
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    displayText,
+                    style: TextStyle(
+                      color: selectedValue != null ? AppColors.black : const Color(0xFF969696),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Icon(
+                  _open ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.primaryDark,
+                  size: 24.sp,
+                ),
+              ],
             ),
-            icon: Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: AppColors.primaryDark,
-              size: 24.sp,
-            ),
-            items: options.map((o) {
-              return DropdownMenuItem<String>(
-                value: o.key.tr(),
-                child: Text(o.key.tr()),
-              );
-            }).toList(),
-            onChanged: (val) {
-              if (val != null) {
-                final matched = options.cast<OptionItem?>().firstWhere(
-                  (o) => o!.key.tr() == val,
-                );
-                cubit.setFormValue(widget.config.name, matched!.value);
-                if (!_touched) setState(() => _touched = true);
-              }
-            },
           ),
         ),
+        if (_open)
+          Container(
+            margin: EdgeInsets.only(top: 4.h),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(color: AppColors.blueLight, width: 1.5),
+              borderRadius: BorderRadius.circular(10.r),
+              boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2))],
+            ),
+            child: Column(
+              children: options.map((o) {
+                final selected = o.value == selectedValue;
+                return InkWell(
+                  onTap: () {
+                    cubit.setFormValue(widget.config.name, o.value);
+                    if (!_touched) _touched = true;
+                    setState(() => _open = false);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    color: selected ? AppColors.primaryDark.withValues(alpha: 0.08) : null,
+                    child: Text(
+                      o.key.tr(),
+                      style: AppStyles.black14SemiBold.copyWith(
+                        color: selected ? AppColors.primaryDark : AppColors.black,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
       ],
     );
   }
