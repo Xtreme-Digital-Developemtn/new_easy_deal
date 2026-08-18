@@ -21,10 +21,24 @@ class _RequestsViewState extends State<RequestsView> {
   @override
   void initState() {
     super.initState();
+    scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (!scrollController.hasClients) return;
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final current = scrollController.position.pixels;
+    if (maxScroll > 0 && current >= maxScroll - 200) {
+      final cubit = context.read<RequestsCubit>();
+      if (cubit.currentHasMore && !cubit.isLoadingMore) {
+        cubit.loadMore(context: context);
+      }
+    }
   }
 
   @override
   void dispose() {
+    scrollController.removeListener(_onScroll);
     scrollController.dispose();
     super.dispose();
   }
@@ -172,8 +186,8 @@ class _RequestsViewState extends State<RequestsView> {
                     controller: scrollController,
                     data: cubit.currentList,
                     isLoading: isLoading,
-                    hasMore: false,
-                    isLoadingMore: false,
+                    hasMore: cubit.currentHasMore,
+                    isLoadingMore: cubit.isLoadingMore,
                   ),
                 ],
               );
