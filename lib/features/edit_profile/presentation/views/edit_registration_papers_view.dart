@@ -21,12 +21,24 @@ class EditRegistrationPapersView extends StatefulWidget {
 }
 
 class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView> {
-  static const List<_PaperField> _papers = [
+  static const List<_PaperField> _independentPapers = [
+    _PaperField(key: 'image', label: 'الصورة الشخصية'),
+    _PaperField(key: 'idFront', label: 'الهوية (وجه أول)'),
+    _PaperField(key: 'idBack', label: 'الهوية (وجه ثاني)'),
+  ];
+
+  static const List<_PaperField> _brokerPapers = [
     _PaperField(key: 'image', label: 'الصورة الشخصية'),
     _PaperField(key: 'idFront', label: 'الهوية (وجه أول)'),
     _PaperField(key: 'idBack', label: 'الهوية (وجه ثاني)'),
     _PaperField(key: 'taxCardImage', label: 'البطاقة الضريبية'),
+    _PaperField(key: 'commercialRegistryImage', label: 'السجل التجاري'),
   ];
+
+  List<_PaperField> _papersFor(String? type) {
+    if (type == 'real_estate_brokage_company') return _brokerPapers;
+    return _independentPapers;
+  }
 
   final Map<String, File?> _selected = {};
 
@@ -41,6 +53,8 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
         return profile.idBack;
       case 'taxCardImage':
         return profile.taxCardImage;
+      case 'commercialRegistryImage':
+        return profile.commercialRegistryImage;
       default:
         return null;
     }
@@ -60,12 +74,11 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
   }
 
   void _save() {
-    final cubit = EditProfileCubit.get(context);
-    cubit.image = _selected['image'];
-    cubit.idFront = _selected['idFront'];
-    cubit.idBack = _selected['idBack'];
-    cubit.taxCardImage = _selected['taxCardImage'];
-    cubit.updateProfileData();
+    final files = <String, File>{};
+    _selected.forEach((key, value) {
+      if (value != null) files[key] = value;
+    });
+    EditProfileCubit.get(context).updateUserImages(files);
   }
 
   @override
@@ -102,7 +115,7 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ..._papers.map((paper) {
+                            ..._papersFor(profile?.type).map((paper) {
                               final url = _urlFor(profile, paper.key);
                               final selected = _fileFor(paper.key);
                               return _buildPaperCard(

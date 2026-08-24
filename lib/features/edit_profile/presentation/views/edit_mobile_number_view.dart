@@ -22,10 +22,10 @@ class _EditMobileNumberViewState extends State<EditMobileNumberView> {
     super.initState();
     final profile = context.read<ProfileCubit>().clientProfileModel?.data;
     final cubit = context.read<EditProfileCubit>();
-    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
-    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
     cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
-    cubit.role = profile?.role;
+    cubit.nameCon.clear();
+    cubit.emailCon.clear();
+    cubit.role = null;
   }
 
   @override

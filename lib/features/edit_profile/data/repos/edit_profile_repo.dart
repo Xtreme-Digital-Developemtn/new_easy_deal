@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -18,5 +20,11 @@ abstract class EditProfileRepo {
     dynamic idBack,
     dynamic idFront,
     dynamic image,
+  });
+
+  Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({
+    required String endpoint,
+    required String key,
+    required File file,
   });
 }

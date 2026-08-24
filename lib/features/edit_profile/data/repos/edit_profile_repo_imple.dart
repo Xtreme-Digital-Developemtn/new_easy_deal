@@ -116,4 +116,31 @@ class EditProfileRepoImpl implements EditProfileRepo {
       return left(handleError(e));
     }
   }
+
+  @override
+  Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({
+    required String endpoint,
+    required String key,
+    required File file,
+  }) async {
+    try {
+      final formData = FormData();
+      formData.files.add(MapEntry(
+        key,
+        await MultipartFile.fromFile(file.path,
+            filename: file.path.split('/').last),
+      ));
+      final response = await apiService!.postData(
+        endPoint:
+            "${EndPoints.users}/$endpoint/${CacheHelper.getData(key: "userId")}",
+        data: formData,
+        isMultipart: true,
+      );
+      final UpdateProfileDataModel result =
+          UpdateProfileDataModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
 }

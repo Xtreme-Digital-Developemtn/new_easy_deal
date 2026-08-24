@@ -97,6 +97,44 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     );
   }
 
+  String _imageEndpointFor(String key) {
+    switch (key) {
+      case 'image':
+        return 'update-image';
+      case 'idFront':
+        return 'update-id-front';
+      case 'idBack':
+        return 'update-id-back';
+      case 'taxCardImage':
+        return 'update-tax-card-image';
+      case 'commercialRegistryImage':
+        return 'update-commercial-registry-image';
+      default:
+        return 'update-image';
+    }
+  }
+
+  Future<void> updateUserImages(Map<String, File> files) async {
+    emit(EditProfileDataLoadingState());
+    String? firstError;
+    for (final entry in files.entries) {
+      final result = await editProfileRepo!.updateUserImage(
+        endpoint: _imageEndpointFor(entry.key),
+        key: entry.key,
+        file: entry.value,
+      );
+      final failure = result.fold((f) => f, (d) => null);
+      if (failure != null) {
+        firstError = failure.errMessage;
+        break;
+      }
+    }
+    if (firstError != null) {
+      emit(EditProfileDataErrorState(firstError));
+    } else {
+      emit(EditProfileDataSuccessState(UpdateProfileDataModel()));
+    }
+  }
 
   Future<File?> pickDocument() async {
     final result = await FilePicker.platform.pickFiles(
