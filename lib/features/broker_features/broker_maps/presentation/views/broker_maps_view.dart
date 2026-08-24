@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_deal/features/broker_features/broker_maps/presentation/views/widgets/header_section.dart';
 import 'package:easy_deal/features/broker_features/broker_maps/presentation/views/widgets/locations_list_view.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -52,8 +51,8 @@ class _BrokerMapsViewState extends State<BrokerMapsView> {
             padding: EdgeInsets.all(16.r),
             child: Column(
               children: [
-                const HeaderSection(),
-                Gap(12.h),
+                // const HeaderSection(),
+                // Gap(12.h),
                 Expanded(child: LocationsListView(locations: data)),
               ],
             ),
