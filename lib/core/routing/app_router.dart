@@ -339,10 +339,11 @@ class AppRouter {
       case Routes.editRegistrationPapersView:
         final args = arguments as Map<String, dynamic>;
         final editProfileCubit = args['editProfileCubit'] as EditProfileCubit;
+
         return transition(
           screen: BlocProvider.value(
             value: editProfileCubit,
-            child: EditRegistrationPapersView(),
+            child: const EditRegistrationPapersView(),
           ),
         );
       case Routes.brokerDevelopersView:

@@ -122,14 +122,14 @@ import '../../../my_app.dart';
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? query,
+    bool isMultipart = false,
     bool public = false,
   }) async {
-    return await _dio.put(
-      endPoint,
-      data: data,
-      queryParameters: query,
-      options: Options(extra: {'public': public}),
+    final options = Options(
+      contentType: isMultipart ? "multipart/form-data" : null,
+      extra: {'public': public},
     );
+    return await _dio.post(endPoint, data: data, queryParameters: query, options: options);
   }
 
   Future<Response> deleteData({

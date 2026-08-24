@@ -24,3 +24,6 @@ class EditProfileDataSuccessState extends EditProfileStates{
 class EditNewPasswordVisibleState extends EditProfileStates{}
 class EditConfirmNewPasswordVisibleState extends EditProfileStates{}
 class ClearPasswordsConState extends EditProfileStates{}
+
+class EditProfileImageSelectedState extends EditProfileStates {}
+class EditProfileImagePickedState extends EditProfileStates {}

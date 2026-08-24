@@ -5,11 +5,18 @@ import '../models/update_profile_data_model.dart';
 
 abstract class EditProfileRepo {
   Future<Either<Failure, UpdateProfileDataModel>> updateProfileData({
-     String? fullName,
-     String? phone,
-     String? email,
-     String? password,
-     String? passwordConfirmation,
-     String? role,
+    String? fullName,
+    String? phone,
+    String? email,
+    String? password,
+    String? passwordConfirmation,
+    String? role,
+
+    /// Images
+    dynamic commercialRegistryImage,
+    dynamic taxCardImage,
+    dynamic idBack,
+    dynamic idFront,
+    dynamic image,
   });
 }

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:easy_deal/features/edit_profile/data/models/update_profile_data_model.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/repos/edit_profile_repo.dart';
@@ -54,9 +57,20 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
   String? role;
   UpdateProfileDataModel? updateProfileDataModel;
+  File? commercialRegistryImage;
+  File? taxCardImage;
+  File? idBack;
+  File? idFront;
+  File? image;
+  File? selectedProfileImage;
+  File? selectedIdFront;
+  File? selectedIdBack;
+  File? selectedCommercialRegistryImage;
+  File? selectedTaxCardImage;
   Future<void> updateProfileData() async {
     emit(EditProfileDataLoadingState());
-    var result = await editProfileRepo!.updateProfileData(
+
+    final result = await editProfileRepo!.updateProfileData(
       fullName: nameCon.text,
       phone: mobileNumberCon.text,
       email: emailCon.text,
@@ -64,19 +78,93 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
       passwordConfirmation: newPasswordCon.text,
       password: confirmNewPasswordCon.text,
 
-
+      /// Images
+      commercialRegistryImage: commercialRegistryImage,
+      taxCardImage: taxCardImage,
+      idBack: idBack,
+      idFront: idFront,
+      image: image,
     );
+
     return result.fold(
-      (failure) {
+          (failure) {
         emit(EditProfileDataErrorState(failure.errMessage));
       },
-      (data) async {
+          (data) async {
         updateProfileDataModel = data;
         emit(EditProfileDataSuccessState(data));
       },
     );
   }
 
+
+  Future<File?> pickDocument() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+    );
+
+    if (result == null || result.files.single.path == null) {
+      return null;
+    }
+
+    return File(result.files.single.path!);
+  }
+
+  Future<void> pickProfileImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      selectedProfileImage = File(pickedFile.path);
+      emit(EditProfileImagePickedState());
+    }
+  }
+
+  Future<void> pickIdFront() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      selectedIdFront = File(pickedFile.path);
+      emit(EditProfileImagePickedState());
+    }
+  }
+
+  Future<void> pickIdBack() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      selectedIdBack = File(pickedFile.path);
+      emit(EditProfileImagePickedState());
+    }
+  }
+
+  Future<void> pickCommercialRegistryImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      selectedCommercialRegistryImage = File(pickedFile.path);
+      emit(EditProfileImagePickedState());
+    }
+  }
+
+  Future<void> pickTaxCardImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      selectedTaxCardImage = File(pickedFile.path);
+      emit(EditProfileImagePickedState());
+    }
+  }
 
   final ValueNotifier<bool> isFormValid = ValueNotifier(false);
   final formKey = GlobalKey<FormState>();

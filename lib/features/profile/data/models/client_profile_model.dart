@@ -31,14 +31,25 @@ class Data {
   String? phone;
   bool? isActive;
   bool? isVerified;
-  String? image;
   String? role;
   String? type;
   List<String>? permissions;
   dynamic parentId;
   dynamic gender;
+  /// Images
+  dynamic image;
+  dynamic idFront;
+  dynamic idBack;
+  dynamic taxCardImage;
+  dynamic commercialRegistryImage;
 
-  Data({this.id, this.brokerId,this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.type, this.permissions, this.parentId, this.gender});
+  Data({this.id, this.brokerId,this.fullName, this.email,
+    this.phone, this.isActive, this.isVerified, this.image, this.role, this.type, this.permissions,
+    this.parentId, this.gender,
+    this.commercialRegistryImage, this.idFront,
+    this.idBack, this.taxCardImage,
+  });
+
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -49,6 +60,10 @@ class Data {
     isActive = json["isActive"];
     isVerified = json["isVerified"];
     image = json["image"];
+    taxCardImage = json["taxCardImage"];
+    idBack = json["idBack"];
+    idFront = json["idFront"];
+    commercialRegistryImage = json["commercialRegistryImage"];
     role = json["role"];
     type = json["type"];
     permissions = json["permissions"] == null ? null : List<String>.from(json["permissions"]);
@@ -66,6 +81,10 @@ class Data {
     _data["isActive"] = isActive;
     _data["isVerified"] = isVerified;
     _data["image"] = image;
+    _data["commercialRegistryImage"] = commercialRegistryImage;
+    _data["taxCardImage"] = taxCardImage;
+    _data["idBack"] = idBack;
+    _data["idFront"] = idFront;
     _data["role"] = role;
     if(permissions != null) {
       _data["permissions"] = permissions;
