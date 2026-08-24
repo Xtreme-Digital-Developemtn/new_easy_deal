@@ -8,6 +8,7 @@ class EditProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(CacheHelper.getData(key: "userRole"));
     var profileCubit = context.read<ProfileCubit>();
     var editProfileCubit = context.read<EditProfileCubit>();
     return Scaffold(
@@ -57,11 +58,11 @@ class EditProfileView extends StatelessWidget {
               onTap: () {
                 context.pushNamed(Routes.editPasswordView);
               },
-              isLast: CacheHelper.getData(key: "role") == "broker"
+              isLast: CacheHelper.getData(key: "userRole") == "broker"
                   ? false
                   : true,
             ),
-            if (CacheHelper.getData(key: "role") == "broker")
+            if (CacheHelper.getData(key: "userRole") == "broker")
               EditProfileListItem(
                 title: LangKeys.advertisementAndPropertyDetails,
                 subTitle: "",
@@ -72,7 +73,7 @@ class EditProfileView extends StatelessWidget {
                   );
                 },
               ),
-            if (CacheHelper.getData(key: "role") == "broker")
+            if (CacheHelper.getData(key: "userRole") == "broker")
               EditProfileListItem(
                 title: LangKeys.registrationPapers,
                 subTitle: "",

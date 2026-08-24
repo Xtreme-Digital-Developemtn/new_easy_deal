@@ -19,29 +19,70 @@ class EditProfileListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 50.h,
-          child: InkWell(
-            onTap: onTap,
+        InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(title.tr(), style: AppStyles.black16Medium),
-                Row(
-                  children: [
-                    Text(subTitle, style: AppStyles.gray14Medium),
-                    Gap(8.w),
-                    SvgPicture.asset(context.isArabic ? SvgImages.arrow :  SvgImages.arrowLeft,
-                    colorFilter: ColorFilter.mode(AppColors.primaryDark, BlendMode.srcIn),),
-                  ],
+                /// Title
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    title.tr(),
+                    style: AppStyles.black16Medium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+
+                Gap(12.w),
+
+                /// SubTitle + Arrow
+                Expanded(
+                  flex: 6,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      /// SubTitle
+                      Flexible(
+                        child: Text(
+                          subTitle,
+                          style: AppStyles.gray14Medium,
+                          maxLines: 2,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+
+                      Gap(8.w),
+
+                      /// Arrow
+                      SvgPicture.asset(
+                        context.isArabic
+                            ? SvgImages.arrow
+                            : SvgImages.arrowLeft,
+                        width: 18.w,
+                        height: 18.h,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.primaryDark,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
         ),
+
         if (!isLast)
           Divider(
-            color: Color.fromRGBO(213, 224, 252, 1),
+            color: const Color.fromRGBO(213, 224, 252, 1),
             height: 16.h,
           ),
       ],
