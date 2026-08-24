@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:easy_deal/core/app_services/local_services/cache_helper.dart';
 import 'package:easy_deal/core/shared_widgets/global_app_bar.dart';
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_states.dart';
 import 'package:easy_deal/features/profile/data/models/client_profile_model.dart';
@@ -90,6 +91,7 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
               .read<ProfileCubit>()
               .getClientProfile(clientId: CacheHelper.getData(key: "userId"));
           Navigator.of(context).pop();
+          Toast.showSuccessToast(msg: "تم التحديث بنجاح", context: context);
         } else if (state is EditProfileDataErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.error)),
