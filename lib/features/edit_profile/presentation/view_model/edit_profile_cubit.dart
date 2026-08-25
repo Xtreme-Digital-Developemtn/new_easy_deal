@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:easy_deal/features/edit_profile/data/models/update_profile_data_model.dart';
+import 'package:easy_deal/features/profile/data/models/client_profile_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -67,30 +68,29 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   File? selectedIdBack;
   File? selectedCommercialRegistryImage;
   File? selectedTaxCardImage;
-  Future<void> updateProfileData() async {
+  ClientProfileModel? profileModel;
+  Future<void> updateProfileData({required int? id}) async {
     emit(EditProfileDataLoadingState());
-
     final result = await editProfileRepo!.updateProfileData(
+      id: id,
       fullName: nameCon.text,
       phone: mobileNumberCon.text,
       email: emailCon.text,
-      role: role,
-      passwordConfirmation: newPasswordCon.text,
-      password: confirmNewPasswordCon.text,
+      role: role ?? profileModel?.data?.role,
+      password: newPasswordCon.text.trim().isNotEmpty
+          ? newPasswordCon.text.trim()
+          : null,
 
-      /// Images
-      commercialRegistryImage: commercialRegistryImage,
-      taxCardImage: taxCardImage,
-      idBack: idBack,
-      idFront: idFront,
-      image: image,
+      passwordConfirmation: confirmNewPasswordCon.text.trim().isNotEmpty
+          ? confirmNewPasswordCon.text.trim()
+          : null,
     );
 
-    return result.fold(
+    result.fold(
           (failure) {
         emit(EditProfileDataErrorState(failure.errMessage));
       },
-          (data) async {
+          (data) {
         updateProfileDataModel = data;
         emit(EditProfileDataSuccessState(data));
       },

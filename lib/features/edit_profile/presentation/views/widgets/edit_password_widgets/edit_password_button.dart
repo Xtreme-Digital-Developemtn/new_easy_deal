@@ -43,7 +43,7 @@ class EditPasswordButton extends StatelessWidget {
               text: LangKeys.changePassword.tr(),
               onPressed: (){
                 if (formKey.currentState!.validate()){
-                  editProfileCubit.updateProfileData();
+                  editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"));
                   // context.read<ChangePasswordCubit>().changePassword(
                   //   oldPassword: context.read<ChangePasswordCubit>().oldPasswordCon.text,
                   //   newPassword: context.read<ChangePasswordCubit>().newPasswordCon.text,

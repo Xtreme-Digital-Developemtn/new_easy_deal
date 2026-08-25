@@ -13,13 +13,7 @@ abstract class EditProfileRepo {
     String? password,
     String? passwordConfirmation,
     String? role,
-
-    /// Images
-    dynamic commercialRegistryImage,
-    dynamic taxCardImage,
-    dynamic idBack,
-    dynamic idFront,
-    dynamic image,
+    int? id,
   });
 
   Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({

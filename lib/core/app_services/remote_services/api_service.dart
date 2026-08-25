@@ -46,7 +46,6 @@ import '../../../my_app.dart';
 
           final failure = ServerFailure.fromDioError(error);
           debugPrint("❌ [ERROR] ${failure.errMessage}");
-          CacheHelper.clearData();
           if (error.response?.statusCode == 401 && !_isRedirecting) {
             _isRedirecting = true;
 
@@ -129,7 +128,7 @@ import '../../../my_app.dart';
       contentType: isMultipart ? "multipart/form-data" : null,
       extra: {'public': public},
     );
-    return await _dio.post(endPoint, data: data, queryParameters: query, options: options);
+    return await _dio.put(endPoint, data: data, queryParameters: query, options: options);
   }
 
   Future<Response> deleteData({

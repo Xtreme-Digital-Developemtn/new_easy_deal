@@ -74,7 +74,7 @@ class _EditNameViewState extends State<EditNameView> {
                       return CustomButton(
                         onPressed: () {
                           if (context.read<EditProfileCubit>().formKey.currentState!.validate()) {
-                            context.read<EditProfileCubit>().updateProfileData();
+                            context.read<EditProfileCubit>().updateProfileData(id : CacheHelper.getData(key: "userId"));
                           }
                         },
                         text: LangKeys.save.tr(),

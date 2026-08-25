@@ -68,7 +68,7 @@ class _EditEmailViewState extends State<EditEmailView> {
                       return CustomButton(
                         onPressed: (){
                           if(editProfileCubit.formKey.currentState!.validate()){
-                            editProfileCubit.updateProfileData( );
+                            editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"));
                           }
 
                           // context.pushNamed(Routes.otpView,arguments: {
