@@ -69,11 +69,15 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   File? selectedCommercialRegistryImage;
   File? selectedTaxCardImage;
   ClientProfileModel? profileModel;
-  Future<void> updateProfileData({required int? id}) async {
+  Future<void> updateProfileData({required int? id  ,
+    required String? fullName,
+    required String? phone,
+    required String? email,
+  }) async {
     emit(EditProfileDataLoadingState());
     final result = await editProfileRepo!.updateProfileData(
       id: id,
-      fullName: nameCon.text,
+      fullName: fullName,
       phone: mobileNumberCon.text,
       email: emailCon.text,
       role: role ?? profileModel?.data?.role,

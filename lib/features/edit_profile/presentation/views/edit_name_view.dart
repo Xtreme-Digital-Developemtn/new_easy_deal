@@ -73,8 +73,18 @@ class _EditNameViewState extends State<EditNameView> {
                     builder: (context) {
                       return CustomButton(
                         onPressed: () {
+                          var editProfileCubit = context.read<EditProfileCubit>();
                           if (context.read<EditProfileCubit>().formKey.currentState!.validate()) {
-                            context.read<EditProfileCubit>().updateProfileData(id : CacheHelper.getData(key: "userId"));
+                            context.read<EditProfileCubit>().updateProfileData(id : CacheHelper.getData(key: "userId"),
+                              email:editProfileCubit.emailCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.email
+                                  : editProfileCubit.emailCon.text ,
+                              phone:editProfileCubit.mobileNumberCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.phone
+                                  : editProfileCubit.mobileNumberCon.text ,
+                              fullName:editProfileCubit.nameCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.fullName
+                                  : editProfileCubit.nameCon.text ,);
                           }
                         },
                         text: LangKeys.save.tr(),

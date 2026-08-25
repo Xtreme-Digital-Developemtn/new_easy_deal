@@ -18,6 +18,11 @@ class EditProfileRepoImpl implements EditProfileRepo {
     String? password,
     String? passwordConfirmation,
     String? role,
+    String? image,
+    String? idFront,
+    String? idBack,
+    String? taxCardImage,
+    String? commercialRegistryImage,
     int? id,
   })
   async {
@@ -32,13 +37,7 @@ class EditProfileRepoImpl implements EditProfileRepo {
         "password_confirmation": passwordConfirmation,
       };
 
-      data.removeWhere(
-            (key, value) =>
-        value == null || (value is String && value.trim().isEmpty),
-      );
-
       final response = await apiService!.putData(
-        isMultipart: true,
         endPoint: "${EndPoints.users}/$id",
         data: data,
       );

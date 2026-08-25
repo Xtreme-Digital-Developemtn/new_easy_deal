@@ -75,7 +75,17 @@ class _EditMobileNumberViewState extends State<EditMobileNumberView> {
                       return CustomButton(
                         onPressed: (){
                           if(editProfileCubit.formKey.currentState!.validate()){
-                            editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"));
+                            editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"),
+                              email:editProfileCubit.emailCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.email
+                                  : editProfileCubit.emailCon.text ,
+                              phone:editProfileCubit.mobileNumberCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.phone
+                                  : editProfileCubit.mobileNumberCon.text ,
+                              fullName:editProfileCubit.nameCon.text.isEmpty ?
+                              context.read<ProfileCubit>().clientProfileModel!.data!.fullName
+                                  : editProfileCubit.nameCon.text ,
+                            );
                           }
 
                           // context.pushNamed(Routes.otpView,arguments: {

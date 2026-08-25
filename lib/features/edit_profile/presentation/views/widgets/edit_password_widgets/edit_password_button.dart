@@ -4,6 +4,7 @@ import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_pro
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../../core/utils/toast/toast.dart';
 import '../../../../../../main_imports.dart';
+import '../../../../../profile/presentation/view_model/profile_cubit.dart';
 
 class EditPasswordButton extends StatelessWidget {
   const EditPasswordButton({super.key, required this.formKey});
@@ -43,7 +44,17 @@ class EditPasswordButton extends StatelessWidget {
               text: LangKeys.changePassword.tr(),
               onPressed: (){
                 if (formKey.currentState!.validate()){
-                  editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"));
+                  editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"),
+                    email:editProfileCubit.emailCon.text.isEmpty ?
+                    context.read<ProfileCubit>().clientProfileModel!.data!.email
+                        : editProfileCubit.emailCon.text ,
+                    phone:editProfileCubit.mobileNumberCon.text.isEmpty ?
+                    context.read<ProfileCubit>().clientProfileModel!.data!.phone
+                        : editProfileCubit.mobileNumberCon.text ,
+                    fullName:editProfileCubit.nameCon.text.isEmpty ?
+                    context.read<ProfileCubit>().clientProfileModel!.data!.fullName
+                        : editProfileCubit.nameCon.text ,
+                  );
                   // context.read<ChangePasswordCubit>().changePassword(
                   //   oldPassword: context.read<ChangePasswordCubit>().oldPasswordCon.text,
                   //   newPassword: context.read<ChangePasswordCubit>().newPasswordCon.text,
