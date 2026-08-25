@@ -333,7 +333,9 @@ class AppRouter {
         return transition(
           screen: BlocProvider.value(
             value: profileCubit,
-            child: EditAdvertisementAndPropertyDetailsView(),
+            child: EditAdvertisementAndPropertyDetailsView(
+
+            ),
           ),
         );
       case Routes.editRegistrationPapersView:

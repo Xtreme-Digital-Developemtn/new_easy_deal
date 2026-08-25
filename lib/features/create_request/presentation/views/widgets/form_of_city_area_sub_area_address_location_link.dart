@@ -5,8 +5,8 @@ import 'package:easy_deal/features/create_request/presentation/views/widgets/dyn
 import 'package:easy_localization/easy_localization.dart';
 
 class FormOfCityAreaSubAreaAddressLocationLink extends StatefulWidget {
-  const FormOfCityAreaSubAreaAddressLocationLink({super.key});
-
+  const FormOfCityAreaSubAreaAddressLocationLink({super.key,   this.showSubArea = true});
+  final bool showSubArea ;
   @override
   State<FormOfCityAreaSubAreaAddressLocationLink> createState() =>
       _FormOfCityAreaSubAreaAddressLocationLinkState();
@@ -193,7 +193,7 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
             Gap(12.h),
 
             /// Sub Area
-            if (cubit.selectedAreaObj != null) ...[
+            if (cubit.selectedAreaObj != null && widget.showSubArea==true) ...[
               Text(LangKeys.subArea.tr(), style: AppStyles.black14SemiBold),
               Gap(8.h),
               Container(

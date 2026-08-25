@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_deal/features/edit_profile/data/models/get_sub_areas_model.dart';
 import 'package:easy_deal/features/edit_profile/data/models/update_profile_data_model.dart';
 import 'package:easy_deal/features/profile/data/models/client_profile_model.dart';
 import 'package:file_picker/file_picker.dart';
@@ -118,7 +119,8 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     }
   }
 
-  Future<void> updateUserImages(Map<String, File> files) async {
+  Future<void> updateUserImages(Map<String, File> files)
+  async {
     emit(EditProfileDataLoadingState());
     String? firstError;
     for (final entry in files.entries) {
@@ -255,4 +257,24 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     newPasswordCon.clear();
     emit(ClearPasswordsConState());
   }
+
+
+
+
+  GetSubAreasModel? getSubAreasModel;
+
+  Future<void> getSubAreas({  required String cityId,}) async {
+    emit(GetSubAreasDataLoadingState());
+    var result = await editProfileRepo!.getSubAreas(cityId: cityId);
+    return result.fold(
+          (failure) {
+        emit(GetSubAreasDataErrorState(failure.errMessage));
+      },
+          (data) async {
+            getSubAreasModel = data;
+        emit(GetSubAreasDataSuccessState(data));
+      },
+    );
+  }
+
 }

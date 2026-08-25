@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
+import '../models/get_sub_areas_model.dart';
 import '../models/update_profile_data_model.dart';
 
 abstract class EditProfileRepo {
@@ -21,4 +22,8 @@ abstract class EditProfileRepo {
     required String key,
     required File file,
   });
+  Future<Either<Failure, GetSubAreasModel>> getSubAreas({
+    required String cityId,
+  });
+
 }

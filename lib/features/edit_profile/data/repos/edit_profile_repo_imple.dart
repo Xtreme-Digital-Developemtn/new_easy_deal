@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import '../../../../main_imports.dart';
+import '../models/get_sub_areas_model.dart';
 import '../models/update_profile_data_model.dart';
 import 'edit_profile_repo.dart';
 
@@ -54,7 +55,8 @@ class EditProfileRepoImpl implements EditProfileRepo {
     required String endpoint,
     required String key,
     required File file,
-  }) async {
+  })
+  async {
     try {
       final formData = FormData();
       formData.files.add(MapEntry(
@@ -75,4 +77,24 @@ class EditProfileRepoImpl implements EditProfileRepo {
       return left(handleError(e));
     }
   }
+
+  @override
+  Future<Either<Failure, GetSubAreasModel>> getSubAreas({
+    required String cityId,
+  })
+  async {
+    try {
+      final response = await apiService!.getData(
+        endPoint: EndPoints.getSubAreas,
+        query: {
+          "cityId" : cityId
+        }
+      );
+      final GetSubAreasModel result = GetSubAreasModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
 }
