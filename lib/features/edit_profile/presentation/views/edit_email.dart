@@ -23,7 +23,7 @@ class _EditEmailViewState extends State<EditEmailView> {
     cubit.emailCon = TextEditingController(text: profile?.email ?? "");
     cubit.nameCon.clear();
     cubit.mobileNumberCon.clear();
-    cubit.role = null;
+    cubit.role = profile?.role;
   }
 
   @override

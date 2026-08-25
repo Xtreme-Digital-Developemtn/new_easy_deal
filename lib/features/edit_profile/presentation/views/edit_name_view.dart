@@ -22,7 +22,7 @@ class _EditNameViewState extends State<EditNameView> {
     cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
     cubit.emailCon.clear();
     cubit.mobileNumberCon.clear();
-    cubit.role = null;
+    cubit.role = profile?.role;
   }
 
   @override

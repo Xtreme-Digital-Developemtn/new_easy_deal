@@ -78,8 +78,8 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     final result = await editProfileRepo!.updateProfileData(
       id: id,
       fullName: fullName,
-      phone: mobileNumberCon.text,
-      email: emailCon.text,
+      phone: phone,
+      email: email,
       role: role ?? profileModel?.data?.role,
       password: newPasswordCon.text.trim().isNotEmpty
           ? newPasswordCon.text.trim()
