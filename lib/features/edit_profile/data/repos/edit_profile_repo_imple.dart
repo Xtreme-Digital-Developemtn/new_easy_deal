@@ -52,6 +52,33 @@ class EditProfileRepoImpl implements EditProfileRepo {
   }
 
   @override
+  Future<Either<Failure, UpdateProfileDataModel>> updateSpecializationsAreas({
+    required int id,
+    Map<String, List<String>>? specializationScopes,
+    List<int>? areaIds,
+    List<int>? subAreas,
+  }) async {
+    try {
+      final data = <String, dynamic>{
+        if (specializationScopes != null)
+          "specializationScopes": specializationScopes,
+        if (areaIds != null) "areaIds": areaIds,
+        if (subAreas != null) "subAreas": subAreas,
+      };
+
+      final response = await apiService!.putData(
+        endPoint: "${EndPoints.updateSpecializationsAreas}/$id",
+        data: data,
+      );
+      final UpdateProfileDataModel result =
+          UpdateProfileDataModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({
     required String endpoint,
     required String key,

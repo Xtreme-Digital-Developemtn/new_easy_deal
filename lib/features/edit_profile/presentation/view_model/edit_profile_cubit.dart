@@ -109,6 +109,31 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     );
   }
 
+  Future<void> updateSpecializationsAreas({
+    required int id,
+    required Map<String, List<String>> specializationScopes,
+    List<int>? areaIds,
+    List<int>? subAreas,
+  }) async {
+    emit(EditProfileDataLoadingState());
+    final result = await editProfileRepo!.updateSpecializationsAreas(
+      id: id,
+      specializationScopes: specializationScopes,
+      areaIds: areaIds,
+      subAreas: subAreas,
+    );
+
+    result.fold(
+          (failure) {
+        emit(EditProfileDataErrorState(failure.errMessage));
+      },
+          (data) {
+        updateProfileDataModel = data;
+        emit(EditProfileDataSuccessState(data));
+      },
+    );
+  }
+
   String _imageEndpointFor(String key) {
     switch (key) {
       case 'image':

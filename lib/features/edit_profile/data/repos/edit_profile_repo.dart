@@ -18,6 +18,13 @@ abstract class EditProfileRepo {
     List<int>? areaIds,
   });
 
+  Future<Either<Failure, UpdateProfileDataModel>> updateSpecializationsAreas({
+    required int id,
+    Map<String, List<String>>? specializationScopes,
+    List<int>? areaIds,
+    List<int>? subAreas,
+  });
+
   Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({
     required String endpoint,
     required String key,
