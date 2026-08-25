@@ -74,6 +74,7 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     required String? fullName,
     required String? phone,
     required String? email,
+    List<int>? areaIds,
   }) async {
     emit(EditProfileDataLoadingState());
     final result = await editProfileRepo!.updateProfileData(
@@ -82,6 +83,12 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
       phone: phone,
       email: email,
       role: role ?? profileModel?.data?.role,
+      areaIds: areaIds ??
+          profileModel?.data?.areas
+              ?.where((a) => a.id != null)
+              .map((a) => a.id!)
+              .toList() ??
+          [],
       password: newPasswordCon.text.trim().isNotEmpty
           ? newPasswordCon.text.trim()
           : null,

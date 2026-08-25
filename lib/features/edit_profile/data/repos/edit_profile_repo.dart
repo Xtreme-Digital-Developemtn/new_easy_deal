@@ -15,6 +15,7 @@ abstract class EditProfileRepo {
     String? passwordConfirmation,
     String? role,
     int? id,
+    List<int>? areaIds,
   });
 
   Future<Either<Failure, UpdateProfileDataModel>> updateUserImage({

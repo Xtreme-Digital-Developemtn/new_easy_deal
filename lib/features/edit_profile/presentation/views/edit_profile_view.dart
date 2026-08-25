@@ -3,6 +3,7 @@ import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profi
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profile_statistics.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/section_card.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
+import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../view_model/edit_profile_cubit.dart';
@@ -14,20 +15,22 @@ class EditProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     var profileCubit = context.read<ProfileCubit>();
     var editProfileCubit = context.read<EditProfileCubit>();
-    var profile = profileCubit.clientProfileModel?.data;
     return Scaffold(
       // appBar: GlobalAppBar(title: LangKeys.editProfile),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfileHeader(
-              name: profile?.fullName ?? "",
-              phone: profile?.phone ?? "",
-              email: profile?.email ?? "",
-              role: profile?.role ?? "",
-              accountType: profile?.type ?? "",
-              imageUrl: profile?.image ?? "",
-            ),
+      body: BlocBuilder<ProfileCubit, ProfileStates>(
+        builder: (context, state) {
+          var profile = profileCubit.clientProfileModel?.data;
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                ProfileHeader(
+                  name: profile?.fullName ?? "",
+                  phone: profile?.phone ?? "",
+                  email: profile?.email ?? "",
+                  role: profile?.role ?? "",
+                  accountType: profile?.type ?? "",
+                  imageUrl: profile?.image ?? "",
+                ),
             ProfileStatistics(
                 adsCount: profile?.advertisementCount  ,
                 opsCount:  profile?.operationCount  ,
@@ -180,6 +183,8 @@ class EditProfileView extends StatelessWidget {
             ),
           ],
         ),
+      );
+        },
       ),
     );
   }

@@ -23,6 +23,7 @@ class _EditNameViewState extends State<EditNameView> {
     cubit.emailCon.clear();
     cubit.mobileNumberCon.clear();
     cubit.role = profile?.role;
+    cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
 
   @override

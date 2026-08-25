@@ -25,10 +25,10 @@ class EditProfileRepoImpl implements EditProfileRepo {
     String? taxCardImage,
     String? commercialRegistryImage,
     int? id,
+    List<int>? areaIds,
   })
   async {
     try {
-
       final data = <String, dynamic>{
         "fullName": fullName,
         "phone": phone,
@@ -36,6 +36,7 @@ class EditProfileRepoImpl implements EditProfileRepo {
         "role": role,
         "password": password,
         "password_confirmation": passwordConfirmation,
+        "areaIds": areaIds ?? [],
       };
 
       final response = await apiService!.putData(

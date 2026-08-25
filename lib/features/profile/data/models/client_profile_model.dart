@@ -1,3 +1,4 @@
+import '../../../search/data/models/areas_model.dart';
 
 class ClientProfileModel {
   String? status;
@@ -32,6 +33,7 @@ class Data {
   bool? isActive;
   bool? isVerified;
   String? role;
+  List<Areas>? areas;
   String? type;
   List<String>? permissions;
   dynamic parentId;
@@ -51,7 +53,7 @@ class Data {
     this.phone, this.isActive, this.isVerified, this.image, this.role, this.type, this.permissions,
     this.parentId, this.gender,
     this.commercialRegistryImage, this.idFront,
-    this.idBack, this.taxCardImage,
+    this.idBack, this.taxCardImage, this.areas,
     this.specializationScopesCount, this.specializationsCount,
     this.advertisementCount, this.operationCount,
   });
@@ -79,6 +81,9 @@ class Data {
     permissions = json["permissions"] == null ? null : List<String>.from(json["permissions"]);
     parentId = json["parentId"];
     gender = json["gender"];
+    areas = json["areas"] == null
+        ? null
+        : (json["areas"] as List).map((e) => Areas.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -105,6 +110,9 @@ class Data {
     }
     _data["parentId"] = parentId;
     _data["gender"] = gender;
+    if (areas != null) {
+      _data["areas"] = areas?.map((e) => e.toJson()).toList();
+    }
     return _data;
   }
 }

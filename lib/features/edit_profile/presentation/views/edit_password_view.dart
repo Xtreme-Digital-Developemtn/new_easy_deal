@@ -22,6 +22,7 @@ class _EditPasswordViewState extends State<EditPasswordView> {
     cubit.emailCon = TextEditingController(text: profile?.email ?? "");
     cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
     cubit.role = profile?.role;
+    cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
 
   @override

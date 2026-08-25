@@ -26,6 +26,7 @@ class _EditMobileNumberViewState extends State<EditMobileNumberView> {
     cubit.nameCon.clear();
     cubit.emailCon.clear();
     cubit.role = profile?.role;
+    cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
 
   @override
