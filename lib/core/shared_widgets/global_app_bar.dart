@@ -16,7 +16,10 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     onPressed: () {
     context.pop();
     },
-    icon: SvgPicture.asset(context.isArabic ? SvgImages.arrowLeft: SvgImages.arrow , colorFilter: ColorFilter.mode(AppColors.black,
+    icon: SvgPicture.asset(
+      context.isArabic ? SvgImages.arrowLeft:
+      SvgImages.arrow ,
+      colorFilter: ColorFilter.mode(AppColors.black,
         BlendMode.srcIn,
     ),
     ),

@@ -36,6 +36,10 @@ class Data {
   List<String>? permissions;
   dynamic parentId;
   dynamic gender;
+  dynamic operationCount;
+  dynamic advertisementCount;
+  dynamic specializationsCount;
+  dynamic specializationScopesCount;
   /// Images
   dynamic image;
   dynamic idFront;
@@ -48,6 +52,8 @@ class Data {
     this.parentId, this.gender,
     this.commercialRegistryImage, this.idFront,
     this.idBack, this.taxCardImage,
+    this.specializationScopesCount, this.specializationsCount,
+    this.advertisementCount, this.operationCount,
   });
 
 
@@ -60,6 +66,10 @@ class Data {
     isActive = json["isActive"];
     isVerified = json["isVerified"];
     image = json["image"];
+    specializationScopesCount = json["specializationScopesCount"];
+    specializationsCount = json["specializationsCount"];
+    advertisementCount = json["advertisementCount"];
+    operationCount = json["operationCount"];
     taxCardImage = json["taxCardImage"];
     idBack = json["idBack"];
     idFront = json["idFront"];
@@ -81,6 +91,10 @@ class Data {
     _data["isActive"] = isActive;
     _data["isVerified"] = isVerified;
     _data["image"] = image;
+    _data["specializationScopesCount"] = specializationScopesCount;
+    _data["specializationsCount"] = specializationsCount;
+    _data["advertisementCount"] = advertisementCount;
+    _data["operationCount"] = operationCount;
     _data["commercialRegistryImage"] = commercialRegistryImage;
     _data["taxCardImage"] = taxCardImage;
     _data["idBack"] = idBack;
