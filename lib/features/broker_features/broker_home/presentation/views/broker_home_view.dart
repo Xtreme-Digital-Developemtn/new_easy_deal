@@ -5,9 +5,6 @@ import 'package:easy_deal/features/broker_features/broker_home/presentation/view
 import 'package:easy_deal/features/home/presentation/views/widgets/order_statistics_widget.dart';
 import 'package:easy_deal/features/broker_features/broker_home/data/models/broker_statistics_model.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
-
-import '../../../../home/presentation/views/widgets/order_statistics_widget.dart';
 
 class BrokerHomeView extends StatelessWidget {
   const BrokerHomeView({super.key});

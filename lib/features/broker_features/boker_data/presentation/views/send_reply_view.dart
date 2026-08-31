@@ -226,7 +226,7 @@ class _SendReplyViewState extends State<SendReplyView> {
                                           ),
                                           Gap(12.h),
                                           DateAndType(
-                                            date: DateTime.now().subtract(const Duration(days: 2)),
+                                            // date: DateTime.now().subtract(const Duration(days: 2)),
                                             type: request.type?.toString() ?? '',
                                           ),
                                           Gap(12.h),

@@ -73,9 +73,9 @@ class RequestsList extends StatelessWidget {
               title: request.title.toString().tr(),
               statusColor: AppColors.primaryDark,
               status: request.status.toString().tr(),
-              date: DateTime.now().subtract(
-                const Duration(days: 2),
-              ),
+              // date: DateTime.now().subtract(
+              //   const Duration(days: 2),
+              // ),
               type: request.type.toString().tr(),
               address:
                   request.detailedAddress ??
