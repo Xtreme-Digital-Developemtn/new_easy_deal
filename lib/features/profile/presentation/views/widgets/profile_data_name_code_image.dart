@@ -38,7 +38,11 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                profileCubit.clientProfileModel?.data?.fullName ?? "",
+                                profileCubit
+                                        .clientProfileModel
+                                        ?.data
+                                        ?.fullName ??
+                                    "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppStyles.black18SemiBold,
@@ -46,8 +50,7 @@ class ProfileDataNameCodeImage extends StatelessWidget {
 
                               Gap(8.h),
 
-                              if (context.watch<ProfileCubit>().promoCodesLastAppliedModel !=
-                                  null)
+                              if (context.read<ProfileCubit>().promoCodesLastAppliedModel!.data != null)
                                 Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 8.r,
@@ -63,27 +66,27 @@ class ProfileDataNameCodeImage extends StatelessWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      if (context.read<ProfileCubit>().promoCodesLastAppliedModel!.data != null)
                                       Text(
                                         "Promo Code : ",
                                         style: AppStyles.black12Medium.copyWith(
                                           color: AppColors.secondBlack,
                                         ),
                                       ),
-if( context
-    .read<ProfileCubit>()
-    .promoCodesLastAppliedModel!.data!=null)
-                                      Flexible(
-                                        child: Text(
-                                          context
-                                              .watch<ProfileCubit>()
-                                              .promoCodesLastAppliedModel!
-                                              .data!
-                                              .promoCode ??
-                                              "",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: AppStyles.black12SemiBold,
+                                      if (context.read<ProfileCubit>().promoCodesLastAppliedModel!.data !=
+                                          null)
+                                        Flexible(
+                                          child: Text(
+                                            context
+                                                    .watch<ProfileCubit>()
+                                                    .promoCodesLastAppliedModel!
+                                                    .data!
+                                                    .promoCode ??
+                                                "",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: AppStyles.black12SemiBold,
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ),

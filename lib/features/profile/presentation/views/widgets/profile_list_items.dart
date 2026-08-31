@@ -8,28 +8,16 @@ class ProfileListItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final promoModel =
-        context.watch<ProfileCubit>().promoCodesLastAppliedModel;
+    final promoModel = context.watch<ProfileCubit>().promoCodesLastAppliedModel;
 
-    bool shouldShowPromo = false;
+    final endDate = promoModel?.data?.endDate;
 
-    if (promoModel != null) {
-      final endDate = promoModel.data?.endDate;
-
-      if (endDate != null) {
-        final parsedDate = DateTime.parse(endDate);
-
-        final isPromoExpired = DateTime.now().isAfter(parsedDate);
-
-        shouldShowPromo =
-            promoModel.data == null || isPromoExpired;
-      } else {
-        shouldShowPromo = promoModel.data == null;
-      }
-    } else {
-      // لو مفيش data خالص
-      shouldShowPromo = true;
-    }
+    final shouldShowPromo =
+        promoModel?.data == null ||
+            endDate == null ||
+            DateTime.now().isAfter(
+              DateTime.tryParse(endDate) ?? DateTime.now(),
+            );
 
     return Container(
       padding: EdgeInsets.all(12.r),

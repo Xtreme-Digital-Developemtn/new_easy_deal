@@ -30,7 +30,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.description_outlined,
               count: adsCount,
-              title: 'Ads',
+              title: 'الاعلانات',
             ),
           ),
 
@@ -40,7 +40,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.show_chart_rounded,
               count: opsCount,
-              title: 'Ops',
+              title: 'العمليات',
             ),
           ),
 
@@ -50,7 +50,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.location_on_outlined,
               count: locationsCount,
-              title: 'Locations',
+              title: 'المواقع',
             ),
           ),
 
@@ -60,7 +60,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.workspace_premium_outlined,
               count: specialtyCount,
-              title: 'Specialty',
+              title: 'التخصصات',
             ),
           ),
         ],

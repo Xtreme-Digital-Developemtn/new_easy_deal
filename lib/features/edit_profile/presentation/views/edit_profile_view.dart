@@ -1,11 +1,10 @@
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_profile_list_item.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profile_header.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profile_statistics.dart';
-import 'package:easy_deal/features/edit_profile/presentation/views/widgets/section_card.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
+import '../../../profile/presentation/views/widgets/show_promo_code_widget.dart';
 import '../view_model/edit_profile_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -140,10 +139,22 @@ class EditProfileView extends StatelessWidget {
                       title: "كود الخصم",
                       subTitle: "",
                       onTap: () {
-                        // context.pushNamed(
-                        //   Routes.editRegistrationPapersView,
-                        //   arguments: {"editProfileCubit": editProfileCubit},
-                        // );
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                          builder: (_) => PromoCodeBottomSheet(
+                            onSubmit: (code) {
+                              context
+                                  .read<ProfileCubit>()
+                                  .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
+                            },
+                          ),
+                        );
                       },
                     ),
                   if (CacheHelper.getData(key: "userRole") == "broker")
