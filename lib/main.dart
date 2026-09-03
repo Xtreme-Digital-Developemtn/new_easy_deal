@@ -17,7 +17,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-    await NotificationService.init();
+
 
   String? token = await CacheTokenManger.getUserToken();
   logSuccess("Retrieved token: $token");
@@ -29,6 +29,7 @@ void main() async {
   getVmUri();
   getFcmToken();
     Bloc.observer = MyBlocObserver();
+  await NotificationService.init();
   runApp(
     EasyLocalization(
       startLocale: const Locale('ar', ""),
