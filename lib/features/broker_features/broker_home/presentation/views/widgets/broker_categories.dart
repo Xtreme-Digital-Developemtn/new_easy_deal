@@ -14,7 +14,9 @@ class BrokerCategories extends StatelessWidget {
         var brokerHomeCubit = context.read<BrokerHomeCubit>();
         return Column(
           children: [
-            BrokerCategoryItem(svgImage: SvgImages.search, title: LangKeys.startNewRequest,onTap: (){
+            BrokerCategoryItem(
+              svgImage: SvgImages.search,
+              title: LangKeys.startNewRequest,onTap: (){
               context.pushNamed(Routes.createRequestView);
               brokerHomeCubit.selectCategoryItem(0);
             },

@@ -80,54 +80,93 @@ class _LastRequestsState extends State<LastRequests> {
   }
 
   Widget _buildRequestsTable(List<LastRequestItem> requests) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(color: const Color(0xffE5E7EB)),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-            color: AppColors.primaryDark,
-            child: Row(
-              children: [
-                Expanded(flex: 3, child: _headingText('اسم الطلب')),
-                Expanded(flex: 2, child: _headingText('الاسم')),
-                Expanded(flex: 2, child: _headingText('نوع الحساب')),
-                Expanded(flex: 2, child: _headingText('التاريخ')),
-                Expanded(flex: 2, child: _headingText('الحالة')),
-              ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+              spreadRadius: 0,
             ),
-          ),
-          ...requests.map((request) => _buildRow(request)),
-        ],
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: double.infinity,
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.primaryDark,
+                    AppColors.primaryDark.withValues(alpha: 0.85),
+                  ],
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.receipt_long_rounded,
+                    color: Colors.white,
+                    size: 22.sp,
+                  ),
+                  Gap(10.w),
+                  Text(
+                    LangKeys.recentRequests.tr(),
+                    style: AppStyles.black14Medium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 12.w, vertical: 6.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Text(
+                      '${requests.length} ${LangKeys.requests.tr()}',
+                      style: AppStyles.black14Medium.copyWith(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ...requests.asMap().entries.map((entry) {
+              final index = entry.key;
+              final request = entry.value;
+              final isEven = index.isEven;
+              return _buildRow(request, isEven);
+            }),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _headingText(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 13.sp,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  Widget _buildRow(LastRequestItem request) {
+  Widget _buildRow(LastRequestItem request, bool isEven) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        color: isEven
+            ? Colors.white
+            : AppColors.grayLight.withValues(alpha: 0.06),
         border: Border(
-          bottom: BorderSide(color: Color(0xffE5E7EB), width: 0.5),
+          bottom: BorderSide(color: Colors.grey.shade100, width: 0.5),
         ),
       ),
       child: Row(
@@ -138,10 +177,9 @@ class _LastRequestsState extends State<LastRequests> {
               _getTitleArabic(request),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: AppStyles.black14Medium.copyWith(
                 fontSize: 13.sp,
-                fontWeight: FontWeight.w500,
-                color: const Color(0xff303542),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -151,41 +189,46 @@ class _LastRequestsState extends State<LastRequests> {
               request.user?.name ?? '-',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: AppStyles.black14Medium.copyWith(
                 fontSize: 12.sp,
-                color: const Color(0xff303542),
               ),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
-              decoration: BoxDecoration(
-                color: AppColors.primaryDark.withValues(alpha: 0.10),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Text(
-                _getRoleArabic(request.user?.role),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 11.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.primaryDark,
+            child: Center(
+              child: Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                decoration: BoxDecoration(
+                  color:
+                      AppColors.primaryDark.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Text(
+                  _getRoleArabic(request.user?.role),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: AppStyles.black14Medium.copyWith(
+                    fontSize: 12.sp,
+                    color: AppColors.primaryDark,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              _formatDate(request.createdAt),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 11.sp,
-                color: const Color(0xff667085),
+            child: Center(
+              child: Text(
+                _formatDate(request.createdAt),
+                textAlign: TextAlign.center,
+                style: AppStyles.black14Medium.copyWith(
+                  fontSize: 11.sp,
+                  color: AppColors.primaryDark.withValues(alpha: 0.7),
+                ),
               ),
             ),
           ),

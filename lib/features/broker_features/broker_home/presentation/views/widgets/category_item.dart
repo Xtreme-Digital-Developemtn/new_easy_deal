@@ -47,7 +47,7 @@ class BrokerCategoryItem extends StatelessWidget {
               ],
             ),
             SvgPicture.asset(
-              SvgImages.arrowLeft,
+              SvgImages.arrow,
               colorFilter: ColorFilter.mode(isSelected ?  AppColors.white : AppColors.black, BlendMode.srcIn),
             ),
           ],

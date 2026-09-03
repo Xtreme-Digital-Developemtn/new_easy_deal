@@ -50,7 +50,7 @@ class ProfileDataNameCodeImage extends StatelessWidget {
 
                               Gap(8.h),
 
-                              if (context.read<ProfileCubit>().promoCodesLastAppliedModel!.data != null)
+                              if (context.read<ProfileCubit>().promoCodesLastAppliedModel!=null && context.read<ProfileCubit>().promoCodesLastAppliedModel!.data != null)
                                 Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 8.r,

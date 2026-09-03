@@ -62,14 +62,14 @@ class ProfileListItems extends StatelessWidget {
             },
           ),
 
-          ProfileListItem(
-            title: LangKeys.appSettings,
-            subTitle: LangKeys.appSettingsMsg,
-            svgImage: SvgImages.settings,
-            onTap: () {
-              context.pushNamed(Routes.appSettingsView);
-            },
-          ),
+          // ProfileListItem(
+          //   title: LangKeys.appSettings,
+          //   subTitle: LangKeys.appSettingsMsg,
+          //   svgImage: SvgImages.settings,
+          //   onTap: () {
+          //     context.pushNamed(Routes.appSettingsView);
+          //   },
+          // ),
 
           ProfileListItem(
             title: LangKeys.aboutUs,

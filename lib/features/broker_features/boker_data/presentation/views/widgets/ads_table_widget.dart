@@ -17,23 +17,6 @@ class DataTableWidget extends StatelessWidget {
 
   final List<BrokerUnitData> data;
 
-  static const _rowHeight = 58.0;
-  static const _headingHeight = 50.0;
-  static const _grayBorder = BorderSide(color: Color(0xFFE0E0E0), width: 1);
-  static const _lightBorder = BorderSide(color: Color(0xFFF5F5F5), width: 1);
-
-  static const _containerDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.all(Radius.circular(16)),
-    boxShadow: [
-      BoxShadow(
-        color: Color(0x0F000000),
-        blurRadius: 16,
-        offset: Offset(0, 6),
-      ),
-    ],
-  );
-
   void _showMessage(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -51,67 +34,8 @@ class DataTableWidget extends StatelessWidget {
     );
   }
 
-  DataColumn2 _col(String label, double width) {
-    return DataColumn2(
-      label: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
-          child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
-        ),
-      ),
-      fixedWidth: width.w,
-    );
-  }
-
-  static final _headerStyle = AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark);
-
   String _val(String? value) {
     return (value != null && value.isNotEmpty) ? value : LangKeys.notAvailable.tr();
-  }
-
-  Widget _cell(
-    String text, {
-    double fontSize = 11,
-    Color? color,
-    FontWeight? fontWeight,
-    TextAlign align = TextAlign.center,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Center(
-        child: Text(
-          text,
-          textAlign: align,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: AppStyles.black12Medium.copyWith(
-            fontSize: fontSize.sp,
-            color: color,
-            fontWeight: fontWeight,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _chipCell(String text, {Color? bgColor, Color? textColor}) {
-    return Center(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-        decoration: BoxDecoration(
-          color: bgColor ?? AppColors.primaryDark.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        child: Text(
-          text,
-          style: AppStyles.black12Medium.copyWith(
-            fontSize: 10.sp,
-            color: textColor ?? AppColors.primaryDark,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
   }
 
   void _showGalleryDialog(BuildContext context, List<dynamic> gallery) {
@@ -144,8 +68,10 @@ class DataTableWidget extends StatelessWidget {
                     child: CachedNetworkImage(
                       imageUrl: gallery[index].toString(),
                       fit: BoxFit.contain,
-                      placeholder: (c, _) => const Center(child: CircularProgressIndicator()),
-                      errorWidget: (c, _, __) => const Icon(Icons.broken_image, size: 64),
+                      placeholder: (c, _) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (c, _, __) =>
+                          const Icon(Icons.broken_image, size: 64),
                     ),
                   ),
                 ),
@@ -165,14 +91,16 @@ class DataTableWidget extends StatelessWidget {
                   right: 0,
                   child: Center(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                       decoration: BoxDecoration(
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Text(
                         '1 / ${gallery.length}',
-                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ),
@@ -209,30 +137,42 @@ class DataTableWidget extends StatelessWidget {
           final max = result.maxAdvertisements!;
 
           if (current > max) {
-            Toast.showErrorToast(msg: "لقد تخطيت الحد الاقصى من الاعلانات", context: context);
+            Toast.showErrorToast(
+                msg: "لقد تخطيت الحد الاقصى من الاعلانات", context: context);
             return;
           }
 
           Toast.showSuccessToast(msg: "تم بنجاح", context: context);
           final cubit = context.read<BrokerDataCubit>();
           final selectedUnitId = cubit.selectedUnitId;
-          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
+          final brokerId = int.tryParse(
+                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
+              0;
           cubit.getBrokerUnits(brokerId: brokerId);
           showDialog(
             context: context,
-            builder: (_) => AdvertisementDialog(unitId: selectedUnitId, cubit: cubit),
+            builder: (_) =>
+                AdvertisementDialog(unitId: selectedUnitId, cubit: cubit),
           );
         }
 
         if (state is UnitPublishAsAdSuccessState) {
-          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId);
+          final brokerId = int.tryParse(
+                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
+              0;
+          context
+              .read<BrokerDataCubit>()
+              .getBrokerUnits(brokerId: brokerId);
         }
 
         if (state is UpdateStatusUnitSoldSuccessState) {
           Toast.showSuccessToast(msg: "تم البيع بنجاح", context: context);
-          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId);
+          final brokerId = int.tryParse(
+                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
+              0;
+          context
+              .read<BrokerDataCubit>()
+              .getBrokerUnits(brokerId: brokerId);
         }
 
         if (state is UpdateStatusUnitSoldErrorState) {
@@ -240,11 +180,18 @@ class DataTableWidget extends StatelessWidget {
         }
 
         if (state is MakeRequestSuccessState) {
-          Toast.showSuccessToast(msg: "تم ارسال الطلب بنجاح", context: context);
-          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId);
-          final requestId = (state.model as UnitMakeRequestModel).data.id;
-          context.pushNamed(Routes.assignToBrokerView, arguments: {"requestId": requestId});
+          Toast.showSuccessToast(
+              msg: "تم ارسال الطلب بنجاح", context: context);
+          final brokerId = int.tryParse(
+                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
+              0;
+          context
+              .read<BrokerDataCubit>()
+              .getBrokerUnits(brokerId: brokerId);
+          final requestId =
+              (state.model as UnitMakeRequestModel).data.id;
+          context.pushNamed(Routes.assignToBrokerView,
+              arguments: {"requestId": requestId});
         }
 
         if (state is MakeRequestErrorState) {
@@ -253,8 +200,12 @@ class DataTableWidget extends StatelessWidget {
 
         if (state is UpdateUnitSuccessState) {
           Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
-          final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: brokerId);
+          final brokerId = int.tryParse(
+                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
+              0;
+          context
+              .read<BrokerDataCubit>()
+              .getBrokerUnits(brokerId: brokerId);
         }
 
         if (state is UpdateUnitErrorState) {
@@ -266,39 +217,113 @@ class DataTableWidget extends StatelessWidget {
   }
 
   Widget _buildTable(BuildContext context) {
-    final columns = _buildColumns(context);
-    return RepaintBoundary(
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: Container(
-          decoration: _containerDecoration,
-          clipBehavior: Clip.antiAlias,
-          child: DataTable2(
-            columnSpacing: 2.w,
-            horizontalMargin: 6.w,
-            minWidth: 4200.w,
-            dataRowHeight: _rowHeight.h,
-            headingRowHeight: _headingHeight.h,
-            border: const TableBorder(
-              horizontalInside: _grayBorder,
-              verticalInside: _lightBorder,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+              spreadRadius: 0,
             ),
-            headingRowDecoration: BoxDecoration(
-              color: AppColors.primaryDark.withValues(alpha: 0.1),
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: double.infinity,
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.primaryDark,
+                    AppColors.primaryDark.withValues(alpha: 0.85),
+                  ],
+                ),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.table_chart_rounded,
+                    color: Colors.white,
+                    size: 22.sp,
+                  ),
+                  Gap(10.w),
+                  Text(
+                    LangKeys.myData.tr(),
+                    style: AppStyles.black14Medium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 12.w, vertical: 6.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Text(
+                      '${data.length} ${LangKeys.units.tr()}',
+                      style: AppStyles.black14Medium.copyWith(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            dataRowColor: WidgetStateProperty.resolveWith((states) {
-              if (states.contains(WidgetState.hovered)) {
-                return AppColors.blueLight.withValues(alpha: 0.3);
-              }
-              return Colors.transparent;
-            }),
-            dataTextStyle: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
-            columns: columns,
-            rows: List<DataRow>.generate(
-              data.length,
-              (index) => _buildRow(context, data[index], index),
+            Flexible(
+              child: DataTable2(
+                headingRowColor: WidgetStateProperty.all(
+                  AppColors.blueLight.withValues(alpha: 0.2),
+                ),
+                headingRowHeight: 52.h,
+                headingTextStyle: AppStyles.black14Medium.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13.sp,
+                  letterSpacing: 0.3,
+                  color: AppColors.primaryDark,
+                ),
+                dataRowColor:
+                    WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.hovered)) {
+                    return AppColors.blueLight.withValues(alpha: 0.15);
+                  }
+                  return null;
+                }),
+                border: TableBorder(
+                  horizontalInside: BorderSide(
+                    color: Colors.grey.shade100,
+                    width: 1,
+                  ),
+                  verticalInside: BorderSide(
+                    color: Colors.grey.shade50,
+                    width: 0.5,
+                  ),
+                ),
+                columnSpacing: 10.w,
+                horizontalMargin: 16.w,
+                dataRowHeight: 60.h,
+                minWidth: 4200.w,
+                columns: _buildColumns(context),
+                rows: List<DataRow>.generate(
+                  data.length,
+                  (index) => _buildRow(context, data[index], index),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -306,109 +331,195 @@ class DataTableWidget extends StatelessWidget {
 
   List<DataColumn2> _buildColumns(BuildContext context) {
     return [
-      _col(LangKeys.ownerName.tr(), 100),
-      _col(LangKeys.phoneNumber.tr(), 90),
-      _col(LangKeys.compoundType.tr(), 110),
-      _col(LangKeys.city.tr(), 80),
-      _col(LangKeys.area.tr(), 80),
-      _col(LangKeys.transactionType.tr(), 110),
-      _col(LangKeys.unitType.tr(), 90),
-      _col(LangKeys.unitArea.tr(), 80),
-      _col(LangKeys.price.tr(), 90),
-      _col(LangKeys.address.tr(), 130),
+      _col(LangKeys.ownerName.tr(), 180),
+      _col(LangKeys.phoneNumber.tr(), 130),
+      _col(LangKeys.compoundType.tr(), 150),
+      _col(LangKeys.city.tr(), 100),
+      _col(LangKeys.area.tr(), 100),
+      _col(LangKeys.transactionType.tr(), 150),
+      _col(LangKeys.unitType.tr(), 120),
+      _col(LangKeys.unitArea.tr(), 100),
+      _col(LangKeys.price.tr(), 120),
+      _col(LangKeys.address.tr(), 180),
       _col(LangKeys.images.tr(), 100),
-      _col(LangKeys.locationLink.tr(), 100),
-      _col(LangKeys.notes.tr(), 120),
+      _col(LangKeys.locationLink.tr(), 120),
+      _col(LangKeys.notes.tr(), 150),
       _col(LangKeys.procedures.tr(), 120),
     ];
+  }
+
+  DataColumn2 _col(String label, double width) {
+    return DataColumn2(
+      label: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          child: Text(label,
+              style: AppStyles.black14Medium.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 13.sp,
+                color: AppColors.primaryDark,
+              ),
+              textAlign: TextAlign.center),
+        ),
+      ),
+      fixedWidth: width.w,
+    );
   }
 
   DataRow _buildRow(BuildContext context, BrokerUnitData item, int index) {
     final isSold = (item.status?.toString().toLowerCase() == 'sold');
     final hasAdvertisers = (item.advertisers?.isNotEmpty ?? false);
+    final isEven = index.isEven;
 
     return DataRow(
       key: ValueKey(item.id ?? index),
-      color: index.isEven
-          ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
-          : const WidgetStatePropertyAll(Colors.white),
+      color: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return AppColors.blueLight.withValues(alpha: 0.12);
+        }
+        return isEven
+            ? Colors.white
+            : AppColors.grayLight.withValues(alpha: 0.06);
+      }),
       cells: [
-        DataCell(_cell(_val(item.ownerName?.toString()), fontWeight: FontWeight.w500)),
-        DataCell(_cell(_val(item.ownerPhone?.toString()))),
+        DataCell(_cell(_val(item.ownerName?.toString()),
+            fontWeight: FontWeight.w600)),
+        DataCell(_actionChipCell(
+          icon: Icons.phone_outlined,
+          label: item.ownerPhone?.toString() ?? '',
+          onTap: item.ownerPhone != null &&
+                  item.ownerPhone.toString().isNotEmpty
+              ? () async {
+                  final uri = Uri.parse(
+                      'tel:${item.ownerPhone}');
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
+                  }
+                }
+              : null,
+        )),
         DataCell(_chipCell(
-          BrokerTextHelper.projectTypeText(item.compoundType?.toString() ?? ''),
-          bgColor: _getCompoundTypeColor(item.compoundType?.toString() ?? ''),
+          BrokerTextHelper.projectTypeText(
+              item.compoundType?.toString() ?? ''),
+          bgColor:
+              _getCompoundTypeColor(item.compoundType?.toString() ?? ''),
         )),
         DataCell(_cell(_val(item.city?.nameAr?.toString()))),
         DataCell(_cell(_val(item.area?.nameAr?.toString()))),
         DataCell(_chipCell(
-          BrokerTextHelper.unitOperationText(item.unitOperation?.toString() ?? ''),
-          bgColor: _getOperationColor(item.unitOperation?.toString() ?? ''),
+          BrokerTextHelper.unitOperationText(
+              item.unitOperation?.toString() ?? ''),
+          bgColor: _getOperationColor(
+              item.unitOperation?.toString() ?? ''),
         )),
         DataCell(_chipCell(
-          BrokerTextHelper.unitTypeText(item.type?.toString() ?? ''),
+          BrokerTextHelper.unitTypeText(
+              item.type?.toString() ?? ''),
         )),
-        DataCell(_cell(_val(item.unitArea?.toString()), fontWeight: FontWeight.w500)),
-        DataCell(_cell(_val(item.totalPriceInCash?.toString()), color: AppColors.primaryDark, fontWeight: FontWeight.w600)),
-        DataCell(_cell(_val(item.detailedAddress?.toString()), align: TextAlign.start)),
+        DataCell(_cell(_val(item.unitArea?.toString()),
+            fontWeight: FontWeight.w600)),
+        DataCell(_cell(
+          _val(item.totalPriceInCash?.toString()),
+          color: AppColors.primaryDark,
+          fontWeight: FontWeight.w700,
+        )),
+        DataCell(_cell(
+          _val(item.detailedAddress?.toString()),
+          align: TextAlign.start,
+        )),
         DataCell(
           GestureDetector(
-            onTap: () => _showGalleryDialog(context, item.gallery ?? []),
+            onTap: () =>
+                _showGalleryDialog(context, item.gallery ?? []),
             child: _chipCell(
               LangKeys.images.tr(),
-              bgColor: (item.gallery?.isNotEmpty ?? false) ? Colors.green.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
-              textColor: (item.gallery?.isNotEmpty ?? false) ? Colors.green : Colors.grey,
+              bgColor: (item.gallery?.isNotEmpty ?? false)
+                  ? Colors.green.withValues(alpha: 0.1)
+                  : Colors.grey.withValues(alpha: 0.1),
+              textColor: (item.gallery?.isNotEmpty ?? false)
+                  ? Colors.green
+                  : Colors.grey,
             ),
           ),
         ),
         DataCell(
           GestureDetector(
-            onTap: () => _openLocation(item.location?.toString()),
+            onTap: () =>
+                _openLocation(item.location?.toString()),
             child: _chipCell(
               LangKeys.locationLink.tr(),
-              bgColor: (item.location?.toString().isNotEmpty ?? false) ? AppColors.primaryDark.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
-              textColor: (item.location?.toString().isNotEmpty ?? false) ? AppColors.primaryDark : Colors.grey,
+              bgColor: (item.location?.toString().isNotEmpty ?? false)
+                  ? AppColors.primaryDark.withValues(alpha: 0.1)
+                  : Colors.grey.withValues(alpha: 0.1),
+              textColor:
+                  (item.location?.toString().isNotEmpty ?? false)
+                      ? AppColors.primaryDark
+                      : Colors.grey,
             ),
           ),
         ),
-        DataCell(_cell(_val(item.additionalDetails?.notes?.toString()), align: TextAlign.start)),
+        DataCell(_cell(
+          _val(item.additionalDetails?.notes?.toString()),
+          align: TextAlign.start,
+        )),
         DataCell(
           PopupMenuButton<String>(
-            icon: Icon(Icons.more_vert, color: AppColors.primaryDark, size: 20.sp),
+            icon: Icon(Icons.more_vert_rounded,
+                color: AppColors.primaryDark, size: 20.sp),
             color: Colors.white,
-            elevation: 4,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r)),
+            offset: const Offset(0, 4),
             onSelected: (value) {
               switch (value) {
                 case 'edit':
                   showEditUnitDialog(context, item);
                   break;
                 case 'details':
-                  context.pushNamed(Routes.unitDetailsView, arguments: {"unitId": item.id});
+                  context.pushNamed(Routes.unitDetailsView,
+                      arguments: {"unitId": item.id});
                   break;
                 case 'featured':
-                  final cubit = context.read<BrokerDataCubit>();
+                  final cubit =
+                      context.read<BrokerDataCubit>();
                   cubit.selectedUnitId = item.id;
                   cubit.requestsCheckAdvertisementCount();
                   break;
                 case 'sold':
                   if (item.id != null) {
-                    context.read<BrokerDataCubit>().updateStatusUnitSold(id: item.id!);
+                    context
+                        .read<BrokerDataCubit>()
+                        .updateStatusUnitSold(id: item.id!);
                   }
                   break;
                 case 'makeRequest':
                   if (item.id != null) {
-                    final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-                    context.read<BrokerDataCubit>().makeRequest(
-                      id: item.id!,
-                      brokerId: brokerId,
-                    );
+                    final brokerId = int.tryParse(
+                            CacheHelper.getData(key: "brokerId")
+                                    ?.toString() ??
+                                '') ??
+                        0;
+                    context
+                        .read<BrokerDataCubit>()
+                        .makeRequest(
+                          id: item.id!,
+                          brokerId: brokerId,
+                        );
                   }
                   break;
                 case 'reply':
                   if (item.id != null) {
-                    final brokerId = int.tryParse(CacheHelper.getData(key: "brokerId")?.toString() ?? '') ?? 0;
-                    final senderId = int.tryParse(CacheHelper.getData(key: "userId")?.toString() ?? '') ?? 0;
+                    final brokerId = int.tryParse(
+                            CacheHelper.getData(key: "brokerId")
+                                    ?.toString() ??
+                                '') ??
+                        0;
+                    final senderId = int.tryParse(
+                            CacheHelper.getData(key: "userId")
+                                    ?.toString() ??
+                                '') ??
+                        0;
                     context.pushNamed(
                       Routes.sendReplyView,
                       arguments: {
@@ -423,17 +534,26 @@ class DataTableWidget extends StatelessWidget {
             },
             itemBuilder: (context) {
               final items = <PopupMenuEntry<String>>[
-                _buildPopupItem('edit', Icons.edit_outlined, 'تعديل'),
-                _buildPopupItem('details', Icons.visibility_outlined, 'عرض التفاصيل'),
+                _buildPopupItem(
+                    'edit', Icons.edit_outlined, 'تعديل'),
+                _buildPopupItem('details',
+                    Icons.visibility_outlined, 'عرض التفاصيل'),
               ];
               if (!hasAdvertisers) {
-                items.add(_buildPopupItem('featured', Icons.campaign_outlined, 'جعله كإعلان'));
+                items.add(_buildPopupItem('featured',
+                    Icons.campaign_outlined, 'جعله كإعلان'));
               }
               if (!isSold) {
-                items.add(_buildPopupItem('sold', Icons.check_circle_outline, 'جعله مباع', color: Colors.green));
+                items.add(_buildPopupItem(
+                    'sold',
+                    Icons.check_circle_outline,
+                    'جعله مباع',
+                    color: Colors.green));
               }
-              items.add(_buildPopupItem('makeRequest', Icons.assignment_outlined, 'جعله كطلب'));
-              items.add(_buildPopupItem('reply', Icons.reply_outlined, 'ارسال كرد'));
+              items.add(_buildPopupItem('makeRequest',
+                  Icons.assignment_outlined, 'جعله كطلب'));
+              items.add(_buildPopupItem(
+                  'reply', Icons.reply_outlined, 'ارسال كرد'));
               return items;
             },
           ),
@@ -442,7 +562,105 @@ class DataTableWidget extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<String> _buildPopupItem(String value, IconData icon, String label, {Color? color}) {
+  Widget _cell(
+    String text, {
+    double fontSize = 11,
+    Color? color,
+    FontWeight? fontWeight,
+    TextAlign align = TextAlign.center,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      child: Center(
+        child: Text(
+          text,
+          textAlign: align,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: AppStyles.black12Medium.copyWith(
+            fontSize: fontSize.sp,
+            color: color,
+            fontWeight: fontWeight,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _chipCell(String text, {Color? bgColor, Color? textColor}) {
+    return Center(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: bgColor ?? AppColors.primaryDark.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        child: Text(
+          text,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: AppStyles.black14Medium.copyWith(
+            color: textColor ?? AppColors.primaryDark,
+            fontSize: 12.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _actionChipCell({
+    required IconData icon,
+    required String label,
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20.r),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          color: onTap != null
+              ? AppColors.primaryDark.withValues(alpha: 0.08)
+              : Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(20.r),
+          border: onTap != null
+              ? Border.all(
+                  color:
+                      AppColors.primaryDark.withValues(alpha: 0.2))
+              : null,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 14.sp,
+              color:
+                  onTap != null ? AppColors.primaryDark : Colors.grey,
+            ),
+            Gap(6.w),
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: AppStyles.black14Medium.copyWith(
+                  color: onTap != null
+                      ? AppColors.primaryDark
+                      : Colors.grey,
+                  fontSize: 12.sp,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupItem(
+      String value, IconData icon, String label,
+      {Color? color}) {
     return PopupMenuItem<String>(
       value: value,
       child: Row(
@@ -451,7 +669,8 @@ class DataTableWidget extends StatelessWidget {
           SizedBox(width: 10.w),
           Text(
             label,
-            style: TextStyle(color: color ?? Colors.black87, fontSize: 13.sp),
+            style: TextStyle(
+                color: color ?? Colors.black87, fontSize: 13.sp),
           ),
         ],
       ),
@@ -460,7 +679,10 @@ class DataTableWidget extends StatelessWidget {
 
   Color _getCompoundTypeColor(String type) {
     final t = type.toUpperCase();
-    if (t.contains('INSIDE') || t.contains('PRIMARY') || t.contains('RESALE') || t.contains('RENTAL_INSIDE')) {
+    if (t.contains('INSIDE') ||
+        t.contains('PRIMARY') ||
+        t.contains('RESALE') ||
+        t.contains('RENTAL_INSIDE')) {
       return Colors.blue.withValues(alpha: 0.15);
     }
     if (t.contains('OUTSIDE') || t.contains('RENTAL_OUTSIDE')) {
