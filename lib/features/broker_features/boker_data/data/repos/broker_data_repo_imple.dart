@@ -12,10 +12,21 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   BrokerDataRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, BrokerUnitsModel>> getBrokerUnits({required int brokerId}) async {
+  Future<Either<Failure, BrokerUnitsModel>> getBrokerUnits({required int brokerId, Map<String, dynamic>? filters}) async {
     try {
+      final query = <String, dynamic>{
+        'limit': 10,
+        'offset': 0,
+        'sort': 'desc',
+        'sortBy': 'id',
+        'brokerId': brokerId,
+      };
+      if (filters != null) {
+        query.addAll(filters);
+      }
       var response = await apiService!.getData(
-        endPoint: '${EndPoints.brokerUnits}?limit=10&offset=0&sort=desc&sortBy=id&brokerId=$brokerId',
+        endPoint: EndPoints.brokerUnits,
+        query: query,
       );
       BrokerUnitsModel result = BrokerUnitsModel.fromJson(response.data);
       return right(result);

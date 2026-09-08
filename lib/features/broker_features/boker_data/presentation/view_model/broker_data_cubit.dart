@@ -15,9 +15,9 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
   int? selectedUnitId;
   BrokerUnitsModel? brokerUnitsModel;
 
-  Future<void> getBrokerUnits({required int brokerId, bool isRefresh = false}) async {
+  Future<void> getBrokerUnits({required int brokerId, bool isRefresh = false, Map<String, dynamic>? filters}) async {
     if (!isRefresh) emit(GetBrokerUnitsLoadingState());
-    var result = await brokerDataRepo!.getBrokerUnits(brokerId: brokerId);
+    var result = await brokerDataRepo!.getBrokerUnits(brokerId: brokerId, filters: filters);
     return result.fold(
       (failure) {
         emit(GetBrokerUnitsErrorState(failure.errMessage));

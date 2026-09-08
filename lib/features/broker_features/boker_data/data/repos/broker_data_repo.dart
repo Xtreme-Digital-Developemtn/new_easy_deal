@@ -7,7 +7,7 @@ import '../models/unit_publish_as_ad_model.dart';
 import '../models/unit_send_reply_model.dart';
 
 abstract class BrokerDataRepo {
-  Future<Either<Failure, BrokerUnitsModel>> getBrokerUnits({required int brokerId});
+  Future<Either<Failure, BrokerUnitsModel>> getBrokerUnits({required int brokerId, Map<String, dynamic>? filters});
   Future<Either<Failure, RequestsCheckAdvertisementCountModel>> requestsCheckAdvertisementCount();
   Future<Either<Failure, UnitPublishAsAdModel>> unitPublishAsAd({required int id , required String caption});
   Future<Either<Failure, dynamic>> updateStatusUnitSold({required int id});
