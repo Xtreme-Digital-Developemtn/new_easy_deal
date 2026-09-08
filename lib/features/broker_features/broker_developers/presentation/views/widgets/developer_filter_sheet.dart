@@ -88,13 +88,14 @@ final _unitTypeOptions = [
 
 final _viewOptions = [
   'water_view',
-  'garden',
+  'gardens_and_landscape',
   'street',
-  'pool',
-  'lake',
-  'park',
+  'entertainment_area',
+  'garden',
   'main_street',
-  'corniche',
+  'square',
+  'side_street',
+  'rear_view',
 ];
 
 Future<DeveloperFilterResult?> showDeveloperFilterSheet(
@@ -267,7 +268,7 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                           label: 'الإطلالة',
                           value: selectedView,
                           items: _viewOptions,
-                          displayFn: (v) => v.tr(),
+                          displayFn: (v) => _viewText(v),
                           onChanged: (v) =>
                               setState(() => selectedView = v),
                         ),
@@ -486,4 +487,29 @@ Widget _buildNumberField({
     ),
     style: AppStyles.black14Medium,
   );
+}
+
+String _viewText(String value) {
+  switch (value) {
+    case 'water_view':
+      return 'اطلاله مائيه';
+    case 'gardens_and_landscape':
+      return 'حدائق ولاندسكيب';
+    case 'street':
+      return 'شارع';
+    case 'entertainment_area':
+      return 'منطقة ترفيهية';
+    case 'garden':
+      return 'حديقة';
+    case 'main_street':
+      return 'شارع رئيسي';
+    case 'square':
+      return 'ميدان';
+    case 'side_street':
+      return 'شارع جانبي';
+    case 'rear_view':
+      return 'إطلالة خلفية';
+    default:
+      return value;
+  }
 }
