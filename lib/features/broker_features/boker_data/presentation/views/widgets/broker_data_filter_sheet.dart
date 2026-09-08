@@ -284,6 +284,10 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
     text: currentFilters?.priceTo?.toString() ?? '',
   );
   List<Map<String, dynamic>> loadedAreas = [];
+  final cityIds = cities.map((c) => c['id'] as int).toSet().toList();
+  if (selectedCity != null && !cityIds.contains(selectedCity)) {
+    selectedCity = null;
+  }
 
   return showModalBottomSheet<BrokerDataAdvancedFilterResult>(
     context: context,
@@ -292,6 +296,10 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
     builder: (context) {
       return StatefulBuilder(
         builder: (context, setState) {
+          final currentCityIds =
+              cities.map((c) => c['id'] as int).toSet().toList();
+          final areaIds =
+              loadedAreas.map((a) => a['id'] as int).toSet().toList();
           return Container(
             constraints: BoxConstraints(
               maxHeight: MediaQuery.of(context).size.height * 0.85,
@@ -389,10 +397,10 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                         // City
                         _buildDropdown<int>(
                           label: LangKeys.city.tr(),
-                          value: selectedCity,
-                          items: cities
-                              .map((c) => c['id'] as int)
-                              .toList(),
+                          value: currentCityIds.contains(selectedCity)
+                              ? selectedCity
+                              : null,
+                          items: currentCityIds,
                           displayFn: (id) {
                             final city = cities.firstWhere(
                               (c) => c['id'] == id,
@@ -417,10 +425,10 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                         // Area
                         _buildDropdown<int>(
                           label: LangKeys.area.tr(),
-                          value: selectedArea,
-                          items: loadedAreas
-                              .map((a) => a['id'] as int)
-                              .toList(),
+                          value: areaIds.contains(selectedArea)
+                              ? selectedArea
+                              : null,
+                          items: areaIds,
                           displayFn: (id) {
                             final area = loadedAreas.firstWhere(
                               (a) => a['id'] == id,
