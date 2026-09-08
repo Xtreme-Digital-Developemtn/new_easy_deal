@@ -335,30 +335,49 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                     ],
                   ),
                   child: SafeArea(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: CustomButton(
-                        text: LangKeys.apply.tr(),
-                        onPressed: () {
-                          final result = DeveloperFilterResult(
-                            compoundType: selectedCompoundType,
-                            city: selectedCity,
-                            area: selectedArea,
-                            unitType: selectedUnitType,
-                            view: selectedView,
-                            areaFrom: int.tryParse(
-                                areaFromController.text),
-                            areaTo: int.tryParse(
-                                areaToController.text),
-                            priceFrom: int.tryParse(
-                                priceFromController.text),
-                            priceTo: int.tryParse(
-                                priceToController.text),
-                          );
-                          Navigator.pop(
-                              context,
-                              result.hasFilters ? result : null);
-                        },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CustomButton(
+                              text: 'إعادة تعيين',
+                              gradientColors: false,
+                              color: Colors.white,
+                              textColor: AppColors.primaryDark,
+                              borderColor: BorderSide(color: AppColors.primaryDark),
+                              onPressed: () {
+                                Navigator.pop(context, null);
+                              },
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: CustomButton(
+                              text: LangKeys.apply.tr(),
+                              onPressed: () {
+                                final result = DeveloperFilterResult(
+                                  compoundType: selectedCompoundType,
+                                  city: selectedCity,
+                                  area: selectedArea,
+                                  unitType: selectedUnitType,
+                                  view: selectedView,
+                                  areaFrom: int.tryParse(
+                                      areaFromController.text),
+                                  areaTo: int.tryParse(
+                                      areaToController.text),
+                                  priceFrom: int.tryParse(
+                                      priceFromController.text),
+                                  priceTo: int.tryParse(
+                                      priceToController.text),
+                                );
+                                Navigator.pop(
+                                    context,
+                                    result.hasFilters ? result : null);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

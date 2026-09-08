@@ -83,12 +83,30 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                 cubit.getDevelopers();
               }
             },
-            icon: Icon(
-              Icons.filter_list_rounded,
-              color: _appliedFilters?.hasFilters == true
-                  ? AppColors.primaryDark
-                  : Colors.grey,
-              size: 24.sp,
+            icon: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
+                  Icons.filter_list_rounded,
+                  color: _appliedFilters?.hasFilters == true
+                      ? AppColors.primaryDark
+                      : Colors.grey,
+                  size: 24.sp,
+                ),
+                if (_appliedFilters?.hasFilters == true)
+                  Positioned(
+                    top: -2,
+                    right: -2,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
         ],
