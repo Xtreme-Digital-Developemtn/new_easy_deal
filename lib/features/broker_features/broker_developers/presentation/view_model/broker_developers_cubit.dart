@@ -18,6 +18,9 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
 
   DevelopersModel? developersModel;
   DeveloperProjectsModel? developerProjectsModel;
+  Map<String, dynamic>? _currentFilters;
+
+  Map<String, dynamic>? get currentFilters => _currentFilters;
 
   final ImagePicker picker = ImagePicker();
 
@@ -125,9 +128,10 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
     );
   }
 
-  Future<void> getDevelopers() async {
+  Future<void> getDevelopers({Map<String, dynamic>? filters}) async {
+    _currentFilters = filters;
     emit(GetDevelopersLoadingState());
-    var result = await brokerDevelopersRepo!.getDevelopers();
+    var result = await brokerDevelopersRepo!.getDevelopers(filters: filters);
     return result.fold(
       (failure) {
         emit(GetDevelopersErrorState(failure.errMessage));

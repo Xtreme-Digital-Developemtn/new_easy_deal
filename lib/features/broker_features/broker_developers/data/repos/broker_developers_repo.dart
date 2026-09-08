@@ -8,7 +8,7 @@ import '../models/developers_model.dart';
 import '../../../../unit_details/data/models/unit_details_response.dart';
 
 abstract class BrokerDevelopersRepo {
-  Future<Either<Failure, DevelopersModel>> getDevelopers();
+  Future<Either<Failure, DevelopersModel>> getDevelopers({Map<String, dynamic>? filters});
   Future<Either<Failure, DeveloperProjectsModel>> getDeveloperProjects(int developerId);
   Future<Either<Failure, ModelsResponse>> getProjectModels(int projectId);
   Future<Either<Failure, BrokerUnitsModel>> getModelUnits(int modelId);
