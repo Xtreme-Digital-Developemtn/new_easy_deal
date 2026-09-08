@@ -30,6 +30,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
   bool receivedHasMore = true;
   bool isLoadingMore = false;
 
+  Map<String, dynamic>? _currentFilters;
 
   List<RequestItem> get currentList {
     switch (currentType) {
@@ -81,7 +82,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
   RequestType currentType = RequestType.assigned;
 
-  Future<void> fetchAllTypes({required BuildContext context}) async {
+  Future<void> fetchAllTypes({
+    required BuildContext context,
+    Map<String, dynamic>? filters,
+  }) async {
     isLoadingMore = false;
     assignedOffset = 0;
     sentOffset = 0;
@@ -89,6 +93,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
     assignedHasMore = true;
     sentHasMore = true;
     receivedHasMore = true;
+    _currentFilters = filters;
     emit(GetAllRequestsLoadingState());
 
     final profile = ProfileCubit.get(context).clientProfileModel;
@@ -99,9 +104,9 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
     try {
       final results = await Future.wait([
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.assigned, context: context),
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.sent, context: context),
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.received, context: context),
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.assigned, context: context, filters: filters),
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.sent, context: context, filters: filters),
+        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.received, context: context, filters: filters),
       ]);
 
       for (final result in results) {
@@ -168,6 +173,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
         offset: currentOffset,
         type: currentType,
         context: context,
+        filters: _currentFilters,
       );
 
       result.fold(

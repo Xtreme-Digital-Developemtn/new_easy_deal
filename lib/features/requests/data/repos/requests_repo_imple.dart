@@ -19,6 +19,7 @@ class RequestsRepoImpl implements RequestsRepo {
     required int offset,
     required RequestType type,
     required BuildContext context,
+    Map<String, dynamic>? filters,
   }) async {
     try {
       final Map<String, dynamic> query = {
@@ -46,6 +47,10 @@ class RequestsRepoImpl implements RequestsRepo {
         query["userId"] = context.read<ProfileCubit>().clientProfileModel!.data!.id;
       }
 
+      if (filters != null) {
+        query.addAll(filters);
+      }
+
       var response = await apiService!.getData(
         endPoint: EndPoints.requests,
         query: query,
@@ -61,8 +66,6 @@ class RequestsRepoImpl implements RequestsRepo {
     currentType = type;
     getAllRequests(limit: limit, offset: offset, type: type,context: context);
   }
-
-
 
 
 

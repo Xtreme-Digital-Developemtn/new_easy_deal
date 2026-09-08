@@ -13,6 +13,7 @@ abstract class RequestsRepo{
     required int offset,
     required RequestType type,
     required BuildContext context,
+    Map<String, dynamic>? filters,
   });
 
 }

@@ -3,58 +3,58 @@ import '../../../../../main_imports.dart';
 
 class RequestsFilterResult {
   final String? status;
-  final String? specialization;
-  final String? dealType;
-  final String? unitType;
-
+  final String? type;
+  final String? specializationScope;
   const RequestsFilterResult({
     this.status,
-    this.specialization,
-    this.dealType,
-    this.unitType,
+    this.type,
+    this.specializationScope,
   });
 
   bool get hasFilters =>
-      status != null || specialization != null || dealType != null || unitType != null;
+      status != null || type != null || specializationScope != null;
+
+  Map<String, dynamic> toQueryParams() {
+    final params = <String, dynamic>{};
+    if (status != null) params['status'] = status;
+    if (type != null) params['type'] = type;
+    if (specializationScope != null) {
+      params['specializationScope'] = specializationScope;
+    }
+    return params;
+  }
 }
 
-Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async {
-  String? selectedStatus;
-  String? selectedSpecialization;
-  String? selectedDealType;
-  String? selectedUnitType;
+final _statusOptions = [
+  'new',
+  'in_processing',
+  'finished',
+];
 
-  final statusOptions = [
-    {'label': 'Pending', 'value': 'pending'},
-    {'label': 'Accepted', 'value': 'accepted'},
-    {'label': 'Rejected', 'value': 'rejected'},
-    {'label': 'Completed', 'value': 'completed'},
-  ];
+final _typeOptions = [
+  'sell',
+  'purchasing',
+  'rent_out',
+  'rent_in',
+];
 
-  final specializationOptions = [
-    {'label': 'Real Estate', 'value': 'real_estate'},
-    {'label': 'Cars', 'value': 'cars'},
-    {'label': 'Electronics', 'value': 'electronics'},
-    {'label': 'Furniture', 'value': 'furniture'},
-    {'label': 'Services', 'value': 'services'},
-  ];
+final _specializationScopeOptions = [
+  'purchase_sell_outside_compound',
+  'primary_inside_compound',
+  'resale_inside_compound',
+  'rentals_outside_compound',
+  'rentals_inside_compound',
+];
 
-  final dealTypeOptions = [
-    {'label': 'Sale', 'value': 'sale'},
-    {'label': 'Rent', 'value': 'rent'},
-    {'label': 'Exchange', 'value': 'exchange'},
-    {'label': 'Investment', 'value': 'investment'},
-  ];
+Future<RequestsFilterResult?> showRequestsFilterSheet(
+  BuildContext context,
+  RequestsFilterResult? currentFilters,
+) async {
+  var selectedStatus = currentFilters?.status;
+  var selectedType = currentFilters?.type;
+  var selectedScope = currentFilters?.specializationScope;
 
-  final unitTypeOptions = [
-    {'label': 'Apartments', 'value': 'apartment'},
-    {'label': 'Villas', 'value': 'villa'},
-    {'label': 'Land', 'value': 'land'},
-    {'label': 'Office', 'value': 'office'},
-    {'label': 'Shops', 'value': 'shop'},
-  ];
-
-  final result = await showModalBottomSheet<RequestsFilterResult>(
+  return showModalBottomSheet<RequestsFilterResult>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
@@ -67,9 +67,8 @@ Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async 
             ),
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20.0.r),
-              ),
+              borderRadius:
+                  BorderRadius.vertical(top: Radius.circular(20.0.r)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -80,7 +79,8 @@ Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async 
                       left: 20.w,
                       right: 20.w,
                       top: 20.h,
-                      bottom: MediaQuery.of(context).viewInsets.bottom + 20.h,
+                      bottom: MediaQuery.of(context).viewInsets.bottom +
+                          20.h,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,120 +97,109 @@ Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async 
                         ),
                         Gap(20.h),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              LangKeys.filter.tr(),
-                              style: AppStyles.black20Bold,
-                            ),
-                            if (selectedStatus != null ||
-                                selectedSpecialization != null ||
-                                selectedDealType != null ||
-                                selectedUnitType != null)
+                            Text(LangKeys.filter.tr(),
+                                style: AppStyles.black20Bold),
+                            if (currentFilters != null &&
+                                currentFilters.hasFilters)
                               InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    selectedStatus = null;
-                                    selectedSpecialization = null;
-                                    selectedDealType = null;
-                                    selectedUnitType = null;
-                                  });
-                                },
-                                child: Text(
-                                  'Clear All',
-                                  style: AppStyles.primary14Medium,
-                                ),
+                                onTap: () => setState(() {
+                                  selectedStatus = null;
+                                  selectedType = null;
+                                  selectedScope = null;
+                                }),
+                                child: Text(LangKeys.clearAll.tr(),
+                                    style: AppStyles.primary14Medium),
                               ),
                           ],
                         ),
                         Gap(24.h),
-                        _buildFilterSection(
-                          label: 'Request Status',
-                          selectedValue: selectedStatus,
-                          options: statusOptions,
-                          onChanged: (value) {
-                            setState(() => selectedStatus = value);
-                          },
+
+                        _buildDropdown(
+                          label: 'حالة الطلب',
+                          value: selectedStatus,
+                          items: _statusOptions,
+                          displayFn: _statusText,
+                          onChanged: (v) =>
+                              setState(() => selectedStatus = v),
                         ),
                         Gap(16.h),
-                        _buildFilterSection(
-                          label: LangKeys.scopeOfSpecialization.tr(),
-                          selectedValue: selectedSpecialization,
-                          options: specializationOptions,
-                          onChanged: (value) {
-                            setState(() => selectedSpecialization = value);
-                          },
-                        ),
-                        Gap(16.h),
-                        _buildFilterSection(
+
+                        _buildDropdown(
                           label: LangKeys.dealType.tr(),
-                          selectedValue: selectedDealType,
-                          options: dealTypeOptions,
-                          onChanged: (value) {
-                            setState(() => selectedDealType = value);
-                          },
+                          value: selectedType,
+                          items: _typeOptions,
+                          displayFn: _typeText,
+                          onChanged: (v) =>
+                              setState(() => selectedType = v),
                         ),
                         Gap(16.h),
-                        _buildFilterSection(
-                          label: LangKeys.unitType.tr(),
-                          selectedValue: selectedUnitType,
-                          options: unitTypeOptions,
-                          onChanged: (value) {
-                            setState(() => selectedUnitType = value);
-                          },
+
+                        _buildDropdown(
+                          label: LangKeys.scopeOfSpecialization.tr(),
+                          value: selectedScope,
+                          items: _specializationScopeOptions,
+                          displayFn: _scopeText,
+                          onChanged: (v) =>
+                              setState(() => selectedScope = v),
                         ),
-                        Gap(24.h),
+                        Gap(16.h),
+
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              selectedStatus = null;
-                              selectedSpecialization = null;
-                              selectedDealType = null;
-                              selectedUnitType = null;
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 14.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            side: BorderSide(color: AppColors.blueLight),
-                          ),
-                          child: Text(
-                            'Clear',
-                            style: AppStyles.black14Medium.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Gap(12.w),
-                      Expanded(
-                        child: CustomButton(
-                          text: 'Apply',
-                          onPressed: () {
-                            Navigator.pop(
-                              context,
-                              RequestsFilterResult(
-                                status: selectedStatus,
-                                specialization: selectedSpecialization,
-                                dealType: selectedDealType,
-                                unitType: selectedUnitType,
-                              ),
-                            );
-                          },
-                        ),
+                Container(
+                  padding: EdgeInsets.all(16.r),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, -4),
                       ),
                     ],
+                  ),
+                  child: SafeArea(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: CustomButton(
+                              text: 'إعادة تعيين',
+                              gradientColors: false,
+                              color: Colors.white,
+                              textColor: AppColors.primaryDark,
+                              borderColor: BorderSide(
+                                  color: AppColors.primaryDark),
+                              onPressed: () =>
+                                  Navigator.pop(context, null),
+                            ),
+                          ),
+                          Gap(12.w),
+                          Expanded(
+                            child: CustomButton(
+                              text: LangKeys.apply.tr(),
+                              onPressed: () {
+                                final result = RequestsFilterResult(
+                                  status: selectedStatus,
+                                  type: selectedType,
+                                  specializationScope: selectedScope,
+                                );
+                                Navigator.pop(context,
+                                    result.hasFilters ? result : null);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -220,77 +209,113 @@ Future<RequestsFilterResult?> showFilterBottomSheet(BuildContext context) async 
       );
     },
   );
-
-  return result;
 }
 
-Widget _buildFilterSection({
+Widget _buildDropdown({
   required String label,
-  required String? selectedValue,
-  required List<Map<String, String>> options,
-  required ValueChanged<String?> onChanged,
+  required String? value,
+  required List<String> items,
+  required String Function(String) displayFn,
+  required void Function(String?) onChanged,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: AppStyles.black14SemiBold),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: AppStyles.black16SemiBold),
+          if (value != null)
+            GestureDetector(
+              onTap: () => onChanged(null),
+              child: Row(
+                children: [
+                  Text(LangKeys.clearSelection.tr(),
+                      style: AppStyles.primary14Medium),
+                  Gap(4.w),
+                  Icon(Icons.close,
+                      size: 16.sp, color: AppColors.primaryDark),
+                ],
+              ),
+            ),
+        ],
+      ),
       Gap(8.h),
       Container(
-        width: double.infinity,
-        height: 52.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.all(
-            color: selectedValue != null
-                ? AppColors.primaryDark.withValues(alpha: 0.35)
-                : AppColors.blueLight,
-            width: 1.5,
-          ),
-          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(8.r),
         ),
-        child: DropdownButton<String>(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          isExpanded: true,
-          underline: const SizedBox.shrink(),
-          value: selectedValue,
-          hint: Text(
-            'Select $label',
-            style: TextStyle(
-              color: const Color(0xFF969696),
-              fontSize: 14.sp,
-            ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value: value,
+            isExpanded: true,
+            hint: Text(LangKeys.selectAll.tr(),
+                style: AppStyles.black14Medium),
+            items: [
+              DropdownMenuItem<String>(
+                value: null,
+                child: Text(LangKeys.clearSelection.tr(),
+                    style: AppStyles.black14Medium),
+              ),
+              ...items.map(
+                (item) => DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(displayFn(item),
+                      style: AppStyles.black14Medium),
+                ),
+              ),
+            ],
+            onChanged: onChanged,
           ),
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
-          ),
-          icon: Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: AppColors.primaryDark,
-            size: 24.sp,
-          ),
-          items: options.map((item) {
-            return DropdownMenuItem<String>(
-              value: item['value'],
-              child: Text(_translateLabel(item['label']!)),
-            );
-          }).toList(),
-          onChanged: onChanged,
         ),
       ),
     ],
   );
 }
 
-String _translateLabel(String label) {
-  final keys = [
-    label.toLowerCase().replaceAll(' ', ''),
-    label.toLowerCase().replaceAll(' ', '_'),
-  ];
-  for (final key in keys) {
-    final translated = key.tr();
-    if (translated != key) return translated;
+String _statusText(String value) {
+  switch (value) {
+    case 'new':
+      return 'جديد';
+    case 'in_processing':
+      return 'قيد المعالجة';
+    case 'finished':
+      return 'منتهي';
+    default:
+      return value;
   }
-  return label;
+}
+
+String _typeText(String value) {
+  switch (value) {
+    case 'sell':
+      return 'بيع';
+    case 'purchasing':
+      return 'شراء';
+    case 'rent_out':
+      return 'تأجير';
+    case 'rent_in':
+      return 'استئجار';
+    default:
+      return value;
+  }
+}
+
+String _scopeText(String value) {
+  switch (value) {
+    case 'purchase_sell_outside_compound':
+      return 'بيع وشراء خارج كمبوند';
+    case 'primary_inside_compound':
+      return 'بيع أولي داخل كمبوند';
+    case 'resale_inside_compound':
+      return 'بيع ثانوي داخل كمبوند';
+    case 'rentals_outside_compound':
+      return 'إيجارات خارج كمبوند';
+    case 'rentals_inside_compound':
+      return 'إيجارات داخل كمبوند';
+    default:
+      return value;
+  }
 }

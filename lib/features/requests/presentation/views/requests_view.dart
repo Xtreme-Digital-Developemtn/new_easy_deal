@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/utils/enums.dart';
+import 'widgets/requests_filter.dart';
 
 class RequestsView extends StatefulWidget {
   const RequestsView({super.key});
@@ -17,6 +18,7 @@ class RequestsView extends StatefulWidget {
 
 class _RequestsViewState extends State<RequestsView> {
   final ScrollController scrollController = ScrollController();
+  RequestsFilterResult? _appliedFilters;
 
   @override
   void initState() {
@@ -138,6 +140,14 @@ class _RequestsViewState extends State<RequestsView> {
                     enabled: isLoading,
                     child: RequestsCount(
                       count: cubit.currentModel?.data.count ?? cubit.currentList.length,
+                      currentFilters: _appliedFilters,
+                      onFilterApplied: (result) {
+                        setState(() => _appliedFilters = result);
+                        cubit.fetchAllTypes(
+                          context: context,
+                          filters: result?.toQueryParams(),
+                        );
+                      },
                     ),
                   ),
                   Gap(24.h),
