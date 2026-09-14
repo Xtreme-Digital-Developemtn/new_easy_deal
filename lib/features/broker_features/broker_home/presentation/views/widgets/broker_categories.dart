@@ -23,6 +23,15 @@ class BrokerCategories extends StatelessWidget {
               isSelected: brokerHomeCubit.selectedCategoryIndex==0,
             ),
             Gap(12.h),
+            BrokerCategoryItem(
+              svgImage: SvgImages.house,
+              title: LangKeys.addProperty,
+              onTap: () {
+                context.pushNamed(Routes.addPropertyView);
+              },
+              isSelected: false,
+            ),
+            Gap(12.h),
             BrokerCategoryItem(svgImage: SvgImages.developers, title: LangKeys.developers,onTap: (){
              context.pushNamed(Routes.brokerDevelopersView);
               brokerHomeCubit.selectCategoryItem(1);

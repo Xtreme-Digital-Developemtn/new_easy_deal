@@ -25,6 +25,7 @@ class Routes {
   static const String brokerSpecializationView = 'brokerSpecializationView';
   static const String createRequestView = 'createRequestView';
   static const String createRequestByCategoryView = 'createRequestByCategoryView';
+  static const String addPropertyView = 'addPropertyView';
   static const String assignToBrokerView = 'assignToBrokerView';
   static const String successAssignView = 'successAssignView';
   static const String requestDetailsView = 'requestDetailsView';

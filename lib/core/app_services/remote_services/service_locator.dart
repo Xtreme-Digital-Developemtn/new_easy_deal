@@ -13,6 +13,7 @@ import '../../../features/broker_features/broker_maps/data/repos/broker_maps_rep
 import '../../../features/category_units/data/repos/category_units_repo_imple.dart';
 import '../../../features/chats/data/repos/chats_repo_imple.dart';
 import '../../../features/contact_us/data/repos/contact_us_repo_imple.dart';
+import '../../../features/add_property/data/repos/add_property_repo_imple.dart';
 import '../../../features/create_request/data/repos/create_request_repo_imple.dart';
 import '../../../features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import '../../../features/faqs/data/repos/faqs_repo_imple.dart';
@@ -95,6 +96,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<CreateRequestRepoImpl>(CreateRequestRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<AddPropertyRepoImpl>(AddPropertyRepoImpl(
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<AssignToBrokerRepoImpl>(AssignToBrokerRepoImpl(

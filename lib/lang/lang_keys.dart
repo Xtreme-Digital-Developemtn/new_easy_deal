@@ -401,6 +401,7 @@ abstract class LangKeys {
   static const String validUrlRequired = 'validUrlRequired';
   static const String validPatternRequired = 'validPatternRequired';
   static const String fieldRequired = 'fieldRequired';
+  static const String addProperty = 'addProperty';
   static const String locationSuggestionsRequired = 'locationSuggestionsRequired';
   static const String minValueError = 'minValueError';
   static const String maxValueError = 'maxValueError';

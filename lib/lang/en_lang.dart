@@ -412,6 +412,7 @@ class EnLang {
     "validUrlRequired": "Please enter a valid URL.",
     "validPatternRequired": "Invalid number.",
     "fieldRequired": "This field is required.",
+    "addProperty": "Add Property",
     "locationSuggestionsRequired": "Request location suggestions from the real estate agent.",
     "minValueError": "Must be greater than or equal to",
     "maxValueError": "Must be less than or equal to",

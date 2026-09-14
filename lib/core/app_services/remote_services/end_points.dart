@@ -50,6 +50,7 @@ class EndPoints {
   static const String models = 'model';
   static const String modelUnits = 'unit';
   static const String updateUnit = 'unit/update-unit';
+  static const String createUnit = 'unit/create-unit';
   static const String getSubAreas = 'location/area?limit=100&offset=0&sort=asc&sortBy=id';
 
 

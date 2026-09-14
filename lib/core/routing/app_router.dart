@@ -1,3 +1,6 @@
+import 'package:easy_deal/features/add_property/data/repos/add_property_repo_imple.dart';
+import 'package:easy_deal/features/add_property/presentation/view_model/add_property_cubit.dart';
+import 'package:easy_deal/features/add_property/presentation/views/add_property_view.dart';
 import 'package:easy_deal/features/category_units/data/repos/category_units_repo_imple.dart';
  import 'package:easy_deal/features/edit_profile/data/repos/edit_profile_repo_imple.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
@@ -297,6 +300,11 @@ class AppRouter {
         return transition(
           screen: const CreateRequestView(),
           cubit: CreateRequestCubit(getIt.get<CreateRequestRepoImpl>()),
+        );
+      case Routes.addPropertyView:
+        return transition(
+          screen: const AddPropertyView(),
+          cubit: AddPropertyCubit(getIt.get<AddPropertyRepoImpl>())..getCities(),
         );
       case Routes.createRequestByCategoryView:
         final args = arguments as Map<String, dynamic>;

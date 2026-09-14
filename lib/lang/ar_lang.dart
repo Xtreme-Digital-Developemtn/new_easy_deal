@@ -412,6 +412,7 @@ class ArLang {
     "validUrlRequired": "يرجى إدخال رابط صحيح.",
     "validPatternRequired": "الرقم غير صحيح.",
     "fieldRequired": "هذا الحقل مطلوب.",
+    "addProperty": "إضافة عقار",
     "locationSuggestionsRequired": "أطلب مقترحات بالأماكن من الوسيط العقارى.",
     "minValueError": "يجب أن يكون أكبر من أو يساوي",
     "maxValueError": "يجب أن يكون أقل من أو يساوي",
