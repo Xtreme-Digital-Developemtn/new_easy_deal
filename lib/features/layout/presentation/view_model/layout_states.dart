@@ -33,3 +33,5 @@ class GetUnReadNotificationsCountSuccessState extends LayoutStates {
 
   GetUnReadNotificationsCountSuccessState(this.unReadNotificationsCountModel);
 }
+
+class ResetUnReadNotificationsCountState extends LayoutStates {}

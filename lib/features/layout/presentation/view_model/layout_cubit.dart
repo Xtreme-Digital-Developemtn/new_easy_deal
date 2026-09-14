@@ -68,6 +68,13 @@ class LayoutCubit extends Cubit<LayoutStates> {
   }
   UnReadNotificationsCountModel? unReadNotificationsCountModel;
 
+  /// Optimistically clears the unread badge (e.g. when the broker opens the
+  /// notifications page — the backend marks all read on that request).
+  void resetUnreadNotificationsCount() {
+    unReadNotificationsCountModel?.data?.unreadCount = 0;
+    emit(ResetUnReadNotificationsCountState());
+  }
+
   Future<void> getUnReadNotificationsCount() async {
     emit(GetUnReadNotificationsCountLoadingState());
     var result = await layoutRepo!.getUnReadNotificationsCount();

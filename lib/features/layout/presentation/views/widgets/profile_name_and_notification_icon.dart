@@ -73,8 +73,14 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                 },
                 builder: (context, unreadCount) {
                   return InkWell(
-                    onTap: () {
-                      context.pushNamed(Routes.notificationsView);
+                    onTap: () async {
+                      final layoutCubit = context.read<LayoutCubit>();
+                      // Reset the badge immediately; the backend marks all
+                      // notifications read once the list is opened.
+                      layoutCubit.resetUnreadNotificationsCount();
+                      await context.pushNamed(Routes.notificationsView);
+                      // Re-sync the real count from the server on return.
+                      await layoutCubit.getUnReadNotificationsCount();
                     },
                     child: Stack(
                       clipBehavior: Clip.none,
