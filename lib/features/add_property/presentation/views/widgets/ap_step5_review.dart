@@ -1,25 +1,12 @@
 import '../../../../../main_imports.dart';
 import '../../view_model/add_property_cubit.dart';
 import '../../view_model/add_property_states.dart';
+import 'ap_publish_caption_sheet.dart';
 
 /// Step 5 – review + submit. Mirrors the website's final step: a confirmation
 /// header, a notes/info box, then the draft & publish actions.
-class ApStep5Review extends StatefulWidget {
+class ApStep5Review extends StatelessWidget {
   const ApStep5Review({super.key});
-
-  @override
-  State<ApStep5Review> createState() => _ApStep5ReviewState();
-}
-
-class _ApStep5ReviewState extends State<ApStep5Review> {
-  bool _showCaption = false;
-  final _captionController = TextEditingController();
-
-  @override
-  void dispose() {
-    _captionController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,53 +46,19 @@ class _ApStep5ReviewState extends State<ApStep5Review> {
         ),
         Gap(12.h),
 
-        // Publish button (toggles the caption box).
+        // Publish button → opens the caption bottom sheet, then publishes.
         CustomButton(
           text: isArabic ? 'إضافة عقار ونشر' : 'Add Property & Publish',
           iconData: Icons.campaign_outlined,
           color: AppColors.white,
           textColor: AppColors.primaryDark,
-          onPressed: loading ? null : () => setState(() => _showCaption = !_showCaption),
+          onPressed: loading
+              ? null
+              : () => ApPublishCaptionSheet.show(
+                    context,
+                    onPublish: (caption) => cubit.submit(publish: true, caption: caption),
+                  ),
         ),
-
-        if (_showCaption) ...[
-          Gap(16.h),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Text(
-              isArabic ? 'هل ترغب في إضافة نص وصفي للاعلان ؟' : 'Would you like to add a descriptive text for publishing?',
-              style: AppStyles.black14SemiBold,
-            ),
-          ),
-          Gap(8.h),
-          CustomTextFormField(
-            controller: _captionController,
-            hintText: isArabic ? 'نص وصفي للإعلان' : 'Publish description',
-            maxLines: 2,
-            borderRadius: 10.r,
-            borderWidth: 1.5,
-          ),
-          Gap(12.h),
-          Row(
-            children: [
-              Expanded(
-                child: CustomButton(
-                  text: isArabic ? 'الغاء' : 'Cancel',
-                  color: AppColors.blueLight,
-                  textColor: AppColors.primaryDark,
-                  onPressed: loading ? null : () => setState(() => _showCaption = false),
-                ),
-              ),
-              Gap(12.w),
-              Expanded(
-                child: CustomButton(
-                  text: isArabic ? 'نشر' : 'Publish',
-                  onPressed: loading ? null : () => cubit.submit(publish: true, caption: _captionController.text),
-                ),
-              ),
-            ],
-          ),
-        ],
 
         if (loading) ...[Gap(16.h), const CustomLoading()],
       ],
