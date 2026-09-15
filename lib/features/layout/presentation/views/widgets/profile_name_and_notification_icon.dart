@@ -50,13 +50,13 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          profileCubit.clientProfileModel?.data?.fullName ?? "",
-                          style: AppStyles.black16SemiBold,
-                        ),
+                      Text(
+                        profileCubit.clientProfileModel?.data?.fullName ?? "",
+                        style: AppStyles.black16SemiBold,
                       ),
+                      Text("لوحة التحكم",style: TextStyle(
+                        color: AppColors.gray2
+                      ),),
                     ],
                   ),
                 ],
