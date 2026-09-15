@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/shared_widgets/whatsapp_help_widget.dart';
 import 'package:easy_deal/features/register/presentation/views/widgets/password_widgets/otp_body.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_cubit.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
@@ -57,6 +58,8 @@ class RegisterView extends StatelessWidget {
                     } ,child: Text(LangKeys.signIn.tr(),style: AppStyles.primary16SemiBold,),),
                   ],
                 ),
+                Gap(16.h),
+                const WhatsAppHelpWidget(phoneNumber: '01098727829'),
                 Gap(MediaQuery.of(context).size.height*0.05),
               ],
             );

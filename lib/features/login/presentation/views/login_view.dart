@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
+import 'package:easy_deal/core/shared_widgets/whatsapp_help_widget.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/do_not_have_account.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/login_as_guest.dart';
 import 'package:easy_deal/features/login/presentation/views/widgets/login_button.dart';
@@ -38,6 +39,8 @@ class LoginView extends StatelessWidget {
                 Gap(24.h),
                 // LoginAsGuest(),
                 DoNotHaveAccount(),
+                Gap(24.h),
+                const WhatsAppHelpWidget(phoneNumber: '01098727829'),
               ],
             ),
           ),
