@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/request_details/presentation/views/widgets/replies_widget.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_overview.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/sent_replies_widget.dart';
 
 import '../../../../../main_imports.dart';
 import '../../view_model/request_details_cubit.dart';
@@ -20,10 +21,10 @@ class RequestDetailsTabContent extends StatelessWidget {
             return RequestOverview(data: data);
 
           case 1:
-            return const RepliesWidget(); // now paginated with real SentResponsesModel data
+            return const RepliesWidget(); // request/replies - auto-load without button
 
-          // case 2:
-          //   return const SentRepliesWidget();
+          case 2:
+            return const SentRepliesWidget(); // unit/list-sent-unit-requests - نفس الطريقة بنفس الباجينيشن
 
           default:
             return RequestOverview(data: data);

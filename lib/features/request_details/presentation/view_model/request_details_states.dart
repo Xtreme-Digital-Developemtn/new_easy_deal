@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
  
@@ -20,7 +21,7 @@ class GetRequestDetailsSuccessState extends RequestDetailsStates{
 class RequestDetailsChangeTabState extends RequestDetailsStates {}
 
 
-// Sent Responses (Replies) pagination states
+// Sent Responses pagination states
 class GetSentResponsesLoadingState extends RequestDetailsStates {}
 class GetSentResponsesSuccessState extends RequestDetailsStates {
   final SentResponsesModel model;
@@ -38,6 +39,26 @@ class GetSentResponsesLoadMoreSuccessState extends RequestDetailsStates {
 class GetSentResponsesLoadMoreErrorState extends RequestDetailsStates {
   final String error;
   GetSentResponsesLoadMoreErrorState(this.error);
+}
+
+// Replies (request/replies) pagination states - نفس النمط بنفس الباجينيشن
+class GetRepliesLoadingState extends RequestDetailsStates {}
+class GetRepliesSuccessState extends RequestDetailsStates {
+  final RepliesModel model;
+  GetRepliesSuccessState(this.model);
+}
+class GetRepliesErrorState extends RequestDetailsStates {
+  final String error;
+  GetRepliesErrorState(this.error);
+}
+class GetRepliesLoadMoreLoadingState extends RequestDetailsStates {}
+class GetRepliesLoadMoreSuccessState extends RequestDetailsStates {
+  final RepliesModel model;
+  GetRepliesLoadMoreSuccessState(this.model);
+}
+class GetRepliesLoadMoreErrorState extends RequestDetailsStates {
+  final String error;
+  GetRepliesLoadMoreErrorState(this.error);
 }
 
 

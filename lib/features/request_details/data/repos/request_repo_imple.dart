@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
 import '../../../../main_imports.dart';
+import '../models/replies_model.dart';
 import '../models/request_details_model.dart';
 import '../models/sent_responses_model.dart';
 
@@ -28,27 +29,61 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
   @override
   Future<Either<Failure, SentResponsesModel>> getSentResponses({
     required int requestId,
-    required int senderId,
-    required int brokerId,
+    int? senderId,
+    int? brokerId,
     int limit = 10,
     int offset = 0,
     String sort = 'desc',
     String sortBy = 'id',
   }) async {
     try {
+      final Map<String, dynamic> query = {
+        'limit': limit,
+        'offset': offset,
+        'sort': sort,
+        'sortBy': sortBy,
+        'requestId': requestId,
+      };
+      if (senderId != null && senderId != 0) query['senderId'] = senderId;
+      if (brokerId != null && brokerId != 0) query['brokerId'] = brokerId;
+
       var response = await apiService!.getData(
         endPoint: EndPoints.sentResponses,
-        query: {
-          'limit': limit,
-          'offset': offset,
-          'sort': sort,
-          'sortBy': sortBy,
-          'requestId': requestId,
-          'brokerId': brokerId,
-          'senderId': senderId,
-        },
+        query: query,
       );
       SentResponsesModel result = SentResponsesModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RepliesModel>> getReplies({
+    required int requestId,
+    int? brokerId,
+    int? senderId,
+    int limit = 10,
+    int offset = 0,
+    String sort = 'desc',
+    String sortBy = 'id',
+  }) async {
+    try {
+      final Map<String, dynamic> query = {
+        'limit': limit,
+        'offset': offset,
+        'sort': sort,
+        'sortBy': sortBy,
+        'requestId': requestId,
+      };
+      if (brokerId != null && brokerId != 0) query['brokerId'] = brokerId;
+      if (senderId != null && senderId != 0) query['senderId'] = senderId;
+
+      var response = await apiService!.getData(
+        endPoint: EndPoints.requestReplies,
+        query: query,
+      );
+      RepliesModel result = RepliesModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

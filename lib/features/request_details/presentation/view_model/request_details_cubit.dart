@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
 
@@ -15,7 +16,15 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
 
 
   RequestDetailsModel? requestDetailsModel;
+  int? _parseId(dynamic v) {
+    if (v == null) return null;
+    if (v is int) return v;
+    if (v is String) return int.tryParse(v);
+    return int.tryParse(v.toString());
+  }
+
   Future<void> requestDetails({required int requestId}) async {
+    if (state is GetRequestDetailsLoadingState) return;
     emit(GetRequestDetailsLoadingState());
     var result = await requestDetailsRepo!.requestDetails(requestId: requestId);
     return result.fold((failure) {
@@ -23,6 +32,9 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     }, (data) async {
       requestDetailsModel = data;
       emit(GetRequestDetailsSuccessState(data));
+      // Auto load both lists on page open (without button) - نفس الطريقة
+      getReplies(requestId: requestId);
+      getSentResponses(requestId: requestId);
     });
   }
 
@@ -51,8 +63,10 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     int? limit,
   }) async {
     final int effectiveLimit = limit ?? sentResponsesLimit;
-    final int sender = senderId ?? CacheHelper.getData(key: StorageKeys.userId) as int? ?? 0;
-    final int broker = brokerId ?? CacheHelper.getData(key: StorageKeys.brokerId) as int? ?? 0;
+    final int? cachedSender = _parseId(CacheHelper.getData(key: StorageKeys.userId));
+    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    final int? sender = senderId ?? cachedSender;
+    final int? broker = brokerId ?? cachedBroker;
 
     if (isLoadMore) {
       if (isLoadingMoreSentResponses || !sentResponsesHasMore) return;
@@ -120,6 +134,98 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
 
   Future<void> refreshSentResponses({required int requestId, int? senderId, int? brokerId}) async {
     await getSentResponses(requestId: requestId, senderId: senderId, brokerId: brokerId, isLoadMore: false);
+  }
+
+  // ================= Replies (request/replies) Pagination - نفس الطريقة =================
+  RepliesModel? repliesModel;
+  List<ReplyData> repliesList = [];
+  List<Units> repliesUnitsFlat = [];
+  int repliesLimit = 10;
+  int repliesOffset = 0;
+  int repliesTotalCount = 0;
+  bool repliesHasMore = true;
+  bool isLoadingMoreReplies = false;
+
+  Future<void> getReplies({
+    required int requestId,
+    int? brokerId,
+    int? senderId,
+    bool isLoadMore = false,
+    int? limit,
+  }) async {
+    final int effectiveLimit = limit ?? repliesLimit;
+    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    final int? cachedSender = _parseId(CacheHelper.getData(key: StorageKeys.userId));
+    final int? broker = brokerId ?? cachedBroker;
+    final int? sender = senderId ?? cachedSender;
+
+    if (isLoadMore) {
+      if (isLoadingMoreReplies || !repliesHasMore) return;
+      isLoadingMoreReplies = true;
+      emit(GetRepliesLoadMoreLoadingState());
+    } else {
+      repliesOffset = 0;
+      repliesHasMore = true;
+      repliesList = [];
+      repliesUnitsFlat = [];
+      repliesTotalCount = 0;
+      emit(GetRepliesLoadingState());
+    }
+
+    final result = await requestDetailsRepo!.getReplies(
+      requestId: requestId,
+      brokerId: broker,
+      senderId: sender,
+      limit: effectiveLimit,
+      offset: repliesOffset,
+    );
+
+    result.fold(
+      (failure) {
+        isLoadingMoreReplies = false;
+        if (isLoadMore) {
+          emit(GetRepliesLoadMoreErrorState(failure.errMessage));
+        } else {
+          emit(GetRepliesErrorState(failure.errMessage));
+        }
+      },
+      (data) {
+        repliesModel = data;
+        final newItems = data.data ?? [];
+        repliesTotalCount = data.count ?? newItems.length;
+
+        if (isLoadMore) {
+          repliesList.addAll(newItems);
+          repliesOffset += newItems.length;
+        } else {
+          repliesList = newItems;
+          repliesOffset = newItems.length;
+        }
+
+        repliesUnitsFlat = repliesList.expand((e) => e.units ?? <Units>[]).toList();
+
+        if (repliesTotalCount > 0) {
+          repliesHasMore = repliesOffset < repliesTotalCount;
+        } else {
+          repliesHasMore = newItems.length >= effectiveLimit;
+        }
+
+        isLoadingMoreReplies = false;
+        if (isLoadMore) {
+          emit(GetRepliesLoadMoreSuccessState(data));
+        } else {
+          emit(GetRepliesSuccessState(data));
+        }
+      },
+    );
+  }
+
+  Future<void> loadMoreReplies({required int requestId, int? brokerId}) async {
+    await getReplies(requestId: requestId, brokerId: brokerId, isLoadMore: true);
+  }
+
+  Future<void> refreshReplies({required int requestId, int? brokerId}) async {
+    await getReplies(requestId: requestId, brokerId: brokerId, isLoadMore: false);
   }
 
 }

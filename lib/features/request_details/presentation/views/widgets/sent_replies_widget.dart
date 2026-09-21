@@ -4,18 +4,16 @@ import 'package:easy_deal/features/request_details/presentation/view_model/reque
 import '../../../../../main_imports.dart';
 import 'replies_table.dart';
 
-/// RepliesWidget - يعرض نفس جدول الردود بنفس الباجينيشن
-/// لكن مصدر البيانات هو API الجديد:
-/// https://new.easydealmasr.com/api/v1/request/replies?limit=10&offset=0&sort=desc&sortBy=id&requestId=496&brokerId=1
-/// Data auto-loads on screen open (without button) via cubit.getReplies()
-class RepliesWidget extends StatefulWidget {
-  const RepliesWidget({super.key});
+/// SentRepliesWidget - يعرض الردود المرسلة `unit/list-sent-unit-requests`
+/// نفس طريقة الـ pagination والـ auto-load بدون زرار
+class SentRepliesWidget extends StatefulWidget {
+  const SentRepliesWidget({super.key});
 
   @override
-  State<RepliesWidget> createState() => _RepliesWidgetState();
+  State<SentRepliesWidget> createState() => _SentRepliesWidgetState();
 }
 
-class _RepliesWidgetState extends State<RepliesWidget> {
+class _SentRepliesWidgetState extends State<SentRepliesWidget> {
   @override
   void initState() {
     super.initState();
@@ -26,11 +24,10 @@ class _RepliesWidgetState extends State<RepliesWidget> {
 
   void _fetchIfNeeded() {
     final cubit = context.read<RequestDetailsCubit>();
-    // لو الداتا already محملة من auto-load في requestDetails => لا تعيد التحميل
-    if (cubit.repliesList.isNotEmpty) return;
+    if (cubit.sentResponsesList.isNotEmpty) return;
     final requestId = cubit.requestDetailsModel?.data?.id;
     if (requestId != null) {
-      cubit.getReplies(requestId: requestId);
+      cubit.getSentResponses(requestId: requestId);
     }
   }
 
@@ -38,7 +35,7 @@ class _RepliesWidgetState extends State<RepliesWidget> {
     final cubit = context.read<RequestDetailsCubit>();
     final requestId = cubit.requestDetailsModel?.data?.id;
     if (requestId != null) {
-      cubit.loadMoreReplies(requestId: requestId);
+      cubit.loadMoreSentResponses(requestId: requestId);
     }
   }
 
@@ -48,7 +45,7 @@ class _RepliesWidgetState extends State<RepliesWidget> {
       builder: (context, state) {
         final cubit = context.read<RequestDetailsCubit>();
 
-        final isInitialLoading = state is GetRepliesLoadingState && cubit.repliesList.isEmpty;
+        final isInitialLoading = state is GetSentResponsesLoadingState && cubit.sentResponsesList.isEmpty;
 
         if (isInitialLoading) {
           return const Padding(
@@ -57,7 +54,7 @@ class _RepliesWidgetState extends State<RepliesWidget> {
           );
         }
 
-        if (state is GetRepliesErrorState && cubit.repliesList.isEmpty) {
+        if (state is GetSentResponsesErrorState && cubit.sentResponsesList.isEmpty) {
           return Padding(
             padding: const EdgeInsets.only(top: 24),
             child: Center(
@@ -76,30 +73,30 @@ class _RepliesWidgetState extends State<RepliesWidget> {
           );
         }
 
-        final replies = cubit.repliesList;
-        final hasMore = cubit.repliesHasMore;
-        final isLoadingMore = cubit.isLoadingMoreReplies;
+        final items = cubit.sentResponsesList;
+        final hasMore = cubit.sentResponsesHasMore;
+        final isLoadingMore = cubit.isLoadingMoreSentResponses;
 
         return Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (cubit.repliesTotalCount > 0)
+              if (cubit.sentResponsesTotalCount > 0)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8, left: 4),
                   child: Text(
-                    'Total replies: ${cubit.repliesTotalCount}  •  Showing ${cubit.repliesUnitsFlat.length}',
+                    'Total sent: ${cubit.sentResponsesTotalCount}  •  Showing ${items.length}',
                     style: const TextStyle(fontSize: 12, color: Color(0xff666666)),
                   ),
                 ),
-              RepliesModelTable(
-                replies: replies,
+              RepliesTable(
+                items: items,
                 hasMore: hasMore,
                 isLoadingMore: isLoadingMore,
                 onLoadMore: hasMore && !isLoadingMore ? _onLoadMore : null,
               ),
-              if (state is GetRepliesLoadMoreErrorState)
+              if (state is GetSentResponsesLoadMoreErrorState)
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Center(
