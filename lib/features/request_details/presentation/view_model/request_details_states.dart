@@ -16,7 +16,7 @@ class GetRequestDetailsSuccessState extends RequestDetailsStates{
 
 }
 
-
+class RequestDetailsChangeTabState extends RequestDetailsStates {}
 
 
 

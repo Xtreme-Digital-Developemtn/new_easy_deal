@@ -8,8 +8,10 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/fi
 import 'package:easy_deal/features/request_details/presentation/views/widgets/order_Information.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/property_details.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_actions.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/request_details_tab_content.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_header.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_info_grid.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/reviews_tabs.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/site_details.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/status_information.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -46,51 +48,55 @@ class RequestDetailsView extends StatelessWidget {
                       Gap(12.h),
                       RequestInfoGrid(),
                       Gap(12.h),
-                      BrokerInfoSection(
-                        user: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .user,
-                      ),
-                      BasicInfo(
-                        typeOfOperation: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .type!,
-                        scopeOfSpecialization: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .specializationScope!,
-                        unitType: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .unit!,
-                      ),
-                      SiteDetails(
-                        address: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .detailedAddress
-                            .toString(),
-                        locations: requestDetailsCubit
-                            .requestDetailsModel!
-                            .data!
-                            .locations,
-                      ),
-                      PropertyDetails(attributes: requestDetailsCubit
-                          .requestDetailsModel!
-                          .data!
-                          .attributes,),
-                      StatusInformation(status: requestDetailsCubit
-                          .requestDetailsModel!
-                          .data!
-                          .status.toString(), finishingCondition: requestDetailsCubit
-                          .requestDetailsModel!
-                          .data!
-                          .numberOfReplies.toString(),),
-                      AdditionalInformation(),
-                      FinancesAndNotes(),
-                      OrderInformation(),
+                      RequestDetailsTabs(),
+                      Gap(12.h),
+                      RequestDetailsTabContent(),
+                      // Gap(12.h),
+                      // BrokerInfoSection(
+                      //   user: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .user,
+                      // ),
+                      // BasicInfo(
+                      //   typeOfOperation: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .type!,
+                      //   scopeOfSpecialization: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .specializationScope!,
+                      //   unitType: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .unit!,
+                      // ),
+                      // SiteDetails(
+                      //   address: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .detailedAddress
+                      //       .toString(),
+                      //   locations: requestDetailsCubit
+                      //       .requestDetailsModel!
+                      //       .data!
+                      //       .locations,
+                      // ),
+                      // PropertyDetails(attributes: requestDetailsCubit
+                      //     .requestDetailsModel!
+                      //     .data!
+                      //     .attributes,),
+                      // StatusInformation(status: requestDetailsCubit
+                      //     .requestDetailsModel!
+                      //     .data!
+                      //     .status.toString(), finishingCondition: requestDetailsCubit
+                      //     .requestDetailsModel!
+                      //     .data!
+                      //     .numberOfReplies.toString(),),
+                      // AdditionalInformation(),
+                      // FinancesAndNotes(),
+                      // OrderInformation(),
                       Gap(24.h),
                       CustomButton(
                         onPressed: () {},

@@ -26,4 +26,11 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
   }
 
 
+  int selectedIndex = 0;
+
+  void changeTab(int index) {
+    selectedIndex = index;
+    emit(RequestDetailsChangeTabState());
+  }
+
 }
