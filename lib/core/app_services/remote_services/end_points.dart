@@ -14,6 +14,7 @@ class EndPoints {
   static const String unitUniTypes = 'unit/unit-types';
   static const String dynamicForms = 'requests/create/dynamic-fields';
   static const String requests = 'requests';
+  static const String sentResponses = 'unit/list-sent-unit-requests';
   static const String users = 'users';
   static const String updateSpecializationsAreas = 'users/update-specializations-areas';
   static const String allUnits = 'unit?limit=20&offset=0';

@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
+import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
  
 abstract class RequestDetailsStates{}
 
@@ -17,6 +18,27 @@ class GetRequestDetailsSuccessState extends RequestDetailsStates{
 }
 
 class RequestDetailsChangeTabState extends RequestDetailsStates {}
+
+
+// Sent Responses (Replies) pagination states
+class GetSentResponsesLoadingState extends RequestDetailsStates {}
+class GetSentResponsesSuccessState extends RequestDetailsStates {
+  final SentResponsesModel model;
+  GetSentResponsesSuccessState(this.model);
+}
+class GetSentResponsesErrorState extends RequestDetailsStates {
+  final String error;
+  GetSentResponsesErrorState(this.error);
+}
+class GetSentResponsesLoadMoreLoadingState extends RequestDetailsStates {}
+class GetSentResponsesLoadMoreSuccessState extends RequestDetailsStates {
+  final SentResponsesModel model;
+  GetSentResponsesLoadMoreSuccessState(this.model);
+}
+class GetSentResponsesLoadMoreErrorState extends RequestDetailsStates {
+  final String error;
+  GetSentResponsesLoadMoreErrorState(this.error);
+}
 
 
 

@@ -51,52 +51,6 @@ class RequestDetailsView extends StatelessWidget {
                       RequestDetailsTabs(),
                       Gap(12.h),
                       RequestDetailsTabContent(),
-                      // Gap(12.h),
-                      // BrokerInfoSection(
-                      //   user: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .user,
-                      // ),
-                      // BasicInfo(
-                      //   typeOfOperation: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .type!,
-                      //   scopeOfSpecialization: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .specializationScope!,
-                      //   unitType: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .unit!,
-                      // ),
-                      // SiteDetails(
-                      //   address: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .detailedAddress
-                      //       .toString(),
-                      //   locations: requestDetailsCubit
-                      //       .requestDetailsModel!
-                      //       .data!
-                      //       .locations,
-                      // ),
-                      // PropertyDetails(attributes: requestDetailsCubit
-                      //     .requestDetailsModel!
-                      //     .data!
-                      //     .attributes,),
-                      // StatusInformation(status: requestDetailsCubit
-                      //     .requestDetailsModel!
-                      //     .data!
-                      //     .status.toString(), finishingCondition: requestDetailsCubit
-                      //     .requestDetailsModel!
-                      //     .data!
-                      //     .numberOfReplies.toString(),),
-                      // AdditionalInformation(),
-                      // FinancesAndNotes(),
-                      // OrderInformation(),
                       Gap(24.h),
                       CustomButton(
                         onPressed: () {},
