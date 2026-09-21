@@ -7,6 +7,9 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/br
 import 'package:easy_deal/features/request_details/presentation/views/widgets/finances_and_notes.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/order_Information.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/property_details.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/request_actions.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/request_header.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/request_info_grid.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/site_details.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/status_information.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -18,7 +21,11 @@ class RequestDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.requestDetails),
+      appBar: GlobalAppBar(title: LangKeys.requestDetails,
+      backgroundColor: AppColors.primaryDark,
+      textColor: AppColors.white,
+        iconColor: AppColors.white,
+      ),
       body: BlocBuilder<RequestDetailsCubit, RequestDetailsStates>(
         builder: (context, state) {
           var requestDetailsCubit = context.read<RequestDetailsCubit>();
@@ -31,64 +38,67 @@ class RequestDetailsView extends StatelessWidget {
                   },
                 )
               : SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0.r),
-                    child: Column(
-                      children: [
-                        BrokerInfoSection(
-                          user: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .user,
-                        ),
-                        BasicInfo(
-                          typeOfOperation: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .type!,
-                          scopeOfSpecialization: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .specializationScope!,
-                          unitType: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .unit!,
-                        ),
-                        SiteDetails(
-                          address: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .detailedAddress
-                              .toString(),
-                          locations: requestDetailsCubit
-                              .requestDetailsModel!
-                              .data!
-                              .locations,
-                        ),
-                        PropertyDetails(attributes: requestDetailsCubit
+                  child: Column(
+                    children: [
+                      const RequestHeader(),
+                      Gap(12.h),
+                      RequestActions(),
+                      Gap(12.h),
+                      RequestInfoGrid(),
+                      Gap(12.h),
+                      BrokerInfoSection(
+                        user: requestDetailsCubit
                             .requestDetailsModel!
                             .data!
-                            .attributes,),
-                        StatusInformation(status: requestDetailsCubit
+                            .user,
+                      ),
+                      BasicInfo(
+                        typeOfOperation: requestDetailsCubit
                             .requestDetailsModel!
                             .data!
-                            .status.toString(), finishingCondition: requestDetailsCubit
+                            .type!,
+                        scopeOfSpecialization: requestDetailsCubit
                             .requestDetailsModel!
                             .data!
-                            .numberOfReplies.toString(),),
-                        AdditionalInformation(),
-                        FinancesAndNotes(),
-                        OrderInformation(),
-                        Gap(24.h),
-                        CustomButton(
-                          onPressed: () {},
-                          color: AppColors.errorDark,
-                          gradientColors: false,
-                          text: LangKeys.cancel.tr(),
-                        ),
-                      ],
-                    ),
+                            .specializationScope!,
+                        unitType: requestDetailsCubit
+                            .requestDetailsModel!
+                            .data!
+                            .unit!,
+                      ),
+                      SiteDetails(
+                        address: requestDetailsCubit
+                            .requestDetailsModel!
+                            .data!
+                            .detailedAddress
+                            .toString(),
+                        locations: requestDetailsCubit
+                            .requestDetailsModel!
+                            .data!
+                            .locations,
+                      ),
+                      PropertyDetails(attributes: requestDetailsCubit
+                          .requestDetailsModel!
+                          .data!
+                          .attributes,),
+                      StatusInformation(status: requestDetailsCubit
+                          .requestDetailsModel!
+                          .data!
+                          .status.toString(), finishingCondition: requestDetailsCubit
+                          .requestDetailsModel!
+                          .data!
+                          .numberOfReplies.toString(),),
+                      AdditionalInformation(),
+                      FinancesAndNotes(),
+                      OrderInformation(),
+                      Gap(24.h),
+                      CustomButton(
+                        onPressed: () {},
+                        color: AppColors.errorDark,
+                        gradientColors: false,
+                        text: LangKeys.cancel.tr(),
+                      ),
+                    ],
                   ),
                 );
         },
