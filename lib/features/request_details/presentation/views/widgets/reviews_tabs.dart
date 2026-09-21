@@ -43,6 +43,15 @@ class RequestDetailsTabs extends StatelessWidget {
                 index: 2,
                 isSelected: cubit.selectedIndex == 2,
               ),
+
+              const SizedBox(width: 12),
+
+              _buildTab(
+                context: context,
+                title: 'توصيات',
+                index: 3,
+                isSelected: cubit.selectedIndex == 3,
+              ),
             ],
           ),
         );

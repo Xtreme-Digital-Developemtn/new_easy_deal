@@ -32,14 +32,13 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<RequestDetailsCubit>();
       final id = widget.requestId ?? 10;
-      // تحميل أوتوماتيك أول ما الصفحة تفتح بدون زرار
+      // تحميل أوتوماتيك أول ما الصفحة تفتح بدون زرار - كل التابات
       if (cubit.requestDetailsModel == null) {
         cubit.requestDetails(requestId: id);
-      } else if (cubit.repliesList.isEmpty) {
-        cubit.getReplies(requestId: id);
-      }
-      if (cubit.sentResponsesList.isEmpty && cubit.requestDetailsModel != null) {
-        cubit.getSentResponses(requestId: id);
+      } else {
+        if (cubit.repliesList.isEmpty) cubit.getReplies(requestId: id);
+        if (cubit.sentResponsesList.isEmpty) cubit.getSentResponses(requestId: id);
+        if (cubit.recommendedList.isEmpty) cubit.getRecommendedUnits(requestId: id);
       }
     });
   }

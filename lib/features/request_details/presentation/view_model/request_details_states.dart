@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/models/recommended_model.dart';
 import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
@@ -59,6 +60,26 @@ class GetRepliesLoadMoreSuccessState extends RequestDetailsStates {
 class GetRepliesLoadMoreErrorState extends RequestDetailsStates {
   final String error;
   GetRepliesLoadMoreErrorState(this.error);
+}
+
+// Recommended (requests/recommend/units) pagination states - نفس الطريقة
+class GetRecommendedLoadingState extends RequestDetailsStates {}
+class GetRecommendedSuccessState extends RequestDetailsStates {
+  final RecommendedModel model;
+  GetRecommendedSuccessState(this.model);
+}
+class GetRecommendedErrorState extends RequestDetailsStates {
+  final String error;
+  GetRecommendedErrorState(this.error);
+}
+class GetRecommendedLoadMoreLoadingState extends RequestDetailsStates {}
+class GetRecommendedLoadMoreSuccessState extends RequestDetailsStates {
+  final RecommendedModel model;
+  GetRecommendedLoadMoreSuccessState(this.model);
+}
+class GetRecommendedLoadMoreErrorState extends RequestDetailsStates {
+  final String error;
+  GetRecommendedLoadMoreErrorState(this.error);
 }
 
 

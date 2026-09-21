@@ -1,6 +1,7 @@
-import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
-import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
-import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
+import '../../data/models/replies_model.dart';
+import '../../data/models/request_details_model.dart';
+import '../../data/models/sent_responses_model.dart';
+import '../../data/models/recommended_model.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/repos/request_repo.dart';
@@ -32,9 +33,10 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     }, (data) async {
       requestDetailsModel = data;
       emit(GetRequestDetailsSuccessState(data));
-      // Auto load both lists on page open (without button) - نفس الطريقة
+      // Auto load all lists on page open (without button) - نفس الطريقة
       getReplies(requestId: requestId);
       getSentResponses(requestId: requestId);
+      getRecommendedUnits(requestId: requestId);
     });
   }
 
@@ -226,6 +228,91 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
 
   Future<void> refreshReplies({required int requestId, int? brokerId}) async {
     await getReplies(requestId: requestId, brokerId: brokerId, isLoadMore: false);
+  }
+
+  // ================= Recommended (requests/recommend/units) Pagination - نفس الطريقة =================
+  RecommendedModel? recommendedModel;
+  List<RecommendedData> recommendedList = [];
+  int recommendedLimit = 10;
+  int recommendedOffset = 0;
+  int recommendedTotalCount = 0;
+  bool recommendedHasMore = true;
+  bool isLoadingMoreRecommended = false;
+
+  Future<void> getRecommendedUnits({
+    required int requestId,
+    int? brokerId,
+    bool isLoadMore = false,
+    int? limit,
+  }) async {
+    final int effectiveLimit = limit ?? recommendedLimit;
+    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    // brokerId من الـ URL path - لو مش موجود نستخدم الـ cached أو 1 كـ fallback للـ example 1205/1
+    final int broker = brokerId ?? cachedBroker ?? 1;
+
+    if (isLoadMore) {
+      if (isLoadingMoreRecommended || !recommendedHasMore) return;
+      isLoadingMoreRecommended = true;
+      emit(GetRecommendedLoadMoreLoadingState());
+    } else {
+      recommendedOffset = 0;
+      recommendedHasMore = true;
+      recommendedList = [];
+      recommendedTotalCount = 0;
+      emit(GetRecommendedLoadingState());
+    }
+
+    final result = await requestDetailsRepo!.getRecommendedUnits(
+      requestId: requestId,
+      brokerId: broker,
+      limit: effectiveLimit,
+      offset: recommendedOffset,
+    );
+
+    result.fold(
+      (failure) {
+        isLoadingMoreRecommended = false;
+        if (isLoadMore) {
+          emit(GetRecommendedLoadMoreErrorState(failure.errMessage));
+        } else {
+          emit(GetRecommendedErrorState(failure.errMessage));
+        }
+      },
+      (data) {
+        recommendedModel = data;
+        final newItems = data.data ?? [];
+        recommendedTotalCount = data.count ?? newItems.length;
+
+        if (isLoadMore) {
+          recommendedList.addAll(newItems);
+          recommendedOffset += newItems.length;
+        } else {
+          recommendedList = newItems;
+          recommendedOffset = newItems.length;
+        }
+
+        if (recommendedTotalCount > 0) {
+          recommendedHasMore = recommendedOffset < recommendedTotalCount;
+        } else {
+          recommendedHasMore = newItems.length >= effectiveLimit;
+        }
+
+        isLoadingMoreRecommended = false;
+        if (isLoadMore) {
+          emit(GetRecommendedLoadMoreSuccessState(data));
+        } else {
+          emit(GetRecommendedSuccessState(data));
+        }
+      },
+    );
+  }
+
+  Future<void> loadMoreRecommended({required int requestId, int? brokerId}) async {
+    await getRecommendedUnits(requestId: requestId, brokerId: brokerId, isLoadMore: true);
+  }
+
+  Future<void> refreshRecommended({required int requestId, int? brokerId}) async {
+    await getRecommendedUnits(requestId: requestId, brokerId: brokerId, isLoadMore: false);
   }
 
 }

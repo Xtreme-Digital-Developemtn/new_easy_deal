@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
 import '../../../../main_imports.dart';
+import '../models/recommended_model.dart';
 import '../models/replies_model.dart';
 import '../models/request_details_model.dart';
 import '../models/sent_responses_model.dart';
@@ -84,6 +85,33 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
         query: query,
       );
       RepliesModel result = RepliesModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RecommendedModel>> getRecommendedUnits({
+    required int requestId,
+    required int brokerId,
+    int limit = 10,
+    int offset = 0,
+    String sort = 'desc',
+    String sortBy = 'id',
+  }) async {
+    try {
+      final query = {
+        'limit': limit,
+        'offset': offset,
+        'sort': sort,
+        'sortBy': sortBy,
+      };
+      var response = await apiService!.getData(
+        endPoint: '${EndPoints.recommendUnits}/$requestId/$brokerId',
+        query: query,
+      );
+      RecommendedModel result = RecommendedModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));
