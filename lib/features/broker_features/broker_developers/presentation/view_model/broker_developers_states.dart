@@ -2,6 +2,7 @@ import 'package:easy_deal/features/broker_features/boker_data/data/models/broker
 import 'package:easy_deal/features/unit_details/data/models/unit_details_response.dart';
 import '../../data/models/models_response.dart';
 import '../../data/models/developer_projects_model.dart';
+import '../../data/models/developer_sales_model.dart' hide Project;
 import '../../data/models/developers_model.dart';
 
 abstract class BrokerDevelopersStates {}
@@ -54,6 +55,18 @@ class GetProjectModelsSuccessState extends BrokerDevelopersStates {
 class GetProjectModelsErrorState extends BrokerDevelopersStates {
   final String error;
   GetProjectModelsErrorState(this.error);
+}
+
+class GetDeveloperSalesLoadingState extends BrokerDevelopersStates {}
+
+class GetDeveloperSalesSuccessState extends BrokerDevelopersStates {
+  final DeveloperSalesModel? salesModel;
+  GetDeveloperSalesSuccessState(this.salesModel);
+}
+
+class GetDeveloperSalesErrorState extends BrokerDevelopersStates {
+  final String error;
+  GetDeveloperSalesErrorState(this.error);
 }
 
 class GetModelUnitsLoadingState extends BrokerDevelopersStates {}

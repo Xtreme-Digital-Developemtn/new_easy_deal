@@ -11,8 +11,8 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class RequestDetailsView extends StatefulWidget {
-  const RequestDetailsView({super.key, this.requestId});
-  final int? requestId;
+  const RequestDetailsView({super.key,required this.requestId});
+  final int requestId;
 
   @override
   State<RequestDetailsView> createState() => _RequestDetailsViewState();
@@ -24,7 +24,7 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<RequestDetailsCubit>();
-      final id = widget.requestId ?? 10;
+      final id = widget.requestId ?? 0;
       // تحميل أوتوماتيك أول ما الصفحة تفتح بدون زرار - كل التابات
       if (cubit.requestDetailsModel == null) {
         cubit.requestDetails(requestId: id);
@@ -104,6 +104,12 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
                 const RequestHeader(),
                 Gap(12.h),
                 RequestActions(
+                    onAssignBrokerTap:(){
+                      context.pushNamed(
+                        Routes.assignToBrokerView,
+                        arguments: {'requestId': widget.requestId},
+                      );
+                    },
                   onNewTap: () => updateStatus('new'),
                   onCompleteTap: () => updateStatus('finished'),
                   onStartProcessingTap: () => updateStatus('in_processing'),

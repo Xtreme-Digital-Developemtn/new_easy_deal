@@ -39,6 +39,7 @@ class EndPoints {
       'unit/advertisement-shuffle?limit=4&offset=0';
   static const String developers = 'developers';
   static const String developerProjects = 'developers/projects';
+  static const String developerSales = 'developer-sales';
   static const String brokerMaps = 'broker/maps';
   static const String brokerUnits = 'unit';
   static const String brokerFcmToken = 'broker/fcm-token';

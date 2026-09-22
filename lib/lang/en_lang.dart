@@ -286,6 +286,8 @@ class EnLang {
     "changeStatus": "Change Status",
     "edit": "Edit",
     "models": "Models",
+    "viewSalesTeam": "View Sales Team",
+    "salesTeam": "Sales Team",
     "modelCode": "Code",
     "numberOfUnits": "Units",
     "floors": "Floors",

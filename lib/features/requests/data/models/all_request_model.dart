@@ -41,7 +41,7 @@ class RequestsData {
 }
 
 class RequestItem {
-  final dynamic id;
+  final int id;
   final dynamic title;
   final dynamic specializationScope;
   final dynamic type;

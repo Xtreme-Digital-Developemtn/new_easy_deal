@@ -631,6 +631,8 @@ abstract class LangKeys {
   static const String projectTypeMixed = 'projectTypeMixed';
   static const String projectTypeChaletsVacationVillas = 'projectTypeChaletsVacationVillas';
   static const String models = 'models';
+  static const String viewSalesTeam = 'viewSalesTeam';
+  static const String salesTeam = 'salesTeam';
   static const String modelCode = 'modelCode';
   static const String numberOfUnits = 'numberOfUnits';
   static const String floors = 'floors';

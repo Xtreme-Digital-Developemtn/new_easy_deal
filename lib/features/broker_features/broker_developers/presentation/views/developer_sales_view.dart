@@ -1,30 +1,32 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_sales_view.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/model_units_view.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_models_table_data.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_sales_table_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../view_model/broker_developers_cubit.dart';
 import '../view_model/broker_developers_states.dart';
 
-class DeveloperModelsView extends StatefulWidget {
-  final int projectId;
+/// شاشة فريق المبيعات
+/// - بدون projectId => كل مبيعات المطور: GET developer-sales/{developerId}/sales
+/// - مع projectId   => مبيعات مشروع محدد: GET developer-sales/{developerId}/sales?project_id={projectId}
+/// مثال: https://new.easydealmasr.com/api/v1/developer-sales/1/sales?project_id=1
+class DeveloperSalesView extends StatefulWidget {
   final int developerId;
-  const DeveloperModelsView({super.key, required this.projectId, required this.developerId});
+  final int? projectId;
+  const DeveloperSalesView({super.key, required this.developerId, this.projectId});
 
   @override
-  State<DeveloperModelsView> createState() => _DeveloperModelsViewState();
+  State<DeveloperSalesView> createState() => _DeveloperSalesViewState();
 }
 
-class _DeveloperModelsViewState extends State<DeveloperModelsView> {
+class _DeveloperSalesViewState extends State<DeveloperSalesView> {
   late final BrokerDevelopersCubit _cubit;
 
   @override
   void initState() {
     super.initState();
     _cubit = BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>());
-    _cubit.getProjectModels(widget.projectId);
+    _cubit.getDeveloperSales(widget.developerId, projectId: widget.projectId);
   }
 
   @override
@@ -38,42 +40,12 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
     return BlocProvider.value(
       value: _cubit,
       child: Scaffold(
-        appBar: GlobalAppBar(
-          title: LangKeys.models,
-          actions: [
-            TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => DeveloperSalesView(
-                      developerId: widget.developerId,
-                      projectId: widget.projectId,
-                    ),
-                  ),
-                );
-              },
-              child: Text(
-                LangKeys.viewSalesTeam.tr(),
-                style: AppStyles.black12Medium.copyWith(
-                  color: AppColors.primaryDark,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
+        appBar: GlobalAppBar(title: LangKeys.salesTeam),
         body: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
           builder: (context, state) {
-            if (state is GetProjectModelsLoadingState) {
+            if (state is GetDeveloperSalesLoadingState) {
               return const CustomLoading();
-            } else if (state is GetProjectModelsErrorState) {
+            } else if (state is GetDeveloperSalesErrorState) {
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -83,14 +55,14 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                     CustomButton(
                       text: LangKeys.reload,
                       onPressed: () {
-                        _cubit.getProjectModels(widget.projectId);
+                        _cubit.getDeveloperSales(widget.developerId, projectId: widget.projectId);
                       },
                     ),
                   ],
                 ),
               );
-            } else if (state is GetProjectModelsSuccessState) {
-              var data = state.modelsResponse?.data ?? [];
+            } else if (state is GetDeveloperSalesSuccessState) {
+              var data = state.salesModel?.data ?? [];
               if (data.isEmpty) {
                 return Center(
                   child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
@@ -126,7 +98,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12.r),
                           ),
-                          child: Icon(Icons.dashboard_rounded, color: Colors.white, size: 24.r),
+                          child: Icon(Icons.support_agent_rounded, color: Colors.white, size: 24.r),
                         ),
                         Gap(14.w),
                         Expanded(
@@ -134,7 +106,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                LangKeys.models.tr(),
+                                LangKeys.salesTeam.tr(),
                                 style: AppStyles.black14Medium.copyWith(
                                   color: Colors.white,
                                   fontSize: 16.sp,
@@ -143,7 +115,9 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                               ),
                               Gap(4.h),
                               Text(
-                                '${data.length} ${LangKeys.models.tr()}',
+                                widget.projectId != null
+                                    ? '${data.length} ${LangKeys.salesTeam.tr()} • project #${widget.projectId}'
+                                    : '${data.length} ${LangKeys.salesTeam.tr()}',
                                 style: AppStyles.black14Medium.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                   fontSize: 13.sp,
@@ -156,20 +130,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                     ),
                   ),
                   Expanded(
-                    child: DeveloperModelsTableData(
-                      data: data,
-                      onRowTap: (item) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ModelUnitsView(
-                              modelId: item.id,
-                              modelCode: item.code?.toString(),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child: DeveloperSalesTableData(data: data),
                   ),
                 ],
               );

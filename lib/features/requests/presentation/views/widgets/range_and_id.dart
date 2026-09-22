@@ -5,7 +5,7 @@ import '../../../../../main_imports.dart';
 class RangeAndID extends StatelessWidget {
   const RangeAndID({super.key, required this.range, required this.id});
   final String range;
-  final String id;
+  final dynamic id;
   @override
   Widget build(BuildContext context) {
     return     Container(

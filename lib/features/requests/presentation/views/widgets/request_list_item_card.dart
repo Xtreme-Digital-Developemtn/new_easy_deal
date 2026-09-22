@@ -16,13 +16,15 @@ class RequestListItemCard extends StatelessWidget {
   final String type;
   final String address;
   final String range;
-  final String id;
+  final int id;
   // final DateTime date;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        context.pushNamed(Routes.requestDetailsView);
+        context.pushNamed(Routes.requestDetailsView,arguments: {
+          "requestId" : id,
+        });
       },
       child: Container(
         padding: EdgeInsets.all(16.r),

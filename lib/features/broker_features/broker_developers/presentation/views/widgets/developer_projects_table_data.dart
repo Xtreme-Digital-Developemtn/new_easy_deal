@@ -11,8 +11,9 @@ import 'edit_project_dialog.dart';
 class DeveloperProjectsTableData extends StatelessWidget {
   final List<ProjectData> data;
   final void Function(int projectId)? onModelsTap;
+  final void Function(int projectId)? onSalesTap;
   final void Function(ProjectData updatedProject)? onEditSave;
-  const DeveloperProjectsTableData({super.key, required this.data, this.onModelsTap, this.onEditSave});
+  const DeveloperProjectsTableData({super.key, required this.data, this.onModelsTap, this.onSalesTap, this.onEditSave});
 
   String _areaName(BuildContext context, AreaModel? area) {
     if (area == null) return LangKeys.notAvailable.tr();
@@ -197,6 +198,7 @@ class DeveloperProjectsTableData extends StatelessWidget {
                   DataCell(Center(child: _ProceduresPopupCell(
                     project: item,
                     onModelsTap: onModelsTap,
+                    onSalesTap: onSalesTap,
                     onEditSave: onEditSave,
                   ))),
                 ],
@@ -383,9 +385,10 @@ class DeveloperProjectsTableData extends StatelessWidget {
 class _ProceduresPopupCell extends StatefulWidget {
   final ProjectData project;
   final void Function(int projectId)? onModelsTap;
+  final void Function(int projectId)? onSalesTap;
   final void Function(ProjectData updatedProject)? onEditSave;
 
-  const _ProceduresPopupCell({required this.project, this.onModelsTap, this.onEditSave});
+  const _ProceduresPopupCell({required this.project, this.onModelsTap, this.onSalesTap, this.onEditSave});
 
   @override
   State<_ProceduresPopupCell> createState() => _ProceduresPopupCellState();
@@ -414,6 +417,9 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
             //   break;
             case 'models':
               widget.onModelsTap?.call(widget.project.id);
+              break;
+            case 'sales':
+              widget.onSalesTap?.call(widget.project.id);
               break;
           }
         },
@@ -473,6 +479,24 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
                 ),
                 Gap(10.w),
                 Text(LangKeys.models.tr(), style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
+              ],
+            ),
+          ),
+          PopupMenuItem<String>(
+            value: 'sales',
+            height: 44.h,
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(5.r),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryDark.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(6.r),
+                  ),
+                  child: Icon(Icons.support_agent_rounded, size: 16.sp, color: AppColors.primaryDark),
+                ),
+                Gap(10.w),
+                Text(LangKeys.salesTeam.tr(), style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
               ],
             ),
           ),

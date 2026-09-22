@@ -5,6 +5,7 @@ import '../../../boker_data/data/models/broker_units_model.dart';
 import '../../../../unit_details/data/models/unit_details_response.dart';
 import '../models/models_response.dart';
 import '../models/developer_projects_model.dart';
+import '../models/developer_sales_model.dart' hide Project;
 import '../models/developers_model.dart';
 import 'broker_developers_repo.dart';
 
@@ -69,6 +70,20 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
         },
       );
       ModelsResponse result = ModelsResponse.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DeveloperSalesModel>> getDeveloperSales(int developerId, {int? projectId}) async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: '${EndPoints.developerSales}/$developerId/sales',
+        query: projectId != null ? {'project_id': projectId} : null,
+      );
+      DeveloperSalesModel result = DeveloperSalesModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

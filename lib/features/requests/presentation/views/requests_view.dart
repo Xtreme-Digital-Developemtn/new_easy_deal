@@ -51,7 +51,8 @@ class _RequestsViewState extends State<RequestsView> {
     required int count,
     required bool isActive,
     required VoidCallback onPressed,
-  }) {
+  })
+  {
     return GestureDetector(
       onTap: onPressed,
       child: AnimatedContainer(

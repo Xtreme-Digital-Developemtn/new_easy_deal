@@ -325,10 +325,16 @@ class AppRouter {
       case Routes.successAssignView:
         return transition(screen: const SuccessAssignView());
       case Routes.requestDetailsView:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final requestId = arguments['requestId'] as int;
+
         return transition(
-          screen: const RequestDetailsView(),
-          cubit: RequestDetailsCubit(getIt.get<RequestDetailsRepoImpl>())
-            ..requestDetails(requestId: 10),
+          screen: RequestDetailsView(
+            requestId: requestId,
+          ),
+          cubit: RequestDetailsCubit(
+            getIt.get<RequestDetailsRepoImpl>(),
+          )..requestDetails(requestId: requestId),
         );
       case Routes.brokerHomeView:
         return transition(

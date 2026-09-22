@@ -81,7 +81,7 @@ class RequestsList extends StatelessWidget {
                   request.detailedAddress ??
                       LangKeys.noAddressFound.tr(),
               range: request.specializationScope.toString().tr(),
-              id: request.id.toString(),
+              id: request.id ,
             );
                 },
               ),

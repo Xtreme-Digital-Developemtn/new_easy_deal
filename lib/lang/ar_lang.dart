@@ -286,6 +286,8 @@ class ArLang {
     "changeStatus": "تغيير الحالة",
     "edit": "تعديل",
     "models": "النماذج",
+    "viewSalesTeam": "عرض فريق المبيعات",
+    "salesTeam": "فريق المبيعات",
     "modelCode": "الكود",
     "numberOfUnits": "عدد الوحدات",
     "floors": "عدد الأدوار",

@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_models_view.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_sales_view.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_projects_table_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -24,7 +25,35 @@ class _DeveloperProjectsViewState extends State<DeveloperProjectsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.projects),
+      appBar: GlobalAppBar(
+        title: LangKeys.projects,
+        actions: [
+          // 1) برا المشاريع: كل مبيعات المطور بدون فلتر
+          TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DeveloperSalesView(developerId: widget.developerId),
+                ),
+              );
+            },
+            child: Text(
+              LangKeys.viewSalesTeam.tr(),
+              style: AppStyles.black12Medium.copyWith(
+                color: AppColors.primaryDark,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
         builder: (context, state) {
           if (state is GetDeveloperProjectsLoadingState) {
@@ -118,7 +147,21 @@ class _DeveloperProjectsViewState extends State<DeveloperProjectsView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => DeveloperModelsView(projectId: projectId),
+                          builder: (_) => DeveloperModelsView(
+                            projectId: projectId,
+                            developerId: widget.developerId,
+                          ),
+                        ),
+                      );
+                    },
+                    onSalesTap: (projectId) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DeveloperSalesView(
+                            developerId: widget.developerId,
+                            projectId: projectId,
+                          ),
                         ),
                       );
                     },
