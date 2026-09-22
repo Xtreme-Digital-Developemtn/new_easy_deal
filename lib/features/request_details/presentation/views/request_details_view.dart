@@ -88,20 +88,25 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
           final userId =
               details?.user?.id ?? CacheHelper.getData(key: StorageKeys.userId);
           final unitId = details?.id ?? widget.requestId ?? 10;
+
+          void updateStatus(String status) {
+            requestDetailsCubit.updateRequestStatus(
+              requestId: widget.requestId ?? 10,
+              status: status,
+              userId: userId.toString(),
+              unitId: unitId.toString(),
+            );
+          }
+
           return SingleChildScrollView(
             child: Column(
               children: [
                 const RequestHeader(),
                 Gap(12.h),
                 RequestActions(
-                  onStartProcessingTap: () {
-                    requestDetailsCubit.updateRequestStatus(
-                      requestId: widget.requestId ?? 10,
-                      status: 'in_processing',
-                      userId: userId.toString(),
-                      unitId: unitId.toString(),
-                    );
-                  },
+                  onNewTap: () => updateStatus('new'),
+                  onCompleteTap: () => updateStatus('finished'),
+                  onStartProcessingTap: () => updateStatus('in_processing'),
                 ),
                 Gap(12.h),
                 RequestInfoGrid(),
