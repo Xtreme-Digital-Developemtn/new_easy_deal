@@ -1,5 +1,4 @@
 class EndPoints {
-
   static const String baseUrl = 'https://new.easydealmasr.com/api/v1/';
   // static const String baseUrl = 'https://easydealmasr.com/api/v1/';
   static const String imageBaseUrl = 'https://new.easydealmasr.com';
@@ -14,9 +13,11 @@ class EndPoints {
   static const String unitUniTypes = 'unit/unit-types';
   static const String dynamicForms = 'requests/create/dynamic-fields';
   static const String requests = 'requests';
+  static const String updateRequestStatus = 'requests/update-status';
   static const String sentResponses = 'unit/list-sent-unit-requests';
   static const String users = 'users';
-  static const String updateSpecializationsAreas = 'users/update-specializations-areas';
+  static const String updateSpecializationsAreas =
+      'users/update-specializations-areas';
   static const String allUnits = 'unit?limit=20&offset=0';
   static const String cities = 'location/city';
   static const String areas = 'location/area';
@@ -34,7 +35,8 @@ class EndPoints {
   static const String promoCodesApply = 'promo-codes/apply';
   static const String requestsStatistics = 'requests/statistics';
   static const String requestsLatest = 'requests/latest';
-  static const String advertisementShuffle = 'unit/advertisement-shuffle?limit=4&offset=0';
+  static const String advertisementShuffle =
+      'unit/advertisement-shuffle?limit=4&offset=0';
   static const String developers = 'developers';
   static const String developerProjects = 'developers/projects';
   static const String brokerMaps = 'broker/maps';
@@ -42,7 +44,8 @@ class EndPoints {
   static const String brokerFcmToken = 'broker/fcm-token';
   static const String brokerNotificationsCount = 'broker/notifications/count';
   static const String brokerNotifications = 'broker/notifications';
-  static const String requestsCheckAdvertisementCount = 'requests/check-advertisement-count';
+  static const String requestsCheckAdvertisementCount =
+      'requests/check-advertisement-count';
   static const String unitPublishAsAd = 'unit/publish-as-ad';
   static const String updateStatusUnitSold = 'unit/update-status-unit-sold';
   static const String makeRequest = 'unit/make-request';
@@ -53,7 +56,6 @@ class EndPoints {
   static const String modelUnits = 'unit';
   static const String updateUnit = 'unit/update-unit';
   static const String createUnit = 'unit/create-unit';
-  static const String getSubAreas = 'location/area?limit=100&offset=0&sort=asc&sortBy=id';
-
-
+  static const String getSubAreas =
+      'location/area?limit=100&offset=0&sort=asc&sortBy=id';
 }

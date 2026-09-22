@@ -2,21 +2,22 @@ import '../../data/models/replies_model.dart';
 import '../../data/models/request_details_model.dart';
 import '../../data/models/sent_responses_model.dart';
 import '../../data/models/recommended_model.dart';
+import '../../data/models/update_status_model.dart';
 
 import '../../../../main_imports.dart';
 import '../../data/repos/request_repo.dart';
 import 'request_details_states.dart';
 
-
 class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
-  RequestDetailsCubit(this.requestDetailsRepo) : super(RequestDetailsInitState());
+  RequestDetailsCubit(this.requestDetailsRepo)
+    : super(RequestDetailsInitState());
 
   RequestDetailsRepo? requestDetailsRepo;
   static RequestDetailsCubit get(context) => BlocProvider.of(context);
 
-
-
   RequestDetailsModel? requestDetailsModel;
+  UpdateStatusModel? updateStatusModel;
+  bool isUpdatingRequestStatus = false;
   int? _parseId(dynamic v) {
     if (v == null) return null;
     if (v is int) return v;
@@ -28,18 +29,51 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     if (state is GetRequestDetailsLoadingState) return;
     emit(GetRequestDetailsLoadingState());
     var result = await requestDetailsRepo!.requestDetails(requestId: requestId);
-    return result.fold((failure) {
-      emit(GetRequestDetailsErrorState(failure.errMessage));
-    }, (data) async {
-      requestDetailsModel = data;
-      emit(GetRequestDetailsSuccessState(data));
-      // Auto load all lists on page open (without button) - نفس الطريقة
-      getReplies(requestId: requestId);
-      getSentResponses(requestId: requestId);
-      getRecommendedUnits(requestId: requestId);
-    });
+    return result.fold(
+      (failure) {
+        emit(GetRequestDetailsErrorState(failure.errMessage));
+      },
+      (data) async {
+        requestDetailsModel = data;
+        emit(GetRequestDetailsSuccessState(data));
+        // Auto load all lists on page open (without button) - نفس الطريقة
+        getReplies(requestId: requestId);
+        getSentResponses(requestId: requestId);
+        getRecommendedUnits(requestId: requestId);
+      },
+    );
   }
 
+  Future<void> updateRequestStatus({
+    required int requestId,
+    required String status,
+    required String userId,
+    required String unitId,
+  }) async {
+    if (isUpdatingRequestStatus) return;
+    isUpdatingRequestStatus = true;
+    emit(UpdateRequestStatusLoadingState());
+
+    var result = await requestDetailsRepo!.updateRequestStatus(
+      requestId: requestId,
+      status: status,
+      userId: userId,
+      unitId: unitId,
+    );
+
+    result.fold(
+      (failure) {
+        isUpdatingRequestStatus = false;
+        emit(UpdateRequestStatusErrorState(failure.errMessage));
+      },
+      (data) {
+        updateStatusModel = data;
+        requestDetailsModel?.data?.status = data.data?.status ?? status;
+        isUpdatingRequestStatus = false;
+        emit(UpdateRequestStatusSuccessState(data));
+      },
+    );
+  }
 
   int selectedIndex = 0;
 
@@ -65,8 +99,12 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     int? limit,
   }) async {
     final int effectiveLimit = limit ?? sentResponsesLimit;
-    final int? cachedSender = _parseId(CacheHelper.getData(key: StorageKeys.userId));
-    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    final int? cachedSender = _parseId(
+      CacheHelper.getData(key: StorageKeys.userId),
+    );
+    final int? cachedBroker = _parseId(
+      CacheHelper.getData(key: StorageKeys.brokerId),
+    );
     final int? sender = senderId ?? cachedSender;
     final int? broker = brokerId ?? cachedBroker;
 
@@ -103,7 +141,8 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
       (data) {
         sentResponsesModel = data;
         final newItems = data.data ?? [];
-        sentResponsesTotalCount = data.count ?? data.totalCount ?? newItems.length;
+        sentResponsesTotalCount =
+            data.count ?? data.totalCount ?? newItems.length;
 
         if (isLoadMore) {
           sentResponsesList.addAll(newItems);
@@ -130,12 +169,30 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     );
   }
 
-  Future<void> loadMoreSentResponses({required int requestId, int? senderId, int? brokerId}) async {
-    await getSentResponses(requestId: requestId, senderId: senderId, brokerId: brokerId, isLoadMore: true);
+  Future<void> loadMoreSentResponses({
+    required int requestId,
+    int? senderId,
+    int? brokerId,
+  }) async {
+    await getSentResponses(
+      requestId: requestId,
+      senderId: senderId,
+      brokerId: brokerId,
+      isLoadMore: true,
+    );
   }
 
-  Future<void> refreshSentResponses({required int requestId, int? senderId, int? brokerId}) async {
-    await getSentResponses(requestId: requestId, senderId: senderId, brokerId: brokerId, isLoadMore: false);
+  Future<void> refreshSentResponses({
+    required int requestId,
+    int? senderId,
+    int? brokerId,
+  }) async {
+    await getSentResponses(
+      requestId: requestId,
+      senderId: senderId,
+      brokerId: brokerId,
+      isLoadMore: false,
+    );
   }
 
   // ================= Replies (request/replies) Pagination - نفس الطريقة =================
@@ -156,8 +213,12 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     int? limit,
   }) async {
     final int effectiveLimit = limit ?? repliesLimit;
-    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
-    final int? cachedSender = _parseId(CacheHelper.getData(key: StorageKeys.userId));
+    final int? cachedBroker = _parseId(
+      CacheHelper.getData(key: StorageKeys.brokerId),
+    );
+    final int? cachedSender = _parseId(
+      CacheHelper.getData(key: StorageKeys.userId),
+    );
     final int? broker = brokerId ?? cachedBroker;
     final int? sender = senderId ?? cachedSender;
 
@@ -204,7 +265,9 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
           repliesOffset = newItems.length;
         }
 
-        repliesUnitsFlat = repliesList.expand((e) => e.units ?? <Units>[]).toList();
+        repliesUnitsFlat = repliesList
+            .expand((e) => e.units ?? <Units>[])
+            .toList();
 
         if (repliesTotalCount > 0) {
           repliesHasMore = repliesOffset < repliesTotalCount;
@@ -223,11 +286,19 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
   }
 
   Future<void> loadMoreReplies({required int requestId, int? brokerId}) async {
-    await getReplies(requestId: requestId, brokerId: brokerId, isLoadMore: true);
+    await getReplies(
+      requestId: requestId,
+      brokerId: brokerId,
+      isLoadMore: true,
+    );
   }
 
   Future<void> refreshReplies({required int requestId, int? brokerId}) async {
-    await getReplies(requestId: requestId, brokerId: brokerId, isLoadMore: false);
+    await getReplies(
+      requestId: requestId,
+      brokerId: brokerId,
+      isLoadMore: false,
+    );
   }
 
   // ================= Recommended (requests/recommend/units) Pagination - نفس الطريقة =================
@@ -246,7 +317,9 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     int? limit,
   }) async {
     final int effectiveLimit = limit ?? recommendedLimit;
-    final int? cachedBroker = _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    final int? cachedBroker = _parseId(
+      CacheHelper.getData(key: StorageKeys.brokerId),
+    );
     // brokerId من الـ URL path - لو مش موجود نستخدم الـ cached أو 1 كـ fallback للـ example 1205/1
     final int broker = brokerId ?? cachedBroker ?? 1;
 
@@ -307,12 +380,25 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     );
   }
 
-  Future<void> loadMoreRecommended({required int requestId, int? brokerId}) async {
-    await getRecommendedUnits(requestId: requestId, brokerId: brokerId, isLoadMore: true);
+  Future<void> loadMoreRecommended({
+    required int requestId,
+    int? brokerId,
+  }) async {
+    await getRecommendedUnits(
+      requestId: requestId,
+      brokerId: brokerId,
+      isLoadMore: true,
+    );
   }
 
-  Future<void> refreshRecommended({required int requestId, int? brokerId}) async {
-    await getRecommendedUnits(requestId: requestId, brokerId: brokerId, isLoadMore: false);
+  Future<void> refreshRecommended({
+    required int requestId,
+    int? brokerId,
+  }) async {
+    await getRecommendedUnits(
+      requestId: requestId,
+      brokerId: brokerId,
+      isLoadMore: false,
+    );
   }
-
 }

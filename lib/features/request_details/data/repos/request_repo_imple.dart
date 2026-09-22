@@ -5,16 +5,17 @@ import '../models/recommended_model.dart';
 import '../models/replies_model.dart';
 import '../models/request_details_model.dart';
 import '../models/sent_responses_model.dart';
-
+import '../models/update_status_model.dart';
 
 class RequestDetailsRepoImpl implements RequestDetailsRepo {
   final ApiService? apiService;
 
   RequestDetailsRepoImpl(this.apiService);
 
-
   @override
-  Future<Either<Failure, RequestDetailsModel>> requestDetails({required int requestId}) async{
+  Future<Either<Failure, RequestDetailsModel>> requestDetails({
+    required int requestId,
+  }) async {
     try {
       var response = await apiService!.getData(
         endPoint: "${EndPoints.requests}/$requestId",
@@ -26,6 +27,24 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, UpdateStatusModel>> updateRequestStatus({
+    required int requestId,
+    required String status,
+    required String userId,
+    required String unitId,
+  }) async {
+    try {
+      var response = await apiService!.postData(
+        endPoint: '${EndPoints.updateRequestStatus}/$requestId',
+        data: {'status': status, 'unitId': unitId, 'userId': userId},
+      );
+      UpdateStatusModel result = UpdateStatusModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
 
   @override
   Future<Either<Failure, SentResponsesModel>> getSentResponses({
@@ -117,5 +136,4 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
       return left(handleError(e));
     }
   }
-
 }
