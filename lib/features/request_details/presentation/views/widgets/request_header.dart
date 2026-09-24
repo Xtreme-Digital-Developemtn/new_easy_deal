@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/themes/app_colors.dart';
 import '../../../../../main_imports.dart';
+import '../../../../requests/data/config/request_translations.dart';
 import '../../view_model/request_details_cubit.dart';
 
 class RequestHeader extends StatelessWidget {
@@ -32,7 +33,7 @@ class RequestHeader extends StatelessWidget {
           const SizedBox(height: 12),
 
           /// Request Title
-            Text(details.type!,
+            Text(RequestTranslations.type(details.type),
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -49,10 +50,10 @@ class RequestHeader extends StatelessWidget {
             runSpacing: 7,
             children:   [
               _RequestTag(
-                title: details.specializationScope!,
+                title: RequestTranslations.specializationScope(details.specializationScope),
               ),
               _RequestTag(
-                title: details.unit!,
+                title: RequestTranslations.unit(details.unit),
               ),
             ],
           ),

@@ -3,6 +3,7 @@ import 'package:easy_deal/features/requests/presentation/views/widgets/request_l
 import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../main_imports.dart';
+import '../../../data/config/request_translations.dart';
 import '../../../data/models/all_request_model.dart';
 
 class RequestsList extends StatelessWidget {
@@ -75,17 +76,17 @@ class RequestsList extends StatelessWidget {
                       : null;
 
             return RequestListItemCard(
-              title: request.title.toString().tr(),
+              title: RequestTranslations.title(request.type, request.unit),
               statusColor: AppColors.primaryDark,
-              status: request.status.toString().tr(),
+              status: RequestTranslations.status(request.status),
               // date: DateTime.now().subtract(
               //   const Duration(days: 2),
               // ),
-              type: request.type.toString().tr(),
+              type: RequestTranslations.type(request.type),
               address:
                   request.detailedAddress ??
                       LangKeys.noAddressFound.tr(),
-              range: request.specializationScope.toString().tr(),
+              range: RequestTranslations.specializationScope(request.specializationScope),
               id: request.id ,
               assignedToLabel: receiverName,
             );
