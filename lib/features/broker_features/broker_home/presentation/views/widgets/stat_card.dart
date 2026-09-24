@@ -1,11 +1,12 @@
 import '../../../../../../main_imports.dart';
 
 class StatCard extends StatelessWidget {
-  const StatCard({super.key, required this.title, required this.subtitle, required this.count, required this.percentage, required this.mainColor, required this.lightColor, required this.icon});
+  const StatCard({super.key, required this.title, required this.subtitle,
+    required this.count, required this.count2, required this.mainColor, required this.lightColor, required this.icon});
   final String title;
   final String subtitle;
   final String count;
-  final String percentage;
+  final String count2;
   final Color mainColor;
   final Color lightColor;
   final IconData icon;
@@ -81,7 +82,7 @@ class StatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "إجمالي",
+                    "إجمالي الطلبات المستلمة",
                     style: AppStyles.white12Medium.copyWith(
                       fontSize: 10.sp,
                       color: AppColors.white.withValues(alpha: 0.8),
@@ -103,14 +104,14 @@ class StatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "النسبة",
+                    "العدد",
                     style: AppStyles.white12Medium.copyWith(
                       fontSize: 10.sp,
                       color: AppColors.white.withValues(alpha: 0.8),
                     ),
                   ),
                   Text(
-                    percentage,
+                    count2,
                     style: AppStyles.white14SemiBold.copyWith(
                       fontSize: 14.sp,
                     ),

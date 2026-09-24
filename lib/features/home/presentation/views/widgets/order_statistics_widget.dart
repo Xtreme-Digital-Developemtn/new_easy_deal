@@ -18,7 +18,6 @@ class OrderStatisticsWidget extends StatelessWidget {
     final newOrders = data.newRequestsCount ?? 0;
     final processing = data.inProcessingRequestsCount ?? 0;
     final completed = data.finishedRequestsCount ?? 0;
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
@@ -49,14 +48,17 @@ class OrderStatisticsWidget extends StatelessWidget {
               _StatisticsLegendItem(
                 color: const Color(0xffFFBC32),
                 title: 'جديد',
+                percentage: _calculatePercentage(newOrders, total),
               ),
               _StatisticsLegendItem(
                 color: const Color(0xff536DFE),
                 title: 'قيد المعالجة',
+                percentage: _calculatePercentage(processing, total),
               ),
               _StatisticsLegendItem(
                 color: const Color(0xff2CB855),
                 title: 'مكتمل',
+                percentage: _calculatePercentage(completed, total),
               ),
             ],
           ),
@@ -104,6 +106,14 @@ class OrderStatisticsWidget extends StatelessWidget {
     );
   }
 
+  String _calculatePercentage(int value, int total) {
+    if (total == 0) return '0';
+    final percentage = (value / total) * 100;
+    return percentage == percentage.roundToDouble()
+        ? percentage.toStringAsFixed(0)
+        : percentage.toStringAsFixed(1);
+  }
+
   String _formatNumber(int value) {
     return value.toString().replaceAllMapped(
       RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
@@ -116,10 +126,12 @@ class _StatisticsLegendItem extends StatelessWidget {
   const _StatisticsLegendItem({
     required this.color,
     required this.title,
+    required this.percentage,
   });
 
   final Color color;
   final String title;
+  final String percentage;
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +149,15 @@ class _StatisticsLegendItem extends StatelessWidget {
         SizedBox(width: 6.w),
         Text(
           title,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: const Color(0xffA1A1AA),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        SizedBox(width: 6.w),
+        Text(
+          "$percentage%",
           style: TextStyle(
             fontSize: 12.sp,
             color: const Color(0xffA1A1AA),

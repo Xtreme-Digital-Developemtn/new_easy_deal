@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
+import 'package:easy_deal/features/broker_features/broker_home/presentation/view_model/broker_home_states.dart';
 import 'package:easy_deal/features/broker_features/broker_home/presentation/views/widgets/broker_main_sections.dart';
 import 'package:easy_deal/features/broker_features/broker_home/presentation/views/widgets/last_requests.dart';
 import 'package:easy_deal/features/broker_features/broker_home/presentation/views/widgets/statistics.dart';
@@ -8,15 +9,6 @@ import 'package:easy_deal/main_imports.dart';
 
 class BrokerHomeView extends StatelessWidget {
   const BrokerHomeView({super.key});
-
-  Data _buildOrderStatsData(BuildContext context) {
-    final model = context.read<BrokerHomeCubit>().brokerStatisticsModel;
-    if (model?.data != null) {
-      return model!.data!;
-    }
-    // Return default data if loading or error
-    return Data();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +20,12 @@ body: SafeArea(child: Padding(
           Gap(12.h),
           Statistics(brokerId: CacheHelper.getData(key: "userId"),),
           Gap(12.h),
-          OrderStatisticsWidget(data: _buildOrderStatsData(context)),
+          BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
+            builder: (context, state) {
+              final data = context.read<BrokerHomeCubit>().brokerStatisticsModel?.data ?? Data();
+              return OrderStatisticsWidget(data: data);
+            },
+          ),
           Gap(12.h),
            LastRequests(brokerId: CacheHelper.getData(key: "userId"),),
         ],),

@@ -1,8 +1,6 @@
 import 'package:easy_deal/features/broker_features/broker_home/presentation/view_model/broker_home_cubit.dart';
 import 'package:easy_deal/features/broker_features/broker_home/presentation/views/widgets/stat_card.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 import '../../view_model/broker_home_states.dart';
 
 class Statistics extends StatefulWidget {
@@ -34,57 +32,57 @@ class _StatisticsState extends State<Statistics> {
               children: [
                 Expanded(
                   child: StatCard(
-                    title: LangKeys.sold.tr(),
-                    subtitle: LangKeys.previousOrders.tr(),
+                    count2: "${statistics?.finishedRequestsCount ?? 0}",
+                    title: "منتهية",
+                    subtitle: "الطلبات المنتهية",
                     count: "${statistics?.allRequestsCount ?? 0}",
-                    percentage: "",
-                    mainColor: AppColors.primaryLight,
-                    lightColor: AppColors.primaryLight,
+                    mainColor: AppColors.successDark,
+                    lightColor: AppColors.successLight,
                     icon: Icons.history_outlined,
                   ),
                 ),
                 Gap(12.w),
                 Expanded(
                   child: StatCard(
-                    title: LangKeys.outOfListing.tr(),
-                    subtitle: LangKeys.pendingOrders.tr(),
-                    count: "${statistics?.newRequestsCount ?? 0}",
-                    percentage: "",
-                    mainColor: AppColors.errorDark,
-                    lightColor: AppColors.errorLight,
+                    count2:  "${statistics?.inProcessingRequestsCount ?? 0}",
+                    title: "قيد المعالجة",
+                    subtitle: "الطلبات قيد المعالجة",
+                    count: "${statistics?.allRequestsCount ?? 0}",
+                    mainColor: AppColors.primaryDark,
+                    lightColor: AppColors.primaryLight,
                     icon: Icons.access_time_outlined,
                   ),
                 ),
               ],
             ),
-            Gap(12.h),
-            Row(
-              children: [
-                Expanded(
-                  child: StatCard(
-                    title: LangKeys.inProcess.tr(),
-                    subtitle: LangKeys.completedOrders.tr(),
-                    count: "${statistics?.finishedRequestsCount ?? 0}",
-                    percentage: "",
-                    mainColor: AppColors.successDark,
-                    lightColor: AppColors.successLight,
-                    icon: Icons.check_circle_outlined,
-                  ),
-                ),
-                Gap(12.w),
-                Expanded(
-                  child: StatCard(
-                    title: LangKeys.currentRequests.tr(),
-                    subtitle: LangKeys.activeOrders.tr(),
-                    count: "${statistics?.inProcessingRequestsCount ?? 0}",
-                    percentage: "",
-                    mainColor: AppColors.orangeOriginal,
-                    lightColor: AppColors.orangeMedium,
-                    icon: Icons.play_circle_outlined,
-                  ),
-                ),
-              ],
-            ),
+            // Gap(12.h),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: StatCard(
+            //         title: LangKeys.inProcess.tr(),
+            //         subtitle: LangKeys.completedOrders.tr(),
+            //         count: "${statistics?.finishedRequestsCount ?? 0}",
+            //         percentage: "",
+            //         mainColor: AppColors.successDark,
+            //         lightColor: AppColors.successLight,
+            //         icon: Icons.check_circle_outlined,
+            //       ),
+            //     ),
+            //     Gap(12.w),
+            //     Expanded(
+            //       child: StatCard(
+            //         title: LangKeys.currentRequests.tr(),
+            //         subtitle: LangKeys.activeOrders.tr(),
+            //         count: "${statistics?.inProcessingRequestsCount ?? 0}",
+            //         percentage: "",
+            //         mainColor: AppColors.orangeOriginal,
+            //         lightColor: AppColors.orangeMedium,
+            //         icon: Icons.play_circle_outlined,
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         );
       },
