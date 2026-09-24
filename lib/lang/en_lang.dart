@@ -888,6 +888,7 @@ class EnLang {
     "RENTALS_OUTSIDE_COMPOUND": "Rentals Outside Compound",
     "RENTALS_INSIDE_COMPOUND": "Rentals Inside Compound",
     "assigned": "Assigned",
+    "assignedToBroker": "Assigned to",
     "sentRequestsTab": "Sent",
     "receivedRequestsTab": "Received",
     "noRequests": "No Requests",

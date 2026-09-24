@@ -13,10 +13,12 @@ class RequestsList extends StatelessWidget {
     required this.hasMore,
     required this.isLoadingMore,
     this.data,
+    this.receiverNames,
   });
 
   final ScrollController controller;
   final List<RequestItem>? data;
+  final List<String?>? receiverNames;
   final bool isLoading;
   final bool hasMore;
   final bool isLoadingMore;
@@ -68,6 +70,9 @@ class RequestsList extends StatelessWidget {
                   }
 
                   final request = items[index];
+                  final receiverName = (receiverNames != null && index < receiverNames!.length)
+                      ? receiverNames![index]
+                      : null;
 
             return RequestListItemCard(
               title: request.title.toString().tr(),
@@ -82,6 +87,7 @@ class RequestsList extends StatelessWidget {
                       LangKeys.noAddressFound.tr(),
               range: request.specializationScope.toString().tr(),
               id: request.id ,
+              assignedToLabel: receiverName,
             );
                 },
               ),

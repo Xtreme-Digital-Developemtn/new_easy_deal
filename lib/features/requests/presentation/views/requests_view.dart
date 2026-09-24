@@ -159,9 +159,7 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: LangKeys.assigned.tr(),
-                          count: cubit.currentType == RequestType.assigned
-                              ? cubit.currentList.length
-                              : cubit.assignedCount,
+                          count: cubit.assignedCount,
                           isActive: cubit.currentType == RequestType.assigned,
                           onPressed: () => cubit.changeType(RequestType.assigned),
                         ),
@@ -196,6 +194,7 @@ class _RequestsViewState extends State<RequestsView> {
                   RequestsList(
                     controller: scrollController,
                     data: cubit.currentList,
+                    receiverNames: cubit.currentReceiverNames,
                     isLoading: isLoading,
                     hasMore: cubit.currentHasMore,
                     isLoadingMore: cubit.isLoadingMore,

@@ -888,6 +888,7 @@ class ArLang {
     "RENTALS_OUTSIDE_COMPOUND": "ايجارات خارج كمبوند",
     "RENTALS_INSIDE_COMPOUND": "ايجارات داخل كمبوند",
     "assigned": "بواسطتي",
+    "assignedToBroker": "معيّن لـ",
     "sentRequestsTab": "المرسلة",
     "receivedRequestsTab": "المستلمة",
     "noRequests": "لا توجد طلبات",

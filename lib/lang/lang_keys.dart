@@ -607,6 +607,7 @@ abstract class LangKeys {
   static const String assigned = 'assigned';
   static const String sentRequestsTab = 'sentRequestsTab';
   static const String receivedRequestsTab = 'receivedRequestsTab';
+  static const String assignedToBroker = 'assignedToBroker';
   static const String noRequests = 'noRequests';
 
   // Filter labels

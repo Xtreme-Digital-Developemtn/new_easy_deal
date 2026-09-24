@@ -13,9 +13,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
   static RequestsCubit get(context) => BlocProvider.of(context);
 
-  int limit = 10;
+  int limit = 100;
 
   List<RequestItem> assignedRequests = [];
+  List<String?> assignedReceiverNames = [];
   List<RequestItem> sentRequests = [];
   List<RequestItem> receivedRequests = [];
   AllRequestModel? assignedModel;
@@ -41,6 +42,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
       case RequestType.received:
         return receivedRequests;
     }
+  }
+
+  List<String?>? get currentReceiverNames {
+    return currentType == RequestType.assigned ? assignedReceiverNames : null;
   }
 
   AllRequestModel? get currentModel {
@@ -76,11 +81,77 @@ class RequestsCubit extends Cubit<RequestsStates> {
     }
   }
 
-  int get assignedCount => assignedRequests.length;
+  int assignedTotalCount = 0;
+
+  int get assignedCount => assignedTotalCount;
   int get sentCount => sentRequests.length;
   int get receivedCount => receivedRequests.length;
 
+  static bool _isSameId(dynamic a, dynamic b) {
+    if (a == null || b == null) return false;
+    final numA = num.tryParse(a.toString());
+    final numB = num.tryParse(b.toString());
+    if (numA != null && numB != null) return numA == numB;
+    return a.toString() == b.toString();
+  }
+
   RequestType currentType = RequestType.assigned;
+
+  List<AssignedBroker> _matchingAssignments(RequestItem request, dynamic userId) {
+    return request.assignedBrokers
+        .where((broker) => _isSameId(broker.senderId, userId))
+        .toList();
+  }
+
+  /// Expands each request into one entry per matching assignment, so a
+  /// request assigned to several brokers shows up once per assignment
+  /// instead of being collapsed into a single card.
+  void _expandAssignedMatches(
+    List<RequestItem> requests,
+    dynamic userId,
+    List<RequestItem> outRequests,
+    List<String?> outReceiverNames,
+  ) {
+    for (final request in requests) {
+      for (final broker in _matchingAssignments(request, userId)) {
+        outRequests.add(request);
+        outReceiverNames.add(broker.receiverName?.toString());
+      }
+    }
+  }
+
+  /// The API's `senderId` query param does not actually filter the "assigned"
+  /// list server-side, so we only look at the first page of raw results
+  /// (the most recent `limit` requests) and filter those client-side by
+  /// `assignedBrokers`.
+  Future<void> _fetchAssignedFirstPage({
+    required BuildContext context,
+    required dynamic userId,
+    Map<String, dynamic>? filters,
+  }) async {
+    final result = await requestsRepo!.getAllRequests(
+      limit: limit,
+      offset: 0,
+      type: RequestType.assigned,
+      context: context,
+      filters: filters,
+    );
+
+    String? error;
+    result.fold((failure) => error = failure.errMessage, (_) {});
+    if (error != null) throw Exception(error);
+
+    final data = result.fold((_) => null, (data) => data)!;
+    assignedModel = data;
+    final requests = <RequestItem>[];
+    final receiverNames = <String?>[];
+    _expandAssignedMatches(data.data.data, userId, requests, receiverNames);
+    assignedRequests = requests;
+    assignedReceiverNames = receiverNames;
+    assignedTotalCount = requests.length;
+    assignedOffset = data.data.data.length;
+    assignedHasMore = false;
+  }
 
   Future<void> fetchAllTypes({
     required BuildContext context,
@@ -90,6 +161,9 @@ class RequestsCubit extends Cubit<RequestsStates> {
     assignedOffset = 0;
     sentOffset = 0;
     receivedOffset = 0;
+    assignedTotalCount = 0;
+    assignedRequests = [];
+    assignedReceiverNames = [];
     assignedHasMore = true;
     sentHasMore = true;
     receivedHasMore = true;
@@ -97,14 +171,14 @@ class RequestsCubit extends Cubit<RequestsStates> {
     emit(GetAllRequestsLoadingState());
 
     final profile = ProfileCubit.get(context).clientProfileModel;
-    if (profile?.data?.id == null) {
+    final userId = profile?.data?.id;
+    if (userId == null) {
       emit(GetAllRequestsErrorState("Profile not loaded. Please try again."));
       return;
     }
 
     try {
       final results = await Future.wait([
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.assigned, context: context, filters: filters),
         requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.sent, context: context, filters: filters),
         requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.received, context: context, filters: filters),
       ]);
@@ -118,31 +192,22 @@ class RequestsCubit extends Cubit<RequestsStates> {
       }
 
       results[0].fold((_) {}, (data) {
-        assignedModel = data;
-        final userId = profile?.data?.id;
-        assignedRequests = data.data.data.where((request) {
-          return request.assignedBrokers.any(
-            (broker) => broker.senderId?.toString() == userId?.toString(),
-          );
-        }).toList();
-        assignedOffset = data.data.data.length;
-        assignedHasMore = assignedOffset < (data.data.count ?? 0);
-      });
-      results[1].fold((_) {}, (data) {
         sentModel = data;
         sentRequests = data.data.data;
         sentOffset = data.data.data.length;
         sentHasMore = sentOffset < (data.data.count ?? 0);
       });
-      results[2].fold((_) {}, (data) {
+      results[1].fold((_) {}, (data) {
         receivedModel = data;
         receivedRequests = data.data.data;
         receivedOffset = data.data.data.length;
         receivedHasMore = receivedOffset < (data.data.count ?? 0);
       });
 
+      await _fetchAssignedFirstPage(context: context, userId: userId, filters: filters);
+
       currentType = RequestType.assigned;
-      emit(GetAllRequestsSuccessState(assignedModel!));
+      emit(GetAllRequestsSuccessState(assignedModel ?? sentModel!));
     } catch (e) {
       emit(GetAllRequestsErrorState(e.toString()));
     }
@@ -184,12 +249,12 @@ class RequestsCubit extends Cubit<RequestsStates> {
         (data) {
           switch (currentType) {
             case RequestType.assigned:
-              final newItems = data.data.data.where((request) {
-                return request.assignedBrokers.any(
-                  (broker) => broker.senderId?.toString() == userId?.toString(),
-                );
-              }).toList();
-              assignedRequests = [...assignedRequests, ...newItems];
+              final newRequests = <RequestItem>[];
+              final newReceiverNames = <String?>[];
+              _expandAssignedMatches(data.data.data, userId, newRequests, newReceiverNames);
+              assignedRequests = [...assignedRequests, ...newRequests];
+              assignedReceiverNames = [...assignedReceiverNames, ...newReceiverNames];
+              assignedTotalCount = assignedRequests.length;
               assignedOffset += data.data.data.length;
               assignedHasMore = assignedOffset < (data.data.count ?? 0);
               break;

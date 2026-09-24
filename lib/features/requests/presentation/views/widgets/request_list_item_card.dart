@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/requests/presentation/views/widgets/date_and_type.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/range_and_id.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
 import 'address.dart';
@@ -9,7 +10,8 @@ class RequestListItemCard extends StatelessWidget {
   const RequestListItemCard({super.key, required this.title,
     required this.statusColor, required this.status,
     // required this.date,
-    required this.type, required this.address, required this.range, required this.id});
+    required this.type, required this.address, required this.range, required this.id,
+    this.assignedToLabel});
   final String title;
   final Color statusColor;
   final String status;
@@ -17,6 +19,7 @@ class RequestListItemCard extends StatelessWidget {
   final String address;
   final String range;
   final int id;
+  final String? assignedToLabel;
   // final DateTime date;
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,13 @@ class RequestListItemCard extends StatelessWidget {
             Address(address: address,),
             Gap(12.h),
             RangeAndID(range: range, id: id),
+            if (assignedToLabel != null && assignedToLabel!.isNotEmpty) ...[
+              Gap(8.h),
+              Text(
+                '${LangKeys.assignedToBroker.tr()}: $assignedToLabel',
+                style: AppStyles.gray12Medium,
+              ),
+            ],
           ],
         ),
       ),
