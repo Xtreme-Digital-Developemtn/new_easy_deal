@@ -10,17 +10,24 @@ class Statistics extends StatefulWidget {
   State<Statistics> createState() => _StatisticsState();
 }
 
-class _StatisticsState extends State<Statistics> {
+class _StatisticsState extends State<Statistics> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     super.initState();
-
-    context.read<BrokerHomeCubit>().getBrokerStatistics(
-      brokerId: widget.brokerId,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final cubit = context.read<BrokerHomeCubit>();
+      if (cubit.brokerStatisticsModel == null) {
+        cubit.getBrokerStatistics(brokerId: widget.brokerId);
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
       builder: (context, state) {
         var cubit = context.read<BrokerHomeCubit>();

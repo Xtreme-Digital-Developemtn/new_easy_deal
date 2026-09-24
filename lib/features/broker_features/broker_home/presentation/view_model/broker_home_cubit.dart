@@ -23,7 +23,9 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
 
   BrokerStatisticsModel? brokerStatisticsModel;
 
-  Future<void> getBrokerStatistics({required int brokerId}) async {
+  Future<void> getBrokerStatistics({required int brokerId, bool forceRefresh = false}) async {
+    // يمنع إعادة الجلب عند السكرول - يجلب أول مرة فقط
+    if (!forceRefresh && brokerStatisticsModel != null) return;
     emit(GetBrokerStatisticsLoadingState());
     var result = await aboutUsRepo!.getBrokerStatistics(brokerId: brokerId);
     return result.fold(
@@ -39,7 +41,9 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
 
   LastRequestsModelInHome? lastRequestsModelInHome;
 
-  Future<void> getLastRequestsModelInHome({required int brokerId}) async {
+  Future<void> getLastRequestsModelInHome({required int brokerId, bool forceRefresh = false}) async {
+    // يجلب أول مرة فقط - السكرول لفوق/تحت لن يعيد الطلب
+    if (!forceRefresh && lastRequestsModelInHome != null) return;
     emit(GetLastRequestsModelInHomeLoadingState());
     var result = await aboutUsRepo!.getLastRequestsModelInHome(brokerId: brokerId);
     return result.fold(
