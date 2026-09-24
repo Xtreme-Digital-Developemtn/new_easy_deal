@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/home/data/models/best_seller_units_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -80,7 +81,7 @@ class UnitItem extends StatelessWidget {
                           if (unit?.type != null)
                             _TopBadge(
                               icon: SvgImages.star,
-                              text: unit!.type!,
+                              text: ApOptions.label(unit!.type as String?, context.isArabic),
                             ),
                           if (unit?.totalPriceInCash != null)
                             _TopBadge(
@@ -118,7 +119,7 @@ class UnitItem extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12.r),
                               ),
                               child: Text(
-                                unit!.deliveryStatus!,
+                                ApOptions.label(unit!.deliveryStatus as String?, context.isArabic),
                                 style: AppStyles.white12Medium,
                               ),
                             ),

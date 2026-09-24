@@ -566,4 +566,66 @@ class ApOptions {
     ApOptionItem(value: 'water', ar: 'مياه', en: 'Water'),
     ApOptionItem(value: 'security_maintenance', ar: 'أمن وصيانة', en: 'Security Maintenance'),
   ];
+
+  // ---------------------------------------------------------------------------
+  // Generic value -> label lookup, used to display raw API enum values
+  // (unit type, delivery status, finishing type, ...) in the current locale.
+  // ---------------------------------------------------------------------------
+  static const _allOptions = <ApOptionItem>[
+    ...compoundTypes,
+    ...propertyOperations,
+    ..._outsideCompoundUnitTypes,
+    ..._insideCompoundUnitTypes,
+    ..._rentalOutsideCompoundUnitTypes,
+    ..._rentalInsideCompoundUnitTypes,
+    ...floorTypes,
+    ...unitFacingTypes,
+    ...unitDescriptionTypes,
+    ...activityTypes,
+    ...fitOutConditionTypes,
+    ...groundLayoutStatusTypes,
+    ...unitDesignTypes,
+    ...legalTypes,
+    ...financialStatusTypes,
+    ...buildingDeadlineTypes,
+    ...buildingLicenseTypes,
+    ...paymentTypes,
+    ...rentRecurrenceTypes,
+    ...requiredInsuranceTypes,
+    allTheAboveAreSuitable,
+    ..._outsideCompoundViewTypes,
+    ..._insideCompoundViewTypes,
+    ..._chaletViewTypes,
+    ..._allFinishingType,
+    ..._chaletsFinishingType,
+    ..._rentFinishingType,
+    ..._furnishingStatusTypesAll,
+    ..._furnishingStatusTypesHotels,
+    ..._allDeliveryTypes,
+    ..._landDeliveryTypes,
+    ..._allUnitLayoutStatus,
+    ..._basementUnitLayoutStatus,
+    ..._roofUnitLayoutStatus,
+    ..._allBuildingLayoutStatus,
+    ..._villaBuildingLayoutStatus,
+    ..._factoriesBuildingLayoutStatus,
+    ..._landsBuildingLayoutStatus,
+    ..._insideCompoundSubunitTypes,
+    ..._outsideCompoundSubunitTypes,
+    ..._chaletsSubunitTypes,
+    ..._vacationVillaSubunitTypes,
+    ..._residentialAccessories,
+    ..._allAccessories,
+    ...otherExpenses,
+  ];
+
+  /// Translates a raw API enum value (unit type, delivery status, ...) into
+  /// its Arabic/English label. Falls back to [value] itself when unknown.
+  static String label(String? value, bool isArabic) {
+    if (value == null || value.isEmpty) return '';
+    for (final option in _allOptions) {
+      if (option.value == value) return option.label(isArabic);
+    }
+    return value;
+  }
 }
