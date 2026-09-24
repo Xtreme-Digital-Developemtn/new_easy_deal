@@ -148,7 +148,7 @@ class _UnitDetailsBody extends StatelessWidget {
           beds: unit.numberOfRooms,
           baths: unit.numberOfBathrooms,
           sqft: unit.unitArea,
-          areaSize: unit.unitArea,
+          // areaSize: unit.unitArea,
           poal: unit.id,
           builtIn: unit.buildingNumber,
         ),

@@ -102,9 +102,12 @@ class UnitDetailsView extends StatelessWidget {
                         beds: unitDetailsCubit.unitDetailsModel?.data?.numberOfRooms,
                         baths: unitDetailsCubit.unitDetailsModel?.data?.numberOfBathrooms,
                         sqft:unitDetailsCubit.unitDetailsModel?.data?.unitArea,
-                        areaSize: unitDetailsCubit.unitDetailsModel?.data?.unitArea,
                         poal: unitDetailsCubit.unitDetailsModel?.data?.id,
                         builtIn: unitDetailsCubit.unitDetailsModel?.data?.buildingNumber,
+                        price: unitDetailsCubit
+                            .unitDetailsModel?.data?.totalPriceInCash,
+                        additionalDetails: unitDetailsCubit
+                            .unitDetailsModel?.data?.additionalDetails,
                       ),
                       Gap(24.h),
                       UnitFeatures(

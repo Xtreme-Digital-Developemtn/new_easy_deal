@@ -218,13 +218,32 @@ class AdditionalDetails {
   String? notes;
   String? fitOutCondition;
   int? otherExpensesValue;
+  String? mallName;
+  dynamic floorNumber;
+  String? legalStatus;
+  String? financialStatus;
+  String? furnishingStatus;
 
-  AdditionalDetails({this.notes, this.fitOutCondition, this.otherExpensesValue});
+  AdditionalDetails({
+    this.notes,
+    this.fitOutCondition,
+    this.otherExpensesValue,
+    this.mallName,
+    this.floorNumber,
+    this.legalStatus,
+    this.financialStatus,
+    this.furnishingStatus,
+  });
 
   AdditionalDetails.fromJson(Map<String, dynamic> json) {
     notes = json["notes"];
     fitOutCondition = json["fitOutCondition"];
     otherExpensesValue = json["otherExpensesValue"];
+    mallName = json["mallName"];
+    floorNumber = json["floorNumber"];
+    legalStatus = json["legalStatus"];
+    financialStatus = json["financialStatus"];
+    furnishingStatus = json["furnishingStatus"];
   }
 
   Map<String, dynamic> toJson() {
@@ -232,6 +251,11 @@ class AdditionalDetails {
     _data["notes"] = notes;
     _data["fitOutCondition"] = fitOutCondition;
     _data["otherExpensesValue"] = otherExpensesValue;
+    _data["mallName"] = mallName;
+    _data["floorNumber"] = floorNumber;
+    _data["legalStatus"] = legalStatus;
+    _data["financialStatus"] = financialStatus;
+    _data["furnishingStatus"] = furnishingStatus;
     return _data;
   }
 }
