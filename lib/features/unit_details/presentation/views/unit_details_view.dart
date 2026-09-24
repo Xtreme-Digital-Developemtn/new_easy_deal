@@ -130,7 +130,16 @@ class UnitDetailsView extends StatelessWidget {
                       Gap(24.h),
                       UnitLocation(),
                       Gap(24.h),
-                      ConsultationView(),
+                      Builder(
+                        builder: (context) {
+                          final data = unitDetailsCubit.unitDetailsModel?.data;
+                          // الأولوية لرقم البروكر الخاص بالوحدة، ثم ownerPhone كـ fallback
+                          final brokerPhone = data?.broker?.phone?.toString().trim().isNotEmpty == true
+                              ? data!.broker!.phone.toString()
+                              : (data?.ownerPhone?.toString() ?? '');
+                          return ConsultationView(brokerPhone: brokerPhone);
+                        },
+                      ),
                     ],
                   ),
           );
@@ -138,16 +147,12 @@ class UnitDetailsView extends StatelessWidget {
       ),
       bottomNavigationBar: BlocBuilder<UnitDetailsCubit, UnitDetailsStates>(
         builder: (context, state) {
-          final unit =
-              context.read<UnitDetailsCubit>().unitDetailsModel?.data;
-
-          if (unit == null) {
-            return const SizedBox.shrink();
-          }
-
-          return UnitBottomNavigationBarWidget(
-            phone: unit.ownerPhone ?? "",
-          );
+          final unit = context.read<UnitDetailsCubit>().unitDetailsModel?.data;
+          if (unit == null) return const SizedBox.shrink();
+          final brokerPhone = unit.broker?.phone?.toString().trim().isNotEmpty == true
+              ? unit.broker!.phone.toString()
+              : (unit.ownerPhone?.toString() ?? '');
+          return UnitBottomNavigationBarWidget(phone: brokerPhone);
         },
       ),
     );
