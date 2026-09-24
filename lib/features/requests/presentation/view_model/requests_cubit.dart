@@ -82,9 +82,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
   }
 
   int assignedTotalCount = 0;
+  int sentTotalCount = 0;
 
   int get assignedCount => assignedTotalCount;
-  int get sentCount => sentRequests.length;
+  int get sentCount => sentTotalCount;
   int get receivedCount => receivedRequests.length;
 
   static bool _isSameId(dynamic a, dynamic b) {
@@ -93,6 +94,12 @@ class RequestsCubit extends Cubit<RequestsStates> {
     final numB = num.tryParse(b.toString());
     if (numA != null && numB != null) return numA == numB;
     return a.toString() == b.toString();
+  }
+
+  static int? _asInt(dynamic v) {
+    if (v == null) return null;
+    if (v is int) return v;
+    return num.tryParse(v.toString())?.toInt();
   }
 
   RequestType currentType = RequestType.assigned;
@@ -118,6 +125,38 @@ class RequestsCubit extends Cubit<RequestsStates> {
         outReceiverNames.add(broker.receiverName?.toString());
       }
     }
+  }
+
+  /// Fetches the first page of "sent" requests and filters them
+  /// client-side by the request's own `user.id` as a safety net (in case
+  /// the server-side `userId` filter is ever unreliable, as happens with
+  /// the "assigned" endpoint). The badge count uses the API's
+  /// `newRequestsCount`, which matches what the website shows.
+  Future<void> _fetchSentFirstPage({
+    required BuildContext context,
+    required dynamic userId,
+    Map<String, dynamic>? filters,
+  }) async {
+    final result = await requestsRepo!.getAllRequests(
+      limit: limit,
+      offset: 0,
+      type: RequestType.sent,
+      context: context,
+      filters: filters,
+    );
+
+    String? error;
+    result.fold((failure) => error = failure.errMessage, (_) {});
+    if (error != null) throw Exception(error);
+
+    final data = result.fold((_) => null, (data) => data)!;
+    sentModel = data;
+    sentRequests = data.data.data
+        .where((request) => _isSameId(request.user.id, userId))
+        .toList();
+    sentTotalCount = _asInt(data.data.newRequestsCount) ?? sentRequests.length;
+    sentOffset = data.data.data.length;
+    sentHasMore = false;
   }
 
   /// The API's `senderId` query param does not actually filter the "assigned"
@@ -162,8 +201,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
     sentOffset = 0;
     receivedOffset = 0;
     assignedTotalCount = 0;
+    sentTotalCount = 0;
     assignedRequests = [];
     assignedReceiverNames = [];
+    sentRequests = [];
     assignedHasMore = true;
     sentHasMore = true;
     receivedHasMore = true;
@@ -178,33 +219,31 @@ class RequestsCubit extends Cubit<RequestsStates> {
     }
 
     try {
-      final results = await Future.wait([
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.sent, context: context, filters: filters),
-        requestsRepo!.getAllRequests(limit: limit, offset: 0, type: RequestType.received, context: context, filters: filters),
-      ]);
+      final receivedResult = await requestsRepo!.getAllRequests(
+        limit: limit,
+        offset: 0,
+        type: RequestType.received,
+        context: context,
+        filters: filters,
+      );
 
-      for (final result in results) {
-        final error = result.fold((failure) => failure.errMessage, (data) => null);
-        if (error != null) {
-          emit(GetAllRequestsErrorState(error));
-          return;
-        }
+      final receivedError = receivedResult.fold((failure) => failure.errMessage, (data) => null);
+      if (receivedError != null) {
+        emit(GetAllRequestsErrorState(receivedError));
+        return;
       }
 
-      results[0].fold((_) {}, (data) {
-        sentModel = data;
-        sentRequests = data.data.data;
-        sentOffset = data.data.data.length;
-        sentHasMore = sentOffset < (data.data.count ?? 0);
-      });
-      results[1].fold((_) {}, (data) {
+      receivedResult.fold((_) {}, (data) {
         receivedModel = data;
         receivedRequests = data.data.data;
         receivedOffset = data.data.data.length;
         receivedHasMore = receivedOffset < (data.data.count ?? 0);
       });
 
-      await _fetchAssignedFirstPage(context: context, userId: userId, filters: filters);
+      await Future.wait([
+        _fetchSentFirstPage(context: context, userId: userId, filters: filters),
+        _fetchAssignedFirstPage(context: context, userId: userId, filters: filters),
+      ]);
 
       currentType = RequestType.assigned;
       emit(GetAllRequestsSuccessState(assignedModel ?? sentModel!));
@@ -259,7 +298,11 @@ class RequestsCubit extends Cubit<RequestsStates> {
               assignedHasMore = assignedOffset < (data.data.count ?? 0);
               break;
             case RequestType.sent:
-              sentRequests = [...sentRequests, ...data.data.data];
+              final newSentItems = data.data.data
+                  .where((request) => _isSameId(request.user.id, userId))
+                  .toList();
+              sentRequests = [...sentRequests, ...newSentItems];
+              sentTotalCount = _asInt(data.data.newRequestsCount) ?? sentRequests.length;
               sentOffset += data.data.data.length;
               sentHasMore = sentOffset < (data.data.count ?? 0);
               break;

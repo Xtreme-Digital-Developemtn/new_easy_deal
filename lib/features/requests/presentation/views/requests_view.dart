@@ -169,9 +169,7 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: LangKeys.sentRequestsTab.tr(),
-                          count: cubit.currentType == RequestType.sent
-                              ? cubit.currentList.length
-                              : cubit.sentCount,
+                          count: cubit.sentCount,
                           isActive: cubit.currentType == RequestType.sent,
                           onPressed: () => cubit.changeType(RequestType.sent),
                         ),
