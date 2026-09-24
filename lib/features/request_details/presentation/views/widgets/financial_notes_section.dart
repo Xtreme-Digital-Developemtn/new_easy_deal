@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -8,15 +9,16 @@ class FinancialNotesSection extends StatelessWidget {
 
   final Attributes? attributes;
 
-  String _expensesText() {
+  String _expensesText(BuildContext context) {
     final expenses = attributes?.otherExpenses;
     if (expenses == null || expenses.isEmpty) return '-';
-    return expenses.join(', ');
+    return expenses.map((e) => ApOptions.label(e, context.isArabic)).join(', ');
   }
 
   @override
   Widget build(BuildContext context) {
     final hasSuggestion = attributes?.unitPriceSuggestions != null;
+    final rawPaymentSystem = attributes?.rentRecurrence ?? attributes?.requiredInsurance;
     return RequestSection(
       title: 'FINANCIAL & NOTES',
       child: InfoCard(
@@ -31,13 +33,11 @@ class FinancialNotesSection extends StatelessWidget {
           ),
           InfoRow(
             title: 'Payment System',
-            value: attributes?.rentRecurrence?.toString() ??
-                attributes?.requiredInsurance?.toString() ??
-                '-',
+            value: rawPaymentSystem != null ? ApOptions.label(rawPaymentSystem, context.isArabic) : '-',
           ),
           InfoRow(
             title: 'Other Expenses',
-            value: _expensesText(),
+            value: _expensesText(context),
           ),
           InfoRow(
             title: 'Other Notes',

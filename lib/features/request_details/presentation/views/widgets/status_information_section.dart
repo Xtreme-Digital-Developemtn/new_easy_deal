@@ -1,7 +1,9 @@
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
 import '../../../../../main_imports.dart';
+import '../../../../requests/data/config/request_translations.dart';
 
 class StatusInformationSection extends StatelessWidget {
   const StatusInformationSection({super.key, this.data});
@@ -10,10 +12,11 @@ class StatusInformationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = data?.status?.toString() ?? '-';
-    final finishing = data?.attributes?.finishingStatus?.toString()
-        ?? data?.attributes?.furnishingStatus?.toString()
-        ?? '-';
+    final status = data?.status != null
+        ? RequestTranslations.status(data!.status)
+        : '-';
+    final rawFinishing = data?.attributes?.finishingStatus ?? data?.attributes?.furnishingStatus;
+    final finishing = rawFinishing != null ? ApOptions.label(rawFinishing, context.isArabic) : '-';
     return RequestSection(
       title: 'STATUS INFORMATION',
       child: InfoCard(
@@ -30,7 +33,7 @@ class StatusInformationSection extends StatelessWidget {
               data?.attributes?.finishingStatus != null)
             InfoRow(
               title: 'Furnishing Status',
-              value: data!.attributes!.furnishingStatus!,
+              value: ApOptions.label(data!.attributes!.furnishingStatus, context.isArabic),
             ),
         ],
       ),

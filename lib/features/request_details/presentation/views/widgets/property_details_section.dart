@@ -1,4 +1,5 @@
 
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -21,7 +22,7 @@ class PropertyDetailsSection extends StatelessWidget {
         children: [
           InfoRow(
             title: 'Floor',
-            value: attr?.floor?.toString() ?? '-',
+            value: attr?.floor != null ? ApOptions.label(attr!.floor, context.isArabic) : '-',
           ),
           InfoRow(
             title: 'Min Unit Area',
@@ -41,7 +42,7 @@ class PropertyDetailsSection extends StatelessWidget {
           ),
           InfoRow(
             title: 'Unit View',
-            value: attr?.unitView?.toString() ?? '-',
+            value: attr?.unitView != null ? ApOptions.label(attr!.unitView, context.isArabic) : '-',
           ),
           InfoRow(
             title: 'Min Avg Unit Price',

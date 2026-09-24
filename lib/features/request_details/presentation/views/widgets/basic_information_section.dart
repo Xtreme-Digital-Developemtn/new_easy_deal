@@ -2,6 +2,7 @@ import 'package:easy_deal/features/request_details/data/models/request_details_m
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
 import '../../../../../main_imports.dart';
+import '../../../../requests/data/config/request_translations.dart';
 
 class BasicInformationSection extends StatelessWidget {
   const BasicInformationSection({super.key, this.data});
@@ -16,15 +17,17 @@ class BasicInformationSection extends StatelessWidget {
         children: [
           InfoRow(
             title: 'Operation Type',
-            value: data?.type?.toString() ?? '-',
+            value: data?.type != null ? RequestTranslations.type(data!.type) : '-',
           ),
           InfoRow(
             title: 'Specialization',
-            value: data?.specializationScope?.toString() ?? '-',
+            value: data?.specializationScope != null
+                ? RequestTranslations.specializationScope(data!.specializationScope)
+                : '-',
           ),
           InfoRow(
             title: 'Unit Type',
-            value: data?.unit?.toString() ?? '-',
+            value: data?.unit != null ? RequestTranslations.unit(data!.unit) : '-',
           ),
         ],
       ),

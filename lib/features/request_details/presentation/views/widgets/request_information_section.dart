@@ -2,6 +2,7 @@ import 'package:easy_deal/features/request_details/data/models/request_details_m
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
 import '../../../../../main_imports.dart';
+import '../../../../requests/data/config/request_translations.dart';
 
 class RequestInformationSection extends StatelessWidget {
   const RequestInformationSection({super.key, this.data});
@@ -32,7 +33,9 @@ class RequestInformationSection extends StatelessWidget {
           ),
           InfoRow(
             title: 'Title',
-            value: data?.title?.toString() ?? '-',
+            value: (data?.type != null || data?.unit != null)
+                ? RequestTranslations.title(data?.type, data?.unit)
+                : (data?.title?.toString() ?? '-'),
           ),
           InfoRow(
             title: 'Creation Date',
