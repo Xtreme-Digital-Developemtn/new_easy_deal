@@ -12,24 +12,28 @@ class BrokerHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-body: SafeArea(child: Padding(
-        padding:   EdgeInsets.all(20.0.r),
-        child: ListView(children: [
-          BrokerMainSections(),
-          Gap(12.h),
-          Statistics(brokerId: CacheHelper.getData(key: "userId"),),
-          Gap(12.h),
-          BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
-            builder: (context, state) {
-              final data = context.read<BrokerHomeCubit>().brokerStatisticsModel?.data ?? Data();
-              return OrderStatisticsWidget(data: data);
-            },
-          ),
-          Gap(12.h),
-           LastRequests(brokerId: CacheHelper.getData(key: "userId"),),
-        ],),
-      )),
+    // لا نستخدم Scaffold داخلي لأن LayoutView يوفر Scaffold خارجي - التداخل يسبب hitTest على _ScaffoldSlot.floatingActionButton قبل اكتمال layout
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.all(20.0.r),
+        child: ListView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            BrokerMainSections(),
+            Gap(12.h),
+            Statistics(brokerId: CacheHelper.getData(key: "userId")),
+            Gap(12.h),
+            BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
+              builder: (context, state) {
+                final data = context.read<BrokerHomeCubit>().brokerStatisticsModel?.data ?? Data();
+                return OrderStatisticsWidget(data: data);
+              },
+            ),
+            Gap(12.h),
+            LastRequests(brokerId: CacheHelper.getData(key: "userId")),
+          ],
+        ),
+      ),
     );
   }
 }

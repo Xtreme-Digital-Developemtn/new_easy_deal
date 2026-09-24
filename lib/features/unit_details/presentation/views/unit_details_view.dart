@@ -1,5 +1,6 @@
 import 'package:easy_deal/core/shared_widgets/error_ui.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_deal/features/unit_details/presentation/views/widgets/consultation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_cubit.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_states.dart';
@@ -128,6 +129,8 @@ class UnitDetailsView extends StatelessWidget {
                       ),
                       Gap(24.h),
                       UnitLocation(),
+                      Gap(24.h),
+                      ConsultationView(),
                     ],
                   ),
           );

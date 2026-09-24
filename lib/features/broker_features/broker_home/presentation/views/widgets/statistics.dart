@@ -10,10 +10,7 @@ class Statistics extends StatefulWidget {
   State<Statistics> createState() => _StatisticsState();
 }
 
-class _StatisticsState extends State<Statistics> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class _StatisticsState extends State<Statistics> {
   @override
   void initState() {
     super.initState();
@@ -25,9 +22,9 @@ class _StatisticsState extends State<Statistics> with AutomaticKeepAliveClientMi
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
       builder: (context, state) {
         var cubit = context.read<BrokerHomeCubit>();

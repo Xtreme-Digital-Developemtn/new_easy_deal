@@ -17,10 +17,7 @@ class LastRequests extends StatefulWidget {
   State<LastRequests> createState() => _LastRequestsState();
 }
 
-class _LastRequestsState extends State<LastRequests> with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class _LastRequestsState extends State<LastRequests> {
   @override
   void initState() {
     super.initState();
@@ -36,7 +33,6 @@ class _LastRequestsState extends State<LastRequests> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<BrokerHomeCubit, BrokerHomeStates>(
       builder: (context, state) {
         final cubit = context.read<BrokerHomeCubit>();
@@ -178,25 +174,24 @@ class _LastRequestsState extends State<LastRequests> with AutomaticKeepAliveClie
                 ],
               ),
             ),
-            Scrollbar(
-              thumbVisibility: false,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                physics: const ClampingScrollPhysics(),
-                child: SizedBox(
-                  width: _minTableWidth.w,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildTableHeader(),
-                      Divider(height: 1, color: Colors.grey.shade200),
-                      ...requests.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final request = entry.value;
-                        return _buildRow(request, index.isEven);
-                      }),
-                    ],
-                  ),
+            // أفقي فقط - primary:false يمنع تضارب مع ListView العمودي + يمنع hitTest على Scaffold قبل اكتمال layout
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              primary: false,
+              physics: const ClampingScrollPhysics(),
+              child: SizedBox(
+                width: _minTableWidth.w,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTableHeader(),
+                    Divider(height: 1, color: Colors.grey.shade200),
+                    ...requests.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final request = entry.value;
+                      return _buildRow(request, index.isEven);
+                    }),
+                  ],
                 ),
               ),
             ),
