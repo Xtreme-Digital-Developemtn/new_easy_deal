@@ -53,14 +53,14 @@ class ProfileListItems extends StatelessWidget {
               },
             ),
 
-          ProfileListItem(
-            title: LangKeys.reportAnIssue,
-            subTitle: LangKeys.reportAnIssueMsg,
-            svgImage: SvgImages.bugReport,
-            onTap: () {
-              context.pushNamed(Routes.reportIssueView);
-            },
-          ),
+          // ProfileListItem(
+          //   title: LangKeys.reportAnIssue,
+          //   subTitle: LangKeys.reportAnIssueMsg,
+          //   svgImage: SvgImages.bugReport,
+          //   onTap: () {
+          //     context.pushNamed(Routes.reportIssueView);
+          //   },
+          // ),
 
           // ProfileListItem(
           //   title: LangKeys.appSettings,
