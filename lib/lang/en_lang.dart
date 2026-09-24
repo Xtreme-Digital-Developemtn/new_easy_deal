@@ -196,6 +196,8 @@ class EnLang {
     "areaSuggestions": "Request area suggestions from the real estate agent",
     "numberOfRooms": "Number of Rooms",
     "bathrooms": "Bathrooms",
+    "swimmingPoolLabel": "Swimming Pool",
+    "buildingNumberLabel": "Building Number",
     "unitLocationFromTheFront": "Unit Location From The Front",
     "theView": "The View",
     "finishingCondition": "Finishing Condition",

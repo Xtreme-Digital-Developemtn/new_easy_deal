@@ -203,6 +203,8 @@ abstract class LangKeys {
   static const String areaSuggestions = 'areaSuggestions';
   static const String numberOfRooms = 'numberOfRooms';
   static const String bathrooms = 'bathrooms';
+  static const String swimmingPoolLabel = 'swimmingPoolLabel';
+  static const String buildingNumberLabel = 'buildingNumberLabel';
   static const String unitLocationFromTheFront = 'unitLocationFromTheFront';
   static const String theView = 'theView';
   static const String finishingCondition = 'finishingCondition';

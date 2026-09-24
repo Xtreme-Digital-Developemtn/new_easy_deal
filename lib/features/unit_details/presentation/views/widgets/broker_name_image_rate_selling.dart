@@ -2,11 +2,16 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class BrokerNameImageRateSelling extends StatelessWidget {
-  const BrokerNameImageRateSelling({super.key, required this.brokerName, required this.brokerRate, required this.brokerImage, required this.brokerLicense});
+  const BrokerNameImageRateSelling({super.key,
+    required this.brokerName,
+    // required this.brokerRate,
+    required this.brokerImage,
+    // required this.brokerLicense
+  });
   final String? brokerName;
-  final String? brokerRate;
+  // final String? brokerRate;
   final String? brokerImage;
-  final String? brokerLicense;
+  // final String? brokerLicense;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -46,23 +51,23 @@ class BrokerNameImageRateSelling extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(brokerName??"Mostafa Bahr",style: AppStyles.blueDark16Bold,),
-            Row(
-              children: [
-                Text("${LangKeys.license.tr()} : ",style: AppStyles.blueDark14Medium,),
-                Text(brokerLicense??"abcdefghi",style: AppStyles.gray14Medium,),
-              ],
-            ),
-            Row(
-              children: [
-                Row(
-                  children: List.generate(5, (index){
-                    return SvgPicture.asset(SvgImages.star,height: 10.h,);
-                  }),
-                ),
-                Gap(6.w),
-                Text(brokerRate ?? "15 ${LangKeys.successSelling.tr()}",style: AppStyles.blueDark14Medium,),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Text("${LangKeys.license.tr()} : ",style: AppStyles.blueDark14Medium,),
+            //     Text(brokerLicense??"abcdefghi",style: AppStyles.gray14Medium,),
+            //   ],
+            // ),
+            // Row(
+            //   children: [
+            //     Row(
+            //       children: List.generate(5, (index){
+            //         return SvgPicture.asset(SvgImages.star,height: 10.h,);
+            //       }),
+            //     ),
+            //     Gap(6.w),
+            //     // Text(brokerRate ?? "15 ${LangKeys.successSelling.tr()}",style: AppStyles.blueDark14Medium,),
+            //   ],
+            // ),
           ],
         )
       ],

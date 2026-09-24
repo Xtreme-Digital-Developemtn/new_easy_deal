@@ -196,6 +196,8 @@ class ArLang {
     "areaSuggestions": "اطلب مقترح بالمساحات من الوسيط العقاري",
     "numberOfRooms": "عدد الغرف",
     "bathrooms": "عدد الحمامات",
+    "swimmingPoolLabel": "حمام سباحة",
+    "buildingNumberLabel": "رقم المبنى",
     "unitLocationFromTheFront": "موقع الوحدة من الواجهة",
     "theView": "الإطلالة",
     "finishingCondition": "حالة التشطيب",

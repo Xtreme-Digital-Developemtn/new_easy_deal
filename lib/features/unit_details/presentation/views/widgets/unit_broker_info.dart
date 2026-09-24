@@ -11,23 +11,24 @@ class UnitBrokerInfo extends StatelessWidget {
     required this.brokerRate,
     required this.brokerImage,
     required this.brokerVerify,
-    required this.brokerSpecializationsList, required this.brokerLicense,
+    // required this.brokerSpecializationsList,
+    // required this.brokerLicense,
   });
 
   final String? brokerName;
   final String? brokerRate;
-  final String? brokerLicense;
+  // final String? brokerLicense;
   final String? brokerImage;
   final bool? brokerVerify;
-  final List? brokerSpecializationsList;
+  // final List? brokerSpecializationsList;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.r),
+      padding: EdgeInsets.all(6.r),
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(6.r),
         color: AppColors.gray1,
       ),
       child: Column(
@@ -35,14 +36,14 @@ class UnitBrokerInfo extends StatelessWidget {
         children: [
           BrokerNameImageRateSelling(
             brokerName: brokerName,
-            brokerRate: brokerRate,
+            // brokerRate: brokerRate,
             brokerImage: brokerImage,
-            brokerLicense: brokerLicense,
+            // brokerLicense: brokerLicense,
           ),
           Gap(12.h),
-          BrokerVerifiedMark(),
+          // BrokerVerifiedMark(),
           Gap(8.h),
-          BrokerSpecializationsList(),
+          // BrokerSpecializationsList(),
         ],
       ),
     );

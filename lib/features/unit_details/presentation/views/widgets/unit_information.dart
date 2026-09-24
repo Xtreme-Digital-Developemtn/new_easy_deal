@@ -13,7 +13,14 @@ class UnitInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> infoNames = ["bed", "bath", "sqft", "area", "pool", "built"];
+    List<String> infoNames = [
+      LangKeys.numberOfRooms.tr(),
+      LangKeys.bathrooms.tr(),
+      LangKeys.unitArea.tr(),
+      LangKeys.unitArea.tr(),
+      LangKeys.swimmingPoolLabel.tr(),
+      LangKeys.buildingNumberLabel.tr(),
+    ];
     List<dynamic> infoValues = [beds, baths, sqft, areaSize, poal, builtIn];
 
     return Container(

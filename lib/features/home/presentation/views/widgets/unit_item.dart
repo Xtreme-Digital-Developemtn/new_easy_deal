@@ -169,59 +169,115 @@ class UnitItem extends StatelessWidget {
               ),
             ),
 
-            /// Bottom Actions
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Row(
+            if (unit?.unitArea != null || unit?.compoundType != null)
+              Padding(
+                padding: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 10.h),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Row(
-                          children: List.generate(
-                            5,
-                                (_) => Padding(
-                              padding: EdgeInsets.only(right: 2.w),
-                              child: SvgPicture.asset(
-                                SvgImages.star,
-                                height: 10.h,
-                              ),
-                            ),
-                          ),
+                    if (unit?.unitArea != null)
+                      _InfoChip(
+                        icon: Icons.square_foot_outlined,
+                        text:
+                            "${unit!.unitArea} ${context.isArabic ? 'م²' : 'm²'}",
+                      ),
+                    if (unit?.compoundType != null)
+                      _InfoChip(
+                        icon: Icons.apartment_outlined,
+                        text: ApOptions.label(
+                          unit!.compoundType as String?,
+                          context.isArabic,
                         ),
-                        Gap(6.w),
-                        Text(
-                          "5.0",
-                          style: AppStyles.gray12Medium,
-                        ),
-                        Gap(6.w),
-                        Text(
-                          "(107 ${LangKeys.reviews.tr()})",
-                          style: AppStyles.gray12Medium,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          SvgImages.compare,
-                          height: 24.h,
-                          width: 24.w,
-                        ),
-                        Gap(12.w),
-                        SvgPicture.asset(
-                          SvgImages.fav,
-                          height: 24.h,
-                          width: 24.w,
-                        ),
-                      ],
-                    ),
+                      ),
                   ],
                 ),
               ),
+
+            // /// Bottom Actions
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 12.w),
+            //   child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //       children: [
+            //         Row(
+            //           children: [
+            //             Row(
+            //               children: List.generate(
+            //                 5,
+            //                     (_) => Padding(
+            //                   padding: EdgeInsets.only(right: 2.w),
+            //                   child: SvgPicture.asset(
+            //                     SvgImages.star,
+            //                     height: 10.h,
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //             Gap(6.w),
+            //             Text(
+            //               "5.0",
+            //               style: AppStyles.gray12Medium,
+            //             ),
+            //             Gap(6.w),
+            //             Text(
+            //               "(107 ${LangKeys.reviews.tr()})",
+            //               style: AppStyles.gray12Medium,
+            //             ),
+            //           ],
+            //         ),
+            //         Row(
+            //           children: [
+            //             SvgPicture.asset(
+            //               SvgImages.compare,
+            //               height: 24.h,
+            //               width: 24.w,
+            //             ),
+            //             Gap(12.w),
+            //             SvgPicture.asset(
+            //               SvgImages.fav,
+            //               height: 24.h,
+            //               width: 24.w,
+            //             ),
+            //           ],
+            //         ),
+            //       ],
+            //     ),
+            //   ),
             ],
         ),
       ),
+    );
+  }
+}
+
+class _InfoChip extends StatelessWidget {
+  const _InfoChip({
+    required this.icon,
+    required this.text,
+  });
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          size: 16.sp,
+          color: AppColors.primaryDark,
+        ),
+        Gap(4.w),
+        Flexible(
+          child: Text(
+            text,
+            style: AppStyles.black12Medium,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }

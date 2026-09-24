@@ -1,4 +1,6 @@
 import 'package:easy_deal/core/shared_widgets/error_ui.dart';
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_cubit.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_states.dart';
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/bottom_navigation_bar_widget.dart';
@@ -45,7 +47,13 @@ class UnitDetailsView extends StatelessWidget {
                       UnitImageTypeLocation(
                         image: unitDetailsCubit.unitDetailsModel?.data?.diagram,
                         apartment:
-                            unitDetailsCubit.unitDetailsModel?.data?.type,
+                            unitDetailsCubit.unitDetailsModel?.data?.type ==
+                                    null
+                                ? null
+                                : ApOptions.label(
+                                    unitDetailsCubit.unitDetailsModel?.data?.type,
+                                    context.isArabic,
+                                  ),
                         city: context.isArabic
                             ? unitDetailsCubit
                                   .unitDetailsModel?.data?.city?.nameAr
@@ -67,8 +75,16 @@ class UnitDetailsView extends StatelessWidget {
                         price: unitDetailsCubit
                             .unitDetailsModel?.data?.totalPriceInCash
                             ?.toString(),
-                        type: unitDetailsCubit.unitDetailsModel?.data?.type,
-                        status: unitDetailsCubit.unitDetailsModel?.data?.status,
+                        type: ApOptions.label(
+                          unitDetailsCubit.unitDetailsModel?.data?.type,
+                          context.isArabic,
+                        ),
+                        status: unitDetailsCubit.unitDetailsModel?.data?.status
+                                    ?.toString()
+                                    .toLowerCase() ==
+                                'sold'
+                            ? LangKeys.sold.tr()
+                            : LangKeys.available.tr(),
                       ),
                       Gap(24.h),
                       UnitBrokerInfo(
@@ -78,8 +94,8 @@ class UnitDetailsView extends StatelessWidget {
                         brokerImage: unitDetailsCubit
                         .unitDetailsModel?.data?.brokerUserImage,
                         brokerVerify: true,
-                        brokerSpecializationsList: [],
-                        brokerLicense: "brokerLicense",
+                        // brokerSpecializationsList: [],
+                        // brokerLicense: "",
                       ),
                       Gap(24.h),
                       UnitInformation(
@@ -92,7 +108,16 @@ class UnitDetailsView extends StatelessWidget {
                       ),
                       Gap(24.h),
                       UnitFeatures(
-                        otherAccessories: unitDetailsCubit.unitDetailsModel?.data?.otherAccessories,
+                        otherAccessories: (unitDetailsCubit
+                                    .unitDetailsModel?.data?.otherAccessories
+                                as List?)
+                            ?.map(
+                              (e) => ApOptions.label(
+                                e?.toString(),
+                                context.isArabic,
+                              ),
+                            )
+                            .toList(),
                       ),
                       Gap(24.h),
                       UnitDescription(

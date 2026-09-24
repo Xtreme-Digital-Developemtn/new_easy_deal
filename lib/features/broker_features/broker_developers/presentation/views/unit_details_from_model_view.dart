@@ -247,8 +247,8 @@ class _UnitDetailsBody extends StatelessWidget {
           brokerRate: '5.0',
           brokerImage: unit.brokerUserImage,
           brokerVerify: true,
-          brokerSpecializationsList: const [],
-          brokerLicense: '',
+          // brokerSpecializationsList: const [],
+          // brokerLicense: '',
         ),
         Gap(16.h),
 
