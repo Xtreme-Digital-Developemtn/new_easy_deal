@@ -40,18 +40,23 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
 
   @override
   Future<Either<Failure, DeveloperProjectsModel>> getDeveloperProjects(
-    int developerId,
-  ) async {
+    int developerId, {
+    Map<String, dynamic>? filters,
+  }) async {
     try {
+      final query = <String, dynamic>{
+        "limit": 100,
+        "offset": 0,
+        "sort": "desc",
+        "sortBy": "id",
+        "developerId": developerId,
+      };
+      if (filters != null) {
+        query.addAll(filters);
+      }
       var response = await apiService!.getData(
         endPoint: EndPoints.developerProjects,
-        query: {
-          "limit": 10,
-          "offset": 0,
-          "sort": "desc",
-          "sortBy": "id",
-          "developerId": developerId,
-        },
+        query: query,
       );
       DeveloperProjectsModel result = DeveloperProjectsModel.fromJson(
         response.data,

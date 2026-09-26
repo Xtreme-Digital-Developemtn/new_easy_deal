@@ -11,7 +11,8 @@ import '../../data/repos/broker_developers_repo.dart';
 import 'broker_developers_states.dart';
 
 class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
-  BrokerDevelopersCubit(this.brokerDevelopersRepo) : super(BrokerDevelopersInitState());
+  BrokerDevelopersCubit(this.brokerDevelopersRepo)
+    : super(BrokerDevelopersInitState());
 
   BrokerDevelopersRepo? brokerDevelopersRepo;
 
@@ -124,7 +125,11 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
       },
       (data) async {
         clearContractFiles();
-        emit(ContractRequestSuccessState(data['message']?.toString() ?? 'تم إرسال الطلب بنجاح'));
+        emit(
+          ContractRequestSuccessState(
+            data['message']?.toString() ?? 'تم إرسال الطلب بنجاح',
+          ),
+        );
       },
     );
   }
@@ -144,9 +149,15 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
     );
   }
 
-  Future<void> getDeveloperProjects(int developerId) async {
+  Future<void> getDeveloperProjects(
+    int developerId, {
+    Map<String, dynamic>? filters,
+  }) async {
     emit(GetDeveloperProjectsLoadingState());
-    var result = await brokerDevelopersRepo!.getDeveloperProjects(developerId);
+    var result = await brokerDevelopersRepo!.getDeveloperProjects(
+      developerId,
+      filters: filters,
+    );
     return result.fold(
       (failure) {
         emit(GetDeveloperProjectsErrorState(failure.errMessage));
@@ -163,7 +174,10 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
 
   Future<void> getDeveloperSales(int developerId, {int? projectId}) async {
     emit(GetDeveloperSalesLoadingState());
-    var result = await brokerDevelopersRepo!.getDeveloperSales(developerId, projectId: projectId);
+    var result = await brokerDevelopersRepo!.getDeveloperSales(
+      developerId,
+      projectId: projectId,
+    );
     return result.fold(
       (failure) {
         emit(GetDeveloperSalesErrorState(failure.errMessage));
@@ -226,10 +240,13 @@ class BrokerDevelopersCubit extends Cubit<BrokerDevelopersStates> {
     required ProjectData project,
   }) async {
     emit(EditProjectLoading());
-    final result = await brokerDevelopersRepo!.updateProject(projectId: projectId, project: project);
+    final result = await brokerDevelopersRepo!.updateProject(
+      projectId: projectId,
+      project: project,
+    );
     result.fold(
-          (failure) => emit(EditProjectError(failure.errMessage)),
-          (updatedProject) => emit(EditProjectSuccess(updatedProject)),
+      (failure) => emit(EditProjectError(failure.errMessage)),
+      (updatedProject) => emit(EditProjectSuccess(updatedProject)),
     );
   }
 }
