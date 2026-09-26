@@ -1,4 +1,6 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
+import 'package:easy_deal/features/broker_features/broker_developers/data/models/models_response.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_sales_view.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/model_units_view.dart';
@@ -11,7 +13,11 @@ import '../view_model/broker_developers_states.dart';
 class DeveloperModelsView extends StatefulWidget {
   final int projectId;
   final int developerId;
-  const DeveloperModelsView({super.key, required this.projectId, required this.developerId});
+  const DeveloperModelsView({
+    super.key,
+    required this.projectId,
+    required this.developerId,
+  });
 
   @override
   State<DeveloperModelsView> createState() => _DeveloperModelsViewState();
@@ -19,6 +25,8 @@ class DeveloperModelsView extends StatefulWidget {
 
 class _DeveloperModelsViewState extends State<DeveloperModelsView> {
   late final BrokerDevelopersCubit _cubit;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchText = '';
 
   @override
   void initState() {
@@ -29,8 +37,28 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
 
   @override
   void dispose() {
+    _searchController.dispose();
     _cubit.close();
     super.dispose();
+  }
+
+  List<ModelData> _filterByName(List<ModelData> data) {
+    final q = _searchText.trim().toLowerCase();
+    if (q.isEmpty) return data;
+    return data.where((item) {
+      final fields = [
+        item.code,
+        item.id,
+        item.unitType,
+        item.subUnitType,
+        item.numberOfUnits,
+        item.unitArea,
+        item.project.name,
+      ];
+      return fields.any(
+        (f) => f != null && f.toString().toLowerCase().contains(q),
+      );
+    }).toList();
   }
 
   @override
@@ -96,8 +124,16 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                   child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
                 );
               }
+              final filtered = _filterByName(data);
               return Column(
                 children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
+                    child: ContainerSearchWidget(
+                      controller: _searchController,
+                      onChanged: (v) => setState(() => _searchText = v),
+                    ),
+                  ),
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 0),
@@ -126,7 +162,11 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12.r),
                           ),
-                          child: Icon(Icons.dashboard_rounded, color: Colors.white, size: 24.r),
+                          child: Icon(
+                            Icons.dashboard_rounded,
+                            color: Colors.white,
+                            size: 24.r,
+                          ),
                         ),
                         Gap(14.w),
                         Expanded(
@@ -143,7 +183,7 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                               ),
                               Gap(4.h),
                               Text(
-                                '${data.length} ${LangKeys.models.tr()}',
+                                '${filtered.length} ${LangKeys.models.tr()}',
                                 style: AppStyles.black14Medium.copyWith(
                                   color: Colors.white.withValues(alpha: 0.8),
                                   fontSize: 13.sp,
@@ -156,20 +196,26 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                     ),
                   ),
                   Expanded(
-                    child: DeveloperModelsTableData(
-                      data: data,
-                      onRowTap: (item) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ModelUnitsView(
-                              modelId: item.id,
-                              modelCode: item.code?.toString(),
+                    child: filtered.isEmpty
+                        ? Center(
+                            child: Text(
+                              LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
                             ),
+                          )
+                        : DeveloperModelsTableData(
+                            data: filtered,
+                            onRowTap: (item) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ModelUnitsView(
+                                    modelId: item.id,
+                                    modelCode: item.code?.toString(),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               );
