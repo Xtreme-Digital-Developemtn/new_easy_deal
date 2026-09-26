@@ -1,4 +1,6 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
+import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
 import 'package:easy_deal/features/broker_features/boker_data/data/repos/broker_data_repo_imple.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
@@ -20,6 +22,8 @@ class ModelUnitsView extends StatefulWidget {
 class _ModelUnitsViewState extends State<ModelUnitsView> {
   late final BrokerDevelopersCubit _cubit;
   late final BrokerDataCubit _brokerDataCubit;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchText = '';
 
   @override
   void initState() {
@@ -31,9 +35,31 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
 
   @override
   void dispose() {
+    _searchController.dispose();
     _cubit.close();
     _brokerDataCubit.close();
     super.dispose();
+  }
+
+  List<BrokerUnitData> _filterByName(List<BrokerUnitData> data) {
+    final q = _searchText.trim().toLowerCase();
+    if (q.isEmpty) return data;
+    return data.where((item) {
+      final fields = [
+        item.unitNumber,
+        item.buildingNumber,
+        item.projectName,
+        item.developerName,
+        item.modelCode,
+        item.id,
+        item.type,
+        item.unitOperation,
+        item.floor,
+      ];
+      return fields.any(
+        (f) => f != null && f.toString().toLowerCase().contains(q),
+      );
+    }).toList();
   }
 
   @override
@@ -66,11 +92,21 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
                 final data = state.unitsModel?.data ?? [];
                 if (data.isEmpty) {
                   return Center(
-                    child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
+                    child: Text(
+                      LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                    ),
                   );
                 }
+                final filtered = _filterByName(data);
                 return Column(
                   children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
+                      child: ContainerSearchWidget(
+                        controller: _searchController,
+                        onChanged: (v) => setState(() => _searchText = v),
+                      ),
+                    ),
                     Container(
                       width: double.infinity,
                       margin: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 0),
@@ -122,7 +158,7 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
                                 ),
                                 Gap(4.h),
                                 Text(
-                                  '${data.length} ${LangKeys.units.tr()}',
+                                  '${filtered.length} ${LangKeys.units.tr()}',
                                   style: AppStyles.black14Medium.copyWith(
                                     color: Colors.white.withValues(alpha: 0.8),
                                     fontSize: 13.sp,
@@ -135,10 +171,16 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
                       ),
                     ),
                     Expanded(
-                      child: ModelUnitsTableData(
-                        data: data,
-                        brokerDataCubit: _brokerDataCubit,
-                      ),
+                      child: filtered.isEmpty
+                          ? Center(
+                              child: Text(
+                                LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                              ),
+                            )
+                          : ModelUnitsTableData(
+                              data: filtered,
+                              brokerDataCubit: _brokerDataCubit,
+                            ),
                     ),
                   ],
                 );
