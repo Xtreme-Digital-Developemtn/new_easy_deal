@@ -1,5 +1,6 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
 import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/models/models_response.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_sales_view.dart';
@@ -40,6 +41,20 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
     _searchController.dispose();
     _cubit.close();
     super.dispose();
+  }
+
+  String _friendlyError(String raw) {
+    final lower = raw.toLowerCase();
+    if (lower.contains('null') && lower.contains('subtype')) {
+      return 'تعذر تحميل النماذج بسبب بيانات غير مكتملة من السيرفر، حاول مرة أخرى';
+    }
+    if (lower.contains('socket') ||
+        lower.contains('network') ||
+        lower.contains('connection') ||
+        lower.contains('timeout')) {
+      return 'تعذر الاتصال بالإنترنت، تحقق من الاتصال وحاول مرة أخرى';
+    }
+    return 'حدث خطأ أثناء تحميل النماذج، حاول مرة أخرى';
   }
 
   List<ModelData> _filterByName(List<ModelData> data) {
@@ -103,18 +118,31 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
               return const CustomLoading();
             } else if (state is GetProjectModelsErrorState) {
               return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(state.error),
-                    Gap(16.h),
-                    CustomButton(
-                      text: LangKeys.reload,
-                      onPressed: () {
-                        _cubit.getProjectModels(widget.projectId);
-                      },
-                    ),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.error_outline_rounded,
+                        size: 48.sp,
+                        color: Colors.grey.shade400,
+                      ),
+                      Gap(12.h),
+                      Text(
+                        _friendlyError(state.error),
+                        textAlign: TextAlign.center,
+                        style: AppStyles.black14Medium,
+                      ),
+                      Gap(16.h),
+                      CustomButton(
+                        text: LangKeys.reload,
+                        onPressed: () {
+                          _cubit.getProjectModels(widget.projectId);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               );
             } else if (state is GetProjectModelsSuccessState) {
@@ -205,11 +233,23 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                         : DeveloperModelsTableData(
                             data: filtered,
                             onRowTap: (item) {
+                              final rawId = item.id;
+                              final modelId = rawId is int
+                                  ? rawId
+                                  : int.tryParse(rawId?.toString() ?? '');
+                              if (modelId == null) {
+                                Toast.showErrorToast(
+                                  msg:
+                                      'تعذر فتح النموذج بسبب بيانات غير مكتملة',
+                                  context: context,
+                                );
+                                return;
+                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (_) => ModelUnitsView(
-                                    modelId: item.id,
+                                    modelId: modelId,
                                     modelCode: item.code?.toString(),
                                   ),
                                 ),

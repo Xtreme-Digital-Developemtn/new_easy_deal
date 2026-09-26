@@ -12,13 +12,28 @@ class ModelsResponse {
   });
 
   factory ModelsResponse.fromJson(Map<String, dynamic> json) {
+    final rawData = json['data'];
+    final List<ModelData> parsed = [];
+    if (rawData is List) {
+      for (final e in rawData) {
+        if (e is Map<String, dynamic>) {
+          try {
+            parsed.add(ModelData.fromJson(e));
+          } catch (_) {}
+        } else if (e is Map) {
+          try {
+            parsed.add(ModelData.fromJson(Map<String, dynamic>.from(e)));
+          } catch (_) {}
+        }
+      }
+    }
     return ModelsResponse(
-      status: json['status'],
-      message: json['message'],
-      count: json['count'],
-      data: (json['data'] as List)
-          .map((e) => ModelData.fromJson(e))
-          .toList(),
+      status: json['status']?.toString() ?? '',
+      message: json['message']?.toString() ?? '',
+      count: (json['count'] is num)
+          ? (json['count'] as num).toInt()
+          : parsed.length,
+      data: parsed,
     );
   }
 
@@ -79,9 +94,13 @@ class ModelData {
       unitArea: json['unitArea'],
       landingArea: json['landingArea'],
       projectId: json['projectId'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      project: Project.fromJson(json['project']),
+      createdAt: json['createdAt']?.toString(),
+      updatedAt: json['updatedAt']?.toString(),
+      project: json['project'] is Map<String, dynamic>
+          ? Project.fromJson(json['project'] as Map<String, dynamic>)
+          : json['project'] is Map
+          ? Project.fromJson(Map<String, dynamic>.from(json['project']))
+          : Project.empty(),
     );
   }
 
@@ -124,8 +143,14 @@ class Project {
       id: json['id'],
       name: json['name'],
       managementTeam: json['managementTeam'],
-      developer: Developer.fromJson(json['developer']),
-      otherSubAreas: json['otherSubAreas'] ?? [],
+      developer: json['developer'] is Map<String, dynamic>
+          ? Developer.fromJson(json['developer'] as Map<String, dynamic>)
+          : json['developer'] is Map
+          ? Developer.fromJson(Map<String, dynamic>.from(json['developer']))
+          : Developer.empty(),
+      otherSubAreas: (json['otherSubAreas'] is List)
+          ? (json['otherSubAreas'] as List)
+          : [],
     );
   }
 
@@ -136,6 +161,14 @@ class Project {
     'developer': developer.toJson(),
     'otherSubAreas': otherSubAreas,
   };
+
+  factory Project.empty() => Project(
+    id: null,
+    name: null,
+    managementTeam: null,
+    developer: Developer.empty(),
+    otherSubAreas: const [],
+  );
 }
 
 class Developer {
@@ -143,23 +176,13 @@ class Developer {
   final dynamic name;
   final dynamic email;
 
-  Developer({
-    required this.id,
-    this.name,
-    this.email,
-  });
+  Developer({required this.id, this.name, this.email});
 
   factory Developer.fromJson(Map<String, dynamic> json) {
-    return Developer(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-    );
+    return Developer(id: json['id'], name: json['name'], email: json['email']);
   }
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'email': email,
-  };
+  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'email': email};
+
+  factory Developer.empty() => Developer(id: null);
 }

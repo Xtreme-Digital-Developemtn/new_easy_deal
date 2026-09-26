@@ -91,37 +91,50 @@ class _AdCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       child: InkWell(
         borderRadius: BorderRadius.circular(16.r),
-        onTap: () => context.pushNamed(Routes.unitDetailsView, arguments: {"unitId": item.id}),
+        onTap: () => context.pushNamed(
+          Routes.unitDetailsView,
+          arguments: {"unitId": item.id},
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    firstImageUrl != null
+                    firstImageUrl != null && firstImageUrl.isNotEmpty
                         ? CachedNetworkImage(
                             imageUrl: firstImageUrl,
                             fit: BoxFit.cover,
-                            placeholder: (c, _) => _buildLogoPlaceholder(item.diagram),
-                            errorWidget: (c, _, __) => _buildLogoPlaceholder(item.diagram),
+                            placeholder: (c, _) => _placeholderIcon(),
+                            errorWidget: (c, _, __) =>
+                                _buildLogoPlaceholder(item.diagram),
                           )
                         : _buildLogoPlaceholder(item.diagram),
                     Positioned(
                       top: 8.h,
                       right: 8.w,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 4.h,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primaryDark,
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Text(
                           BrokerTextHelper.unitTypeText(item.type ?? ''),
-                          style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
@@ -129,7 +142,10 @@ class _AdCard extends StatelessWidget {
                       top: 8.h,
                       left: 8.w,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 4.h,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.circular(12.r),
@@ -137,11 +153,19 @@ class _AdCard extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.photo_library_outlined, size: 12, color: Colors.white),
+                            const Icon(
+                              Icons.photo_library_outlined,
+                              size: 12,
+                              color: Colors.white,
+                            ),
                             Gap(4.w),
                             Text(
                               "${galleryImages.length}",
-                              style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),
@@ -152,14 +176,21 @@ class _AdCard extends StatelessWidget {
                         bottom: 8.h,
                         right: 8.w,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 4.h,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: Text(
                             "مباع".tr(),
-                            style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
@@ -180,15 +211,23 @@ class _AdCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item.projectName?.toString() ?? item.developerName?.toString() ?? 'عقار',
-                              style: AppStyles.black14SemiBold.copyWith(fontSize: 16.sp),
+                              item.projectName?.toString() ??
+                                  item.developerName?.toString() ??
+                                  'عقار',
+                              style: AppStyles.black14SemiBold.copyWith(
+                                fontSize: 16.sp,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Gap(4.h),
                             Row(
                               children: [
-                                Icon(Icons.location_on_outlined, size: 12.sp, color: Colors.grey[600]),
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: 12.sp,
+                                  color: Colors.grey[600],
+                                ),
                                 Gap(4.w),
                                 Expanded(
                                   child: Text(
@@ -208,13 +247,20 @@ class _AdCard extends StatelessWidget {
                         children: [
                           Text(
                             _getPrice(),
-                            style: AppStyles.primary16Medium.copyWith(fontSize: 16.sp),
+                            style: AppStyles.primary16Medium.copyWith(
+                              fontSize: 16.sp,
+                            ),
                           ),
                           Gap(4.h),
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 2.h,
+                            ),
                             decoration: BoxDecoration(
-                              color: _getStatusColor(item.status ?? '').withOpacity(0.15),
+                              color: _getStatusColor(
+                                item.status ?? '',
+                              ).withOpacity(0.15),
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Text(
@@ -250,7 +296,9 @@ class _AdCard extends StatelessWidget {
                       Gap(8.w),
                       _InfoChip(
                         icon: Icons.business_outlined,
-                        label: BrokerTextHelper.unitOperationText(item.unitOperation ?? ''),
+                        label: BrokerTextHelper.unitOperationText(
+                          item.unitOperation ?? '',
+                        ),
                       ),
                     ],
                   ),
@@ -259,14 +307,19 @@ class _AdCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: OutlinedButton.icon(
-                          onPressed: () => context.pushNamed(Routes.unitDetailsView, arguments: {"unitId": item.id}),
+                          onPressed: () => context.pushNamed(
+                            Routes.unitDetailsView,
+                            arguments: {"unitId": item.id},
+                          ),
                           icon: const Icon(Icons.visibility_outlined, size: 16),
                           label: Text("عرض".tr()),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: AppColors.primaryDark,
                             side: BorderSide(color: AppColors.primaryDark),
                             padding: EdgeInsets.symmetric(vertical: 10.h),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
                           ),
                         ),
                       ),
@@ -280,13 +333,18 @@ class _AdCard extends StatelessWidget {
                                 // cubit.selectedUnitId = item.id;
                                 // cubit.requestsCheckAdvertisementCount();
                               },
-                              icon: const Icon(Icons.campaign_outlined, size: 16),
+                              icon: const Icon(
+                                Icons.campaign_outlined,
+                                size: 16,
+                              ),
                               label: Text("إعلان مميز".tr()),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryDark,
                                 foregroundColor: Colors.white,
                                 padding: EdgeInsets.symmetric(vertical: 10.h),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                ),
                               ),
                             );
                           },
@@ -303,11 +361,29 @@ class _AdCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLogoPlaceholder(digram) {
+  Widget _buildLogoPlaceholder(dynamic digram) {
+    final url = _buildImageUrl(digram?.toString());
+    if (url.isEmpty) {
+      return _placeholderIcon();
+    }
     return CachedNetworkImage(
-      imageUrl: digram,
+      imageUrl: url,
       fit: BoxFit.cover,
+      placeholder: (c, _) => _placeholderIcon(),
+      errorWidget: (c, _, __) => _placeholderIcon(),
+    );
+  }
 
+  Widget _placeholderIcon() {
+    return Container(
+      color: AppColors.grayLight.withOpacity(0.5),
+      child: Center(
+        child: Icon(
+          Icons.image_outlined,
+          size: 40.sp,
+          color: Colors.grey.shade400,
+        ),
+      ),
     );
   }
 

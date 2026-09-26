@@ -8,7 +8,11 @@ import '../../../../../assign_to_broker/presentation/views/widgets/broker_text_h
 class DeveloperModelsTableData extends StatelessWidget {
   final List<ModelData> data;
   final void Function(ModelData item)? onRowTap;
-  const DeveloperModelsTableData({super.key, required this.data, this.onRowTap});
+  const DeveloperModelsTableData({
+    super.key,
+    required this.data,
+    this.onRowTap,
+  });
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
@@ -31,11 +35,29 @@ class DeveloperModelsTableData extends StatelessWidget {
         color: AppColors.primaryDark.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8.r),
       ),
-      child: Text(text, style: AppStyles.black12Medium.copyWith(fontSize: 10.sp)),
+      child: Text(
+        text,
+        style: AppStyles.black12Medium.copyWith(fontSize: 10.sp),
+      ),
     );
   }
 
-  static final _headerStyle = AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark);
+  static final _headerStyle = AppStyles.black14SemiBold.copyWith(
+    color: AppColors.primaryDark,
+  );
+
+  String _safeDate(dynamic value) {
+    final s = value?.toString() ?? '';
+    if (s.isEmpty) return '';
+    return s.length >= 10 ? s.substring(0, 10) : s;
+  }
+
+  String _safeArea(dynamic value) {
+    if (value == null) return '';
+    final s = value.toString();
+    if (s.isEmpty || s == 'null') return '';
+    return '$s m²';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,31 +109,48 @@ class DeveloperModelsTableData extends StatelessWidget {
             _col(LangKeys.bathrooms.tr(), 90),
             _col(LangKeys.landingArea.tr(), 100),
           ],
-          rows: List<DataRow>.generate(
-            data.length,
-            (index) {
-              var item = data[index];
-              return DataRow(
-                color: index.isEven
-                    ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
-                    : const WidgetStatePropertyAll(Colors.white),
-                onSelectChanged: (_) {
-                  onRowTap?.call(item);
-                },
-                cells: [
-                  DataCell(Center(child: _cell(item.createdAt?.substring(0, 10) ?? ''))),
-                  DataCell(Center(child: _chipCell(item.code?.toString() ?? ''))),
-                  DataCell(Center(child: Text(BrokerTextHelper.unitTypeText(item.unitType)))),
-                  DataCell(Center(child: _cell(item.numberOfUnits?.toString() ?? ''))),
-                  DataCell(Center(child: _cell(item.numberOfRooms?.toString() ?? ''))),
-                  DataCell(Center(child: _cell(item.numberOfBathrooms?.toString() ?? ''))),
-                  DataCell(Center(child: _cell(item.numberOfFloors?.toString() ?? ''))),
-                  DataCell(Center(child: _cell('${item.unitArea} m²'))),
-                  DataCell(Center(child: _cell('${item.landingArea} m²'))),
-                ],
-              );
-            },
-          ),
+          rows: List<DataRow>.generate(data.length, (index) {
+            var item = data[index];
+            return DataRow(
+              color: index.isEven
+                  ? WidgetStatePropertyAll(
+                      AppColors.grayLight.withValues(alpha: 0.08),
+                    )
+                  : const WidgetStatePropertyAll(Colors.white),
+              onSelectChanged: (_) {
+                onRowTap?.call(item);
+              },
+              cells: [
+                DataCell(Center(child: _cell(_safeDate(item.createdAt)))),
+                DataCell(Center(child: _chipCell(item.code?.toString() ?? ''))),
+                DataCell(
+                  Center(
+                    child: Text(
+                      BrokerTextHelper.unitTypeText(
+                        item.unitType?.toString() ?? '',
+                      ),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  Center(child: _cell(item.numberOfUnits?.toString() ?? '')),
+                ),
+                DataCell(
+                  Center(child: _cell(item.numberOfRooms?.toString() ?? '')),
+                ),
+                DataCell(
+                  Center(
+                    child: _cell(item.numberOfBathrooms?.toString() ?? ''),
+                  ),
+                ),
+                DataCell(
+                  Center(child: _cell(item.numberOfFloors?.toString() ?? '')),
+                ),
+                DataCell(Center(child: _cell(_safeArea(item.unitArea)))),
+                DataCell(Center(child: _cell(_safeArea(item.landingArea)))),
+              ],
+            );
+          }),
         ),
       ),
     );
