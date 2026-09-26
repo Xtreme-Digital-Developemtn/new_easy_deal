@@ -345,8 +345,8 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     CategoryModel(id: 2, name: LangKeys.propertyRentalPart1.tr(), des: "", image: SvgImages.key),
     CategoryModel(id: 3, name: LangKeys.propertyForSalePart1.tr(), des: "", image: SvgImages.buy),
     CategoryModel(id: 4, name: LangKeys.rentingPropertyPart1.tr(), des: "", image: SvgImages.transfer),
-    CategoryModel(id: 5, name: LangKeys.rentHotelUnitPart1.tr(), des: "", image: SvgImages.hands),
-    CategoryModel(id: 6, name: LangKeys.rentingHotelUnitPart1.tr(), des: "", image: SvgImages.welfare),
+    // CategoryModel(id: 5, name: LangKeys.rentHotelUnitPart1.tr(), des: "", image: SvgImages.hands),
+    // CategoryModel(id: 6, name: LangKeys.rentingHotelUnitPart1.tr(), des: "", image: SvgImages.welfare),
   ];
 
   int selectedIndex = -1;
