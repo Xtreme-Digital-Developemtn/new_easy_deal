@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_projects_view.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/contract_request_dialog.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_filter_sheet.dart';
@@ -17,12 +20,43 @@ class BrokerDevelopersView extends StatefulWidget {
 class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
   DeveloperFilterResult? _appliedFilters;
   List<Map<String, dynamic>> _cities = [];
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
+  String _searchText = '';
 
   @override
   void initState() {
     super.initState();
     context.read<BrokerDevelopersCubit>().getDevelopers();
     _loadCities();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  Map<String, dynamic>? _combinedFilters() {
+    final params = _appliedFilters?.toQueryParams() ?? <String, dynamic>{};
+    final search = _searchText.trim();
+    if (search.isNotEmpty) {
+      params['search'] = search;
+    }
+    return params.isEmpty ? null : params;
+  }
+
+  void _onSearchChanged(String value) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      final newSearch = value.trim();
+      if (newSearch == _searchText.trim()) return;
+      setState(() => _searchText = value);
+      context.read<BrokerDevelopersCubit>().getDevelopers(
+        filters: _combinedFilters(),
+      );
+    });
   }
 
   Future<void> _loadCities() async {
@@ -77,10 +111,10 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
               );
               if (result != null) {
                 setState(() => _appliedFilters = result);
-                cubit.getDevelopers(filters: result.toQueryParams());
+                cubit.getDevelopers(filters: _combinedFilters());
               } else if (result == null && _appliedFilters != null) {
                 setState(() => _appliedFilters = null);
-                cubit.getDevelopers();
+                cubit.getDevelopers(filters: _combinedFilters());
               }
             },
             icon: Stack(
@@ -111,62 +145,73 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
           ),
         ],
       ),
-      body: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
-        builder: (context, state) {
-          if (state is GetDevelopersLoadingState &&
-              cubit.developersModel == null) {
-            return const CustomLoading();
-          }
-          if (state is GetDevelopersErrorState &&
-              cubit.developersModel == null) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(state.error),
-                  Gap(16.h),
-                  CustomButton(
-                    text: LangKeys.reload,
-                    onPressed: () {
-                      cubit.getDevelopers(
-                        filters: _appliedFilters?.toQueryParams(),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
-          }
-          var data = cubit.developersModel?.data ?? [];
-          if (data.isEmpty) {
-            return Center(
-              child: Text(
-                LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
-              ),
-            );
-          }
-          return DevelopersTableData(
-            data: data,
-            onProceduresTap: (developerId) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => DeveloperProjectsView(
-                    developerId: developerId,
-                    cubit: cubit,
-                  ),
-                ),
-              );
-            },
-            onSendContractRequest: (developerId) {
-              showDialog(
-                context: context,
-                builder: (_) =>
-                    ContractRequestDialog(developerId: developerId),
-              );
-            },
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 0),
+            child: ContainerSearchWidget(
+              controller: _searchController,
+              onChanged: _onSearchChanged,
+            ),
+          ),
+          Expanded(
+            child: BlocBuilder<BrokerDevelopersCubit, BrokerDevelopersStates>(
+              builder: (context, state) {
+                if (state is GetDevelopersLoadingState &&
+                    cubit.developersModel == null) {
+                  return const CustomLoading();
+                }
+                if (state is GetDevelopersErrorState &&
+                    cubit.developersModel == null) {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(state.error),
+                        Gap(16.h),
+                        CustomButton(
+                          text: LangKeys.reload,
+                          onPressed: () {
+                            cubit.getDevelopers(filters: _combinedFilters());
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                var data = cubit.developersModel?.data ?? [];
+                if (data.isEmpty) {
+                  return Center(
+                    child: Text(
+                      LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                    ),
+                  );
+                }
+                return DevelopersTableData(
+                  data: data,
+                  onProceduresTap: (developerId) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => DeveloperProjectsView(
+                          developerId: developerId,
+                          cubit: cubit,
+                        ),
+                      ),
+                    );
+                  },
+                  onSendContractRequest: (developerId) {
+                    showDialog(
+                      context: context,
+                      builder: (_) =>
+                          ContractRequestDialog(developerId: developerId),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
