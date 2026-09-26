@@ -14,10 +14,12 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   BrokerDevelopersRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, DevelopersModel>> getDevelopers({Map<String, dynamic>? filters}) async {
+  Future<Either<Failure, DevelopersModel>> getDevelopers({
+    Map<String, dynamic>? filters,
+  }) async {
     try {
       final query = <String, dynamic>{
-        'limit': 10,
+        'limit': 100,
         'offset': 0,
         'sort': 'desc',
         'sortBy': 'id',
@@ -37,7 +39,9 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   }
 
   @override
-  Future<Either<Failure, DeveloperProjectsModel>> getDeveloperProjects(int developerId) async {
+  Future<Either<Failure, DeveloperProjectsModel>> getDeveloperProjects(
+    int developerId,
+  ) async {
     try {
       var response = await apiService!.getData(
         endPoint: EndPoints.developerProjects,
@@ -49,7 +53,9 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
           "developerId": developerId,
         },
       );
-      DeveloperProjectsModel result = DeveloperProjectsModel.fromJson(response.data);
+      DeveloperProjectsModel result = DeveloperProjectsModel.fromJson(
+        response.data,
+      );
       return right(result);
     } catch (e) {
       return left(handleError(e));
@@ -57,7 +63,9 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   }
 
   @override
-  Future<Either<Failure, ModelsResponse>> getProjectModels(int projectId) async {
+  Future<Either<Failure, ModelsResponse>> getProjectModels(
+    int projectId,
+  ) async {
     try {
       var response = await apiService!.getData(
         endPoint: EndPoints.models,
@@ -77,7 +85,10 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   }
 
   @override
-  Future<Either<Failure, DeveloperSalesModel>> getDeveloperSales(int developerId, {int? projectId}) async {
+  Future<Either<Failure, DeveloperSalesModel>> getDeveloperSales(
+    int developerId, {
+    int? projectId,
+  }) async {
     try {
       var response = await apiService!.getData(
         endPoint: '${EndPoints.developerSales}/$developerId/sales',
@@ -120,7 +131,9 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   }
 
   @override
-  Future<Either<Failure, UnitDetailsResponse>> getUnitDetails(int unitId) async {
+  Future<Either<Failure, UnitDetailsResponse>> getUnitDetails(
+    int unitId,
+  ) async {
     try {
       var response = await apiService!.getData(
         endPoint: '${EndPoints.unitDetails}/$unitId',
@@ -148,34 +161,59 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
       formData.fields.add(MapEntry('developerId', developerId.toString()));
 
       if (image != null) {
-        formData.files.add(MapEntry(
-          'image',
-          await MultipartFile.fromFile(image.path, filename: image.path.split('/').last),
-        ));
+        formData.files.add(
+          MapEntry(
+            'image',
+            await MultipartFile.fromFile(
+              image.path,
+              filename: image.path.split('/').last,
+            ),
+          ),
+        );
       }
       if (idFront != null) {
-        formData.files.add(MapEntry(
-          'idFront',
-          await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last),
-        ));
+        formData.files.add(
+          MapEntry(
+            'idFront',
+            await MultipartFile.fromFile(
+              idFront.path,
+              filename: idFront.path.split('/').last,
+            ),
+          ),
+        );
       }
       if (idBack != null) {
-        formData.files.add(MapEntry(
-          'idBack',
-          await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last),
-        ));
+        formData.files.add(
+          MapEntry(
+            'idBack',
+            await MultipartFile.fromFile(
+              idBack.path,
+              filename: idBack.path.split('/').last,
+            ),
+          ),
+        );
       }
       if (commercialRegistryImage != null) {
-        formData.files.add(MapEntry(
-          'commercialRegistryImage',
-          await MultipartFile.fromFile(commercialRegistryImage.path, filename: commercialRegistryImage.path.split('/').last),
-        ));
+        formData.files.add(
+          MapEntry(
+            'commercialRegistryImage',
+            await MultipartFile.fromFile(
+              commercialRegistryImage.path,
+              filename: commercialRegistryImage.path.split('/').last,
+            ),
+          ),
+        );
       }
       if (taxCardImage != null) {
-        formData.files.add(MapEntry(
-          'taxCardImage',
-          await MultipartFile.fromFile(taxCardImage.path, filename: taxCardImage.path.split('/').last),
-        ));
+        formData.files.add(
+          MapEntry(
+            'taxCardImage',
+            await MultipartFile.fromFile(
+              taxCardImage.path,
+              filename: taxCardImage.path.split('/').last,
+            ),
+          ),
+        );
       }
 
       var response = await apiService!.postData(
@@ -188,8 +226,6 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
     }
   }
 
-
-
   @override
   Future<Either<Failure, ProjectData>> updateProject({
     required int projectId,
@@ -197,7 +233,7 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
   }) async {
     try {
       final response = await apiService!.postData(
-        endPoint:'developers/projects/$projectId',
+        endPoint: 'developers/projects/$projectId',
         data: {
           'name': project.name,
           'designer': project.designer,
@@ -222,7 +258,7 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
           'medicalClinicsCount': project.medicalClinicsCount,
           'pharmaciesCount': project.pharmaciesCount,
           'commercialAdministrativeBuildingCount':
-          project.commercialAdministrativeBuildingCount,
+              project.commercialAdministrativeBuildingCount,
           if (project.city != null) 'cityId': project.city!.id,
           if (project.area != null) 'areaId': project.area!.id,
           if (project.subArea != null) 'subAreaId': project.subArea!.id,
@@ -244,7 +280,8 @@ class BrokerDevelopersRepoImpl implements BrokerDevelopersRepo {
             .expand((v) => v is List ? v : [v.toString()])
             .join('\n');
       } else {
-        errorMessage = e.response?.data['message']?.toString() ??
+        errorMessage =
+            e.response?.data['message']?.toString() ??
             e.message ??
             'حدث خطأ أثناء التحديث';
       }
