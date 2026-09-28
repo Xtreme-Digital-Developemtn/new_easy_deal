@@ -6,13 +6,14 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   const GlobalAppBar({super.key, required this.title, this.actions,this.backgroundColor
     ,
     this.iconColor,
-    this.textColor,   this.showBackButton = true});
+    this.textColor,   this.showBackButton = true, this.bottom});
   final String title;
   final List<Widget>? actions;
   final bool showBackButton;
   final Color? backgroundColor;
   final Color? textColor;
   final Color? iconColor;
+  final PreferredSizeWidget? bottom;
   @override
   Widget build(BuildContext context) {
     return    AppBar(
@@ -21,6 +22,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       color: textColor,
     ),),
     actions:actions,
+    bottom: bottom,
     leading:showBackButton==true ?  IconButton(
     onPressed: () {
     context.pop();
@@ -37,6 +39,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize =>
+      Size.fromHeight(kToolbarHeight + (bottom?.preferredSize.height ?? 0));
 
 }

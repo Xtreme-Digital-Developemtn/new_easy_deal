@@ -62,8 +62,6 @@ import '../../features/notifications/data/repos/notifications_repo_imple.dart';
 import '../../features/notifications/presentation/view_model/notifications_cubit.dart';
 import '../../features/notifications/presentation/views/notifications_view.dart';
 import '../../features/otp/presentation/views/otp_view.dart';
-import '../../features/privacy_terms/data/repos/privacy_terms_repo_imple.dart';
-import '../../features/privacy_terms/presentation/view_model/privacy_terms_cubit.dart';
 import '../../features/privacy_terms/presentation/views/privacy_terms_view.dart';
 import '../../features/profile/presentation/views/profile_view.dart';
 import '../../features/register/data/repos/register_repo_imple.dart';
@@ -223,7 +221,6 @@ class AppRouter {
       case Routes.privacyTermsView:
         return transition(
           screen: const PrivacyTermsView(),
-          cubit: PrivacyTermsCubit(getIt.get<PrivacyTermsRepoImpl>()),
         );
       case Routes.faqsView:
         return transition(
