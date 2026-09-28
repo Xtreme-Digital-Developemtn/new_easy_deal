@@ -145,12 +145,11 @@ class _UnitDetailsBody extends StatelessWidget {
 
         // ── بيانات الوحدة ──────────────────────────────────────────────
         UnitInformation(
-          beds: unit.numberOfRooms,
-          baths: unit.numberOfBathrooms,
-          sqft: unit.unitArea,
-          // areaSize: unit.unitArea,
-          poal: unit.id,
-          builtIn: unit.buildingNumber,
+          data: {
+            'numberOfRooms': unit.numberOfRooms,
+            'numberOfBathrooms': unit.numberOfBathrooms,
+            'unitArea': unit.unitArea,
+          },
         ),
         Gap(16.h),
 

@@ -71,9 +71,14 @@ class Data {
   dynamic updatedAt;
   List<dynamic>? gallery;
 
+  /// Raw API payload, kept so the UI can render every key the backend sends,
+  /// including ones this model does not declare explicitly.
+  Map<String, dynamic>? raw;
+
   Data({this.id, this.modelCode,this.brokerUserImage, this.type, this.unitArea, this.buildingNumber, this.unitNumber, this.floor, this.area, this.city, this.subArea, this.otherSubAreas, this.ownerPhone, this.ownerName, this.detailedAddress, this.dailyRent, this.monthlyRent, this.deliveryStatus, this.numberOfRooms, this.numberOfBathrooms, this.finishingType, this.unitOperation, this.compoundType, this.status, this.view, this.deliveryDate, this.diagram, this.locationInMasterPlan, this.location, this.paymentSystem, this.pricePerMeterInInstallment, this.pricePerMeterInCash, this.totalPriceInInstallment, this.totalPriceInCash, this.advertisers, this.isArchived, this.additionalDetails, this.otherAccessories, this.modelId, this.brokerId, this.broker, this.projectName, this.developerName, this.createdAt, this.updatedAt, this.gallery});
 
   Data.fromJson(Map<String, dynamic> json) {
+    raw = Map<String, dynamic>.from(json);
     id = json["id"];
     modelCode = json["modelCode"];
     brokerUserImage = json["broker_user_image"];
