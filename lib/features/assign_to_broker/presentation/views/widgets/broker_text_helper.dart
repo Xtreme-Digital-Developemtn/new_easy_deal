@@ -244,6 +244,8 @@ class BrokerTextHelper {
         return LangKeys.administrativeUnits.tr();
       case 'commercialunits':
       case 'commercial_units':
+      case 'commercialstores':
+      case 'commercial_stores':
         return LangKeys.commercialStores.tr();
       case 'medicalclinics':
       case 'medical_clinics':
@@ -252,7 +254,34 @@ class BrokerTextHelper {
         return LangKeys.pharmacies.tr();
       case 'commercialadministrativebuilding':
       case 'commercial_administrative_building':
+      case 'commercialadministrativebuildings':
+      case 'commercial_administrative_buildings':
         return LangKeys.commercialAdministrativeBuildings.tr();
+      case 'villas':
+        return LangKeys.villas.tr();
+      case 'residentialbuildings':
+      case 'residential_buildings':
+        return LangKeys.residentialBuildings.tr();
+      case 'chalets':
+        return LangKeys.chalets.tr();
+      case 'vacationvilla':
+      case 'vacation_villa':
+        return LangKeys.vacationVilla.tr();
+      case 'hotels':
+      case 'hotel_units':
+        return LangKeys.hotels.tr();
+      case 'residentiallands':
+      case 'residential_lands':
+        return LangKeys.residentialLands.tr();
+      case 'commercialadministrativelands':
+      case 'commercial_administrative_lands':
+        return LangKeys.commercialAdministrativeLands.tr();
+      case 'factorylands':
+      case 'factory_lands':
+        return LangKeys.factoryLands.tr();
+      case 'warehouselands':
+      case 'warehouse_lands':
+        return LangKeys.warehouseLands.tr();
       default:
         return type;
     }
@@ -270,6 +299,14 @@ class BrokerTextHelper {
       case 'rental':
       case 'leasing':
         return LangKeys.rentOut.tr();
+      case 'rent_in':
+      case 'renting':
+        return LangKeys.rentIn.tr();
+      case 'buy':
+      case 'buying':
+      case 'purchase':
+      case 'purchasing':
+        return LangKeys.purchasing.tr();
       default:
         return operation;
     }
