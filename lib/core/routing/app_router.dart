@@ -23,8 +23,6 @@ import 'package:easy_deal/features/register/presentation/views/register_view.dar
 import 'package:easy_deal/features/request_details/data/repos/request_repo_imple.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
 import 'package:easy_deal/features/search/presentation/views/search_view.dart';
-import '../../features/about_us/data/repos/about_us_repo_imple.dart';
-import '../../features/about_us/presentation/view_model/about_us_cubit.dart';
 import '../../features/about_us/presentation/views/about_us_view.dart';
 import '../../features/assign_to_broker/data/repos/assign_to_broker_repo_imple.dart';
 import '../../features/assign_to_broker/presentation/view_model/assign_to_broker_cubit.dart';
@@ -197,7 +195,6 @@ class AppRouter {
       case Routes.aboutUsView:
         return transition(
           screen: const AboutUsView(),
-          cubit: AboutUsCubit(getIt.get<AboutUsRepoImpl>()),
         );
       case Routes.unitDetailsView:
         final args = arguments as Map<String, dynamic>;

@@ -655,6 +655,36 @@ abstract class LangKeys {
   static const String automaticallyMatchesClientRequests = 'automaticallyMatchesClientRequests';
   static const String easilyShareOrders = 'easilyShareOrders';
 
+
+  // About Us
+  static const String aboutEasyDeal = 'aboutEasyDeal';
+  static const String aboutUsHeroSubtitle = 'aboutUsHeroSubtitle';
+  static const String whoWeAreDescription = 'whoWeAreDescription';
+  static const String propertySaleAndPurchase = 'propertySaleAndPurchase';
+  static const String longTermRentals = 'longTermRentals';
+  static const String shortTermStays = 'shortTermStays';
+  static const String professionalPropertyManagement = 'professionalPropertyManagement';
+  static const String ourMission = 'ourMission';
+  static const String ourMissionDescription = 'ourMissionDescription';
+  static const String higherEfficiency = 'higherEfficiency';
+  static const String higherEfficiencyDescription = 'higherEfficiencyDescription';
+  static const String preciseReach = 'preciseReach';
+  static const String preciseReachDescription = 'preciseReachDescription';
+  static const String trustAndSafety = 'trustAndSafety';
+  static const String trustAndSafetyDescription = 'trustAndSafetyDescription';
+  static const String unifiedSystem = 'unifiedSystem';
+  static const String unifiedSystemDescription = 'unifiedSystemDescription';
+  static const String ourVisionForTheFuture = 'ourVisionForTheFuture';
+  static const String ourVisionDescription = 'ourVisionDescription';
+  static const String smartMatching = 'smartMatching';
+  static const String smartMatchingDescription = 'smartMatchingDescription';
+  static const String centralizedDataManagement = 'centralizedDataManagement';
+  static const String centralizedDataManagementDescription = 'centralizedDataManagementDescription';
+  static const String professionalTools = 'professionalTools';
+  static const String professionalToolsDescription = 'professionalToolsDescription';
+  static const String readyForNewRealEstateExperience = 'readyForNewRealEstateExperience';
+  static const String aboutUsCtaDescription = 'aboutUsCtaDescription';
+  static const String exploreProperties = 'exploreProperties';
 }
 
 
