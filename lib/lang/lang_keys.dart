@@ -22,6 +22,7 @@ abstract class LangKeys {
   static const String signUp = "signUp";
   static const String exit = "exit";
   static const String home = "home";
+  static const String dashboard = "dashboard";
   static const String search = "search";
   static const String request = "request";
   static const String messages = "messages";

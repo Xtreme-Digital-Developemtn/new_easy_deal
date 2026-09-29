@@ -7,9 +7,18 @@ import 'layout_states.dart';
 
 
 class LayoutCubit extends Cubit<LayoutStates> {
-  LayoutCubit(this.screens ,this.layoutRepo) : super(LayoutInitState());
+  LayoutCubit(this.screens ,this.layoutRepo) : super(LayoutInitState()){
+    /// pageIndex ستاتيك وبيفضل محفوظ بين الجلسات، والبروكر عنده تاب زيادة،
+    /// فلو اتغير الدور لازم نرجع للرئيسية بدل ما نقرأ index خارج الليست.
+    if (pageIndex >= screens.length) {
+      pageIndex = 0;
+    }
+  }
 
   static LayoutCubit get(context) => BlocProvider.of(context);
+
+  /// المصدر الوحيد لشرط تاب البروكر: لازم الليست والـ bottom nav يتفقوا عليه.
+  static bool get isBroker => CacheHelper.getData(key: "userRole") == "broker";
 
   static int pageIndex = 0;
 

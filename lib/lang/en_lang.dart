@@ -23,6 +23,7 @@ class EnLang {
     "signUp": "Sign Up",
     "exit": "Exit",
     "home": "Home",
+    "dashboard": "Dashboard",
     "search": "Search",
     "request": "Request",
     "messages": "Chats",

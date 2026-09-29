@@ -27,7 +27,7 @@ class ApNavButtons extends StatelessWidget {
                       child: CustomButton(
                         text: isArabic ? 'إلغاء' : 'Cancel',
                         color: AppColors.blueLight,
-                        textColor: AppColors.primaryDark,
+                        textColor: AppColors.white,
                         onPressed: () => Navigator.of(context).maybePop(),
                       ),
                     ),

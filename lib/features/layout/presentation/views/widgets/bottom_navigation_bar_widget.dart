@@ -31,6 +31,12 @@ class BottomNavigationBarWidget extends StatelessWidget {
               title: LangKeys.home,
               context: context,
             ),
+            if (LayoutCubit.isBroker)
+              _buildItem(
+                icon: SvgImages.myData,
+                title: LangKeys.dashboard,
+                context: context,
+              ),
             _buildItem(
               icon: SvgImages.search,
               title: LangKeys.search,

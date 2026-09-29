@@ -23,6 +23,7 @@ class ArLang {
     "signUp": "إنشاء حساب",
     "exit": "خروج",
     "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
     "search": "بحث",
     "request": "طلب",
     "messages": "الرسائل",

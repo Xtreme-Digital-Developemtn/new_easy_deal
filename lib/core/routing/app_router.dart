@@ -389,14 +389,14 @@ class AppRouter {
   ///الـ AppRouter بيتبني قبل ما Cache يجهز فعليًا
   List<Widget> getScreens() {
     return [
-      CacheHelper.getData(key: "userRole") == "client"
-          ? BlocProvider(
-              create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())
-                ..getBestSellerUnitsInHome()
-                ..getUnitTypes(),
-              child: HomeView(),
-            )
-          : BlocProvider(
+      BlocProvider(
+        create: (_) => HomeCubit(getIt.get<HomeRepoImpl>())
+          ..getBestSellerUnitsInHome()
+          ..getUnitTypes(),
+        child: HomeView(),
+      ),
+      if (LayoutCubit.isBroker)
+      BlocProvider(
               create: (_) => BrokerHomeCubit(getIt.get<BrokerHomeRepoImpl>()),
               child: BrokerHomeView(),
             ),
