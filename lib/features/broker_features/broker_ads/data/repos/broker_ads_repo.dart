@@ -5,7 +5,10 @@ import '../models/advertisement_shuffle_model.dart';
 
 abstract class BrokerAdsRepo{
 
-   Future<Either<Failure,AdvertisementShuffleModel>> getAdvertisementShuffle();
+   Future<Either<Failure,AdvertisementShuffleModel>> getAdvertisementShuffle({
+      required int limit,
+      required int offset,
+   });
 
 
 }

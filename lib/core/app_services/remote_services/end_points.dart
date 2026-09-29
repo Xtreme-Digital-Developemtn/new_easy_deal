@@ -35,8 +35,7 @@ class EndPoints {
   static const String promoCodesApply = 'promo-codes/apply';
   static const String requestsStatistics = 'requests/statistics';
   static const String requestsLatest = 'requests/latest';
-  static const String advertisementShuffle =
-      'unit/advertisement-shuffle?limit=4&offset=0';
+  static const String advertisementShuffle = 'unit/advertisement-shuffle';
   static const String developers = 'developers';
   static const String developerProjects = 'developers/projects';
   static const String developerSales = 'developer-sales';

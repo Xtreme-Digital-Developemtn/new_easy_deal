@@ -6,17 +6,38 @@ import '../../view_model/broker_ads_cubit.dart';
 import '../../view_model/broker_ads_states.dart';
 
 class AdsListWidget extends StatelessWidget {
-  const AdsListWidget({super.key, required this.data});
+  const AdsListWidget({
+    super.key,
+    required this.data,
+    required this.controller,
+    required this.isLoadingMore,
+  });
 
   final List<Data> data;
+
+  /// Drives the infinite scroll — the view listens on it and asks the cubit for
+  /// the next page as the bottom comes into range.
+  final ScrollController controller;
+
+  /// Adds a trailing loader row while the next page is in flight.
+  final bool isLoadingMore;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      controller: controller,
       padding: EdgeInsets.all(16.r),
-      itemCount: data.length,
+      itemCount: data.length + (isLoadingMore ? 1 : 0),
       separatorBuilder: (_, __) => Gap(12.h),
-      itemBuilder: (context, index) => _AdCard(item: data[index]),
+      itemBuilder: (context, index) {
+        if (index == data.length) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child: Center(child: CustomLoading()),
+          );
+        }
+        return _AdCard(item: data[index]);
+      },
     );
   }
 }

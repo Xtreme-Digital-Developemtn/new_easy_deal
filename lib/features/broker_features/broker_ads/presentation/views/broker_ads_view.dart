@@ -11,18 +11,48 @@ class BrokerAdsView extends StatefulWidget {
 }
 
 class _BrokerAdsViewState extends State<BrokerAdsView> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    scrollController.addListener(_onScroll);
     context.read<BrokerAdsCubit>().getAdvertisementShuffle();
+  }
+
+  void _onScroll() {
+    if (!scrollController.hasClients) return;
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final current = scrollController.position.pixels;
+    if (maxScroll > 0 && current >= maxScroll - 200) {
+      final cubit = context.read<BrokerAdsCubit>();
+      if (cubit.hasMore && !cubit.isLoadingMore) {
+        cubit.loadMore();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_onScroll);
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.myAds),
-      body: BlocBuilder<BrokerAdsCubit, BrokerAdsStates>(
+      body: BlocConsumer<BrokerAdsCubit, BrokerAdsStates>(
+        listener: (context, state) {
+          if (state is LoadMoreAdvertisementShuffleErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          }
+        },
         builder: (context, state) {
+          final cubit = context.read<BrokerAdsCubit>();
           if (state is GetAdvertisementShuffleLoadingState) {
             return const CustomLoading();
           } else if (state is GetAdvertisementShuffleErrorState) {
@@ -42,13 +72,20 @@ class _BrokerAdsViewState extends State<BrokerAdsView> {
               ),
             );
           } else if (state is GetAdvertisementShuffleSuccessState) {
-            var data = state.advertisementShuffleModel?.data ?? [];
+            final data = cubit.ads;
             if (data.isEmpty) {
               return Center(
                 child: Text(LangKeys.thereAreNoItemsCurrentlyAvailable.tr()),
               );
             }
-            return AdsListWidget(data: data);
+            return RefreshIndicator(
+              onRefresh: cubit.getAdvertisementShuffle,
+              child: AdsListWidget(
+                data: data,
+                controller: scrollController,
+                isLoadingMore: cubit.isLoadingMore,
+              ),
+            );
           }
           return const SizedBox.shrink();
         },

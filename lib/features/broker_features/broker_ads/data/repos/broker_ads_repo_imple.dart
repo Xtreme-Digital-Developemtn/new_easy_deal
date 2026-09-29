@@ -12,10 +12,17 @@ class BrokerAdsRepoImpl implements BrokerAdsRepo {
 
 
 @override
-Future<Either<Failure, AdvertisementShuffleModel>> getAdvertisementShuffle() async{
+Future<Either<Failure, AdvertisementShuffleModel>> getAdvertisementShuffle({
+  required int limit,
+  required int offset,
+}) async{
   try {
     var response = await apiService!.getData(
       endPoint: EndPoints.advertisementShuffle,
+      query: {
+        'limit': limit,
+        'offset': offset,
+      },
     );
     AdvertisementShuffleModel result = AdvertisementShuffleModel.fromJson(response.data);
     return right(result);

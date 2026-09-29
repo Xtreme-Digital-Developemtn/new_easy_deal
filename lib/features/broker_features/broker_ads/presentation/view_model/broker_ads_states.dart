@@ -15,3 +15,10 @@ class GetAdvertisementShuffleErrorState extends BrokerAdsStates{
   GetAdvertisementShuffleErrorState(this.error);
 
 }
+
+/// A page past the first one failed — the ads already loaded stay on screen.
+class LoadMoreAdvertisementShuffleErrorState extends BrokerAdsStates{
+  final String error;
+  LoadMoreAdvertisementShuffleErrorState(this.error);
+
+}
