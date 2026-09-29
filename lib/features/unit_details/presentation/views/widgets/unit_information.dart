@@ -15,12 +15,16 @@ class UnitInformation extends StatelessWidget {
 
   /// Keys rendered by other widgets of the unit-details screen, or purely
   /// technical keys that mean nothing to the end user.
+  /// Keys are matched after [_normalizeKey], so a snake_case key sent by the
+  /// API (`broker_user_phone`) matches its camelCase entry here.
   static const Set<String> _hiddenKeys = {
     // technical / internal
-    'id', 'modelId', 'brokerId', 'broker', 'broker_user_image', 'advertisers',
-    'isArchived', 'created_at', 'createdAt', 'updated_at', 'updatedAt',
+    'id', 'modelId', 'brokerId', 'broker', 'brokerUserImage', 'advertisers',
+    'isArchived', 'createdAt', 'updatedAt',
     'gallery', 'diagram', 'locationInMasterPlan',
-    'broker_user_id', 'brokerUserId',
+    'brokerUserId',
+    // broker contact details — reached through the contact buttons instead
+    'brokerUserPhone', 'brokerUserEmail',
     // shown by UnitImageTypeLocation / UnitPriceStatusIndoor
     'type', 'status', 'city', 'area', 'subArea', 'otherSubAreas',
     // shown by UnitLocation
@@ -40,16 +44,38 @@ class UnitInformation extends StatelessWidget {
     'otherExpensesValue', 'requestedOver',
   };
 
-  /// Labels for keys that have no entry in [ApFields.meta].
+  /// Labels for keys that have no entry in [ApFields.meta], keyed by the
+  /// normalized (camelCase) key — see [_normalizeKey].
   static const Map<String, ApText> _extraLabels = {
     'modelCode': ApText('كود الوحدة', 'Unit Code'),
+    'unitCode': ApText('كود الوحدة', 'Unit Code'),
     'unitOperation': ApText('نوع العملية', 'Operation'),
     'compoundType': ApText('نوع الكمبوند', 'Compound Type'),
     'projectName': ApText('اسم المشروع', 'Project Name'),
     'developerName': ApText('اسم المطور', 'Developer Name'),
     'detailedAddress': ApText('العنوان بالتفصيل', 'Detailed Address'),
+    'publishedAt': ApText('تاريخ النشر', 'Published At'),
+    'brokerUserFullName': ApText('اسم الوسيط', 'Broker Name'),
+    'brokerName': ApText('اسم الوسيط', 'Broker Name'),
+    'adType': ApText('نوع الإعلان', 'Ad Type'),
+    'adStatus': ApText('حالة الإعلان', 'Ad Status'),
+    'expiresAt': ApText('تاريخ الانتهاء', 'Expires At'),
+    'rentPeriod': ApText('مدة الإيجار', 'Rent Period'),
+    'rentStartDate': ApText('تاريخ بداية الإيجار', 'Rent Start Date'),
+    'rentEndDate': ApText('تاريخ نهاية الإيجار', 'Rent End Date'),
+    'otherExpensesValue': ApText('قيمة المصاريف الأخرى', 'Other Expenses Value'),
     // 'ownerName': ApText('اسم المالك', 'Owner Name'),
   };
+
+  /// `broker_user_full_name` -> `brokerUserFullName`, so a key resolves to the
+  /// same label whichever casing the backend sends it in.
+  static String _normalizeKey(String key) {
+    if (!key.contains('_')) return key;
+    final parts = key.split('_').where((p) => p.isNotEmpty).toList();
+    if (parts.isEmpty) return key;
+    return parts.first +
+        parts.skip(1).map((p) => p[0].toUpperCase() + p.substring(1)).join();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,19 +136,25 @@ class UnitInformation extends StatelessWidget {
     });
 
     final entries = <MapEntry<String, String>>[];
-    flat.forEach((key, value) {
+    flat.forEach((rawKey, value) {
+      final key = _normalizeKey(rawKey);
       if (_hiddenKeys.contains(key)) return;
+      final label = _labelOf(key, isArabic);
+      // No known label -> the key itself would leak into the UI in English.
+      if (label == null) return;
       final text = _formatValue(key, value, isArabic);
       if (text == null) return;
-      entries.add(MapEntry(_labelOf(key, isArabic), text));
+      entries.add(MapEntry(label, text));
     });
     return entries;
   }
 
-  String _labelOf(String key, bool isArabic) {
+  /// The localized label, or `null` when the key has no label at all — such a
+  /// field is skipped instead of being shown with its raw English key name.
+  String? _labelOf(String key, bool isArabic) {
     final extra = _extraLabels[key];
     if (extra != null) return extra.value(isArabic);
-    return ApFields.metaOf(key).label.value(isArabic);
+    return ApFields.meta[key]?.label.value(isArabic);
   }
 
   /// Returns the display text, or `null` when the value is empty / zero and the
