@@ -17,10 +17,23 @@ class ReplyTableColumns {
 
   static const double horizontalPadding = 12;
 
-  static const double contentWidth =
-      index + unitCode + area + city + broker + finishing + action;
+  /// عرض البوردر بتاع كارت الجدول - لازم يتحسب في العرض الكلي
+  /// وإلا بياكل من مساحة الأعمدة ويعمل overflow.
+  static const double borderWidth = 1;
 
-  static const double tableWidth = contentWidth + horizontalPadding * 2;
+  /// الأعمدة ذات العرض الثابت (كل حاجة ما عدا Broker اللي بيمتد)
+  static const double fixedColumnsWidth =
+      index + unitCode + area + city + finishing + action;
+
+  static const double contentWidth = fixedColumnsWidth + broker;
+
+  /// العرض الطبيعي للجدول = الأعمدة + الـpadding + البوردر من الجهتين
+  static const double tableWidth =
+      contentWidth + horizontalPadding * 2 + borderWidth * 2;
+
+  /// العرض الداخلي المتاح للصف جوه جدول بعرض [tableOuterWidth]
+  static double rowWidth(double tableOuterWidth) =>
+      tableOuterWidth - horizontalPadding * 2 - borderWidth * 2;
 }
 
 class ReplyTableHeader extends StatelessWidget {
@@ -37,10 +50,9 @@ class ReplyTableHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: ReplyTableColumns.horizontalPadding,
       ),
-      // Columns are fixed width, so the row sizes to its content and the
-      // outer table container provides the canvas.
+      // الأعمدة ثابتة ما عدا Broker اللي بياخد الباقي، فمفيش overflow
+      // ولا مساحة ميتة لو الجدول اتمدد على شاشة أوسع.
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           _headerCell(
             '#',
@@ -62,9 +74,17 @@ class ReplyTableHeader extends StatelessWidget {
             width: ReplyTableColumns.city,
           ),
 
-          _headerCell(
-            'Broker',
-            width: ReplyTableColumns.broker,
+          const Expanded(
+            child: Text(
+              'Broker',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff202477),
+              ),
+            ),
           ),
 
           _headerCell(

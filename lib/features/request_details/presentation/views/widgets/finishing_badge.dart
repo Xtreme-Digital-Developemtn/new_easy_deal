@@ -24,6 +24,8 @@ class FinishingBadge extends StatelessWidget {
       ),
       child: Text(
         finishing,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 11,

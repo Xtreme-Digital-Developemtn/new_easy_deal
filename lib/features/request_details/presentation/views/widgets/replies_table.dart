@@ -35,7 +35,8 @@ class RepliesTable extends StatelessWidget {
   /// Fills the screen when it is wider than the columns need, otherwise
   /// keeps its natural width and scrolls horizontally.
   static double _tableWidth(BuildContext context) {
-    final available = MediaQuery.sizeOf(context).width - 32;
+    // الصفحة بتحط padding بـ16.w من كل جهة
+    final available = MediaQuery.sizeOf(context).width - 32.w;
     return available > kTableWidth ? available : kTableWidth;
   }
 

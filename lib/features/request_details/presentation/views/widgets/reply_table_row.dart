@@ -37,7 +37,7 @@ class ReplyTableRow extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        // Broker بياخد المساحة الباقية فالصف يملأ عرض الجدول بدون overflow
         children: [
           _cell(
             '$index',
@@ -62,8 +62,7 @@ class ReplyTableRow extends StatelessWidget {
             width: ReplyTableColumns.city,
           ),
 
-          SizedBox(
-            width: ReplyTableColumns.broker,
+          Expanded(
             child: Text(
               broker,
               maxLines: 1,
