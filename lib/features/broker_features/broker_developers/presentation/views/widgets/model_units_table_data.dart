@@ -107,9 +107,9 @@ class ModelUnitsTableData extends StatelessWidget {
         }
         if (state is GetRequestsCheckAdvertisementCountSuccessState) {
           final result = state.requestsCheckAdvertisementCountModel!.data!;
-          final current = result.currentAdvertisementCount!;
-          final max = result.maxAdvertisements!;
-          if (current > max) {
+          final canCreate = result.canCreateAdvertisement ??
+              (result.currentAdvertisementCount! < result.maxAdvertisements!);
+          if (!canCreate) {
             Toast.showErrorToast(
                 msg: 'لقد تخطيت الحد الاقصى من الاعلانات', context: context);
             return;

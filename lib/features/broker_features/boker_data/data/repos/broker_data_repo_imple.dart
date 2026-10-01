@@ -49,13 +49,13 @@ class BrokerDataRepoImpl implements BrokerDataRepo {
   }
 
   @override
-  Future<Either<Failure, UnitPublishAsAdModel>> unitPublishAsAd({required int id, required String caption})
+  Future<Either<Failure, UnitPublishAsAdModel>> unitPublishAsAd({required int id, String? caption})
   async {
     try {
       var response = await apiService!.postData(
         endPoint: "${EndPoints.unitPublishAsAd}/$id",
         data: {
-          "caption" : caption,
+          if (caption != null && caption.isNotEmpty) "caption": caption,
         },
       );
       UnitPublishAsAdModel result = UnitPublishAsAdModel.fromJson(response.data);

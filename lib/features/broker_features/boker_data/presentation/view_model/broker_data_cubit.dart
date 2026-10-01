@@ -46,7 +46,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
 
 
   UnitPublishAsAdModel? unitPublishAsAdModel;
-  Future<void> unitPublishAsAd({required int id , required String caption}) async {
+  Future<void> unitPublishAsAd({required int id, String? caption}) async {
     emit(UnitPublishAsAdLoadingState());
     var result = await brokerDataRepo!.unitPublishAsAd(id: id,caption: caption);
     return result.fold(

@@ -26,7 +26,7 @@ class AdvertisementDialog extends StatelessWidget {
               controller: captionController,
               maxLines: 4,
               decoration: const InputDecoration(
-                labelText: "الكابشن",
+                labelText: "الكابشن (اختياري)",
                 hintText: "اكتب الكابشن هنا...",
                 border: OutlineInputBorder(),
               ),
@@ -41,18 +41,11 @@ class AdvertisementDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            if (captionController.text.trim().isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("من فضلك اكتب الكابشن"),
-                ),
-              );
-              return;
-            }
+            final caption = captionController.text.trim();
 
             cubit.unitPublishAsAd(
               id: unitId,
-              caption: captionController.text.trim(),
+              caption: caption.isEmpty ? null : caption,
             );
 
             Navigator.pop(context);

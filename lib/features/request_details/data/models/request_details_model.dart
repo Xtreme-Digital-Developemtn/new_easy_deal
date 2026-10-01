@@ -7,9 +7,9 @@ class RequestDetailsModel {
   RequestDetailsModel({this.status, this.message, this.data});
 
   RequestDetailsModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    data = json["data"] == null ? null : Data.fromJson(json["data"]);
+    status = JsonParse.toStringOrNull(json["status"]);
+    message = JsonParse.toStringOrNull(json["message"]);
+    data = JsonParse.toMap(json["data"]) == null ? null : Data.fromJson(JsonParse.toMap(json["data"])!);
   }
 
   Map<String, dynamic> toJson() {
@@ -46,24 +46,32 @@ class Data {
   Data({this.id, this.title, this.specializationScope, this.type, this.unit, this.status, this.numberOfReplies, this.user, this.createdAt, this.updatedAt, this.detailedAddress, this.locations, this.attributes, this.brokers, this.mainImage, this.unitInMasterPlanImage, this.gallery, this.assignedBrokers});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    title = json["title"];
-    specializationScope = json["specializationScope"];
-    type = json["type"];
-    unit = json["unit"];
-    status = json["status"];
-    numberOfReplies = json["numberOfReplies"];
-    user = json["user"] == null ? null : User.fromJson(json["user"]);
-    createdAt = json["createdAt"];
-    updatedAt = json["updatedAt"];
-    detailedAddress = json["detailedAddress"];
-    locations = json["locations"] == null ? null : (json["locations"] as List).map((e) => Locations.fromJson(e)).toList();
-    attributes = json["attributes"] == null ? null : Attributes.fromJson(json["attributes"]);
-    brokers = json["brokers"] ?? [];
-    mainImage = json["mainImage"];
+    id = JsonParse.toIntOrNull(json["id"]);
+    title = JsonParse.toStringOrNull(json["title"]);
+    specializationScope = JsonParse.toStringOrNull(json["specializationScope"]);
+    type = JsonParse.toStringOrNull(json["type"]);
+    unit = JsonParse.toStringOrNull(json["unit"]);
+    status = JsonParse.toStringOrNull(json["status"]);
+    numberOfReplies = JsonParse.toIntOrNull(json["numberOfReplies"]);
+    user = JsonParse.toMap(json["user"]) == null ? null : User.fromJson(JsonParse.toMap(json["user"])!);
+    createdAt = JsonParse.toStringOrNull(json["createdAt"]);
+    updatedAt = JsonParse.toStringOrNull(json["updatedAt"]);
+    detailedAddress = JsonParse.toStringOrNull(json["detailedAddress"]);
+    locations = json["locations"] == null
+        ? null
+        : JsonParse.toDynamicList(json["locations"])
+            .map(JsonParse.toMap)
+            .where((e) => e != null)
+            .map((e) => Locations.fromJson(e!))
+            .toList();
+    attributes = JsonParse.toMap(json["attributes"]) == null
+        ? null
+        : Attributes.fromJson(JsonParse.toMap(json["attributes"])!);
+    brokers = JsonParse.toDynamicList(json["brokers"]);
+    mainImage = JsonParse.toStringOrNull(json["mainImage"]);
     unitInMasterPlanImage = json["unitInMasterPlanImage"];
-    gallery = json["gallery"] ?? [];
-    assignedBrokers = json["assignedBrokers"] ?? [];
+    gallery = JsonParse.toDynamicList(json["gallery"]);
+    assignedBrokers = JsonParse.toDynamicList(json["assignedBrokers"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -127,26 +135,26 @@ class Attributes {
   Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.rooms, this.bathrooms, this.unitView, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.rentRecurrence, this.requiredInsurance, this.otherExpenses, this.mainImage});
 
   Attributes.fromJson(Map<String, dynamic> json) {
-    compoundName = json["compoundName"];
-    detailedAddress = json["detailedAddress"];
-    addressLink = json["addressLink"];
-    unitNumber = json["unitNumber"];
-    buildingNumber = json["buildingNumber"];
-    floor = json["floor"];
-    unitArea = json["unitArea"];
-    rooms = json["rooms"];
-    bathrooms = json["bathrooms"];
-    unitView = json["unitView"];
-    finishingStatus = json["finishingStatus"];
-    furnishingStatus = json["furnishingStatus"];
-    otherAccessories = json["otherAccessories"] == null ? null : List<String>.from(json["otherAccessories"]);
-    notes = json["notes"];
-    unitPrice = json["unitPrice"];
-    unitPriceSuggestions = json["unitPriceSuggestions"];
-    rentRecurrence = json["rentRecurrence"];
-    requiredInsurance = json["requiredInsurance"];
-    otherExpenses = json["otherExpenses"] == null ? null : List<String>.from(json["otherExpenses"]);
-    mainImage = json["mainImage"];
+    compoundName = JsonParse.toStringOrNull(json["compoundName"]);
+    detailedAddress = JsonParse.toStringOrNull(json["detailedAddress"]);
+    addressLink = JsonParse.toStringOrNull(json["addressLink"]);
+    unitNumber = JsonParse.toStringOrNull(json["unitNumber"]);
+    buildingNumber = JsonParse.toStringOrNull(json["buildingNumber"]);
+    floor = JsonParse.toStringOrNull(json["floor"]);
+    unitArea = JsonParse.toIntOrNull(json["unitArea"]);
+    rooms = JsonParse.toIntOrNull(json["rooms"]);
+    bathrooms = JsonParse.toIntOrNull(json["bathrooms"]);
+    unitView = JsonParse.toStringOrNull(json["unitView"]);
+    finishingStatus = JsonParse.toStringOrNull(json["finishingStatus"]);
+    furnishingStatus = JsonParse.toStringOrNull(json["furnishingStatus"]);
+    otherAccessories = JsonParse.toStringList(json["otherAccessories"]);
+    notes = JsonParse.toStringOrNull(json["notes"]);
+    unitPrice = JsonParse.toIntOrNull(json["unitPrice"]);
+    unitPriceSuggestions = JsonParse.toIntOrNull(json["unitPriceSuggestions"]);
+    rentRecurrence = JsonParse.toStringOrNull(json["rentRecurrence"]);
+    requiredInsurance = JsonParse.toStringOrNull(json["requiredInsurance"]);
+    otherExpenses = JsonParse.toStringList(json["otherExpenses"]);
+    mainImage = JsonParse.toStringOrNull(json["mainImage"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -186,8 +194,10 @@ class Locations {
   Locations({this.city, this.areas});
 
   Locations.fromJson(Map<String, dynamic> json) {
-    city = json["city"] == null ? null : City.fromJson(json["city"]);
-    areas = json["areas"] ?? [];
+    city = JsonParse.toMap(json["city"]) == null
+        ? null
+        : City.fromJson(JsonParse.toMap(json["city"])!);
+    areas = JsonParse.toDynamicList(json["areas"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -210,9 +220,9 @@ class City {
   City({this.id, this.nameEn, this.nameAr});
 
   City.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    nameEn = json["name_en"];
-    nameAr = json["name_ar"];
+    id = JsonParse.toIntOrNull(json["id"]);
+    nameEn = JsonParse.toStringOrNull(json["name_en"]);
+    nameAr = JsonParse.toStringOrNull(json["name_ar"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -234,11 +244,11 @@ class User {
   User({this.name, this.role, this.id, this.image, this.phone});
 
   User.fromJson(Map<String, dynamic> json) {
-    name = json["name"];
-    role = json["role"];
-    id = json["id"];
-    image = json["image"];
-    phone = json["phone"];
+    name = JsonParse.toStringOrNull(json["name"]);
+    role = JsonParse.toStringOrNull(json["role"]);
+    id = JsonParse.toIntOrNull(json["id"]);
+    image = JsonParse.toStringOrNull(json["image"]);
+    phone = JsonParse.toStringOrNull(json["phone"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -249,5 +259,52 @@ class User {
     _data["image"] = image;
     _data["phone"] = phone;
     return _data;
+  }
+}
+/// الـAPI بيرجّع الأرقام ساعات كـString ("3") وساعات كـnum (3)، وساعات
+/// الليستات بتجيلها عناصر مش strings. الـhelpers دي بتمنع
+/// `type 'String' is not a subtype of type 'int?'` وقت الـparsing.
+class JsonParse {
+  const JsonParse._();
+
+  static int? toIntOrNull(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    final text = value.toString().trim();
+    if (text.isEmpty) return null;
+    return int.tryParse(text) ?? double.tryParse(text)?.toInt();
+  }
+
+  static String? toStringOrNull(dynamic value) {
+    if (value == null) return null;
+    final text = value.toString().trim();
+    if (text.isEmpty || text == 'null') return null;
+    return text;
+  }
+
+  /// الـAPI ساعات بيرجّع `[]` بدل `{}` للـobject الفاضي، وساعات `null`.
+  /// بيرجّع Map صالحة للـparsing أو null بدل ما يرمي TypeError.
+  static Map<String, dynamic>? toMap(dynamic value) {
+    if (value is Map) return Map<String, dynamic>.from(value);
+    return null;
+  }
+
+  static List<dynamic> toDynamicList(dynamic value) {
+    if (value is List) return value;
+    return const [];
+  }
+
+  static List<String>? toStringList(dynamic value) {
+    if (value == null) return null;
+    if (value is! List) {
+      final single = toStringOrNull(value);
+      return single == null ? null : [single];
+    }
+    return value
+        .map(toStringOrNull)
+        .where((e) => e != null)
+        .cast<String>()
+        .toList();
   }
 }

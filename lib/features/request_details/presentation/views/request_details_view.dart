@@ -76,6 +76,9 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
           }
           if (state is GetRequestDetailsErrorState) {
             return ErrorWidgetUi(
+              // بدون ده الرسالة الحقيقية بتضيع وبيظهر نص عام مش بيساعد في التشخيص
+              message: state.error,
+              isFullScreen: true,
               onRetry: () {
                 requestDetailsCubit.requestDetails(
                   requestId: widget.requestId ?? 10,

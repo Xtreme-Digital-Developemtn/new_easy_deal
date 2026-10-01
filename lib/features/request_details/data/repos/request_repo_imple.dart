@@ -20,8 +20,14 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
       var response = await apiService!.getData(
         endPoint: "${EndPoints.requests}/$requestId",
       );
-      RequestDetailsModel result = RequestDetailsModel.fromJson(response.data);
-      return right(result);
+      try {
+        return right(RequestDetailsModel.fromJson(response.data));
+      } catch (e, stack) {
+        // لو الريسبونس وصل 200 والغلط هنا، يبقى مشكلة parsing مش شبكة
+        debugPrint('🧩 [PARSE ERROR] requestDetails: $e');
+        debugPrintStack(stackTrace: stack);
+        return left(ServerFailure('تعذر قراءة بيانات الطلب من السيرفر'));
+      }
     } catch (e) {
       return left(handleError(e));
     }

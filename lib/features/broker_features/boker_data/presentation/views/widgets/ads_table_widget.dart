@@ -131,24 +131,21 @@ class DataTableWidget extends StatelessWidget {
           return;
         }
 
+        // ده مجرد تحقق من الـ quota قبل فتح الديالوج، مفيش إعلان اتنشر لسه،
+        // فمفيش توست نجاح ولا ريلود هنا.
         if (state is GetRequestsCheckAdvertisementCountSuccessState) {
           final result = state.requestsCheckAdvertisementCountModel!.data!;
-          final current = result.currentAdvertisementCount!;
-          final max = result.maxAdvertisements!;
+          final canCreate = result.canCreateAdvertisement ??
+              (result.currentAdvertisementCount! < result.maxAdvertisements!);
 
-          if (current > max) {
+          if (!canCreate) {
             Toast.showErrorToast(
                 msg: "لقد تخطيت الحد الاقصى من الاعلانات", context: context);
             return;
           }
 
-          Toast.showSuccessToast(msg: "تم بنجاح", context: context);
           final cubit = context.read<BrokerDataCubit>();
           final selectedUnitId = cubit.selectedUnitId;
-          final brokerId = int.tryParse(
-                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
-              0;
-          cubit.getBrokerUnits(brokerId: brokerId);
           showDialog(
             context: context,
             builder: (_) =>
@@ -157,12 +154,18 @@ class DataTableWidget extends StatelessWidget {
         }
 
         if (state is UnitPublishAsAdSuccessState) {
+          Toast.showSuccessToast(
+              msg: "تم نشر الإعلان بنجاح", context: context);
           final brokerId = int.tryParse(
                   CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
               0;
           context
               .read<BrokerDataCubit>()
               .getBrokerUnits(brokerId: brokerId);
+        }
+
+        if (state is UnitPublishAsAdErrorState) {
+          Toast.showErrorToast(msg: state.error, context: context);
         }
 
         if (state is UpdateStatusUnitSoldSuccessState) {
