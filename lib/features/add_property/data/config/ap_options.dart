@@ -568,6 +568,114 @@ class ApOptions {
   ];
 
   // ---------------------------------------------------------------------------
+  // Values the backend sends but that no stepper dropdown offers, so they have
+  // no entry in the arrays above. Without them [label] used to fall back to the
+  // raw English enum value (`all_of_the_above_are_suitable`, `full_finished`,
+  // `ready_for_delivery`, ...) in the middle of an Arabic screen.
+  //
+  // Display-only on purpose: adding them to the arrays above would change the
+  // add-property dropdowns.
+  // ---------------------------------------------------------------------------
+  static const _displayOnlyOptions = <ApOptionItem>[
+    // "all of the above" variants — the API uses more than one spelling
+    ApOptionItem(value: 'all_of_the_above_are_suitable', ar: 'الكل', en: 'All of the Above'),
+    ApOptionItem(value: 'all_of_the_above', ar: 'كل ما سبق', en: 'All of the Above'),
+
+    // payment system
+    ApOptionItem(value: 'mixed', ar: 'مختلط', en: 'Mixed'),
+
+    // unit operation
+    ApOptionItem(value: 'selling', ar: 'بيع', en: 'Sell'),
+    ApOptionItem(value: 'rent', ar: 'تأجير', en: 'Rent Out'),
+    ApOptionItem(value: 'rental', ar: 'تأجير', en: 'Rent Out'),
+    ApOptionItem(value: 'leasing', ar: 'تأجير', en: 'Rent Out'),
+    ApOptionItem(value: 'rent_in', ar: 'استئجار', en: 'Rent In'),
+    ApOptionItem(value: 'renting', ar: 'استئجار', en: 'Rent In'),
+    ApOptionItem(value: 'purchasing', ar: 'شراء', en: 'Purchasing'),
+    ApOptionItem(value: 'purchase', ar: 'شراء', en: 'Purchasing'),
+    ApOptionItem(value: 'buy', ar: 'شراء', en: 'Purchasing'),
+    ApOptionItem(value: 'buying', ar: 'شراء', en: 'Purchasing'),
+
+    // compound type
+    ApOptionItem(value: 'purchasing_sell_inside_compound', ar: 'بيع وشراء داخل كمبوند', en: 'Purchase / Sell Inside Compound'),
+    ApOptionItem(value: 'purchasing_sell_outside_compound', ar: 'بيع وشراء خارج كمبوند', en: 'Purchase / Sell Outside Compound'),
+    ApOptionItem(value: 'purchase_sell_inside_compound', ar: 'بيع وشراء داخل كمبوند', en: 'Purchase / Sell Inside Compound'),
+    ApOptionItem(value: 'purchase_sell_outside_compound', ar: 'بيع وشراء خارج كمبوند', en: 'Purchase / Sell Outside Compound'),
+    ApOptionItem(value: 'rentals_inside_compound', ar: 'إيجارات داخل كمبوند', en: 'Rentals Inside Compound'),
+    ApOptionItem(value: 'rentals_outside_compound', ar: 'إيجارات خارج كمبوند', en: 'Rentals Outside Compound'),
+    ApOptionItem(value: 'primary_inside_compound', ar: 'بيع أولي داخل كمبوند', en: 'Primary Inside Compound'),
+    ApOptionItem(value: 'resale_inside_compound', ar: 'ريسيل داخل كمبوند', en: 'Resale Inside Compound'),
+    ApOptionItem(value: 'chalets_vacation_villas', ar: 'شاليهات وفيلل مصيفية', en: 'Chalets & Vacation Villas'),
+    ApOptionItem(value: 'village', ar: 'قرية', en: 'Village'),
+    ApOptionItem(value: 'residential', ar: 'سكني', en: 'Residential'),
+    ApOptionItem(value: 'commercial', ar: 'تجاري', en: 'Commercial'),
+    ApOptionItem(value: 'administrative', ar: 'إداري', en: 'Administrative'),
+    ApOptionItem(value: 'medical', ar: 'طبي', en: 'Medical'),
+
+    // delivery status
+    ApOptionItem(value: 'ready_for_delivery', ar: 'جاهز للتسليم', en: 'Ready for Delivery'),
+
+    // finishing type
+    ApOptionItem(value: 'full_finished', ar: 'تشطيب كامل', en: 'Full Finished'),
+
+    // unit facing
+    ApOptionItem(value: 'quad_corner', ar: 'أربع واجهات', en: 'Quad Corner'),
+
+    // rent recurrence
+    ApOptionItem(value: 'quarterly', ar: 'ربع سنوي', en: 'Quarterly'),
+    ApOptionItem(value: 'semi_annually', ar: 'نصف سنوي', en: 'Semi Annually'),
+
+    // view
+    ApOptionItem(value: 'pool', ar: 'حمام سباحة', en: 'Pool'),
+    ApOptionItem(value: 'sea', ar: 'إطلالة بحر', en: 'Sea View'),
+    ApOptionItem(value: 'landmark', ar: 'معلم مميز', en: 'Landmark'),
+    ApOptionItem(value: 'park', ar: 'حديقة عامة', en: 'Park'),
+
+    // unit status
+    ApOptionItem(value: 'available', ar: 'متاح', en: 'Available'),
+    ApOptionItem(value: 'sold', ar: 'مباع', en: 'Sold'),
+    ApOptionItem(value: 'rented', ar: 'مؤجر', en: 'Rented'),
+    ApOptionItem(value: 'reserved', ar: 'محجوز', en: 'Reserved'),
+    ApOptionItem(value: 'archived', ar: 'مؤرشف', en: 'Archived'),
+    ApOptionItem(value: 'pending', ar: 'قيد المراجعة', en: 'Pending'),
+    ApOptionItem(value: 'active', ar: 'نشط', en: 'Active'),
+    ApOptionItem(value: 'inactive', ar: 'غير نشط', en: 'Inactive'),
+
+    // unit type — the API sends the singular form on some endpoints while the
+    // stepper arrays above only carry the plural one.
+    ApOptionItem(value: 'apartment', ar: 'شقة', en: 'Apartment'),
+    ApOptionItem(value: 'duplex', ar: 'دوبلكس', en: 'Duplex'),
+    ApOptionItem(value: 'studio', ar: 'ستوديو', en: 'Studio'),
+    ApOptionItem(value: 'penthouse', ar: 'بنت هاوس', en: 'Penthouse'),
+    ApOptionItem(value: 'basement', ar: 'بيزمنت', en: 'Basement'),
+    ApOptionItem(value: 'roof', ar: 'روف', en: 'Roof'),
+    ApOptionItem(value: 'villa', ar: 'فيلا', en: 'Villa'),
+    ApOptionItem(value: 'twin_house', ar: 'توين هاوس', en: 'Twin House'),
+    ApOptionItem(value: 'town_house', ar: 'تاون هاوس', en: 'Town House'),
+    ApOptionItem(value: 'standalone_villa', ar: 'ستاند الون فيلا', en: 'Standalone Villa'),
+    ApOptionItem(value: 'chalet', ar: 'شاليه مصيفي', en: 'Chalet'),
+    ApOptionItem(value: 'chalet_inside', ar: 'شاليه داخل كمبوند', en: 'Chalet Inside Compound'),
+    ApOptionItem(value: 'residential_building', ar: 'عمارة سكنية', en: 'Residential Building'),
+    ApOptionItem(value: 'administrative_unit', ar: 'وحدة إدارية', en: 'Administrative Unit'),
+    ApOptionItem(value: 'commercial_units', ar: 'وحدة تجارية', en: 'Commercial Unit'),
+    ApOptionItem(value: 'commercial_unit', ar: 'وحدة تجارية', en: 'Commercial Unit'),
+    ApOptionItem(value: 'commercial_store', ar: 'محل تجاري', en: 'Commercial Store'),
+    ApOptionItem(value: 'medical_clinic', ar: 'عيادة طبية', en: 'Medical Clinic'),
+    ApOptionItem(value: 'pharmacy', ar: 'صيدلية', en: 'Pharmacy'),
+    ApOptionItem(value: 'commercial_administrative_building', ar: 'مبنى إدارى تجارى', en: 'Commercial Administrative Building'),
+    ApOptionItem(value: 'hotel_unit', ar: 'وحدة فندقية', en: 'Hotel Unit'),
+    ApOptionItem(value: 'hotel_units', ar: 'وحدة فندقية', en: 'Hotel Unit'),
+    ApOptionItem(value: 'residential_land', ar: 'أرض سكنية', en: 'Residential Land'),
+    ApOptionItem(value: 'administrative_lands', ar: 'أراضي إدارية', en: 'Administrative Lands'),
+    ApOptionItem(value: 'commercial_lands', ar: 'أراضي تجارية', en: 'Commercial Lands'),
+    ApOptionItem(value: 'industrial_lands', ar: 'أراضي صناعية', en: 'Industrial Lands'),
+    ApOptionItem(value: 'medical_lands', ar: 'أراضي طبية', en: 'Medical Lands'),
+    ApOptionItem(value: 'mixed_lands', ar: 'أراضي مختلطة', en: 'Mixed Lands'),
+    ApOptionItem(value: 'warehouse_land', ar: 'مخزن او ارض مخزن', en: 'Warehouse Land'),
+    ApOptionItem(value: 'factory_land', ar: 'مصنع او ارض مصنع', en: 'Factory Land'),
+  ];
+
+  // ---------------------------------------------------------------------------
   // Generic value -> label lookup, used to display raw API enum values
   // (unit type, delivery status, finishing type, ...) in the current locale.
   // ---------------------------------------------------------------------------
@@ -617,15 +725,54 @@ class ApOptions {
     ..._residentialAccessories,
     ..._allAccessories,
     ...otherExpenses,
+    ..._displayOnlyOptions,
   ];
+
+  /// `iVilla`, `Administrative Units`, `ADMINISTRATIVE_UNITS` and
+  /// `administrative-units` all collapse to `administrative_units`, so a value
+  /// resolves whichever casing/separator the backend happens to send it in.
+  static String _canonical(String raw) {
+    final out = StringBuffer();
+    var previousWasSeparator = true; // also trims leading separators
+    var previousWasLower = false;
+    for (var i = 0; i < raw.length; i++) {
+      final char = raw[i];
+      if (char == '_' || char == '-' || char == ' ' || char == '/') {
+        if (!previousWasSeparator) {
+          out.write('_');
+          previousWasSeparator = true;
+          previousWasLower = false;
+        }
+        continue;
+      }
+      final lower = char.toLowerCase();
+      final isUpper = lower != char;
+      // camelCase boundary -> `iVilla` becomes `i_villa`. Only after a
+      // lowercase char, so an all-caps `ADMINISTRATIVE_UNITS` isn't split
+      // between every letter.
+      if (isUpper && previousWasLower) out.write('_');
+      out.write(lower);
+      previousWasSeparator = false;
+      previousWasLower = !isUpper;
+    }
+    final result = out.toString();
+    return result.endsWith('_')
+        ? result.substring(0, result.length - 1)
+        : result;
+  }
+
+  /// Built once instead of scanning [_allOptions] on every cell of every list.
+  /// The first entry wins, which is why [_displayOnlyOptions] comes last in
+  /// [_allOptions] — a stepper array's wording takes precedence over it.
+  static final Map<String, ApOptionItem> _labelIndex = {
+    for (final option in _allOptions.reversed) _canonical(option.value): option,
+  };
 
   /// Translates a raw API enum value (unit type, delivery status, ...) into
   /// its Arabic/English label. Falls back to [value] itself when unknown.
   static String label(String? value, bool isArabic) {
     if (value == null || value.isEmpty) return '';
-    for (final option in _allOptions) {
-      if (option.value == value) return option.label(isArabic);
-    }
-    return value;
+    final hit = _labelIndex[_canonical(value)];
+    return hit != null ? hit.label(isArabic) : value;
   }
 }

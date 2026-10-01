@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -24,29 +25,29 @@ class RequestInformationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RequestSection(
-      title: 'REQUEST INFORMATION',
+      title: LangKeys.requestInformation.tr(),
       child: InfoCard(
         children: [
           InfoRow(
-            title: 'Request ID',
+            title: LangKeys.requestId.tr(),
             value: data?.id?.toString() ?? '-',
           ),
           InfoRow(
-            title: 'Title',
+            title: LangKeys.title.tr(),
             value: (data?.type != null || data?.unit != null)
                 ? RequestTranslations.title(data?.type, data?.unit)
                 : (data?.title?.toString() ?? '-'),
           ),
           InfoRow(
-            title: 'Creation Date',
+            title: LangKeys.dateOfCreation.tr(),
             value: _formatDate(data?.createdAt),
           ),
           InfoRow(
-            title: 'Last Updated',
+            title: LangKeys.lastUpdated.tr(),
             value: _formatDate(data?.updatedAt),
           ),
           InfoRow(
-            title: 'Replies',
+            title: LangKeys.numberOfReplies.tr(),
             value: data?.numberOfReplies?.toString() ?? '0',
           ),
         ],

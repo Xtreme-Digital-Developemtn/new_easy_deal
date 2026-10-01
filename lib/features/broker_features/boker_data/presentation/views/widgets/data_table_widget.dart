@@ -334,8 +334,10 @@ class DataTableWidget extends StatelessWidget {
         DataCell(_cell(_val(BrokerTextHelper.projectTypeText(item.compoundType ?? '')))),
         DataCell(_cell(_val(item.city?.nameAr))),
         DataCell(_cell(_val(item.area?.nameAr))),
-        DataCell(_cell(_val(item.unitOperation))),
-        DataCell(_cell(_val(item.type))),
+        DataCell(_cell(_val(BrokerTextHelper.unitOperationText(
+            item.unitOperation?.toString() ?? '')))),
+        DataCell(_cell(
+            _val(BrokerTextHelper.unitTypeText(item.type?.toString() ?? '')))),
         DataCell(_cell(_val(item.unitArea?.toString()))),
         DataCell(_cell(_val(item.totalPriceInCash?.toString()))),
         DataCell(_cell(_val(item.detailedAddress))),

@@ -210,6 +210,8 @@ abstract class LangKeys {
   static const String theView = 'theView';
   static const String finishingCondition = 'finishingCondition';
   static const String deliveryStatus = 'deliveryStatus';
+  static const String deliveryDate = 'deliveryDate';
+  static const String installmentPrice = 'installmentPrice';
   static const String otherLuxuries = 'otherLuxuries';
   static const String notes = 'notes';
   static const String mainImage = 'mainImage';
@@ -249,6 +251,13 @@ abstract class LangKeys {
   static const String dateOfCreation = 'dateOfCreation';
   static const String requiredPaymentSystem = 'requiredPaymentSystem';
   static const String otherAccessories = 'otherAccessories';
+  static const String furnishingStatus = 'furnishingStatus';
+  static const String squareMeter = 'squareMeter';
+  static const String requestId = 'requestId';
+  static const String lastUpdated = 'lastUpdated';
+  static const String numberOfReplies = 'numberOfReplies';
+  static const String brokerPriceSuggestions = 'brokerPriceSuggestions';
+  static const String unitPrice = 'unitPrice';
   static const String minimumUnitArea = 'minimumUnitArea';
   static const String maximumUnitArea = 'maximumUnitArea';
   static const String minimumAverageUnitPrice = 'minimumAverageUnitPrice';

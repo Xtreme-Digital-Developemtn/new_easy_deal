@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/recommended_model.dart';
 import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
@@ -5,6 +6,13 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/re
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reply_table_row.dart';
 
 import '../../../../../main_imports.dart';
+
+/// `full_finished` / `superLux` وغيرها بترجع من الـ API كـ enum إنجليزي.
+String _finishingText(BuildContext context, dynamic finishingType) {
+  final raw = finishingType?.toString();
+  if (raw == null || raw.isEmpty) return '-';
+  return ApOptions.label(raw, context.isArabic);
+}
 
 class RepliesTable extends StatelessWidget {
   const RepliesTable({
@@ -90,7 +98,7 @@ class RepliesTable extends StatelessWidget {
             area: item.unitArea?.toString() ?? '-',
             city: _cityName(context, item),
             broker: item.displayBrokerName,
-            finishing: item.displayFinishing,
+            finishing: _finishingText(context, item.finishingType),
           );
         }),
         if (hasMore || isLoadingMore)
@@ -205,7 +213,7 @@ class RepliesModelTable extends StatelessWidget {
             area: unit?.unitArea?.toString() ?? '-',
             city: unit != null ? _cityName(context, unit) : '-',
             broker: broker,
-            finishing: unit?.finishingType?.toString() ?? '-',
+            finishing: _finishingText(context, unit?.finishingType),
           );
         }),
         if (hasMore || isLoadingMore)
@@ -296,7 +304,7 @@ class RecommendedTable extends StatelessWidget {
             area: item.unitArea?.toString() ?? '-',
             city: _cityName(context, item),
             broker: item.displayBrokerName,
-            finishing: item.displayFinishing,
+            finishing: _finishingText(context, item.finishingType),
           );
         }),
         if (hasMore || isLoadingMore)

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
@@ -20,27 +21,31 @@ class FinancialNotesSection extends StatelessWidget {
     final hasSuggestion = attributes?.unitPriceSuggestions != null;
     final rawPaymentSystem = attributes?.rentRecurrence ?? attributes?.requiredInsurance;
     return RequestSection(
-      title: 'FINANCIAL & NOTES',
+      title: LangKeys.financialInformation.tr(),
       child: InfoCard(
         children: [
           InfoRow(
-            title: 'Unit Price',
-            value: attributes?.unitPrice != null ? '${attributes!.unitPrice} EGP' : '-',
+            title: LangKeys.unitPrice.tr(),
+            value: attributes?.unitPrice != null
+                ? '${attributes!.unitPrice} ${LangKeys.egp.tr()}'
+                : '-',
           ),
           InfoRow(
-            title: 'Broker Price Suggestions',
-            value: hasSuggestion ? '${attributes!.unitPriceSuggestions} EGP' : 'No',
+            title: LangKeys.brokerPriceSuggestions.tr(),
+            value: hasSuggestion
+                ? '${attributes!.unitPriceSuggestions} ${LangKeys.egp.tr()}'
+                : LangKeys.notAvailable.tr(),
           ),
           InfoRow(
-            title: 'Payment System',
+            title: LangKeys.paymentSystem.tr(),
             value: rawPaymentSystem != null ? ApOptions.label(rawPaymentSystem, context.isArabic) : '-',
           ),
           InfoRow(
-            title: 'Other Expenses',
+            title: LangKeys.otherExpenses.tr(),
             value: _expensesText(context),
           ),
           InfoRow(
-            title: 'Other Notes',
+            title: LangKeys.notes.tr(),
             value: attributes?.notes?.isNotEmpty == true ? attributes!.notes! : '-',
           ),
         ],

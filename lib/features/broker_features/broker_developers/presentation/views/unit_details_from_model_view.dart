@@ -1,4 +1,5 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'package:easy_deal/features/unit_details/data/models/unit_details_response.dart';
@@ -98,6 +99,9 @@ class _UnitDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final isAr = context.locale.languageCode == 'ar';
     final na = LangKeys.notAvailable.tr();
+    // الـ API بيرجع الحقول دي كـ enum إنجليزي (`full_finished`, `cash`, ...)،
+    // فلازم تمر على ApOptions.label قبل العرض.
+    String tr(dynamic value) => ApOptions.label(value?.toString(), isAr);
 
     return ListView(
       padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 32.h),
@@ -105,7 +109,7 @@ class _UnitDetailsBody extends StatelessWidget {
         // ── صورة + نوع + موقع ──────────────────────────────────────────
         UnitImageTypeLocation(
           image: unit.diagram != null && unit.diagram.toString().isNotEmpty ? unit.diagram : null,
-          apartment: unit.type,
+          apartment: tr(unit.type),
           city: isAr ? unit.city?.nameAr?.toString() ?? '' : unit.city?.nameEn?.toString() ?? '',
           area: isAr ? unit.area?.nameAr?.toString() ?? '' : unit.area?.nameEn?.toString() ?? '',
           subArea: isAr ? unit.subArea?.nameAr?.toString() ?? '' : unit.subArea?.nameEn?.toString() ?? '',
@@ -117,8 +121,8 @@ class _UnitDetailsBody extends StatelessWidget {
           price: unit.totalPriceInCash > 0
               ? unit.totalPriceInCash.toString()
               : null,
-          type: unit.unitOperation,
-          status: unit.status,
+          type: tr(unit.unitOperation),
+          status: tr(unit.status),
         ),
         Gap(20.h),
 
@@ -160,22 +164,26 @@ class _UnitDetailsBody extends StatelessWidget {
           children: [
             _InfoRow(label: LangKeys.unitNumber.tr(), value: unit.unitNumber),
             _InfoRow(label: LangKeys.floor.tr(), value: unit.floor),
-            _InfoRow(label: LangKeys.unitType.tr(), value: unit.type),
-            _InfoRow(label: LangKeys.subUnitType.tr(), value: unit.unitOperation),
-            _InfoRow(label: LangKeys.compoundType.tr(), value: unit.compoundType),
-            _InfoRow(label: LangKeys.theView.tr(), value: unit.view),
+            _InfoRow(label: LangKeys.unitType.tr(), value: tr(unit.type)),
+            _InfoRow(
+                label: LangKeys.operationType.tr(),
+                value: tr(unit.unitOperation)),
+            _InfoRow(
+                label: LangKeys.compoundType.tr(),
+                value: tr(unit.compoundType)),
+            _InfoRow(label: LangKeys.theView.tr(), value: tr(unit.view)),
             _InfoRow(
                 label: LangKeys.finishingCondition.tr(),
-                value: unit.finishingType),
+                value: tr(unit.finishingType)),
             _InfoRow(
                 label: LangKeys.deliveryStatus.tr(),
-                value: unit.deliveryStatus),
+                value: tr(unit.deliveryStatus)),
             _InfoRow(
-                label: LangKeys.deliveryStatus.tr(),
+                label: LangKeys.deliveryDate.tr(),
                 value: unit.deliveryDate.isNotEmpty ? unit.deliveryDate : na),
             _InfoRow(
                 label: LangKeys.paymentSystem.tr(),
-                value: unit.paymentSystem),
+                value: tr(unit.paymentSystem)),
           ],
         ),
         Gap(16.h),
@@ -192,7 +200,7 @@ class _UnitDetailsBody extends StatelessWidget {
                   : na,
             ),
             _InfoRow(
-              label: LangKeys.paymentSystem.tr(),
+              label: LangKeys.installmentPrice.tr(),
               value: (unit.totalPriceInInstallment ?? 0) > 0
                   ? '${unit.totalPriceInInstallment} ${LangKeys.egp.tr()}'
                   : na,
@@ -210,9 +218,8 @@ class _UnitDetailsBody extends StatelessWidget {
         // ── المميزات ──────────────────────────────────────────────────
           if (unit.otherAccessories!.isNotEmpty) ...[
             UnitFeatures(
-              otherAccessories: unit.otherAccessories
-                  !.map((e) => e.toString())
-                  .toList(),
+              otherAccessories:
+                  unit.otherAccessories!.map((e) => tr(e)).toList(),
             ),
             Gap(16.h),
           ],

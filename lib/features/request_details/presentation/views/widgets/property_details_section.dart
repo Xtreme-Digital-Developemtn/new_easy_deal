@@ -1,7 +1,7 @@
-
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../main_imports.dart';
 
@@ -10,46 +10,53 @@ class PropertyDetailsSection extends StatelessWidget {
 
   final Attributes? attributes;
 
-  String _areaText(int? value) => value != null ? '$value m²' : '-';
-  String _priceText(int? value) => value != null ? '$value EGP' : '-';
+  String _areaText(int? value) =>
+      value != null ? '$value ${LangKeys.squareMeter.tr()}' : '-';
+
+  String _priceText(int? value) =>
+      value != null ? '$value ${LangKeys.egp.tr()}' : '-';
 
   @override
   Widget build(BuildContext context) {
     final attr = attributes;
     return RequestSection(
-      title: 'PROPERTY DETAILS',
+      title: LangKeys.propertyDetails.tr(),
       child: InfoCard(
         children: [
           InfoRow(
-            title: 'Floor',
-            value: attr?.floor != null ? ApOptions.label(attr!.floor, context.isArabic) : '-',
+            title: LangKeys.floor.tr(),
+            value: attr?.floor != null
+                ? ApOptions.label(attr!.floor, context.isArabic)
+                : '-',
           ),
           InfoRow(
-            title: 'Min Unit Area',
+            title: LangKeys.minimumUnitArea.tr(),
             value: _areaText(attr?.unitArea),
           ),
           InfoRow(
-            title: 'Max Unit Area',
+            title: LangKeys.maximumUnitArea.tr(),
             value: _areaText(attr?.unitArea),
           ),
           InfoRow(
-            title: 'Rooms',
+            title: LangKeys.numberOfRooms.tr(),
             value: attr?.rooms?.toString() ?? '-',
           ),
           InfoRow(
-            title: 'Bathrooms',
+            title: LangKeys.bathrooms.tr(),
             value: attr?.bathrooms?.toString() ?? '-',
           ),
           InfoRow(
-            title: 'Unit View',
-            value: attr?.unitView != null ? ApOptions.label(attr!.unitView, context.isArabic) : '-',
+            title: LangKeys.theView.tr(),
+            value: attr?.unitView != null
+                ? ApOptions.label(attr!.unitView, context.isArabic)
+                : '-',
           ),
           InfoRow(
-            title: 'Min Avg Unit Price',
+            title: LangKeys.minimumAverageUnitPrice.tr(),
             value: _priceText(attr?.unitPrice),
           ),
           InfoRow(
-            title: 'Max Avg Unit Price',
+            title: LangKeys.maximumAverageUnitPrice.tr(),
             value: _priceText(attr?.unitPriceSuggestions ?? attr?.unitPrice),
           ),
         ],

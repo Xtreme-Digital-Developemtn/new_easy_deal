@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/data/config/area_display.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
@@ -20,20 +21,20 @@ class LocationDetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RequestSection(
-      title: 'LOCATION DETAILS',
+      title: LangKeys.siteDetails.tr(),
       child: InfoCard(
         children: [
           InfoRow(
-            title: 'City',
+            title: LangKeys.city.tr(),
             value: _cityName(context),
           ),
           InfoRow(
-            title: 'Area',
+            title: LangKeys.area.tr(),
             value: AreaDisplay.fromLocations(context, data?.locations),
           ),
           if (data?.detailedAddress != null && data!.detailedAddress!.isNotEmpty)
             InfoRow(
-              title: 'Detailed Address',
+              title: LangKeys.detailedAddress.tr(),
               value: data!.detailedAddress!,
             ),
         ],
