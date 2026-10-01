@@ -1,5 +1,6 @@
 class EndPoints {
-  static const String baseUrl = 'https://new.easydealmasr.com/api/v1/';
+  // static const String baseUrl = 'https://new.easydealmasr.com/api/v1/';
+    static const String baseUrl = 'https://easydeal-backend-oj2fzluq.on-forge.com/';
   // static const String baseUrl = 'https://easydealmasr.com/api/v1/';
   static const String imageBaseUrl = 'https://new.easydealmasr.com';
   static const String login = 'auth/login';
