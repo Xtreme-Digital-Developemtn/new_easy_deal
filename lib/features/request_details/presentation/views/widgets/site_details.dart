@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/config/area_display.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_details_item.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -37,7 +38,7 @@ class SiteDetails extends StatelessWidget {
                 ),
                 RequestDetailsItem(
                   title: LangKeys.area,
-                  value: locations![0].areas.toString(),
+                  value: AreaDisplay.fromLocations(context, locations),
                 ),
                 RequestDetailsItem(
                   title: LangKeys.subArea,

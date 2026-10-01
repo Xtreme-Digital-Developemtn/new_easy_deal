@@ -18,11 +18,11 @@ class RequestHeader extends StatelessWidget {
         .data!;
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(
-        16,
-        8,
-        16,
-        24,
+      padding: EdgeInsets.fromLTRB(
+        16.w,
+        8.h,
+        16.w,
+        24.h,
       ),
       decoration:   BoxDecoration(
         color: AppColors.primaryDark,

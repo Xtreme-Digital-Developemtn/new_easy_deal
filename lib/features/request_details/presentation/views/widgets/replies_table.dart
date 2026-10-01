@@ -29,14 +29,21 @@ class RepliesTable extends StatelessWidget {
     return city.nameEn?.isNotEmpty == true ? city.nameEn! : (city.nameAr ?? '-');
   }
 
-  // fixed table width = sum of column widths (595) + horizontal padding (24) + border
-  static const double kTableWidth = 720;
+  /// Derived from the shared column widths - no dead space on the right.
+  static const double kTableWidth = ReplyTableColumns.tableWidth;
+
+  /// Fills the screen when it is wider than the columns need, otherwise
+  /// keeps its natural width and scrolls horizontally.
+  static double _tableWidth(BuildContext context) {
+    final available = MediaQuery.sizeOf(context).width - 32;
+    return available > kTableWidth ? available : kTableWidth;
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget buildTable({required List<Widget> rows}) {
       return Container(
-        width: kTableWidth,
+        width: _tableWidth(context),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -152,7 +159,7 @@ class RepliesModelTable extends StatelessWidget {
 
     Widget buildTable({required List<Widget> rows}) {
       return Container(
-        width: RepliesTable.kTableWidth,
+        width: RepliesTable._tableWidth(context),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -245,7 +252,7 @@ class RecommendedTable extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget buildTable({required List<Widget> rows}) {
       return Container(
-        width: RepliesTable.kTableWidth,
+        width: RepliesTable._tableWidth(context),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),

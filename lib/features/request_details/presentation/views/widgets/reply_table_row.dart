@@ -2,6 +2,7 @@
 
 import '../../../../../main_imports.dart';
 import 'finishing_badge.dart';
+import 'reply_table_header.dart';
 
 class ReplyTableRow extends StatelessWidget {
   final int index;
@@ -25,7 +26,9 @@ class ReplyTableRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(
+        horizontal: ReplyTableColumns.horizontalPadding,
+      ),
       decoration: const BoxDecoration(
         border: Border(
           top: BorderSide(
@@ -38,29 +41,29 @@ class ReplyTableRow extends StatelessWidget {
         children: [
           _cell(
             '$index',
-            width: 45,
+            width: ReplyTableColumns.index,
             color: const Color(0xff777777),
           ),
 
           _cell(
             unitCode,
-            width: 110,
+            width: ReplyTableColumns.unitCode,
             color: const Color(0xff202477),
             fontWeight: FontWeight.w600,
           ),
 
           _cell(
             area,
-            width: 85,
+            width: ReplyTableColumns.area,
           ),
 
           _cell(
             city,
-            width: 75,
+            width: ReplyTableColumns.city,
           ),
 
           SizedBox(
-            width: 115,
+            width: ReplyTableColumns.broker,
             child: Text(
               broker,
               maxLines: 1,
@@ -73,14 +76,14 @@ class ReplyTableRow extends StatelessWidget {
           ),
 
           SizedBox(
-            width: 90,
+            width: ReplyTableColumns.finishing,
             child: FinishingBadge(
               finishing: finishing,
             ),
           ),
 
           SizedBox(
-            width: 75,
+            width: ReplyTableColumns.action,
             child: _ViewButton(
               onTap: () {
                 // TODO: Open reply details

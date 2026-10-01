@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/config/area_display.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -16,19 +17,6 @@ class LocationDetailsSection extends StatelessWidget {
         : (city.nameEn?.toString().isNotEmpty == true ? city.nameEn! : city.nameAr ?? '-');
   }
 
-  String _areaName() {
-    final locations = data?.locations;
-    if (locations == null || locations.isEmpty) return '-';
-    final areas = locations.first.areas;
-    if (areas == null || areas.isEmpty) return '-';
-    // areas is List<dynamic> - can contain String or Map
-    return areas.map((e) {
-      if (e is String) return e;
-      if (e is Map) return e['name_en'] ?? e['name_ar'] ?? e['name'] ?? e.toString();
-      return e.toString();
-    }).join(', ');
-  }
-
   @override
   Widget build(BuildContext context) {
     return RequestSection(
@@ -41,7 +29,7 @@ class LocationDetailsSection extends StatelessWidget {
           ),
           InfoRow(
             title: 'Area',
-            value: _areaName(),
+            value: AreaDisplay.fromLocations(context, data?.locations),
           ),
           if (data?.detailedAddress != null && data!.detailedAddress!.isNotEmpty)
             InfoRow(

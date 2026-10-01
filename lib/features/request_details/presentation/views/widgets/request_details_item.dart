@@ -12,10 +12,17 @@ class RequestDetailsItem extends StatelessWidget {
     return  Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("${title.tr()} : "),
-            Gap(24.w),
-            Text(value),
+            Gap(12.w),
+            // القيمة ممكن تطول (أكتر من منطقة مثلاً) فلازم تاخد الباقي وتلفّ
+            Expanded(
+              child: Text(
+                value,
+                textAlign: TextAlign.end,
+              ),
+            ),
           ],
         ),
         if(!isLast)

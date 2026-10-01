@@ -8,7 +8,6 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/re
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_info_grid.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reviews_tabs.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class RequestDetailsView extends StatefulWidget {
   const RequestDetailsView({super.key,required this.requestId});
@@ -102,31 +101,35 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
             child: Column(
               children: [
                 const RequestHeader(),
-                Gap(12.h),
-                RequestActions(
-                    onAssignBrokerTap:(){
-                      context.pushNamed(
-                        Routes.assignToBrokerView,
-                        arguments: {'requestId': widget.requestId},
-                      );
-                    },
-                  onNewTap: () => updateStatus('new'),
-                  onCompleteTap: () => updateStatus('finished'),
-                  onStartProcessingTap: () => updateStatus('in_processing'),
+                Gap(16.h),
+
+                /// كل المحتوى تحت الهيدر جوه مسافات جانبية موحدة
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RequestActions(
+                        onAssignBrokerTap: () {
+                          context.pushNamed(
+                            Routes.assignToBrokerView,
+                            arguments: {'requestId': widget.requestId},
+                          );
+                        },
+                        onNewTap: () => updateStatus('new'),
+                        onCompleteTap: () => updateStatus('finished'),
+                        onStartProcessingTap: () => updateStatus('in_processing'),
+                      ),
+                      Gap(16.h),
+                      const RequestInfoGrid(),
+                      Gap(16.h),
+                      const RequestDetailsTabs(),
+                      Gap(16.h),
+                      const RequestDetailsTabContent(),
+                    ],
+                  ),
                 ),
-                Gap(12.h),
-                RequestInfoGrid(),
-                Gap(12.h),
-                RequestDetailsTabs(),
-                Gap(12.h),
-                RequestDetailsTabContent(),
                 Gap(24.h),
-                CustomButton(
-                  onPressed: () {},
-                  color: AppColors.errorDark,
-                  gradientColors: false,
-                  text: LangKeys.cancel.tr(),
-                ),
               ],
             ),
           );
