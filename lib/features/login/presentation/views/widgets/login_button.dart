@@ -50,24 +50,9 @@ class LoginButton extends StatelessWidget {
                 text: LangKeys.signIn.tr(),
                 onPressed: isValid
                     ? () {
-                   //  loginCubit.phoneCon.text = "1262587412";
-                   // loginCubit.passwordCon.text = "Admin1234";
-                   //  loginCubit.phoneCon.text = "1028046713";
-                   //  loginCubit.passwordCon.text = "Mm@123456";
-                   //   loginCubit.phoneCon.text = "1024649377";
-                   //   loginCubit.passwordCon.text = "Admin1234";
-
                   /// broker
-                  // loginCubit.phoneCon.text = "1132345698";
-                  // loginCubit.passwordCon.text = "Admin1234";
-                  //  loginCubit.phoneCon.text = "1132345693";
-                  //  loginCubit.passwordCon.text = "Admin1234";
-                   /// developer
-                   // loginCubit.phoneCon.text = "1132345692";
-                   // loginCubit.passwordCon.text = "Admin1234";
-                  /// broker
-                  //  loginCubit.phoneCon.text = "1132345701";
-                  //  loginCubit.passwordCon.text = "Admin1234";
+                  //   loginCubit.phoneCon.text = "1007006336";
+                  //   loginCubit.passwordCon.text = "MY1720my";
                         loginCubit.login(
                           password: loginCubit.passwordCon.text,
                           phone: loginCubit.phoneCon.text,
