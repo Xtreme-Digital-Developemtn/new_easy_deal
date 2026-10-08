@@ -17,6 +17,9 @@ import 'package:easy_deal/features/layout/presentation/views/layout_view.dart';
 import 'package:easy_deal/features/login/data/repos/login_repo_imple.dart';
 import 'package:easy_deal/features/login/presentation/view_model/login_cubit.dart';
 import 'package:easy_deal/features/login/presentation/views/login_view.dart';
+import 'package:easy_deal/features/forgot_password/data/repos/forgot_password_repo_imple.dart';
+import 'package:easy_deal/features/forgot_password/presentation/view_model/forgot_password_cubit.dart';
+import 'package:easy_deal/features/forgot_password/presentation/views/forgot_password_view.dart';
 import 'package:easy_deal/features/onbaording/presentation/views/onboarding_view.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/register/presentation/views/register_view.dart';
@@ -128,6 +131,11 @@ class AppRouter {
         return transition(
           screen: const LoginView(),
           cubit: LoginCubit(getIt.get<LoginRepoImpl>()),
+        );
+      case Routes.forgotPasswordView:
+        return transition(
+          screen: const ForgotPasswordView(),
+          cubit: ForgotPasswordCubit(getIt.get<ForgotPasswordRepoImpl>()),
         );
       case Routes.layoutView:
         return transition(

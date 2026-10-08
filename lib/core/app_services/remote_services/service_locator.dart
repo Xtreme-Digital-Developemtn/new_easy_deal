@@ -19,6 +19,7 @@ import '../../../features/faqs/data/repos/faqs_repo_imple.dart';
 import '../../../features/home/data/repos/home_repo_imple.dart';
 import '../../../features/layout/data/repos/layout_repo_imple.dart';
 import '../../../features/login/data/repos/login_repo_imple.dart';
+import '../../../features/forgot_password/data/repos/forgot_password_repo_imple.dart';
 import '../../../features/profile/data/repos/profile_repo_imple.dart';
 import '../../../features/register/data/repos/register_repo_imple.dart';
 import '../../../features/report_issue/data/repos/report_issue_repo_imple.dart';
@@ -114,6 +115,9 @@ void setup() {
     getIt.get<ApiService>(),
   ));
   getIt.registerSingleton<LayoutRepoImpl>(LayoutRepoImpl(
+    getIt.get<ApiService>(),
+  ));
+  getIt.registerSingleton<ForgotPasswordRepoImpl>(ForgotPasswordRepoImpl(
     getIt.get<ApiService>(),
   ));
 
