@@ -1,4 +1,4 @@
-class ArLang {
+﻿class ArLang {
   static const Map<String, dynamic> ar = {
     "signIn": "تسجيل الدخول",
     "phoneNumber": "رقم الهاتف",
@@ -56,7 +56,7 @@ class ArLang {
     "confirmYourPhoneNumber": "تأكيد رقم الهاتف",
     "confirmYourEmail": "تأكيد البريد الإلكتروني",
     "verifyCode": "تحقق من الرمز",
-    "enterThe4DigitNumberSentTo": "أدخل الرمز المكون من 4 أرقام المرسل إلى",
+    "enterThe4DigitNumberSentTo": "أدخل الرمز المكون من 6 أرقام المرسل إلى",
     "pleaseEnterValidOtp": "الرجاء إدخال رمز OTP صحيح",
     "emailAddressChangedSuccessfully": "تم تغيير البريد الإلكتروني بنجاح",
     "mobileNumberChangedSuccessfully": "تم تغيير رقم الهاتف بنجاح",

@@ -1,4 +1,4 @@
-class EnLang {
+﻿class EnLang {
   static const Map<String, dynamic> en = {
     "signIn": "Sign In",
     "phoneNumber": "Phone Number",
@@ -56,7 +56,7 @@ class EnLang {
     "confirmYourPhoneNumber": "Confirm Your Phone Number",
     "confirmYourEmail": "Confirm Your Email",
     "verifyCode": "Verify Code",
-    "enterThe4DigitNumberSentTo": "Enter the 4-digit number sent to",
+    "enterThe4DigitNumberSentTo": "Enter the 6-digit number sent to",
     "pleaseEnterValidOtp": "Please enter a valid OTP",
     "emailAddressChangedSuccessfully": "Email address changed successfully",
     "mobileNumberChangedSuccessfully": "Mobile number changed successfully",
