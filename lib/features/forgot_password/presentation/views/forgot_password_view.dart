@@ -16,22 +16,25 @@ class ForgotPasswordView extends StatefulWidget {
 }
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  late final ForgotPasswordCubit _cubit;
+
   @override
   void initState() {
     super.initState();
-    context.read<ForgotPasswordCubit>().otpCon.addListener(_onOtpChanged);
+    _cubit = context.read<ForgotPasswordCubit>();
+    _cubit.otpCon.addListener(_onOtpChanged);
   }
 
   void _onOtpChanged() {
     if (!mounted) return;
-    context.read<ForgotPasswordCubit>().onOtpChanged();
+    _cubit.onOtpChanged();
     setState(() {});
   }
 
   @override
   void dispose() {
     try {
-      context.read<ForgotPasswordCubit>().otpCon.removeListener(_onOtpChanged);
+      _cubit.otpCon.removeListener(_onOtpChanged);
     } catch (_) {}
     super.dispose();
   }
@@ -147,7 +150,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           ),
         ),
         Gap(20.h),
-        PinCodeFieldsWidget(controller: cubit.otpCon),
+        PinCodeFieldsWidget(
+          controller: cubit.otpCon,
+          autoDisposeControllers: false,
+        ),
         Gap(12.h),
         ResendOtp(onResend: () => cubit.sendOtp()),
         Gap(8.h),

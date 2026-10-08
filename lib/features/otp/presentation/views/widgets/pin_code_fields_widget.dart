@@ -6,7 +6,12 @@ import '../../../../../main_imports.dart';
 class PinCodeFieldsWidget extends StatelessWidget {
   final TextEditingController controller;
 
-  const PinCodeFieldsWidget({super.key, required this.controller});
+  /// pin_code_fields بيعمل dispose للـ controller لوحده (default true).
+  /// لو الـ controller مملوك لـ Cubit لازم تبقى false عشان مايحصلش double-dispose.
+  final bool autoDisposeControllers;
+
+  const PinCodeFieldsWidget(
+      {super.key, required this.controller, this.autoDisposeControllers = true});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,7 @@ class PinCodeFieldsWidget extends StatelessWidget {
       child: PinCodeTextField(
         keyboardType : TextInputType.number,
         controller: controller,
+        autoDisposeControllers: autoDisposeControllers,
         length: 6,
         appContext: context,
         onChanged: (_) {},
