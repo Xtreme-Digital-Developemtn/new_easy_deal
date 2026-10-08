@@ -22,7 +22,10 @@ class AccountTypeBody extends StatelessWidget {
               color: AppColors.secondBlack,
             ),),
             Gap(8.w),
-            Text(LangKeys.termsOfService.tr(),style: AppStyles.primary16SemiBold,),
+            InkWell(
+              onTap: () => context.pushNamed(Routes.privacyTermsView),
+              child: Text(LangKeys.termsOfService.tr(),style: AppStyles.primary16SemiBold,),
+            ),
           ],
         ),
         Gap(MediaQuery.of(context).size.height*0.5),
