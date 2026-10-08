@@ -26,15 +26,11 @@ class LoginButton extends StatelessWidget {
             msg: state.loginModel.message.toString(),
             context: context,
           );
-          if (context.read<LoginCubit>().rememberMe == true) {
-            context.read<LoginCubit>().cacheTokenAndIDAndVerified(
-              token: state.loginModel.data!.authToken.toString(),
-              id: state.loginModel.data!.authToken.toString(),
-            );
-          }else if (context.read<LoginCubit>().rememberMe == false){
-            context.read<LoginCubit>().cacheTokenAndIDAndVerified(
-              id: state.loginModel.data!.authToken.toString(),
-            );
+          // التوكن نفسه اتحفظ (أو لأ) حسب تذكرني جوه LoginCubit.login.
+          // هنا بنحفظ id المستخدم الحقيقي فقط بدل ما كان بيتخزن التوكن مكان الـ id.
+          final userId = state.loginModel.data?.id;
+          if (userId != null) {
+            CacheHelper.saveData(key: "clientId", value: userId);
           }
         }
       },

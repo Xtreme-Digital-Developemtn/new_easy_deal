@@ -72,22 +72,16 @@ class LoginCubit extends Cubit<LoginStates> {
         CacheHelper.saveData(key: "userId", value: data.data!.id);
         CacheHelper.saveData(key: "userRole", value: data.data!.role);
         CacheHelper.saveData(key: "brokerId", value: data.data!.brokerId);
-        await CacheTokenManger.saveUserToken(data.data!.authToken!);
+        if (_rememberMe) {
+          await CacheTokenManger.saveUserToken(data.data!.authToken!);
+        } else {
+          // جلسة فقط: التوكن في الذاكرة ومش متخزن، فقفلة التطبيق تطلب دخول تاني
+          CacheTokenManger.userToken = data.data!.authToken!;
+        }
 
         clearControllers();
       },
     );
-  }
-
-  // ==================== CACHE MANAGEMENT ====================
-  Future<void> cacheTokenAndIDAndVerified({
-     String? token,
-     String? id,
-  }) async {
-    if(token!=null && token.isNotEmpty){
-      await CacheTokenManger.saveUserToken(token);
-    }
-    CacheHelper.saveData(key: "clientId", value: id);
   }
 
   // ==================== CLEANUP ====================
