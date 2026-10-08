@@ -1,6 +1,5 @@
 import 'package:easy_deal/features/about_us/presentation/views/widgets/about_us_view_body.dart';
 import 'package:easy_deal/main_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class AboutUsView extends StatelessWidget {
   const AboutUsView({super.key});
@@ -8,7 +7,7 @@ class AboutUsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.aboutUs.tr()),
+      appBar: GlobalAppBar(title: LangKeys.aboutUs),
       body: const AboutUsViewBody(),
     );
   }

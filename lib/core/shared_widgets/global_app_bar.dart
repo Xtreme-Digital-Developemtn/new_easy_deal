@@ -6,10 +6,12 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   const GlobalAppBar({super.key, required this.title, this.actions,this.backgroundColor
     ,
     this.iconColor,
-    this.textColor,   this.showBackButton = true, this.bottom});
+    this.textColor,   this.showBackButton = true, this.bottom,
+    this.translateTitle = true});
   final String title;
   final List<Widget>? actions;
   final bool showBackButton;
+  final bool translateTitle;
   final Color? backgroundColor;
   final Color? textColor;
   final Color? iconColor;
@@ -18,7 +20,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return    AppBar(
       backgroundColor:backgroundColor ,
-    title: Text(title.tr(),style: TextStyle(
+    title: Text(translateTitle ? title.tr() : title,style: TextStyle(
       color: textColor,
     ),),
     actions:actions,

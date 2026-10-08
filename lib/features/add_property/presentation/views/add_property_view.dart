@@ -17,7 +17,7 @@ class AddPropertyView extends StatelessWidget {
   Widget build(BuildContext context) {
     final isArabic = context.isArabic;
     return Scaffold(
-      appBar: GlobalAppBar(title: isArabic ? 'إضافة عقار' : 'Add Property'),
+      appBar: GlobalAppBar(title: LangKeys.addProperty),
       body: BlocConsumer<AddPropertyCubit, AddPropertyStates>(
         listener: (context, state) {
           if (state is CreateUnitSuccessState) {

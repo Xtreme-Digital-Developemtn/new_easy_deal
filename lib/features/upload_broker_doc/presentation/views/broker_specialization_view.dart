@@ -76,7 +76,7 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.specialization.tr()),
+      appBar: GlobalAppBar(title: LangKeys.specialization),
       body: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, regState) {
           if (regState is SignUpSuccess) {

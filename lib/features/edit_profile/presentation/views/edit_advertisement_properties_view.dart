@@ -103,7 +103,7 @@ class _EditAdvertisementAndPropertyDetailsViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(
-        title: LangKeys.advertisementAndPropertyDetails.tr(),
+        title: LangKeys.advertisementAndPropertyDetails,
       ),
       body: BlocListener<EditProfileCubit, EditProfileStates>(
         listener: (context, state) {

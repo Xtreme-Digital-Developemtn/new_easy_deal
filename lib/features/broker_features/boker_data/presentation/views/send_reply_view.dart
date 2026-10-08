@@ -83,6 +83,7 @@ class _SendReplyViewState extends State<SendReplyView> {
     return Scaffold(
       appBar: GlobalAppBar(
         title: _selectedIds.isEmpty ? 'ارسال كرد' : 'ارسال كرد (${_selectedIds.length})',
+        translateTitle: false,
       ),
       body: BlocListener<BrokerDataCubit, BrokerDataStates>(
         listener: (context, state) {

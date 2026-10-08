@@ -28,7 +28,7 @@ class _BrokerMapsViewState extends State<BrokerMapsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.maps.tr()),
+      appBar: GlobalAppBar(title: LangKeys.maps),
       body: BlocBuilder<BrokerMapsCubit, BrokerMapsStates>(
         buildWhen: (previous, current) {
           return current is GetMapsLoadingState ||

@@ -12,7 +12,7 @@ class PrivacyTermsView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: GlobalAppBar(
-          title: LangKeys.privacyAndTerms.tr(),
+          title: LangKeys.privacyAndTerms,
           bottom: const _LegalTabBar(),
         ),
         body: TabBarView(

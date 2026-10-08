@@ -36,8 +36,8 @@ class UploadBrokerDocView extends StatelessWidget {
     return Scaffold(
       appBar: GlobalAppBar(
         title: isCompany
-            ? LangKeys.completeCompanyInfo.tr()
-            : LangKeys.completeProfileInfo.tr(),
+            ? LangKeys.completeCompanyInfo
+            : LangKeys.completeProfileInfo,
       ),
       body: BlocProvider(
         create: (context) =>
