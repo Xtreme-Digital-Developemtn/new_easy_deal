@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../../main_imports.dart';
@@ -17,10 +18,10 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
   @override
   void initState() {
     super.initState();
-    // if(CacheHelper.getData(key: "userRole")=="broker"){
-    //   context.read<LayoutCubit>().getUnReadNotificationsCount();
-    // }
-    context.read<LayoutCubit>().getUnReadNotificationsCount();
+    // الإشعارات للوسيط فقط (TC3) — لا داعي لنداء السيرفر من حساب عميل
+    if (CacheHelper.getData(key: "userRole") == "broker") {
+      context.read<LayoutCubit>().getUnReadNotificationsCount();
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -54,9 +55,13 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                         profileCubit.clientProfileModel?.data?.fullName ?? "",
                         style: AppStyles.black16SemiBold,
                       ),
-                      Text("لوحة التحكم",style: TextStyle(
-                        color: AppColors.gray2
-                      ),),
+                      // كان نصاً ثابتاً بالعربي حتى بالإنجليزية وحتى للعميل (TC2)
+                      // الصح: مترجم + للوسيط فقط
+                      if (CacheHelper.getData(key: "userRole") == "broker")
+                        Text(
+                          LangKeys.dashboard.tr(),
+                          style: TextStyle(color: AppColors.gray2),
+                        ),
                     ],
                   ),
                 ],
