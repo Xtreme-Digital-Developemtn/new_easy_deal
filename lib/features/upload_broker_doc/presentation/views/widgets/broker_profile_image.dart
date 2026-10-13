@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_cubit.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
 import 'package:easy_deal/main_imports.dart';
+import 'package:image_picker/image_picker.dart';
 
 class BrokerProfileImage extends StatelessWidget {
   final bool isCompany;
@@ -14,12 +15,47 @@ class BrokerProfileImage extends StatelessWidget {
       builder: (context, state) {
         var uploadBrokerDocCubit = context.read<UploadBrokerDocCubit>();
 
+        Future<void> pickWithSource(ImageSource source) async {
+          if (isCompany) {
+            await uploadBrokerDocCubit.uploadCompanyLogo(source: source);
+          } else {
+            await uploadBrokerDocCubit.uploadProfilePicture(source: source);
+          }
+        }
+
+        void showSourcePicker() {
+          showModalBottomSheet(
+            context: context,
+            builder: (_) => SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.camera_alt),
+                    title: const Text('الكاميرا'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pickWithSource(ImageSource.camera);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('المعرض'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      pickWithSource(ImageSource.gallery);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
         return Row(
           children: [
             GestureDetector(
-              onTap: isCompany
-                  ? uploadBrokerDocCubit.uploadCompanyLogo
-                  : uploadBrokerDocCubit.uploadProfilePicture,
+              onTap: showSourcePicker,
               child: Container(
                 height: 84.r,
                 width: 84.r,
@@ -56,9 +92,7 @@ class BrokerProfileImage extends StatelessWidget {
                 Row(
                   children: [
                     TextButton(
-                      onPressed: isCompany
-                          ? uploadBrokerDocCubit.uploadCompanyLogo
-                          : uploadBrokerDocCubit.uploadProfilePicture,
+                      onPressed: showSourcePicker,
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.primaryDark,
                       ),

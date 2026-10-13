@@ -16,20 +16,55 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   final ImagePicker picker = ImagePicker();
 
-  File? profileImage;
-  Future<void> uploadProfilePicture() async {
+  static const int maxFileSizeBytes = 10 * 1024 * 1024;
+  static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+  String? lastFileError;
+
+  /// Shared validation: extension + size. Returns File if valid, else emits error.
+  Future<File?> _pickAndValidate(ImageSource source) async {
     try {
       final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
+        source: source,
+        maxWidth: 1600,
+        maxHeight: 1600,
         imageQuality: 85,
       );
+      if (pickedFile == null) return null;
 
-      if (pickedFile != null) {
-        profileImage = File(pickedFile.path);
-        emit(UploadProfileImageSuccessState());
+      final ext = pickedFile.path.split('.').last.toLowerCase();
+      if (!allowedExtensions.contains(ext)) {
+        lastFileError = 'الصيغة غير مدعومة ($ext) — المسموح: jpg, png فقط';
+        emit(UploadFileValidationErrorState(lastFileError!));
+        return null;
+      }
+
+      final file = File(pickedFile.path);
+      final size = await file.length();
+      if (size > maxFileSizeBytes) {
+        lastFileError =
+            'حجم الصورة أكبر من 10 ميجا (${(size / 1024 / 1024).toStringAsFixed(1)} MB)';
+        emit(UploadFileValidationErrorState(lastFileError!));
+        return null;
+      }
+
+      lastFileError = null;
+      return file;
+    } catch (e) {
+      lastFileError = 'تعذر اختيار الصورة';
+      emit(UploadFileValidationErrorState(lastFileError!));
+      return null;
+    }
+  }
+
+  File? profileImage;
+  Future<void> uploadProfilePicture({ImageSource source = ImageSource.gallery}) async {
+    try {
+      final file = await _pickAndValidate(source);
+      if (file != null) {
+        profileImage = file;
         validateIndividualDocuments();
+        emit(UploadProfileImageSuccessState());
       }
     } catch (e) {
       emit(UploadProfileImageErrorState());
@@ -38,25 +73,19 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   void clearProfileImage() {
     profileImage = null;
-    emit(ClearProfileImageSuccessState());
     validateIndividualDocuments();
+    emit(ClearProfileImageSuccessState());
   }
 
 
   File? companyLogo;
-  Future<void> uploadCompanyLogo() async {
+  Future<void> uploadCompanyLogo({ImageSource source = ImageSource.gallery}) async {
     try {
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
-        imageQuality: 85,
-      );
-
-      if (pickedFile != null) {
-        companyLogo = File(pickedFile.path);
-        emit(UploadCompanyLogoSuccessState());
+      final file = await _pickAndValidate(source);
+      if (file != null) {
+        companyLogo = file;
         validateCompanyDocuments();
+        emit(UploadCompanyLogoSuccessState());
       }
     } catch (e) {
       emit(UploadCompanyLogoErrorState());
@@ -65,8 +94,8 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   void clearCompanyLogo() {
     companyLogo = null;
-    emit(ClearCompanyLogoSuccessState());
     validateCompanyDocuments();
+    emit(ClearCompanyLogoSuccessState());
   }
 
 
@@ -76,20 +105,15 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   Future<void> pickIdCardImages({
     required bool isFront,
     required UploadBrokerDocStates newEmit,
+    ImageSource source = ImageSource.gallery,
   }) async {
     try {
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
-        imageQuality: 85,
-      );
-
-      if (pickedFile != null) {
+      final file = await _pickAndValidate(source);
+      if (file != null) {
         if (isFront) {
-          frontIdCardImage = File(pickedFile.path);
+          frontIdCardImage = file;
         } else {
-          backIdCardImage = File(pickedFile.path);
+          backIdCardImage = file;
         }
         validateIndividualDocuments();
         emit(newEmit);
@@ -119,18 +143,13 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   Future<void> pickCommercialFile({
     required UploadBrokerDocStates newEmit,
+    ImageSource source = ImageSource.gallery,
   })
   async {
     try {
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
-        imageQuality: 85,
-      );
-
-      if (pickedFile != null) {
-        commercialFile = File(pickedFile.path);
+      final file = await _pickAndValidate(source);
+      if (file != null) {
+        commercialFile = file;
         validateCompanyDocuments();
         emit(newEmit);
       }
@@ -150,17 +169,12 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
 
   Future<void> pickTaxFile({
     required UploadBrokerDocStates newEmit,
+    ImageSource source = ImageSource.gallery,
   }) async {
     try {
-      final XFile? pickedFile = await picker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 800,
-        maxHeight: 800,
-        imageQuality: 85,
-      );
-
-      if (pickedFile != null) {
-        taxFile = File(pickedFile.path);
+      final file = await _pickAndValidate(source);
+      if (file != null) {
+        taxFile = file;
         validateCompanyDocuments();
         emit(newEmit);
       }

@@ -2,7 +2,40 @@ import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upl
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:image_picker/image_picker.dart';
 import 'build_image_container.dart';
+
+void showDocImageSourcePicker(
+  BuildContext context,
+  Future<void> Function(ImageSource source) onPick,
+) {
+  showModalBottomSheet(
+    context: context,
+    builder: (_) => SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.camera_alt),
+            title: const Text('الكاميرا'),
+            onTap: () {
+              Navigator.pop(context);
+              onPick(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: const Text('المعرض'),
+            onTap: () {
+              Navigator.pop(context);
+              onPick(ImageSource.gallery);
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 class BrokerDocumentsImages extends StatelessWidget {
   final bool isCompany;
@@ -43,9 +76,9 @@ class BrokerDocumentsImages extends StatelessWidget {
             Gap(20.h),
 
             if (isCompany) ...[
-              _buildCompanyDocuments(uploadBrokerDocCubit),
+              _buildCompanyDocuments(uploadBrokerDocCubit, context),
             ] else ...[
-              _buildIndividualDocuments(uploadBrokerDocCubit),
+              _buildIndividualDocuments(uploadBrokerDocCubit, context),
             ],
           ],
         );
@@ -53,15 +86,19 @@ class BrokerDocumentsImages extends StatelessWidget {
     );
   }
 
-  Widget _buildCompanyDocuments(UploadBrokerDocCubit cubit) {
+  Widget _buildCompanyDocuments(UploadBrokerDocCubit cubit, BuildContext context) {
     return Column(
       children: [
         BuildImageContainer(
           title: LangKeys.commercialFile.tr(),
           isFront: true,
           imageFile: cubit.commercialFile,
-          onPickImage: () => cubit.pickCommercialFile(
-            newEmit: UploadCommercialFileSuccessState(),
+          onPickImage: () => showDocImageSourcePicker(
+            context,
+            (s) => cubit.pickCommercialFile(
+              newEmit: UploadCommercialFileSuccessState(),
+              source: s,
+            ),
           ),
           onClearImage: () => cubit.clearCommercialFile(
             newEmit: ClearCommercialFileSuccessState(),
@@ -73,8 +110,12 @@ class BrokerDocumentsImages extends StatelessWidget {
           title: LangKeys.taxFile.tr(),
           isFront: false,
           imageFile: cubit.taxFile,
-          onPickImage: () => cubit.pickTaxFile(
-            newEmit: UploadTaxFileSuccessState(),
+          onPickImage: () => showDocImageSourcePicker(
+            context,
+            (s) => cubit.pickTaxFile(
+              newEmit: UploadTaxFileSuccessState(),
+              source: s,
+            ),
           ),
           onClearImage: () => cubit.clearTaxFile(
             newEmit: ClearTaxFileSuccessState(),
@@ -84,16 +125,20 @@ class BrokerDocumentsImages extends StatelessWidget {
     );
   }
 
-  Widget _buildIndividualDocuments(UploadBrokerDocCubit cubit) {
+  Widget _buildIndividualDocuments(UploadBrokerDocCubit cubit, BuildContext context) {
     return Column(
       children: [
         BuildImageContainer(
           title: LangKeys.idFrontSide.tr(),
           isFront: true,
           imageFile: cubit.frontIdCardImage,
-          onPickImage: () => cubit.pickIdCardImages(
-            isFront: true,
-            newEmit: UploadFrontCardIdPhotoSuccessState(),
+          onPickImage: () => showDocImageSourcePicker(
+            context,
+            (s) => cubit.pickIdCardImages(
+              isFront: true,
+              newEmit: UploadFrontCardIdPhotoSuccessState(),
+              source: s,
+            ),
           ),
           onClearImage: () => cubit.clearIdCardImages(
             isFront: true,
@@ -106,9 +151,13 @@ class BrokerDocumentsImages extends StatelessWidget {
           title: LangKeys.idBackSide.tr(),
           isFront: false,
           imageFile: cubit.backIdCardImage,
-          onPickImage: () => cubit.pickIdCardImages(
-            isFront: false,
-            newEmit: UploadBackCardIdPhotoSuccessState(),
+          onPickImage: () => showDocImageSourcePicker(
+            context,
+            (s) => cubit.pickIdCardImages(
+              isFront: false,
+              newEmit: UploadBackCardIdPhotoSuccessState(),
+              source: s,
+            ),
           ),
           onClearImage: () => cubit.clearIdCardImages(
             isFront: false,

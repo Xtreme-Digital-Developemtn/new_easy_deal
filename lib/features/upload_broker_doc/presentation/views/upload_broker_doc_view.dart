@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/views/widgets/broker_documents_images.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/views/widgets/broker_profile_image.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
@@ -42,99 +43,74 @@ class UploadBrokerDocView extends StatelessWidget {
       body: BlocProvider(
         create: (context) =>
             UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
-        child: BlocBuilder<UploadBrokerDocCubit, UploadBrokerDocStates>(
+        child: BlocConsumer<UploadBrokerDocCubit, UploadBrokerDocStates>(
+          listener: (context, uploadState) {
+            if (uploadState is UploadFileValidationErrorState) {
+              Toast.showErrorToast(msg: uploadState.message, context: context);
+            }
+          },
           builder: (context, uploadState) {
             var docCubit = context.read<UploadBrokerDocCubit>();
+            final isValid = isCompany
+                ? docCubit.isCompanyDocumentsValid
+                : docCubit.isIndividualDocumentsValid;
             return Padding(
               padding: EdgeInsets.all(20.0.r),
               child: ListView(
                 children: [
                   BrokerProfileImage(isCompany: isCompany),
                   Gap(24.h),
-                  // BrokerDocumentsImages(isCompany: isCompany),
-                  // Gap(32.h),
+                  BrokerDocumentsImages(isCompany: isCompany),
+                  Gap(12.h),
+                  if (!isValid)
+                    Text(
+                      isCompany
+                          ? 'ارفع اللوجو + السجل التجاري + البطاقة الضريبية للمتابعة'
+                          : 'ارفع الصورة الشخصية + وجه وظهر البطاقة للمتابعة',
+                      style: TextStyle(fontSize: 12.sp, color: AppColors.errorDark),
+                    ),
+                  Gap(20.h),
                   CustomButton(
                     text: LangKeys.next.tr(),
-                    onPressed:  () {
-                      if (isCompany) {
-                        // Company: submit directly with register
-                        context.pushNamed(
-                          Routes.brokerSpecializationView,
-                          arguments: {
-                            'selectedIndex': selectedIndex,
-                            'name': name,
-                            'email': email,
-                            'password': password,
-                            'confirmPassword': confirmPassword,
-                            'gender': gender,
-                            'role': role,
-                            'phone': phone,
-                            'profileImagePath': docCubit.companyLogo?.path,
-                            'commercialRegistryImagePath': docCubit.commercialFile?.path,
-                            'taxCardImagePath': docCubit.taxFile?.path,
-                          },
-                        );
-                      }
-                      else {
-                        context.pushNamed(
-                          Routes.brokerSpecializationView,
-                          arguments: {
-                            'selectedIndex': selectedIndex,
-                            'name': name,
-                            'email': email,
-                            'password': password,
-                            'confirmPassword': confirmPassword,
-                            'gender': gender,
-                            'role': role,
-                            'phone': phone,
-                            'profileImagePath': docCubit.profileImage?.path,
-                            'frontIdPath': docCubit.frontIdCardImage?.path,
-                            'backIdPath': docCubit.backIdCardImage?.path,
-                          },
-                        );
-                      }
-                    } ,
-                    // onPressed: _isFormValid(docCubit, isCompany)
-                    //     ? () {
-                    //         if (isCompany) {
-                    //           // Company: submit directly with register
-                    //           context.pushNamed(
-                    //             Routes.brokerSpecializationView,
-                    //             arguments: {
-                    //               'selectedIndex': selectedIndex,
-                    //               'name': name,
-                    //               'email': email,
-                    //               'password': password,
-                    //               'confirmPassword': confirmPassword,
-                    //               'gender': gender,
-                    //               'role': role,
-                    //               'phone': phone,
-                    //               'profileImagePath': docCubit.companyLogo?.path,
-                    //               'commercialRegistryImagePath': docCubit.commercialFile?.path,
-                    //               'taxCardImagePath': docCubit.taxFile?.path,
-                    //             },
-                    //           );
-                    //         }
-                    //         else {
-                    //           context.pushNamed(
-                    //             Routes.brokerSpecializationView,
-                    //             arguments: {
-                    //               'selectedIndex': selectedIndex,
-                    //               'name': name,
-                    //               'email': email,
-                    //               'password': password,
-                    //               'confirmPassword': confirmPassword,
-                    //               'gender': gender,
-                    //               'role': role,
-                    //               'phone': phone,
-                    //               'profileImagePath': docCubit.profileImage?.path,
-                    //               'frontIdPath': docCubit.frontIdCardImage?.path,
-                    //               'backIdPath': docCubit.backIdCardImage?.path,
-                    //             },
-                    //           );
-                    //         }
-                    //       }
-                    //     : null,
+                    onPressed: isValid
+                        ? () {
+                            if (isCompany) {
+                              context.pushNamed(
+                                Routes.brokerSpecializationView,
+                                arguments: {
+                                  'selectedIndex': selectedIndex,
+                                  'name': name,
+                                  'email': email,
+                                  'password': password,
+                                  'confirmPassword': confirmPassword,
+                                  'gender': gender,
+                                  'role': role,
+                                  'phone': phone,
+                                  'profileImagePath': docCubit.companyLogo?.path,
+                                  'commercialRegistryImagePath': docCubit.commercialFile?.path,
+                                  'taxCardImagePath': docCubit.taxFile?.path,
+                                },
+                              );
+                            } else {
+                              context.pushNamed(
+                                Routes.brokerSpecializationView,
+                                arguments: {
+                                  'selectedIndex': selectedIndex,
+                                  'name': name,
+                                  'email': email,
+                                  'password': password,
+                                  'confirmPassword': confirmPassword,
+                                  'gender': gender,
+                                  'role': role,
+                                  'phone': phone,
+                                  'profileImagePath': docCubit.profileImage?.path,
+                                  'frontIdPath': docCubit.frontIdCardImage?.path,
+                                  'backIdPath': docCubit.backIdCardImage?.path,
+                                },
+                              );
+                            }
+                          }
+                        : null,
                   ),
                   Gap(24.h),
                 ],
@@ -146,9 +122,5 @@ class UploadBrokerDocView extends StatelessWidget {
     );
   }
 
-  // bool _isFormValid(UploadBrokerDocCubit docCubit, bool isCompany) {
-  //   if (isCompany) return docCubit.isCompanyDocumentsValid;
-  //   return docCubit.isIndividualDocumentsValid;
-  // }
 }
 

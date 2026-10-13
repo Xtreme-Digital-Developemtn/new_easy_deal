@@ -18,6 +18,11 @@ class ClearTaxFileSuccessState extends UploadBrokerDocStates {}
 
 class UploadImageErrorState extends UploadBrokerDocStates {}
 
+class UploadFileValidationErrorState extends UploadBrokerDocStates {
+  final String message;
+  UploadFileValidationErrorState(this.message);
+}
+
 class UploadFrontCardIdPhotoSuccessState extends UploadBrokerDocStates {}
 class ClearFrontCardIdPhotoSuccessState extends UploadBrokerDocStates {}
 

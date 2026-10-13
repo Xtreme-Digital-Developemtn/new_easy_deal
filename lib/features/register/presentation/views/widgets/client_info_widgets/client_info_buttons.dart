@@ -16,11 +16,6 @@ class ClientInfoButtons extends StatelessWidget {
           valueListenable: registerCubit.isFormValid,
           builder: (context, isValid, child) => CustomButton(
             onPressed: isValid ? () {
-              print(registerCubit.phoneCon.text);
-              print(registerCubit.emailCon.text);
-              print(registerCubit.nameCon.text);
-              print(registerCubit.passwordCon.text);
-              print("wwwwwwwwwwwwwwwwwwwwwsssssssssssssssssdddddddd");
               registerCubit.changeStepperIndex(3);
             } : null,
             text: LangKeys.next.tr(),
