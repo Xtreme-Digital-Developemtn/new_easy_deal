@@ -162,6 +162,26 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
   final Map<String, Set<String>> _selected = {};
   final Set<String> _expanded = {};
 
+  @override
+  void initState() {
+    super.initState();
+    // Prefill من البروفايل لو السيرفر راجع القائمة الفعلية (TC11)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final data = context.read<ProfileCubit>().clientProfileModel?.data;
+      final scopes = data?.specializationScopes;
+      if (scopes != null && scopes.isNotEmpty) {
+        setState(() {
+          scopes.forEach((k, v) {
+            _selected[k] = v.toSet();
+          });
+          // افرد أول مجموعة فيها تحديد عشان اليوزر يشوف اختياراته
+          _expanded.add(scopes.keys.first);
+        });
+      }
+    });
+  }
+
   Map<String, List<String>> _buildScopes() {
     final result = <String, List<String>>{};
     _selected.forEach((scope, specs) {
@@ -182,11 +202,29 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.isArabic;
+    final totalSelected =
+        _selected.values.fold<int>(0, (sum, s) => sum + s.length);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(LangKeys.specializations.tr(),
-            style: AppStyles.black16SemiBold),
+        Row(
+          children: [
+            Text(LangKeys.specializations.tr(),
+                style: AppStyles.black16SemiBold),
+            if (totalSelected > 0) ...[
+              Gap(8.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: AppColors.blueLight,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Text('$totalSelected',
+                    style: AppStyles.primary14Medium),
+              ),
+            ],
+          ],
+        ),
         Gap(12.h),
         ..._scopeData.entries.map((entry) {
           final scopeKey = entry.key;

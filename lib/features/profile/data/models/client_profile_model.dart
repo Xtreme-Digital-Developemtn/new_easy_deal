@@ -42,6 +42,8 @@ class Data {
   dynamic advertisementCount;
   dynamic specializationsCount;
   dynamic specializationScopesCount;
+  Map<String, List<String>>? specializationScopes;
+  List<dynamic>? specializations;
   /// Images
   dynamic image;
   dynamic idFront;
@@ -56,6 +58,7 @@ class Data {
     this.idBack, this.taxCardImage, this.areas,
     this.specializationScopesCount, this.specializationsCount,
     this.advertisementCount, this.operationCount,
+    this.specializationScopes, this.specializations,
   });
 
 
@@ -84,6 +87,37 @@ class Data {
     areas = json["areas"] == null
         ? null
         : (json["areas"] as List).map((e) => Areas.fromJson(e)).toList();
+    // قد يرجع الباكدج القائمة الفعلية بأشكال مختلفة — ندعمها كلها للـ prefill في التعديل
+    try {
+      final rawScopes = json["specializationScopes"];
+      if (rawScopes is Map) {
+        specializationScopes = {};
+        rawScopes.forEach((k, v) {
+          if (v is List) {
+            specializationScopes![k.toString()] =
+                v.map((e) => e.toString()).toList();
+          }
+        });
+      } else if (rawScopes is List) {
+        specializationScopes = {};
+        for (final e in rawScopes) {
+          if (e is Map && e["scope"] != null) {
+            final key = e["scope"].toString();
+            final vals = e["specializations"] ?? e["values"] ?? [];
+            if (vals is List) {
+              specializationScopes![key] =
+                  vals.map((x) => x.toString()).toList();
+            }
+          }
+        }
+      }
+    } catch (_) {}
+    try {
+      final rawSpecs = json["specializations"];
+      if (rawSpecs is List) {
+        specializations = List<dynamic>.from(rawSpecs);
+      }
+    } catch (_) {}
   }
 
   Map<String, dynamic> toJson() {
@@ -112,6 +146,12 @@ class Data {
     _data["gender"] = gender;
     if (areas != null) {
       _data["areas"] = areas?.map((e) => e.toJson()).toList();
+    }
+    if (specializationScopes != null) {
+      _data["specializationScopes"] = specializationScopes;
+    }
+    if (specializations != null) {
+      _data["specializations"] = specializations;
     }
     return _data;
   }

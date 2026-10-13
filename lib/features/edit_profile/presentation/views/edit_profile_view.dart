@@ -31,10 +31,10 @@ class EditProfileView extends StatelessWidget {
                   imageUrl: profile?.image ?? "",
                 ),
             ProfileStatistics(
-                adsCount: profile?.advertisementCount  ,
-                opsCount:  profile?.operationCount  ,
-                locationsCount: profile?.specializationScopesCount ,
-                specialtyCount: profile?.specializationsCount  ,
+                adsCount: _toCount(profile?.advertisementCount),
+                opsCount: _toCount(profile?.operationCount),
+                locationsCount: _toCount(profile?.specializationScopesCount),
+                specialtyCount: _toCount(profile?.specializationsCount),
             ),
             Padding(
               padding: EdgeInsets.all(20.r),
@@ -186,9 +186,6 @@ class EditProfileView extends StatelessWidget {
                       ),
                     ],
                   )
-
-
-
                 ],
               ),
             ),
@@ -198,5 +195,12 @@ class EditProfileView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  int _toCount(dynamic v) {
+    if (v == null) return 0;
+    if (v is int) return v;
+    if (v is num) return v.toInt();
+    return int.tryParse(v.toString()) ?? 0;
   }
 }
