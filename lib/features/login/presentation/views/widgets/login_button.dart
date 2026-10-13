@@ -47,8 +47,8 @@ class LoginButton extends StatelessWidget {
                 onPressed: isValid
                     ? () {
                   /// broker
-                    loginCubit.phoneCon.text = "1007006336";
-                    loginCubit.passwordCon.text = "MY1720my";
+                  //   loginCubit.phoneCon.text = "1007006336";
+                  //   loginCubit.passwordCon.text = "MY1720my";
                         loginCubit.login(
                           password: loginCubit.passwordCon.text,
                           phone: loginCubit.phoneCon.text,
