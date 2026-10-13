@@ -29,6 +29,10 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
 
   changeBottomNav(index ,context) {
+    // TC4: نفس التاب — تجاهل لتفادي وميض/إعادة بناء بدون داعي
+    if (pageIndex == index) return;
+    // حماية من index خارج الليست (تبديل دور وسيط/عميل)
+    if (index < 0 || index >= screens.length) return;
     pageIndex = index;
     emit(ChangeBottomNavState());
   }

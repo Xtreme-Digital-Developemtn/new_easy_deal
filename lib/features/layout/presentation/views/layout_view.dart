@@ -46,7 +46,12 @@ class _LayoutViewState extends State<LayoutView> {
               elevation: 0,
               title: const ProfileNameAndNotificationIcon(),
             ),
-            body: layoutCubit.screens[LayoutCubit.pageIndex],
+            // IndexedStack يحفظ state كل تاب (سكرول البحث + الداتا)
+            // بدل screens[pageIndex] اللي كان بيdispose الشاشات البعيدة
+            body: IndexedStack(
+              index: LayoutCubit.pageIndex,
+              children: layoutCubit.screens,
+            ),
 
             bottomNavigationBar: const BottomNavigationBarWidget(),
           ),
