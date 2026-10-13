@@ -4,6 +4,7 @@ import 'package:easy_deal/features/search/data/models/areas_model.dart';
 import 'package:easy_deal/features/search/data/models/cities_model.dart';
 import 'package:easy_deal/features/create_request/data/models/sub_areas_model.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../../data/repos/upload_broker_doc_repo.dart';
@@ -17,7 +18,10 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   final ImagePicker picker = ImagePicker();
 
   static const int maxFileSizeBytes = 10 * 1024 * 1024;
+  // الصورة الشخصية والهوية: صور فقط (TC11 القديمة)
   static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png'];
+  // المستندات القانونية للشركة: صور + PDF (TC5 الجديدة)
+  static const List<String> allowedDocExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
 
   String? lastFileError;
 
@@ -141,6 +145,39 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   File? commercialFile;
   File? taxFile;
 
+  Future<File?> _pickDocAndValidate() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: allowedDocExtensions,
+        allowMultiple: false,
+        withData: false,
+      );
+      if (result == null || result.files.single.path == null) return null;
+      final path = result.files.single.path!;
+      final ext = path.split('.').last.toLowerCase();
+      if (!allowedDocExtensions.contains(ext)) {
+        lastFileError = 'الصيغة غير مدعومة ($ext) — المسموح: jpg, png, pdf';
+        emit(UploadFileValidationErrorState(lastFileError!));
+        return null;
+      }
+      final file = File(path);
+      final size = await file.length();
+      if (size > maxFileSizeBytes) {
+        lastFileError =
+            'حجم الملف أكبر من 10 ميجا (${(size / 1024 / 1024).toStringAsFixed(1)} MB)';
+        emit(UploadFileValidationErrorState(lastFileError!));
+        return null;
+      }
+      lastFileError = null;
+      return file;
+    } catch (e) {
+      lastFileError = 'تعذر اختيار الملف';
+      emit(UploadFileValidationErrorState(lastFileError!));
+      return null;
+    }
+  }
+
   Future<void> pickCommercialFile({
     required UploadBrokerDocStates newEmit,
     ImageSource source = ImageSource.gallery,
@@ -156,6 +193,17 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
     } catch (e) {
       debugPrint("Error picking commercial file: $e");
       emit(UploadImageErrorState());
+    }
+  }
+
+  Future<void> pickCommercialPdf({
+    required UploadBrokerDocStates newEmit,
+  }) async {
+    final file = await _pickDocAndValidate();
+    if (file != null) {
+      commercialFile = file;
+      validateCompanyDocuments();
+      emit(newEmit);
     }
   }
 
@@ -181,6 +229,17 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
     } catch (e) {
       debugPrint("Error picking tax file: $e");
       emit(UploadImageErrorState());
+    }
+  }
+
+  Future<void> pickTaxPdf({
+    required UploadBrokerDocStates newEmit,
+  }) async {
+    final file = await _pickDocAndValidate();
+    if (file != null) {
+      taxFile = file;
+      validateCompanyDocuments();
+      emit(newEmit);
     }
   }
 

@@ -37,6 +37,47 @@ void showDocImageSourcePicker(
   );
 }
 
+void showCompanyDocSourcePicker(
+  BuildContext context,
+  Future<void> Function(ImageSource source) onPickImage,
+  Future<void> Function() onPickPdf,
+) {
+  showModalBottomSheet(
+    context: context,
+    builder: (_) => SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.camera_alt),
+            title: const Text('الكاميرا'),
+            onTap: () {
+              Navigator.pop(context);
+              onPickImage(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: const Text('المعرض (صورة)'),
+            onTap: () {
+              Navigator.pop(context);
+              onPickImage(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.picture_as_pdf, color: Colors.red),
+            title: const Text('ملف PDF'),
+            onTap: () {
+              Navigator.pop(context);
+              onPickPdf();
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 class BrokerDocumentsImages extends StatelessWidget {
   final bool isCompany;
 
@@ -93,11 +134,14 @@ class BrokerDocumentsImages extends StatelessWidget {
           title: LangKeys.commercialFile.tr(),
           isFront: true,
           imageFile: cubit.commercialFile,
-          onPickImage: () => showDocImageSourcePicker(
+          onPickImage: () => showCompanyDocSourcePicker(
             context,
             (s) => cubit.pickCommercialFile(
               newEmit: UploadCommercialFileSuccessState(),
               source: s,
+            ),
+            () => cubit.pickCommercialPdf(
+              newEmit: UploadCommercialFileSuccessState(),
             ),
           ),
           onClearImage: () => cubit.clearCommercialFile(
@@ -110,11 +154,14 @@ class BrokerDocumentsImages extends StatelessWidget {
           title: LangKeys.taxFile.tr(),
           isFront: false,
           imageFile: cubit.taxFile,
-          onPickImage: () => showDocImageSourcePicker(
+          onPickImage: () => showCompanyDocSourcePicker(
             context,
             (s) => cubit.pickTaxFile(
               newEmit: UploadTaxFileSuccessState(),
               source: s,
+            ),
+            () => cubit.pickTaxPdf(
+              newEmit: UploadTaxFileSuccessState(),
             ),
           ),
           onClearImage: () => cubit.clearTaxFile(

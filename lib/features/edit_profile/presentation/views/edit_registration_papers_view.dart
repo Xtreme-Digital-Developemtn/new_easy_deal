@@ -64,7 +64,7 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
   File? _fileFor(String key) => _selected[key];
 
   Future<void> _pick(String key) async {
-    final file = await EditProfileCubit.get(context).pickDocument();
+    final file = await EditProfileCubit.get(context).pickDocument(key: key);
     if (file != null) {
       setState(() => _selected[key] = file);
     }
@@ -117,7 +117,7 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ..._papersFor(profile?.type).map((paper) {
+                            ..._papersFor(profile.type).map((paper) {
                               final url = _urlFor(profile, paper.key);
                               final selected = _fileFor(paper.key);
                               return _buildPaperCard(
@@ -153,6 +153,10 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
     );
   }
 
+  bool _isPdf(String? path) => path != null && path.toLowerCase().endsWith('.pdf');
+
+  String _baseName(String path) => path.split('/').last;
+
   Widget _buildPaperCard({
     required String label,
     required String? imageUrl,
@@ -162,6 +166,8 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
   }) {
     final hasImage =
         selectedImage != null || (imageUrl != null && imageUrl.isNotEmpty);
+    final isPdfSelected = _isPdf(selectedImage?.path);
+    final isPdfUrl = _isPdf(imageUrl);
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(12),
@@ -210,7 +216,7 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(10),
-              image: hasImage
+              image: (hasImage && !isPdfSelected && !isPdfUrl)
                   ? DecorationImage(
                       image: selectedImage != null
                           ? FileImage(selectedImage)
@@ -233,7 +239,27 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
                       ],
                     ),
                   )
-                : null,
+                : (isPdfSelected || isPdfUrl)
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.picture_as_pdf,
+                                size: 48, color: Colors.red),
+                            const SizedBox(height: 8),
+                            Text(
+                              selectedImage != null
+                                  ? _baseName(selectedImage.path)
+                                  : _baseName(imageUrl!),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      )
+                    : null,
           ),
           if (selectedImage != null)
             Padding(

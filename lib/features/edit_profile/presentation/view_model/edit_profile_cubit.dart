@@ -174,9 +174,13 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     }
   }
 
-  Future<File?> pickDocument() async {
+  Future<File?> pickDocument({String? key}) async {
+    final isLegalDoc =
+        key == 'taxCardImage' || key == 'commercialRegistryImage';
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
+      type: isLegalDoc ? FileType.custom : FileType.image,
+      allowedExtensions:
+          isLegalDoc ? ['jpg', 'jpeg', 'png', 'pdf'] : ['jpg', 'jpeg', 'png'],
       allowMultiple: false,
     );
 
