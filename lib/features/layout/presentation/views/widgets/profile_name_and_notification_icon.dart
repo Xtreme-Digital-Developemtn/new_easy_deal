@@ -51,8 +51,12 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // TC1: Skeletonizer needs non-empty text to paint the
+                      // shimmer bone — empty "" has zero size and shows nothing.
+                      // Show a fake placeholder until the real name arrives.
                       Text(
-                        profileCubit.clientProfileModel?.data?.fullName ?? "",
+                        profileCubit.clientProfileModel?.data?.fullName ??
+                            "XXXXXXXXXXXX",
                         style: AppStyles.black16SemiBold,
                       ),
                       // كان نصاً ثابتاً بالعربي حتى بالإنجليزية وحتى للعميل (TC2)
@@ -67,16 +71,14 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                 ],
               ),
               if(CacheHelper.getData(key: "userRole")=="broker")
-              BlocSelector<LayoutCubit, LayoutStates, int>(
-                selector: (state) {
-                  return context
+              BlocBuilder<LayoutCubit, LayoutStates>(
+                builder: (context, state) {
+                  final unreadCount = context
                       .read<LayoutCubit>()
                       .unReadNotificationsCountModel
                       ?.data
                       ?.unreadCount ??
                       0;
-                },
-                builder: (context, unreadCount) {
                   return InkWell(
                     onTap: () async {
                       final layoutCubit = context.read<LayoutCubit>();
