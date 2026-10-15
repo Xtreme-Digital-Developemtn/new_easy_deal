@@ -27,7 +27,9 @@ class HomeCubit extends Cubit<HomeStates> {
     "https://images.unsplash.com/photo-1626036144963-33ded4a8ab8d?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
 
-  List<String> categories = [
+  // TC14: must be getters, not fields — .tr() in a field is evaluated once
+  // at cubit creation and goes stale after a language switch.
+  List<String> get categories => [
     LangKeys.requestToPurchaseProperty.tr(),
     LangKeys.requestToRentalProperty.tr(),
     LangKeys.requestToSaleProperty.tr(),
@@ -88,7 +90,7 @@ class HomeCubit extends Cubit<HomeStates> {
     "assets/images/jpgs/7.jpg",
   ];
 
-  List<String> lastArticlesTitles = [
+  List<String> get lastArticlesTitles => [
     LangKeys.article1Title.tr(),
     LangKeys.article2Title.tr(),
     LangKeys.article3Title.tr(),
@@ -98,7 +100,7 @@ class HomeCubit extends Cubit<HomeStates> {
     LangKeys.article7Title.tr(),
   ];
 
-  List<String> lastArticlesDescription = [
+  List<String> get lastArticlesDescription => [
     LangKeys.article1Description.tr(),
     LangKeys.article2Description.tr(),
     LangKeys.article3Description.tr(),
@@ -108,7 +110,7 @@ class HomeCubit extends Cubit<HomeStates> {
     LangKeys.article7Description.tr(),
   ];
 
-  List<String> locationsTitles = [
+  List<String> get locationsTitles => [
     LangKeys.location1Title.tr(),
     LangKeys.location2Title.tr(),
     LangKeys.location3Title.tr(),

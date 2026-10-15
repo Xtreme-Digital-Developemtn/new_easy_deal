@@ -21,6 +21,9 @@ class SearchCubit extends Cubit<SearchStates> {
   bool hasMore = true;
   bool isLoadingMore = false;
   bool isLoading = false;
+  // TC5: sequence token — rapid type/delete fires overlapping requests;
+  // only the latest response may touch the UI, stale ones are discarded.
+  int _unitsRequestSeq = 0;
 
   Future<void> getAllUnits({
     bool? isFilter,
@@ -28,11 +31,10 @@ class SearchCubit extends Cubit<SearchStates> {
     bool reset = false,
   })
   async {
-    // منع التحميل المزدوج
+    // منع التحميل المزدوج للصفحات الإضافية فقط.
+    // البحث الفريش (reset/filter) مسموح يتجاوز طلب سابق — التوكن يهمل القديم (TC5).
     if (loadMore) {
       if (!hasMore || isLoadingMore || isLoading) return;
-    } else {
-      if (isLoading) return;
     }
 
     if (reset) {
@@ -43,13 +45,18 @@ class SearchCubit extends Cubit<SearchStates> {
     }
 
     // إذا كان التحميل للصفحات التالية
+    int mySeq = -1;
+    String requestKeyword = keyword;
     if (loadMore) {
       isLoadingMore = true;
       currentPage++;
       emit(GetAllUnitsLoadingMoreState()); // حالة تحميل إضافي
     } else {
+      mySeq = ++_unitsRequestSeq;
       isLoading = true;
       emit(GetAllUnitsLoadingState()); // حالة تحميل أولي
+      // capture query snapshot for this request
+      requestKeyword = keyword;
     }
 
     int offset = (currentPage - 1) * itemsPerPage;
@@ -65,8 +72,11 @@ class SearchCubit extends Cubit<SearchStates> {
       unitAreaTo: areaToCon.text,
       deliveryStatus: deliveryStatus.toString(),
       compoundType: type.toString(),
-      search: keyword,
+      search: requestKeyword,
     );
+
+    // TC5: تجاهل الاستجابات القديمة — الأحدث فقط هو اللي يحدّث الواجهة.
+    if (!loadMore && mySeq != _unitsRequestSeq) return;
 
     return result.fold(
           (failure) {
@@ -78,6 +88,7 @@ class SearchCubit extends Cubit<SearchStates> {
         emit(GetAllUnitsErrorState(failure.errMessage));
       },
           (data) async {
+        if (!loadMore && mySeq != _unitsRequestSeq) return;
         isLoading = false;
         isLoadingMore = false;
 
