@@ -84,7 +84,9 @@ class FilterContainer extends StatelessWidget {
                                       return CustomButton(
                                         text: LangKeys.filter.tr(),
                                         onPressed: (){
-                                          cubit.getAllUnits(isFilter: true,);
+                                          // TC3/TC9: reset pagination so the filter
+                                          // always queries from offset 0.
+                                          cubit.getAllUnits(isFilter: true, reset: true);
                                         },
                                       );
                                     },
