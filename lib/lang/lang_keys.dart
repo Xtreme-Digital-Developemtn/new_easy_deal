@@ -792,6 +792,9 @@ abstract class LangKeys {
   static const String privacyChildrenBody = 'privacyChildrenBody';
   static const String privacyPolicyUpdates = 'privacyPolicyUpdates';
   static const String privacyPolicyUpdatesBody = 'privacyPolicyUpdatesBody';
+  static const String brokerPhoneNotAvailable = 'brokerPhoneNotAvailable';
+  static const String cannotOpenWhatsApp = 'cannotOpenWhatsApp';
+  static const String cannotOpenDialer = 'cannotOpenDialer';
 }
 
 

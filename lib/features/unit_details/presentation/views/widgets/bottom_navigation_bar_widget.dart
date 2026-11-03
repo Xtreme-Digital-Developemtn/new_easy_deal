@@ -1,5 +1,5 @@
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../core/utils/contact_launcher.dart';
 import '../../../../../main_imports.dart';
 
 class UnitBottomNavigationBarWidget extends StatelessWidget {
@@ -23,11 +23,10 @@ class UnitBottomNavigationBarWidget extends StatelessWidget {
             // }),
             // buildUnitBottomNavBarItem(color: AppColors.errorLight, svg: "assets/images/svgs/Frame 1984077845.svg" , onTap: (){}),
             buildUnitBottomNavBarItem(color: AppColors.primaryDark, svg: "assets/images/svgs/Frame 1984077846.svg", onTap: (){
-              openWhatsApp( phone );
+              ContactLauncher.whatsApp(context, phone);
             }),
             buildUnitBottomNavBarItem(color: AppColors.green, svg: "assets/images/svgs/Frame 1984077847.svg" , onTap: (){
-              debugPrint("Phone before call = '$phone'");
-              makePhoneCall( phone );
+              ContactLauncher.call(context, phone);
             }),
           ],
         ),
@@ -50,45 +49,3 @@ Widget buildUnitBottomNavBarItem({required Color color , required String svg , r
   );
 }
 
-
-Future<void> makePhoneCall(String phoneNumber) async {
-  final uri = Uri(
-    scheme: 'tel',
-    path: phoneNumber,
-  );
-
-  debugPrint("URI = $uri");
-
-  try {
-    await launchUrl(
-      uri,
-      mode: LaunchMode.externalApplication,
-    );
-  } catch (e) {
-    debugPrint("Call Error: $e");
-  }
-}
-
-
-Future<void> openWhatsApp(String phoneNumber) async {
-  // Remove spaces or special characters
-  phoneNumber = phoneNumber.replaceAll(RegExp(r'[^0-9]'), '');
-
-  // Add Egypt country code if needed
-  if (phoneNumber.startsWith('01')) {
-    phoneNumber = '20$phoneNumber';
-  }
-
-  final Uri whatsappUri = Uri.parse(
-    "https://wa.me/$phoneNumber",
-  );
-
-  if (await canLaunchUrl(whatsappUri)) {
-    await launchUrl(
-      whatsappUri,
-      mode: LaunchMode.externalApplication,
-    );
-  } else {
-    debugPrint("Cannot open WhatsApp");
-  }
-}

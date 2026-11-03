@@ -1062,5 +1062,8 @@
     "privacyChildrenBody": "The platform services are not directed at people under 18 years of age.",
     "privacyPolicyUpdates": "Privacy Policy Updates",
     "privacyPolicyUpdatesBody": "Easy Deal Company may update this policy at any time. The updated version will be published on the website or the application along with an updated last-modified date.",
+    "brokerPhoneNotAvailable": "Broker phone number is not available",
+    "cannotOpenWhatsApp": "Can't open WhatsApp right now",
+    "cannotOpenDialer": "Can't start the call right now",
   };
 }
