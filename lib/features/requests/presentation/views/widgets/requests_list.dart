@@ -6,6 +6,24 @@ import '../../../../../main_imports.dart';
 import '../../../data/config/request_translations.dart';
 import '../../../data/models/all_request_model.dart';
 
+/// لون شارة الحالة حسب الحالة نفسها، مش لون واحد لكل الحالات.
+Color _statusColor(dynamic rawStatus) {
+  switch (rawStatus?.toString()) {
+    case 'new':
+      return AppColors.primaryDark;
+    case 'in_processing':
+      return AppColors.orangeMedium;
+    case 'finished':
+    case 'completed':
+      return AppColors.successDark;
+    case 'rejected':
+    case 'cancelled':
+      return AppColors.errorDark;
+    default:
+      return AppColors.grayDarkest;
+  }
+}
+
 class RequestsList extends StatelessWidget {
   const RequestsList({
     super.key,
@@ -77,7 +95,7 @@ class RequestsList extends StatelessWidget {
 
             return RequestListItemCard(
               title: RequestTranslations.title(request.type, request.unit),
-              statusColor: AppColors.primaryDark,
+              statusColor: _statusColor(request.status),
               status: RequestTranslations.status(request.status),
               // date: DateTime.now().subtract(
               //   const Duration(days: 2),

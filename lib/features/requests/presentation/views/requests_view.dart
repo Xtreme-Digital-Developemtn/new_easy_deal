@@ -132,7 +132,7 @@ class _RequestsViewState extends State<RequestsView> {
                 );
               }
 
-              final isLoading = state is GetAllRequestsLoadingState && cubit.currentList.isEmpty;
+              final isLoading = state is GetAllRequestsLoadingState;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +140,7 @@ class _RequestsViewState extends State<RequestsView> {
                   Skeletonizer(
                     enabled: isLoading,
                     child: RequestsCount(
-                      count: cubit.currentModel?.data.count ?? cubit.currentList.length,
+                      count: cubit.displayCount,
                       currentFilters: _appliedFilters,
                       onFilterApplied: (result) {
                         setState(() => _appliedFilters = result);
@@ -152,8 +152,10 @@ class _RequestsViewState extends State<RequestsView> {
                     ),
                   ),
                   Gap(24.h),
-                  if(CacheHelper.getData(key: "userRole")=="broker")
-                  Row(
+                  if (cubit.isBroker)
+                  Skeletonizer(
+                    enabled: isLoading,
+                    child: Row(
                     children: [
                       Expanded(
                         child: _buildToggleButton(
@@ -179,14 +181,13 @@ class _RequestsViewState extends State<RequestsView> {
                         child: _buildToggleButton(
                           context: context,
                           label: LangKeys.receivedRequestsTab.tr(),
-                          count: cubit.currentType == RequestType.received
-                              ? cubit.currentList.length
-                              : cubit.receivedCount,
+                          count: cubit.receivedCount,
                           isActive: cubit.currentType == RequestType.received,
                           onPressed: () => cubit.changeType(RequestType.received),
                         ),
                       ),
                     ],
+                  ),
                   ),
                   Gap(24.h),
                   RequestsList(

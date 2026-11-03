@@ -14,6 +14,12 @@ class RequestTranslations {
     'new': 'جديد',
     'in_processing': 'قيد المعالجة',
     'finished': 'مكتمل',
+    'completed': 'مكتمل',
+    'pending': 'قيد الانتظار',
+    'accepted': 'مقبول',
+    'rejected': 'مرفوض',
+    'cancelled': 'ملغي',
+    'canceled': 'ملغي',
   };
 
   static const Map<String, String> _specializationScope = {

@@ -1,10 +1,23 @@
 import 'package:easy_deal/features/requests/data/models/all_request_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../core/utils/enums.dart';
+import '../../../../core/utils/toast/toast.dart';
 import '../../../../main_imports.dart';
 import '../../../profile/presentation/view_model/profile_cubit.dart';
 import '../../data/repos/requests_repo.dart';
 import 'requests_states.dart';
+
+/// خطأ جوّاني بنرميه من دوال التحميل الفرعية عشان نوصّل رسالة الفشل
+/// للمستخدم زي ما هي، من غير بادئة "Exception:".
+class RequestsFetchException implements Exception {
+  final String message;
+
+  RequestsFetchException(this.message);
+
+  @override
+  String toString() => message;
+}
 
 class RequestsCubit extends Cubit<RequestsStates> {
   RequestsCubit(this.requestsRepo) : super(RequestsInitState());
@@ -14,6 +27,10 @@ class RequestsCubit extends Cubit<RequestsStates> {
   static RequestsCubit get(context) => BlocProvider.of(context);
 
   int limit = 100;
+
+  /// التابات الفرعية (بواسطتي / المرسلة / المستلمة) بتظهر للوسيط بس،
+  /// والعميل بيشوف قائمة واحدة فيها كل طلباته.
+  bool get isBroker => CacheHelper.getData(key: "userRole") == "broker";
 
   List<RequestItem> assignedRequests = [];
   List<String?> assignedReceiverNames = [];
@@ -88,6 +105,16 @@ class RequestsCubit extends Cubit<RequestsStates> {
   int get sentCount => sentTotalCount;
   int get receivedCount => receivedRequests.length;
 
+  /// الرقم اللي بيظهر جنب «الطلبات» فوق. تاب «المستلمة» بيجي مفلتر من
+  /// السيرفر فعدده مضبوط، أما «بواسطتي» و«المرسلة» فبيتفلتروا محليًا
+  /// فبنعرض عدد الكروت المحمّلة فعلًا بدل عدد السيرفر الكلي.
+  int get displayCount {
+    if (currentType == RequestType.received) {
+      return _asInt(receivedModel?.data.count) ?? receivedRequests.length;
+    }
+    return currentList.length;
+  }
+
   static bool _isSameId(dynamic a, dynamic b) {
     if (a == null || b == null) return false;
     final numA = num.tryParse(a.toString());
@@ -102,7 +129,11 @@ class RequestsCubit extends Cubit<RequestsStates> {
     return num.tryParse(v.toString())?.toInt();
   }
 
-  RequestType currentType = RequestType.assigned;
+  /// العميل بيبدأ (ويفضل) على قائمة «المستلمة» لأنها هي الوحيدة اللي بترجع
+  /// طلباته كلها من غير فلترة محلية على الوسطاء المعيّنين.
+  RequestType currentType = CacheHelper.getData(key: "userRole") == "broker"
+      ? RequestType.assigned
+      : RequestType.received;
 
   List<AssignedBroker> _matchingAssignments(RequestItem request, dynamic userId) {
     return request.assignedBrokers
@@ -130,8 +161,8 @@ class RequestsCubit extends Cubit<RequestsStates> {
   /// Fetches the first page of "sent" requests and filters them
   /// client-side by the request's own `user.id` as a safety net (in case
   /// the server-side `userId` filter is ever unreliable, as happens with
-  /// the "assigned" endpoint). The badge count uses the API's
-  /// `newRequestsCount`, which matches what the website shows.
+  /// the "assigned" endpoint). The badge count is the number of cards we
+  /// actually show, so the badge and the list can never disagree.
   Future<void> _fetchSentFirstPage({
     required BuildContext context,
     required dynamic userId,
@@ -147,22 +178,22 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
     String? error;
     result.fold((failure) => error = failure.errMessage, (_) {});
-    if (error != null) throw Exception(error);
+    if (error != null) throw RequestsFetchException(error!);
 
     final data = result.fold((_) => null, (data) => data)!;
     sentModel = data;
     sentRequests = data.data.data
         .where((request) => _isSameId(request.user.id, userId))
         .toList();
-    sentTotalCount = _asInt(data.data.newRequestsCount) ?? sentRequests.length;
+    sentTotalCount = sentRequests.length;
     sentOffset = data.data.data.length;
-    sentHasMore = false;
+    sentHasMore = sentOffset < (_asInt(data.data.count) ?? 0);
   }
 
   /// The API's `senderId` query param does not actually filter the "assigned"
-  /// list server-side, so we only look at the first page of raw results
-  /// (the most recent `limit` requests) and filter those client-side by
-  /// `assignedBrokers`.
+  /// list server-side, so we filter the raw results client-side by
+  /// `assignedBrokers`. Paging keeps walking the raw pages, so requests
+  /// beyond the first `limit` are still reachable by scrolling.
   Future<void> _fetchAssignedFirstPage({
     required BuildContext context,
     required dynamic userId,
@@ -178,7 +209,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
     String? error;
     result.fold((failure) => error = failure.errMessage, (_) {});
-    if (error != null) throw Exception(error);
+    if (error != null) throw RequestsFetchException(error!);
 
     final data = result.fold((_) => null, (data) => data)!;
     assignedModel = data;
@@ -189,7 +220,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
     assignedReceiverNames = receiverNames;
     assignedTotalCount = requests.length;
     assignedOffset = data.data.data.length;
-    assignedHasMore = false;
+    assignedHasMore = assignedOffset < (_asInt(data.data.count) ?? 0);
   }
 
   Future<void> fetchAllTypes({
@@ -205,16 +236,18 @@ class RequestsCubit extends Cubit<RequestsStates> {
     assignedRequests = [];
     assignedReceiverNames = [];
     sentRequests = [];
+    receivedRequests = [];
     assignedHasMore = true;
     sentHasMore = true;
     receivedHasMore = true;
     _currentFilters = filters;
+    currentType = isBroker ? RequestType.assigned : RequestType.received;
     emit(GetAllRequestsLoadingState());
 
     final profile = ProfileCubit.get(context).clientProfileModel;
     final userId = profile?.data?.id;
     if (userId == null) {
-      emit(GetAllRequestsErrorState("Profile not loaded. Please try again."));
+      emit(GetAllRequestsErrorState(LangKeys.somethingWentWrong.tr()));
       return;
     }
 
@@ -240,6 +273,13 @@ class RequestsCubit extends Cubit<RequestsStates> {
         receivedHasMore = receivedOffset < (data.data.count ?? 0);
       });
 
+      /// تابات «بواسطتي» و«المرسلة» للوسيط بس، فمفيش داعي نحمّلهم للعميل
+      /// (كانوا بيتبعتوا 3 نداءات بنفس الكويري بالظبط).
+      if (!isBroker) {
+        emit(GetAllRequestsSuccessState(receivedModel!));
+        return;
+      }
+
       await Future.wait([
         _fetchSentFirstPage(context: context, userId: userId, filters: filters),
         _fetchAssignedFirstPage(context: context, userId: userId, filters: filters),
@@ -248,7 +288,9 @@ class RequestsCubit extends Cubit<RequestsStates> {
       currentType = RequestType.assigned;
       emit(GetAllRequestsSuccessState(assignedModel ?? sentModel!));
     } catch (e) {
-      emit(GetAllRequestsErrorState(e.toString()));
+      emit(GetAllRequestsErrorState(
+        e is RequestsFetchException ? e.message : LangKeys.somethingWentWrong.tr(),
+      ));
     }
   }
 
@@ -282,8 +324,13 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
       result.fold(
         (failure) {
+          /// فشل التحميل الإضافي مالازمش يمسح القائمة اللي ظاهرة قدام
+          /// المستخدم، فبنعرض توست وبنسيب البيانات مكانها.
           isLoadingMore = false;
-          emit(GetAllRequestsErrorState(failure.errMessage));
+          if (context.mounted) {
+            Toast.showErrorToast(msg: failure.errMessage, context: context);
+          }
+          emit(GetAllRequestsSuccessState(model));
         },
         (data) {
           switch (currentType) {
@@ -302,7 +349,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
                   .where((request) => _isSameId(request.user.id, userId))
                   .toList();
               sentRequests = [...sentRequests, ...newSentItems];
-              sentTotalCount = _asInt(data.data.newRequestsCount) ?? sentRequests.length;
+              sentTotalCount = sentRequests.length;
               sentOffset += data.data.data.length;
               sentHasMore = sentOffset < (data.data.count ?? 0);
               break;
@@ -318,7 +365,15 @@ class RequestsCubit extends Cubit<RequestsStates> {
       );
     } catch (e) {
       isLoadingMore = false;
-      emit(GetAllRequestsErrorState(e.toString()));
+      if (context.mounted) {
+        Toast.showErrorToast(
+          msg: e is RequestsFetchException
+              ? e.message
+              : LangKeys.somethingWentWrong.tr(),
+          context: context,
+        );
+      }
+      emit(GetAllRequestsSuccessState(model));
     }
   }
 }
