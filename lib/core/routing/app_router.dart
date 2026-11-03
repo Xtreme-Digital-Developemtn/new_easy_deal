@@ -415,8 +415,9 @@ class AppRouter {
         child: SearchView(),
       ),
       BlocProvider(
-        create: (context) =>
-            RequestsCubit(getIt.get<RequestsRepoImpl>())..fetchAllTypes(context: context),
+        // من غير fetch هنا: الشاشة بتتبني قبل ما البروفايل يجهز، والنداء
+        // بيتعمل من RequestsView أول ما الـ userId يبقى متاح.
+        create: (context) => RequestsCubit(getIt.get<RequestsRepoImpl>()),
         child: RequestsView(),
       ),
       // BlocProvider(

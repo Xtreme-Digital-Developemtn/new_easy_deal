@@ -7,6 +7,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/utils/enums.dart';
+import '../../../profile/presentation/view_model/profile_cubit.dart';
+import '../../../profile/presentation/view_model/profile_states.dart';
 import 'widgets/requests_filter.dart';
 
 class RequestsView extends StatefulWidget {
@@ -19,11 +21,30 @@ class RequestsView extends StatefulWidget {
 class _RequestsViewState extends State<RequestsView> {
   final ScrollController scrollController = ScrollController();
   RequestsFilterResult? _appliedFilters;
+  bool _didFetch = false;
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(_onScroll);
+    // الشاشة بتتبني جوه IndexedStack أول ما الـ Layout يفتح، يعني قبل ما
+    // البروفايل يخلّص تحميل. فبنأجّل أول نداء لحد ما يبقى معانا userId،
+    // وإلا كان بيطلع خطأ في أول مرة بس.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _fetchWhenProfileReady(),
+    );
+  }
+
+  void _fetchWhenProfileReady() {
+    if (_didFetch || !mounted) return;
+    if (context.read<ProfileCubit>().clientProfileModel?.data?.id == null) {
+      return;
+    }
+    _didFetch = true;
+    context.read<RequestsCubit>().fetchAllTypes(
+      context: context,
+      filters: _appliedFilters?.toQueryParams(),
+    );
   }
 
   void _onScroll() {
@@ -106,7 +127,19 @@ class _RequestsViewState extends State<RequestsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: BlocListener<ProfileCubit, ProfileStates>(
+          listener: (context, profileState) {
+            if (profileState is GetClientProfileSuccessState) {
+              _fetchWhenProfileReady();
+            } else if (profileState is GetClientProfileErrorState &&
+                !_didFetch) {
+              // البروفايل نفسه فشل، فبنخلي شاشة الطلبات توري رسالة الخطأ
+              // وزرار إعادة التحميل بدل ما تفضل معلّقة على السكيليتون.
+              _didFetch = true;
+              context.read<RequestsCubit>().fetchAllTypes(context: context);
+            }
+          },
+          child: Padding(
           padding: EdgeInsets.all(12.r),
           child: BlocBuilder<RequestsCubit, RequestsStates>(
             builder: (context, state) {
@@ -132,7 +165,10 @@ class _RequestsViewState extends State<RequestsView> {
                 );
               }
 
-              final isLoading = state is GetAllRequestsLoadingState;
+              // حالة البداية برضه تحميل، عشان مايظهرش «لا توجد طلبات»
+              // في اللحظة اللي بين فتح التاب وأول نداء.
+              final isLoading =
+                  state is GetAllRequestsLoadingState || state is RequestsInitState;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,6 +238,7 @@ class _RequestsViewState extends State<RequestsView> {
               );
             },
           ),
+        ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
