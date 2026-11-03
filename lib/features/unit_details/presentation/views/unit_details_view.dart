@@ -1,7 +1,6 @@
 import 'package:easy_deal/core/shared_widgets/error_ui.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/consultation.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_cubit.dart';
 import 'package:easy_deal/features/unit_details/presentation/view_model/unit_details_states.dart';
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/bottom_navigation_bar_widget.dart';
@@ -72,20 +71,28 @@ class UnitDetailsView extends StatelessWidget {
                                   .unitDetailsModel?.data?.subArea?.nameEn,
                       ),
                       Gap(12.h),
-                      UnitPriceStatusIndoor(
-                        price: unitDetailsCubit
-                            .unitDetailsModel?.data?.totalPriceInCash
-                            ?.toString(),
-                        type: ApOptions.label(
-                          unitDetailsCubit.unitDetailsModel?.data?.type,
-                          context.isArabic,
-                        ),
-                        status: unitDetailsCubit.unitDetailsModel?.data?.status
-                                    ?.toString()
-                                    .toLowerCase() ==
-                                'sold'
-                            ? LangKeys.sold.tr()
-                            : LangKeys.available.tr(),
+                      Builder(
+                        builder: (context) {
+                          final rawStatus = unitDetailsCubit
+                              .unitDetailsModel?.data?.status
+                              ?.toString()
+                              .trim();
+                          return UnitPriceStatusIndoor(
+                            price: unitDetailsCubit
+                                .unitDetailsModel?.data?.totalPriceInCash
+                                ?.toString(),
+                            type: ApOptions.label(
+                              unitDetailsCubit.unitDetailsModel?.data?.type,
+                              context.isArabic,
+                            ),
+                            // كل الحالات تتترجم (مباع / مؤجر / محجوز / متاح)،
+                            // ولو مفيش حالة تظهر «لا يوجد» مش «متاح».
+                            status: rawStatus == null || rawStatus.isEmpty
+                                ? null
+                                : ApOptions.label(rawStatus, context.isArabic),
+                            rawStatus: rawStatus,
+                          );
+                        },
                       ),
                       Gap(24.h),
                       UnitBrokerInfo(
@@ -120,7 +127,16 @@ class UnitDetailsView extends StatelessWidget {
                         notes: unitDetailsCubit.unitDetailsModel?.data?.additionalDetails?.notes,
                       ),
                       Gap(24.h),
-                      UnitLocation(),
+                      UnitLocation(
+                        location: unitDetailsCubit
+                            .unitDetailsModel?.data?.location
+                            ?.toString(),
+                        title: context.isArabic
+                            ? unitDetailsCubit
+                                  .unitDetailsModel?.data?.city?.nameAr
+                            : unitDetailsCubit
+                                  .unitDetailsModel?.data?.city?.nameEn,
+                      ),
                       Gap(24.h),
                       Builder(
                         builder: (context) {
@@ -132,6 +148,8 @@ class UnitDetailsView extends StatelessWidget {
                           return ConsultationView(brokerPhone: brokerPhone);
                         },
                       ),
+                      // مسافة أخيرة عشان آخر قسم ما يلزقش في الشريط السفلي
+                      Gap(24.h),
                     ],
                   ),
           );

@@ -37,6 +37,19 @@ class UnitInformation extends StatelessWidget {
     'ownerName', 'ownerPhone', 'unitNumber', 'buildingNumber',
   };
 
+  /// الحقول الأساسية اللي المستخدم بيدوّر عليها دايمًا: تظهر حتى لو فاضية،
+  /// بقيمة «لا يوجد» بدل ما تختفي من الشبكة. الترتيب هنا هو ترتيب عرضها.
+  static const List<String> _alwaysShownKeys = [
+    'unitArea',
+    'numberOfRooms',
+    'numberOfBathrooms',
+    'floor',
+    'finishingType',
+    'deliveryStatus',
+    'deliveryDate',
+    'view',
+  ];
+
   /// Values that get the currency suffix.
   static const Set<String> _moneyKeys = {
     'dailyRent', 'monthlyRent', 'pricePerMeterInCash', 'totalPriceInCash',
@@ -135,10 +148,28 @@ class UnitInformation extends StatelessWidget {
       }
     });
 
+    // المفاتيح بصيغة موحّدة (camelCase) عشان البحث فيها يشتغل مهما كانت
+    // الصيغة اللي بعتها الـ API.
+    final normalized = <String, dynamic>{};
+    flat.forEach((k, v) => normalized[_normalizeKey(k)] = v);
+
     final entries = <MapEntry<String, String>>[];
-    flat.forEach((rawKey, value) {
-      final key = _normalizeKey(rawKey);
+    final notAvailable = LangKeys.notAvailable.tr();
+
+    // أولًا الحقول الأساسية بترتيب ثابت — حتى لو فاضية أو مش موجودة أصلًا
+    for (final key in _alwaysShownKeys) {
+      final label = _labelOf(key, isArabic);
+      if (label == null) continue;
+      final text = normalized.containsKey(key)
+          ? _formatValue(key, normalized[key], isArabic)
+          : null;
+      entries.add(MapEntry(label, text ?? notAvailable));
+    }
+
+    // وبعدين باقي الحقول اللي بعتها الـ API، بترتيبها، والفاضي منها يتخفي
+    normalized.forEach((key, value) {
       if (_hiddenKeys.contains(key)) return;
+      if (_alwaysShownKeys.contains(key)) return;
       final label = _labelOf(key, isArabic);
       // No known label -> the key itself would leak into the UI in English.
       if (label == null) return;

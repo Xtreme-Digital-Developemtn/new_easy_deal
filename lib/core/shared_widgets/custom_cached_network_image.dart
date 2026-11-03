@@ -14,8 +14,41 @@ class CustomNetWorkImage extends StatelessWidget {
   final double? height;
   final double? width;
   final BoxFit? fit;
+  /// بديل محايد للصورة: مستطيل رمادي وأيقونة صورة — بدل أيقونة الصورة
+  /// المكسورة أو مساحة بيضا، سواء كان الرابط فاضي أو التحميل فشل.
+  Widget _placeholder() {
+    return Container(
+      width: width ?? double.infinity,
+      height: height ?? double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.gray1,
+        borderRadius: BorderRadius.circular(raduis),
+      ),
+      child: Center(
+        child: Icon(
+          Icons.image_not_supported_outlined,
+          size: 32,
+          color: AppColors.gray,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // رابط فاضي أو غير صالح: ما نحاولش نحمّل أصلًا
+    final uri = Uri.tryParse(imageUrl);
+    final bool isValidUrl = imageUrl.trim().isNotEmpty &&
+        uri != null &&
+        uri.hasScheme &&
+        uri.host.isNotEmpty;
+    if (!isValidUrl) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(raduis),
+        child: _placeholder(),
+      );
+    }
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(raduis),
       child: CachedNetworkImage(
@@ -37,7 +70,7 @@ class CustomNetWorkImage extends StatelessWidget {
             ),
           ),
         ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => _placeholder(),
       ),
     );
   }

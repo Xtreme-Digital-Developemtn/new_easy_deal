@@ -8,7 +8,13 @@ class UnitFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> featuresList = otherAccessories ?? [LangKeys.notAvailable.tr()];
+    // قائمة فاضية = زي ما تكون null: تظهر «لا يوجد» مش شبكة فاضية
+    final cleaned = otherAccessories
+            ?.where((e) => e.trim().isNotEmpty)
+            .toList() ??
+        const <String>[];
+    final List<String> featuresList =
+        cleaned.isEmpty ? [LangKeys.notAvailable.tr()] : cleaned;
     return Container(
       padding: EdgeInsets.all(12.r),
       width: double.infinity,

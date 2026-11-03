@@ -20,7 +20,11 @@ class UnitDescription extends StatelessWidget {
         children: [
           Text(LangKeys.propertyDetails.tr(),style: AppStyles.blueDark14Bold,),
           Gap(16.h),
-          Text(notes ?? LangKeys.notAvailable.tr()),
+          Text(
+            notes?.trim().isNotEmpty == true
+                ? notes!.trim()
+                : LangKeys.notAvailable.tr(),
+          ),
         ],
       ),
     );
