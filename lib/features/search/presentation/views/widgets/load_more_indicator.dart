@@ -1,20 +1,29 @@
+import '../../../../../core/shared_widgets/error_ui.dart';
 import '../../../../../main_imports.dart';
 
 class LoadMoreIndicator extends StatelessWidget {
   final bool hasMore;
   final bool isLoadingMore;
+  final String? errorMessage;
   final VoidCallback? onTap;
   const LoadMoreIndicator({
     super.key,
     required this.hasMore,
     required this.isLoadingMore,
+    this.errorMessage,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (!hasMore) {
+    if (!hasMore && errorMessage == null) {
       return const SizedBox.shrink();
+    }
+    if (errorMessage != null && !isLoadingMore) {
+      return ErrorWidgetUi(
+        message: errorMessage,
+        onRetry: () => onTap?.call(),
+      );
     }
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.h),

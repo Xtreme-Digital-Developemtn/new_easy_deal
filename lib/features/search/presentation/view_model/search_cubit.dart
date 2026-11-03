@@ -17,13 +17,19 @@ class SearchCubit extends Cubit<SearchStates> {
   BestSellerUnitsModel? allUnitsModel;
   List<Data> allUnits = [];
   int currentPage = 1;
-  int itemsPerPage = 3;
+  int itemsPerPage = 10;
   bool hasMore = true;
   bool isLoadingMore = false;
   bool isLoading = false;
   // TC5: sequence token — rapid type/delete fires overlapping requests;
   // only the latest response may touch the UI, stale ones are discarded.
+  // يشمل كمان طلبات التحميل الإضافي، عشان رد صفحة قديمة ما يتضافش
+  // بعد refresh أو بحث جديد (تكرار وحدات).
   int _unitsRequestSeq = 0;
+
+  /// رسالة خطأ آخر محاولة تحميل (أول صفحة أو صفحة إضافية)، حتى تعرضها الواجهة.
+  String? unitsError;
+  bool loadMoreFailed = false;
 
   Future<void> getAllUnits({
     bool? isFilter,
@@ -42,17 +48,25 @@ class SearchCubit extends Cubit<SearchStates> {
       currentPage = 1;
       hasMore = true;
       allUnitsModel = null;
+      // أي تحميل إضافي كان شغّال بقى لاغي
+      isLoadingMore = false;
+    }
+
+    if (loadMore) {
+      loadMoreFailed = false;
+    } else {
+      unitsError = null;
+      loadMoreFailed = false;
     }
 
     // إذا كان التحميل للصفحات التالية
-    int mySeq = -1;
+    final int mySeq = ++_unitsRequestSeq;
     String requestKeyword = keyword;
     if (loadMore) {
       isLoadingMore = true;
       currentPage++;
       emit(GetAllUnitsLoadingMoreState()); // حالة تحميل إضافي
     } else {
-      mySeq = ++_unitsRequestSeq;
       isLoading = true;
       emit(GetAllUnitsLoadingState()); // حالة تحميل أولي
       // capture query snapshot for this request
@@ -76,41 +90,48 @@ class SearchCubit extends Cubit<SearchStates> {
     );
 
     // TC5: تجاهل الاستجابات القديمة — الأحدث فقط هو اللي يحدّث الواجهة.
-    if (!loadMore && mySeq != _unitsRequestSeq) return;
+    if (mySeq != _unitsRequestSeq) return;
 
     return result.fold(
           (failure) {
         isLoading = false;
         isLoadingMore = false;
+        unitsError = failure.errMessage;
+        loadMoreFailed = loadMore;
         if (loadMore) {
           currentPage--; // تراجع عن زيادة الصفحة
         }
         emit(GetAllUnitsErrorState(failure.errMessage));
       },
           (data) async {
-        if (!loadMore && mySeq != _unitsRequestSeq) return;
         isLoading = false;
         isLoadingMore = false;
+        unitsError = null;
+        loadMoreFailed = false;
 
-        // التحقق إذا كانت هناك بيانات
-        bool hasData = data.data != null && data.data!.isNotEmpty;
-        hasMore = hasData && data.data!.length >= itemsPerPage;
+        final List<Data> page = data.data ?? [];
 
         if (loadMore) {
-          // إضافة البيانات الجديدة للقائمة الحالية
-          allUnits.addAll(data.data ?? []);
+          // إضافة الجديد فقط، مع استبعاد أي وحدة موجودة بالفعل
+          final existingIds = allUnits.map((e) => e.id).toSet();
+          allUnits.addAll(
+            page.where((e) => e.id == null || !existingIds.contains(e.id)),
+          );
+          hasMore = _computeHasMore(page, data.count);
           // تحديث النموذج مع البيانات الكاملة
           allUnitsModel = BestSellerUnitsModel(
             data: allUnits,
             message: data.message,
             status: data.status,
+            count: data.count,
           );
 
           emit(GetAllUnitsLoadMoreSuccessState(allUnitsModel!)); // نجاح تحميل إضافي
         } else {
           // حفظ البيانات الجديدة
-          allUnits = data.data ?? [];
+          allUnits = page;
           allUnitsModel = data;
+          hasMore = _computeHasMore(page, data.count);
           if (isFilter == true) {
             emit(GetAllUnitsFilterSuccessState(allUnitsModel!));
           } else {
@@ -121,9 +142,25 @@ class SearchCubit extends Cubit<SearchStates> {
     );
   }
 
+  /// فيه صفحات تانية؟ الصفحة الناقصة معناها النهاية، وكذلك لو وصلنا للعدد الكلي.
+  bool _computeHasMore(List<Data> page, int? count) {
+    if (page.length < itemsPerPage) return false;
+    if (count != null && allUnits.length >= count) return false;
+    return true;
+  }
+
   // دالة لتحميل المزيد من البيانات
   Future<void> loadMoreUnits() async {
     await getAllUnits(loadMore: true);
+  }
+
+  /// إعادة محاولة التحميل بعد خطأ: تكمّل من نفس المكان لو كان الخطأ في صفحة إضافية.
+  Future<void> retryUnits() async {
+    if (loadMoreFailed && allUnits.isNotEmpty) {
+      await getAllUnits(loadMore: true);
+    } else {
+      await getAllUnits(reset: true);
+    }
   }
 
   // باقي الكود كما هو...

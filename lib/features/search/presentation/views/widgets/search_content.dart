@@ -3,6 +3,7 @@ import 'package:easy_deal/features/search/presentation/view_model/search_cubit.d
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../core/shared_widgets/empty_widget.dart';
+import '../../../../../core/shared_widgets/error_ui.dart';
 import '../../../../../main_imports.dart';
 import '../../../../home/presentation/views/widgets/unit_item.dart';
 import 'load_more_indicator.dart';
@@ -29,6 +30,25 @@ class SearchContent extends StatelessWidget {
         final List<Data>? data = searchCubit.allUnitsModel?.data;
         final bool isEmpty =
             data != null && data.isEmpty && !searchCubit.isLoadingMore;
+        // فشل تحميل أول صفحة: مفيش بيانات على الشاشة خالص
+        final bool isInitialError = data == null &&
+            !searchCubit.isLoading &&
+            searchCubit.unitsError != null;
+        final bool showFooter =
+            searchCubit.hasMore || searchCubit.loadMoreFailed;
+
+        if (isInitialError) {
+          return ListView(
+            controller: scrollController,
+            children: [
+              Gap(40.h),
+              ErrorWidgetUi(
+                message: searchCubit.unitsError,
+                onRetry: () => searchCubit.getAllUnits(reset: true),
+              ),
+            ],
+          );
+        }
 
         int itemCount;
         if (isInitialLoading) {
@@ -36,7 +56,7 @@ class SearchContent extends StatelessWidget {
         } else if (isEmpty) {
           itemCount = 1;
         } else if (data != null) {
-          itemCount = data.length + (searchCubit.hasMore ? 1 : 0);
+          itemCount = data.length + (showFooter ? 1 : 0);
         } else {
           itemCount = 0;
         }
@@ -65,6 +85,8 @@ class SearchContent extends StatelessWidget {
                 return LoadMoreIndicator(
                   hasMore: searchCubit.hasMore,
                   isLoadingMore: searchCubit.isLoadingMore,
+                  errorMessage:
+                      searchCubit.loadMoreFailed ? searchCubit.unitsError : null,
                   onTap: () => searchCubit.loadMoreUnits(),
                 );
               }
