@@ -1,6 +1,7 @@
 
 import 'package:easy_deal/features/unit_details/data/models/unit_details_model.dart';
 
+import '../../../../core/utils/params/unit_inquiry_parms.dart';
 import '../../../../main_imports.dart';
  import '../../data/repos/unit_details_repo.dart';
 import 'unit_details_states.dart';
@@ -22,6 +23,18 @@ class UnitDetailsCubit extends Cubit<UnitDetailsStates> {
     }, (data) async {
       unitDetailsModel = data;
       emit(GetUnitDetailsSuccessState(data));
+    });
+  }
+
+  Future<void> sendInquiry({required UnitInquiryParms unitInquiryParms}) async {
+    emit(SendUnitInquiryLoadingState());
+    var result = await unitDetailsRepo!.sendInquiry(
+      unitInquiryParms: unitInquiryParms,
+    );
+    return result.fold((failure) {
+      emit(SendUnitInquiryErrorState(failure.errMessage));
+    }, (data) async {
+      emit(SendUnitInquirySuccessState());
     });
   }
 

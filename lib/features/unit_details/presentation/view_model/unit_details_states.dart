@@ -16,3 +16,11 @@ class GetUnitDetailsSuccessState extends UnitDetailsStates{
 
 }
 
+
+class SendUnitInquiryLoadingState extends UnitDetailsStates{}
+class SendUnitInquiryErrorState extends UnitDetailsStates{
+  final String error;
+  SendUnitInquiryErrorState(this.error);
+
+}
+class SendUnitInquirySuccessState extends UnitDetailsStates{}
