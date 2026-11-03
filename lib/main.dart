@@ -27,6 +27,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   setup();
+
   getVmUri();
   getFcmToken();
     Bloc.observer = MyBlocObserver();
