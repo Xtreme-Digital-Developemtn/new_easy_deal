@@ -1,4 +1,5 @@
 import 'package:easy_deal/core/shared_widgets/error_ui.dart';
+import 'package:easy_deal/core/utils/contact_launcher.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_states.dart';
@@ -122,6 +123,13 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
                         onNewTap: () => updateStatus('new'),
                         onCompleteTap: () => updateStatus('finished'),
                         onStartProcessingTap: () => updateStatus('in_processing'),
+                        // واتساب بنفس رقم الوسيط، والشيب يختفي لو مفيش رقم
+                        onWhatsAppTap: ContactLauncher.hasPhone(details?.user?.phone)
+                            ? () => ContactLauncher.whatsApp(
+                                  context,
+                                  details?.user?.phone,
+                                )
+                            : null,
                       ),
                       Gap(16.h),
                       const RequestInfoGrid(),

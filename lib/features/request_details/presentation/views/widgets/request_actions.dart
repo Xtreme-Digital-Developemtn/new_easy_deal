@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../../core/utils/app_images/svg_images.dart';
 
 class RequestActions extends StatelessWidget {
   const RequestActions({
@@ -7,12 +10,16 @@ class RequestActions extends StatelessWidget {
     this.onAssignBrokerTap,
     this.onCompleteTap,
     this.onStartProcessingTap,
+    this.onWhatsAppTap,
   });
 
   final VoidCallback? onNewTap;
   final VoidCallback? onAssignBrokerTap;
   final VoidCallback? onCompleteTap;
   final VoidCallback? onStartProcessingTap;
+
+  /// لو مفيش رقم للوسيط بيجي null والشيب ما يظهرش أصلاً
+  final VoidCallback? onWhatsAppTap;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +56,15 @@ class RequestActions extends StatelessWidget {
           textColor: const Color(0xFF3D7DD8),
           onTap: onStartProcessingTap,
         ),
+
+        if (onWhatsAppTap != null)
+          _ActionChip(
+            label: 'واتساب',
+            svgIcon: SvgImages.whatsapp,
+            backgroundColor: const Color(0xFFDFF6E4),
+            textColor: const Color(0xFF128C7E),
+            onTap: onWhatsAppTap,
+          ),
       ],
     );
   }
@@ -60,6 +76,7 @@ class _ActionChip extends StatelessWidget {
     required this.backgroundColor,
     required this.textColor,
     this.icon,
+    this.svgIcon,
     this.onTap,
   });
 
@@ -67,6 +84,9 @@ class _ActionChip extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final IconData? icon;
+
+  /// بديل لـ[icon] للأيقونات اللي جايه من ملف SVG زي لوجو واتساب
+  final String? svgIcon;
   final VoidCallback? onTap;
 
   @override
@@ -86,7 +106,15 @@ class _ActionChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (icon != null) ...[
+            if (svgIcon != null) ...[
+              SvgPicture.asset(
+                svgIcon!,
+                width: 14,
+                height: 14,
+                colorFilter: ColorFilter.mode(textColor, BlendMode.srcIn),
+              ),
+              const SizedBox(width: 5),
+            ] else if (icon != null) ...[
               Icon(
                 icon,
                 size: 14,

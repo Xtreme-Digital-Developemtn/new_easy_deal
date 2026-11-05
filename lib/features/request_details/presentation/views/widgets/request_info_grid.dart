@@ -147,7 +147,7 @@ class _RequestInfoCard extends StatelessWidget {
     return Container(
       decoration: decoration,
       child: LayoutBuilder(
-        builder: (context, constraints) {
+      builder: (context, constraints) {
           final circleSize =
               (constraints.maxHeight * 0.38).clamp(32.0, 58.0);
 
@@ -219,3 +219,4 @@ class _RequestInfoCard extends StatelessWidget {
     );
   }
 }
+

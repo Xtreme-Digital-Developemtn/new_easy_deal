@@ -8,6 +8,7 @@ class SvgImages
   static const String openEye = "$svgPath/open_eye.svg";
   static const String home = "$svgPath/home-2.svg";
   static const String chat = "$svgPath/messages-3-svgrepo-com.svg";
+  static const String whatsapp = "$svgPath/whatsapp.svg";
   static const String notify2 = "$svgPath/notify.svg";
   static const String search = "$svgPath/search.svg";
   static const String add = "$svgPath/add-icon-svgrepo-com.svg";
