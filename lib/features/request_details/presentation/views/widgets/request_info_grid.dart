@@ -1,4 +1,5 @@
 
+import '../../../../../core/utils/contact_launcher.dart';
 import '../../../../../main_imports.dart';
 import '../../../data/config/display_value.dart';
 import '../../view_model/request_details_cubit.dart';
@@ -16,10 +17,18 @@ class RequestInfoGrid extends StatelessWidget {
     required IconData icon,
     required String? value,
     required String label,
+    VoidCallback? onTap,
   }) =>
       value == null
           ? const []
-          : [_RequestInfoCard(icon: icon, value: value, label: label)];
+          : [
+              _RequestInfoCard(
+                icon: icon,
+                value: value,
+                label: label,
+                onTap: onTap,
+              )
+            ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +53,10 @@ class RequestInfoGrid extends StatelessWidget {
         icon: Icons.phone_outlined,
         value: DisplayValue.text(details?.user?.phone),
         label: 'رقم الهاتف',
+        // ضغطة على الكارت تفتح شاشة الاتصال على طول برقم الوسيط
+        onTap: ContactLauncher.hasPhone(details?.user?.phone)
+            ? () => ContactLauncher.call(context, details?.user?.phone)
+            : null,
       ),
       ..._card(
         icon: Icons.thumb_up_alt_outlined,
@@ -84,23 +97,55 @@ class _RequestInfoCard extends StatelessWidget {
     required this.icon,
     required this.value,
     required this.label,
+    this.onTap,
   });
 
   final IconData icon;
   final String value;
   final String label;
 
+  /// لو موجود الكارت يبقى قابل للضغط (كارت رقم الهاتف بيفتح الاتصال)
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(
-          color: const Color(0xFFE1E4E8),
-          width: 1.5,
+    final radius = BorderRadius.circular(18.r);
+    final border = Border.all(
+      color: const Color(0xFFE1E4E8),
+      width: 1.5,
+    );
+
+    if (onTap == null) {
+      return _frame(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: radius,
+          border: border,
+        ),
+      );
+    }
+
+    // نفس شكل الكارت بالظبط: الخلفية البيضاء بقت على الـMaterial عشان
+    // الـripple يبان فوقها، والبوردر والـradius زي ما هم.
+    return Material(
+      color: Colors.white,
+      borderRadius: radius,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: radius,
+        child: _frame(
+          decoration: BoxDecoration(
+            borderRadius: radius,
+            border: border,
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _frame({required BoxDecoration decoration}) {
+    return Container(
+      decoration: decoration,
       child: LayoutBuilder(
         builder: (context, constraints) {
           final circleSize =
