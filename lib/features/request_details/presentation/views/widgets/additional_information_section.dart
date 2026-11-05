@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_deal/features/request_details/data/config/display_value.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -10,10 +11,26 @@ class AdditionalInformationSection extends StatelessWidget {
 
   final Attributes? attributes;
 
+  /// الملحقات بعد فلترة العناصر الفاضية وتحويلها لنصوص معروضة
+  static List<String> _facilities(BuildContext context, Attributes? attributes) =>
+      DisplayValue.list(attributes?.otherAccessories)
+          .map((e) => ApOptions.label(e, context.isArabic))
+          .where((label) => DisplayValue.isValid(label))
+          .toList();
+
+  static String? _notes(Attributes? attributes) =>
+      DisplayValue.text(attributes?.notes);
+
+  /// القسم كله بيختفي لو مفيش ملحقات ولا ملاحظات
+  static bool hasData(BuildContext context, Attributes? attributes) =>
+      _facilities(context, attributes).isNotEmpty || _notes(attributes) != null;
+
   @override
   Widget build(BuildContext context) {
-    final facilities = attributes?.otherAccessories ?? [];
-    final notes = attributes?.notes;
+    final facilities = _facilities(context, attributes);
+    final notes = _notes(attributes);
+    if (facilities.isEmpty && notes == null) return const SizedBox.shrink();
+
     return RequestSection(
       title: LangKeys.additionalInformation.tr(),
       child: Container(
@@ -29,29 +46,25 @@ class AdditionalInformationSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              LangKeys.otherAccessories.tr(),
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+            if (facilities.isNotEmpty) ...[
+              Text(
+                LangKeys.otherAccessories.tr(),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            if (facilities.isEmpty)
-              const Text(
-                '-',
-                style: TextStyle(fontSize: 13, color: Color(0xff888888)),
-              )
-            else
+              const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
                 children: facilities
-                    .map((e) => _FacilityTag(title: ApOptions.label(e.toString(), context.isArabic)))
+                    .map((e) => _FacilityTag(title: e))
                     .toList(),
               ),
-            if (notes != null && notes.isNotEmpty) ...[
-              const SizedBox(height: 14),
+            ],
+            if (notes != null) ...[
+              if (facilities.isNotEmpty) const SizedBox(height: 14),
               Text(
                 LangKeys.notes.tr(),
                 style: const TextStyle(

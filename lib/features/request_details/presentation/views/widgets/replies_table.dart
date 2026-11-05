@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_deal/features/request_details/data/config/display_value.dart';
 import 'package:easy_deal/features/request_details/data/models/recommended_model.dart';
 import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
@@ -95,7 +96,7 @@ class RepliesTable extends StatelessWidget {
           return ReplyTableRow(
             index: index + 1,
             unitCode: item.displayUnitCode,
-            area: item.unitArea?.toString() ?? '-',
+            area: DisplayValue.text(item.unitArea) ?? '-',
             city: _cityName(context, item),
             broker: item.displayBrokerName,
             finishing: _finishingText(context, item.finishingType),
@@ -209,8 +210,8 @@ class RepliesModelTable extends StatelessWidget {
           final String broker = row['broker'] as String;
           return ReplyTableRow(
             index: index + 1,
-            unitCode: unit?.modelCode?.toString() ?? unit?.id?.toString() ?? '-',
-            area: unit?.unitArea?.toString() ?? '-',
+            unitCode: DisplayValue.firstValid([unit?.modelCode, unit?.id]) ?? '-',
+            area: DisplayValue.text(unit?.unitArea) ?? '-',
             city: unit != null ? _cityName(context, unit) : '-',
             broker: broker,
             finishing: _finishingText(context, unit?.finishingType),
@@ -301,7 +302,7 @@ class RecommendedTable extends StatelessWidget {
           return ReplyTableRow(
             index: index + 1,
             unitCode: item.displayUnitCode,
-            area: item.unitArea?.toString() ?? '-',
+            area: DisplayValue.text(item.unitArea) ?? '-',
             city: _cityName(context, item),
             broker: item.displayBrokerName,
             finishing: _finishingText(context, item.finishingType),

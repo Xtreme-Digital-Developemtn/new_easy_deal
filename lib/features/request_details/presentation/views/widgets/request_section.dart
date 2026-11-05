@@ -45,8 +45,17 @@ class RequestSection extends StatelessWidget {
   }
 }
 
+/// بيبني صف واحد لو القيمة صالحة للعرض، وبيرجّع `null` لو الحقل لازم يختفي
+/// بالكامل. الـ`InfoCard` بيفلتر الـnulls فمفيش مسافة ولا Divider فاضي.
+Widget? optionalInfoRow({required String title, required String? value}) =>
+    value == null ? null : InfoRow(title: title, value: value);
+
+/// `true` لو فيه صف واحد على الأقل لسه ظاهر في القسم.
+bool hasVisibleRows(List<Widget?> rows) => rows.any((row) => row != null);
+
 class InfoCard extends StatelessWidget {
-  final List<Widget> children;
+  /// ممكن تحتوي على `null` للصفوف المخفية، والـwidget بيستبعدها.
+  final List<Widget?> children;
 
   const InfoCard({super.key,
     required this.children,
@@ -54,6 +63,8 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final visible = children.whereType<Widget>().toList();
+    if (visible.isEmpty) return const SizedBox.shrink();
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -64,7 +75,7 @@ class InfoCard extends StatelessWidget {
         ),
       ),
       child: Column(
-        children: children,
+        children: visible,
       ),
     );
   }

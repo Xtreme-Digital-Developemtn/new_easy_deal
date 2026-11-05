@@ -21,29 +21,33 @@ class RequestOverview extends StatelessWidget {
     // Resolve real data from model: prefers explicit param, falls back to cubit
     final resolved = data ?? context.read<RequestDetailsCubit>().requestDetailsModel?.data;
 
+    /// القسم اللي كل حقوله فاضية بيختفي هو وعنوانه والـDivider والمسافة
+    /// اللي بعده، فالترتيب والـLayout بيفضلوا مظبوطين.
+    final sections = <Widget>[
+      if (BasicInformationSection.hasData(resolved))
+        BasicInformationSection(data: resolved),
+      if (LocationDetailsSection.hasData(context, resolved))
+        LocationDetailsSection(data: resolved),
+      if (PropertyDetailsSection.hasData(context, resolved?.attributes))
+        PropertyDetailsSection(attributes: resolved?.attributes),
+      if (StatusInformationSection.hasData(context, resolved))
+        StatusInformationSection(data: resolved),
+      if (AdditionalInformationSection.hasData(context, resolved?.attributes))
+        AdditionalInformationSection(attributes: resolved?.attributes),
+      if (FinancialNotesSection.hasData(context, resolved?.attributes))
+        FinancialNotesSection(attributes: resolved?.attributes),
+      if (RequestInformationSection.hasData(resolved))
+        RequestInformationSection(data: resolved),
+    ];
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BasicInformationSection(data: resolved),
-          const SizedBox(height: 24),
-
-          LocationDetailsSection(data: resolved),
-          const SizedBox(height: 24),
-
-          PropertyDetailsSection(attributes: resolved?.attributes),
-          const SizedBox(height: 24),
-
-          StatusInformationSection(data: resolved),
-          const SizedBox(height: 24),
-
-          AdditionalInformationSection(attributes: resolved?.attributes),
-          const SizedBox(height: 24),
-
-          FinancialNotesSection(attributes: resolved?.attributes),
-          const SizedBox(height: 24),
-
-          RequestInformationSection(data: resolved),
+          for (var i = 0; i < sections.length; i++) ...[
+            if (i != 0) const SizedBox(height: 24),
+            sections[i],
+          ],
         ],
       ),
     );

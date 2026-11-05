@@ -1,5 +1,6 @@
 
 import '../../../../../main_imports.dart';
+import '../../../data/config/display_value.dart';
 import '../../view_model/request_details_cubit.dart';
 
 class RequestInfoGrid extends StatelessWidget {
@@ -10,14 +11,49 @@ class RequestInfoGrid extends StatelessWidget {
 
 
 
+  /// بيرجّع الكارت لو القيمة صالحة، أو ليستة فاضية فالكارت ما يتضافش أصلاً
+  List<Widget> _card({
+    required IconData icon,
+    required String? value,
+    required String label,
+  }) =>
+      value == null
+          ? const []
+          : [_RequestInfoCard(icon: icon, value: value, label: label)];
+
   @override
   Widget build(BuildContext context) {
     var requestDetailsCubit = context.read<RequestDetailsCubit>();
-    var details =  requestDetailsCubit
-        .requestDetailsModel!
-        .data!;
+    var details = requestDetailsCubit.requestDetailsModel?.data;
     final textScale =
         MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 1.4);
+
+    /// الكارت اللي قيمته فاضية أو صفر (ما عدا الردود) بيختفي بالكامل
+    final cards = <Widget>[
+      ..._card(
+        icon: Icons.person_outline,
+        value: DisplayValue.text(details?.user?.name),
+        label: 'اسم الوسيط',
+      ),
+      ..._card(
+        icon: Icons.calendar_month_outlined,
+        value: DisplayValue.text(details?.createdAt),
+        label: 'تاريخ الطلب',
+      ),
+      ..._card(
+        icon: Icons.phone_outlined,
+        value: DisplayValue.text(details?.user?.phone),
+        label: 'رقم الهاتف',
+      ),
+      ..._card(
+        icon: Icons.thumb_up_alt_outlined,
+        // صفر ردود قيمة حقيقية بتفيد المستخدم
+        value: DisplayValue.text(details?.numberOfReplies, zeroIsValid: true),
+        label: 'الردود',
+      ),
+    ];
+
+    if (cards.isEmpty) return const SizedBox.shrink();
 
     // يقيس العرض المتاح فعلياً عشان الكروت تتظبط مع أي مسافات جانبية
     return LayoutBuilder(
@@ -36,31 +72,7 @@ class RequestInfoGrid extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           childAspectRatio: cardWidth / (132.h * textScale),
-          children: [
-            _RequestInfoCard(
-              icon: Icons.person_outline,
-              value: details.user!.name.toString(),
-              label: 'اسم الوسيط',
-            ),
-
-            _RequestInfoCard(
-              icon: Icons.calendar_month_outlined,
-              value:  details.createdAt.toString(),
-              label: 'تاريخ الطلب',
-            ),
-
-            _RequestInfoCard(
-              icon: Icons.phone_outlined,
-              value: details.user!.phone.toString(),
-              label: 'رقم الهاتف',
-            ),
-
-            _RequestInfoCard(
-              icon: Icons.thumb_up_alt_outlined,
-              value: details.numberOfReplies.toString(),
-              label: 'الردود',
-            ),
-          ],
+          children: cards,
         );
       },
     );

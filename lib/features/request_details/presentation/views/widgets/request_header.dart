@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/themes/app_colors.dart';
 import '../../../../../main_imports.dart';
 import '../../../../requests/data/config/request_translations.dart';
+import '../../../data/config/display_value.dart';
 import '../../view_model/request_details_cubit.dart';
 
 class RequestHeader extends StatelessWidget {
@@ -13,9 +14,30 @@ class RequestHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var requestDetailsCubit = context.read<RequestDetailsCubit>();
-    var details =  requestDetailsCubit
-        .requestDetailsModel!
-        .data!;
+    var details = requestDetailsCubit.requestDetailsModel?.data;
+
+    final title = DisplayValue.mapped(details?.type, RequestTranslations.type);
+
+    /// تاجات الصف الأول: نطاق التخصص ونوع الوحدة
+    final firstRowTags = <String>[
+      ...?_tag(DisplayValue.mapped(
+        details?.specializationScope,
+        RequestTranslations.specializationScope,
+      )),
+      ...?_tag(DisplayValue.mapped(details?.unit, RequestTranslations.unit)),
+    ];
+
+    /// تاجات الصف الثاني: العنوان التفصيلي والمدينة
+    final city = details?.locations?.isNotEmpty == true
+        ? details!.locations!.first.city
+        : null;
+    final secondRowTags = <String>[
+      ...?_tag(DisplayValue.text(details?.detailedAddress)),
+      ...?_tag(context.isArabic
+          ? DisplayValue.firstValid([city?.nameAr, city?.nameEn])
+          : DisplayValue.firstValid([city?.nameEn, city?.nameAr])),
+    ];
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
@@ -33,53 +55,47 @@ class RequestHeader extends StatelessWidget {
           const SizedBox(height: 12),
 
           /// Request Title
-            Text(RequestTranslations.type(details.type),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              height: 1.1,
+          if (title != null) ...[
+            Text(title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                height: 1.1,
+              ),
             ),
-          ),
-
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
+          ],
 
           /// First Row Tags
-          Wrap(
-            spacing: 6,
-            runSpacing: 7,
-            children:   [
-              _RequestTag(
-                title: RequestTranslations.specializationScope(details.specializationScope),
-              ),
-              _RequestTag(
-                title: RequestTranslations.unit(details.unit),
-              ),
-            ],
-          ),
+          if (firstRowTags.isNotEmpty)
+            Wrap(
+              spacing: 6,
+              runSpacing: 7,
+              children: firstRowTags
+                  .map((tag) => _RequestTag(title: tag))
+                  .toList(),
+            ),
 
-          const SizedBox(height: 7),
+          if (firstRowTags.isNotEmpty && secondRowTags.isNotEmpty)
+            const SizedBox(height: 7),
 
           /// Second Row Tags
-          Wrap(
-            spacing: 6,
-            runSpacing: 7,
-            children:   [
-              _RequestTag(
-                title:  details.detailedAddress
-                    .toString(),
-              ),
-              _RequestTag(
-                title:  context.isArabic
-                    ? details.locations![0].city!.nameAr.toString()
-                    : details.locations![0].city!.nameEn.toString(),
-              ),
-            ],
-          ),
+          if (secondRowTags.isNotEmpty)
+            Wrap(
+              spacing: 6,
+              runSpacing: 7,
+              children: secondRowTags
+                  .map((tag) => _RequestTag(title: tag))
+                  .toList(),
+            ),
         ],
       ),
     );
   }
+
+  /// بيرجّع عنصر واحد لو القيمة صالحة، أو null عشان ما يتضافش للتاجات
+  List<String>? _tag(String? value) => value == null ? null : [value];
 }
 
 class _RequestTag extends StatelessWidget {
