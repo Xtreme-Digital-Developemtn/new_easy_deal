@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class NotificationsModel {
   String? status;
   String? message;
@@ -71,13 +73,40 @@ class NotificationItem {
     title = json['title'];
     body = json['body'];
 
-    data = json['data'] != null
-        ? NotificationData.fromJson(json['data'])
-        : null;
+    data = _parseData(json['data']);
 
-    isRead = json['is_read'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    // بعض الـresponses بترجّع 0/1 بدل true/false
+    final rawIsRead = json['is_read'];
+    isRead = rawIsRead is bool
+        ? rawIsRead
+        : rawIsRead == null
+            ? null
+            : rawIsRead.toString() == '1' || rawIsRead.toString() == 'true';
+
+    createdAt = json['created_at']?.toString();
+    updatedAt = json['updated_at']?.toString();
+  }
+
+  /// رقم الطلب اللي الإشعار بيشاور عليه، أو null لو الإشعار مش مرتبط بطلب
+  int? get requestId => data?.requestId;
+
+  /// `data` بتجي Map في الأغلب، وساعات نص JSON من الـpush payload
+  static NotificationData? _parseData(dynamic raw) {
+    if (raw == null) return null;
+    if (raw is Map) {
+      return NotificationData.fromJson(Map<String, dynamic>.from(raw));
+    }
+    if (raw is String && raw.trim().isNotEmpty) {
+      try {
+        final decoded = jsonDecode(raw);
+        if (decoded is Map) {
+          return NotificationData.fromJson(Map<String, dynamic>.from(decoded));
+        }
+      } catch (_) {
+        // نص مش JSON - مش سبب نكسر الليستة كلها
+      }
+    }
+    return null;
   }
 
   Map<String, dynamic> toJson() {
@@ -111,8 +140,16 @@ class NotificationData {
   });
 
   NotificationData.fromJson(Map<String, dynamic> json) {
-    requestId = json['request_id'];
-    senderName = json['sender_name'];
+    // الـAPI بيرجّع الـid ساعات رقم وساعات نص ("70")
+    requestId = _toInt(json['request_id'] ?? json['requestId']);
+    senderName = json['sender_name']?.toString() ?? json['senderName']?.toString();
+  }
+
+  static int? _toInt(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value.toString().trim());
   }
 
   Map<String, dynamic> toJson() {

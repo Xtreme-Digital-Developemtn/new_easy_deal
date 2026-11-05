@@ -52,8 +52,16 @@ class _NotificationsViewState extends State<NotificationsView> {
             separatorBuilder: (_, __) => Gap(12.h),
             itemBuilder: (context, index) {
               final item = notifications[index];
+              final requestId = item.requestId;
               return NotifyItem(
                 notification: item,
+                // الإشعار اللي جواه request_id بيفتح تفاصيل الطلب
+                onTap: requestId == null
+                    ? null
+                    : () => context.pushNamed(
+                          Routes.requestDetailsView,
+                          arguments: {'requestId': requestId},
+                        ),
                 onAccept: () {
                   Toast.showSuccessToast(
                       msg: 'Accepted', context: context);

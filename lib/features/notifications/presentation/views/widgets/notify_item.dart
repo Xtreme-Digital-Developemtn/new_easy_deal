@@ -7,11 +7,16 @@ class NotifyItem extends StatelessWidget {
   final VoidCallback? onAccept;
   final VoidCallback? onReject;
 
+  /// ضغطة على الإشعار بتروح لتفاصيل الطلب. بتجي null لو الإشعار مش مرتبط
+  /// بطلب، فالعنصر ساعتها ما يبقاش قابل للضغط.
+  final VoidCallback? onTap;
+
   const NotifyItem({
     super.key,
     required this.notification,
     this.onAccept,
     this.onReject,
+    this.onTap,
   });
 
   String _timeAgo(String? dateStr) {
@@ -28,6 +33,16 @@ class NotifyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final content = _content(context);
+    if (onTap == null) return content;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(onTap: onTap, child: content),
+    );
+  }
+
+  Widget _content(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12.r),
       width: double.infinity,
