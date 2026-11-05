@@ -4,9 +4,15 @@ import '../../../../../main_imports.dart';
 class FinishingBadge extends StatelessWidget {
   final String finishing;
 
+  /// القيمة الخام من الـAPI (full_finished / semi_finished / core_and_shell).
+  /// النص المعروض بقى بالعربي فاللون بيتحدد من دي، ولو مش موجودة بنرجع
+  /// للنص نفسه زي الأول.
+  final String? rawFinishing;
+
   const FinishingBadge({
     super.key,
     required this.finishing,
+    this.rawFinishing,
   });
 
   @override
@@ -37,31 +43,31 @@ class FinishingBadge extends StatelessWidget {
   }
 
   _FinishingStyle _getStyle() {
-    switch (finishing.toLowerCase()) {
-      case 'full':
-        return const _FinishingStyle(
-          backgroundColor: Color(0xffD5F8E9),
-          textColor: Color(0xff15966B),
-        );
+    final source = (rawFinishing ?? finishing).toLowerCase();
 
-      case 'semi':
-        return const _FinishingStyle(
-          backgroundColor: Color(0xffFFF0CC),
-          textColor: Color(0xffC77B00),
-        );
-
-      case 'core':
-        return const _FinishingStyle(
-          backgroundColor: Color(0xffFFE0E0),
-          textColor: Color(0xffD83232),
-        );
-
-      default:
-        return const _FinishingStyle(
-          backgroundColor: Color(0xffEEEEEE),
-          textColor: Color(0xff666666),
-        );
+    if (source.contains('full') || source.contains('lux')) {
+      return const _FinishingStyle(
+        backgroundColor: Color(0xffD5F8E9),
+        textColor: Color(0xff15966B),
+      );
     }
+    if (source.contains('semi')) {
+      return const _FinishingStyle(
+        backgroundColor: Color(0xffFFF0CC),
+        textColor: Color(0xffC77B00),
+      );
+    }
+    if (source.contains('core') || source.contains('shell')) {
+      return const _FinishingStyle(
+        backgroundColor: Color(0xffFFE0E0),
+        textColor: Color(0xffD83232),
+      );
+    }
+
+    return const _FinishingStyle(
+      backgroundColor: Color(0xffEEEEEE),
+      textColor: Color(0xff666666),
+    );
   }
 }
 

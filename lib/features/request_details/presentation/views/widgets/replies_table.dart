@@ -3,6 +3,7 @@ import 'package:easy_deal/features/request_details/data/config/display_value.dar
 import 'package:easy_deal/features/request_details/data/models/recommended_model.dart';
 import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/sent_responses_model.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/recommended_unit_sheet.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reply_table_header.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reply_table_row.dart';
 
@@ -306,6 +307,9 @@ class RecommendedTable extends StatelessWidget {
             city: _cityName(context, item),
             broker: item.displayBrokerName,
             finishing: _finishingText(context, item.finishingType),
+            finishingRaw: item.finishingType,
+            // "رؤية" بتفتح شيت بباقي تفاصيل الوحدة
+            onView: () => RecommendedUnitSheet.show(context, item),
           );
         }),
         if (hasMore || isLoadingMore)
@@ -315,7 +319,7 @@ class RecommendedTable extends StatelessWidget {
             child: Center(
               child: isLoadingMore
                   ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2))
-                  : TextButton(onPressed: onLoadMore, child: const Text('Load More')),
+                  : TextButton(onPressed: onLoadMore, child: const Text('تحميل المزيد')),
             ),
           ),
       ]),

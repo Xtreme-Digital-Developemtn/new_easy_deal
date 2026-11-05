@@ -60,23 +60,23 @@ class ReplyTableHeader extends StatelessWidget {
           ),
 
           _headerCell(
-            'Unit Code',
+            'كود الوحدة',
             width: ReplyTableColumns.unitCode,
           ),
 
           _headerCell(
-            'Area m²',
+            'المساحة م²',
             width: ReplyTableColumns.area,
           ),
 
           _headerCell(
-            'City',
+            'المدينة',
             width: ReplyTableColumns.city,
           ),
 
           const Expanded(
             child: Text(
-              'Broker',
+              'الوسيط',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -88,12 +88,12 @@ class ReplyTableHeader extends StatelessWidget {
           ),
 
           _headerCell(
-            'Finishing',
+            'التشطيب',
             width: ReplyTableColumns.finishing,
           ),
 
           _headerCell(
-            'Action',
+            'الإجراء',
             width: ReplyTableColumns.action,
           ),
         ],

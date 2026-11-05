@@ -12,6 +12,13 @@ class ReplyTableRow extends StatelessWidget {
   final String broker;
   final String finishing;
 
+  /// القيمة الخام للتشطيب (enum الـAPI) للون الـbadge، لأن النص المعروض
+  /// بقى بالعربي فما ينفعش نلوّن منه.
+  final String? finishingRaw;
+
+  /// زرار "رؤية": لو null الزرار بيبقى معطّل بدل ما يكون شكل بلا وظيفة
+  final VoidCallback? onView;
+
   const ReplyTableRow({
     super.key,
     required this.index,
@@ -20,6 +27,8 @@ class ReplyTableRow extends StatelessWidget {
     required this.city,
     required this.broker,
     required this.finishing,
+    this.finishingRaw,
+    this.onView,
   });
 
   @override
@@ -78,16 +87,13 @@ class ReplyTableRow extends StatelessWidget {
             width: ReplyTableColumns.finishing,
             child: FinishingBadge(
               finishing: finishing,
+              rawFinishing: finishingRaw,
             ),
           ),
 
           SizedBox(
             width: ReplyTableColumns.action,
-            child: _ViewButton(
-              onTap: () {
-                // TODO: Open reply details
-              },
-            ),
+            child: _ViewButton(onTap: onView),
           ),
         ],
       ),
@@ -117,29 +123,31 @@ class ReplyTableRow extends StatelessWidget {
 }
 
 class _ViewButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _ViewButton({
-    required this.onTap,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 34,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: const Color(0xff092FA3),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Text(
-          'View',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
+    final enabled = onTap != null;
+    return Material(
+      color: enabled ? const Color(0xff092FA3) : const Color(0xffBFC6DA),
+      borderRadius: BorderRadius.circular(8),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: 34,
+          alignment: Alignment.center,
+          child: const Text(
+            'رؤية',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

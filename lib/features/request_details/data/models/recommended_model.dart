@@ -98,6 +98,11 @@ class RecommendedData {
   List<dynamic>? gallery;
   List<ReplyLog>? replyLog;
 
+  /// الـjson الأصلي زي ما جه من الـAPI. الـAPI بيرجّع حقول أكتر بكتير من
+  /// الحقول المعرّفة فوق (أكتر من 60 حقل)، وشيت التفاصيل بيقراها منه بدل
+  /// إضافة كل حقل يدوي.
+  Map<String, dynamic>? raw;
+
   RecommendedData({
     this.id,
     this.modelCode,
@@ -154,6 +159,7 @@ class RecommendedData {
   });
 
   RecommendedData.fromJson(Map<String, dynamic> json) {
+    raw = json;
     id = json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? '');
     modelCode = json['modelCode']?.toString();
     type = json['type']?.toString();
