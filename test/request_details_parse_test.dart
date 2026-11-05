@@ -59,4 +59,65 @@ void main() {
     expect(model.data!.locations!.length, 1);
     expect(model.data!.locations!.first.city!.id, 5);
   });
+
+  test('يقرأ حالة التسليم من attributes.deliveryStatus', () {
+    final model = RequestDetailsModel.fromJson({
+      'data': {
+        'attributes': {'deliveryStatus': 'immediate_delivery'},
+      },
+    });
+
+    expect(model.data!.attributes!.deliveryStatus, 'immediate_delivery');
+
+    final empty = RequestDetailsModel.fromJson({
+      'data': {
+        'attributes': {'deliveryStatus': '  '},
+      },
+    });
+
+    expect(empty.data!.attributes!.deliveryStatus, isNull);
+  });
+
+  test('يقرأ مفاتيح الطلبات الحقيقية (مدى المساحة والسعر و bathRooms)', () {
+    final model = RequestDetailsModel.fromJson({
+      'data': {
+        'attributes': {
+          'unitAreaMin': '120',
+          'unitAreaMax': 180.5,
+          'bathRooms': '2',
+          'averageUnitPriceMin': '1500000',
+          'averageUnitPriceMax': 2500000,
+          'paymentMethod': 'cash',
+        },
+      },
+    });
+
+    final attr = model.data!.attributes!;
+    expect(attr.unitAreaMin, 120);
+    expect(attr.unitAreaMax, 180.5);
+    expect(attr.bathrooms, 2);
+    expect(attr.averageUnitPriceMin, 1500000);
+    expect(attr.averageUnitPriceMax, 2500000);
+    expect(attr.paymentMethod, 'cash');
+  });
+
+  test('مفاتيح الوحدات القديمة لسه بتشتغل كـfallback', () {
+    final model = RequestDetailsModel.fromJson({
+      'data': {
+        'attributes': {
+          'unitArea': '150',
+          'bathrooms': 3,
+          'unitPrice': '900000',
+          'unitPriceSuggestions': 950000,
+        },
+      },
+    });
+
+    final attr = model.data!.attributes!;
+    expect(attr.unitAreaMin, 150);
+    expect(attr.unitAreaMax, 150);
+    expect(attr.bathrooms, 3);
+    expect(attr.averageUnitPriceMin, 900000);
+    expect(attr.averageUnitPriceMax, 950000);
+  });
 }

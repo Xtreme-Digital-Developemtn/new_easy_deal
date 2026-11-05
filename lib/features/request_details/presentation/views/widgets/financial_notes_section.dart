@@ -21,15 +21,20 @@ class FinancialNotesSection extends StatelessWidget {
   }
 
   static List<Widget?> _rows(BuildContext context, Attributes? attributes) {
-    // نفس المنطق القديم: نظام السداد من تكرار الإيجار وإلا التأمين المطلوب
+    // نظام السداد: paymentMethod في الطلبات، وتكرار الإيجار/التأمين في الوحدات
     final rawPaymentSystem = DisplayValue.firstValidRaw([
+      attributes?.paymentMethod,
       attributes?.rentRecurrence,
       attributes?.requiredInsurance,
     ]);
     return [
       optionalInfoRow(
         title: LangKeys.unitPrice.tr(),
-        value: DisplayValue.withSuffix(attributes?.unitPrice, LangKeys.egp.tr()),
+        value: DisplayValue.withSuffix(
+          DisplayValue.firstValidRaw(
+              [attributes?.unitPrice, attributes?.averageUnitPriceMin]),
+          LangKeys.egp.tr(),
+        ),
       ),
       optionalInfoRow(
         title: LangKeys.brokerPriceSuggestions.tr(),
@@ -49,10 +54,7 @@ class FinancialNotesSection extends StatelessWidget {
         title: LangKeys.otherExpenses.tr(),
         value: _expensesText(context, attributes),
       ),
-      optionalInfoRow(
-        title: LangKeys.notes.tr(),
-        value: DisplayValue.text(attributes?.notes),
-      ),
+      // الملاحظات بتتعرض في قسم "معلومات إضافية" فمحذوفة من هنا عشان ما تتكررش
     ];
   }
 

@@ -19,8 +19,18 @@ class StatusInformationSection extends StatelessWidget {
       data?.attributes?.furnishingStatus,
     ]);
     return [
+      // حالة التسليم جايه من attributes.deliveryStatus وليها قيمتين بس:
+      // immediate_delivery (استلام فوري) و under_construction (تحت الإنشاء)
       optionalInfoRow(
         title: LangKeys.deliveryStatus.tr(),
+        value: DisplayValue.mapped(
+          data?.attributes?.deliveryStatus,
+          (raw) => ApOptions.label(raw?.toString(), context.isArabic),
+        ),
+      ),
+      // حالة الطلب نفسها (جديد / قيد المعالجة / مكتمل) مش حالة التسليم
+      optionalInfoRow(
+        title: LangKeys.status.tr(),
         value: DisplayValue.mapped(data?.status, RequestTranslations.status),
       ),
       optionalInfoRow(

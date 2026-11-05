@@ -118,21 +118,33 @@ class Attributes {
   String? buildingNumber;
   String? floor;
   int? unitArea;
+  /// الطلبات بترجّع مدى للمساحة (`unitAreaMin`/`unitAreaMax`) مش مساحة واحدة
+  /// زي الوحدات، فالحقلين دول هما المصدر الحقيقي للحد الأدنى والأقصى.
+  num? unitAreaMin;
+  num? unitAreaMax;
   int? rooms;
   int? bathrooms;
   String? unitView;
+  /// حالة التسليم جايه من attributes.deliveryStatus وليها قيمتين بس:
+  /// `immediate_delivery` و `under_construction`
+  String? deliveryStatus;
   String? finishingStatus;
   String? furnishingStatus;
   List<String>? otherAccessories;
   String? notes;
   int? unitPrice;
   int? unitPriceSuggestions;
+  /// نفس الحكاية في السعر: الطلب بيرجّع متوسط سعر من/إلى
+  num? averageUnitPriceMin;
+  num? averageUnitPriceMax;
   String? rentRecurrence;
   String? requiredInsurance;
+  /// نظام السداد في الطلبات اسمه `paymentMethod`
+  String? paymentMethod;
   List<String>? otherExpenses;
   String? mainImage;
 
-  Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.rooms, this.bathrooms, this.unitView, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.rentRecurrence, this.requiredInsurance, this.otherExpenses, this.mainImage});
+  Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.unitAreaMin, this.unitAreaMax, this.rooms, this.bathrooms, this.unitView, this.deliveryStatus, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.averageUnitPriceMin, this.averageUnitPriceMax, this.rentRecurrence, this.requiredInsurance, this.paymentMethod, this.otherExpenses, this.mainImage});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     compoundName = JsonParse.toStringOrNull(json["compoundName"]);
@@ -142,17 +154,27 @@ class Attributes {
     buildingNumber = JsonParse.toStringOrNull(json["buildingNumber"]);
     floor = JsonParse.toStringOrNull(json["floor"]);
     unitArea = JsonParse.toIntOrNull(json["unitArea"]);
+    // المساحة الواحدة بتستخدم كـfallback لو الـAPI رجّع شكل وحدة مش طلب
+    unitAreaMin = JsonParse.toNumOrNull(json["unitAreaMin"] ?? json["unitArea"]);
+    unitAreaMax = JsonParse.toNumOrNull(json["unitAreaMax"] ?? json["unitArea"]);
     rooms = JsonParse.toIntOrNull(json["rooms"]);
-    bathrooms = JsonParse.toIntOrNull(json["bathrooms"]);
+    // الـAPI بيكتبها bathRooms في الطلبات و bathrooms في الوحدات
+    bathrooms = JsonParse.toIntOrNull(json["bathrooms"] ?? json["bathRooms"]);
     unitView = JsonParse.toStringOrNull(json["unitView"]);
+    deliveryStatus = JsonParse.toStringOrNull(json["deliveryStatus"]);
     finishingStatus = JsonParse.toStringOrNull(json["finishingStatus"]);
     furnishingStatus = JsonParse.toStringOrNull(json["furnishingStatus"]);
     otherAccessories = JsonParse.toStringList(json["otherAccessories"]);
     notes = JsonParse.toStringOrNull(json["notes"]);
     unitPrice = JsonParse.toIntOrNull(json["unitPrice"]);
     unitPriceSuggestions = JsonParse.toIntOrNull(json["unitPriceSuggestions"]);
+    averageUnitPriceMin =
+        JsonParse.toNumOrNull(json["averageUnitPriceMin"] ?? json["unitPrice"]);
+    averageUnitPriceMax = JsonParse.toNumOrNull(
+        json["averageUnitPriceMax"] ?? json["unitPriceSuggestions"]);
     rentRecurrence = JsonParse.toStringOrNull(json["rentRecurrence"]);
     requiredInsurance = JsonParse.toStringOrNull(json["requiredInsurance"]);
+    paymentMethod = JsonParse.toStringOrNull(json["paymentMethod"]);
     otherExpenses = JsonParse.toStringList(json["otherExpenses"]);
     mainImage = JsonParse.toStringOrNull(json["mainImage"]);
   }
@@ -166,9 +188,12 @@ class Attributes {
     _data["buildingNumber"] = buildingNumber;
     _data["floor"] = floor;
     _data["unitArea"] = unitArea;
+    _data["unitAreaMin"] = unitAreaMin;
+    _data["unitAreaMax"] = unitAreaMax;
     _data["rooms"] = rooms;
     _data["bathrooms"] = bathrooms;
     _data["unitView"] = unitView;
+    _data["deliveryStatus"] = deliveryStatus;
     _data["finishingStatus"] = finishingStatus;
     _data["furnishingStatus"] = furnishingStatus;
     if(otherAccessories != null) {
@@ -177,8 +202,11 @@ class Attributes {
     _data["notes"] = notes;
     _data["unitPrice"] = unitPrice;
     _data["unitPriceSuggestions"] = unitPriceSuggestions;
+    _data["averageUnitPriceMin"] = averageUnitPriceMin;
+    _data["averageUnitPriceMax"] = averageUnitPriceMax;
     _data["rentRecurrence"] = rentRecurrence;
     _data["requiredInsurance"] = requiredInsurance;
+    _data["paymentMethod"] = paymentMethod;
     if(otherExpenses != null) {
       _data["otherExpenses"] = otherExpenses;
     }
@@ -274,6 +302,15 @@ class JsonParse {
     final text = value.toString().trim();
     if (text.isEmpty) return null;
     return int.tryParse(text) ?? double.tryParse(text)?.toInt();
+  }
+
+  /// للمساحات والأسعار اللي ممكن تجي بكسور عشرية (150.5) فما ينفعش نقصّها
+  static num? toNumOrNull(dynamic value) {
+    if (value == null) return null;
+    if (value is num) return value;
+    final text = value.toString().trim();
+    if (text.isEmpty) return null;
+    return num.tryParse(text);
   }
 
   static String? toStringOrNull(dynamic value) {

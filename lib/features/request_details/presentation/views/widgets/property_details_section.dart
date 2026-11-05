@@ -30,11 +30,11 @@ class PropertyDetailsSection extends StatelessWidget {
         ),
         optionalInfoRow(
           title: LangKeys.minimumUnitArea.tr(),
-          value: _areaText(attr?.unitArea),
+          value: _areaText(attr?.unitAreaMin),
         ),
         optionalInfoRow(
           title: LangKeys.maximumUnitArea.tr(),
-          value: _areaText(attr?.unitArea),
+          value: _areaText(attr?.unitAreaMax),
         ),
         optionalInfoRow(
           title: LangKeys.numberOfRooms.tr(),
@@ -53,14 +53,11 @@ class PropertyDetailsSection extends StatelessWidget {
         ),
         optionalInfoRow(
           title: LangKeys.minimumAverageUnitPrice.tr(),
-          value: _priceText(attr?.unitPrice),
+          value: _priceText(attr?.averageUnitPriceMin),
         ),
         optionalInfoRow(
           title: LangKeys.maximumAverageUnitPrice.tr(),
-          // نفس المنطق القديم: الاقتراح لو موجود وإلا سعر الوحدة
-          value: _priceText(
-            DisplayValue.firstValidRaw([attr?.unitPriceSuggestions, attr?.unitPrice]),
-          ),
+          value: _priceText(attr?.averageUnitPriceMax),
         ),
       ];
 
