@@ -200,7 +200,10 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SelectProperTypeState());
   }
 
-  final Map<String, String> properTypes = {
+  // getters مش حقول ثابتة: `.tr()` بتتنفذ وقت القراءة (كل build) فالتسميات
+  // بتظهر بلغة التطبيق الحالية — كان متجمدة بلغة وقت إنشاء الـ cubit
+  // فممكن تظهر إنجليزي والشاشة كلها عربي.
+  Map<String, String> get properTypes => {
     LangKeys.apartments.tr(): 'apartments',
     LangKeys.duplexes.tr(): 'duplexes',
     LangKeys.studios.tr(): 'studios',
@@ -225,7 +228,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SelectTheProcessState());
   }
 
-  final Map<String, String> process = {
+  Map<String, String> get process => {
     LangKeys.sell.tr(): 'sell',
     LangKeys.purchasing.tr(): 'purchasing',
   };
@@ -236,7 +239,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SelectDeliveryStatusState());
   }
 
-  final Map<String, String> status = {
+  Map<String, String> get status => {
     LangKeys.immediateDelivery.tr(): 'immediate_delivery',
     LangKeys.underConstruction.tr(): 'under_construction',
   };
@@ -247,7 +250,7 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(SelectTypeState());
   }
 
-  final Map<String, String> types = {
+  Map<String, String> get types => {
     LangKeys.insideCompound.tr(): 'inside_compound',
     LangKeys.outsideCompound.tr(): 'outside_compound',
   };
