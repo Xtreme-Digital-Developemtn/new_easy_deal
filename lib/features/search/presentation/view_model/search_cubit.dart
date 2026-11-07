@@ -3,7 +3,9 @@ import 'package:easy_deal/features/search/data/models/cities_model.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../main_imports.dart';
-import '../../../home/data/models/best_seller_units_model.dart';
+import '../../../create_request/data/models/sub_areas_model.dart';
+// `hide SubArea` عشان اسم `SubArea` كمان موجود في موديل الوحدات
+import '../../../home/data/models/best_seller_units_model.dart' hide SubArea;
 import '../../data/repos/search_repo.dart';
 
 
@@ -30,6 +32,11 @@ class SearchCubit extends Cubit<SearchStates> {
   /// رسالة خطأ آخر محاولة تحميل (أول صفحة أو صفحة إضافية)، حتى تعرضها الواجهة.
   String? unitsError;
   bool loadMoreFailed = false;
+
+  /// قيم الفلتر اللي اتبعتت فيها **آخر** طلب — شرائح الفلتر النشطة بتقرأ
+  /// منها بدل الحالة الحية، عشان ما تظهرش شريحة لفلتر لسه مختار في الشيت
+  /// ولم يُضغط «تطبيق الفلتر» عليه.
+  Map<String, dynamic> applied = const {};
 
   Future<void> getAllUnits({
     bool? isFilter,
@@ -59,6 +66,26 @@ class SearchCubit extends Cubit<SearchStates> {
       loadMoreFailed = false;
     }
 
+    // مطابقة كلمة البحث مع اللي مكتوب فعلًا في الخانة — عشان لو النص اتمس
+    // من غير ما الـ keyword يتحدث، الفلاتر ما تصفّيش بحول غير مرئي.
+    keyword = searchCon.text.trim();
+
+    // تسجيل الفلاتر اللي هتتبعت دلوقتي — مصدر الحقيقة لشرائح الفلتر
+    applied = <String, dynamic>{
+      'search': keyword,
+      'city': cityId,
+      'area': areaId,
+      'subArea': subAreaId,
+      'unitType': properType,
+      'unitOperation': theProcess,
+      'deliveryStatus': deliveryStatus,
+      'compoundType': type,
+      'priceFrom': priceFromCon.text.trim(),
+      'priceTo': priceToCon.text.trim(),
+      'areaFrom': areaFromCon.text.trim(),
+      'areaTo': areaToCon.text.trim(),
+    };
+
     // إذا كان التحميل للصفحات التالية
     final int mySeq = ++_unitsRequestSeq;
     String requestKeyword = keyword;
@@ -79,6 +106,8 @@ class SearchCubit extends Cubit<SearchStates> {
       offset: offset,
       unitOperation: theProcess.toString(),
       area: areaId?.toString() ?? "",
+      city: cityId?.toString() ?? "",
+      subArea: subAreaId?.toString() ?? "",
       unitType: properType.toString(),
       priceFrom: priceFromCon.text,
       priceTo: priceToCon.text,
@@ -241,7 +270,13 @@ class SearchCubit extends Cubit<SearchStates> {
     deliveryStatus = null;
     type = null;
     city = null;
+    cityId = null;
     area = null;
+    areaId = null;
+    areasModel = null;
+    subArea = null;
+    subAreaId = null;
+    subAreasModel = null;
 
     searchCon.clear();
     keyword = '';
@@ -254,14 +289,72 @@ class SearchCubit extends Cubit<SearchStates> {
     emit(ResetFiltersState());
   }
 
+  /// بيشيل فلتر واحد بس (بالـ key بتاعه) ويعيد تحميل النتائج —
+  /// بيستخدم من شرائح الفلتر النشطة فوق النتائج.
+  void clearFilter(String key) {
+    switch (key) {
+      case 'search':
+        searchCon.clear();
+        keyword = '';
+        break;
+      case 'city':
+        // المدينة مرتبطة بالمنطقة والمنطقة الفرعية
+        city = null;
+        cityId = null;
+        area = null;
+        areaId = null;
+        areasModel = null;
+        subArea = null;
+        subAreaId = null;
+        subAreasModel = null;
+        break;
+      case 'area':
+        area = null;
+        areaId = null;
+        subArea = null;
+        subAreaId = null;
+        subAreasModel = null;
+        break;
+      case 'subArea':
+        subArea = null;
+        subAreaId = null;
+        break;
+      case 'unitType':
+        properType = null;
+        break;
+      case 'unitOperation':
+        theProcess = null;
+        break;
+      case 'deliveryStatus':
+        deliveryStatus = null;
+        break;
+      case 'compoundType':
+        type = null;
+        break;
+      case 'price':
+        priceFromCon.clear();
+        priceToCon.clear();
+        break;
+      case 'unitArea':
+        areaFromCon.clear();
+        areaToCon.clear();
+        break;
+    }
+    // من غير isFilter عشان ما يطلعش toast نجاح عند إزالة شريحة
+    getAllUnits(reset: true);
+  }
+
 
 
 
 
   CitiesModel? citiesModel;
   AreasModel? areasModel;
+  SubAreasModel? subAreasModel;
 
-  Future<void> getAllCities() async {
+  /// بيجيب المدن مرة واحدة عند أول فتح للفلتر.
+  Future<void> getAllCities({bool force = false}) async {
+    if (citiesModel != null && !force) return;
     emit(GetAllCitiesLoadingState());
     var result = await searchRepo!.getAllCities();
     result.fold(
@@ -285,15 +378,33 @@ class SearchCubit extends Cubit<SearchStates> {
     );
   }
 
+  /// المناطق الفرعية بتتعملق على المنطقة المختارة زي باقي التطبيق.
+  Future<void> getAllSubAreas({required int areaId}) async {
+    emit(GetAllSubAreasLoadingState());
+    var result = await searchRepo!.getAllSubAreas(areaId: areaId);
+    result.fold(
+          (failure) => emit(GetAllSubAreasErrorState(failure.errMessage)),
+          (data) {
+        subAreasModel = data;
+        emit(GetAllSubAreasSuccessState(data));
+      },
+    );
+  }
+
   String? city;
   int? cityId;
   void selectTheCity(Cities newCity) {
     city = newCity.nameAr;
     cityId = newCity.id;
+    // اختيار مدينة جديدة بيلغي المنطقة والمنطقة الفرعية
     area = null;
     areaId = null;
     areasModel = null;
-    getAllAreas(cityId: cityId!);
+    subArea = null;
+    subAreaId = null;
+    subAreasModel = null;
+    emit(SelectTheCityState());
+    if (cityId != null) getAllAreas(cityId: cityId!);
   }
 
   String? area;
@@ -301,7 +412,20 @@ class SearchCubit extends Cubit<SearchStates> {
   void selectTheArea(Areas newArea) {
     area = newArea.nameAr;
     areaId = newArea.id;
+    // اختيار منطقة جديدة بيلغي المنطقة الفرعية
+    subArea = null;
+    subAreaId = null;
+    subAreasModel = null;
     emit(SelectTheAreaState());
+    if (areaId != null) getAllSubAreas(areaId: areaId!);
+  }
+
+  String? subArea;
+  int? subAreaId;
+  void selectTheSubArea(SubArea newSubArea) {
+    subArea = newSubArea.nameAr;
+    subAreaId = newSubArea.id;
+    emit(SelectTheSubAreaState());
   }
 
 

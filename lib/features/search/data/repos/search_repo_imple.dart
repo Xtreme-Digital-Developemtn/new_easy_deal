@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/search/data/repos/search_repo.dart';
 import '../../../../main_imports.dart';
 import '../../../home/data/models/best_seller_units_model.dart';
+import '../../../create_request/data/models/sub_areas_model.dart';
 import '../models/areas_model.dart';
 import '../models/cities_model.dart';
 
@@ -16,6 +17,8 @@ class SearchRepoImpl implements SearchRepo {
     required int offset,
     required String unitOperation,
     required String area,
+    String city = '',
+    String subArea = '',
     required String priceFrom,
     required String priceTo,
     required String unitAreaFrom,
@@ -37,8 +40,17 @@ class SearchRepoImpl implements SearchRepo {
         return value.isNotEmpty && value.toLowerCase() != "null";
       }
 
+      // الـ ids لازم تكون رقم موجب — القيم زي 0 أو "null" بتخلي الـ API
+      // يرجع نتائج فاضية أو خطأ "Invalid data sent"
+      bool isValidId(String value) {
+        final id = int.tryParse(value.trim());
+        return id != null && id > 0;
+      }
+
       if (isValidValue(unitOperation)) queryParams["unitOperation"] = unitOperation;
-      if (isValidValue(area)) queryParams["area"] = area;
+      if (isValidId(area)) queryParams["area"] = area;
+      if (isValidId(city)) queryParams["city"] = city;
+      if (isValidId(subArea)) queryParams["subArea"] = subArea;
       if (isValidValue(priceFrom)) queryParams["priceFrom"] = priceFrom;
       if (isValidValue(priceTo)) queryParams["priceTo"] = priceTo;
       if (isValidValue(unitAreaFrom)) queryParams["unitAreaFrom"] = unitAreaFrom;
@@ -60,6 +72,14 @@ class SearchRepoImpl implements SearchRepo {
     }
   }
 
+  /// الـ API بيرجّع `data` فاضية من غير pagination — لازم limit/offset
+  /// زي ما باقي التطبيق بيبعتها (وبيستخدم نفس الترتيب asc/by id).
+  static const Map<String, dynamic> _listQuery = {
+    "limit": 100,
+    "offset": 0,
+    "sort": "asc",
+    "sortBy": "id",
+  };
 
   @override
   Future<Either<Failure, CitiesModel>> getAllCities()
@@ -67,6 +87,7 @@ class SearchRepoImpl implements SearchRepo {
     try {
       var response = await apiService!.getData(
         endPoint: EndPoints.cities,
+        query: _listQuery,
       );
       CitiesModel result = CitiesModel.fromJson(response.data);
       return right(result);
@@ -83,10 +104,29 @@ class SearchRepoImpl implements SearchRepo {
       var response = await apiService!.getData(
         endPoint: EndPoints.areas,
         query: {
-          "cityId" : cityId,
+          ..._listQuery,
+          "cityId": cityId,
         }
       );
       AreasModel result = AreasModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SubAreasModel>> getAllSubAreas({required int areaId})
+  async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: EndPoints.subAreas,
+        query: {
+          ..._listQuery,
+          "areaId": areaId,
+        }
+      );
+      SubAreasModel result = SubAreasModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

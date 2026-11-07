@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/search/data/models/cities_model.dart';
 
+import '../../../create_request/data/models/sub_areas_model.dart';
 import '../../../home/data/models/best_seller_units_model.dart';
 import '../../data/models/areas_model.dart';
 
@@ -64,3 +65,16 @@ class GetAllAreasErrorState extends SearchStates{
 
 class SelectTheCityState extends SearchStates{}
 class SelectTheAreaState extends SearchStates{}
+class SelectTheSubAreaState extends SearchStates{}
+
+class GetAllSubAreasLoadingState extends SearchStates{}
+class GetAllSubAreasSuccessState extends SearchStates{
+  final SubAreasModel subAreasModel;
+  GetAllSubAreasSuccessState(this.subAreasModel);
+
+}
+class GetAllSubAreasErrorState extends SearchStates{
+  final String error;
+  GetAllSubAreasErrorState(this.error);
+
+}

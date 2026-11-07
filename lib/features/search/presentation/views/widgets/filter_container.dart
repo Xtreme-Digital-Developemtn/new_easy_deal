@@ -9,6 +9,7 @@ import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/shared_widgets/general_bottom_sheet.dart';
 import 'area_from_area_to.dart';
+import 'cities_and_areas.dart';
 import 'filter_text_and_reset_data.dart';
 
 class FilterContainer extends StatelessWidget {
@@ -33,6 +34,8 @@ class FilterContainer extends StatelessWidget {
         return InkWell(
             onTap: () {
               final searchCubit = context.read<SearchCubit>();
+              // بتجيب المدن أول مرة بس — بنفس قيم باقي التطبيق
+              searchCubit.getAllCities();
               StandardBottomSheet.show(
                 context: context,
                 isScrollControlled: true,
@@ -66,6 +69,10 @@ class FilterContainer extends StatelessWidget {
 
                                   /// Type & Delivery Status
                                   TypeDeliveryStatus(),
+                                  Gap(12.h),
+
+                                  /// City & Area & Sub Area
+                                  CitiesAndAreas(),
                                   Gap(12.h),
 
                                   /// Price From & Price To

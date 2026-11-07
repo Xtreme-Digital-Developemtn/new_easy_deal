@@ -18,7 +18,7 @@ class AssignButton extends StatelessWidget {
             onPressed: isAssigning ? null : () {
               context.read<AssignToBrokerCubit>().assignToBrokers(context);
             },
-            text: LangKeys.save.tr(),
+            text: LangKeys.send.tr(),
           ),
         );
       },

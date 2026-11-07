@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_cubit.dart';
 import 'package:easy_deal/features/search/presentation/view_model/search_states.dart';
+import 'package:easy_deal/features/search/presentation/views/widgets/active_filters_chips.dart';
 import 'package:easy_deal/features/search/presentation/views/widgets/filter_container.dart';
 import 'package:easy_deal/features/search/presentation/views/widgets/search_content.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -78,6 +79,7 @@ class _SearchViewState extends State<SearchView> {
                     ],
                   ),
                   Gap(20.h),
+                  const ActiveFiltersChips(),
                   Expanded(
                     child: RefreshIndicator(
                       onRefresh: () async {
