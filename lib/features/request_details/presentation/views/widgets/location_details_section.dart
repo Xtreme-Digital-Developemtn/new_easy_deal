@@ -32,10 +32,7 @@ class LocationDetailsSection extends StatelessWidget {
           title: LangKeys.area.tr(),
           value: _areaName(context, data),
         ),
-        optionalInfoRow(
-          title: LangKeys.detailedAddress.tr(),
-          value: DisplayValue.text(data?.detailedAddress),
-        ),
+        // العنوان التفصيلي اتشال من العرض
       ];
 
   static bool hasData(BuildContext context, Data? data) =>

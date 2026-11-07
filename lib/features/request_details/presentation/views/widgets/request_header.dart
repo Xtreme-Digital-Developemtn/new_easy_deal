@@ -27,12 +27,11 @@ class RequestHeader extends StatelessWidget {
       ...?_tag(DisplayValue.mapped(details?.unit, RequestTranslations.unit)),
     ];
 
-    /// تاجات الصف الثاني: العنوان التفصيلي والمدينة
+    /// تاجات الصف الثاني: المدينة بس — العنوان التفصيلي اتشال من العرض
     final city = details?.locations?.isNotEmpty == true
         ? details!.locations!.first.city
         : null;
     final secondRowTags = <String>[
-      ...?_tag(DisplayValue.text(details?.detailedAddress)),
       ...?_tag(context.isArabic
           ? DisplayValue.firstValid([city?.nameAr, city?.nameEn])
           : DisplayValue.firstValid([city?.nameEn, city?.nameAr])),
