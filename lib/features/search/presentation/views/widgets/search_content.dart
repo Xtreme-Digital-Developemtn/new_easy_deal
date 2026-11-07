@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../core/shared_widgets/empty_widget.dart';
 import '../../../../../core/shared_widgets/error_ui.dart';
 import '../../../../../main_imports.dart';
-import '../../../../home/presentation/views/widgets/unit_item.dart';
+import '../../../../assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'load_more_indicator.dart';
 
 class SearchContent extends StatelessWidget {
@@ -90,7 +90,36 @@ class SearchContent extends StatelessWidget {
                   onTap: () => searchCubit.loadMoreUnits(),
                 );
               }
-              return UnitItem(unit: data[index]);
+              final unit = data[index];
+              // نفس تصميم كارت «إعلاناتي» بالظبط
+              final locationParts = <String>[
+                if (unit.city?.nameAr != null) unit.city!.nameAr.toString(),
+                if (unit.area?.nameAr != null) unit.area!.nameAr.toString(),
+                if (unit.subArea?.nameAr != null)
+                  unit.subArea!.nameAr.toString(),
+              ];
+              return UnitAdCard(
+                unitId: unit.id,
+                gallery: unit.gallery,
+                diagram: unit.diagram?.toString(),
+                typeLabel: BrokerTextHelper.unitTypeText(
+                  unit.type?.toString() ?? '',
+                ),
+                title: unit.projectName?.toString() ??
+                    unit.developerName?.toString(),
+                location: locationParts.join(' - '),
+                totalPriceInCash: unit.totalPriceInCash,
+                totalPriceInInstallment: unit.totalPriceInInstallment,
+                monthlyRent: unit.monthlyRent,
+                dailyRent: unit.dailyRent,
+                status: unit.status?.toString(),
+                rooms: unit.numberOfRooms,
+                bathrooms: unit.numberOfBathrooms,
+                unitArea: unit.unitArea,
+                operationLabel: BrokerTextHelper.unitOperationText(
+                  unit.unitOperation?.toString() ?? '',
+                ),
+              );
             },
             separatorBuilder: (context, index) {
               if (isInitialLoading || isEmpty || data == null || index >= data.length - 1) {
@@ -106,40 +135,64 @@ class SearchContent extends StatelessWidget {
   }
 
   Widget _buildSkeletonItem() {
+    // نفس أبعاد كارت الإعلان: صورة 16/9 فوق وسطور بيانات تحت
     return Container(
-      height: 150.h,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(16.r),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            width: 120.w,
-            height: 150.h,
+            width: double.infinity,
+            height: 200.h,
             color: Colors.grey[200],
           ),
-          Gap(12.w),
-          Expanded(
+          Padding(
+            padding: EdgeInsets.all(12.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 100.w,
-                  height: 20.h,
-                  color: Colors.grey[200],
-                ),
-                Gap(8.h),
-                Container(
                   width: 150.w,
-                  height: 16.h,
+                  height: 18.h,
                   color: Colors.grey[200],
                 ),
                 Gap(8.h),
                 Container(
-                  width: 120.w,
-                  height: 16.h,
+                  width: 200.w,
+                  height: 14.h,
+                  color: Colors.grey[200],
+                ),
+                Gap(12.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 32.h,
+                        color: Colors.grey[200],
+                      ),
+                    ),
+                    Gap(8.w),
+                    Expanded(
+                      child: Container(
+                        height: 32.h,
+                        color: Colors.grey[200],
+                      ),
+                    ),
+                    Gap(8.w),
+                    Expanded(
+                      child: Container(
+                        height: 32.h,
+                        color: Colors.grey[200],
+                      ),
+                    ),
+                  ],
+                ),
+                Gap(12.h),
+                Container(
+                  height: 36.h,
                   color: Colors.grey[200],
                 ),
               ],
