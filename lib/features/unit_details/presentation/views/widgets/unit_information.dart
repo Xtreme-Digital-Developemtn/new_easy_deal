@@ -29,6 +29,8 @@ class UnitInformation extends StatelessWidget {
     'type', 'status', 'city', 'area', 'subArea', 'otherSubAreas',
     // shown by UnitLocation
     'location',
+    // detailed address — removed from the unit details display
+    'detailedAddress',
     // shown by UnitFeatures
     'otherAccessories',
     // shown by UnitDescription
@@ -66,7 +68,6 @@ class UnitInformation extends StatelessWidget {
     'compoundType': ApText('نوع الكمبوند', 'Compound Type'),
     'projectName': ApText('اسم المشروع', 'Project Name'),
     'developerName': ApText('اسم المطور', 'Developer Name'),
-    'detailedAddress': ApText('العنوان بالتفصيل', 'Detailed Address'),
     'publishedAt': ApText('تاريخ النشر', 'Published At'),
     'brokerUserFullName': ApText('اسم الوسيط', 'Broker Name'),
     'brokerName': ApText('اسم الوسيط', 'Broker Name'),
