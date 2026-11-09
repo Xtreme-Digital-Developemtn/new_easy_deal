@@ -45,6 +45,7 @@ abstract class LangKeys {
   static const String editEmailAddressMsg = "editEmailAddressMsg";
   static const String sendCode = "sendCode";
   static const String units = "units";
+  static const String unitsIncluded = "unitsIncluded";
   static const String hereIs = "hereIs";
   static const String sort = "sort";
   static const String filter = "filter";

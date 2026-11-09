@@ -46,6 +46,7 @@
     "editEmailAddressMsg": "Edit your email address",
     "sendCode": "Send Code",
     "units": "units",
+    "unitsIncluded": "Units",
     "hereIs": "Here is",
     "sort": "Sort",
     "filter": "Filter",

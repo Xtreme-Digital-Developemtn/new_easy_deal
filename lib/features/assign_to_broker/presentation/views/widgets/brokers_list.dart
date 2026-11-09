@@ -3,6 +3,8 @@ import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/m
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/table_cell.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../../../../core/data/specialization_display_data.dart';
+import '../../../data/models/broker_model.dart';
 import '../../view_model/assign_to_broker_cubit.dart';
 import 'broker_text_helper.dart';
 
@@ -36,7 +38,6 @@ class AssignBrokersList extends StatelessWidget {
                     4: FixedColumnWidth(160.w),
                     // عرض كفاية إن أول تخصص يبان كامل وجانبه شارة الباقي
                     5: FixedColumnWidth(135.w),
-                    6: FixedColumnWidth(135.w),
                   },
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   border: TableBorder(
@@ -58,13 +59,14 @@ class AssignBrokersList extends StatelessWidget {
                          TableCellWidget(LangKeys.accountType.tr(), isHeader: true),
                          TableCellWidget(LangKeys.type.tr(), isHeader: true),
                          TableCellWidget(LangKeys.area.tr(), isHeader: true),
-                         TableCellWidget(LangKeys.specialization.tr(), isHeader: true),
+                         // التخصص الأساسي (scope) بس - التخصص الفرعي مش بيظهر في الجدول
                          TableCellWidget(LangKeys.specializationScope.tr(), isHeader: true),
                       ],
                     ),
                     if (cubit.isLoading)
                       TableRow(
-                        children: List.filled(7, const Center(child: CircularProgressIndicator())),
+                        // لازم تساوي عدد أعمدة الجدول (شيك بوكس + 5 أعمدة)
+                        children: List.filled(6, const Center(child: CircularProgressIndicator())),
                       )
                     else if (cubit.assignBrokersList.isNotEmpty)
                       ...cubit.assignBrokersList.map((item) {
@@ -86,21 +88,12 @@ class AssignBrokersList extends StatelessWidget {
                             TableCellWidget(BrokerTextHelper.accountTypeText(item.accountType)),
                             TableCellWidget(BrokerTextHelper.typeText(item.type)),
                             TableCellWidget(areas),
-                            // التخصصات منفصلة: بيظهر أول واحد وجانبه عدد الباقي
-                            // والضغط يفتح شيت فيه كل القيم
-                            MultiValuesCell(
-                              title: LangKeys.specialization.tr(),
-                              subtitle: item.fullName,
-                              values: item.specializations
-                                  .map((s) => BrokerTextHelper.specializationText(s.specialization ?? ''))
-                                  .toList(),
-                            ),
+                            // التخصص الأساسي بدون تكرار، وبيظهر أول واحد وجانبه
+                            // عدد الباقي، والضغط يفتح شيت فيه كلهم وتحت كل واحد وحداته
                             MultiValuesCell(
                               title: LangKeys.specializationScope.tr(),
                               subtitle: item.fullName,
-                              values: item.specializations
-                                  .map((s) => BrokerTextHelper.specializationScopeText(s.specializationScope ?? ''))
-                                  .toList(),
+                              values: _scopeItems(context, item.specializations),
                             ),
                           ],
                         );
@@ -114,4 +107,34 @@ class AssignBrokersList extends StatelessWidget {
       },
     );
   }
+}
+
+/// بيجمّع التخصصات الراجعة للوسيط على مستوى التخصص الأساسي
+/// (specializationScope) بدون تكرار، وكل واحد بياخد وحدات تخصصاته الفرعية
+/// (specialization) من الملف الثابت بدون تكرار كذلك.
+List<MultiValueItem> _scopeItems(
+  BuildContext context,
+  List<Specializations> specializations,
+) {
+  final labels = <String, String>{};
+  final units = <String, List<String>>{};
+
+  for (final s in specializations) {
+    final key = SpecializationDisplayData.normalizeKey(s.specializationScope);
+    if (key.isEmpty) continue;
+
+    labels.putIfAbsent(
+      key,
+      () => BrokerTextHelper.specializationScopeText(s.specializationScope ?? ''),
+    );
+    final list = units.putIfAbsent(key, () => <String>[]);
+    final specUnits = SpecializationDisplayData.units(context, s.specialization);
+    for (final unit in specUnits) {
+      if (!list.contains(unit)) list.add(unit);
+    }
+  }
+
+  return labels.entries
+      .map((e) => MultiValueItem(label: e.value, units: units[e.key] ?? const []))
+      .toList();
 }

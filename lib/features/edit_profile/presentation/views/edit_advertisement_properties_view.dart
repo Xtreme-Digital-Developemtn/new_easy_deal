@@ -1,4 +1,6 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/data/specialization_display_data.dart';
+import 'package:easy_deal/core/shared_widgets/units_expandable_line.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/create_request/data/repos/create_request_repo_imple.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
@@ -280,45 +282,74 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
               if (isExpanded)
                 Padding(
                   padding: EdgeInsets.only(top: 8.h, bottom: 4.h),
-                  child: Wrap(
-                    spacing: 8.w,
-                    runSpacing: 8.h,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: specs.entries.map((spec) {
                       final specKey = spec.key;
                       final specLabel = isArabic ? spec.value : spec.key;
                       final isOn = selectedSet.contains(specKey);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selected.putIfAbsent(scopeKey, () => {});
-                            if (isOn) {
-                              _selected[scopeKey]!.remove(specKey);
-                            } else {
-                              _selected[scopeKey]!.add(specKey);
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 8.h),
-                          decoration: BoxDecoration(
-                            color: isOn
-                                ? AppColors.primaryDark
-                                : AppColors.white,
-                            border: Border.all(
-                              color: isOn
-                                  ? AppColors.primaryDark
-                                  : AppColors.blueLight,
-                              width: 1.5,
+                      // وحدات التخصص بتظهر تحته، بتتمدد وتتقفل
+                      final units =
+                          SpecializationDisplayData.units(context, specKey);
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selected.putIfAbsent(scopeKey, () => {});
+                                  if (isOn) {
+                                    _selected[scopeKey]!.remove(specKey);
+                                  } else {
+                                    _selected[scopeKey]!.add(specKey);
+                                  }
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 8.h),
+                                decoration: BoxDecoration(
+                                  color: isOn
+                                      ? AppColors.primaryDark
+                                      : AppColors.white,
+                                  border: Border.all(
+                                    color: isOn
+                                        ? AppColors.primaryDark
+                                        : AppColors.blueLight,
+                                    width: 1.5,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (isOn) ...[
+                                      Icon(
+                                        Icons.check,
+                                        size: 14.sp,
+                                        color: AppColors.white,
+                                      ),
+                                      Gap(4.w),
+                                    ],
+                                    Text(
+                                      specLabel,
+                                      style: isOn
+                                          ? AppStyles.white14Medium
+                                          : AppStyles.black14Medium,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Text(
-                            specLabel,
-                            style: isOn
-                                ? AppStyles.white14Medium
-                                : AppStyles.black14Medium,
-                          ),
+                            if (units.isNotEmpty)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 4.h, right: 12.w, left: 12.w),
+                                child: UnitsExpandableLine(units: units),
+                              ),
+                          ],
                         ),
                       );
                     }).toList(),

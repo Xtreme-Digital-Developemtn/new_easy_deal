@@ -1,6 +1,17 @@
 import 'package:easy_deal/core/shared_widgets/general_bottom_sheet.dart';
+import 'package:easy_deal/core/shared_widgets/units_expandable_line.dart';
 
 import '../../../../../main_imports.dart';
+
+/// عنصر واحد في الخلية: اسم التخصص (أو التخصص الفرعي) والوحدات اللي جواه
+class MultiValueItem {
+  const MultiValueItem({required this.label, this.units = const []});
+
+  final String label;
+
+  /// أنواع الوحدات اللي التخصص ده بيغطيها، مترجمة
+  final List<String> units;
+}
 
 /// خلية جدول بتعرض أول قيمة بس (التخصص / التخصص الفرعي) وجانبها عدد الباقي،
 /// وبالضغط عليها يفتح بوتوم شيت فيه كل القيم منفصلة - عشان الجدول يفضل مضغوط
@@ -13,8 +24,8 @@ class MultiValuesCell extends StatelessWidget {
     this.subtitle,
   });
 
-  /// القيم بعد الترجمة، أي قيمة فاضية بتتشال جوه الويدجت نفسها
-  final List<String> values;
+  /// العناصر بعد الترجمة، أي عنصر اسمه فاضي بيتشال جوه الويدجت نفسها
+  final List<MultiValueItem> values;
 
   /// عنوان الشيت، زي "التخصص" أو "التخصص الفرعي"
   final String title;
@@ -25,8 +36,7 @@ class MultiValuesCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = values
-        .map((e) => e.trim())
-        .where((e) => e.isNotEmpty)
+        .where((e) => e.label.trim().isNotEmpty)
         .toList();
 
     if (items.isEmpty) {
@@ -44,10 +54,12 @@ class MultiValuesCell extends StatelessWidget {
     }
 
     final remaining = items.length - 1;
+    // الشيت بيتفتح كمان لو تخصص واحد بس وله وحدات نعرضها
     final hasMore = remaining > 0;
+    final canOpenSheet = hasMore || items.first.units.isNotEmpty;
 
     return InkWell(
-      onTap: hasMore
+      onTap: canOpenSheet
           ? () => MultiValuesSheet.show(
               context: context,
               title: title,
@@ -65,7 +77,7 @@ class MultiValuesCell extends StatelessWidget {
             // أول تخصص بيظهر كامل وواضح: بيلف على أكتر من سطر لو طويل
             Flexible(
               child: Text(
-                items.first,
+                items.first.label,
                 maxLines: 3,
                 softWrap: true,
                 textAlign: TextAlign.center,
@@ -75,7 +87,7 @@ class MultiValuesCell extends StatelessWidget {
                 ),
               ),
             ),
-            if (hasMore) ...[
+            if (canOpenSheet) ...[
               Gap(4.w),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
@@ -86,13 +98,14 @@ class MultiValuesCell extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      '+$remaining',
-                      style: AppStyles.black12Medium.copyWith(
-                        fontSize: 9.sp,
-                        color: AppColors.primaryDark,
+                    if (hasMore)
+                      Text(
+                        '+$remaining',
+                        style: AppStyles.black12Medium.copyWith(
+                          fontSize: 9.sp,
+                          color: AppColors.primaryDark,
+                        ),
                       ),
-                    ),
                     Icon(
                       Icons.keyboard_arrow_down_rounded,
                       size: 12.sp,
@@ -120,12 +133,12 @@ class MultiValuesSheet extends StatelessWidget {
 
   final String title;
   final String? subtitle;
-  final List<String> values;
+  final List<MultiValueItem> values;
 
   static Future<void> show({
     required BuildContext context,
     required String title,
-    required List<String> values,
+    required List<MultiValueItem> values,
     String? subtitle,
   }) {
     return StandardBottomSheet.show<void>(
@@ -198,6 +211,7 @@ class MultiValuesSheet extends StatelessWidget {
                 itemCount: values.length,
                 separatorBuilder: (_, __) => Gap(8.h),
                 itemBuilder: (context, index) {
+                  final item = values[index];
                   return Container(
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(
@@ -208,23 +222,34 @@ class MultiValuesSheet extends StatelessWidget {
                       color: AppColors.primaryDark.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 6.w,
-                          height: 6.w,
-                          decoration: const BoxDecoration(
-                            color: AppColors.primaryDark,
-                            shape: BoxShape.circle,
-                          ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 6.w,
+                              height: 6.w,
+                              decoration: const BoxDecoration(
+                                color: AppColors.primaryDark,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Gap(8.w),
+                            Expanded(
+                              child: Text(
+                                item.label,
+                                style: AppStyles.black14Medium,
+                              ),
+                            ),
+                          ],
                         ),
-                        Gap(8.w),
-                        Expanded(
-                          child: Text(
-                            values[index],
-                            style: AppStyles.black14Medium,
+                        // الوحدات اللي التخصص ده بيغطيها، بتتمدد وتتقفل
+                        if (item.units.isNotEmpty)
+                          Padding(
+                            padding: EdgeInsets.only(top: 6.h, right: 14.w, left: 14.w),
+                            child: UnitsExpandableLine(units: item.units),
                           ),
-                        ),
                       ],
                     ),
                   );
