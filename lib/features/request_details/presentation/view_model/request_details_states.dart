@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/request_details/data/models/make_unit_model.dart';
 import 'package:easy_deal/features/request_details/data/models/recommended_model.dart';
 import 'package:easy_deal/features/request_details/data/models/replies_model.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
@@ -32,6 +33,19 @@ class UpdateRequestStatusSuccessState extends RequestDetailsStates {
 class UpdateRequestStatusErrorState extends RequestDetailsStates {
   final String error;
   UpdateRequestStatusErrorState(this.error);
+}
+
+// Make unit (حفظ في العقارات المباشرة) states
+class MakeUnitLoadingState extends RequestDetailsStates {}
+
+class MakeUnitSuccessState extends RequestDetailsStates {
+  final MakeUnitModel model;
+  MakeUnitSuccessState(this.model);
+}
+
+class MakeUnitErrorState extends RequestDetailsStates {
+  final String error;
+  MakeUnitErrorState(this.error);
 }
 
 // Sent Responses pagination states

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
 import '../../../../main_imports.dart';
+import '../models/make_unit_model.dart';
 import '../models/recommended_model.dart';
 import '../models/replies_model.dart';
 import '../models/request_details_model.dart';
@@ -137,6 +138,22 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
         query: query,
       );
       RecommendedModel result = RecommendedModel.fromJson(response.data);
+      return right(result);
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MakeUnitModel>> makeUnit({
+    required int requestId,
+    required int brokerId,
+  }) async {
+    try {
+      var response = await apiService!.postData(
+        endPoint: '${EndPoints.makeUnit}/$requestId/$brokerId',
+      );
+      MakeUnitModel result = MakeUnitModel.fromJson(response.data);
       return right(result);
     } catch (e) {
       return left(handleError(e));

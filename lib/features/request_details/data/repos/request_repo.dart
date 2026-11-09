@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
+import '../models/make_unit_model.dart';
 import '../models/recommended_model.dart';
 import '../models/replies_model.dart';
 import '../models/request_details_model.dart';
@@ -34,6 +35,13 @@ abstract class RequestDetailsRepo {
     String sort = 'desc',
     String sortBy = 'id',
   });
+  /// حفظ الطلب في العقارات المباشرة
+  /// POST requests/make-unit/{requestId}/{brokerId}
+  Future<Either<Failure, MakeUnitModel>> makeUnit({
+    required int requestId,
+    required int brokerId,
+  });
+
   Future<Either<Failure, RecommendedModel>> getRecommendedUnits({
     required int requestId,
     required int brokerId,

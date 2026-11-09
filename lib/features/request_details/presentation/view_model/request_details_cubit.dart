@@ -1,6 +1,7 @@
 import '../../data/models/replies_model.dart';
 import '../../data/models/request_details_model.dart';
 import '../../data/models/sent_responses_model.dart';
+import '../../data/models/make_unit_model.dart';
 import '../../data/models/recommended_model.dart';
 import '../../data/models/update_status_model.dart';
 
@@ -71,6 +72,49 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
         requestDetailsModel?.data?.status = data.data?.status ?? status;
         isUpdatingRequestStatus = false;
         emit(UpdateRequestStatusSuccessState(data));
+      },
+    );
+  }
+
+  // ================= Make Unit (حفظ في العقارات المباشرة) =================
+  MakeUnitModel? makeUnitModel;
+  bool isMakingUnit = false;
+
+  /// الزرار بيظهر بس لو نوع الطلب بيع أو إيجار والمستخدم صاحب الطلب role = client
+  bool get canMakeUnit {
+    final data = requestDetailsModel?.data;
+    final type = data?.type?.trim().toLowerCase();
+    final role = data?.user?.role?.trim().toLowerCase();
+    final isSellOrRentOut = type == 'sell' || type == 'rent_out';
+    return isSellOrRentOut && role == 'client';
+  }
+
+  Future<void> makeUnit({required int requestId, int? brokerId}) async {
+    if (isMakingUnit) return;
+    final int? effectiveBrokerId =
+        brokerId ?? _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
+    if (effectiveBrokerId == null) {
+      emit(MakeUnitErrorState('لم يتم العثور على بيانات الوسيط'));
+      return;
+    }
+
+    isMakingUnit = true;
+    emit(MakeUnitLoadingState());
+
+    final result = await requestDetailsRepo!.makeUnit(
+      requestId: requestId,
+      brokerId: effectiveBrokerId,
+    );
+
+    result.fold(
+      (failure) {
+        isMakingUnit = false;
+        emit(MakeUnitErrorState(failure.errMessage));
+      },
+      (data) {
+        makeUnitModel = data;
+        isMakingUnit = false;
+        emit(MakeUnitSuccessState(data));
       },
     );
   }

@@ -11,6 +11,8 @@ class RequestActions extends StatelessWidget {
     this.onCompleteTap,
     this.onStartProcessingTap,
     this.onWhatsAppTap,
+    this.onSaveToDirectUnitsTap,
+    this.isSavingToDirectUnits = false,
   });
 
   final VoidCallback? onNewTap;
@@ -20,6 +22,13 @@ class RequestActions extends StatelessWidget {
 
   /// لو مفيش رقم للوسيط بيجي null والشيب ما يظهرش أصلاً
   final VoidCallback? onWhatsAppTap;
+
+  /// حفظ في العقارات المباشرة - بيجي null لو الشرط مش متحقق
+  /// (نوع الطلب بيع أو إيجار + صاحب الطلب role = client)
+  final VoidCallback? onSaveToDirectUnitsTap;
+
+  /// بيظهر لودينج جوه الشيب أثناء الطلب
+  final bool isSavingToDirectUnits;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +66,16 @@ class RequestActions extends StatelessWidget {
           onTap: onStartProcessingTap,
         ),
 
+        if (onSaveToDirectUnitsTap != null)
+          _ActionChip(
+            label: 'حفظ في العقارات المباشره',
+            icon: Icons.add_home_work_outlined,
+            backgroundColor: const Color(0xFFFFF1DC),
+            textColor: const Color(0xFFB4740A),
+            isLoading: isSavingToDirectUnits,
+            onTap: isSavingToDirectUnits ? null : onSaveToDirectUnitsTap,
+          ),
+
         if (onWhatsAppTap != null)
           _ActionChip(
             label: 'واتساب',
@@ -78,6 +97,7 @@ class _ActionChip extends StatelessWidget {
     this.icon,
     this.svgIcon,
     this.onTap,
+    this.isLoading = false,
   });
 
   final String label;
@@ -88,6 +108,7 @@ class _ActionChip extends StatelessWidget {
   /// بديل لـ[icon] للأيقونات اللي جايه من ملف SVG زي لوجو واتساب
   final String? svgIcon;
   final VoidCallback? onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +127,17 @@ class _ActionChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (svgIcon != null) ...[
+            if (isLoading) ...[
+              SizedBox(
+                width: 14,
+                height: 14,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                ),
+              ),
+              const SizedBox(width: 5),
+            ] else if (svgIcon != null) ...[
               SvgPicture.asset(
                 svgIcon!,
                 width: 14,

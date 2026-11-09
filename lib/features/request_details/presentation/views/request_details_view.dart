@@ -60,6 +60,13 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
             );
           } else if (state is UpdateRequestStatusErrorState) {
             Toast.showErrorToast(msg: state.error, context: context);
+          } else if (state is MakeUnitSuccessState) {
+            Toast.showSuccessToast(
+              msg: state.model.message ?? 'تم الحفظ في العقارات المباشره',
+              context: context,
+            );
+          } else if (state is MakeUnitErrorState) {
+            Toast.showErrorToast(msg: state.error, context: context);
           }
         },
         buildWhen: (prev, curr) =>
@@ -67,6 +74,9 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
             curr is GetRequestDetailsErrorState ||
             curr is GetRequestDetailsSuccessState ||
             curr is UpdateRequestStatusSuccessState ||
+            curr is MakeUnitLoadingState ||
+            curr is MakeUnitSuccessState ||
+            curr is MakeUnitErrorState ||
             curr is RequestDetailsInitState,
         builder: (context, state) {
           var requestDetailsCubit = context.read<RequestDetailsCubit>();
@@ -124,6 +134,15 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
                         onCompleteTap: () => updateStatus('finished'),
                         onStartProcessingTap: () => updateStatus('in_processing'),
                         // واتساب بنفس رقم الوسيط، والشيب يختفي لو مفيش رقم
+                        // حفظ في العقارات المباشره: شرط ظهوره النوع (بيع/إيجار)
+                        // ودور صاحب الطلب client
+                        onSaveToDirectUnitsTap: requestDetailsCubit.canMakeUnit
+                            ? () => requestDetailsCubit.makeUnit(
+                                  requestId: widget.requestId,
+                                )
+                            : null,
+                        isSavingToDirectUnits:
+                            requestDetailsCubit.isMakingUnit,
                         onWhatsAppTap: ContactLauncher.hasPhone(details?.user?.phone)
                             ? () => ContactLauncher.whatsApp(
                                   context,
