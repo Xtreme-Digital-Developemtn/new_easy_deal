@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/assign_to_broker/presentation/view_model/assign_to_broker_states.dart';
+import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/multi_values_cell.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/table_cell.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -33,8 +34,9 @@ class AssignBrokersList extends StatelessWidget {
                     2: FixedColumnWidth(120.w),
                     3: FixedColumnWidth(100.w),
                     4: FixedColumnWidth(160.w),
-                    5: FixedColumnWidth(140.w),
-                    6: FixedColumnWidth(140.w),
+                    // عرض كفاية إن أول تخصص يبان كامل وجانبه شارة الباقي
+                    5: FixedColumnWidth(135.w),
+                    6: FixedColumnWidth(135.w),
                   },
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   border: TableBorder(
@@ -84,8 +86,22 @@ class AssignBrokersList extends StatelessWidget {
                             TableCellWidget(BrokerTextHelper.accountTypeText(item.accountType)),
                             TableCellWidget(BrokerTextHelper.typeText(item.type)),
                             TableCellWidget(areas),
-                            TableCellWidget(item.specializations.map((s) => BrokerTextHelper.specializationText(s.specialization ?? '')).join(' - ')),
-                            TableCellWidget(item.specializations.map((s) => BrokerTextHelper.specializationScopeText(s.specializationScope ?? '')).where((s) => s.isNotEmpty).join(' - ')),
+                            // التخصصات منفصلة: بيظهر أول واحد وجانبه عدد الباقي
+                            // والضغط يفتح شيت فيه كل القيم
+                            MultiValuesCell(
+                              title: LangKeys.specialization.tr(),
+                              subtitle: item.fullName,
+                              values: item.specializations
+                                  .map((s) => BrokerTextHelper.specializationText(s.specialization ?? ''))
+                                  .toList(),
+                            ),
+                            MultiValuesCell(
+                              title: LangKeys.specializationScope.tr(),
+                              subtitle: item.fullName,
+                              values: item.specializations
+                                  .map((s) => BrokerTextHelper.specializationScopeText(s.specializationScope ?? ''))
+                                  .toList(),
+                            ),
                           ],
                         );
                       }),
