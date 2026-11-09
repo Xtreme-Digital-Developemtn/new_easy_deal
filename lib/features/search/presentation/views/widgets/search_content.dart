@@ -50,11 +50,30 @@ class SearchContent extends StatelessWidget {
           );
         }
 
+        // مفيش نتائج: الواجهة الفاضية بتتوسّط الشاشة (مش فوق في أول القائمة)
+        // مع الحفاظ على السحب للتحديث.
+        if (isEmpty) {
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: Center(
+                    child: EmptyWidget(msg: LangKeys.noUnitsFound),
+                  ),
+                ),
+              );
+            },
+          );
+        }
+
         int itemCount;
         if (isInitialLoading) {
           itemCount = 5;
-        } else if (isEmpty) {
-          itemCount = 1;
         } else if (data != null) {
           itemCount = data.length + (showFooter ? 1 : 0);
         } else {
@@ -74,9 +93,6 @@ class SearchContent extends StatelessWidget {
             itemBuilder: (context, index) {
                   if (isInitialLoading) {
                 return _buildSkeletonItem();
-              }
-              if (isEmpty) {
-                return EmptyWidget(msg: LangKeys.noUnitsFound);
               }
               if (data == null) {
                 return const SizedBox.shrink();
@@ -122,7 +138,7 @@ class SearchContent extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              if (isInitialLoading || isEmpty || data == null || index >= data.length - 1) {
+              if (isInitialLoading || data == null || index >= data.length - 1) {
                 return const SizedBox.shrink();
               }
               return Gap(12.h);

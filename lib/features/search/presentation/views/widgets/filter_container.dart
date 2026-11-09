@@ -31,6 +31,7 @@ class FilterContainer extends StatelessWidget {
         }
       },
       builder: (context,state){
+        final hasActiveFilters = context.read<SearchCubit>().hasActiveFilters;
         return InkWell(
             onTap: () {
               final searchCubit = context.read<SearchCubit>();
@@ -111,21 +112,45 @@ class FilterContainer extends StatelessWidget {
                 ),
               );
             },
-            child: Container(
-            padding: EdgeInsets.all(12.r),
-            height: 50.h,
-            width:  50.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(
-                    color: AppColors.blueLight
-                )
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(12.r),
+                  height: 50.h,
+                  width:  50.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(
+                          color: AppColors.blueLight
+                      )
+                  ),
+                  child: SvgPicture.asset(SvgImages.filter,colorFilter: ColorFilter.mode(AppColors.primaryDark,
+                    BlendMode.srcIn,
+                  ),
+                  ),
+                ),
+
+                /// نقطة حمراء صغيرة تبيّن إن فيه فلتر مُطبَّق حاليًا
+                if (hasActiveFilters)
+                  Positioned(
+                    top: 4.r,
+                    right: 4.r,
+                    child: Container(
+                      height: 10.r,
+                      width: 10.r,
+                      decoration: BoxDecoration(
+                        color: AppColors.errorLight,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.white,
+                          width: 1.5.r,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            child: SvgPicture.asset(SvgImages.filter,colorFilter: ColorFilter.mode(AppColors.primaryDark,
-              BlendMode.srcIn,
-            ),
-            ),
-          ),
         );
       },
 

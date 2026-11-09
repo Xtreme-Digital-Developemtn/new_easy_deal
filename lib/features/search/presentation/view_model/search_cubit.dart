@@ -38,6 +38,19 @@ class SearchCubit extends Cubit<SearchStates> {
   /// ولم يُضغط «تطبيق الفلتر» عليه.
   Map<String, dynamic> applied = const {};
 
+  /// هل فيه فلتر واحد على الأقل مُطبَّق حاليًا (بغض النظر عن كلمة البحث)؟
+  /// أيقونة الفلتر بتستخدمها عشان تعرض نقطة حمراء صغيرة فوقها.
+  bool get hasActiveFilters {
+    for (final entry in applied.entries) {
+      if (entry.key == 'search') continue;
+      final value = entry.value;
+      if (value == null) continue;
+      if (value is String && value.trim().isEmpty) continue;
+      return true;
+    }
+    return false;
+  }
+
   Future<void> getAllUnits({
     bool? isFilter,
     bool loadMore = false,
