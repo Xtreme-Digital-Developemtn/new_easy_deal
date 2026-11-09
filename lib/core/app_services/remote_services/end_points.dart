@@ -35,8 +35,8 @@ class EndPoints {
   static const String createRequest = 'requests/create';
   static const String recommendBrokers = 'requests/recommend/brokers';
   static const String assignToBrokers = 'requests/assign-to-brokers';
-  static const String promoCodesLastApplied = 'promo-codes/last-applied';
-  static const String promoCodesApply = 'promo-codes/apply';
+  // static const String promoCodesLastApplied = 'promo-codes/last-applied';
+  // static const String promoCodesApply = 'promo-codes/apply';
   static const String requestsStatistics = 'requests/statistics';
   static const String requestsLatest = 'requests/latest';
   static const String advertisementShuffle = 'unit/advertisement-shuffle';

@@ -4,7 +4,7 @@ import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profi
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 import 'package:easy_deal/main_imports.dart';
-import '../../../profile/presentation/views/widgets/show_promo_code_widget.dart';
+// import '../../../profile/presentation/views/widgets/show_promo_code_widget.dart';
 import '../view_model/edit_profile_cubit.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -134,29 +134,29 @@ class EditProfileView extends StatelessWidget {
                       },
                     ),
 
-                  if (CacheHelper.getData(key: "userRole") == "broker")
-                    EditProfileListItem(
-                      title: "كود الخصم",
-                      subTitle: "",
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          builder: (_) => PromoCodeBottomSheet(
-                            onSubmit: (code) {
-                              context
-                                  .read<ProfileCubit>()
-                                  .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                  // if (CacheHelper.getData(key: "userRole") == "broker")
+                  //   EditProfileListItem(
+                  //     title: "كود الخصم",
+                  //     subTitle: "",
+                  //     onTap: () {
+                  //       showModalBottomSheet(
+                  //         context: context,
+                  //         isScrollControlled: true,
+                  //         shape: const RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.vertical(
+                  //             top: Radius.circular(20),
+                  //           ),
+                  //         ),
+                  //         builder: (_) => PromoCodeBottomSheet(
+                  //           onSubmit: (code) {
+                  //             context
+                  //                 .read<ProfileCubit>()
+                  //                 .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
+                  //           },
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
                   if (CacheHelper.getData(key: "userRole") == "broker")
                   SizedBox(height: 16.h),
 

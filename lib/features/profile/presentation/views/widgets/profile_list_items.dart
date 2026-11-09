@@ -1,6 +1,6 @@
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/views/widgets/profile_list_item.dart';
-import 'package:easy_deal/features/profile/presentation/views/widgets/show_promo_code_widget.dart';
+// import 'package:easy_deal/features/profile/presentation/views/widgets/show_promo_code_widget.dart';
 import 'package:easy_deal/main_imports.dart';
 
 class ProfileListItems extends StatelessWidget {
@@ -8,16 +8,16 @@ class ProfileListItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final promoModel = context.watch<ProfileCubit>().promoCodesLastAppliedModel;
+    // final promoModel = context.watch<ProfileCubit>().promoCodesLastAppliedModel;
 
-    final endDate = promoModel?.data?.endDate;
+    // final endDate = promoModel?.data?.endDate;
 
-    final shouldShowPromo =
-        promoModel?.data == null ||
-            endDate == null ||
-            DateTime.now().isAfter(
-              DateTime.tryParse(endDate) ?? DateTime.now(),
-            );
+    // final shouldShowPromo =
+        // promoModel?.data == null ||
+            // endDate == null ||
+            // DateTime.now().isAfter(
+              // DateTime.tryParse(endDate) ?? DateTime.now(),
+            // );
 
     return Container(
       padding: EdgeInsets.all(12.r),
@@ -28,30 +28,30 @@ class ProfileListItems extends StatelessWidget {
       ),
       child: Column(
         children: [
-          if (shouldShowPromo)
-            ProfileListItem(
-              title: "برجاء ادخال كود الخصم",
-              subTitle: "ادخل كود الخصم الخاص بك",
-              svgImage: SvgImages.profile,
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(20),
-                    ),
-                  ),
-                  builder: (_) => PromoCodeBottomSheet(
-                    onSubmit: (code) {
-                      context
-                          .read<ProfileCubit>()
-                          .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
-                    },
-                  ),
-                );
-              },
-            ),
+          // if (shouldShowPromo)
+          //   ProfileListItem(
+          //     title: "برجاء ادخال كود الخصم",
+          //     subTitle: "ادخل كود الخصم الخاص بك",
+          //     svgImage: SvgImages.profile,
+          //     onTap: () {
+          //       showModalBottomSheet(
+          //         context: context,
+          //         isScrollControlled: true,
+          //         shape: const RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.vertical(
+          //             top: Radius.circular(20),
+          //           ),
+          //         ),
+          //         builder: (_) => PromoCodeBottomSheet(
+          //           onSubmit: (code) {
+          //             context
+          //                 .read<ProfileCubit>()
+          //                 .applyPromoCode(promoCode: code,brokerId: CacheHelper.getData(key: "userId"));
+          //           },
+          //         ),
+          //       );
+          //     },
+          //   ),
 
           // ProfileListItem(
           //   title: LangKeys.reportAnIssue,
