@@ -42,7 +42,8 @@ class RequestInfoGrid extends StatelessWidget {
       ..._card(
         icon: Icons.person_outline,
         value: DisplayValue.text(details?.user?.name),
-        label: 'اسم الوسيط',
+        // اسم العميل لو role = client واسم الوسيط لو role = broker
+        label: requestDetailsCubit.requestUserNameLabel,
       ),
       ..._card(
         icon: Icons.calendar_month_outlined,

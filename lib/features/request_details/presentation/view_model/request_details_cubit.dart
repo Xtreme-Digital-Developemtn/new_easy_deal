@@ -115,8 +115,18 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
         makeUnitModel = data;
         isMakingUnit = false;
         emit(MakeUnitSuccessState(data));
+        // ريفرش للطلب بعد الحفظ عشان البيانات والتابات تتحدث
+        requestDetails(requestId: requestId);
       },
     );
+  }
+
+  /// لابل كارت الاسم بيتغير على حسب role صاحب الطلب
+  String get requestUserNameLabel {
+    final role = requestDetailsModel?.data?.user?.role?.trim().toLowerCase();
+    if (role == 'client') return 'اسم العميل';
+    if (role == 'broker') return 'اسم الوسيط';
+    return 'الاسم';
   }
 
   int selectedIndex = 0;
