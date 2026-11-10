@@ -15,14 +15,10 @@ class NextButton extends StatelessWidget {
         final isLoading = state is CreateRequestLoadingState;
         final isLastStep = createRequestCubit.currentStepNumber >= createRequestCubit.totalSteps;
 
-        // الخطوة الأولى بتتحقّق جوه handleStepOne وبتعرض رسالة لكل حقل ناقص،
-        // فالزرار لازم يفضل شغّال فيها عشان الرسالة توصل للمستخدم.
-        final bool isFirstStep = createRequestCubit.currentStepNumber == 1;
-        final bool isStepComplete =
-            isFirstStep || createRequestCubit.isCurrentStepComplete();
-
+        // كل الخطوات بتتحقّق جوه handleStepOne / handleNextSteps وبتعرض رسالة لكل
+        // حقل ناقص، فالزرار لازم يفضل شغّال عشان الرسائل توصل للمستخدم.
         return GestureDetector(
-          onTap: (isLoading || !isStepComplete) ? null : (){
+          onTap: isLoading ? null : (){
             if (createRequestCubit.currentStepNumber == 1) {
               createRequestCubit.handleStepOne(context);
             } else {
@@ -33,13 +29,13 @@ class NextButton extends StatelessWidget {
             width: double.infinity,
             height: 50.h,
             decoration: BoxDecoration(
-              gradient: (isLoading || !isStepComplete) ? null : const LinearGradient(
+              gradient: isLoading ? null : const LinearGradient(
                 colors: [AppColors.primaryDark, AppColors.primaryLight],
                 end: Alignment.topRight,
                 begin: Alignment.bottomLeft,
               ),
               borderRadius: BorderRadius.circular(8),
-              color: (isLoading || !isStepComplete) ? AppColors.blueVeryLight : null,
+              color: isLoading ? AppColors.blueVeryLight : null,
             ),
             child: Center(
               child: isLoading
@@ -49,7 +45,7 @@ class NextButton extends StatelessWidget {
                   : Text(
                       isLastStep ? LangKeys.send.tr() : LangKeys.next.tr(),
                       style: AppStyles.black14Medium.copyWith(
-                        color: !isStepComplete ? AppColors.gray : AppColors.scaffoldBackground,
+                        color: AppColors.scaffoldBackground,
                         fontSize: 20,
                       ),
                     ),

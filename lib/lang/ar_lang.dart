@@ -442,6 +442,8 @@
     "noFilesToUpload": "لا توجد ملفات للتحميل",
     "step4InfoMessage": "لا توجد ملفات مطلوبة لهذا النوع من الطلبات.",
     "loadingCities": "جاري تحميل المدن...",
+    "loadingAreas": "جاري تحميل المناطق...",
+    "loadingSubAreas": "جاري تحميل المناطق الفرعية...",
     "enter": "أدخل",
     "selectDynamic": "اختر",
     "isRequired": "مطلوب",

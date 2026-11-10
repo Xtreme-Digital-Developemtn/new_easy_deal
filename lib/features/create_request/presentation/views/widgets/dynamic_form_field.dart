@@ -143,6 +143,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           // height: 52.h,
           borderRadius: 10.r,
           borderWidth: 1.5,
+          borderColor: error != null ? Colors.red : AppColors.blueLight,
           onChanged: (val) {
             cubit.setFormValue(widget.config.name, val);
             if (!_touched) setState(() => _touched = true);
@@ -182,7 +183,11 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
             decoration: BoxDecoration(
               color: AppColors.white,
               border: Border.all(
-                color: hasValue ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                color: error != null
+                    ? Colors.red
+                    : hasValue
+                        ? AppColors.primaryDark.withValues(alpha: 0.35)
+                        : AppColors.blueLight,
                 width: 1.5,
               ),
               borderRadius: BorderRadius.circular(10.r),

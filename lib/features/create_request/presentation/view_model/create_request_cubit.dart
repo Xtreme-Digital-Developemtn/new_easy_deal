@@ -29,6 +29,8 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     formValues[name] = value;
     formErrors.remove(name);
 
+    _validateUrlField(name, value);
+
     if (name == 'unitAreaMin' || name == 'unitAreaMax') {
       _validateAreaRange();
     }
@@ -44,6 +46,20 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
 
     emit(FormValueChangedState());
+  }
+
+  /// التحقق من الروابط وأنت بتكتب: الرسالة تظهر فورًا لو النص مش رابط،
+  /// وتختفي أول ما يبقى رابط صحيح.
+  void _validateUrlField(String name, dynamic value) {
+    final isUrlField = currentStepInputs
+        .any((i) => i.name == name && i.type == InputFieldType.url);
+    if (!isUrlField) return;
+    final val = value?.toString() ?? '';
+    if (val.trim().isNotEmpty && !_isValidUrl(val.trim())) {
+      formErrors[name] = LangKeys.validUrlRequired.tr();
+    } else {
+      formErrors.remove(name);
+    }
   }
 
   void _validateAreaRange() {
@@ -337,6 +353,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   void selectSubAreaOther() {
     isSubAreaOther = true;
     selectedSubAreaObj = null;
+    formValues.remove('subAreaId');
     emit(SelectSubAreaState());
   }
 
@@ -536,6 +553,8 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     otherSubAreaCon.clear();
     areasList = [];
     subAreasList = [];
+    formValues.remove('areaId');
+    formValues.remove('subAreaId');
     var result = await createRequestRepo!.getAreas(cityId: cityId);
     return result.fold(
       (failure) => emit(GetAreasErrorState(failure.errMessage)),
@@ -549,6 +568,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     isSubAreaOther = false;
     otherSubAreaCon.clear();
     subAreasList = [];
+    formValues.remove('subAreaId');
     var result = await createRequestRepo!.getSubAreas(areaId: areaId);
     return result.fold(
       (failure) => emit(GetSubAreasErrorState(failure.errMessage)),
@@ -566,7 +586,13 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     setFormValue('areaId', area.id);
     emit(SelectAreaState());
   }
-  void selectSubArea(SubArea subArea) { selectedSubAreaObj = subArea; isSubAreaOther = false; emit(SelectSubAreaState()); }
+  void selectSubArea(SubArea subArea) {
+    selectedSubAreaObj = subArea;
+    isSubAreaOther = false;
+    otherSubAreaCon.clear();
+    setFormValue('subAreaId', subArea.id);
+    emit(SelectSubAreaState());
+  }
 
   // Legacy selection methods
   void selectPaymentSystem(String? v) { selectedPaymentSystem = v; setFormValue('paymentMethod', v); emit(SelectPaymentSystemState()); }

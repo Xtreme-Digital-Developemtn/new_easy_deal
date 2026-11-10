@@ -429,6 +429,8 @@ abstract class LangKeys {
   static const String noFilesToUpload = 'noFilesToUpload';
   static const String step4InfoMessage = 'step4InfoMessage';
   static const String loadingCities = 'loadingCities';
+  static const String loadingAreas = 'loadingAreas';
+  static const String loadingSubAreas = 'loadingSubAreas';
   static const String enter = 'enter';
   static const String selectDynamic = 'selectDynamic';
   static const String isRequired = 'isRequired';

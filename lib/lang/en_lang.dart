@@ -442,6 +442,8 @@
     "noFilesToUpload": "No files to upload",
     "step4InfoMessage": "No files required for this request type.",
     "loadingCities": "Loading cities...",
+    "loadingAreas": "Loading areas...",
+    "loadingSubAreas": "Loading sub areas...",
     "enter": "Enter",
     "selectDynamic": "Select",
     "isRequired": "Required",

@@ -27,6 +27,8 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
     return BlocBuilder<CreateRequestCubit, CreateRequestStates>(
       builder: (context, state) {
         var cubit = context.read<CreateRequestCubit>();
+        final cityError = cubit.validationAttempted ? cubit.formErrors['cityId'] as String? : null;
+        final areaError = cubit.validationAttempted ? cubit.formErrors['areaId'] as String? : null;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +52,11 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
               decoration: BoxDecoration(
                 color: AppColors.white,
                 border: Border.all(
-                  color: cubit.selectedCityObj != null ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                  color: cityError != null
+                      ? Colors.red
+                      : cubit.selectedCityObj != null
+                          ? AppColors.primaryDark.withValues(alpha: 0.35)
+                          : AppColors.blueLight,
                   width: 1.5,
                 ),
                 borderRadius: BorderRadius.circular(10.r),
@@ -65,7 +71,9 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                         : cubit.selectedCityObj!.nameEn)
                     : null,
                 hint: Text(
-                  state is GetCitiesLoadingState ? 'Loading...' : LangKeys.city.tr(),
+                  state is GetCitiesLoadingState
+                      ? LangKeys.loadingCities.tr()
+                      : LangKeys.city.tr(),
                   style: TextStyle(
                     color: const Color(0xFF969696),
                     fontSize: 14.sp,
@@ -101,11 +109,11 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                 },
               ),
             ),
-            if (cubit.validationAttempted && cubit.formErrors['cityId'] != null)
+            if (cityError != null)
               Padding(
                 padding: EdgeInsets.only(top: 4.h),
                 child: Text(
-                  cubit.formErrors['cityId']!,
+                  cityError,
                   style: TextStyle(color: Colors.red, fontSize: 12.sp),
                 ),
               ),
@@ -131,7 +139,11 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
               decoration: BoxDecoration(
                 color: AppColors.white,
                 border: Border.all(
-                  color: cubit.selectedAreaObj != null ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                  color: areaError != null
+                      ? Colors.red
+                      : cubit.selectedAreaObj != null
+                          ? AppColors.primaryDark.withValues(alpha: 0.35)
+                          : AppColors.blueLight,
                   width: 1.5,
                 ),
                 borderRadius: BorderRadius.circular(10.r),
@@ -146,7 +158,11 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                         : cubit.selectedAreaObj!.nameEn)
                     : null,
                 hint: Text(
-                  state is GetAreasLoadingState ? 'Loading...' : LangKeys.area.tr(),
+                  state is GetAreasLoadingState
+                      ? LangKeys.loadingAreas.tr()
+                      : cubit.selectedCityObj == null
+                          ? LangKeys.selectCityFirst.tr()
+                          : LangKeys.area.tr(),
                   style: TextStyle(
                     color: const Color(0xFF969696),
                     fontSize: 14.sp,
@@ -182,11 +198,11 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                 },
               ),
             ),
-            if (cubit.validationAttempted && cubit.formErrors['areaId'] != null)
+            if (areaError != null)
               Padding(
                 padding: EdgeInsets.only(top: 4.h),
                 child: Text(
-                  cubit.formErrors['areaId']!,
+                  areaError,
                   style: TextStyle(color: Colors.red, fontSize: 12.sp),
                 ),
               ),
@@ -202,7 +218,9 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   border: Border.all(
-                    color: cubit.isSubAreaOther ? AppColors.primaryDark.withValues(alpha: 0.35) : AppColors.blueLight,
+                    color: (cubit.isSubAreaOther || cubit.selectedSubAreaObj != null)
+                        ? AppColors.primaryDark.withValues(alpha: 0.35)
+                        : AppColors.blueLight,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(10.r),
@@ -211,9 +229,17 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   isExpanded: true,
                   underline: const SizedBox.shrink(),
-                  value: cubit.isSubAreaOther ? LangKeys.other.tr() : null,
+                  value: cubit.isSubAreaOther
+                      ? LangKeys.other.tr()
+                      : cubit.selectedSubAreaObj != null
+                          ? (context.isArabic
+                              ? cubit.selectedSubAreaObj!.nameAr
+                              : cubit.selectedSubAreaObj!.nameEn)
+                          : null,
                   hint: Text(
-                    LangKeys.subArea.tr(),
+                    state is GetSubAreasLoadingState
+                        ? LangKeys.loadingSubAreas.tr()
+                        : LangKeys.subArea.tr(),
                     style: TextStyle(
                       color: const Color(0xFF969696),
                       fontSize: 14.sp,
@@ -230,15 +256,30 @@ class _FormOfCityAreaSubAreaAddressLocationLinkState
                     size: 24.sp,
                   ),
                   items: [
+                    ...cubit.subAreasList
+                        .map((s) => context.isArabic ? s.nameAr ?? '' : s.nameEn ?? '')
+                        .where((name) => name.isNotEmpty && name != LangKeys.other.tr())
+                        .toSet()
+                        .map((name) => DropdownMenuItem<String>(
+                              value: name,
+                              child: Text(name),
+                            )),
                     DropdownMenuItem<String>(
                       value: LangKeys.other.tr(),
                       child: Text(LangKeys.other.tr()),
                     )
                   ],
                   onChanged: (selectedName) {
-                    if (selectedName != null) {
+                    if (selectedName == null) return;
+                    if (selectedName == LangKeys.other.tr()) {
                       cubit.selectSubAreaOther();
+                      return;
                     }
+                    final subArea = cubit.subAreasList.firstWhere(
+                      (s) =>
+                          (context.isArabic ? s.nameAr : s.nameEn) == selectedName,
+                    );
+                    cubit.selectSubArea(subArea);
                   },
                 ),
               ),
