@@ -15,7 +15,11 @@ class NextButton extends StatelessWidget {
         final isLoading = state is CreateRequestLoadingState;
         final isLastStep = createRequestCubit.currentStepNumber >= createRequestCubit.totalSteps;
 
-        final bool isStepComplete = createRequestCubit.isCurrentStepComplete();
+        // الخطوة الأولى بتتحقّق جوه handleStepOne وبتعرض رسالة لكل حقل ناقص،
+        // فالزرار لازم يفضل شغّال فيها عشان الرسالة توصل للمستخدم.
+        final bool isFirstStep = createRequestCubit.currentStepNumber == 1;
+        final bool isStepComplete =
+            isFirstStep || createRequestCubit.isCurrentStepComplete();
 
         return GestureDetector(
           onTap: (isLoading || !isStepComplete) ? null : (){
