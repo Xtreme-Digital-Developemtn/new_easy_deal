@@ -242,8 +242,19 @@ class _RequestsViewState extends State<RequestsView> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.pushNamed(Routes.createRequestView);
+        onPressed: () async {
+          await context.pushNamed(Routes.createRequestView);
+          if (!context.mounted || !mounted) return;
+          // بعد الرجوع من إنشاء طلب بنعيد التحميل بنفس الفلاتر المطبّقة،
+          // وإلا الطلب الجديد مايظهرش إلا لما التاب يتقفل ويتفتح تاني.
+          if (!_didFetch) {
+            _fetchWhenProfileReady();
+            return;
+          }
+          context.read<RequestsCubit>().fetchAllTypes(
+            context: context,
+            filters: _appliedFilters?.toQueryParams(),
+          );
         },
         backgroundColor: AppColors.primaryDark,
         child: const Icon(Icons.add, color: Colors.white),

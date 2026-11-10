@@ -36,7 +36,11 @@ class RequestsCount extends StatelessWidget {
               context,
               currentFilters,
             );
-            onFilterApplied(result);
+            // null يعني الشيت اتقفل بالسحب أو بالضغط برّه، فالفلاتر
+            // المطبّقة تفضل زي ما هي. غير كده يعني المستخدم ضغط
+            // «تطبيق» أو «إعادة تعيين» فعلًا.
+            if (result == null) return;
+            onFilterApplied(result.hasFilters ? result : null);
           },
           icon: Stack(
             clipBehavior: Clip.none,

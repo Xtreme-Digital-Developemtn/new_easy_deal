@@ -178,8 +178,11 @@ Future<RequestsFilterResult?> showRequestsFilterSheet(
                               textColor: AppColors.primaryDark,
                               borderColor: BorderSide(
                                   color: AppColors.primaryDark),
-                              onPressed: () =>
-                                  Navigator.pop(context, null),
+                              // بنرجّع نتيجة فاضية مش null، عشان الشاشة
+                              // تفرّق بين «إعادة تعيين» و«الشيت اتقفل
+                              // بالسحب أو الضغط برّه» (اللي بيرجّع null).
+                              onPressed: () => Navigator.pop(
+                                  context, const RequestsFilterResult()),
                             ),
                           ),
                           Gap(12.w),
@@ -187,13 +190,14 @@ Future<RequestsFilterResult?> showRequestsFilterSheet(
                             child: CustomButton(
                               text: LangKeys.apply.tr(),
                               onPressed: () {
-                                final result = RequestsFilterResult(
-                                  status: selectedStatus,
-                                  type: selectedType,
-                                  specializationScope: selectedScope,
+                                Navigator.pop(
+                                  context,
+                                  RequestsFilterResult(
+                                    status: selectedStatus,
+                                    type: selectedType,
+                                    specializationScope: selectedScope,
+                                  ),
                                 );
-                                Navigator.pop(context,
-                                    result.hasFilters ? result : null);
                               },
                             ),
                           ),
