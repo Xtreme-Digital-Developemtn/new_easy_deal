@@ -34,8 +34,10 @@ class HomeCubit extends Cubit<HomeStates> {
     LangKeys.requestToRentalProperty.tr(),
     LangKeys.requestToSaleProperty.tr(),
     LangKeys.requestToRentProperty.tr(),
-    LangKeys.requestToRentingHotelUnit.tr(),
-    LangKeys.requestToRentHotelUnit.tr(),
+    // الوحدات الفندقية مشيلة من شبكة إنشاء الطلب، فمفيش داعي تظهر هنا
+    // وتودّي المستخدم لشاشة مفيهاش الخيار:
+    // LangKeys.requestToRentingHotelUnit.tr(),
+    // LangKeys.requestToRentHotelUnit.tr(),
   ];
 
   int selectCategory = 0;
