@@ -39,6 +39,8 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       _validateBathRooms(value);
     }
 
+    _validateDateField(name, value);
+
     if (name == 'averageUnitPriceMin' || name == 'averageUnitPriceMax' ||
         name == 'averageUnitPriceMonthlyMin' || name == 'averageUnitPriceMonthlyMax' ||
         name == 'averageUnitPriceDailyMin' || name == 'averageUnitPriceDailyMax') {
@@ -72,13 +74,81 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
   }
 
+  /// الحد الأقصى المسموح به في حقول العدد (الغرف / الحمامات).
+  static const int maxCountAllowed = 100;
+
   void _validateBathRooms(dynamic value) {
     final val = int.tryParse(value?.toString() ?? '');
-    if (val != null && val > 100) {
-      formErrors['bathRooms'] = 'تجاوز الحد الأقصى للعدد المسموح به (100)';
+    if (val != null && val > maxCountAllowed) {
+      formErrors['bathRooms'] = 'تجاوز الحد الأقصى للعدد المسموح به ($maxCountAllowed)';
     } else {
       formErrors.remove('bathRooms');
     }
+  }
+
+  /// حقول التاريخ لازم تكون اليوم أو في المستقبل (تاريخ التسليم / تواريخ الإيجار).
+  void _validateDateField(String name, dynamic value) {
+    final isDateField = currentStepInputs
+        .any((i) => i.name == name && i.type == InputFieldType.date);
+    if (!isDateField) return;
+    final error = _dateError(value?.toString());
+    if (error != null) {
+      formErrors[name] = error;
+    } else {
+      formErrors.remove(name);
+    }
+  }
+
+  /// بترجّع رسالة الخطأ لو التاريخ في الماضي، وإلا null.
+  String? _dateError(String? raw) {
+    final val = raw?.trim() ?? '';
+    if (val.isEmpty) return null;
+    final parsed = DateTime.tryParse(val);
+    if (parsed == null) return null;
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final picked = DateTime(parsed.year, parsed.month, parsed.day);
+    return picked.isBefore(today) ? LangKeys.minDateRequired.tr() : null;
+  }
+
+  /// أخطاء الحدود والمدى (مش أخطاء «حقل مطلوب») — بتتجمّع لوحدها عشان
+  /// التحقق العام ما يمسحهاش وهو بيعيد بناء قائمة الأخطاء.
+  Map<String, String> _collectRangeErrors() {
+    final errors = <String, String>{};
+
+    final minArea = double.tryParse(getFormValueString('unitAreaMin') ?? '');
+    final maxArea = double.tryParse(getFormValueString('unitAreaMax') ?? '');
+    if (minArea != null && maxArea != null && minArea > maxArea) {
+      errors['unitAreaMin'] =
+          'لا يمكن أن يكون الحد الأدنى لمساحة الوحدة أكبر من الحد الأقصى لها';
+    }
+
+    const pricePairs = <List<String>>[
+      ['averageUnitPriceMin', 'averageUnitPriceMax', ''],
+      ['averageUnitPriceMonthlyMin', 'averageUnitPriceMonthlyMax', 'الشهري'],
+      ['averageUnitPriceDailyMin', 'averageUnitPriceDailyMax', 'اليومي'],
+    ];
+    for (final pair in pricePairs) {
+      final minVal = double.tryParse(getFormValueString(pair[0]) ?? '');
+      final maxVal = double.tryParse(getFormValueString(pair[1]) ?? '');
+      if (minVal != null && maxVal != null && minVal > maxVal) {
+        final suffix = pair[2].isNotEmpty ? ' (${pair[2]})' : '';
+        errors[pair[0]] = 'لا يمكن أن يكون الحد الأدنى$suffix أكبر من الحد الأقصى لها';
+      }
+    }
+
+    final baths = int.tryParse(getFormValueString('bathRooms') ?? '');
+    if (baths != null && baths > maxCountAllowed) {
+      errors['bathRooms'] = 'تجاوز الحد الأقصى للعدد المسموح به ($maxCountAllowed)';
+    }
+
+    for (final input in currentStepInputs) {
+      if (input.type != InputFieldType.date) continue;
+      final error = _dateError(getFormValueString(input.name));
+      if (error != null) errors[input.name] = error;
+    }
+
+    return errors;
   }
 
   void _validatePriceRange(String name) {
@@ -117,10 +187,6 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   }
 
   String? getFieldError(InputConfig config) {
-    if (!config.required && config.name != 'unitAreaMin' &&
-        config.name != 'averageUnitPriceMin' &&
-        config.name != 'averageUnitPriceMonthlyMin' &&
-        config.name != 'averageUnitPriceDailyMin') return null;
     return formErrors[config.name] as String?;
   }
 
@@ -153,11 +219,6 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       if (names.contains('averageUnitPriceMax') && _isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
     }
 
-    if (currentStepNumber == 3) {
-      _validateAreaRange();
-    }
-
-
 
     final hidden = !shouldShowHotelUnitFields
         ? _insideCompoundApartmentHotelFields.toSet()
@@ -187,9 +248,38 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
       }
     }
 
+    // أخطاء الحدود/المدى بتتضاف بعد الحقول المطلوبة عشان متتمسحش.
+    errors.addAll(_collectRangeErrors());
+
     formErrors = errors;
     emit(FormValidationState());
     return errors.isEmpty;
+  }
+
+  /// عناوين الحقول اللي فيها أخطاء في الخطوة الحالية — للرسالة الجامعة.
+  List<String> get currentStepErrorLabels {
+    final labels = <String>[];
+    final seen = <String>{};
+    for (final input in currentStepInputs) {
+      if (formErrors.containsKey(input.name) && seen.add(input.name)) {
+        labels.add(input.label.tr());
+      }
+    }
+    for (final key in formErrors.keys) {
+      if (seen.add(key)) labels.add(_fallbackLabelFor(key));
+    }
+    return labels;
+  }
+
+  String _fallbackLabelFor(String name) {
+    switch (name) {
+      case 'cityId':
+        return LangKeys.city.tr();
+      case 'areaId':
+        return LangKeys.area.tr();
+      default:
+        return name;
+    }
   }
 
   // ========================================================================
@@ -421,6 +511,9 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
   void moveNextStep(int step) {
     currentStepNumber = step;
+    // الرسائل بتبدأ من جديد في كل خطوة.
+    validationAttempted = false;
+    formErrors = {};
     emit(MoveNextStepState());
   }
 

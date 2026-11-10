@@ -6,6 +6,13 @@ import 'package:easy_deal/features/create_request/presentation/view_model/create
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+/// بيسمح بأرقام فقط (مع فاصلة عشرية واحدة اختيارية) — الحروف مش بتتكتب أصلًا.
+final _numericInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) {
+  final text = newValue.text;
+  if (text.isEmpty) return newValue;
+  return RegExp(r'^\d*\.?\d*$').hasMatch(text) ? newValue : oldValue;
+});
+
 class DynamicFormField extends StatefulWidget {
   final InputConfig config;
 
@@ -18,6 +25,15 @@ class DynamicFormField extends StatefulWidget {
 class _DynamicFormFieldState extends State<DynamicFormField> {
   bool _touched = false;
   bool _open = false;
+  bool _multiOpen = false;
+  final TextEditingController _searchCon = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _searchCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +110,12 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
       case InputFieldType.url:
         return _buildTextField(cubit, error, keyboardType: widget.config.type == InputFieldType.url ? TextInputType.url : TextInputType.text);
       case InputFieldType.number:
-        return _buildTextField(cubit, error, keyboardType: TextInputType.number);
+        return _buildTextField(
+          cubit,
+          error,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          inputFormatters: [_numericInputFormatter],
+        );
       case InputFieldType.textarea:
         return _buildTextField(cubit, error, maxLines: 4);
       case InputFieldType.date:
@@ -102,7 +123,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
       case InputFieldType.select:
         return _buildDropdown(context, cubit, error);
       case InputFieldType.multiSelect:
-        return _buildMultiSelect(context, cubit);
+        return _buildMultiSelect(context, cubit, error);
       case InputFieldType.checkbox:
         return _buildCheckbox(context, cubit);
       case InputFieldType.file:
@@ -129,7 +150,9 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
   }
 
   Widget _buildTextField(CreateRequestCubit cubit, String? error,
-      {TextInputType? keyboardType, int maxLines = 1}) {
+      {TextInputType? keyboardType,
+      int maxLines = 1,
+      List<TextInputFormatter>? inputFormatters}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -139,6 +162,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           controller: cubit.getOrCreateController(widget.config.name),
           hintText: widget.config.label.tr(),
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           maxLines: maxLines,
           // height: 52.h,
           borderRadius: 10.r,
@@ -250,38 +274,219 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     );
   }
 
-  Widget _buildMultiSelect(BuildContext context, CreateRequestCubit cubit) {
-    final options = widget.config.options ?? [];
+  Widget _buildMultiSelect(BuildContext context, CreateRequestCubit cubit, String? error) {
+    final options = widget.config.options ?? const <OptionItem>[];
     final selectedValues = cubit.getFormValueList(widget.config.name);
+    final query = _query.trim().toLowerCase();
+    final filtered = query.isEmpty
+        ? options
+        : options
+            .where((o) =>
+                o.key.tr().toLowerCase().contains(query) ||
+                o.key.toLowerCase().contains(query) ||
+                o.value.toLowerCase().contains(query))
+            .toList();
+
+    String displayText;
+    if (selectedValues.isEmpty) {
+      displayText = widget.config.label.tr();
+    } else if (selectedValues.length <= 2) {
+      displayText = selectedValues
+          .map((v) => options
+              .firstWhere(
+                (o) => o.value == v,
+                orElse: () => OptionItem(key: v, value: v),
+              )
+              .key
+              .tr())
+          .join('، ');
+    } else {
+      displayText = '${LangKeys.selectedItemsMulti.tr()}: ${selectedValues.length}';
+    }
+
+    void updateSelection(List<String> updated) {
+      cubit.setFormValue(widget.config.name, updated);
+      if (!_touched) _touched = true;
+      setState(() {});
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildRequiredLabel(widget.config.label),
         Gap(8.h),
-        Wrap(
-          spacing: 8.w,
-          runSpacing: 4.h,
-          children: options.map((o) {
-            final isSelected = selectedValues.contains(o.value);
-            return FilterChip(
-              label: Text(o.key.tr()),
-              selected: isSelected,
-              onSelected: (selected) {
-                final updated = List<String>.from(selectedValues);
-                if (selected) {
-                  updated.add(o.value);
-                } else {
-                  updated.remove(o.value);
-                }
-                cubit.setFormValue(widget.config.name, updated);
-                if (!_touched) setState(() => _touched = true);
-              },
-              selectedColor: AppColors.primaryDark.withValues(alpha: 0.2),
-              checkmarkColor: AppColors.primaryDark,
-            );
-          }).toList(),
+        InkWell(
+          onTap: () => setState(() => _multiOpen = !_multiOpen),
+          child: Container(
+            width: double.infinity,
+            constraints: BoxConstraints(minHeight: 52.h),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(
+                color: error != null
+                    ? Colors.red
+                    : selectedValues.isNotEmpty
+                        ? AppColors.primaryDark.withValues(alpha: 0.35)
+                        : AppColors.blueLight,
+                width: 1.5,
+              ),
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    displayText,
+                    style: TextStyle(
+                      color: selectedValues.isNotEmpty ? AppColors.black : const Color(0xFF969696),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                Icon(
+                  _multiOpen ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.primaryDark,
+                  size: 24.sp,
+                ),
+              ],
+            ),
+          ),
         ),
+        if (_multiOpen)
+          Container(
+            margin: EdgeInsets.only(top: 4.h),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(color: AppColors.blueLight, width: 1.5),
+              borderRadius: BorderRadius.circular(10.r),
+              boxShadow: const [
+                BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // بحث جوه القائمة
+                Padding(
+                  padding: EdgeInsets.all(8.r),
+                  child: CustomTextFormField(
+                    controller: _searchCon,
+                    hintText: LangKeys.search.tr(),
+                    borderRadius: 8.r,
+                    borderWidth: 1,
+                    height: 10.h,
+                    prefixIcon: Icon(Icons.search, size: 20.sp, color: AppColors.primaryDark),
+                    onChanged: (val) => setState(() => _query = val),
+                  ),
+                ),
+                // اختر الكل / مسح الكل
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () => updateSelection(options.map((o) => o.value).toList()),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          child: Text(
+                            LangKeys.selectAllMulti.tr(),
+                            style: AppStyles.black14SemiBold.copyWith(
+                              color: AppColors.primaryDark,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Gap(16.w),
+                      InkWell(
+                        onTap: () => updateSelection(<String>[]),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 6.h),
+                          child: Text(
+                            LangKeys.clearAll.tr(),
+                            style: AppStyles.black14SemiBold.copyWith(
+                              color: Colors.red,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(height: 1, color: AppColors.blueLight),
+                if (filtered.isEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(LangKeys.noOptionsFound.tr(), style: AppStyles.black14SemiBold),
+                        Gap(4.h),
+                        Text(
+                          LangKeys.tryAdjustingSearch.tr(),
+                          style: TextStyle(fontSize: 12.sp, color: AppColors.gray),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: 240.h),
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      children: filtered.map((o) {
+                        final isSelected = selectedValues.contains(o.value);
+                        return InkWell(
+                          onTap: () {
+                            final updated = List<String>.from(selectedValues);
+                            if (isSelected) {
+                              updated.remove(o.value);
+                            } else {
+                              updated.add(o.value);
+                            }
+                            updateSelection(updated);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: isSelected,
+                                  onChanged: (_) {
+                                    final updated = List<String>.from(selectedValues);
+                                    if (isSelected) {
+                                      updated.remove(o.value);
+                                    } else {
+                                      updated.add(o.value);
+                                    }
+                                    updateSelection(updated);
+                                  },
+                                  activeColor: AppColors.primaryDark,
+                                  checkColor: AppColors.white,
+                                  visualDensity: VisualDensity.compact,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    o.key.tr(),
+                                    style: AppStyles.black14SemiBold.copyWith(
+                                      color: isSelected ? AppColors.primaryDark : AppColors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+              ],
+            ),
+          ),
       ],
     );
   }
@@ -313,10 +518,16 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
         GestureDetector(
           onTap: () async {
             if (!_touched) setState(() => _touched = true);
+            final now = DateTime.now();
+            final today = DateTime(now.year, now.month, now.day);
+            final parsedCurrent = currentValue == null ? null : DateTime.tryParse(currentValue);
             final date = await showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2000),
+              initialDate: (parsedCurrent != null && !parsedCurrent.isBefore(today))
+                  ? parsedCurrent
+                  : today,
+              // التاريخ لازم يكون اليوم أو في المستقبل.
+              firstDate: today,
               lastDate: DateTime(2100),
             );
             if (date != null) {

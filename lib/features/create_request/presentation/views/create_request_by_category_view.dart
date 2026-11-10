@@ -7,6 +7,7 @@ import 'package:easy_deal/features/create_request/presentation/views/widgets/for
 import 'package:easy_deal/features/create_request/presentation/views/widgets/next_and_prevoius_buttons.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/payment_system_price.dart';
 import 'package:easy_deal/features/create_request/presentation/views/widgets/step_number.dart';
+import 'package:easy_deal/features/create_request/presentation/views/widgets/validation_errors_summary.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../../data/models/category_model.dart';
 
@@ -38,6 +39,8 @@ class CreateRequestByCategoryView extends StatelessWidget {
                 children: [
                   StepNumber(),
                   Gap(32.h),
+
+                  if (cubit.currentStepNumber > 1) const ValidationErrorsSummary(),
 
                   if (cubit.currentStepNumber == 1)
                     FormOfSpecializationAndDealTypeAndUnitType(),
