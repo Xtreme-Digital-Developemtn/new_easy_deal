@@ -254,11 +254,14 @@ Widget _buildDropdown({
             hint: Text(LangKeys.selectAll.tr(),
                 style: AppStyles.black14Medium),
             items: [
-              DropdownMenuItem<String>(
-                value: null,
-                child: Text(LangKeys.clearSelection.tr(),
-                    style: AppStyles.black14Medium),
-              ),
+              // عنصر المسح بيظهر بس لما يكون في اختيار، لأن وجوده دايمًا
+              // بيخلي DropdownButton يعرضه هو بدل الـ hint في الحالة الفاضية.
+              if (value != null)
+                DropdownMenuItem<String>(
+                  value: null,
+                  child: Text(LangKeys.clearSelection.tr(),
+                      style: AppStyles.black14Medium),
+                ),
               ...items.map(
                 (item) => DropdownMenuItem<String>(
                   value: item,
