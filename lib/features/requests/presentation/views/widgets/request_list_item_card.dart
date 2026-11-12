@@ -11,7 +11,7 @@ class RequestListItemCard extends StatelessWidget {
     required this.statusColor, required this.status,
     // required this.date,
     required this.type, required this.address, required this.range, required this.id,
-    this.assignedToLabel});
+    this.assignedToLabel, this.onReturn});
   final String title;
   final Color statusColor;
   final String status;
@@ -20,14 +20,20 @@ class RequestListItemCard extends StatelessWidget {
   final String range;
   final int id;
   final String? assignedToLabel;
+
+  /// بيتنده بعد الرجوع من شاشة التفاصيل عشان حالة الكارت تتحدّث
+  /// لو المستخدم غيّرها من جوه التفاصيل
+  final VoidCallback? onReturn;
   // final DateTime date;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        context.pushNamed(Routes.requestDetailsView,arguments: {
+      onTap: () async {
+        await context.pushNamed(Routes.requestDetailsView,arguments: {
           "requestId" : id,
         });
+        if (!context.mounted) return;
+        onReturn?.call();
       },
       child: Container(
         padding: EdgeInsets.all(16.r),

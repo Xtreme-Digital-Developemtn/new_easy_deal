@@ -33,6 +33,7 @@ class RequestsList extends StatelessWidget {
     required this.isLoadingMore,
     this.data,
     this.receiverNames,
+    this.onRefresh,
   });
 
   final ScrollController controller;
@@ -42,6 +43,9 @@ class RequestsList extends StatelessWidget {
   final bool hasMore;
   final bool isLoadingMore;
 
+  /// سحب لتحديث، وكمان بيتنده بعد الرجوع من شاشة تفاصيل الطلب
+  final Future<void> Function()? onRefresh;
+
   @override
   Widget build(BuildContext context) {
     final items = data ?? [];
@@ -50,25 +54,32 @@ class RequestsList extends StatelessWidget {
     return Expanded(
       child: Skeletonizer(
         enabled: isLoading,
-        child: isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.inbox_outlined,
-                      size: 64.sp,
-                      color: AppColors.grayMedium,
-                    ),
-                    Gap(16.h),
-                    Text(
-                      LangKeys.noRequests.tr(),
-                      style: AppStyles.gray14Medium,
-                    ),
-                  ],
-                ),
+        child: _withRefresh(
+          child: isEmpty
+            ? ListView(
+                controller: controller,
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  SizedBox(height: 120.h),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.inbox_outlined,
+                        size: 64.sp,
+                        color: AppColors.grayMedium,
+                      ),
+                      Gap(16.h),
+                      Text(
+                        LangKeys.noRequests.tr(),
+                        style: AppStyles.gray14Medium,
+                      ),
+                    ],
+                  ),
+                ],
               )
             : ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
                 controller: controller,
                 itemCount: isLoading
                     ? 5
@@ -107,10 +118,24 @@ class RequestsList extends StatelessWidget {
               range: RequestTranslations.specializationScope(request.specializationScope),
               id: request.id ,
               assignedToLabel: receiverName,
+              // بعد الرجوع من التفاصيل بنعيد التحميل عشان الحالة لو اتغيّرت
+              // جوه التفاصيل تتحدّث على الكارت
+              onReturn: onRefresh == null ? null : () => onRefresh!(),
             );
                 },
               ),
+        ),
       ),
+    );
+  }
+
+  /// بيلف الليستة بـRefreshIndicator لو فيه onRefresh، وإلا بيرجّعها زي ما هي
+  Widget _withRefresh({required Widget child}) {
+    if (onRefresh == null) return child;
+    return RefreshIndicator(
+      onRefresh: onRefresh!,
+      color: AppColors.primaryDark,
+      child: child,
     );
   }
 }

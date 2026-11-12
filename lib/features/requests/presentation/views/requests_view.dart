@@ -47,6 +47,20 @@ class _RequestsViewState extends State<RequestsView> {
     );
   }
 
+  /// إعادة تحميل بنفس الفلاتر المطبّقة — بتستخدم في السحب للتحديث
+  /// وبعد الرجوع من شاشة تفاصيل الطلب عشان الحالة تتحدّث على الكارت
+  Future<void> _refresh() async {
+    if (!mounted) return;
+    if (!_didFetch) {
+      _fetchWhenProfileReady();
+      return;
+    }
+    await context.read<RequestsCubit>().fetchAllTypes(
+      context: context,
+      filters: _appliedFilters?.toQueryParams(),
+    );
+  }
+
   void _onScroll() {
     if (!scrollController.hasClients) return;
     final maxScroll = scrollController.position.maxScrollExtent;
@@ -233,6 +247,7 @@ class _RequestsViewState extends State<RequestsView> {
                     isLoading: isLoading,
                     hasMore: cubit.currentHasMore,
                     isLoadingMore: cubit.isLoadingMore,
+                    onRefresh: _refresh,
                   ),
                 ],
               );

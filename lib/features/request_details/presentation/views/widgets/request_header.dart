@@ -1,18 +1,52 @@
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-import '../../../../../core/themes/app_colors.dart';
 import '../../../../../main_imports.dart';
 import '../../../../requests/data/config/request_translations.dart';
 import '../../../data/config/display_value.dart';
 import '../../view_model/request_details_cubit.dart';
+import '../../view_model/request_details_states.dart';
 
 class RequestHeader extends StatelessWidget {
   const RequestHeader({
     super.key,
+    this.requestId,
   });
+
+  /// رقم الطلب اللي جاي من الكارت — بيتعرض لو الـAPI ما رجّعش id
+  final int? requestId;
+
+  /// لون شارة الحالة حسب الحالة — نفس تقسيم ألوان كارت قائمة الطلبات
+  static Color _statusColor(dynamic rawStatus) {
+    switch (rawStatus?.toString()) {
+      case 'new':
+        return AppColors.primaryDark;
+      case 'in_processing':
+        return AppColors.orangeMedium;
+      case 'finished':
+      case 'completed':
+        return AppColors.successDark;
+      case 'rejected':
+      case 'cancelled':
+        return AppColors.errorDark;
+      default:
+        return AppColors.grayDarkest;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    /// الهيدر بيتبني جوه BlocBuilder عشان شارة الحالة تتحدّث فوراً بعد
+    /// تغيير الحالة. من غير كده الويدجت الـconst مابتتبنيش تاني أصلاً.
+    return BlocBuilder<RequestDetailsCubit, RequestDetailsStates>(
+      buildWhen: (prev, curr) =>
+          curr is GetRequestDetailsSuccessState ||
+          curr is UpdateRequestStatusSuccessState ||
+          curr is MakeUnitSuccessState,
+      builder: (context, state) => _buildHeader(context),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
     var requestDetailsCubit = context.read<RequestDetailsCubit>();
     var details = requestDetailsCubit.requestDetailsModel?.data;
 
@@ -36,6 +70,12 @@ class RequestHeader extends StatelessWidget {
           ? DisplayValue.firstValid([city?.nameAr, city?.nameEn])
           : DisplayValue.firstValid([city?.nameEn, city?.nameAr])),
     ];
+
+    /// الحالة ورقم الطلب — الاتنين بيختفوا لو مفيش قيمة صالحة
+    final rawStatus = details?.status;
+    final statusLabel =
+        DisplayValue.mapped(rawStatus, RequestTranslations.status);
+    final displayedId = DisplayValue.text(details?.id ?? requestId);
 
     return Container(
       width: double.infinity,
@@ -62,6 +102,35 @@ class RequestHeader extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 height: 1.1,
               ),
+            ),
+            const SizedBox(height: 12),
+          ],
+
+          /// شارة الحالة + رقم الطلب
+          if (statusLabel != null || displayedId != null) ...[
+            Row(
+              children: [
+                if (statusLabel != null)
+                  _StatusBadge(
+                    label: statusLabel,
+                    color: _statusColor(rawStatus),
+                  ),
+                if (statusLabel != null && displayedId != null)
+                  const SizedBox(width: 10),
+                if (displayedId != null)
+                  Expanded(
+                    child: Text(
+                      '${LangKeys.requestNumber.tr()}: $displayedId',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.85),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 12),
           ],
@@ -95,6 +164,53 @@ class RequestHeader extends StatelessWidget {
 
   /// بيرجّع عنصر واحد لو القيمة صالحة، أو null عشان ما يتضافش للتاجات
   List<String>? _tag(String? value) => value == null ? null : [value];
+}
+
+/// شارة الحالة فوق الهيدر الكحلي: خلفية بيضا عشان اللون يبان على الكحلي
+class _StatusBadge extends StatelessWidget {
+  const _StatusBadge({
+    required this.label,
+    required this.color,
+  });
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 5,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 7,
+            height: 7,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _RequestTag extends StatelessWidget {

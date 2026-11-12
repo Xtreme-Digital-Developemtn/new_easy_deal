@@ -114,7 +114,7 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                const RequestHeader(),
+                RequestHeader(requestId: widget.requestId),
                 Gap(16.h),
 
                 /// كل المحتوى تحت الهيدر جوه مسافات جانبية موحدة
