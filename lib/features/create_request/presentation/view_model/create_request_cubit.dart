@@ -527,6 +527,17 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   );
 
   List<InputConfig> get currentStepInputs {
+    // لما خطوة المستندات بتتشال (شراء / استئجار)، آخر خطوة رقمها 4 بس
+    // المعلومات المالية في بعض التركيبات متسجلة على 4 وفي غيرها على 5،
+    // فبنجمع الاتنين ونشيل حقول الملفات عشان الخطوة متبقاش فاضية.
+    if (!shouldShowStep4 && currentStepNumber == 4) {
+      final merged = <InputConfig>[
+        ...configFactory.getInputsForKey(configKey, 4),
+        ...configFactory.getInputsForKey(configKey, 5),
+      ].where((input) => input.type != InputFieldType.file);
+      final seen = <String>{};
+      return merged.where((input) => seen.add(input.name)).toList();
+    }
     return configFactory.getInputsForKey(configKey, currentStepNumber);
   }
 

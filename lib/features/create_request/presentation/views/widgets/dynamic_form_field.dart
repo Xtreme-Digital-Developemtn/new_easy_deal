@@ -566,6 +566,29 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     return _buildFileUploadCard(context, cubit);
   }
 
+  String _fileNameOf(File? file) {
+    if (file == null) return '';
+    return file.path.split(RegExp(r'[\\/]')).last;
+  }
+
+  Widget _buildThumbnail(File file) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.r),
+      child: Image.file(
+        file,
+        width: 56.w,
+        height: 56.w,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => Container(
+          width: 56.w,
+          height: 56.w,
+          color: Colors.grey[200],
+          child: Icon(Icons.broken_image_outlined, size: 20, color: Colors.grey),
+        ),
+      ),
+    );
+  }
+
   Widget _buildFileUploadCard(BuildContext context, CreateRequestCubit cubit) {
     final File? file;
     bool isEmpty;
@@ -649,6 +672,24 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
                             decoration: BoxDecoration(color: AppColors.primaryDark, borderRadius: BorderRadius.circular(12)),
                             child: Text('$fileCount files', style: TextStyle(fontSize: 11.sp, color: Colors.white)),
                           ),
+                          Gap(8.h),
+                          if (widget.config.name == 'galleryImages')
+                            Wrap(
+                              spacing: 6.w,
+                              runSpacing: 6.h,
+                              alignment: WrapAlignment.center,
+                              children: cubit.galleryImages
+                                  .map((img) => _buildThumbnail(img))
+                                  .toList(),
+                            )
+                          else if (isVideo)
+                            Text(
+                              _fileNameOf(file),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 11.sp, color: Colors.grey[700]),
+                            )
+                          else if (file != null)
+                            _buildThumbnail(file),
                         ],
                       ],
                     ),
