@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_states.dart';
 
 import '../../../../../main_imports.dart';
@@ -65,7 +66,7 @@ class _SentRepliesWidgetState extends State<SentRepliesWidget> {
                   const SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: _fetchIfNeeded,
-                    child: const Text('Retry'),
+                    child: Text(LangKeys.retry.tr()),
                   ),
                 ],
               ),
@@ -86,7 +87,10 @@ class _SentRepliesWidgetState extends State<SentRepliesWidget> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8, left: 4),
                   child: Text(
-                    'Total sent: ${cubit.sentResponsesTotalCount}  •  Showing ${items.length}',
+                    LangKeys.sentRepliesCountSummary.tr(namedArgs: {
+                      'total': '${cubit.sentResponsesTotalCount}',
+                      'shown': '${items.length}',
+                    }),
                     style: const TextStyle(fontSize: 12, color: Color(0xff666666)),
                   ),
                 ),
@@ -109,7 +113,7 @@ class _SentRepliesWidgetState extends State<SentRepliesWidget> {
                   child: Center(
                     child: OutlinedButton(
                       onPressed: _onLoadMore,
-                      child: const Text('Load More'),
+                      child: Text(LangKeys.loadMore.tr()),
                     ),
                   ),
                 ),

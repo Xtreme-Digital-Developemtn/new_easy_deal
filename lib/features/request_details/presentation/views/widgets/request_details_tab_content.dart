@@ -22,10 +22,12 @@ class RequestDetailsTabContent extends StatelessWidget {
             return RequestOverview(data: data);
 
           case 1:
-            return const RepliesWidget(); // request/replies - auto-load without button
+            // تاب "الردود المرسلة" = الوحدات اللي اتبعتت كرد على الطلب
+            return const SentRepliesWidget(); // unit/list-sent-unit-requests
 
           case 2:
-            return const SentRepliesWidget(); // unit/list-sent-unit-requests - نفس الطريقة بنفس الباجينيشن
+            // تاب "الردود" = جدول الردود على الطلب نفسه
+            return const RepliesWidget(); // request/replies
 
           case 3:
             return const RecommendedWidget(); // requests/recommend/units - تاب توصيات

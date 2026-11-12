@@ -799,6 +799,95 @@ abstract class LangKeys {
   static const String brokerPhoneNotAvailable = 'brokerPhoneNotAvailable';
   static const String cannotOpenWhatsApp = 'cannotOpenWhatsApp';
   static const String cannotOpenDialer = 'cannotOpenDialer';
+
+  // تابات تفاصيل الطلب: الردود / الردود المرسلة / التوصيات
+  static const String noRepliesYet = 'noRepliesYet';
+  static const String noSentRepliesYet = 'noSentRepliesYet';
+  static const String noRecommendationsYet = 'noRecommendationsYet';
+  static const String loadMore = 'loadMore';
+  static const String retry = 'retry';
+  static const String repliesCountSummary = 'repliesCountSummary';
+  static const String sentRepliesCountSummary = 'sentRepliesCountSummary';
+  static const String recommendationsCountSummary = 'recommendationsCountSummary';
+  static const String tabOverview = 'tabOverview';
+  static const String tabSentReplies = 'tabSentReplies';
+  static const String tabReplies = 'tabReplies';
+  static const String tabRecommendations = 'tabRecommendations';
+  static const String viewAction = 'viewAction';
+  static const String noExtraUnitDetails = 'noExtraUnitDetails';
+  static const String colUnitCode = 'colUnitCode';
+  static const String colAreaSqm = 'colAreaSqm';
+  static const String colBroker = 'colBroker';
+  static const String colAction = 'colAction';
+
+  // تفاصيل الطلب: كروت وإجراءات ورسايل
+  static const String requestDate = 'requestDate';
+  static const String newStatus = 'newStatus';
+  static const String clientName = 'clientName';
+  static const String genericName = 'genericName';
+  static const String startProcessing = 'startProcessing';
+  static const String saveToDirectUnits = 'saveToDirectUnits';
+  static const String statusUpdatedSuccessfully = 'statusUpdatedSuccessfully';
+  static const String savedToDirectUnits = 'savedToDirectUnits';
+  static const String brokerDataNotFound = 'brokerDataNotFound';
+  static const String cannotReadRequestData = 'cannotReadRequestData';
+  static const String closeAction = 'closeAction';
+  static const String keyDetails = 'keyDetails';
+  static const String brokerPhone = 'brokerPhone';
+  static const String contactInfo = 'contactInfo';
+  static const String unitTitle = 'unitTitle';
+  static const String listSeparator = 'listSeparator';
+  static const String priceWithCurrency = 'priceWithCurrency';
+
+  // حقول الوحدة الموصى بها
+  static const String finishing = 'finishing';
+  static const String projectAdministration = 'projectAdministration';
+  static const String unitFacing = 'unitFacing';
+  static const String villageName = 'villageName';
+  static const String mallName = 'mallName';
+  static const String brokerPriceSuggestion = 'brokerPriceSuggestion';
+  static const String pricesAndPayment = 'pricesAndPayment';
+  static const String managementAndNotes = 'managementAndNotes';
+  static const String monthlyRent = 'monthlyRent';
+  static const String garage = 'garage';
+  static const String conditionAndFinishing = 'conditionAndFinishing';
+  static const String minimumArea = 'minimumArea';
+  static const String maximumArea = 'maximumArea';
+  static const String totalPriceCash = 'totalPriceCash';
+  static const String totalPriceInstallment = 'totalPriceInstallment';
+  static const String askingPrice = 'askingPrice';
+  static const String requiredIncrease = 'requiredIncrease';
+  static const String contractor = 'contractor';
+  static const String masterPlanLocation = 'masterPlanLocation';
+  static const String legalStatus = 'legalStatus';
+  static const String financialStatus = 'financialStatus';
+  static const String club = 'club';
+  static const String activity = 'activity';
+  static const String subType = 'subType';
+  static const String unitDesign = 'unitDesign';
+  static const String rentFrequency = 'rentFrequency';
+  static const String fitOutCondition = 'fitOutCondition';
+  static const String landDivisionStatus = 'landDivisionStatus';
+  static const String buildingDivisionStatus = 'buildingDivisionStatus';
+  static const String unitDivisionStatus = 'unitDivisionStatus';
+  static const String buildingLicense = 'buildingLicense';
+  static const String floorNumber = 'floorNumber';
+  static const String buildingNumber = 'buildingNumber';
+  static const String ownerPhone = 'ownerPhone';
+  static const String pricePerMeterCash = 'pricePerMeterCash';
+  static const String pricePerMeterInstallment = 'pricePerMeterInstallment';
+  static const String paymentWay = 'paymentWay';
+  static const String managementTeam = 'managementTeam';
+  static const String insuranceValue = 'insuranceValue';
+  static const String otherExpensesValue = 'otherExpensesValue';
+  static const String constructionDuration = 'constructionDuration';
+  static const String buildingArea = 'buildingArea';
+  static const String terraceArea = 'terraceArea';
+  static const String gardenArea = 'gardenArea';
+  static const String otherSubAreas = 'otherSubAreas';
+  static const String shopActivity = 'shopActivity';
+  static const String compoundKind = 'compoundKind';
+  static const String unitDescription = 'unitDescription';
 }
 
 

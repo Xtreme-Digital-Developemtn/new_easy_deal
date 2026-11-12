@@ -1,4 +1,5 @@
 import 'package:easy_deal/core/shared_widgets/general_bottom_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/core/utils/contact_launcher.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
 import 'package:easy_deal/features/request_details/data/config/recommended_fields.dart';
@@ -84,7 +85,7 @@ class RecommendedUnitSheet extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'وحدة ${item.displayUnitCode}',
+                  LangKeys.unitTitle.tr(namedArgs: {'code': item.displayUnitCode}),
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
@@ -96,7 +97,7 @@ class RecommendedUnitSheet extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
                 icon: const Icon(Icons.close, size: 22),
                 color: const Color(0xff888888),
-                tooltip: 'إغلاق',
+                tooltip: LangKeys.closeAction.tr(),
               ),
             ],
           ),
@@ -136,7 +137,7 @@ class RecommendedUnitSheet extends StatelessWidget {
 
   List<Widget> _sections(BuildContext context, Map<String, dynamic>? json) {
     final sections = <Widget>[
-      ..._group(context, json, 'أهم التفاصيل', RecommendedFields.highlights),
+      ..._group(context, json, LangKeys.keyDetails.tr(), RecommendedFields.highlights),
       for (final group in RecommendedFields.groups)
         ..._group(context, json, group.title, group.fields),
       ..._contacts(context, json),
@@ -146,10 +147,10 @@ class RecommendedUnitSheet extends StatelessWidget {
       return [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 24.h),
-          child: const Center(
+          child: Center(
             child: Text(
-              'لا توجد تفاصيل إضافية لهذه الوحدة',
-              style: TextStyle(fontSize: 13, color: Color(0xff888888)),
+              LangKeys.noExtraUnitDetails.tr(),
+              style: const TextStyle(fontSize: 13, color: Color(0xff888888)),
             ),
           ),
         ),
@@ -201,16 +202,16 @@ class RecommendedUnitSheet extends StatelessWidget {
     ]);
     final brokerName = DisplayValue.text(item.displayBrokerName);
     if (brokerName != null) {
-      children.add(InfoRow(title: 'الوسيط', value: brokerName));
+      children.add(InfoRow(title: LangKeys.colBroker.tr(), value: brokerName));
     }
     if (brokerPhone != null) {
-      children.add(_PhoneRow(title: 'رقم الوسيط', phone: brokerPhone));
+      children.add(_PhoneRow(title: LangKeys.brokerPhone.tr(), phone: brokerPhone));
     }
 
     if (children.isEmpty) return const [];
 
     return [
-      RequestSection(title: 'بيانات التواصل', child: InfoCard(children: children)),
+      RequestSection(title: LangKeys.contactInfo.tr(), child: InfoCard(children: children)),
       SizedBox(height: 20.h),
     ];
   }
@@ -279,13 +280,13 @@ class _PhoneRow extends StatelessWidget {
           _CircleAction(
             color: const Color(0xff092FA3),
             icon: const Icon(Icons.phone, size: 15, color: Colors.white),
-            tooltip: 'اتصال',
+            tooltip: LangKeys.call.tr(),
             onTap: () => ContactLauncher.call(context, phone),
           ),
           SizedBox(width: 6.w),
           _CircleAction(
             color: const Color(0xFF25D366),
-            tooltip: 'واتساب',
+            tooltip: LangKeys.whatsapp.tr(),
             icon: SvgPicture.asset(
               SvgImages.whatsapp,
               width: 15,

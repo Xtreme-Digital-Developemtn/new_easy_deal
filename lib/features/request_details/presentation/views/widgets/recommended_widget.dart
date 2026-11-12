@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_states.dart';
 
 import '../../../../../main_imports.dart';
@@ -66,7 +67,7 @@ class _RecommendedWidgetState extends State<RecommendedWidget> {
                   const SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: _fetchIfNeeded,
-                    child: const Text('إعادة المحاولة'),
+                    child: Text(LangKeys.retry.tr()),
                   ),
                 ],
               ),
@@ -87,7 +88,10 @@ class _RecommendedWidgetState extends State<RecommendedWidget> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8, left: 4),
                   child: Text(
-                    'إجمالي التوصيات: ${cubit.recommendedTotalCount}  •  عرض ${items.length}',
+                    LangKeys.recommendationsCountSummary.tr(namedArgs: {
+                      'total': '${cubit.recommendedTotalCount}',
+                      'shown': '${items.length}',
+                    }),
                     style: const TextStyle(fontSize: 12, color: Color(0xff666666)),
                   ),
                 ),
@@ -110,7 +114,7 @@ class _RecommendedWidgetState extends State<RecommendedWidget> {
                   child: Center(
                     child: OutlinedButton(
                       onPressed: _onLoadMore,
-                      child: const Text('تحميل المزيد'),
+                      child: Text(LangKeys.loadMore.tr()),
                     ),
                   ),
                 ),

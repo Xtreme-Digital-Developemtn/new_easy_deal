@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/core/shared_widgets/error_ui.dart';
 import 'package:easy_deal/core/utils/contact_launcher.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
@@ -55,14 +56,14 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
         listener: (context, state) {
           if (state is UpdateRequestStatusSuccessState) {
             Toast.showSuccessToast(
-              msg: state.model.message ?? 'تم تحديث الحالة بنجاح',
+              msg: state.model.message ?? LangKeys.statusUpdatedSuccessfully.tr(),
               context: context,
             );
           } else if (state is UpdateRequestStatusErrorState) {
             Toast.showErrorToast(msg: state.error, context: context);
           } else if (state is MakeUnitSuccessState) {
             Toast.showSuccessToast(
-              msg: state.model.message ?? 'تم الحفظ في العقارات المباشره',
+              msg: state.model.message ?? LangKeys.savedToDirectUnits.tr(),
               context: context,
             );
           } else if (state is MakeUnitErrorState) {

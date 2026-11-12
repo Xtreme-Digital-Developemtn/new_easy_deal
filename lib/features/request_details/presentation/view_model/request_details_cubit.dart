@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import '../../data/models/replies_model.dart';
 import '../../data/models/request_details_model.dart';
 import '../../data/models/sent_responses_model.dart';
@@ -94,7 +95,7 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
     final int? effectiveBrokerId =
         brokerId ?? _parseId(CacheHelper.getData(key: StorageKeys.brokerId));
     if (effectiveBrokerId == null) {
-      emit(MakeUnitErrorState('لم يتم العثور على بيانات الوسيط'));
+      emit(MakeUnitErrorState(LangKeys.brokerDataNotFound.tr()));
       return;
     }
 
@@ -124,9 +125,9 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
   /// لابل كارت الاسم بيتغير على حسب role صاحب الطلب
   String get requestUserNameLabel {
     final role = requestDetailsModel?.data?.user?.role?.trim().toLowerCase();
-    if (role == 'client') return 'اسم العميل';
-    if (role == 'broker') return 'اسم الوسيط';
-    return 'الاسم';
+    if (role == 'client') return LangKeys.clientName.tr();
+    if (role == 'broker') return LangKeys.brokerName.tr();
+    return LangKeys.genericName.tr();
   }
 
   int selectedIndex = 0;

@@ -1,30 +1,40 @@
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../main_imports.dart';
 
 /// نوع القيمة، بيحدد شكل العرض (وحدة المساحة، الجنيه، تاريخ، ليستة...)
 enum RecommendedFieldKind { text, enumLabel, area, price, date, list, phone }
 
-/// حقل واحد من حقول الوحدة الموصى بها: مفتاح الـAPI + اسمه بالعربي + نوعه
+/// حقل واحد من حقول الوحدة الموصى بها: مفتاح الـAPI + مفتاح الترجمة + نوعه
 class RecommendedField {
-  const RecommendedField(this.key, this.label,
+  const RecommendedField(this.key, this.labelKey,
       [this.kind = RecommendedFieldKind.text]);
 
   final String key;
-  final String label;
+
+  /// مفتاح ترجمة من [LangKeys]، بيتترجم وقت العرض على حسب اللغة المختارة
+  final String labelKey;
   final RecommendedFieldKind kind;
+
+  /// اسم الحقل باللغة المختارة
+  String get label => labelKey.tr();
 }
 
 /// مجموعة حقول بعنوان، بتتعرض كقسم في شيت التفاصيل
 class RecommendedFieldGroup {
-  const RecommendedFieldGroup(this.title, this.fields);
+  const RecommendedFieldGroup(this.titleKey, this.fields);
 
-  final String title;
+  /// مفتاح ترجمة من [LangKeys]
+  final String titleKey;
   final List<RecommendedField> fields;
+
+  /// عنوان القسم باللغة المختارة
+  String get title => titleKey.tr();
 }
 
-/// كل أسماء حقول الوحدة بالعربي ومكان كل حقل في العرض.
+/// كل حقول الوحدة كمفاتيح ترجمة ومكان كل حقل في العرض.
 ///
 /// الـAPI بيرجّع أكتر من 60 حقل لكل توصية، فبنعرض [highlights] (أهم 10) في
 /// الجدول وأول الشيت، وباقي الحقول متقسّمة على [groups]. أي حقل قيمته فاضية
@@ -35,135 +45,135 @@ class RecommendedFields {
   /// أهم 10 حقول بتفرق فعلًا للوسيط وهو بيطابق وحدة على طلب
   static const List<RecommendedField> highlights = [
     RecommendedField(
-        'unitOperation', 'نوع العملية', RecommendedFieldKind.enumLabel),
-    RecommendedField('type', 'نوع الوحدة', RecommendedFieldKind.enumLabel),
-    RecommendedField('unitArea', 'المساحة', RecommendedFieldKind.area),
-    RecommendedField('numberOfRooms', 'عدد الغرف'),
-    RecommendedField('numberOfBathrooms', 'عدد الحمامات'),
+        'unitOperation', LangKeys.operationType, RecommendedFieldKind.enumLabel),
+    RecommendedField('type', LangKeys.unitType, RecommendedFieldKind.enumLabel),
+    RecommendedField('unitArea', LangKeys.size, RecommendedFieldKind.area),
+    RecommendedField('numberOfRooms', LangKeys.numberOfRooms),
+    RecommendedField('numberOfBathrooms', LangKeys.bathrooms),
     RecommendedField(
-        'finishingType', 'التشطيب', RecommendedFieldKind.enumLabel),
+        'finishingType', LangKeys.finishing, RecommendedFieldKind.enumLabel),
     RecommendedField(
-        'deliveryStatus', 'حالة التسليم', RecommendedFieldKind.enumLabel),
+        'deliveryStatus', LangKeys.deliveryStatus, RecommendedFieldKind.enumLabel),
     RecommendedField(
-        'totalPriceInCash', 'السعر الإجمالي كاش', RecommendedFieldKind.price),
+        'totalPriceInCash', LangKeys.totalPriceCash, RecommendedFieldKind.price),
     RecommendedField(
-        'pricePerMeterInCash', 'سعر المتر كاش', RecommendedFieldKind.price),
-    RecommendedField('city', 'المدينة'),
+        'pricePerMeterInCash', LangKeys.pricePerMeterCash, RecommendedFieldKind.price),
+    RecommendedField('city', LangKeys.city),
   ];
 
   static const List<RecommendedFieldGroup> groups = [
-    RecommendedFieldGroup('الموقع', [
-      RecommendedField('area', 'المنطقة'),
-      RecommendedField('subArea', 'المنطقة الفرعية'),
+    RecommendedFieldGroup(LangKeys.location, [
+      RecommendedField('area', LangKeys.area),
+      RecommendedField('subArea', LangKeys.subArea),
       RecommendedField(
-          'otherSubAreas', 'مناطق فرعية أخرى', RecommendedFieldKind.list),
-      RecommendedField('detailedAddress', 'العنوان التفصيلي'),
+          'otherSubAreas', LangKeys.otherSubAreas, RecommendedFieldKind.list),
+      RecommendedField('detailedAddress', LangKeys.detailedAddress),
       RecommendedField(
-          'compoundType', 'نوع الكمبوند', RecommendedFieldKind.enumLabel),
-      RecommendedField('compoundName', 'اسم الكمبوند'),
-      RecommendedField('villageName', 'اسم القرية'),
-      RecommendedField('mallName', 'اسم المول'),
-      RecommendedField('projectName', 'اسم المشروع'),
-      RecommendedField('developerName', 'اسم المطوّر'),
-      RecommendedField('locationInMasterPlan', 'الموقع في الماستر بلان'),
+          'compoundType', LangKeys.compoundKind, RecommendedFieldKind.enumLabel),
+      RecommendedField('compoundName', LangKeys.compoundName),
+      RecommendedField('villageName', LangKeys.villageName),
+      RecommendedField('mallName', LangKeys.mallName),
+      RecommendedField('projectName', LangKeys.projectName),
+      RecommendedField('developerName', LangKeys.developerName),
+      RecommendedField('locationInMasterPlan', LangKeys.masterPlanLocation),
     ]),
-    RecommendedFieldGroup('بيانات الوحدة', [
+    RecommendedFieldGroup(LangKeys.unitData, [
       RecommendedField(
-          'subUnitType', 'النوع الفرعي', RecommendedFieldKind.enumLabel),
-      RecommendedField('buildingNumber', 'رقم العمارة'),
-      RecommendedField('unitNumber', 'رقم الوحدة'),
-      RecommendedField('floor', 'الدور', RecommendedFieldKind.enumLabel),
-      RecommendedField('floorNumber', 'رقم الدور'),
-      RecommendedField('numberOfFloors', 'عدد الأدوار'),
+          'subUnitType', LangKeys.subType, RecommendedFieldKind.enumLabel),
+      RecommendedField('buildingNumber', LangKeys.buildingNumber),
+      RecommendedField('unitNumber', LangKeys.unitNumber),
+      RecommendedField('floor', LangKeys.floor, RecommendedFieldKind.enumLabel),
+      RecommendedField('floorNumber', LangKeys.floorNumber),
+      RecommendedField('numberOfFloors', LangKeys.floors),
       RecommendedField(
-          'unitAreaMin', 'الحد الأدنى للمساحة', RecommendedFieldKind.area),
+          'unitAreaMin', LangKeys.minimumArea, RecommendedFieldKind.area),
       RecommendedField(
-          'unitAreaMax', 'الحد الأقصى للمساحة', RecommendedFieldKind.area),
-      RecommendedField('groundArea', 'مساحة الأرض', RecommendedFieldKind.area),
-      RecommendedField('buildingArea', 'مساحة البناء', RecommendedFieldKind.area),
-      RecommendedField('gardenArea', 'مساحة الحديقة', RecommendedFieldKind.area),
-      RecommendedField('terraceArea', 'مساحة التراس', RecommendedFieldKind.area),
-      RecommendedField('view', 'الإطلالة', RecommendedFieldKind.enumLabel),
+          'unitAreaMax', LangKeys.maximumArea, RecommendedFieldKind.area),
+      RecommendedField('groundArea', LangKeys.landingArea, RecommendedFieldKind.area),
+      RecommendedField('buildingArea', LangKeys.buildingArea, RecommendedFieldKind.area),
+      RecommendedField('gardenArea', LangKeys.gardenArea, RecommendedFieldKind.area),
+      RecommendedField('terraceArea', LangKeys.terraceArea, RecommendedFieldKind.area),
+      RecommendedField('view', LangKeys.theView, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'unitFacing', 'اتجاه الوحدة', RecommendedFieldKind.enumLabel),
+          'unitFacing', LangKeys.unitFacing, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'unitDesign', 'تصميم الوحدة', RecommendedFieldKind.enumLabel),
+          'unitDesign', LangKeys.unitDesign, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'unitDescription', 'وصف الوحدة', RecommendedFieldKind.enumLabel),
-      RecommendedField('unitLayoutStatus', 'حالة تقسيم الوحدة',
+          'unitDescription', LangKeys.unitDescription, RecommendedFieldKind.enumLabel),
+      RecommendedField('unitLayoutStatus', LangKeys.unitDivisionStatus,
           RecommendedFieldKind.enumLabel),
-      RecommendedField('buildingLayoutStatus', 'حالة تقسيم المبنى',
+      RecommendedField('buildingLayoutStatus', LangKeys.buildingDivisionStatus,
           RecommendedFieldKind.enumLabel),
-      RecommendedField('groundLayoutStatus', 'حالة تقسيم الأرض',
+      RecommendedField('groundLayoutStatus', LangKeys.landDivisionStatus,
           RecommendedFieldKind.enumLabel),
     ]),
-    RecommendedFieldGroup('الحالة والتشطيب', [
-      RecommendedField('status', 'الحالة', RecommendedFieldKind.enumLabel),
+    RecommendedFieldGroup(LangKeys.conditionAndFinishing, [
+      RecommendedField('status', LangKeys.status, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'deliveryDate', 'تاريخ التسليم', RecommendedFieldKind.date),
+          'deliveryDate', LangKeys.deliveryDate, RecommendedFieldKind.date),
       RecommendedField(
-          'furnishingStatus', 'حالة الفرش', RecommendedFieldKind.enumLabel),
+          'furnishingStatus', LangKeys.furnishingStatus, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'fitOutCondition', 'حالة التجهيز', RecommendedFieldKind.enumLabel),
+          'fitOutCondition', LangKeys.fitOutCondition, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'legalStatus', 'الموقف القانوني', RecommendedFieldKind.enumLabel),
+          'legalStatus', LangKeys.legalStatus, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'financialStatus', 'الموقف المالي', RecommendedFieldKind.enumLabel),
+          'financialStatus', LangKeys.financialStatus, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'buildingLicense', 'رخصة البناء', RecommendedFieldKind.enumLabel),
+          'buildingLicense', LangKeys.buildingLicense, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'buildingDeadline', 'مدة البناء', RecommendedFieldKind.enumLabel),
-      RecommendedField('activity', 'النشاط', RecommendedFieldKind.enumLabel),
+          'buildingDeadline', LangKeys.constructionDuration, RecommendedFieldKind.enumLabel),
+      RecommendedField('activity', LangKeys.activity, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'shopActivity', 'نشاط المحل', RecommendedFieldKind.enumLabel),
+          'shopActivity', LangKeys.shopActivity, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'parkingStatus', 'الجراج', RecommendedFieldKind.enumLabel),
-      RecommendedField('clubStatus', 'النادي', RecommendedFieldKind.enumLabel),
+          'parkingStatus', LangKeys.garage, RecommendedFieldKind.enumLabel),
+      RecommendedField('clubStatus', LangKeys.club, RecommendedFieldKind.enumLabel),
     ]),
-    RecommendedFieldGroup('الأسعار والسداد', [
-      RecommendedField('totalPriceInInstallment', 'السعر الإجمالي بالتقسيط',
+    RecommendedFieldGroup(LangKeys.pricesAndPayment, [
+      RecommendedField('totalPriceInInstallment', LangKeys.totalPriceInstallment,
           RecommendedFieldKind.price),
-      RecommendedField('pricePerMeterInInstallment', 'سعر المتر بالتقسيط',
+      RecommendedField('pricePerMeterInInstallment', LangKeys.pricePerMeterInstallment,
           RecommendedFieldKind.price),
-      RecommendedField('unitPrice', 'سعر الوحدة', RecommendedFieldKind.price),
+      RecommendedField('unitPrice', LangKeys.unitPrice, RecommendedFieldKind.price),
       RecommendedField(
-          'unitPriceSuggestions', 'اقتراح سعر الوسيط', RecommendedFieldKind.price),
-      RecommendedField('askingPrice', 'السعر المطلوب', RecommendedFieldKind.price),
+          'unitPriceSuggestions', LangKeys.brokerPriceSuggestion, RecommendedFieldKind.price),
+      RecommendedField('askingPrice', LangKeys.askingPrice, RecommendedFieldKind.price),
       RecommendedField(
-          'requestedOver', 'المطلوب زيادة', RecommendedFieldKind.price),
-      RecommendedField('dailyRent', 'الإيجار اليومي', RecommendedFieldKind.price),
+          'requestedOver', LangKeys.requiredIncrease, RecommendedFieldKind.price),
+      RecommendedField('dailyRent', LangKeys.dailyRent, RecommendedFieldKind.price),
       RecommendedField(
-          'monthlyRent', 'الإيجار الشهري', RecommendedFieldKind.price),
+          'monthlyRent', LangKeys.monthlyRent, RecommendedFieldKind.price),
       RecommendedField(
-          'paymentSystem', 'نظام السداد', RecommendedFieldKind.enumLabel),
+          'paymentSystem', LangKeys.paymentSystem, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'paymentMethod', 'طريقة السداد', RecommendedFieldKind.enumLabel),
+          'paymentMethod', LangKeys.paymentWay, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'rentRecurrence', 'تكرار الإيجار', RecommendedFieldKind.enumLabel),
+          'rentRecurrence', LangKeys.rentFrequency, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'requiredInsurance', 'التأمين المطلوب', RecommendedFieldKind.enumLabel),
+          'requiredInsurance', LangKeys.requiredInsurance, RecommendedFieldKind.enumLabel),
       RecommendedField(
-          'insuranceValue', 'قيمة التأمين', RecommendedFieldKind.price),
+          'insuranceValue', LangKeys.insuranceValue, RecommendedFieldKind.price),
       RecommendedField(
-          'otherExpenses', 'مصاريف أخرى', RecommendedFieldKind.list),
-      RecommendedField('otherExpensesValue', 'قيمة المصاريف الأخرى',
+          'otherExpenses', LangKeys.otherExpenses, RecommendedFieldKind.list),
+      RecommendedField('otherExpensesValue', LangKeys.otherExpensesValue,
           RecommendedFieldKind.price),
     ]),
-    RecommendedFieldGroup('الإدارة والملاحظات', [
-      RecommendedField('managementTeam', 'فريق الإدارة'),
-      RecommendedField('projectManagement', 'إدارة المشروع'),
-      RecommendedField('projectConstructor', 'المقاول'),
+    RecommendedFieldGroup(LangKeys.managementAndNotes, [
+      RecommendedField('managementTeam', LangKeys.managementTeam),
+      RecommendedField('projectManagement', LangKeys.projectAdministration),
+      RecommendedField('projectConstructor', LangKeys.contractor),
       RecommendedField(
-          'otherAccessories', 'ملحقات أخرى', RecommendedFieldKind.list),
-      RecommendedField('caption', 'الوصف'),
-      RecommendedField('notes', 'ملاحظات'),
+          'otherAccessories', LangKeys.otherAccessories, RecommendedFieldKind.list),
+      RecommendedField('caption', LangKeys.description),
+      RecommendedField('notes', LangKeys.notes),
     ]),
   ];
 
   /// حقول التواصل لوحدها عشان أرقام التليفون بتبقى قابلة للاتصال والواتساب
   static const List<RecommendedField> contacts = [
-    RecommendedField('ownerName', 'اسم المالك'),
-    RecommendedField('ownerPhone', 'رقم المالك', RecommendedFieldKind.phone),
+    RecommendedField('ownerName', LangKeys.ownerName),
+    RecommendedField('ownerPhone', LangKeys.ownerPhone, RecommendedFieldKind.phone),
   ];
 
   /// بيدوّر على المفتاح في الـjson الأصلي، وجوه `additionalDetails`،
@@ -194,10 +204,12 @@ class RecommendedFields {
 
     switch (field.kind) {
       case RecommendedFieldKind.area:
-        return DisplayValue.withSuffix(raw, 'م²');
+        return DisplayValue.withSuffix(raw, LangKeys.squareMeter.tr());
       case RecommendedFieldKind.price:
         final price = DisplayValue.text(raw);
-        return price == null ? null : '$price جنيه';
+        return price == null
+            ? null
+            : LangKeys.priceWithCurrency.tr(namedArgs: {'price': price});
       case RecommendedFieldKind.enumLabel:
         return DisplayValue.mapped(
           raw,
@@ -209,7 +221,7 @@ class RecommendedFields {
       case RecommendedFieldKind.phone:
       case RecommendedFieldKind.text:
         final names = _names(context, raw);
-        return names.isEmpty ? null : names.join('، ');
+        return names.isEmpty ? null : names.join(LangKeys.listSeparator.tr());
     }
   }
 

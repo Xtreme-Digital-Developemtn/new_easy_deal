@@ -1,5 +1,7 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../main_imports.dart';
 import '../../view_model/request_details_cubit.dart';
 import '../../view_model/request_details_states.dart';
@@ -21,7 +23,7 @@ class RequestDetailsTabs extends StatelessWidget {
             children: [
               _buildTab(
                 context: context,
-                title: 'نظرة عامة',
+                title: LangKeys.tabOverview.tr(),
                 index: 0,
                 isSelected: cubit.selectedIndex == 0,
               ),
@@ -30,7 +32,7 @@ class RequestDetailsTabs extends StatelessWidget {
 
               _buildTab(
                 context: context,
-                title: 'الردود المرسلة',
+                title: LangKeys.tabSentReplies.tr(),
                 index: 1,
                 isSelected: cubit.selectedIndex == 1,
               ),
@@ -39,7 +41,7 @@ class RequestDetailsTabs extends StatelessWidget {
 
               _buildTab(
                 context: context,
-                title: 'الردود',
+                title: LangKeys.tabReplies.tr(),
                 index: 2,
                 isSelected: cubit.selectedIndex == 2,
               ),
@@ -48,7 +50,7 @@ class RequestDetailsTabs extends StatelessWidget {
 
               _buildTab(
                 context: context,
-                title: 'توصيات',
+                title: LangKeys.tabRecommendations.tr(),
                 index: 3,
                 isSelected: cubit.selectedIndex == 3,
               ),

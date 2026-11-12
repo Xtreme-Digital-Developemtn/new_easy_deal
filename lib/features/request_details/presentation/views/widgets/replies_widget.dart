@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/presentation/view_model/request_details_states.dart';
 
 import '../../../../../main_imports.dart';
@@ -68,7 +69,7 @@ class _RepliesWidgetState extends State<RepliesWidget> {
                   const SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: _fetchIfNeeded,
-                    child: const Text('Retry'),
+                    child: Text(LangKeys.retry.tr()),
                   ),
                 ],
               ),
@@ -89,7 +90,10 @@ class _RepliesWidgetState extends State<RepliesWidget> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8, left: 4),
                   child: Text(
-                    'Total replies: ${cubit.repliesTotalCount}  •  Showing ${cubit.repliesUnitsFlat.length}',
+                    LangKeys.repliesCountSummary.tr(namedArgs: {
+                      'total': '${cubit.repliesTotalCount}',
+                      'shown': '${cubit.repliesUnitsFlat.length}',
+                    }),
                     style: const TextStyle(fontSize: 12, color: Color(0xff666666)),
                   ),
                 ),
@@ -112,7 +116,7 @@ class _RepliesWidgetState extends State<RepliesWidget> {
                   child: Center(
                     child: OutlinedButton(
                       onPressed: _onLoadMore,
-                      child: const Text('Load More'),
+                      child: Text(LangKeys.loadMore.tr()),
                     ),
                   ),
                 ),

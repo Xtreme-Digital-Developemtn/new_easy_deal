@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:dartz/dartz.dart';
 import 'package:easy_deal/features/request_details/data/repos/request_repo.dart';
 import '../../../../main_imports.dart';
@@ -27,7 +28,7 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
         // لو الريسبونس وصل 200 والغلط هنا، يبقى مشكلة parsing مش شبكة
         debugPrint('🧩 [PARSE ERROR] requestDetails: $e');
         debugPrintStack(stackTrace: stack);
-        return left(ServerFailure('تعذر قراءة بيانات الطلب من السيرفر'));
+        return left(ServerFailure(LangKeys.cannotReadRequestData.tr()));
       }
     } catch (e) {
       return left(handleError(e));

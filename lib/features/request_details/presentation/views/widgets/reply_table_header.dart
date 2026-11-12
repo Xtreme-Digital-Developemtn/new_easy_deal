@@ -1,4 +1,6 @@
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../main_imports.dart';
 
 /// Single source of truth for the replies-table column widths.
@@ -60,26 +62,26 @@ class ReplyTableHeader extends StatelessWidget {
           ),
 
           _headerCell(
-            'كود الوحدة',
+            LangKeys.colUnitCode.tr(),
             width: ReplyTableColumns.unitCode,
           ),
 
           _headerCell(
-            'المساحة م²',
+            LangKeys.colAreaSqm.tr(),
             width: ReplyTableColumns.area,
           ),
 
           _headerCell(
-            'المدينة',
+            LangKeys.city.tr(),
             width: ReplyTableColumns.city,
           ),
 
-          const Expanded(
+          Expanded(
             child: Text(
-              'الوسيط',
+              LangKeys.colBroker.tr(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff202477),
@@ -88,12 +90,12 @@ class ReplyTableHeader extends StatelessWidget {
           ),
 
           _headerCell(
-            'التشطيب',
+            LangKeys.finishing.tr(),
             width: ReplyTableColumns.finishing,
           ),
 
           _headerCell(
-            'الإجراء',
+            LangKeys.colAction.tr(),
             width: ReplyTableColumns.action,
           ),
         ],

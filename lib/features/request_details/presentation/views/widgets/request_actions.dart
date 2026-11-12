@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/utils/app_images/svg_images.dart';
+import '../../../../../lang/lang_keys.dart';
 
 class RequestActions extends StatelessWidget {
   const RequestActions({
@@ -37,21 +39,21 @@ class RequestActions extends StatelessWidget {
       runSpacing: 8,
       children: [
         _ActionChip(
-          label: 'جديد',
+          label: LangKeys.newStatus.tr(),
           backgroundColor: const Color(0xFFE4F7E9),
           textColor: const Color(0xFF159447),
           onTap: onNewTap,
         ),
 
         _ActionChip(
-          label: 'تعيين لوسيط',
+          label: LangKeys.assignToBroker.tr(),
           backgroundColor: const Color(0xFFF0E1FF),
           textColor: const Color(0xFF8B3DCE),
           onTap: onAssignBrokerTap,
         ),
 
         _ActionChip(
-          label: 'مكتمل',
+          label: LangKeys.completed.tr(),
           icon: Icons.check,
           backgroundColor: const Color(0xFFD9F7E9),
           textColor: const Color(0xFF159447),
@@ -59,7 +61,7 @@ class RequestActions extends StatelessWidget {
         ),
 
         _ActionChip(
-          label: 'بدء معالجة',
+          label: LangKeys.startProcessing.tr(),
           icon: Icons.play_arrow,
           backgroundColor: const Color(0xFFDCEAFF),
           textColor: const Color(0xFF3D7DD8),
@@ -68,7 +70,7 @@ class RequestActions extends StatelessWidget {
 
         if (onSaveToDirectUnitsTap != null)
           _ActionChip(
-            label: 'حفظ في العقارات المباشره',
+            label: LangKeys.saveToDirectUnits.tr(),
             icon: Icons.add_home_work_outlined,
             backgroundColor: const Color(0xFFFFF1DC),
             textColor: const Color(0xFFB4740A),
@@ -78,7 +80,7 @@ class RequestActions extends StatelessWidget {
 
         if (onWhatsAppTap != null)
           _ActionChip(
-            label: 'واتساب',
+            label: LangKeys.whatsapp.tr(),
             svgIcon: SvgImages.whatsapp,
             backgroundColor: const Color(0xFFDFF6E4),
             textColor: const Color(0xFF128C7E),

@@ -1,5 +1,7 @@
 
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../main_imports.dart';
 import 'finishing_badge.dart';
 import 'reply_table_header.dart';
@@ -141,9 +143,9 @@ class _ViewButton extends StatelessWidget {
         child: Container(
           height: 34,
           alignment: Alignment.center,
-          child: const Text(
-            'رؤية',
-            style: TextStyle(
+          child: Text(
+            LangKeys.viewAction.tr(),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w600,

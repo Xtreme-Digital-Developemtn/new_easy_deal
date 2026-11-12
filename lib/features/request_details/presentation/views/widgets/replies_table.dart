@@ -7,6 +7,8 @@ import 'package:easy_deal/features/request_details/presentation/views/widgets/re
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reply_table_header.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/reply_table_row.dart';
 
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../../main_imports.dart';
 
 /// `full_finished` / `superLux` وغيرها بترجع من الـ API كـ enum إنجليزي.
@@ -77,7 +79,7 @@ class RepliesTable extends StatelessWidget {
                 Icon(Icons.inbox_outlined, size: 40, color: Colors.grey.shade400),
                 const SizedBox(height: 8),
                 Text(
-                  'No replies yet',
+                  LangKeys.noSentRepliesYet.tr(),
                   style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                 ),
               ],
@@ -118,7 +120,7 @@ class RepliesTable extends StatelessWidget {
                     )
                   : TextButton(
                       onPressed: onLoadMore,
-                      child: const Text('Load More'),
+                      child: Text(LangKeys.loadMore.tr()),
                     ),
             ),
           ),
@@ -192,7 +194,7 @@ class RepliesModelTable extends StatelessWidget {
               children: [
                 Icon(Icons.inbox_outlined, size: 40, color: Colors.grey.shade400),
                 const SizedBox(height: 8),
-                Text('No replies yet', style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
+                Text(LangKeys.noRepliesYet.tr(), style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
               ],
             ),
           ),
@@ -225,7 +227,7 @@ class RepliesModelTable extends StatelessWidget {
             child: Center(
               child: isLoadingMore
                   ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2))
-                  :           TextButton(onPressed: onLoadMore, child: const Text('Load More')),
+                  : TextButton(onPressed: onLoadMore, child: Text(LangKeys.loadMore.tr())),
             ),
           ),
       ]),
@@ -285,7 +287,7 @@ class RecommendedTable extends StatelessWidget {
               children: [
                 Icon(Icons.star_border, size: 40, color: Colors.grey.shade400),
                 const SizedBox(height: 8),
-                Text('لا توجد توصيات حتى الآن', style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
+                Text(LangKeys.noRecommendationsYet.tr(), style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
               ],
             ),
           ),
@@ -319,7 +321,7 @@ class RecommendedTable extends StatelessWidget {
             child: Center(
               child: isLoadingMore
                   ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2))
-                  : TextButton(onPressed: onLoadMore, child: const Text('تحميل المزيد')),
+                  : TextButton(onPressed: onLoadMore, child: Text(LangKeys.loadMore.tr())),
             ),
           ),
       ]),

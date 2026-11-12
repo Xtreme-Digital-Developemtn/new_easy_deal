@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/utils/contact_launcher.dart';
 import '../../../../../main_imports.dart';
 import '../../../data/config/display_value.dart';
@@ -48,12 +49,12 @@ class RequestInfoGrid extends StatelessWidget {
       ..._card(
         icon: Icons.calendar_month_outlined,
         value: DisplayValue.text(details?.createdAt),
-        label: 'تاريخ الطلب',
+        label: LangKeys.requestDate.tr(),
       ),
       ..._card(
         icon: Icons.phone_outlined,
         value: DisplayValue.text(details?.user?.phone),
-        label: 'رقم الهاتف',
+        label: LangKeys.phoneNumber.tr(),
         // ضغطة على الكارت تفتح شاشة الاتصال على طول برقم الوسيط
         onTap: ContactLauncher.hasPhone(details?.user?.phone)
             ? () => ContactLauncher.call(context, details?.user?.phone)
@@ -63,7 +64,7 @@ class RequestInfoGrid extends StatelessWidget {
         icon: Icons.thumb_up_alt_outlined,
         // صفر ردود قيمة حقيقية بتفيد المستخدم
         value: DisplayValue.text(details?.numberOfReplies, zeroIsValid: true),
-        label: 'الردود',
+        label: LangKeys.tabReplies.tr(),
       ),
     ];
 
