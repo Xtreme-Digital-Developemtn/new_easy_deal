@@ -21,6 +21,28 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
   }
 
 
+  /// وقت آخر جلب ناجح لأي من بيانات اللوحة — بيستخدم كـ debounce عشان
+  /// أول ظهور للتاب بعد تحميل الإقلاع ما يعملش نداء مكرر على طول.
+  DateTime? _lastLoadedAt;
+
+  /// بتتنادى لما تاب لوحة التحكم يرجع يظهر، أو من pull-to-refresh.
+  /// بتجيب الإحصائيات والطلبات الأخيرة من الأول (forceRefresh) عشان الأرقام
+  /// تتحدّث بعد تغيير حالة طلب من شاشة تانية (مثال: الطلب بقى منتهي).
+  Future<void> refreshDashboard({
+    required int brokerId,
+    Duration minInterval = Duration.zero,
+  }) async {
+    if (minInterval > Duration.zero &&
+        _lastLoadedAt != null &&
+        DateTime.now().difference(_lastLoadedAt!) < minInterval) {
+      return;
+    }
+    await Future.wait([
+      getBrokerStatistics(brokerId: brokerId, forceRefresh: true),
+      getLastRequestsModelInHome(brokerId: brokerId, forceRefresh: true),
+    ]);
+  }
+
   BrokerStatisticsModel? brokerStatisticsModel;
 
   Future<void> getBrokerStatistics({required int brokerId, bool forceRefresh = false}) async {
@@ -34,6 +56,7 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
       },
           (data) async {
             brokerStatisticsModel = data;
+            _lastLoadedAt = DateTime.now();
         emit(GetBrokerStatisticsSuccessState(data));
       },
     );
@@ -52,6 +75,7 @@ class BrokerHomeCubit extends Cubit<BrokerHomeStates> {
       },
           (data) async {
         lastRequestsModelInHome = data;
+        _lastLoadedAt = DateTime.now();
         emit(GetLastRequestsModelInHomeSuccessState(data));
       },
     );
