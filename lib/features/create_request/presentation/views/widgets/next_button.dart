@@ -12,13 +12,13 @@ class NextButton extends StatelessWidget {
     return BlocBuilder<CreateRequestCubit , CreateRequestStates>(
       builder: (context,state){
         var createRequestCubit = context.read<CreateRequestCubit>();
-        final isLoading = state is CreateRequestLoadingState;
+        final isLoading = state is CreateRequestLoadingState || createRequestCubit.isSubmitting;
         final isLastStep = createRequestCubit.currentStepNumber >= createRequestCubit.totalSteps;
 
         // كل الخطوات بتتحقّق جوه handleStepOne / handleNextSteps وبتعرض رسالة لكل
         // حقل ناقص، فالزرار لازم يفضل شغّال عشان الرسائل توصل للمستخدم.
         return GestureDetector(
-          onTap: isLoading ? null : (){
+          onTap: isLoading || createRequestCubit.isSubmitting ? null : (){
             if (createRequestCubit.currentStepNumber == 1) {
               createRequestCubit.handleStepOne(context);
             } else {
@@ -39,8 +39,23 @@ class NextButton extends StatelessWidget {
             ),
             child: Center(
               child: isLoading
-                  ? LoadingAnimationWidget.threeArchedCircle(
-                      size: 24, color: AppColors.primaryDark,
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LoadingAnimationWidget.threeArchedCircle(
+                          size: 24, color: AppColors.primaryDark,
+                        ),
+                        if (isLastStep) ...[
+                          Gap(8.w),
+                          Text(
+                            LangKeys.sending.tr(),
+                            style: AppStyles.black14Medium.copyWith(
+                              color: AppColors.primaryDark,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ],
                     )
                   : Text(
                       isLastStep ? LangKeys.send.tr() : LangKeys.next.tr(),

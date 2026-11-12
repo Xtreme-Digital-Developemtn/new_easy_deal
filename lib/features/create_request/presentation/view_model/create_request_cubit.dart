@@ -41,6 +41,15 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
 
     _validateDateField(name, value);
 
+    if (priceSuggestionGroups.containsKey(name)) {
+      if (isChecked(name)) {
+        for (final field in priceSuggestionGroups[name]!) {
+          formErrors.remove(field);
+        }
+      }
+      if (name == 'unitPriceSuggestions') requestPriceQuotes = isChecked(name);
+    }
+
     if (name == 'averageUnitPriceMin' || name == 'averageUnitPriceMax' ||
         name == 'averageUnitPriceMonthlyMin' || name == 'averageUnitPriceMonthlyMax' ||
         name == 'averageUnitPriceDailyMin' || name == 'averageUnitPriceDailyMax') {
@@ -202,6 +211,60 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     return Uri.tryParse(value)?.hasScheme == true && value.contains('.');
   }
 
+  /// كل مجموعة أسعار ومعاها الشيك بوكس اللي بيطلب مقترحات السعر من الوسيط.
+  static const Map<String, List<String>> priceSuggestionGroups = {
+    'unitPriceSuggestions': [
+      'averageUnitPriceMin',
+      'averageUnitPriceMax',
+      'unitPrice',
+    ],
+    'averageUnitPriceMonthlySuggestions': [
+      'averageUnitPriceMonthlyMin',
+      'averageUnitPriceMonthlyMax',
+      'unitPriceMonthly',
+    ],
+    'unitPriceMonthlySuggestions': [
+      'averageUnitPriceMonthlyMin',
+      'averageUnitPriceMonthlyMax',
+      'unitPriceMonthly',
+    ],
+    'averageUnitPriceDailySuggestions': [
+      'averageUnitPriceDailyMin',
+      'averageUnitPriceDailyMax',
+      'unitPriceDaily',
+    ],
+    'unitPriceDailySuggestions': [
+      'averageUnitPriceDailyMin',
+      'averageUnitPriceDailyMax',
+      'unitPriceDaily',
+    ],
+  };
+
+  bool isChecked(String name) {
+    final v = formValues[name];
+    if (v is bool) return v;
+    final s = v?.toString();
+    return s == 'true' || s == '1';
+  }
+
+  /// true لو حقل السعر ده بقى اختياري لأن المستخدم فعّل «أطلب مقترحات بالسعر».
+  bool isPriceOptionalBySuggestion(String fieldName) {
+    for (final entry in priceSuggestionGroups.entries) {
+      if (!entry.value.contains(fieldName)) continue;
+      if (isChecked(entry.key)) return true;
+    }
+    return false;
+  }
+
+  /// رسالة «مطلوب» بتبقى باسم الحقل نفسه في حقول الأسعار عشان تفرق بين
+  /// الحد الأدنى والحد الأقصى (والشهري واليومي).
+  String _requiredMessageFor(InputConfig input) {
+    final isPriceField = priceSuggestionGroups.values
+        .any((fields) => fields.contains(input.name));
+    if (isPriceField) return '${input.label.tr()} مطلوب.';
+    return LangKeys.fieldRequired.tr();
+  }
+
   bool validateCurrentStep() {
     validationAttempted = true;
     final inputs = currentStepInputs;
@@ -213,11 +276,6 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
 
 
-    if (currentStepNumber == 4 || currentStepNumber == 5) {
-      final names = inputs.map((e) => e.name).toSet();
-      if (names.contains('averageUnitPriceMin') && _isFieldEmpty('averageUnitPriceMin')) errors['averageUnitPriceMin'] = LangKeys.fieldRequired.tr();
-      if (names.contains('averageUnitPriceMax') && _isFieldEmpty('averageUnitPriceMax')) errors['averageUnitPriceMax'] = LangKeys.fieldRequired.tr();
-    }
 
 
     final hidden = !shouldShowHotelUnitFields
@@ -225,25 +283,27 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
         : <String>{};
     for (final input in inputs) {
       if (!input.required || hidden.contains(input.name)) continue;
+      // حقول السعر بتبقى اختيارية لو المستخدم طالب مقترحات بالسعر من الوسيط.
+      if (isPriceOptionalBySuggestion(input.name)) continue;
 
       if (input.type == InputFieldType.url) {
         final val = getFormValueString(input.name);
         if (val != null && val.isNotEmpty && !_isValidUrl(val)) {
           errors[input.name] = LangKeys.validUrlRequired.tr();
         } else if (val == null || val.trim().isEmpty) {
-          errors[input.name] = LangKeys.fieldRequired.tr();
+          errors[input.name] = _requiredMessageFor(input);
         }
       } else if (input.type == InputFieldType.text || input.type == InputFieldType.number || input.type == InputFieldType.textarea) {
         if (_isFieldEmpty(input.name) || (getFormValueString(input.name)?.trim().isEmpty == true)) {
-          errors[input.name] = LangKeys.fieldRequired.tr();
+          errors[input.name] = _requiredMessageFor(input);
         }
       } else if (input.type == InputFieldType.select) {
         if (_isFieldEmpty(input.name)) {
-          errors[input.name] = LangKeys.fieldRequired.tr();
+          errors[input.name] = _requiredMessageFor(input);
         }
       } else if (input.type == InputFieldType.date) {
         if (_isFieldEmpty(input.name)) {
-          errors[input.name] = LangKeys.fieldRequired.tr();
+          errors[input.name] = _requiredMessageFor(input);
         }
       }
     }
@@ -742,11 +802,17 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
   // ========================================================================
   // Submit
   // ========================================================================
+  /// بيمنع إنشاء طلبين لو المستخدم ضغط «إرسل طلبك» مرتين بسرعة.
+  bool isSubmitting = false;
+
   Future<void> submitCreateRequest(BuildContext context) async {
+    if (isSubmitting) return;
+    isSubmitting = true;
     emit(CreateRequestLoadingState());
 
     final userId = CacheHelper.getData(key: "userId");
     if (userId == null) {
+      isSubmitting = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please login first")));
       emit(CreateRequestErrorState("User not logged in"));
       return;
@@ -872,7 +938,18 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     addAttr('paymentMethod', selectedPaymentSystem ?? getFormValueString('paymentMethod'));
     addAttr('averageUnitPriceMin', getFormValueString('averageUnitPriceMin') ?? priceMinCon.text);
     addAttr('averageUnitPriceMax', getFormValueString('averageUnitPriceMax') ?? priceMaxCon.text);
-    addAttrBool('unitPriceSuggestions', requestPriceQuotes);
+    addAttr('unitPrice', getFormValueString('unitPrice'));
+    addAttr('averageUnitPriceMonthlyMin', getFormValueString('averageUnitPriceMonthlyMin'));
+    addAttr('averageUnitPriceMonthlyMax', getFormValueString('averageUnitPriceMonthlyMax'));
+    addAttr('averageUnitPriceDailyMin', getFormValueString('averageUnitPriceDailyMin'));
+    addAttr('averageUnitPriceDailyMax', getFormValueString('averageUnitPriceDailyMax'));
+    addAttr('unitPriceMonthly', getFormValueString('unitPriceMonthly'));
+    addAttr('unitPriceDaily', getFormValueString('unitPriceDaily'));
+    addAttrBool('unitPriceSuggestions', requestPriceQuotes || isChecked('unitPriceSuggestions'));
+    addAttrBool('unitPriceMonthlySuggestions',
+        isChecked('unitPriceMonthlySuggestions') || isChecked('averageUnitPriceMonthlySuggestions'));
+    addAttrBool('unitPriceDailySuggestions',
+        isChecked('unitPriceDailySuggestions') || isChecked('averageUnitPriceDailySuggestions'));
     addAttr('rentRecurrence', getFormValueString('rentRecurrence'));
     addAttr('monthlyRentMin', getFormValueString('monthlyRentMin'));
     addAttr('monthlyRentMax', getFormValueString('monthlyRentMax'));
@@ -894,6 +971,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     addAttrArray('otherExpenses', expenses);
 
     // Files
+    try {
     if (mainImage != null) {
       formData.files.add(MapEntry('attributes[mainImage]', await MultipartFile.fromFile(mainImage!.path, filename: 'main_image.jpg')));
     }
@@ -907,10 +985,19 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
 
     logSuccess("FormData prepared for submission");
+    } catch (e) {
+      // أي مشكلة في قراءة الملفات المرفقة: رسالة واضحة والفورم زي ما هو.
+      isSubmitting = false;
+      emit(CreateRequestErrorState(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      return;
+    }
 
-    var result = await createRequestRepo!.createRequest(formData);
+    final result = await createRequestRepo!.createRequest(formData);
     return result.fold(
       (failure) {
+        // الفورم بيفضل زي ما هو عشان المستخدم يعيد المحاولة من غير ما يكتب تاني.
+        isSubmitting = false;
         emit(CreateRequestErrorState(failure.errMessage));
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(failure.errMessage)));
       },
@@ -920,6 +1007,7 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
           emit(CreateRequestSuccessState(requestId));
           context.pushNamed(Routes.assignToBrokerView, arguments: {'requestId': requestId});
         } else {
+          isSubmitting = false;
           emit(CreateRequestErrorState('Failed to get request ID'));
         }
       },

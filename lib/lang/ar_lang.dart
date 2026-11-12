@@ -99,6 +99,7 @@
     "pleaseSelectTheReportIssue": "الرجاء اختيار نوع المشكلة",
     "typeTheMessageIfYouWant": "اكتب الرسالة إذا أردت",
     "send": "إرسال",
+    "sending": "جاري الإرسال...",
     "commonQuestions": "الأسئلة الشائعة",
     "whyEasyDeal": "لماذا Easy Deal؟",
     "contactInformation": "معلومات الاتصال",

@@ -100,6 +100,7 @@ abstract class LangKeys {
   static const String pleaseSelectTheReportIssue = "pleaseSelectTheReportIssue";
   static const String typeTheMessageIfYouWant = "typeTheMessageIfYouWant";
   static const String send = "send";
+  static const String sending = "sending";
   static const String commonQuestions = "commonQuestions";
   static const String whyEasyDeal = "whyEasyDeal";
   static const String contactInformation = "contactInformation";

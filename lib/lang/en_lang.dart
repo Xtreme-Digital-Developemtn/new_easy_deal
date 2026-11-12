@@ -99,6 +99,7 @@
     "pleaseSelectTheReportIssue": "Please select the report issue",
     "typeTheMessageIfYouWant": "Type the message if you want",
     "send": "Send",
+    "sending": "Sending...",
     "commonQuestions": "Common Questions",
     "whyEasyDeal": "Why Easy Deal?",
     "contactInformation": "Contact Information",
