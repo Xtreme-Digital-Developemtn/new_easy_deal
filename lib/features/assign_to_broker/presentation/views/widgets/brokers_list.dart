@@ -4,6 +4,7 @@ import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/t
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/data/specialization_display_data.dart';
+import '../../../../../core/shared_widgets/empty_widget.dart';
 import '../../../data/models/broker_model.dart';
 import '../../view_model/assign_to_broker_cubit.dart';
 import 'broker_text_helper.dart';
@@ -27,7 +28,37 @@ class AssignBrokersList extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: SingleChildScrollView(
+              // التحميل والخطأ والحالة الفاضية بيبانوا جوه الكارت بدل جدول فاضي
+              child: cubit.isLoading
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32.h),
+                      child: const Center(child: CustomLoading()),
+                    )
+                  : cubit.errorMessage != null
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            cubit.errorMessage!,
+                            textAlign: TextAlign.center,
+                            style: AppStyles.black12Medium.copyWith(color: Colors.red),
+                          ),
+                          Gap(12.h),
+                          ElevatedButton(
+                            onPressed: () => cubit.getRecommendedBrokers(),
+                            child: Text(LangKeys.retry.tr()),
+                          ),
+                        ],
+                      ),
+                    )
+                  : cubit.assignBrokersList.isEmpty
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(vertical: 32.h, horizontal: 16.w),
+                      child: EmptyWidget(msg: LangKeys.noRecommendationsYet),
+                    )
+                  : SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Table(
                   columnWidths:   {
@@ -63,13 +94,7 @@ class AssignBrokersList extends StatelessWidget {
                          TableCellWidget(LangKeys.specializationScope.tr(), isHeader: true),
                       ],
                     ),
-                    if (cubit.isLoading)
-                      TableRow(
-                        // لازم تساوي عدد أعمدة الجدول (شيك بوكس + 5 أعمدة)
-                        children: List.filled(6, const Center(child: CircularProgressIndicator())),
-                      )
-                    else if (cubit.assignBrokersList.isNotEmpty)
-                      ...cubit.assignBrokersList.map((item) {
+                    ...cubit.assignBrokersList.map((item) {
                         final isSelected = cubit.selectedItems.contains(item);
                         final areas = item.areas.map((a) => context.isArabic ? (a.nameAr ?? '') : (a.nameEn ?? '')).join(' - ');
                         return TableRow(

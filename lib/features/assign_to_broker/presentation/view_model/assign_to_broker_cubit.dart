@@ -1,3 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+
+import '../../../../core/utils/toast/toast.dart';
 import '../../../../main_imports.dart';
 import '../../data/models/broker_model.dart';
 import '../../data/repos/assign_to_broker_repo.dart';
@@ -17,6 +20,10 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
   bool selectAll = false;
   List<BrokerModel> assignBrokersList = [];
   bool isLoading = false;
+  String? errorMessage;
+
+  /// بيمنع إرسال التعيين مرتين لو المستخدم دوس على الحفظ ضغطتين سريعتين.
+  bool isAssigning = false;
 
 
   void setRequestId(int id) {
@@ -30,15 +37,18 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
   Future<void> getRecommendedBrokers() async {
     emit(GetRecommendedBrokersLoadingState());
     isLoading = true;
+    errorMessage = null;
 
     var result = await assignToBrokerRepo!.getRecommendedBrokers(requestId);
     return result.fold(
       (failure) {
         isLoading = false;
+        errorMessage = failure.errMessage;
         emit(GetRecommendedBrokersErrorState(failure.errMessage));
       },
       (brokers) {
         isLoading = false;
+        errorMessage = null;
         assignBrokersList = brokers;
         selectedItems.clear();
         selectAll = false;
@@ -53,12 +63,15 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
       } else {
         selectedItems.add(item);
       }
-      selectAll = selectedItems.length == assignBrokersList.length;
+      selectAll = assignBrokersList.isNotEmpty &&
+          selectedItems.length == assignBrokersList.length;
 
     emit(ToggleItemSelectionState());
   }
 
   void toggleSelectAll() {
+      if (assignBrokersList.isEmpty) return;
+
       if (selectAll) {
         selectedItems.clear();
       } else {
@@ -70,19 +83,16 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
   }
 
   Future<void> assignToBrokers(BuildContext context) async {
-    if (assignBrokersList.isNotEmpty && selectedItems.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select at least one broker')),
-      );
-      return;
-    }
+    // ضغطتين سريعتين على الحفظ لازم يعملوا تعيين واحد بس.
+    if (isAssigning) return;
 
+    // من غير أي وسيط محدد مفيش طلب بيتبعت، ورسالة بتوضح للمستخدم.
     if (selectedItems.isEmpty) {
-      emit(AssignBrokersSuccessState());
-      context.pushNamedAndRemoveUntil(Routes.successAssignView);
+      Toast.showErrorToast(msg: LangKeys.selectItemsFirst.tr(), context: context);
       return;
     }
 
+    isAssigning = true;
     emit(AssignBrokersLoadingState());
 
     final brokerIds = selectedItems.map((b) => b.id).toList();
@@ -90,12 +100,15 @@ class AssignToBrokerCubit extends Cubit<AssignToBrokerStates> {
     var result = await assignToBrokerRepo!.assignBrokers(requestId, senderId, brokerIds);
     return result.fold(
       (failure) {
+        // التحديدات بتفضل زي ما هي عشان المستخدم يعيد المحاولة.
+        isAssigning = false;
         emit(AssignBrokersErrorState(failure.errMessage));
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(failure.errMessage)),
-        );
+        if (context.mounted) {
+          Toast.showErrorToast(msg: failure.errMessage, context: context);
+        }
       },
       (data) {
+        isAssigning = false;
         emit(AssignBrokersSuccessState());
         context.pushNamedAndRemoveUntil(Routes.successAssignView);
       },
