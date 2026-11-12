@@ -198,6 +198,7 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
+      const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
       const InputConfig(step: 2, name: 'locationSuggestions', type: InputFieldType.checkbox, label: 'Location Suggestion'),
       const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
     ];
@@ -208,6 +209,7 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
+      const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
       const InputConfig(step: 2, name: 'addressLink', type: InputFieldType.url, label: 'رابط الموقع على خرائط جوجل'),
     ];
   }
@@ -217,6 +219,7 @@ class PurchaseOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
+      const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
     ];
   }
 

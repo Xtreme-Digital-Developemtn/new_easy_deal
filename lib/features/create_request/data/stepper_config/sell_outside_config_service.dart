@@ -586,7 +586,7 @@ class SellOutsideCompoundConfigService {
   List<InputConfig> _createSellOutsideCompoundApartmentsFinancialInputs() {
     return [
       const InputConfig(step: 5, name: 'paymentMethod', type: InputFieldType.select, label: 'Payment Method', options: paymentMethodOptions),
-      const InputConfig(step: 5, name: 'cashPrice', type: InputFieldType.number, label: 'ادخل كاش'),
+      const InputConfig(step: 5, name: 'cashPrice', type: InputFieldType.number, label: 'cash_price'),
     ];
   }
 

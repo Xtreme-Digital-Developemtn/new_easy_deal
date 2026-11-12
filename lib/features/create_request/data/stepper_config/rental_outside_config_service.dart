@@ -855,6 +855,7 @@ class RentalOutsideCompoundConfigService {
       const InputConfig(step: 2, name: 'cityId', type: InputFieldType.select, label: 'City'),
       const InputConfig(step: 2, name: 'areaId', type: InputFieldType.select, label: 'Area'),
       const InputConfig(step: 2, name: 'subAreaId', type: InputFieldType.select, label: 'Sub Area'),
+      const InputConfig(step: 2, name: 'detailedAddress', type: InputFieldType.text, label: 'Detailed Address'),
       const InputConfig(step: 2, name: 'locationSuggestions', type: InputFieldType.checkbox, label: 'Location Suggestions'),
     ];
   }

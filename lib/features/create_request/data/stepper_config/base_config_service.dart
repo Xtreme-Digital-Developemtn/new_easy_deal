@@ -41,6 +41,13 @@ class BaseConfigService {
         label: 'Sub Area',
         visibility: () => true,
       ),
+      InputConfig(
+        step: 2,
+        name: 'detailedAddress',
+        type: InputFieldType.text,
+        label: 'Detailed Address',
+        visibility: () => true,
+      ),
     ];
   }
 

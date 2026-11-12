@@ -851,9 +851,12 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
 
     // Step 2 extra fields (compoundName, detailedAddress, addressLink, etc.)
+    // السيرفر بيستنى بيانات الموقع النصّية جوه attributes (مثال: attributes.detailedAddress)،
+    // وبنبعتها كمان top-level للتوافق مع النسخ القديمة من الـ API.
     void addTopLevel(String key, String? value) {
       if (value != null && value.isNotEmpty) {
         formData.fields.add(MapEntry(key, value));
+        formData.fields.add(MapEntry('attributes[$key]', value));
       }
     }
 

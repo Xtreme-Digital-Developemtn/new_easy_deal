@@ -32,6 +32,12 @@ class RentalConfigService {
         type: InputFieldType.select,
         label: 'Preferred Sub Area',
       ),
+      InputConfig(
+        step: 2,
+        name: 'detailedAddress',
+        type: InputFieldType.text,
+        label: 'Detailed Address',
+      ),
     ];
   }
 
