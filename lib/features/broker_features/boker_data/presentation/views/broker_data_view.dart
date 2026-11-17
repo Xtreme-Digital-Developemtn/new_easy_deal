@@ -23,7 +23,10 @@ class _BrokerDataViewState extends State<BrokerDataView> {
     _loadCities();
   }
 
-  void _fetchData() {
+  /// [isRefresh] = سحب للتحديث: مابنعملش loading state عشان الجدول يفضل
+  /// ظاهر ومؤشر الـ RefreshIndicator يستنى لحد ما الداتا توصل (الكود القديم
+  /// كان بيرجع فوراً من غير await فالمؤشر كان بيختفي قبل التحديث).
+  Future<void> _fetchData({bool isRefresh = false}) {
     var brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
     final params = <String, dynamic>{};
 
@@ -34,8 +37,9 @@ class _BrokerDataViewState extends State<BrokerDataView> {
       params.addAll(_advancedFilters!.toQueryParams());
     }
 
-    context.read<BrokerDataCubit>().getBrokerUnits(
+    return context.read<BrokerDataCubit>().getBrokerUnits(
       brokerId: brokerId ?? 0,
+      isRefresh: isRefresh,
       filters: params.isNotEmpty ? params : null,
     );
   }
@@ -195,8 +199,13 @@ class _BrokerDataViewState extends State<BrokerDataView> {
           } else if (state is GetBrokerUnitsSuccessState) {
             var data = state.brokerUnitsModel?.data ?? [];
             return RefreshIndicator(
-              onRefresh: () async => _fetchData(),
-              child: DataTableWidget(data: data),
+              onRefresh: () => _fetchData(isRefresh: true),
+              // جدول قصير (صفوف قليلة) مابيبقاش قابل للتمرير، وساعتها السحب
+              // لتحديث مابيشتغلش. الـ behavior ده بيخلي التمرير متاح دايماً.
+              child: ScrollConfiguration(
+                behavior: const _AlwaysScrollableBehavior(),
+                child: DataTableWidget(data: data),
+              ),
             );
           }
           return const SizedBox.shrink();
@@ -204,4 +213,14 @@ class _BrokerDataViewState extends State<BrokerDataView> {
       ),
     );
   }
+}
+
+/// بيخلي كل الـ scroll views جوه الجدول قابلة للسحب حتى لو المحتوى أقصر من
+/// الشاشة، عشان الـ RefreshIndicator يشتغل مع أي عدد صفوف.
+class _AlwaysScrollableBehavior extends ScrollBehavior {
+  const _AlwaysScrollableBehavior();
+
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) =>
+      const AlwaysScrollableScrollPhysics();
 }

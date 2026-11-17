@@ -433,6 +433,7 @@
     "requestCanceledError": "The request was canceled.",
     "unexpectedError": "An unexpected error occurred. Please try again.",
     "adsLimitExceeded": "You have exceeded the maximum number of ads",
+    "cannotOpenLocation": "Could not open the location on the map",
     "addProperty": "Add Property",
     "locationSuggestionsRequired": "Request location suggestions from the real estate agent.",
     "minValueError": "Must be greater than or equal to",

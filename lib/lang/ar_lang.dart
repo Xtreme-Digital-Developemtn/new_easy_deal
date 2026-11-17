@@ -433,6 +433,7 @@
     "requestCanceledError": "تم إلغاء الطلب.",
     "unexpectedError": "حدث خطأ غير متوقع، حاول مرة أخرى.",
     "adsLimitExceeded": "لقد تخطيت الحد الاقصى من الاعلانات",
+    "cannotOpenLocation": "تعذّر فتح الموقع على الخريطة",
     "addProperty": "إضافة عقار",
     "locationSuggestionsRequired": "أطلب مقترحات بالأماكن من الوسيط العقارى.",
     "minValueError": "يجب أن يكون أكبر من أو يساوي",

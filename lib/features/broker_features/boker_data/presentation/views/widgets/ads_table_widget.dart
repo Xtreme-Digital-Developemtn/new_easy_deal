@@ -7,6 +7,8 @@ import 'package:easy_deal/features/broker_features/boker_data/presentation/view_
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_deal/core/shared_widgets/unit_gallery_dialog.dart';
+import 'package:easy_deal/core/utils/location_launcher.dart';
 
 import '../../view_model/broker_data_cubit.dart';
 import 'advertisement_dialog.dart';
@@ -17,108 +19,19 @@ class DataTableWidget extends StatelessWidget {
 
   final List<BrokerUnitData> data;
 
-  void _showMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-        title: Text(LangKeys.noImages.tr()),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: Text(LangKeys.ok.tr()),
-          ),
-        ],
-      ),
-    );
-  }
-
   String _val(String? value) {
     return (value != null && value.isNotEmpty) ? value : LangKeys.notAvailable.tr();
   }
 
+  /// معاينة الصور (مع العدّاد والتكبير) بقت في ويدجت مشتركة.
   void _showGalleryDialog(BuildContext context, List<dynamic> gallery) {
-    if (gallery.isEmpty) {
-      _showMessage(context, LangKeys.noImages.tr());
-      return;
-    }
-
-    final pageController = PageController();
-    showDialog(
-      context: context,
-      builder: (ctx) => Dialog(
-        insetPadding: EdgeInsets.all(20.w),
-        child: Container(
-          height: 500.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.r),
-            color: Colors.white,
-          ),
-          child: Stack(
-            children: [
-              PageView.builder(
-                controller: pageController,
-                itemCount: gallery.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.all(16.r),
-                  child: InteractiveViewer(
-                    minScale: 1,
-                    maxScale: 5,
-                    child: CachedNetworkImage(
-                      imageUrl: gallery[index].toString(),
-                      fit: BoxFit.contain,
-                      placeholder: (c, _) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (c, _, __) =>
-                          const Icon(Icons.broken_image, size: 64),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 8.h,
-                right: 8.w,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.black54),
-                  onPressed: () => Navigator.pop(ctx),
-                ),
-              ),
-              if (gallery.length > 1)
-                Positioned(
-                  bottom: 12.h,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                      decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Text(
-                        '1 / ${gallery.length}',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
-    );
+    showUnitGalleryDialog(context, gallery);
   }
 
-  Future<void> _openLocation(String? loc) async {
-    if (loc == null || loc.isEmpty) return;
-    final uri = Uri.parse(
-      "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(loc)}",
-    );
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+  Future<void> _openLocation(BuildContext context, String? loc) async {
+    final opened = await openLocationInMaps(loc);
+    if (!opened && context.mounted) {
+      Toast.showErrorToast(msg: LangKeys.cannotOpenLocation.tr(), context: context);
     }
   }
 
@@ -288,15 +201,13 @@ class DataTableWidget extends StatelessWidget {
             ),
             Flexible(
               child: DataTable2(
-                headingRowColor: WidgetStateProperty.all(
-                  AppColors.blueLight.withValues(alpha: 0.2),
-                ),
+                headingRowColor: WidgetStateProperty.all(AppColors.primaryDark),
                 headingRowHeight: 52.h,
                 headingTextStyle: AppStyles.black14Medium.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 13.sp,
                   letterSpacing: 0.3,
-                  color: AppColors.primaryDark,
+                  color: Colors.white,
                 ),
                 dataRowColor:
                     WidgetStateProperty.resolveWith((states) {
@@ -360,7 +271,7 @@ class DataTableWidget extends StatelessWidget {
               style: AppStyles.black14Medium.copyWith(
                 fontWeight: FontWeight.w700,
                 fontSize: 13.sp,
-                color: AppColors.primaryDark,
+                color: Colors.white,
               ),
               textAlign: TextAlign.center),
         ),
@@ -448,7 +359,7 @@ class DataTableWidget extends StatelessWidget {
         DataCell(
           GestureDetector(
             onTap: () =>
-                _openLocation(item.location?.toString()),
+                _openLocation(context, item.location?.toString()),
             child: _chipCell(
               LangKeys.locationLink.tr(),
               bgColor: (item.location?.toString().isNotEmpty ?? false)

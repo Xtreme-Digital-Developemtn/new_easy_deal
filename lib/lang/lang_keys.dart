@@ -893,6 +893,7 @@ abstract class LangKeys {
   static const String requestCanceledError = 'requestCanceledError';
   static const String unexpectedError = 'unexpectedError';
   static const String adsLimitExceeded = 'adsLimitExceeded';
+  static const String cannotOpenLocation = 'cannotOpenLocation';
 }
 
 
