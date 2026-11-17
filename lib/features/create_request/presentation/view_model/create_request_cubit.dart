@@ -630,6 +630,9 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     return true;
   }
 
+  /// طلب شراء — مفيهوش عنوان تفصيلي ولا رابط موقع، دي حقول طلبات البيع بس.
+  bool get isPurchaseRequest => selectedDealTypeValue == 'purchasing';
+
   bool get shouldShowStep4 => !configFactory.shouldSkipStep4(selectedDealTypeValue);
   bool get isInsideCompound => configFactory.getInsideCompoundPrivilege(selectedSpecializationValue);
   bool get isOutsideCompound => configFactory.getOutsideCompoundPrivilege(selectedSpecializationValue);
@@ -861,8 +864,11 @@ class CreateRequestCubit extends Cubit<CreateRequestStates> {
     }
 
     addTopLevel('compoundName', getFormValueString('compoundName'));
-    addTopLevel('detailedAddress', getFormValueString('detailedAddress'));
-    addTopLevel('addressLink', getFormValueString('addressLink'));
+    // طلبات الشراء مش بتتبعت فيها العنوان التفصيلي ولا رابط الموقع.
+    if (!isPurchaseRequest) {
+      addTopLevel('detailedAddress', getFormValueString('detailedAddress'));
+      addTopLevel('addressLink', getFormValueString('addressLink'));
+    }
     addTopLevel('mallName', getFormValueString('mallName'));
     addTopLevel('projectManagement', getFormValueString('projectManagement'));
     addTopLevel('projectConstructor', getFormValueString('projectConstructor'));

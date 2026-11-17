@@ -79,12 +79,6 @@ class PurchasingConfigService {
         label: 'Sub Area',
         options: const [],
       ),
-      const InputConfig(
-        step: 2,
-        name: 'detailedAddress',
-        type: InputFieldType.text,
-        label: 'Detailed Address',
-      ),
     ];
   }
 
@@ -997,12 +991,6 @@ class PurchasingConfigService {
         label: 'Sub Area',
         options: const [],
       ),
-      const InputConfig(
-        step: 2,
-        name: 'detailedAddress',
-        type: InputFieldType.text,
-        label: 'Detailed Address',
-      ),
     ];
   }
 
@@ -1140,12 +1128,6 @@ class PurchasingConfigService {
         type: InputFieldType.select,
         label: 'Sub Area',
         options: const [],
-      ),
-      const InputConfig(
-        step: 2,
-        name: 'detailedAddress',
-        type: InputFieldType.text,
-        label: 'Detailed Address',
       ),
     ];
   }
