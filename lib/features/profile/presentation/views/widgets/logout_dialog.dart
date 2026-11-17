@@ -1,9 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
-import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../../../../core/utils/app_consts/session_cache.dart';
+import '../../../../../core/shared_cubits/session/app_session.dart';
 import '../../../../../main_imports.dart';
 import '../../view_model/profile_cubit.dart';
 import '../../view_model/profile_states.dart';
@@ -13,17 +12,17 @@ void showLogoutDialog(BuildContext context) {
     context: context,
     builder: (context) => BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context,state){
-        if(state is LogoutSuccessState){
-          Toast.showSuccessToast(msg: state.logoutModel.message.toString(), context: context);
-          context.pushNamedAndRemoveUntil(Routes.loginView);
-          LayoutCubit.pageIndex=0;
-            CacheTokenManger.clearUserToken();
-            // الخروج كان بيمسح التوكن بس: هوية الأكونت في الكاش
-            // وبيانات البروفايل في الذاكرة كانوا بيفضلوا، فالدخول
-            // بأكونت تاني كان يفضل شايل الأكونت القديم.
-            SessionCache.clear();
-            context.read<ProfileCubit>().clearUserData();
-        }
+        if (state is LogoutSuccessState) {
+            // إعادة تشغيل كاملة للجلسة: التوكن والهوية بيتمسحوا وشجرة
+            // التطبيق بتتبني من الأول، فمفيش أي بيانات من الأكونت
+            // القديم بتفضل في الذاكرة.
+            AppSession.signedOut();
+            AppSession.showToastAfterRestart(
+              state.logoutModel.message.toString(),
+              isError: false,
+            );
+            return;
+          }
         else if(state is LogoutErrorState){
           Toast.showErrorToast(msg: state.error.toString(), context: context);
         }

@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main_imports.dart';
-import '../../../my_app.dart';
+import '../../shared_cubits/session/app_session.dart';
  class ApiService {
   final Dio _dio;
   bool _isRedirecting = false; // instance field بدل local variable
@@ -49,22 +48,11 @@ import '../../../my_app.dart';
           if (error.response?.statusCode == 401 && !_isRedirecting) {
             _isRedirecting = true;
 
-            SharedPreferences.getInstance().then((prefs) => prefs.clear());
-            CacheTokenManger.userToken = null;
-
-            // نتأكد إن الـ navigator جاهز، ولو لسه بيبني الشجرة ننتظر الفريم اللي جاي
-            void doNavigate() {
-              MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-                Routes.loginView,
-                    (route) => false,
-              );
-            }
-
-            if (MyApp.navigatorKey.currentState != null) {
-              doNavigate();
-            } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) => doNavigate());
-            }
+            // كان `prefs.clear()`: ده كان بيمسح كمان اللغة وحالة الأونبوردنج،
+            // فالمستخدم يشوف الأونبوردنج من الأول بعد أي 401. بنمسح بيانات
+            // الجلسة بس، والـ AppSession بتعيد بناء التطبيق على شاشة الدخول
+            // فمفيش أي كيوبت فاضل ببيانات الأكونت القديم.
+            AppSession.signedOut();
 
             Future.delayed(const Duration(seconds: 1), () {
               _isRedirecting = false;

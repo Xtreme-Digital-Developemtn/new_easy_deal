@@ -1,5 +1,4 @@
-import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
-import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
+import 'package:easy_deal/core/shared_cubits/session/app_session.dart';
 import 'dart:io';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/create_request/data/stepper_config/stepper_constants.dart';
@@ -82,11 +81,9 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
       body: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, regState) {
           if (regState is SignUpSuccess) {
-            // تسجيل وسيط جديد: نحمّل البروفايل بهوية الأكونت الجديد قبل
-            // اللاي أوت (تاباته بتتبني على الدور المخزّن).
-            context.read<ProfileCubit>().loadCurrentUser();
-            LayoutCubit.pageIndex = 0;
-            context.pushNamedAndRemoveUntil(Routes.layoutView);
+            // تسجيل وسيط جديد: إعادة بناء التطبيق بهوية الأكونت الجديد
+            // (تاباته بتتبني على الدور المخزّن).
+            AppSession.signedIn();
           } else if (regState is SignUpError) {
             Toast.showErrorToast(msg: regState.message, context: context);
           }

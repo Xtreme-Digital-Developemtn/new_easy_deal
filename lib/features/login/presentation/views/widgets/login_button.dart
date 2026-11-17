@@ -4,8 +4,7 @@ import 'package:easy_deal/features/login/presentation/view_model/login_states.da
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/utils/toast/toast.dart';
-import '../../../../layout/presentation/view_model/layout_cubit.dart';
-import '../../../../profile/presentation/view_model/profile_cubit.dart';
+import '../../../../../core/shared_cubits/session/app_session.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key});
@@ -23,22 +22,17 @@ class LoginButton extends StatelessWidget {
         if (state is LoginErrorState) {
           Toast.showErrorToast(msg: state.error.toString(), context: context);
         } else if (state is LoginSuccessState) {
-          // الكيوبتس دي عايشة فوق الـ MaterialApp فبتفضل ببيانات الأكونت
-          // القديم بعد خروج ودخول. بنعيد تحميلها بهوية الأكونت الجديد قبل
-          // ما ننقل على اللاي أوت، عشان مانحتاجش نقفل التطبيق.
-          context.read<ProfileCubit>().loadCurrentUser();
-          LayoutCubit.pageIndex = 0;
-
           final userId = state.loginModel.data?.id;
           if (userId != null) {
             CacheHelper.saveData(key: "clientId", value: userId);
           }
-
-          context.pushNamedAndRemoveUntil(Routes.layoutView);
-          Toast.showSuccessToast(
-            msg: state.loginModel.message.toString(),
-            context: context,
-          );
+          // بدل ما ننقل على اللاي أوت بالكيوبتس القديمة في الذاكرة، بنعيد
+          // بناء التطبيق كله بهوية الأكونت الجديد (زي فتح التطبيق من الأول).
+          final message = state.loginModel.message.toString();
+          AppSession.signedIn();
+          // الشجرة اللي فيها الـ context الحالي بتتفكّك مع إعادة البناء،
+          // فالتوست بيتعرض في الفريم اللي بعده على الشجرة الجديدة.
+          AppSession.showToastAfterRestart(message, isError: false);
         }
       },
       builder: (context, state) {

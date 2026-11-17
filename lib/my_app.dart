@@ -7,6 +7,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'core/app_services/remote_services/service_locator.dart';
 import 'core/routing/app_router.dart';
 import 'core/shared_cubits/auth_cubit/auth_cubit.dart';
+import 'core/shared_cubits/session/app_session.dart';
 import 'core/shared_cubits/lang_cubit/lang_cubit.dart';
 import 'features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
@@ -29,7 +30,15 @@ class MyApp extends StatelessWidget {
           statusBarBrightness: Brightness.light,
           statusBarIconBrightness: Brightness.light,
         ),
-        child: Builder(
+        // أي دخول/خروج بيزوّد AppSession.epoch، والـ key اللي جواها بتخلي
+        // الشجرة كلها (المزوّدين + MaterialApp + Navigator) تتبني من الأول —
+        // يعني كل كيوبت عام بيتعمل من جديد ويحمّل بيانات الأكونت الحالي،
+        // بالظبط زي فتح التطبيق من غير ما المستخدم يقفله.
+        child: ValueListenableBuilder<int>(
+          valueListenable: AppSession.epoch,
+          builder: (context, epoch, _) => KeyedSubtree(
+            key: ValueKey('app-session-$epoch'),
+            child: Builder(
           builder: (context) {
             return MultiBlocProvider(
               providers: [
@@ -65,7 +74,14 @@ class MyApp extends StatelessWidget {
                       ),
                     ),
                     // home: Scaffold(body: PasswordBody()),
-                    initialRoute: Routes.splashView,
+                    // أول تشغيل بس بيبدأ من السبلاش (أونبوردنج + تحقق
+                    // التوكن). بعد دخول/خروج بنبدأ على طول من الشاشة
+                    // المناسبة بدل ما المستخدم يستنى السبلاش تاني.
+                    initialRoute: AppSession.isFirstLaunch
+                        ? Routes.splashView
+                        : (CacheTokenManger.userToken != null
+                            ? Routes.layoutView
+                            : Routes.loginView),
                     onGenerateRoute: appRouter.generateRoute,
                     builder: (context, child) {
                       SystemChrome.setSystemUIOverlayStyle(
@@ -89,6 +105,8 @@ class MyApp extends StatelessWidget {
               ),
             );
           }
+            ),
+          ),
         ),
       ),
     );
