@@ -7,11 +7,12 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     ,
     this.iconColor,
     this.textColor,   this.showBackButton = true, this.bottom,
-    this.translateTitle = true});
+    this.translateTitle = true, this.onBack});
   final String title;
   final List<Widget>? actions;
   final bool showBackButton;
   final bool translateTitle;
+  final VoidCallback? onBack;
   final Color? backgroundColor;
   final Color? textColor;
   final Color? iconColor;
@@ -26,9 +27,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
     actions:actions,
     bottom: bottom,
     leading:showBackButton==true ?  IconButton(
-    onPressed: () {
-    context.pop();
-    },
+    onPressed: onBack ?? () => context.pop(),
     icon: SvgPicture.asset(
       context.isArabic ? SvgImages.arrowLeft:
       SvgImages.arrow ,

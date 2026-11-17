@@ -127,16 +127,45 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   List<ApOptionItem> filteredUnitTypes = [];
 
   void selectStep0(String field, String value) {
+    final changed = formValues[field] != value;
     formValues[field] = value;
     if (field == 'compoundType' || field == 'unitOperation') {
       _filterUnitTypes();
       formValues['type'] = null;
     }
+    if (changed) _clearDependentFields();
     emit(Step0ChangedState());
   }
 
   void _filterUnitTypes() {
     filteredUnitTypes = ApOptions.unitTypesFor(compoundType, unitOperation);
+  }
+
+  /// Steps 2 and 3 are rendered from the (compound, operation, type) triple, so
+  /// changing any of them invalidates whatever was entered there. Without this,
+  /// the stale values stay in [formValues] and are still posted on submit even
+  /// though their fields are no longer visible.
+  void _clearDependentFields() {
+    for (final name in [...step2Order, ...step3Order]) {
+      formValues.remove(name);
+      _dirty.remove(name);
+      controllers[name]?.clear();
+    }
+  }
+
+  /// True once anything was entered that would be lost by leaving the stepper.
+  bool get hasUserInput {
+    syncControllers();
+    final hasValues = formValues.entries.any((e) {
+      final v = e.value;
+      if (v == null) return false;
+      if (v is List) return v.isNotEmpty;
+      return v.toString().trim().isNotEmpty;
+    });
+    return hasValues ||
+        diagram.isNotEmpty ||
+        layout.isNotEmpty ||
+        locationInMasterPlan.isNotEmpty;
   }
 
   // ===========================================================================
@@ -549,7 +578,9 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   bool isCurrentStepValid() {
     switch (currentStep) {
       case 0:
-        return (compoundType?.isNotEmpty ?? false) && (unitType?.isNotEmpty ?? false);
+        return (compoundType?.isNotEmpty ?? false) &&
+            (unitOperation?.isNotEmpty ?? false) &&
+            (unitType?.isNotEmpty ?? false);
       case 1:
         return _isStep1Valid();
       case 2:

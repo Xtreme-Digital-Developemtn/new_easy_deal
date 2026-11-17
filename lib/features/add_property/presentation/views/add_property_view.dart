@@ -1,6 +1,7 @@
 import '../../../../main_imports.dart';
 import '../view_model/add_property_cubit.dart';
 import '../view_model/add_property_states.dart';
+import 'widgets/ap_discard_dialog.dart';
 import 'widgets/ap_nav_buttons.dart';
 import 'widgets/ap_step0_category.dart';
 import 'widgets/ap_step1_location.dart';
@@ -16,9 +17,18 @@ class AddPropertyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.isArabic;
-    return Scaffold(
-      appBar: GlobalAppBar(title: LangKeys.addProperty),
-      body: BlocConsumer<AddPropertyCubit, AddPropertyStates>(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        _confirmLeave(context);
+      },
+      child: Scaffold(
+        appBar: GlobalAppBar(
+          title: LangKeys.addProperty,
+          onBack: () => _confirmLeave(context),
+        ),
+        body: BlocConsumer<AddPropertyCubit, AddPropertyStates>(
         listener: (context, state) {
           if (state is CreateUnitSuccessState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -29,7 +39,9 @@ class AddPropertyView extends StatelessWidget {
                     : (isArabic ? 'تم إضافة العقار بنجاح' : 'Property added successfully'),
               ),
             ));
-            Navigator.of(context).maybePop();
+            // Direct pop: PopScope guards maybePop, and a saved property
+            // needs no discard confirmation.
+            Navigator.of(context).pop();
           } else if (state is CreateUnitErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(backgroundColor: Colors.red, content: Text(state.message)),
@@ -65,8 +77,22 @@ class AddPropertyView extends StatelessWidget {
             ],
           );
         },
+        ),
       ),
     );
+  }
+
+  /// Leaving the stepper throws the whole form away (the cubit is disposed
+  /// with the route), so ask first whenever anything was entered.
+  Future<void> _confirmLeave(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    if (!context.read<AddPropertyCubit>().hasUserInput) {
+      navigator.pop();
+      return;
+    }
+    if (await showApDiscardDialog(context)) {
+      navigator.pop();
+    }
   }
 
   Widget _stepBody(int step) {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../../main_imports.dart';
 import '../../../data/config/ap_options.dart';
 import '../../view_model/add_property_cubit.dart';
@@ -11,6 +12,9 @@ class ApStep0Category extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AddPropertyCubit>();
     final isArabic = context.isArabic;
+    final attempted = cubit.validationAttempted;
+    String? requiredError(String? value) =>
+        attempted && (value == null || value.isEmpty) ? LangKeys.fieldRequired.tr() : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,6 +25,7 @@ class ApStep0Category extends StatelessWidget {
           required: true,
           options: ApOptions.compoundTypes,
           selectedValue: cubit.compoundType,
+          error: requiredError(cubit.compoundType),
           onSelected: (v) => cubit.selectStep0('compoundType', v),
         ),
         Gap(20.h),
@@ -30,6 +35,7 @@ class ApStep0Category extends StatelessWidget {
           required: true,
           options: ApOptions.propertyOperations,
           selectedValue: cubit.unitOperation,
+          error: requiredError(cubit.unitOperation),
           onSelected: (v) => cubit.selectStep0('unitOperation', v),
         ),
         Gap(20.h),
@@ -41,6 +47,7 @@ class ApStep0Category extends StatelessWidget {
           disabledHint: isArabic ? 'اختر النوع أولاً' : 'Select type first',
           options: cubit.filteredUnitTypes,
           selectedValue: cubit.unitType,
+          error: requiredError(cubit.unitType),
           onSelected: (v) => cubit.selectStep0('type', v),
         ),
       ],
