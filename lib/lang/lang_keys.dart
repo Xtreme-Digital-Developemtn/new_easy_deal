@@ -888,6 +888,11 @@ abstract class LangKeys {
   static const String shopActivity = 'shopActivity';
   static const String compoundKind = 'compoundKind';
   static const String unitDescription = 'unitDescription';
+  static const String noInternetError = 'noInternetError';
+  static const String connectionTimeOutError = 'connectionTimeOutError';
+  static const String requestCanceledError = 'requestCanceledError';
+  static const String unexpectedError = 'unexpectedError';
+  static const String adsLimitExceeded = 'adsLimitExceeded';
 }
 
 

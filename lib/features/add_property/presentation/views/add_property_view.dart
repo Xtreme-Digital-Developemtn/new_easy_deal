@@ -46,6 +46,19 @@ class AddPropertyView extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(backgroundColor: Colors.red, content: Text(state.message)),
             );
+          } else if (state is FilesLimitReachedState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(isArabic
+                  ? 'الحد الأقصى لصور المعرض ${state.max} صورة'
+                  : 'The gallery accepts up to ${state.max} images'),
+            ));
+          } else if (state is PickFileErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(isArabic
+                  ? 'تعذّر اختيار الملف، حاول مرة أخرى'
+                  : 'Could not pick the file, please try again'),
+            ));
           } else if (state is GetCitiesErrorState ||
               state is GetAreasErrorState ||
               state is GetSubAreasErrorState) {

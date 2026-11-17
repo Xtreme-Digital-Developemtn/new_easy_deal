@@ -3,6 +3,7 @@ import '../../../../main_imports.dart';
 import '../../../search/data/models/cities_model.dart';
 import '../../../search/data/models/areas_model.dart';
 import '../../../create_request/data/models/sub_areas_model.dart';
+import '../../../broker_features/boker_data/data/models/requests_check_advertisement_count_model.dart';
 import 'add_property_repo.dart';
 
 class AddPropertyRepoImpl implements AddPropertyRepo {
@@ -18,6 +19,18 @@ class AddPropertyRepoImpl implements AddPropertyRepo {
         isMultipart: true,
       );
       return right(Map<String, dynamic>.from(response.data));
+    } catch (e) {
+      return left(handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RequestsCheckAdvertisementCountModel>> checkAdvertisementCount() async {
+    try {
+      var response = await apiService!.getData(
+        endPoint: EndPoints.requestsCheckAdvertisementCount,
+      );
+      return right(RequestsCheckAdvertisementCountModel.fromJson(response.data));
     } catch (e) {
       return left(handleError(e));
     }

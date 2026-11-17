@@ -5,6 +5,7 @@ import '../../../../main_imports.dart';
 import '../../../search/data/models/cities_model.dart';
 import '../../../search/data/models/areas_model.dart';
 import '../../../create_request/data/models/sub_areas_model.dart';
+import '../../../../core/errors/error_messages.dart';
 import '../../data/config/ap_fields.dart';
 import '../../data/config/ap_option_item.dart';
 import '../../data/config/ap_options.dart';
@@ -479,27 +480,56 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   final List<File> layout = []; // gallery images (multiple)
   final List<File> locationInMasterPlan = []; // unit plan
 
+  /// الباك إند بياخد صورة واحدة بس لـ diagram و locationInMasterPlan
+  /// (الـ submit بيبعت `.first`)، فاختيار أكتر من صورة فيهم كان بيوهم المستخدم
+  /// إن كلهم بيترفعوا. المعرض بس هو اللي multiple.
+  bool isMultiFileField(String field) => field == 'layout';
+
+  static const _fileFields = {'diagram', 'layout', 'locationInMasterPlan'};
+
+  List<File> filesOf(String field) {
+    switch (field) {
+      case 'diagram':
+        return diagram;
+      case 'layout':
+        return layout;
+      case 'locationInMasterPlan':
+        return locationInMasterPlan;
+      default:
+        return const [];
+    }
+  }
+
   Future<void> pickFiles(String field) async {
     try {
-      final picked = await _picker.pickMultiImage(maxWidth: 1200, imageQuality: 85);
-      if (picked.isEmpty) return;
-      final files = picked.map((e) => File(e.path)).toList();
-      switch (field) {
-        case 'diagram':
-          diagram
-            ..clear()
-            ..addAll(files);
-          break;
-        case 'layout':
-          layout
-            ..clear()
-            ..addAll(files);
-          break;
-        case 'locationInMasterPlan':
-          locationInMasterPlan
-            ..clear()
-            ..addAll(files);
-          break;
+      final target = filesOf(field);
+      if (!_fileFields.contains(field)) return;
+      if (isMultiFileField(field)) {
+        final picked = await _picker.pickMultiImage(maxWidth: 1200, imageQuality: 85);
+        if (picked.isEmpty) return;
+        // بنضيف على اللي موجود (مش بنستبدله) لحد الأقصى، ومن غير تكرار نفس الملف.
+        var skippedForLimit = false;
+        for (final x in picked) {
+          if (target.length >= maxGalleryImages) {
+            skippedForLimit = true;
+            break;
+          }
+          if (target.any((f) => f.path == x.path)) continue;
+          target.add(File(x.path));
+        }
+        if (skippedForLimit) {
+          emit(FilesLimitReachedState(maxGalleryImages));
+        }
+      } else {
+        final picked = await _picker.pickImage(
+          source: ImageSource.gallery,
+          maxWidth: 1200,
+          imageQuality: 85,
+        );
+        if (picked == null) return;
+        target
+          ..clear()
+          ..add(File(picked.path));
       }
       emit(FilesChangedState());
     } catch (_) {
@@ -507,18 +537,17 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
     }
   }
 
-  int fileCount(String field) {
-    switch (field) {
-      case 'diagram':
-        return diagram.length;
-      case 'layout':
-        return layout.length;
-      case 'locationInMasterPlan':
-        return locationInMasterPlan.length;
-      default:
-        return 0;
-    }
+  /// أقصى عدد صور للمعرض.
+  static const int maxGalleryImages = 10;
+
+  void removeFile(String field, int index) {
+    final target = filesOf(field);
+    if (index < 0 || index >= target.length) return;
+    target.removeAt(index);
+    emit(FilesChangedState());
   }
+
+  int fileCount(String field) => filesOf(field).length;
 
   // ===========================================================================
   // Validation (mirrors isCurrentFormValid / isStep2FormValid / isStep3FormValid)
@@ -651,9 +680,37 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   static const _step1FlatKeys = ['cityId', 'areaId', 'subAreaId', 'mallName', 'villageName', 'compoundName', 'detailedAddress', 'location', 'ownerName', 'ownerPhone'];
   static const _step2FlatKeys = ['buildingNumber', 'unitNumber', 'floor', 'unitArea', 'numberOfRooms', 'numberOfBathrooms', 'view', 'finishingType', 'deliveryStatus', 'deliveryDate'];
 
+  /// ضغطتين سريعتين على «إضافة عقار» كانوا بيبعتوا الطلب مرتين (عقارين)،
+  /// لأن تعطيل الزرار بيحصل بعد أول rebuild. الفلاج ده بيمنع أي استدعاء تاني
+  /// وإحنا لسه بنبعت.
+  bool isSubmitting = false;
+
   Future<void> submit({required bool publish, String? caption}) async {
+    if (isSubmitting) return;
+    isSubmitting = true;
     syncControllers();
     emit(CreateUnitLoadingState());
+
+    // نفس تحقق حد الإعلانات اللي في «بياناتي»: لو الوسيط متخطي الحد
+    // مانبعتش العقار كإعلان أصلاً.
+    if (publish) {
+      final quota = await repo.checkAdvertisementCount();
+      final blocked = quota.fold<bool>(
+        (_) => false, // فشل التحقق مايمنعش المحاولة، السيرفر هو الحكم الأخير
+        (model) {
+          final data = model.data;
+          if (data == null) return false;
+          final canCreate = data.canCreateAdvertisement ??
+              ((data.currentAdvertisementCount ?? 0) < (data.maxAdvertisements ?? 0));
+          return !canCreate;
+        },
+      );
+      if (blocked) {
+        isSubmitting = false;
+        emit(CreateUnitErrorState(LangKeys.adsLimitExceeded.tr()));
+        return;
+      }
+    }
 
     final brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
     final formData = FormData();
@@ -762,7 +819,13 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
 
     final result = await repo.createUnit(formData);
     result.fold(
-      (f) => emit(CreateUnitErrorState(f.errMessage)),
+      // الفورم كله باقي في [formValues]، فالمستخدم يقدر يعيد المحاولة.
+      (f) {
+        isSubmitting = false;
+        emit(CreateUnitErrorState(localizeErrorMessage(f.errMessage)));
+      },
+      // بنسيب [isSubmitting] = true بعد النجاح: الشاشة بتتقفل، ومش عايزين
+      // أي ضغطة متأخرة تعمل عقار تاني.
       (_) => emit(CreateUnitSuccessState(published: publish)),
     );
   }

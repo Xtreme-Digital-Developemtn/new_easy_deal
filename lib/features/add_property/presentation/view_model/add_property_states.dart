@@ -41,6 +41,12 @@ class SelectLocationState extends AddPropertyStates {}
 class FilesChangedState extends AddPropertyStates {}
 class PickFileErrorState extends AddPropertyStates {}
 
+/// اتجاهل بعض الصور لأن المعرض وصل للحد الأقصى.
+class FilesLimitReachedState extends AddPropertyStates {
+  final int max;
+  FilesLimitReachedState(this.max);
+}
+
 // Submit
 class CreateUnitLoadingState extends AddPropertyStates {}
 class CreateUnitSuccessState extends AddPropertyStates {

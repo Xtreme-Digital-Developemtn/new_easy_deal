@@ -7,12 +7,21 @@ class ApPublishCaptionSheet extends StatefulWidget {
 
   final ValueChanged<String> onPublish;
 
-  static Future<void> show(BuildContext context, {required ValueChanged<String> onPublish}) {
-    return StandardBottomSheet.show(
-      context: context,
-      isScrollControlled: true,
-      child: ApPublishCaptionSheet(onPublish: onPublish),
-    );
+  /// ضغطتين سريعتين على «إضافة عقار ونشر» كانوا بيفتحوا النافذة مرتين فوق بعض.
+  static bool _isOpen = false;
+
+  static Future<void> show(BuildContext context, {required ValueChanged<String> onPublish}) async {
+    if (_isOpen) return;
+    _isOpen = true;
+    try {
+      await StandardBottomSheet.show(
+        context: context,
+        isScrollControlled: true,
+        child: ApPublishCaptionSheet(onPublish: onPublish),
+      );
+    } finally {
+      _isOpen = false;
+    }
   }
 
   @override
