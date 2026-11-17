@@ -237,15 +237,15 @@ Future<BrokerDataBasicFilterResult?> showBrokerDataBasicFilterSheet(
                   ),
                 ),
                 _buildBottomButtons(
-                  onReset: () => Navigator.pop(context, null),
+                  onReset: () => Navigator.pop(
+                      context, const BrokerDataBasicFilterResult()),
                   onApply: () {
                     final result = BrokerDataBasicFilterResult(
                       compoundType: selectedCompoundType,
                       unitOperation: selectedUnitOperation,
                       unitType: selectedUnitType,
                     );
-                    Navigator.pop(
-                        context, result.hasFilters ? result : null);
+                    Navigator.pop(context, result);
                   },
                 ),
               ],
@@ -284,10 +284,23 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
     text: currentFilters?.priceTo?.toString() ?? '',
   );
   List<Map<String, dynamic>> loadedAreas = [];
+  var areasLoading = false;
   final cityIds = cities.map((c) => c['id'] as int).toSet().toList();
   if (selectedCity != null && !cityIds.contains(selectedCity)) {
     selectedCity = null;
+    selectedArea = null;
   }
+
+  // لو فيه مدينة متفلترة من قبل، بنجيب مناطقها قبل ما نفتح النافذة؛ من غير
+  // كده قائمة المنطقة بتفتح فاضية والاختيار القديم مابيظهرش فيها.
+  if (selectedCity != null && loadAreas != null) {
+    loadedAreas = await loadAreas(selectedCity);
+    final loadedIds = loadedAreas.map((a) => a['id'] as int).toSet();
+    if (selectedArea != null && !loadedIds.contains(selectedArea)) {
+      selectedArea = null;
+    }
+  }
+  if (!context.mounted) return null;
 
   return showModalBottomSheet<BrokerDataAdvancedFilterResult>(
     context: context,
@@ -401,6 +414,9 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                               ? selectedCity
                               : null,
                           items: currentCityIds,
+                          hintText: currentCityIds.isEmpty
+                              ? 'لم يتم تحميل المدن'
+                              : null,
                           displayFn: (id) {
                             final city = cities.firstWhere(
                               (c) => c['id'] == id,
@@ -413,11 +429,16 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                             selectedCity = v;
                             selectedArea = null;
                             loadedAreas.clear();
-                            if (v != null && loadAreas != null) {
-                              final areas = await loadAreas(v);
-                              loadedAreas.addAll(areas);
+                            if (v == null || loadAreas == null) {
+                              setState(() {});
+                              return;
                             }
-                            setState(() {});
+                            setState(() => areasLoading = true);
+                            final areas = await loadAreas(v);
+                            // ممكن تكون النافذة اتقفلت وإحنا بنحمّل.
+                            if (!context.mounted) return;
+                            loadedAreas.addAll(areas);
+                            setState(() => areasLoading = false);
                           },
                         ),
                         Gap(16.h),
@@ -429,6 +450,12 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                               ? selectedArea
                               : null,
                           items: areaIds,
+                          loading: areasLoading,
+                          hintText: areasLoading
+                              ? 'جارٍ تحميل المناطق...'
+                              : selectedCity == null
+                                  ? 'اختر المدينة أولاً'
+                                  : null,
                           displayFn: (id) {
                             final area = loadedAreas.firstWhere(
                               (a) => a['id'] == id,
@@ -500,7 +527,8 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                   ),
                 ),
                 _buildBottomButtons(
-                  onReset: () => Navigator.pop(context, null),
+                  onReset: () => Navigator.pop(
+                      context, const BrokerDataAdvancedFilterResult()),
                   onApply: () {
                     final result = BrokerDataAdvancedFilterResult(
                       compoundType: selectedCompoundType,
@@ -514,8 +542,7 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                       priceFrom: int.tryParse(priceFromController.text),
                       priceTo: int.tryParse(priceToController.text),
                     );
-                    Navigator.pop(
-                        context, result.hasFilters ? result : null);
+                    Navigator.pop(context, result);
                   },
                 ),
               ],
@@ -581,6 +608,10 @@ Widget _buildDropdown<T>({
   required List<T> items,
   required String Function(T) displayFn,
   required void Function(T?) onChanged,
+  // [hintText] بتوضح سبب إن القائمة فاضية (مثلاً: اختر المدينة الأول)،
+  // و[loading] بتظهر مؤشّر وإحنا بنجيب العناصر من السيرفر.
+  String? hintText,
+  bool loading = false,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -615,8 +646,25 @@ Widget _buildDropdown<T>({
           child: DropdownButton<T>(
             value: value,
             isExpanded: true,
-            hint: Text(LangKeys.selectAll.tr(),
-                style: AppStyles.black14Medium),
+            hint: Row(
+              children: [
+                if (loading) ...[
+                  SizedBox(
+                    width: 14.w,
+                    height: 14.w,
+                    child: const CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                  Gap(8.w),
+                ],
+                Flexible(
+                  child: Text(
+                    hintText ?? LangKeys.selectAll.tr(),
+                    style: AppStyles.black14Medium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
             items: [
               DropdownMenuItem<T>(
                 value: null,

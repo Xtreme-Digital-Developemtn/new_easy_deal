@@ -94,13 +94,11 @@ class _BrokerDataViewState extends State<BrokerDataView> {
                   return [];
                 },
               );
-              if (result != null) {
-                setState(() => _advancedFilters = result);
-                _fetchData();
-              } else if (result == null && _advancedFilters != null) {
-                setState(() => _advancedFilters = null);
-                _fetchData();
-              }
+              // null = المستخدم قفل النافذة من غير ما يطبّق، فمابنلمسش
+              // الفلاتر الحالية. «إعادة تعيين» بترجّع نتيجة فاضية.
+              if (result == null) return;
+              setState(() => _advancedFilters = result.hasFilters ? result : null);
+              _fetchData();
             },
             icon: Stack(
               clipBehavior: Clip.none,
@@ -135,13 +133,9 @@ class _BrokerDataViewState extends State<BrokerDataView> {
                 context,
                 _basicFilters,
               );
-              if (result != null) {
-                setState(() => _basicFilters = result);
-                _fetchData();
-              } else if (result == null && _basicFilters != null) {
-                setState(() => _basicFilters = null);
-                _fetchData();
-              }
+              if (result == null) return;
+              setState(() => _basicFilters = result.hasFilters ? result : null);
+              _fetchData();
             },
             icon: Stack(
               clipBehavior: Clip.none,
