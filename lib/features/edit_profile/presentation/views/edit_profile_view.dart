@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/app_consts/session_cache.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/edit_profile_list_item.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profile_header.dart';
 import 'package:easy_deal/features/edit_profile/presentation/views/widgets/profile_statistics.dart';
@@ -106,7 +107,7 @@ class EditProfileView extends StatelessWidget {
                     onTap: () {
                       context.pushNamed(Routes.editPasswordView);
                     },
-                    isLast: CacheHelper.getData(key: "userRole") == "broker"
+                    isLast: SessionCache.isBroker
                         ? false
                         : true,
                   ),
@@ -122,7 +123,7 @@ class EditProfileView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16.h),
-                  if (CacheHelper.getData(key: "userRole") == "broker")
+                  if (SessionCache.isBroker)
                     EditProfileListItem(
                       title: LangKeys.registrationPapers,
                       subTitle: "",
@@ -134,7 +135,7 @@ class EditProfileView extends StatelessWidget {
                       },
                     ),
 
-                  // if (CacheHelper.getData(key: "userRole") == "broker")
+                  // if (SessionCache.isBroker)
                   //   EditProfileListItem(
                   //     title: "كود الخصم",
                   //     subTitle: "",
@@ -157,11 +158,11 @@ class EditProfileView extends StatelessWidget {
                   //       );
                   //     },
                   //   ),
-                  if (CacheHelper.getData(key: "userRole") == "broker")
+                  if (SessionCache.isBroker)
                   SizedBox(height: 16.h),
 
                   /// Section 4 (ACCOUNT DETAILS)
-                  if (CacheHelper.getData(key: "userRole") == "broker")
+                  if (SessionCache.isBroker)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

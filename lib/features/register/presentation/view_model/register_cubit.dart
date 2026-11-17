@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_deal/features/register/data/models/register_model.dart';
 import 'package:easy_deal/features/register/presentation/view_model/register_states.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../../../core/utils/app_consts/session_cache.dart';
 import '../../../../main_imports.dart';
 import '../../data/models/send_otp_model.dart';
 import '../../data/models/verify_otp_model.dart';
@@ -184,10 +185,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
     }, (data) async {
       registerModel = data;
       emit(SignUpSuccess(data));
-      CacheHelper.saveData(key: "userRole", value: data.data!.role);
-      CacheHelper.saveData(key: "userEmail", value: data.data!.email);
-      CacheHelper.saveData(key: "userId", value: data.data!.id);
-      CacheHelper.saveData(key: "userPhone", value: data.data!.phone);
+      // نفس منطق تسجيل الدخول: ننضّف هوية أي أكونت سابق، وبعدين نخزّن
+      // بيانات الأكونت الجديد كاملة (brokerId كان ناقص فشاشات الوسيط
+      // كانت بتفضل فاضية بعد التسجيل لحد ما يسجّل دخول من تاني).
+      await SessionCache.clear();
+      await CacheHelper.saveData(key: "userRole", value: data.data!.role);
+      await CacheHelper.saveData(key: "userEmail", value: data.data!.email);
+      await CacheHelper.saveData(key: "userId", value: data.data!.id);
+      await CacheHelper.saveData(key: "userPhone", value: data.data!.phone);
+      await CacheHelper.saveData(key: "brokerId", value: data.data!.brokerId);
       await CacheTokenManger.saveUserToken(data.data!.authToken!);
       // await cacheUserInfo(
       //   token: "${data.data!.authToken}",

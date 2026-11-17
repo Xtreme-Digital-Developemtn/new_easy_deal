@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/app_consts/session_cache.dart';
 import 'package:easy_deal/features/requests/data/models/all_request_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -30,7 +31,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
 
   /// التابات الفرعية (بواسطتي / المرسلة / المستلمة) بتظهر للوسيط بس،
   /// والعميل بيشوف قائمة واحدة فيها كل طلباته.
-  bool get isBroker => CacheHelper.getData(key: "userRole") == "broker";
+  bool get isBroker => SessionCache.isBroker;
 
   List<RequestItem> assignedRequests = [];
   List<String?> assignedReceiverNames = [];

@@ -36,8 +36,10 @@ class Data {
   dynamic parentId;
   String? authToken;
   String? gender;
+  /// لازم يتخزّن بعد التسجيل، شاشات الوسيط كلها بتعتمد عليه.
+  int? brokerId;
 
-  Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.authToken, this.gender});
+  Data({this.id, this.fullName, this.email, this.phone, this.isActive, this.isVerified, this.image, this.role, this.permissions, this.parentId, this.authToken, this.gender, this.brokerId});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -52,6 +54,7 @@ class Data {
     parentId = json["parentId"];
     authToken = json["authToken"];
     gender = json["gender"];
+    brokerId = json["brokerId"];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +73,7 @@ class Data {
     _data["parentId"] = parentId;
     _data["authToken"] = authToken;
     _data["gender"] = gender;
+    _data["brokerId"] = brokerId;
     return _data;
   }
 }

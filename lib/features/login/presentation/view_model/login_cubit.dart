@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../../main_imports.dart';
+import '../../../../core/utils/app_consts/session_cache.dart';
 import '../../data/models/login_model.dart';
 import '../../data/repos/login_repo.dart';
 import 'login_states.dart';
@@ -68,10 +69,17 @@ class LoginCubit extends Cubit<LoginStates> {
       },
           (data) async {
         loginModel = data;
-        emit(LoginSuccessState(data));
-        CacheHelper.saveData(key: "userId", value: data.data!.id);
-        CacheHelper.saveData(key: "userRole", value: data.data!.role);
-        CacheHelper.saveData(key: "brokerId", value: data.data!.brokerId);
+
+        // ترتيب مهم: ننضّف هوية الأكونت القديم ونخزّن الجديدة *قبل* الـ emit،
+        // لأن اللي بيسمع الـ success بينقل على اللاي أوت اللي بيبني تاباته من
+        // الدور المخزّن — الـ emit الأول كان معناه إن أول بناء يقرأ دور
+        // الأكونت القديم.
+        await SessionCache.clear();
+        await CacheHelper.saveData(key: StorageKeys.userId, value: data.data!.id);
+        await CacheHelper.saveData(key: SessionCache.userRoleKey, value: data.data!.role);
+        await CacheHelper.saveData(key: StorageKeys.brokerId, value: data.data!.brokerId);
+
+        // التوكن لازم يتحدّث قبل أي طلب جديد (كل الطلبات بتقرأ الستاتيك ده).
         if (_rememberMe) {
           await CacheTokenManger.saveUserToken(data.data!.authToken!);
         } else {
@@ -79,6 +87,7 @@ class LoginCubit extends Cubit<LoginStates> {
           CacheTokenManger.userToken = data.data!.authToken!;
         }
 
+        emit(LoginSuccessState(data));
         clearControllers();
       },
     );

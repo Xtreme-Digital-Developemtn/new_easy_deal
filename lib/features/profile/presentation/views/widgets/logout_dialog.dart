@@ -3,6 +3,7 @@ import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/layout/presentation/view_model/layout_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../../core/utils/app_consts/session_cache.dart';
 import '../../../../../main_imports.dart';
 import '../../view_model/profile_cubit.dart';
 import '../../view_model/profile_states.dart';
@@ -17,6 +18,11 @@ void showLogoutDialog(BuildContext context) {
           context.pushNamedAndRemoveUntil(Routes.loginView);
           LayoutCubit.pageIndex=0;
             CacheTokenManger.clearUserToken();
+            // الخروج كان بيمسح التوكن بس: هوية الأكونت في الكاش
+            // وبيانات البروفايل في الذاكرة كانوا بيفضلوا، فالدخول
+            // بأكونت تاني كان يفضل شايل الأكونت القديم.
+            SessionCache.clear();
+            context.read<ProfileCubit>().clearUserData();
         }
         else if(state is LogoutErrorState){
           Toast.showErrorToast(msg: state.error.toString(), context: context);

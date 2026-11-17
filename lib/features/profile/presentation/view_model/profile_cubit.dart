@@ -6,6 +6,7 @@ import '../../../../main_imports.dart';
 // import '../../data/models/apply_promo_code_model.dart';
 import '../../data/models/logout_model.dart';
 // import '../../data/models/promo_codes_last_applied_model.dart';
+import '../../../../core/utils/app_consts/session_cache.dart';
 import '../../data/repos/profile_repo.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
@@ -31,6 +32,35 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
 
   ClientProfileModel? clientProfileModel;
+
+  // ===========================================================================
+  // إدارة الجلسة
+  //
+  // الكيوبت ده بيتعمل مرة واحدة فوق الـ MaterialApp وبيعيش طول عمر التطبيق،
+  // فبيانات الأكونت اللي اتحمّلت فيه كانت بتفضل بعد تسجيل الخروج والدخول
+  // بأكونت تاني (الاسم، الدور، الـ id اللي شاشة الطلبات بتعتمد عليه) لحد ما
+  // التطبيق يتقفل ويتفتح. الدالتين دول بينضّفوا/بيعيدوا التحميل من غير
+  // ما المستخدم يحتاج يقفل التطبيق.
+  // ===========================================================================
+
+  /// بينسى بيانات المستخدم الحالي (عند تسجيل الخروج).
+  void clearUserData() {
+    clientProfileModel = null;
+    logoutModel = null;
+    emit(ProfileInitState());
+  }
+
+  /// بيحمّل بروفايل المستخدم المخزّن في الكاش دلوقتي (عند الدخول/التسجيل
+  /// وعند بداية التطبيق). لو مفيش جلسة بينضّف بس.
+  Future<void> loadCurrentUser() async {
+    final id = SessionCache.userId;
+    clientProfileModel = null;
+    if (id == null) {
+      emit(ProfileInitState());
+      return;
+    }
+    await getClientProfile(clientId: id);
+  }
 
   Future<void> getClientProfile({required int clientId}) async {
     emit(GetClientProfileLoadingState());

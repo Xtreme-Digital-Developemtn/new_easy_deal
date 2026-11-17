@@ -400,7 +400,7 @@ class _ProceduresPopupCellState extends State<_ProceduresPopupCell> {
   @override
   Widget build(BuildContext context) {
     final role = context.read<ProfileCubit>().clientProfileModel?.data?.role;
-    final isBroker = role == 'broker';
+    final isBroker = (role ?? '').trim().toLowerCase() == 'broker';
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),

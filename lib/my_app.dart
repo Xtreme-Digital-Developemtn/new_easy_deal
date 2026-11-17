@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                  BlocProvider(create: (context) => RegisterCubit(getIt.get<RegisterRepoImpl>())),
                  BlocProvider(create: (context) => BrokerDevelopersCubit(getIt.get<BrokerDevelopersRepoImpl>())),
                 BlocProvider(create: (context) => ProfileCubit(
-                    getIt.get<ProfileRepoImpl>())..getClientProfile(clientId:CacheHelper.getData(key: "userId"))..getSocialMedia()),
+                    getIt.get<ProfileRepoImpl>())..loadCurrentUser()..getSocialMedia()),
 
               ],
               child: BlocBuilder<LanguageCubit, Locale>(

@@ -1,4 +1,5 @@
 import '../../../main_imports.dart';
+import '../../utils/app_consts/session_cache.dart';
 import 'auth_states.dart';
 
 
@@ -9,7 +10,10 @@ class AuthCubit extends Cubit<AuthState> {
   String? userToken;
 
   void checkAuthStatus() {
-    userToken = CacheHelper.getData(key: StorageKeys.userToken);
+    // التوكن الحقيقي في الـ secure storage جوه CacheTokenManger، فقراءته
+    // من SharedPreferences كانت بترجّع null دايماً.
+    userToken = CacheTokenManger.userToken ??
+        CacheHelper.getData(key: StorageKeys.userToken);
     isGuest = CacheHelper.getData(key: StorageKeys.isGuest) ?? false;
 
     if (isGuest) {
@@ -29,11 +33,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthGuestState());
   }
 
-  void loginWithToken(String userToken) {
+  void loginWithToken(String token) {
     isGuest = false;
-    userToken = userToken;
+    // كان مكتوب `userToken = userToken;` يعني الباراميتر بيتسند لنفسه
+    // والحقل يفضل null.
+    userToken = token;
     CacheHelper.saveData(key: StorageKeys.isGuest, value: false);
-    CacheHelper.saveData(key: StorageKeys.userToken, value: userToken);
+    CacheHelper.saveData(key: StorageKeys.userToken, value: token);
     emit(AuthLoggedInState());
   }
 
@@ -42,6 +48,7 @@ class AuthCubit extends Cubit<AuthState> {
     userToken = null;
     CacheHelper.removeData(key: StorageKeys.userToken);
     CacheHelper.removeData(key: StorageKeys.isGuest);
+    SessionCache.clear();
     emit(AuthLoggedOutState());
   }
 }

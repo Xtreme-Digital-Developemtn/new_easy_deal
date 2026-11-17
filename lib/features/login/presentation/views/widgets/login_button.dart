@@ -4,6 +4,8 @@ import 'package:easy_deal/features/login/presentation/view_model/login_states.da
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../../core/utils/toast/toast.dart';
+import '../../../../layout/presentation/view_model/layout_cubit.dart';
+import '../../../../profile/presentation/view_model/profile_cubit.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key});
@@ -21,17 +23,22 @@ class LoginButton extends StatelessWidget {
         if (state is LoginErrorState) {
           Toast.showErrorToast(msg: state.error.toString(), context: context);
         } else if (state is LoginSuccessState) {
+          // الكيوبتس دي عايشة فوق الـ MaterialApp فبتفضل ببيانات الأكونت
+          // القديم بعد خروج ودخول. بنعيد تحميلها بهوية الأكونت الجديد قبل
+          // ما ننقل على اللاي أوت، عشان مانحتاجش نقفل التطبيق.
+          context.read<ProfileCubit>().loadCurrentUser();
+          LayoutCubit.pageIndex = 0;
+
+          final userId = state.loginModel.data?.id;
+          if (userId != null) {
+            CacheHelper.saveData(key: "clientId", value: userId);
+          }
+
           context.pushNamedAndRemoveUntil(Routes.layoutView);
           Toast.showSuccessToast(
             msg: state.loginModel.message.toString(),
             context: context,
           );
-          // التوكن نفسه اتحفظ (أو لأ) حسب تذكرني جوه LoginCubit.login.
-          // هنا بنحفظ id المستخدم الحقيقي فقط بدل ما كان بيتخزن التوكن مكان الـ id.
-          final userId = state.loginModel.data?.id;
-          if (userId != null) {
-            CacheHelper.saveData(key: "clientId", value: userId);
-          }
         }
       },
       builder: (context, state) {
@@ -46,11 +53,9 @@ class LoginButton extends StatelessWidget {
                 text: LangKeys.signIn.tr(),
                 onPressed: isValid
                     ? () {
-                  /// broker
-                    loginCubit.phoneCon.text = "1007006336";
-                    loginCubit.passwordCon.text = "MY1720my";
-                  //   loginCubit.phoneCon.text = "1155859872";
-                  //   loginCubit.passwordCon.text = "Admin1234";
+                        // كان فيه هنا رقم وباسوورد وسيط مكتوبين بالثابت
+                        // بيستبدلوا أي حاجة المستخدم يكتبها، يعني أي محاولة
+                        // دخول كانت بتروح لنفس الأكونت.
                         loginCubit.login(
                           password: loginCubit.passwordCon.text,
                           phone: loginCubit.phoneCon.text,
@@ -65,3 +70,8 @@ class LoginButton extends StatelessWidget {
     );
   }
 }
+//01007006336
+// MY1720my
+
+//01262587412
+// Admin1234

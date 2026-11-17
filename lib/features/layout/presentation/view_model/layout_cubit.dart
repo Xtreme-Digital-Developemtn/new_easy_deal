@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/app_consts/session_cache.dart';
 import 'package:easy_deal/features/layout/data/models/send_fcm_model.dart';
 import 'package:easy_deal/features/layout/data/repos/layout_repo.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -18,7 +19,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
   static LayoutCubit get(context) => BlocProvider.of(context);
 
   /// المصدر الوحيد لشرط تاب البروكر: لازم الليست والـ bottom nav يتفقوا عليه.
-  static bool get isBroker => CacheHelper.getData(key: "userRole") == "broker";
+  /// من غير حساسية لحالة الأحرف/المسافات عشان شكل القيمة الجاية من السيرفر
+  /// مايخليش تابات الوسيط تختفي.
+  static bool get isBroker => SessionCache.isBroker;
 
   static int pageIndex = 0;
 

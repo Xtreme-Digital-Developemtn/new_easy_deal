@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/app_consts/session_cache.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit.dart';
 import 'package:easy_deal/features/profile/presentation/view_model/profile_states.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,7 +20,7 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
   void initState() {
     super.initState();
     // الإشعارات للوسيط فقط (TC3) — لا داعي لنداء السيرفر من حساب عميل
-    if (CacheHelper.getData(key: "userRole") == "broker") {
+    if (SessionCache.isBroker) {
       context.read<LayoutCubit>().getUnReadNotificationsCount();
     }
   }
@@ -61,7 +62,7 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                       ),
                       // كان نصاً ثابتاً بالعربي حتى بالإنجليزية وحتى للعميل (TC2)
                       // الصح: مترجم + للوسيط فقط
-                      if (CacheHelper.getData(key: "userRole") == "broker")
+                      if (SessionCache.isBroker)
                         Text(
                           LangKeys.dashboard.tr(),
                           style: TextStyle(color: AppColors.gray2),
@@ -70,7 +71,7 @@ class _ProfileNameAndNotificationIconState extends State<ProfileNameAndNotificat
                   ),
                 ],
               ),
-              if(CacheHelper.getData(key: "userRole")=="broker")
+              if(SessionCache.isBroker)
               BlocBuilder<LayoutCubit, LayoutStates>(
                 builder: (context, state) {
                   final unreadCount = context
