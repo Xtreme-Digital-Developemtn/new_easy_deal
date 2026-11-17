@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import '../../../../../../main_imports.dart';
 
@@ -530,6 +531,28 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                   onReset: () => Navigator.pop(
                       context, const BrokerDataAdvancedFilterResult()),
                   onApply: () {
+                    final areaFrom = int.tryParse(areaFromController.text);
+                    final areaTo = int.tryParse(areaToController.text);
+                    final priceFrom = int.tryParse(priceFromController.text);
+                    final priceTo = int.tryParse(priceToController.text);
+
+                    // مدى مقلوب (من > إلى) بيرجّع نتايج فاضية من غير أي
+                    // سبب واضح، فبنمنعه ونفضل في النافذة.
+                    if (areaFrom != null && areaTo != null && areaFrom > areaTo) {
+                      Toast.showErrorToast(
+                        msg: 'الحد الأدنى للمساحة أكبر من الحد الأقصى',
+                        context: context,
+                      );
+                      return;
+                    }
+                    if (priceFrom != null && priceTo != null && priceFrom > priceTo) {
+                      Toast.showErrorToast(
+                        msg: 'الحد الأدنى للسعر أكبر من الحد الأقصى',
+                        context: context,
+                      );
+                      return;
+                    }
+
                     final result = BrokerDataAdvancedFilterResult(
                       compoundType: selectedCompoundType,
                       unitOperation: selectedUnitOperation,
@@ -537,10 +560,10 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                       city: selectedCity,
                       area: selectedArea,
                       view: selectedView,
-                      areaFrom: int.tryParse(areaFromController.text),
-                      areaTo: int.tryParse(areaToController.text),
-                      priceFrom: int.tryParse(priceFromController.text),
-                      priceTo: int.tryParse(priceToController.text),
+                      areaFrom: areaFrom,
+                      areaTo: areaTo,
+                      priceFrom: priceFrom,
+                      priceTo: priceTo,
                     );
                     Navigator.pop(context, result);
                   },
@@ -694,6 +717,9 @@ Widget _buildNumberField({
   return TextField(
     controller: controller,
     keyboardType: TextInputType.number,
+    // من غير الفلتر ده ممكن يتكتب حروف أو فاصلة عشرية، و int.tryParse
+    // بترجّع null فالفلتر كان بيتجاهل بالصمت.
+    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
     decoration: InputDecoration(
       hintText: label,
       hintStyle: AppStyles.black14Medium.copyWith(

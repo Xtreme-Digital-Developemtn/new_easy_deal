@@ -2,6 +2,7 @@ import 'package:easy_deal/features/broker_features/boker_data/presentation/views
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/broker_data_filter_sheet.dart';
 import '../../../../../main_imports.dart';
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/shared_widgets/error_ui.dart';
 import '../view_model/broker_data_cubit.dart';
 import '../view_model/broker_data_states.dart';
 
@@ -177,18 +178,11 @@ class _BrokerDataViewState extends State<BrokerDataView> {
           if (state is GetBrokerUnitsLoadingState) {
             return const CustomLoading();
           } else if (state is GetBrokerUnitsErrorState) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(state.error),
-                  Gap(16.h),
-                  CustomButton(
-                    text: LangKeys.reload,
-                    onPressed: () => _fetchData(),
-                  ),
-                ],
-              ),
+            // نفس شاشة الخطأ المستخدمة في باقي التطبيق (رسالة + إعادة محاولة).
+            return ErrorWidgetUi(
+              message: state.error,
+              isFullScreen: true,
+              onRetry: () => _fetchData(),
             );
           } else if (state is GetBrokerUnitsSuccessState) {
             var data = state.brokerUnitsModel?.data ?? [];

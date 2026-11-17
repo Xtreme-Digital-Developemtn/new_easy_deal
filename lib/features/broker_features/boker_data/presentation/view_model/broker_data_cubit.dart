@@ -3,6 +3,7 @@ import '../../data/models/broker_units_model.dart';
 import '../../data/models/requests_check_advertisement_count_model.dart';
 import '../../data/models/unit_make_request_model.dart';
 import '../../data/models/unit_publish_as_ad_model.dart';
+import '../../../../../core/errors/error_messages.dart';
 import '../../data/repos/broker_data_repo.dart';
 import 'broker_data_states.dart';
 
@@ -20,7 +21,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.getBrokerUnits(brokerId: brokerId, filters: filters);
     return result.fold(
       (failure) {
-        emit(GetBrokerUnitsErrorState(failure.errMessage));
+        emit(GetBrokerUnitsErrorState(localizeErrorMessage(failure.errMessage)));
       },
       (data) async {
         brokerUnitsModel = data;
@@ -35,7 +36,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.requestsCheckAdvertisementCount();
     return result.fold(
           (failure) {
-        emit(GetRequestsCheckAdvertisementCountErrorState(failure.errMessage));
+        emit(GetRequestsCheckAdvertisementCountErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) async {
             requestsCheckAdvertisementCountModel = data;
@@ -51,7 +52,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.unitPublishAsAd(id: id,caption: caption);
     return result.fold(
           (failure) {
-        emit(UnitPublishAsAdErrorState(failure.errMessage));
+        emit(UnitPublishAsAdErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) async {
             unitPublishAsAdModel = data;
@@ -66,7 +67,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.updateStatusUnitSold(id: id );
     return result.fold(
           (failure) {
-        emit(UpdateStatusUnitSoldErrorState(failure.errMessage));
+        emit(UpdateStatusUnitSoldErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) async {
         emit(UpdateStatusUnitSoldSuccessState(data));
@@ -80,7 +81,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.makeRequest(id: id ,brokerId: brokerId);
     return result.fold(
           (failure) {
-        emit(MakeRequestErrorState(failure.errMessage));
+        emit(MakeRequestErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) async {
             unitMakeRequestModel = data;
@@ -99,7 +100,7 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     );
     return result.fold(
       (failure) {
-        emit(SendReplyErrorState(failure.errMessage));
+        emit(SendReplyErrorState(localizeErrorMessage(failure.errMessage)));
       },
       (data) async {
         emit(SendReplySuccessState(data));
@@ -114,8 +115,8 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     var result = await brokerDataRepo!.updateUnit(id: id, data: data);
     return result.fold(
       (failure) {
-        print('❌ [UPDATE UNIT CUBIT ERROR] ${failure.errMessage}');
-        emit(UpdateUnitErrorState(failure.errMessage));
+        print('❌ [UPDATE UNIT CUBIT ERROR] ${localizeErrorMessage(failure.errMessage)}');
+        emit(UpdateUnitErrorState(localizeErrorMessage(failure.errMessage)));
       },
       (data) async {
         print('✅ [UPDATE UNIT SUCCESS] $data');
