@@ -4,6 +4,14 @@ import '../../view_model/add_property_cubit.dart';
 import 'ap_dropdown.dart';
 import 'ap_multi_select.dart';
 
+/// Keeps number fields to positive decimals only (no minus sign, no letters) –
+/// the same guard the create-request form uses.
+final _numericInputFormatter = TextInputFormatter.withFunction((oldValue, newValue) {
+  final text = newValue.text;
+  if (text.isEmpty) return newValue;
+  return RegExp(r'^\d*\.?\d*$').hasMatch(text) ? newValue : oldValue;
+});
+
 /// Renders a single dynamic field (step 2 / step 3) by its name, using the
 /// cubit for options, current value, visibility and validation.
 class ApDynamicField extends StatelessWidget {
@@ -66,6 +74,7 @@ class ApDynamicField extends StatelessWidget {
           controller: cubit.controller(name),
           hintText: label,
           keyboardType: isNumber ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
+          inputFormatters: isNumber ? [_numericInputFormatter] : null,
           maxLines: meta.kind == ApFieldKind.textarea ? 4 : 1,
           borderRadius: 10.r,
           borderWidth: 1.5,

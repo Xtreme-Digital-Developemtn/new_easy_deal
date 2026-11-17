@@ -12,7 +12,9 @@ class ApStep2UnitInfo extends StatelessWidget {
     final fields = cubit.visibleStep2Fields();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [for (final name in fields) ApDynamicField(name: name)],
+      // The key keeps each field's own widget state (e.g. an open dropdown)
+      // attached to that field when conditional fields appear or disappear.
+      children: [for (final name in fields) ApDynamicField(key: ValueKey(name), name: name)],
     );
   }
 }

@@ -87,7 +87,7 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   // ---------------------------------------------------------------------------
   // Live field validators (shown as soon as a field is touched)
   // ---------------------------------------------------------------------------
-  static final RegExp _egyptPhone = RegExp(r'^01[0-2,5]{1}[0-9]{8}$');
+  static final RegExp _egyptPhone = RegExp(r'^01[0125][0-9]{8}$');
   static final RegExp _url = RegExp(r'^https?://.+');
 
   bool isPhoneValid(String? v) => v != null && _egyptPhone.hasMatch(v);
@@ -151,6 +151,11 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
       _dirty.remove(name);
       controllers[name]?.clear();
     }
+    // The multi-select pickers keep their own lists; without clearing them the
+    // next toggle would push the previous category's choices back into
+    // [formValues] (and into the payload).
+    selectedAccessories.clear();
+    selectedExpenses.clear();
   }
 
   /// True once anything was entered that would be lost by leaving the stepper.
@@ -348,7 +353,14 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
       final totalField = field.contains('Cash') ? 'totalPriceInCash' : 'totalPriceInInstallment';
       final total = (ppm * area).round().toString();
       formValues[totalField] = total;
-      controller(totalField).text = total;
+      final c = controller(totalField);
+      if (c.text != total) {
+        // Setting `.text` alone resets the caret to the start of the field.
+        c.value = TextEditingValue(
+          text: total,
+          selection: TextSelection.collapsed(offset: total.length),
+        );
+      }
     }
     emit(FormValueChangedState());
   }
@@ -548,8 +560,25 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
   bool _isStep1Valid() {
     if (selectedCity == null || selectedArea == null) return false;
     if (_isEmpty('detailedAddress')) return false;
-    final phone = valueStr('ownerPhone') ?? '';
-    return RegExp(r'^01[0-2,5]{1}[0-9]{8}$').hasMatch(phone);
+    // The maps link is optional, but a malformed one must not pass through.
+    final link = valueStr('location')?.trim() ?? '';
+    if (link.isNotEmpty && !_url.hasMatch(link)) return false;
+    final phone = valueStr('ownerPhone')?.trim() ?? '';
+    return _egyptPhone.hasMatch(phone);
+  }
+
+  /// Step-3 fields that must be filled whenever they are visible.
+  static const _step3RequiredFields = [
+    'requiredInsurance', 'insuranceValue', 'rentRecurrence', 'dailyRent', 'monthlyRent',
+    'paymentSystem', 'pricePerMeterInCash', 'totalPriceInCash',
+    'pricePerMeterInInstallment', 'totalPriceInInstallment',
+  ];
+
+  bool _isStep3Valid() {
+    for (final name in visibleStep3Fields()) {
+      if (_step3RequiredFields.contains(name) && _isEmpty(name)) return false;
+    }
+    return true;
   }
 
   bool _isStep2Valid() {
@@ -566,7 +595,9 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
 
   /// Whether a step-2/3 field should render a required marker.
   bool isRequired(String name) =>
-      _step2RequiredFields.contains(name) || _isFieldRequiredForUnitType(name);
+      _step2RequiredFields.contains(name) ||
+      _step3RequiredFields.contains(name) ||
+      _isFieldRequiredForUnitType(name);
 
   /// Inline error for a field once a next attempt has been made.
   String? errorFor(String name) {
@@ -585,6 +616,8 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
         return _isStep1Valid();
       case 2:
         return _isStep2Valid();
+      case 3:
+        return _isStep3Valid();
       default:
         return true;
     }

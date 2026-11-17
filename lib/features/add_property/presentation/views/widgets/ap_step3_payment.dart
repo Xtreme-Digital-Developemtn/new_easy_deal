@@ -12,7 +12,7 @@ class ApStep3Payment extends StatelessWidget {
     final fields = cubit.visibleStep3Fields();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [for (final name in fields) ApDynamicField(name: name)],
+      children: [for (final name in fields) ApDynamicField(key: ValueKey(name), name: name)],
     );
   }
 }
