@@ -1,4 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../../../core/utils/media_url.dart';
+import '../../../../../../core/utils/toast/toast.dart';
 import '../../../../../../main_imports.dart';
 import '../../../data/models/map_location_model.dart';
 
@@ -6,19 +10,22 @@ class LocationCard extends StatelessWidget {
   const LocationCard({
     super.key,
     required this.location,
-    this.onOpenMap,
   });
 
   final MapItem location;
-  final VoidCallback? onOpenMap;
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = location.imageUrl?.url ?? location.fileUrl;
-    final hasImage = imageUrl != null && imageUrl.isNotEmpty;
+    // السيرفر ساعات بيرجّع مسار نسبي، فلازم يتحوّل لرابط كامل قبل العرض،
+    // وإلا الصورة بتفضل فاضية من غير سبب ظاهر.
+    final rawUrl = location.imageUrl?.url ?? location.fileUrl;
+    final mediaUrl = buildMediaUrl(rawUrl);
+    final hasMedia = mediaUrl.isNotEmpty;
+    final isPdf = isPdfMedia(url: mediaUrl, type: location.imageUrl?.type);
 
-    // عدل أسماء الـ fields حسب الـ MapItem عندك
-    final title = location.description ?? 'بدون وصف'.tr();
+    final description = location.description?.trim() ?? '';
+    final title =
+        description.isEmpty ? LangKeys.noDescription.tr() : description;
 
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
@@ -34,68 +41,86 @@ class LocationCard extends StatelessWidget {
         ],
       ),
       clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          /// =========================
-          /// MAP / IMAGE HEADER
-          /// =========================
-          SizedBox(
-            height: 160.h,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                /// Background
-                if (hasImage)
-                  CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (_, __) => _buildMapBackground(),
-                    errorWidget: (_, __, ___) => _buildMapBackground(),
-                  )
-                else
-                  _buildMapBackground(),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          // الكارت ده ملف خريطة مش موقع: الصورة بتتفتح بالزوم، والـ PDF
+          // بيتفتح في تطبيق خارجي لأنه مش بيتعرض كصورة.
+          onTap: !hasMedia
+              ? null
+              : isPdf
+                  ? () => _openExternally(context, mediaUrl)
+                  : () => _showImageDialog(context, mediaUrl),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              /// =========================
+              /// MAP / IMAGE HEADER
+              /// =========================
+              SizedBox(
+                height: 160.h,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    /// Background
+                    if (hasMedia && !isPdf)
+                      CachedNetworkImage(
+                        imageUrl: mediaUrl,
+                        fit: BoxFit.cover,
+                        placeholder: (_, __) => _buildMapBackground(),
+                        errorWidget: (_, __, ___) => _buildMapBackground(),
+                      )
+                    else
+                      _buildMapBackground(),
 
-                /// Overlay
-                Container(
-                  color: const Color(0xFFEDF2FA).withValues(alpha: 0.25),
-                ),
-
-                /// Location Pin
-                Center(
-                  child: Icon(
-                    Icons.location_on_outlined,
-                    size: 58.sp,
-                    color: const Color(0xFF233A75),
-                  ),
-                ),
-
-
-
-                /// Open image on tap
-                if (hasImage)
-                  Positioned.fill(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () => _showImageDialog(context, imageUrl),
-                      ),
+                    /// Overlay
+                    Container(
+                      color: const Color(0xFFEDF2FA).withValues(alpha: 0.25),
                     ),
-                  ),
-              ],
-            ),
-          ),
 
-          /// =========================
-          /// CARD DETAILS
-          /// =========================
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// Title + Star
-                Row(
+                    /// أيقونة وسط الكارت: ملف PDF أو دبوس الخريطة.
+                    if (isPdf)
+                      Center(
+                        child: Icon(
+                          Icons.picture_as_pdf_outlined,
+                          size: 58.sp,
+                          color: const Color(0xFF233A75),
+                        ),
+                      )
+                    else if (!hasMedia)
+                      Center(
+                        child: Icon(
+                          Icons.location_on_outlined,
+                          size: 58.sp,
+                          color: const Color(0xFF233A75),
+                        ),
+                      ),
+
+                    /// إشارة إن الملف بيتفتح لما تضغط عليه.
+                    if (hasMedia)
+                      Positioned(
+                        top: 8.h,
+                        left: 8.w,
+                        child: CircleAvatar(
+                          radius: 16.r,
+                          backgroundColor: Colors.black45,
+                          child: Icon(
+                            isPdf ? Icons.open_in_new : Icons.zoom_out_map,
+                            size: 16.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+
+              /// =========================
+              /// CARD DETAILS
+              /// =========================
+              Padding(
+                padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 16.h),
+                child: Row(
                   children: [
                     Expanded(
                       child: Text(
@@ -104,19 +129,22 @@ class LocationCard extends StatelessWidget {
                           fontSize: 16.sp,
                           color: const Color(0xFF263238),
                         ),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-
-
+                    Gap(8.w),
+                    Icon(
+                      isPdf ? Icons.picture_as_pdf_outlined : Icons.image_outlined,
+                      size: 20.sp,
+                      color: AppColors.blueDark,
+                    ),
                   ],
                 ),
-
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -131,25 +159,22 @@ class LocationCard extends StatelessWidget {
     );
   }
 
-  /// الإحداثيات
-  ///
-  /// عدل الجزء ده حسب أسماء الـ fields الموجودة في MapItem
-  String _getCoordinates() {
-    // مثال مؤقت:
-    return '30.0444° N, 31.2357° E';
-
-    /*
-    لو عندك:
-    final lat = location.latitude;
-    final lng = location.longitude;
-
-    if (lat != null && lng != null) {
-      return '${lat.toStringAsFixed(4)}° N, '
-          '${lng.toStringAsFixed(4)}° E';
+  Future<void> _openExternally(BuildContext context, String url) async {
+    final uri = Uri.tryParse(url);
+    var opened = false;
+    if (uri != null) {
+      try {
+        opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } catch (_) {
+        opened = false;
+      }
     }
-
-    return 'No coordinates';
-    */
+    if (!opened && context.mounted) {
+      Toast.showErrorToast(
+        msg: LangKeys.cannotOpenFile.tr(),
+        context: context,
+      );
+    }
   }
 
   void _showImageDialog(BuildContext context, String url) {
@@ -161,28 +186,49 @@ class LocationCard extends StatelessWidget {
           insetPadding: EdgeInsets.all(16.r),
           child: Stack(
             children: [
-              InteractiveViewer(
-                minScale: 0.5,
-                maxScale: 5,
+              /// الصورة لازم تاخد مساحة محدّدة، وإلا الـ Dialog بيطلع فاضي
+              /// لما الصورة لسه بتحمّل أو لما تفشل.
+              SizedBox(
+                width: double.infinity,
+                height: 0.7.sh,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.r),
-                  child: CachedNetworkImage(
-                    imageUrl: url,
-                    fit: BoxFit.contain,
-                    placeholder: (_, __) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    errorWidget: (_, __, ___) {
-                      return const Center(
-                        child: Icon(
-                          Icons.broken_image,
-                          size: 64,
-                          color: Colors.grey,
-                        ),
-                      );
-                    },
+                  child: InteractiveViewer(
+                    minScale: 0.5,
+                    maxScale: 5,
+                    child: CachedNetworkImage(
+                      imageUrl: url,
+                      fit: BoxFit.contain,
+                      placeholder: (_, __) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.white,
+                          ),
+                        );
+                      },
+                      errorWidget: (_, __, ___) {
+                        return Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.broken_image_outlined,
+                                size: 64.sp,
+                                color: AppColors.white,
+                              ),
+                              Gap(12.h),
+                              Text(
+                                LangKeys.cannotLoadImage.tr(),
+                                textAlign: TextAlign.center,
+                                style: AppStyles.black14Medium.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

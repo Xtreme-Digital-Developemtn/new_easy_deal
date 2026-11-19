@@ -898,6 +898,11 @@ abstract class LangKeys {
   static const String unexpectedError = 'unexpectedError';
   static const String adsLimitExceeded = 'adsLimitExceeded';
   static const String cannotOpenLocation = 'cannotOpenLocation';
+  static const String noSavedMapsYet = 'noSavedMapsYet';
+  static const String noDescription = 'noDescription';
+  static const String cannotOpenFile = 'cannotOpenFile';
+  static const String cannotLoadImage = 'cannotLoadImage';
+  static const String addMapHint = 'addMapHint';
 }
 
 

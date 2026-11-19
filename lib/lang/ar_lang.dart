@@ -362,8 +362,8 @@
     "pending": "معلق",
     "inactive": "غير نشط",
     "actions": "الإجراءات",
-    "mapLocations": "المواقع على الخريطة",
-    "tapAnyLocationToOpenInMapsApp": "انقر على أي موقع لفتحه في تطبيق الخرائط",
+    "mapLocations": "الخرائط المحفوظة",
+    "tapAnyLocationToOpenInMapsApp": "اضغط على أي خريطة لعرض الصورة بالتكبير",
     "purchaseSellOutsideCompound": "شراء/بيع خارج الكمبوند",
     "primaryInsideCompound": "برايمري داخل الكمبوند",
     "resaleInsideCompound": "ريسيل داخل الكمبوند",
@@ -1162,5 +1162,10 @@
     "shopActivity": "نشاط المحل",
     "compoundKind": "نوع الكمبوند",
     "unitDescription": "وصف الوحدة",
+    "noSavedMapsYet": "لا توجد خرائط محفوظة",
+    "noDescription": "بدون وصف",
+    "cannotOpenFile": "تعذّر فتح الملف",
+    "cannotLoadImage": "تعذّر تحميل الصورة",
+    "addMapHint": "اضغط على زر + لإضافة أول خريطة",
   };
 }

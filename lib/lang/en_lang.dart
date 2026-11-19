@@ -362,8 +362,8 @@
     "pending": "Pending",
     "inactive": "Inactive",
     "actions": "Actions",
-    "mapLocations": "Map Locations",
-    "tapAnyLocationToOpenInMapsApp": "Tap any location to open in maps app",
+    "mapLocations": "Saved Maps",
+    "tapAnyLocationToOpenInMapsApp": "Tap any map to view the image zoomed",
     "purchaseSellOutsideCompound": "Purchase/Sell Outside Compound",
     "primaryInsideCompound": "Primary Inside Compound",
     "resaleInsideCompound": "Resale Inside Compound",
@@ -1162,5 +1162,10 @@
     "shopActivity": "Shop Activity",
     "compoundKind": "Compound Type",
     "unitDescription": "Unit Description",
+    "noSavedMapsYet": "No saved maps yet",
+    "noDescription": "No description",
+    "cannotOpenFile": "Could not open the file",
+    "cannotLoadImage": "Could not load the image",
+    "addMapHint": "Tap the + button to add your first map",
   };
 }

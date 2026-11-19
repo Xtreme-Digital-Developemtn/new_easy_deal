@@ -20,7 +20,6 @@ class _BrokerMapsViewState extends State<BrokerMapsView> {
   @override
   void initState() {
     super.initState();
-    final userId = CacheHelper.getData(key: StorageKeys.userId);
     final brokerId = CacheHelper.getData(key: StorageKeys.brokerId);
     context.read<BrokerMapsCubit>().getMaps(brokerId: brokerId ?? 0);
   }
@@ -50,9 +49,14 @@ class _BrokerMapsViewState extends State<BrokerMapsView> {
           return Padding(
             padding: EdgeInsets.all(16.r),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const HeaderSection(),
-                // Gap(12.h),
+                // الهيدر بيشرح إن الضغط على أي موقع بيفتحه في تطبيق الخرائط،
+                // فمالوش لازمة وقائمة المواقع فاضية.
+                if (data.isNotEmpty) ...[
+                  const HeaderSection(),
+                  Gap(12.h),
+                ],
                 Expanded(child: LocationsListView(locations: data)),
               ],
             ),
