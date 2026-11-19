@@ -111,7 +111,7 @@ class DeveloperSalesTableData extends StatelessWidget {
         child: DataTable2(
           columnSpacing: 4.w,
           horizontalMargin: 12.w,
-          minWidth: 1400.w,
+          minWidth: 960.w,
           dataRowHeight: 56.h,
           headingRowHeight: 48.h,
           headingTextStyle: _headerStyle,

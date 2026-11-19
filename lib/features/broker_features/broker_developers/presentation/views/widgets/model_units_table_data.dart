@@ -161,7 +161,7 @@ class ModelUnitsTableData extends StatelessWidget {
             showCheckboxColumn: false,
             columnSpacing: 4.w,
             horizontalMargin: 12.w,
-            minWidth: 2800.w,
+            minWidth: 1560.w,
             dataRowHeight: 56.h,
             headingRowHeight: 48.h,
             headingTextStyle: _headerStyle,

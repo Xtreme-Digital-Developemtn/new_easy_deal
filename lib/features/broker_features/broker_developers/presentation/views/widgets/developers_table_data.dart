@@ -118,7 +118,7 @@ class DevelopersTableData extends StatelessWidget {
                 columnSpacing: 10.w,
                 horizontalMargin: 16.w,
                 dataRowHeight: 60.h,
-                minWidth: 3000.w,
+                minWidth: 900.w,
                 columns: [
                   /// developer name key
                   DataColumn2(
@@ -165,9 +165,10 @@ class DevelopersTableData extends StatelessWidget {
                 rows: List<DataRow>.generate(data.length, (index) {
                   var item = data[index];
                   // final isActive = item.isActive == true;
-                  final status = item.brokers!.isEmpty
+                  final brokers = item.brokers ?? const <BrokerMap>[];
+                  final status = brokers.isEmpty
                       ? "ارسال طلب عقد"
-                      : "${item.brokers![0].status}";
+                      : "${brokers[0].status}";
                   final isEven = index.isEven;
 
                   return DataRow(

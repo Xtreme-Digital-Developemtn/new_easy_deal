@@ -81,7 +81,7 @@ class DeveloperModelsTableData extends StatelessWidget {
           showCheckboxColumn: false,
           columnSpacing: 4.w,
           horizontalMargin: 12.w,
-          minWidth: 2000.w,
+          minWidth: 950.w,
           dataRowHeight: 56.h,
           headingRowHeight: 48.h,
           headingTextStyle: _headerStyle,
