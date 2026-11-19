@@ -227,14 +227,8 @@ class DataTableWidget extends StatelessWidget {
           Toast.showErrorToast(msg: state.error, context: context);
         }
 
-        if (state is UpdateUnitSuccessState) {
-          Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
-          context.read<BrokerDataCubit>().getBrokerUnits(brokerId: CacheHelper.getData(key: "brokerId"));
-        }
-
-        if (state is UpdateUnitErrorState) {
-          Toast.showErrorToast(msg: state.error, context: context);
-        }
+        // نجاح/فشل التعديل بيتعامل معاه EditUnitDialog نفسه (توست + قفل
+        // الديالوج + ريلود)، فلو اتعمل هنا كمان التوست والريكوست بيتكرروا.
       },
       child: _buildTable(context),
     );
@@ -434,7 +428,7 @@ class DataTableWidget extends StatelessWidget {
                   ),
                 );
               }
-              if (item.status != 'sold') {
+              if (!item.isSold) {
                 items.add(
                   const PopupMenuItem<String>(
                     value: 'sold',

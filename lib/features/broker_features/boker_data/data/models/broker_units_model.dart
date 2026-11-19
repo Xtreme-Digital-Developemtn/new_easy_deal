@@ -548,6 +548,9 @@ class AdditionalDetails {
   // حقول إضافية
   dynamic numberOfFloors;
   dynamic otherExpensesValue;
+  String? mallName;
+  dynamic floorNumber;
+  String? shopActivity;
 
   AdditionalDetails({
     this.notes,
@@ -565,6 +568,9 @@ class AdditionalDetails {
     this.groundLayoutStatus,
     this.numberOfFloors,
     this.otherExpensesValue,
+    this.mallName,
+    this.floorNumber,
+    this.shopActivity,
   });
 
   AdditionalDetails.fromJson(Map<String, dynamic> json) {
@@ -584,6 +590,11 @@ class AdditionalDetails {
 
     numberOfFloors = json.containsKey("numberOfFloors") ? json["numberOfFloors"] : null;
     otherExpensesValue = json.containsKey("otherExpensesValue") ? json["otherExpensesValue"] : null;
+
+    // الـ API بيرجّع الحقول دي camelCase، بس بنقبل snake_case كـ fallback.
+    mallName = (json["mallName"] ?? json["mall_name"])?.toString();
+    floorNumber = json["floorNumber"] ?? json["floor_number"];
+    shopActivity = (json["shopActivity"] ?? json["shop_activity"])?.toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -603,6 +614,9 @@ class AdditionalDetails {
     _data["ground_layout_status"] = groundLayoutStatus;
     _data["numberOfFloors"] = numberOfFloors;
     _data["otherExpensesValue"] = otherExpensesValue;
+    _data["mallName"] = mallName;
+    _data["floorNumber"] = floorNumber;
+    _data["shopActivity"] = shopActivity;
     return _data;
   }
 }

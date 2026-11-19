@@ -101,6 +101,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
   late TextEditingController _mallNameCtrl;
   late TextEditingController _floorNumberCtrl;
   late TextEditingController _shopActivityCtrl;
+  late TextEditingController _subAreaCtrl;
   late String _selectedType;
   late String _selectedOperation;
   late String _selectedCompoundType;
@@ -127,9 +128,18 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     _unitNumberCtrl = TextEditingController(text: u.unitNumber?.toString() ?? '');
     _floorCtrl = TextEditingController(text: u.floor?.toString() ?? '');
     _finishingTypeCtrl = TextEditingController(text: u.finishingType?.toString() ?? '');
-    _mallNameCtrl = TextEditingController(text: '');
-    _floorNumberCtrl = TextEditingController(text: '');
-    _shopActivityCtrl = TextEditingController(text: '');
+    // الحقول دي كانت بتفتح فاضية وبتروح للسيرفر فاضية فتمسح القيم المخزّنة،
+    // فبنعمرها من الـ additionalDetails الحالية.
+    _mallNameCtrl = TextEditingController(text: u.additionalDetails?.mallName?.toString() ?? '');
+    _floorNumberCtrl = TextEditingController(text: u.additionalDetails?.floorNumber?.toString() ?? '');
+    _shopActivityCtrl = TextEditingController(text: u.additionalDetails?.shopActivity?.toString() ?? '');
+
+    final subAreaName = (u.subArea?.nameAr?.toString().trim().isNotEmpty ?? false)
+        ? u.subArea!.nameAr.toString()
+        : (u.subArea?.nameEn?.toString().trim().isNotEmpty ?? false)
+            ? u.subArea!.nameEn.toString()
+            : '';
+    _subAreaCtrl = TextEditingController(text: subAreaName);
 
     _selectedType = _kUnitTypes.contains(u.type?.toString().toLowerCase())
         ? u.type.toString().toLowerCase()
@@ -174,6 +184,7 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     _mallNameCtrl.dispose();
     _floorNumberCtrl.dispose();
     _shopActivityCtrl.dispose();
+    _subAreaCtrl.dispose();
     super.dispose();
   }
 
@@ -201,11 +212,15 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
       'areaId': widget.unit.area?.id,
       'cityId': widget.unit.city?.id,
       'subAreaId': widget.unit.subArea?.id,
-      'additionalDetails': {
+      // الحقول الاختيارية مش بتتبعت لو فاضية، عشان ما تمسحش القيم المخزّنة.
+      'additionalDetails': <String, dynamic>{
         'notes': _notesCtrl.text.trim(),
-        'mallName': _mallNameCtrl.text.trim(),
-        'floorNumber': int.tryParse(_floorNumberCtrl.text.trim()) ?? 0,
-        'shopActivity': _shopActivityCtrl.text.trim(),
+        if (_mallNameCtrl.text.trim().isNotEmpty)
+          'mallName': _mallNameCtrl.text.trim(),
+        if (int.tryParse(_floorNumberCtrl.text.trim()) != null)
+          'floorNumber': int.parse(_floorNumberCtrl.text.trim()),
+        if (_shopActivityCtrl.text.trim().isNotEmpty)
+          'shopActivity': _shopActivityCtrl.text.trim(),
       },
     };
 
@@ -398,9 +413,12 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
                           Expanded(
                             child: _labeledField(
                               label: 'المنطقة الفرعية',
+                              // بيعرض اسم المنطقة الفرعية الحالية للقراءة فقط:
+                              // الـ submit بيبعت الـ subAreaId الحالي، فمفيش
+                              // داعي لحقل قابل للكتابة بيتجاهل اللي المستخدم كتبه.
                               child: _textField(
-                                TextEditingController(text: widget.unit.subArea?.id?.toString() ?? ''),
-                                keyboardType: TextInputType.number,
+                                _subAreaCtrl,
+                                readOnly: true,
                               ),
                             ),
                           ),
@@ -587,11 +605,13 @@ class _EditUnitDialogState extends State<EditUnitDialog> {
     TextEditingController controller, {
     TextInputType keyboardType = TextInputType.text,
     int maxLines = 1,
+    bool readOnly = false,
   }) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,
+      readOnly: readOnly,
       style: AppStyles.black12Medium.copyWith(fontSize: 14.sp),
       decoration: InputDecoration(
         filled: true,

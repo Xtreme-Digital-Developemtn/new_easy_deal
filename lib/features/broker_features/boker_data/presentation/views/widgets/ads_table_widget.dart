@@ -114,19 +114,8 @@ class DataTableWidget extends StatelessWidget {
           Toast.showErrorToast(msg: state.error, context: context);
         }
 
-        if (state is UpdateUnitSuccessState) {
-          Toast.showSuccessToast(msg: "تم التعديل بنجاح", context: context);
-          final brokerId = int.tryParse(
-                  CacheHelper.getData(key: "brokerId")?.toString() ?? '') ??
-              0;
-          context
-              .read<BrokerDataCubit>()
-              .getBrokerUnits(brokerId: brokerId);
-        }
-
-        if (state is UpdateUnitErrorState) {
-          Toast.showErrorToast(msg: state.error, context: context);
-        }
+        // نجاح/فشل التعديل بيتعامل معاه EditUnitDialog نفسه (توست + قفل
+        // الديالوج + ريلود)، فلو اتعمل هنا كمان التوست والريكوست بيتكرروا.
       },
       child: _buildTable(context),
     );
