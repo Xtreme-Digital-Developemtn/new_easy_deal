@@ -79,8 +79,11 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
         listener: (context, regState) {
           if (regState is SignUpSuccess) {
             // تسجيل وسيط جديد: إعادة بناء التطبيق بهوية الأكونت الجديد
-            // (تاباته بتتبني على الدور المخزّن).
-            AppSession.signedIn();
+            // (تاباته بتتبني على الدور المخزّن)، ورسالة النجاح بتظهر على
+            // الشاشة الجديدة.
+            AppSession.signedInWithMessage(
+              LangKeys.brokerRegisterSuccessMsg.tr(),
+            );
           } else if (regState is SignUpError) {
             Toast.showErrorToast(msg: regState.message, context: context);
           }

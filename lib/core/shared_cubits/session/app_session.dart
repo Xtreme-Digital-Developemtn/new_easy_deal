@@ -53,16 +53,46 @@ class AppSession {
     }
   }
 
-  /// بيعرض توست بعد إعادة البناء. الـ context اللي جوه شاشة الدخول/الخروج
-  /// بيتفكّك مع الشجرة القديمة، فالتوست لازم يستعمل شجرة التطبيق الجديدة.
-  static void showToastAfterRestart(String message, {required bool isError}) {
-    if (message.trim().isEmpty) return;
+  /// أقصى عدد فريمات نستنى فيها الشجرة الجديدة قبل ما نسيب الرسالة.
+  static const int _maxToastAttempts = 90;
+
+  /// بيعيد تشغيل الجلسة على طول، والرسالة بتظهر على الشاشة الجديدة بعد
+  /// ما تتركّب.
+  ///
+  /// مينفعش نعرض التوست على الشاشة الحالية (يبان قبل الانتقال) ولا في نفس
+  /// فريم إعادة البناء (الأوفرلاي بتاعه بيتشال قبل ما يبان، و`CherryToast`
+  /// بتستخدم `overlay?.insert` فبتفشل في صمت). فبنستنى لحد ما [epoch]
+  /// تزيد فعلاً والأوفرلاي الجديد يبقى جاهز.
+  static void signedInWithMessage(String message) {
+    final targetEpoch = epoch.value + 1;
+    signedIn();
+    _showWhenRestarted(message, targetEpoch, 0);
+  }
+
+  /// نفس فكرة [signedInWithMessage] بس لتسجيل الخروج.
+  static void signedOutWithMessage(String message) {
+    final targetEpoch = epoch.value + 1;
+    signedOut();
+    _showWhenRestarted(message, targetEpoch, 0);
+  }
+
+  static void _showWhenRestarted(String message, int targetEpoch, int attempt) {
+    if (message.trim().isEmpty || attempt > _maxToastAttempts) return;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final ctx = MyApp.navigatorKey.currentContext;
-      if (ctx == null) return;
-      isError
-          ? Toast.showErrorToast(msg: message, context: ctx)
-          : Toast.showSuccessToast(msg: message, context: ctx);
+      final overlay = MyApp.navigatorKey.currentState?.overlay;
+      final isReady =
+          epoch.value >= targetEpoch && overlay != null && overlay.mounted;
+      if (!isReady) {
+        _showWhenRestarted(message, targetEpoch, attempt + 1);
+        // لو التطبيق وقف يرسم، الـ callback مش هتتنادى تاني، فبنطلب فريم
+        // جديد عشان المحاولة تكمّل.
+        WidgetsBinding.instance.scheduleFrame();
+        return;
+      }
+      // context الأوفرلاي نفسه: `Navigator.of` بتلاقي الناڤيجيتور فوقه،
+      // فالتوست بيتحط في أوفرلاي الشجرة الجديدة مش القديمة.
+      Toast.showSuccessToast(msg: message, context: overlay.context);
     });
   }
 }

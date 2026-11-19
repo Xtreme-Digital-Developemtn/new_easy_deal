@@ -28,11 +28,10 @@ class LoginButton extends StatelessWidget {
           }
           // بدل ما ننقل على اللاي أوت بالكيوبتس القديمة في الذاكرة، بنعيد
           // بناء التطبيق كله بهوية الأكونت الجديد (زي فتح التطبيق من الأول).
-          final message = state.loginModel.message.toString();
-          AppSession.signedIn();
-          // الشجرة اللي فيها الـ context الحالي بتتفكّك مع إعادة البناء،
-          // فالتوست بيتعرض في الفريم اللي بعده على الشجرة الجديدة.
-          AppSession.showToastAfterRestart(message, isError: false);
+          // التوست بيظهر على الشاشة الجديدة بعد إعادة البناء. الرسالة من
+          // الترجمة مش من السيرفر، لأن السيرفر بيرجّع مفتاح زي
+          // users.success.login مش جملة.
+          AppSession.signedInWithMessage(LangKeys.loginSuccessMsg.tr());
         }
       },
       builder: (context, state) {

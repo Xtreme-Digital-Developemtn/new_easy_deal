@@ -144,6 +144,10 @@ abstract class LangKeys {
   static const String invalidPhoneNumber = "invalidPhoneNumber";
   static const String success = "success";
   static const String registerSuccessMsg = "registerSuccessMsg";
+  static const String loginSuccessMsg = 'loginSuccessMsg';
+  static const String logoutSuccessMsg = 'logoutSuccessMsg';
+  static const String brokerRegisterSuccessMsg =
+      'brokerRegisterSuccessMsg';
   static const String start = "start";
   static const String selectBrokerType = "selectBrokerType";
   static const String reject = "reject";

@@ -16,11 +16,7 @@ void showLogoutDialog(BuildContext context) {
             // إعادة تشغيل كاملة للجلسة: التوكن والهوية بيتمسحوا وشجرة
             // التطبيق بتتبني من الأول، فمفيش أي بيانات من الأكونت
             // القديم بتفضل في الذاكرة.
-            AppSession.signedOut();
-            AppSession.showToastAfterRestart(
-              state.logoutModel.message.toString(),
-              isError: false,
-            );
+            AppSession.signedOutWithMessage(LangKeys.logoutSuccessMsg.tr());
             return;
           }
         else if(state is LogoutErrorState){

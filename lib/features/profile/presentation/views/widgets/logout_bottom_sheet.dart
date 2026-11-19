@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 
 import '../../../../../core/shared_cubits/session/app_session.dart';
@@ -17,11 +18,7 @@ void showLogoutBottomSheet(BuildContext context) {
             // إعادة تشغيل كاملة للجلسة: التوكن والهوية بيتمسحوا وشجرة
             // التطبيق بتتبني من الأول، فمفيش أي بيانات من الأكونت
             // القديم بتفضل في الذاكرة.
-            AppSession.signedOut();
-            AppSession.showToastAfterRestart(
-              state.logoutModel.message.toString(),
-              isError: false,
-            );
+            AppSession.signedOutWithMessage(LangKeys.logoutSuccessMsg.tr());
             return;
           }
           else if(state is LogoutErrorState){

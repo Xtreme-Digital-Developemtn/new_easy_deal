@@ -19,7 +19,23 @@ import 'main_imports.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.appRouter});
   final AppRouter appRouter;
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static int _navigatorKeyEpoch = -1;
+  static GlobalKey<NavigatorState> _navigatorKey =
+      GlobalKey<NavigatorState>();
+
+  /// مفتاح الناڤيجيتور بيتجدّد مع كل إعادة بناء للجلسة.
+  ///
+  /// كان مفتاح واحد ثابت: وقت إعادة البناء بتفضل الشجرة القديمة موجودة
+  /// والجديدة بتتبني في نفس الباس، فبيبقى فيه نافيجيتورين بنفس الـ
+  /// GlobalKey — وده بيرمي "Duplicate GlobalKey" وبتفضل الشاشة فاضية
+  /// لحد ما فلاتر يرتّب نفسه. مفتاح لكل epoch بيمنع التصادم ده.
+  static GlobalKey<NavigatorState> get navigatorKey {
+    if (_navigatorKeyEpoch != AppSession.epoch.value) {
+      _navigatorKeyEpoch = AppSession.epoch.value;
+      _navigatorKey = GlobalKey<NavigatorState>();
+    }
+    return _navigatorKey;
+  }
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -34,7 +50,11 @@ class MyApp extends StatelessWidget {
         // الشجرة كلها (المزوّدين + MaterialApp + Navigator) تتبني من الأول —
         // يعني كل كيوبت عام بيتعمل من جديد ويحمّل بيانات الأكونت الحالي،
         // بالظبط زي فتح التطبيق من غير ما المستخدم يقفله.
-        child: ValueListenableBuilder<int>(
+        // خلفية بيضا تحت كل حاجة: وقت إعادة البناء والانتقال بين الشاشات
+        // بيعدّي فريم أو اتنين مفيش فيهم حاجة مرسومة، وكان بيبان أسود.
+        child: ColoredBox(
+          color: AppColors.white,
+          child: ValueListenableBuilder<int>(
           valueListenable: AppSession.epoch,
           builder: (context, epoch, _) => KeyedSubtree(
             key: ValueKey('app-session-$epoch'),
@@ -90,14 +110,21 @@ class MyApp extends StatelessWidget {
                           systemNavigationBarIconBrightness: Brightness.dark,
                         ),
                       );
-                      return ResponsiveBreakpoints.builder(
-                        child: child!,
-                        breakpoints: const [
-                          Breakpoint(start: 0, end: 450, name: MOBILE),
-                          Breakpoint(start: 451, end: 800, name: TABLET),
-                          Breakpoint(start: 801, end: 1920, name: DESKTOP),
-                          Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-                        ],
+                      // الانتقال بين الشاشات fade، ولو مفيش شاشة ورا
+                      // الشاشة الجديدة (نافيجيتور لسه اتعمل) كان بيبان
+                      // أسود وراها.
+                      return ColoredBox(
+                        color: AppColors.white,
+                        child: ResponsiveBreakpoints.builder(
+                          child: child!,
+                          breakpoints: const [
+                            Breakpoint(start: 0, end: 450, name: MOBILE),
+                            Breakpoint(start: 451, end: 800, name: TABLET),
+                            Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                            Breakpoint(
+                                start: 1921, end: double.infinity, name: '4K'),
+                          ],
+                        ),
                       );
                     },
                   );
@@ -107,6 +134,7 @@ class MyApp extends StatelessWidget {
           }
             ),
           ),
+        ),
         ),
       ),
     );

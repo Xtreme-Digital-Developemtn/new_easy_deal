@@ -15,12 +15,9 @@ class CreatePasswordButtons extends StatelessWidget {
       listener: (context, state) {
         if (state is SignUpSuccess) {
           // نفس منطق تسجيل الدخول: إعادة بناء التطبيق بهوية الأكونت
-          // الجديد بدل الانتقال بكيوبتس قديمة في الذاكرة.
-          AppSession.signedIn();
-          AppSession.showToastAfterRestart(
-            state.registerModel.message.toString(),
-            isError: false,
-          );
+          // الجديد بدل الانتقال بكيوبتس قديمة في الذاكرة، ورسالة النجاح
+          // بتظهر على الشاشة الجديدة.
+          AppSession.signedInWithMessage(LangKeys.registerSuccessMsg.tr());
         } else if (state is SignUpError) {
           Toast.showErrorToast(msg: state.message.toString(), context: context);
         }
