@@ -44,30 +44,38 @@ class BrokerSpecializationView extends StatefulWidget {
 }
 
 class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
-  final Map<String, List<String>> _selectedScopes = {};
-  String? _expandedCategory;
+  /// التخصص الأساسي: واحد فقط.
+  String? _mainCategory;
 
-  bool get _hasSelection =>
-      _selectedScopes.values.any((list) => list.isNotEmpty);
+  /// التخصصات الفرعية التابعة للتخصص الأساسي المختار: متعددة.
+  final List<String> _selectedSubs = [];
 
-  void _toggleSubCategory(String category, String subValue) {
+  bool get _hasSelection => _mainCategory != null && _selectedSubs.isNotEmpty;
+
+  void _selectMainCategory(String category) {
+    if (_mainCategory == category) return;
     setState(() {
-      final list = _selectedScopes.putIfAbsent(category, () => []);
-      if (list.contains(subValue)) {
-        list.remove(subValue);
+      _mainCategory = category;
+      _selectedSubs.clear();
+    });
+  }
+
+  void _toggleSubCategory(String subValue) {
+    setState(() {
+      if (_selectedSubs.contains(subValue)) {
+        _selectedSubs.remove(subValue);
       } else {
-        list.add(subValue);
+        _selectedSubs.add(subValue);
       }
     });
   }
 
-  void _toggleAllInCategory(String category, List<String> subOptions) {
+  void _toggleAllSubs(List<String> subOptions) {
     setState(() {
-      final list = _selectedScopes.putIfAbsent(category, () => []);
-      if (list.length == subOptions.length) {
-        list.clear();
+      if (_selectedSubs.length == subOptions.length) {
+        _selectedSubs.clear();
       } else {
-        list
+        _selectedSubs
           ..clear()
           ..addAll(subOptions);
       }
@@ -95,12 +103,12 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${LangKeys.specializationScope.tr()} *',
+                  '${LangKeys.mainSpecialization.tr()} *',
                   style: AppStyles.black16SemiBold,
                 ),
                 Gap(4.h),
                 Text(
-                  LangKeys.selectSpecializationScope.tr(),
+                  LangKeys.selectMainSpecializationHint.tr(),
                   style: AppStyles.gray12Regular,
                 ),
                 Gap(20.h),
@@ -112,55 +120,39 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
                       final option = specializationScopeOptions[index];
                       final subOptions =
                           specializationScopeSubOptions[option.value] ?? [];
-                      final selectedInCategory =
-                          _selectedScopes[option.value] ?? [];
-                      final isExpanded =
-                          _expandedCategory == option.value;
-                      final isAllSelected =
+                      final isMain = _mainCategory == option.value;
+                      final isAllSelected = isMain &&
                           subOptions.isNotEmpty &&
-                          selectedInCategory.length == subOptions.length;
+                          _selectedSubs.length == subOptions.length;
 
                       return Container(
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: selectedInCategory.isNotEmpty
+                            color: isMain
                                 ? AppColors.primaryDark
                                 : AppColors.grayLight,
-                            width: selectedInCategory.isNotEmpty ? 2 : 1,
+                            width: isMain ? 2 : 1,
                           ),
                         ),
                         child: Column(
                           children: [
                             GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _expandedCategory =
-                                      isExpanded ? null : option.value;
-                                });
-                              },
+                              onTap: () => _selectMainCategory(option.value),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.w, vertical: 14.h),
                                 child: Row(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () =>
-                                          _toggleAllInCategory(
-                                              option.value, subOptions),
-                                      child: Icon(
-                                        isAllSelected
-                                            ? Icons.check_box
-                                            : selectedInCategory.isNotEmpty
-                                                ? Icons.indeterminate_check_box
-                                                : Icons
-                                                    .check_box_outline_blank,
-                                        color: selectedInCategory.isNotEmpty
-                                            ? AppColors.primaryDark
-                                            : AppColors.gray,
-                                        size: 24.r,
-                                      ),
+                                    Icon(
+                                      isMain
+                                          ? Icons.radio_button_checked
+                                          : Icons.radio_button_unchecked,
+                                      color: isMain
+                                          ? AppColors.primaryDark
+                                          : AppColors.gray,
+                                      size: 24.r,
                                     ),
                                     Gap(12.w),
                                     Expanded(
@@ -175,22 +167,40 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
                                         ),
                                       ),
                                     ),
-                                    Icon(
-                                      isExpanded
-                                          ? Icons.keyboard_arrow_up
-                                          : Icons.keyboard_arrow_down,
-                                      color: AppColors.gray,
-                                      size: 24.r,
-                                    ),
+                                    if (isMain && subOptions.isNotEmpty)
+                                      GestureDetector(
+                                        onTap: () => _toggleAllSubs(subOptions),
+                                        child: Icon(
+                                          isAllSelected
+                                              ? Icons.check_box
+                                              : _selectedSubs.isNotEmpty
+                                                  ? Icons.indeterminate_check_box
+                                                  : Icons.check_box_outline_blank,
+                                          color: _selectedSubs.isNotEmpty
+                                              ? AppColors.primaryDark
+                                              : AppColors.gray,
+                                          size: 22.r,
+                                        ),
+                                      ),
                                   ],
                                 ),
                               ),
                             ),
-                            if (isExpanded && subOptions.isNotEmpty)
+                            if (isMain && subOptions.isNotEmpty) ...[
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 52.w, right: 16.w, bottom: 8.h),
+                                child: Align(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  child: Text(
+                                    '${LangKeys.subSpecializations.tr()} *',
+                                    style: AppStyles.gray12Regular,
+                                  ),
+                                ),
+                              ),
                               ...subOptions.map(
                                 (sub) => GestureDetector(
-                                  onTap: () => _toggleSubCategory(
-                                      option.value, sub),
+                                  onTap: () => _toggleSubCategory(sub),
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                         left: 52.w,
@@ -199,12 +209,10 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
                                     child: Row(
                                       children: [
                                         Icon(
-                                          selectedInCategory.contains(sub)
+                                          _selectedSubs.contains(sub)
                                               ? Icons.check_box
-                                              : Icons
-                                                  .check_box_outline_blank,
-                                          color: selectedInCategory.contains(
-                                                  sub)
+                                              : Icons.check_box_outline_blank,
+                                          color: _selectedSubs.contains(sub)
                                               ? AppColors.primaryDark
                                               : AppColors.gray,
                                           size: 20.r,
@@ -225,12 +233,21 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
                                   ),
                                 ),
                               ),
+                            ],
                           ],
                         ),
                       );
                     },
                   ),
                 ),
+                if (_mainCategory != null && _selectedSubs.isEmpty) ...[
+                  Gap(8.h),
+                  Text(
+                    LangKeys.selectAtLeastOneSubSpecialization.tr(),
+                    style: AppStyles.gray12Regular
+                        .copyWith(color: AppColors.errorDark),
+                  ),
+                ],
                 Gap(20.h),
                 if (regState is! SignUpLoading)
                   CustomButton(
@@ -258,12 +275,9 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
   }
 
   void _submit() {
-    final scopes = <String, List<String>>{};
-    _selectedScopes.forEach((key, value) {
-      if (value.isNotEmpty) {
-        scopes[key] = List.from(value);
-      }
-    });
+    final scopes = <String, List<String>>{
+      _mainCategory!: List<String>.from(_selectedSubs),
+    };
     context.read<RegisterCubit>().register(
       fullName: widget.name,
       phone: widget.phone,
@@ -286,7 +300,7 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
       taxCardImage: widget.taxCardImagePath != null
           ? File(widget.taxCardImagePath!)
           : null,
-      specializationScopes: scopes.isNotEmpty ? scopes : null,
+      specializationScopes: scopes,
       brokerTypeIndex: widget.selectedIndex,
     );
   }

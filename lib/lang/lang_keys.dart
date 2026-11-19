@@ -456,6 +456,10 @@ abstract class LangKeys {
   static const String continueToSpecializations = 'continueToSpecializations';
   static const String selectWorkAreas = 'selectWorkAreas';
   static const String selectSpecializationScope = 'selectSpecializationScope';
+  static const String mainSpecialization = 'mainSpecialization';
+  static const String subSpecializations = 'subSpecializations';
+  static const String selectMainSpecializationHint = 'selectMainSpecializationHint';
+  static const String selectAtLeastOneSubSpecialization = 'selectAtLeastOneSubSpecialization';
   static const String selectDealTypePlaceholder = 'selectDealTypePlaceholder';
   static const String selectUnitTypePlaceholder = 'selectUnitTypePlaceholder';
   static const String selectCity = 'selectCity';
