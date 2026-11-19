@@ -9,7 +9,9 @@ class DevelopersModel {
   DevelopersModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
-    data = json["data"] == null ? null : (json["data"] as List).map((e) => DeveloperData.fromJson(e)).toList();
+    data = json["data"] == null
+        ? null
+        : (json["data"] as List).map((e) => DeveloperData.fromJson(e)).toList();
     count = json["count"];
   }
 
@@ -17,7 +19,7 @@ class DevelopersModel {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["status"] = status;
     _data["message"] = message;
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.map((e) => e.toJson()).toList();
     }
     _data["count"] = count;
@@ -72,7 +74,9 @@ class DeveloperData {
     userId = json["userId"];
     fullName = json["fullName"];
     email = json["email"];
-    brokers = json["brokers"] == null ? null : (json["brokers"] as List).map((e) => BrokerMap.fromJson(e)).toList();
+    brokers = json["brokers"] == null
+        ? null
+        : (json["brokers"] as List).map((e) => BrokerMap.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -90,7 +94,7 @@ class DeveloperData {
     _data["userId"] = userId;
     _data["fullName"] = fullName;
     _data["email"] = email;
-    if(brokers != null) {
+    if (brokers != null) {
       _data["brokers"] = brokers?.map((e) => e.toJson()).toList();
     }
     return _data;

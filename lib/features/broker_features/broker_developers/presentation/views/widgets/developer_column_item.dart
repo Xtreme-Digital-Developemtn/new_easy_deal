@@ -11,8 +11,8 @@ class DeveloperColumnItem extends StatelessWidget {
           height: 30.h,
           width: 30.w,
           decoration: BoxDecoration(
-           shape: BoxShape.circle,
-            color: AppColors.primaryDark
+            shape: BoxShape.circle,
+            color: AppColors.primaryDark,
           ),
         ),
       ],

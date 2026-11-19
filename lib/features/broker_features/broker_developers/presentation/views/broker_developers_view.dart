@@ -9,6 +9,7 @@ import 'package:easy_deal/features/broker_features/broker_developers/presentatio
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/errors/error_messages.dart';
 import '../view_model/broker_developers_cubit.dart';
 import '../view_model/broker_developers_states.dart';
 
@@ -145,19 +146,14 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                   return [];
                 },
               );
-              if (result != null) {
-                setState(() {
-                  _appliedFilters = result;
-                  _resetPage();
-                });
-                cubit.getDevelopers(filters: _combinedFilters());
-              } else if (result == null && _appliedFilters != null) {
-                setState(() {
-                  _appliedFilters = null;
-                  _resetPage();
-                });
-                cubit.getDevelopers(filters: _combinedFilters());
-              }
+              // null يعني الشيت اتقفلت من غير قرار (سحب لتحت / ضغط برّه)
+              // فمابنغيّرش الفلاتر المطبّقة.
+              if (result == null) return;
+              setState(() {
+                _appliedFilters = result.hasFilters ? result : null;
+                _resetPage();
+              });
+              cubit.getDevelopers(filters: _combinedFilters());
             },
             icon: Stack(
               clipBehavior: Clip.none,
@@ -227,7 +223,13 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(state.error),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
+                              localizeErrorMessage(state.error),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                           Gap(16.h),
                           CustomButton(
                             text: LangKeys.reload,
@@ -440,84 +442,101 @@ class _PaginationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            onTap: onPrev,
-            borderRadius: BorderRadius.circular(8.r),
-            child: Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: onPrev != null
-                    ? AppColors.primaryDark.withValues(alpha: 0.1)
-                    : Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 14.sp,
-                color: onPrev != null
-                    ? AppColors.primaryDark
-                    : Colors.grey.shade400,
-              ),
-            ),
-          ),
-          Gap(8.w),
-          ...List.generate(totalPages, (index) {
-            final selected = index == currentPage;
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w),
-              child: InkWell(
-                onTap: () => onPageSelected(index),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: onPrev,
                 borderRadius: BorderRadius.circular(8.r),
                 child: Container(
-                  width: 32.w,
-                  height: 32.h,
-                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(8.r),
                   decoration: BoxDecoration(
-                    color: selected ? AppColors.primaryDark : Colors.white,
+                    color: onPrev != null
+                        ? AppColors.primaryDark.withValues(alpha: 0.1)
+                        : Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(
-                      color: selected
-                          ? AppColors.primaryDark
-                          : Colors.grey.shade300,
-                    ),
                   ),
-                  child: Text(
-                    '${index + 1}',
-                    style: AppStyles.black14Medium.copyWith(
-                      color: selected ? Colors.white : Colors.grey.shade700,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12.sp,
-                    ),
+                  child: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    size: 14.sp,
+                    color: onPrev != null
+                        ? AppColors.primaryDark
+                        : Colors.grey.shade400,
                   ),
                 ),
               ),
-            );
-          }),
-          Gap(8.w),
-          InkWell(
-            onTap: onNext,
-            borderRadius: BorderRadius.circular(8.r),
-            child: Container(
-              padding: EdgeInsets.all(8.r),
-              decoration: BoxDecoration(
-                color: onNext != null
-                    ? AppColors.primaryDark.withValues(alpha: 0.1)
-                    : Colors.grey.shade100,
+              Gap(8.w),
+              Flexible(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(totalPages, (index) {
+                      final selected = index == currentPage;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2.w),
+                        child: InkWell(
+                          onTap: () => onPageSelected(index),
+                          borderRadius: BorderRadius.circular(8.r),
+                          child: Container(
+                            width: 32.w,
+                            height: 32.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: selected
+                                  ? AppColors.primaryDark
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(
+                                color: selected
+                                    ? AppColors.primaryDark
+                                    : Colors.grey.shade300,
+                              ),
+                            ),
+                            child: Text(
+                              '${index + 1}',
+                              style: AppStyles.black14Medium.copyWith(
+                                color: selected
+                                    ? Colors.white
+                                    : Colors.grey.shade700,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ),
+              Gap(8.w),
+              InkWell(
+                onTap: onNext,
                 borderRadius: BorderRadius.circular(8.r),
+                child: Container(
+                  padding: EdgeInsets.all(8.r),
+                  decoration: BoxDecoration(
+                    color: onNext != null
+                        ? AppColors.primaryDark.withValues(alpha: 0.1)
+                        : Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 14.sp,
+                    color: onNext != null
+                        ? AppColors.primaryDark
+                        : Colors.grey.shade400,
+                  ),
+                ),
               ),
-              child: Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 14.sp,
-                color: onNext != null
-                    ? AppColors.primaryDark
-                    : Colors.grey.shade400,
-              ),
-            ),
+            ],
           ),
-          Gap(12.w),
+          Gap(6.h),
           Text(
             'صفحة ${currentPage + 1} من $totalPages',
             style: AppStyles.black14Medium.copyWith(

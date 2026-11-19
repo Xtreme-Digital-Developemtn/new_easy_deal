@@ -13,9 +13,10 @@ class DeveloperProjectsModel {
     return DeveloperProjectsModel(
       status: json['status'] ?? '',
       message: json['message'] ?? '',
-      data: (json['data'] as List?)
-          ?.map((e) => ProjectData.fromJson(e))
-          .toList() ??
+      data:
+          (json['data'] as List?)
+              ?.map((e) => ProjectData.fromJson(e))
+              .toList() ??
           [],
     );
   }
@@ -110,18 +111,15 @@ class ProjectData {
       designer: json['designer'] ?? '',
       projectExecutor: json['projectExecutor'] ?? '',
       managementTeam: json['managementTeam'] ?? '',
-      city: json['city'] != null
-          ? CityModel.fromJson(json['city'])
-          : null,
-      area: json['area'] != null
-          ? AreaModel.fromJson(json['area'])
-          : null,
+      city: json['city'] != null ? CityModel.fromJson(json['city']) : null,
+      area: json['area'] != null ? AreaModel.fromJson(json['area']) : null,
       subArea: json['subArea'] != null
           ? SubAreaModel.fromJson(json['subArea'])
           : null,
-      otherSubAreas: (json['otherSubAreas'] as List?)
-          ?.map((e) => OtherSubAreaModel.fromJson(e))
-          .toList() ??
+      otherSubAreas:
+          (json['otherSubAreas'] as List?)
+              ?.map((e) => OtherSubAreaModel.fromJson(e))
+              .toList() ??
           [],
       type: json['type'] ?? '',
       projectType: json['projectType'] ?? '',
@@ -140,27 +138,26 @@ class ProjectData {
       twinHousesCount: json['twinHousesCount'] ?? 0,
       townHousesCount: json['townHousesCount'] ?? 0,
       standaloneVillasCount: json['standaloneVillasCount'] ?? 0,
-      administrativeUnitsCount:
-      json['administrativeUnitsCount'] ?? 0,
-      commercialUnitsCount:
-      json['commercialUnitsCount'] ?? 0,
-      medicalClinicsCount:
-      json['medicalClinicsCount'] ?? 0,
+      administrativeUnitsCount: json['administrativeUnitsCount'] ?? 0,
+      commercialUnitsCount: json['commercialUnitsCount'] ?? 0,
+      medicalClinicsCount: json['medicalClinicsCount'] ?? 0,
       pharmaciesCount: json['pharmaciesCount'] ?? 0,
       commercialAdministrativeBuildingCount:
-      json['commercialAdministrativeBuildingCount'] ?? 0,
-      models: (json['models'] as List?)
-          ?.map((e) => ProjectUnitModel.fromJson(e))
-          .toList() ??
+          json['commercialAdministrativeBuildingCount'] ?? 0,
+      models:
+          (json['models'] as List?)
+              ?.map((e) => ProjectUnitModel.fromJson(e))
+              .toList() ??
           [],
       logoImage: json['logoImage'] ?? '',
       coverImage: json['coverImage'] ?? '',
       masterPlan: json['masterPlan'] ?? '',
       createdAt: json['created_at'] ?? '',
       updatedAt: json['updated_at'] ?? '',
-      gallery: (json['gallery'] as List?)
-          ?.map((e) => GalleryModel.fromJson(e))
-          .toList() ??
+      gallery:
+          (json['gallery'] as List?)
+              ?.map((e) => GalleryModel.fromJson(e))
+              .toList() ??
           [],
     );
   }
@@ -227,13 +224,16 @@ class ProjectData {
       basementsCount: basementsCount ?? this.basementsCount,
       twinHousesCount: twinHousesCount ?? this.twinHousesCount,
       townHousesCount: townHousesCount ?? this.townHousesCount,
-      standaloneVillasCount: standaloneVillasCount ?? this.standaloneVillasCount,
-      administrativeUnitsCount: administrativeUnitsCount ?? this.administrativeUnitsCount,
+      standaloneVillasCount:
+          standaloneVillasCount ?? this.standaloneVillasCount,
+      administrativeUnitsCount:
+          administrativeUnitsCount ?? this.administrativeUnitsCount,
       commercialUnitsCount: commercialUnitsCount ?? this.commercialUnitsCount,
       medicalClinicsCount: medicalClinicsCount ?? this.medicalClinicsCount,
       pharmaciesCount: pharmaciesCount ?? this.pharmaciesCount,
       commercialAdministrativeBuildingCount:
-      commercialAdministrativeBuildingCount ?? this.commercialAdministrativeBuildingCount,
+          commercialAdministrativeBuildingCount ??
+          this.commercialAdministrativeBuildingCount,
       models: models ?? this.models,
       logoImage: logoImage ?? this.logoImage,
       coverImage: coverImage ?? this.coverImage,
@@ -250,11 +250,7 @@ class CityModel {
   final String nameEn;
   final String nameAr;
 
-  CityModel({
-    required this.id,
-    required this.nameEn,
-    required this.nameAr,
-  });
+  CityModel({required this.id, required this.nameEn, required this.nameAr});
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
     return CityModel(
@@ -335,16 +331,10 @@ class DeveloperModel {
   final int id;
   final int userId;
 
-  DeveloperModel({
-    required this.id,
-    required this.userId,
-  });
+  DeveloperModel({required this.id, required this.userId});
 
   factory DeveloperModel.fromJson(Map<String, dynamic> json) {
-    return DeveloperModel(
-      id: json['id'] ?? 0,
-      userId: json['user_id'] ?? 0,
-    );
+    return DeveloperModel(id: json['id'] ?? 0, userId: json['user_id'] ?? 0);
   }
 }
 
@@ -388,11 +378,7 @@ class GalleryModel {
   final String url;
   final String type;
 
-  GalleryModel({
-    required this.id,
-    required this.url,
-    required this.type,
-  });
+  GalleryModel({required this.id, required this.url, required this.type});
 
   factory GalleryModel.fromJson(Map<String, dynamic> json) {
     return GalleryModel(

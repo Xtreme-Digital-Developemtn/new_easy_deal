@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/data/models/developer_sales_model.dart' hide Project;
+import 'package:easy_deal/features/broker_features/broker_developers/data/models/developer_sales_model.dart'
+    hide Project;
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -61,14 +62,24 @@ class DeveloperSalesTableData extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: onTap != null ? AppColors.primaryDark.withValues(alpha: 0.08) : Colors.grey.shade100,
+            color: onTap != null
+                ? AppColors.primaryDark.withValues(alpha: 0.08)
+                : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(20.r),
-            border: onTap != null ? Border.all(color: AppColors.primaryDark.withValues(alpha: 0.2)) : null,
+            border: onTap != null
+                ? Border.all(
+                    color: AppColors.primaryDark.withValues(alpha: 0.2),
+                  )
+                : null,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 14.sp, color: onTap != null ? AppColors.primaryDark : Colors.grey),
+              Icon(
+                icon,
+                size: 14.sp,
+                color: onTap != null ? AppColors.primaryDark : Colors.grey,
+              ),
               Gap(4.w),
               Flexible(
                 child: Text(
@@ -88,7 +99,9 @@ class DeveloperSalesTableData extends StatelessWidget {
     );
   }
 
-  static final _headerStyle = AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark);
+  static final _headerStyle = AppStyles.black14SemiBold.copyWith(
+    color: AppColors.primaryDark,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -136,69 +149,92 @@ class DeveloperSalesTableData extends StatelessWidget {
             _col(LangKeys.projects.tr(), 150),
             _col(LangKeys.procedures.tr(), 120),
           ],
-          rows: List<DataRow>.generate(
-            data.length,
-            (index) {
-              var item = data[index];
-              final phone = item.phone ?? '';
-              final whatsapp = item.whatsappPhone ?? '';
-              final email = (item.email ?? '').toString();
-              final projectName = item.project?.name ?? LangKeys.notAvailable.tr();
+          rows: List<DataRow>.generate(data.length, (index) {
+            var item = data[index];
+            final phone = item.phone ?? '';
+            final whatsapp = item.whatsappPhone ?? '';
+            final email = (item.email ?? '').toString();
+            final projectName =
+                item.project?.name ?? LangKeys.notAvailable.tr();
 
-              return DataRow(
-                color: index.isEven
-                    ? WidgetStatePropertyAll(AppColors.grayLight.withValues(alpha: 0.08))
-                    : const WidgetStatePropertyAll(Colors.white),
-                cells: [
-                  DataCell(Center(
+            return DataRow(
+              color: index.isEven
+                  ? WidgetStatePropertyAll(
+                      AppColors.grayLight.withValues(alpha: 0.08),
+                    )
+                  : const WidgetStatePropertyAll(Colors.white),
+              cells: [
+                DataCell(
+                  Center(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CircleAvatar(
                           radius: 14.r,
-                          backgroundColor: AppColors.primaryDark.withValues(alpha: 0.12),
-                          child: Icon(Icons.person, size: 14.sp, color: AppColors.primaryDark),
+                          backgroundColor: AppColors.primaryDark.withValues(
+                            alpha: 0.12,
+                          ),
+                          child: Icon(
+                            Icons.person,
+                            size: 14.sp,
+                            color: AppColors.primaryDark,
+                          ),
                         ),
                         Gap(6.w),
                         Expanded(
                           child: Text(
                             item.name ?? LangKeys.notAvailable.tr(),
-                            style: AppStyles.black12Medium.copyWith(fontWeight: FontWeight.w600),
+                            style: AppStyles.black12Medium.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
                     ),
-                  )),
-                  DataCell(
-                    phone.isNotEmpty
-                        ? _actionChip(
-                            icon: Icons.phone_outlined,
-                            label: phone,
-                            onTap: () async {
-                              final uri = Uri.parse('tel:$phone');
-                              if (await canLaunchUrl(uri)) await launchUrl(uri);
-                            },
-                          )
-                        : _cell(LangKeys.notAvailable.tr()),
                   ),
-                  DataCell(
-                    whatsapp.isNotEmpty
-                        ? _actionChip(
-                            icon: Icons.chat_bubble_outline_rounded,
-                            label: whatsapp,
-                            onTap: () async {
-                              final cleaned = whatsapp.replaceAll(RegExp(r'[^0-9]'), '');
-                              final uri = Uri.parse('https://wa.me/$cleaned');
-                              if (await canLaunchUrl(uri)) await launchUrl(uri, mode: LaunchMode.externalApplication);
-                            },
-                          )
-                        : _cell(LangKeys.notAvailable.tr()),
-                  ),
-                  DataCell(email.isNotEmpty ? _chipCell(email) : _cell(LangKeys.notAvailable.tr())),
-                  DataCell(_chipCell(projectName)),
-                  DataCell(Row(
+                ),
+                DataCell(
+                  phone.isNotEmpty
+                      ? _actionChip(
+                          icon: Icons.phone_outlined,
+                          label: phone,
+                          onTap: () async {
+                            final uri = Uri.parse('tel:$phone');
+                            if (await canLaunchUrl(uri)) await launchUrl(uri);
+                          },
+                        )
+                      : _cell(LangKeys.notAvailable.tr()),
+                ),
+                DataCell(
+                  whatsapp.isNotEmpty
+                      ? _actionChip(
+                          icon: Icons.chat_bubble_outline_rounded,
+                          label: whatsapp,
+                          onTap: () async {
+                            final cleaned = whatsapp.replaceAll(
+                              RegExp(r'[^0-9]'),
+                              '',
+                            );
+                            final uri = Uri.parse('https://wa.me/$cleaned');
+                            if (await canLaunchUrl(uri))
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              );
+                          },
+                        )
+                      : _cell(LangKeys.notAvailable.tr()),
+                ),
+                DataCell(
+                  email.isNotEmpty
+                      ? _chipCell(email)
+                      : _cell(LangKeys.notAvailable.tr()),
+                ),
+                DataCell(_chipCell(projectName)),
+                DataCell(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (phone.isNotEmpty)
@@ -214,34 +250,55 @@ class DeveloperSalesTableData extends StatelessWidget {
                               color: Colors.green.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(6.r),
                             ),
-                            child: Icon(Icons.call_rounded, size: 16.sp, color: Colors.green),
+                            child: Icon(
+                              Icons.call_rounded,
+                              size: 16.sp,
+                              color: Colors.green,
+                            ),
                           ),
                         ),
                       if (phone.isNotEmpty && whatsapp.isNotEmpty) Gap(6.w),
                       if (whatsapp.isNotEmpty)
                         InkWell(
                           onTap: () async {
-                            final cleaned = whatsapp.replaceAll(RegExp(r'[^0-9]'), '');
+                            final cleaned = whatsapp.replaceAll(
+                              RegExp(r'[^0-9]'),
+                              '',
+                            );
                             final uri = Uri.parse('https://wa.me/$cleaned');
-                            if (await canLaunchUrl(uri)) await launchUrl(uri, mode: LaunchMode.externalApplication);
+                            if (await canLaunchUrl(uri))
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              );
                           },
                           borderRadius: BorderRadius.circular(6.r),
                           child: Container(
                             padding: EdgeInsets.all(6.r),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF25D366).withValues(alpha: 0.12),
+                              color: const Color(
+                                0xFF25D366,
+                              ).withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(6.r),
                             ),
-                            child: Icon(Icons.chat_rounded, size: 16.sp, color: const Color(0xFF25D366)),
+                            child: Icon(
+                              Icons.chat_rounded,
+                              size: 16.sp,
+                              color: const Color(0xFF25D366),
+                            ),
                           ),
                         ),
-                      if (phone.isEmpty && whatsapp.isEmpty) Text(LangKeys.notAvailable.tr(), style: AppStyles.black12Medium),
+                      if (phone.isEmpty && whatsapp.isEmpty)
+                        Text(
+                          LangKeys.notAvailable.tr(),
+                          style: AppStyles.black12Medium,
+                        ),
                     ],
-                  )),
-                ],
-              );
-            },
-          ),
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );

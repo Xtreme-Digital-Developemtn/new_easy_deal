@@ -19,8 +19,9 @@ class ModelUnitsTableData extends StatelessWidget {
     required this.brokerDataCubit,
   });
 
-  static final _headerStyle =
-      AppStyles.black14SemiBold.copyWith(color: AppColors.primaryDark);
+  static final _headerStyle = AppStyles.black14SemiBold.copyWith(
+    color: AppColors.primaryDark,
+  );
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
@@ -76,7 +77,11 @@ class ModelUnitsTableData extends StatelessWidget {
           color: AppColors.primaryDark.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(6.r),
         ),
-        child: Icon(Icons.map_rounded, size: 18.sp, color: AppColors.primaryDark),
+        child: Icon(
+          Icons.map_rounded,
+          size: 18.sp,
+          color: AppColors.primaryDark,
+        ),
       ),
     );
   }
@@ -89,7 +94,11 @@ class ModelUnitsTableData extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.photo_library_rounded, size: 16.sp, color: AppColors.primaryDark),
+        Icon(
+          Icons.photo_library_rounded,
+          size: 16.sp,
+          color: AppColors.primaryDark,
+        ),
         Gap(4.w),
         Text('$count', style: AppStyles.black12Medium),
       ],
@@ -107,11 +116,14 @@ class ModelUnitsTableData extends StatelessWidget {
         }
         if (state is GetRequestsCheckAdvertisementCountSuccessState) {
           final result = state.requestsCheckAdvertisementCountModel!.data!;
-          final canCreate = result.canCreateAdvertisement ??
+          final canCreate =
+              result.canCreateAdvertisement ??
               (result.currentAdvertisementCount! < result.maxAdvertisements!);
           if (!canCreate) {
             Toast.showErrorToast(
-                msg: 'لقد تخطيت الحد الاقصى من الاعلانات', context: context);
+              msg: 'لقد تخطيت الحد الاقصى من الاعلانات',
+              context: context,
+            );
             return;
           }
           showDialog(
@@ -175,8 +187,14 @@ class ModelUnitsTableData extends StatelessWidget {
               return null;
             }),
             border: TableBorder(
-              horizontalInside: BorderSide(color: Colors.grey.shade100, width: 1),
-              verticalInside: BorderSide(color: Colors.grey.shade50, width: 0.5),
+              horizontalInside: BorderSide(
+                color: Colors.grey.shade100,
+                width: 1,
+              ),
+              verticalInside: BorderSide(
+                color: Colors.grey.shade50,
+                width: 0.5,
+              ),
             ),
             columns: [
               _col(LangKeys.developerName.tr(), 140),
@@ -193,50 +211,50 @@ class ModelUnitsTableData extends StatelessWidget {
               _col(LangKeys.notes.tr(), 160),
               _col(LangKeys.actions.tr(), 90),
             ],
-            rows: List<DataRow>.generate(
-              data.length,
-              (index) {
-                final item = data[index];
-                final na = LangKeys.notAvailable.tr();
-                final areaName = context.locale.languageCode == 'ar'
-                    ? (item.area?.nameAr ?? na)
-                    : (item.area?.nameEn ?? na);
-                final subAreaName = context.locale.languageCode == 'ar'
-                    ? (item.subArea?.nameAr ?? na)
-                    : (item.subArea?.nameEn ?? na);
+            rows: List<DataRow>.generate(data.length, (index) {
+              final item = data[index];
+              final na = LangKeys.notAvailable.tr();
+              final areaName = context.locale.languageCode == 'ar'
+                  ? (item.area?.nameAr ?? na)
+                  : (item.area?.nameEn ?? na);
+              final subAreaName = context.locale.languageCode == 'ar'
+                  ? (item.subArea?.nameAr ?? na)
+                  : (item.subArea?.nameEn ?? na);
 
-                return DataRow(
-                  color: index.isEven
-                      ? WidgetStatePropertyAll(
-                          AppColors.grayLight.withValues(alpha: 0.08))
-                      : const WidgetStatePropertyAll(Colors.white),
-                  cells: [
-                    DataCell(_chipCell(item.developerName ?? na)),
-                    DataCell(_cell(item.projectName ?? na)),
-                    DataCell(_cell(item.type ?? na)),
-                    DataCell(_cell(item.unitOperation ?? na)),
-                    DataCell(_cell(
-                      item.totalPriceInCash != null && item.totalPriceInCash! > 0
+              return DataRow(
+                color: index.isEven
+                    ? WidgetStatePropertyAll(
+                        AppColors.grayLight.withValues(alpha: 0.08),
+                      )
+                    : const WidgetStatePropertyAll(Colors.white),
+                cells: [
+                  DataCell(_chipCell(item.developerName ?? na)),
+                  DataCell(_cell(item.projectName ?? na)),
+                  DataCell(_cell(item.type ?? na)),
+                  DataCell(_cell(item.unitOperation ?? na)),
+                  DataCell(
+                    _cell(
+                      item.totalPriceInCash != null &&
+                              item.totalPriceInCash! > 0
                           ? '${item.totalPriceInCash} ${LangKeys.egp.tr()}'
                           : na,
-                    )),
-                    DataCell(_cell(
-                      item.unitArea != null ? '${item.unitArea} m²' : na,
-                    )),
-                    DataCell(_cell(areaName)),
-                    DataCell(_cell(subAreaName)),
-                    DataCell(_galleryCell(item.gallery)),
-                    DataCell(_cell(item.deliveryDate ?? na)),
-                    DataCell(_iconLinkCell(item.location)),
-                    DataCell(_cell(item.additionalDetails?.notes ?? na)),
-                    DataCell(_ActionsCell(
-                      item: item,
-                      brokerDataCubit: brokerDataCubit,
-                    )),
-                  ],
-                );
-              },
-            ),
+                    ),
+                  ),
+                  DataCell(
+                    _cell(item.unitArea != null ? '${item.unitArea} m²' : na),
+                  ),
+                  DataCell(_cell(areaName)),
+                  DataCell(_cell(subAreaName)),
+                  DataCell(_galleryCell(item.gallery)),
+                  DataCell(_cell(item.deliveryDate ?? na)),
+                  DataCell(_iconLinkCell(item.location)),
+                  DataCell(_cell(item.additionalDetails?.notes ?? na)),
+                  DataCell(
+                    _ActionsCell(item: item, brokerDataCubit: brokerDataCubit),
+                  ),
+                ],
+              );
+            }),
           ),
         ),
       ),
@@ -273,9 +291,8 @@ class _ActionsCellState extends State<_ActionsCell> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => UnitDetailsFromModelView(
-                      unitId: widget.item.id!,
-                    ),
+                    builder: (_) =>
+                        UnitDetailsFromModelView(unitId: widget.item.id!),
                   ),
                 );
               }
@@ -341,12 +358,17 @@ class _ActionsCellState extends State<_ActionsCell> {
                       color: AppColors.primaryDark.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.r),
                     ),
-                    child: Icon(Icons.visibility_rounded,
-                        size: 16.sp, color: AppColors.primaryDark),
+                    child: Icon(
+                      Icons.visibility_rounded,
+                      size: 16.sp,
+                      color: AppColors.primaryDark,
+                    ),
                   ),
                   Gap(10.w),
-                  Text(LangKeys.viewDetails.tr(),
-                      style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
+                  Text(
+                    LangKeys.viewDetails.tr(),
+                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
+                  ),
                 ],
               ),
             ),
@@ -354,71 +376,92 @@ class _ActionsCellState extends State<_ActionsCell> {
 
           // جعل كإعلان — تظهر بس لو مفيش معلنين
           if (!widget.item.hasAdvertisers) {
-            items.add(PopupMenuItem<String>(
-              value: 'featured',
+            items.add(
+              PopupMenuItem<String>(
+                value: 'featured',
+                height: 44.h,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(5.r),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(6.r),
+                      ),
+                      child: Icon(
+                        Icons.campaign_rounded,
+                        size: 16.sp,
+                        color: Colors.orange,
+                      ),
+                    ),
+                    Gap(10.w),
+                    Text(
+                      'جعل كإعلان',
+                      style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          // إرسال طلب
+          items.add(
+            PopupMenuItem<String>(
+              value: 'makeRequest',
               height: 44.h,
               child: Row(
                 children: [
                   Container(
                     padding: EdgeInsets.all(5.r),
                     decoration: BoxDecoration(
-                      color: Colors.orange.withValues(alpha: 0.1),
+                      color: Colors.blue.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.r),
                     ),
-                    child: Icon(Icons.campaign_rounded,
-                        size: 16.sp, color: Colors.orange),
+                    child: Icon(
+                      Icons.assignment_rounded,
+                      size: 16.sp,
+                      color: Colors.blue,
+                    ),
                   ),
                   Gap(10.w),
-                  Text('جعل كإعلان',
-                      style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
+                  Text(
+                    'إرسال طلب',
+                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
+                  ),
                 ],
               ),
-            ));
-          }
-
-          // إرسال طلب
-          items.add(PopupMenuItem<String>(
-            value: 'makeRequest',
-            height: 44.h,
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5.r),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6.r),
-                  ),
-                  child: Icon(Icons.assignment_rounded,
-                      size: 16.sp, color: Colors.blue),
-                ),
-                Gap(10.w),
-                Text('إرسال طلب',
-                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
-              ],
             ),
-          ));
+          );
 
           // إرسال رد
-          items.add(PopupMenuItem<String>(
-            value: 'reply',
-            height: 44.h,
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5.r),
-                  decoration: BoxDecoration(
-                    color: Colors.green.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(6.r),
+          items.add(
+            PopupMenuItem<String>(
+              value: 'reply',
+              height: 44.h,
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5.r),
+                    decoration: BoxDecoration(
+                      color: Colors.green.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
+                    child: Icon(
+                      Icons.reply_rounded,
+                      size: 16.sp,
+                      color: Colors.green,
+                    ),
                   ),
-                  child: Icon(Icons.reply_rounded,
-                      size: 16.sp, color: Colors.green),
-                ),
-                Gap(10.w),
-                Text('إرسال رد',
-                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp)),
-              ],
+                  Gap(10.w),
+                  Text(
+                    'إرسال رد',
+                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
+                  ),
+                ],
+              ),
             ),
-          ));
+          );
 
           return items;
         },

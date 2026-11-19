@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/view_model/broker_developers_cubit.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/view_model/broker_developers_states.dart';
@@ -16,27 +17,60 @@ class ContractRequestDialog extends StatefulWidget {
 
 class _ContractRequestDialogState extends State<ContractRequestDialog> {
   @override
+  void dispose() {
+    // الصور المختارة متخزّنة في الكيوبت، فلو اتقفلت الديالوج من غير إرسال
+    // لازم تتمسح عشان ماتتبعتش مع طلب مطوّر تاني.
+    _cubit?.clearContractFiles();
+    super.dispose();
+  }
+
+  BrokerDevelopersCubit? _cubit;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _cubit = context.read<BrokerDevelopersCubit>();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final brokerId = CacheHelper.getData(key: "brokerId") ?? 0;
-    final accountType = context.read<ProfileCubit>().clientProfileModel?.data?.type;
+    final accountType = context
+        .read<ProfileCubit>()
+        .clientProfileModel
+        ?.data
+        ?.type;
     final isCompany = accountType == 'real_estate_brokage_company';
 
     return BlocConsumer<BrokerDevelopersCubit, BrokerDevelopersStates>(
       listener: (context, state) {
         if (state is ContractRequestSuccessState) {
           final cubit = context.read<BrokerDevelopersCubit>();
+          final navigator = Navigator.of(context);
+          // context بتاع الديالوج بيتفكّ بعد الـ pop، فبنستخدم context
+          // الـ Navigator اللي فاضل متركّب عشان التوست تظهر.
+          final toastContext = navigator.context;
           Future.microtask(() {
             try {
               if (context.mounted) {
-                Navigator.pop(context);
-                Toast.showSuccessToast(msg: state.message, context: context);
+                navigator.pop();
               }
-              cubit.getDevelopers();
+              if (toastContext.mounted) {
+                Toast.showSuccessToast(
+                  msg: state.message,
+                  context: toastContext,
+                );
+              }
+              // بنرجّع نفس الفلاتر المطبّقة عشان الجدول مايرجعش لكل المطورين.
+              cubit.getDevelopers(filters: cubit.currentFilters);
             } catch (_) {}
           });
         }
         if (state is ContractRequestErrorState) {
-          Toast.showErrorToast(msg: state.error, context: context);
+          Toast.showErrorToast(
+            msg: localizeErrorMessage(state.error),
+            context: context,
+          );
         }
       },
       builder: (context, state) {
@@ -44,7 +78,9 @@ class _ContractRequestDialogState extends State<ContractRequestDialog> {
         final isLoading = state is ContractRequestLoadingState;
 
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
           insetPadding: EdgeInsets.all(20.w),
           child: Padding(
             padding: EdgeInsets.all(24.r),
@@ -160,25 +196,33 @@ class _ContractRequestDialogState extends State<ContractRequestDialog> {
               color: AppColors.grayLight.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
-                color: file != null ? AppColors.primaryDark : Colors.grey.shade300,
+                color: file != null
+                    ? AppColors.primaryDark
+                    : Colors.grey.shade300,
                 width: 1.5,
               ),
             ),
             child: Row(
               children: [
                 Icon(
-                  file != null ? Icons.check_circle : Icons.cloud_upload_outlined,
+                  file != null
+                      ? Icons.check_circle
+                      : Icons.cloud_upload_outlined,
                   color: file != null ? Colors.green : AppColors.primaryDark,
                   size: 22.r,
                 ),
                 Gap(12.w),
                 Expanded(
                   child: Text(
-                    file != null ? file.path.split('/').last : 'اضغط لاختيار ملف',
+                    file != null
+                        ? file.path.split('/').last
+                        : 'اضغط لاختيار ملف',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: AppStyles.black14Medium.copyWith(
-                      color: file != null ? Colors.black87 : AppColors.grayMedium,
+                      color: file != null
+                          ? Colors.black87
+                          : AppColors.grayMedium,
                     ),
                   ),
                 ),

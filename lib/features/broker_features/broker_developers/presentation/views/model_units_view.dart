@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
 import 'package:easy_deal/core/shared_widgets/container_search_widget.dart';
 import 'package:easy_deal/features/broker_features/boker_data/data/models/broker_units_model.dart';
@@ -79,7 +80,7 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(state.error),
+                      Text(localizeErrorMessage(state.error)),
                       Gap(16.h),
                       CustomButton(
                         text: LangKeys.reload,

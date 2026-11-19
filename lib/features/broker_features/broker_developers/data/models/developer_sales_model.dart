@@ -1,4 +1,3 @@
-
 class DeveloperSalesModel {
   String? status;
   String? message;
@@ -10,7 +9,9 @@ class DeveloperSalesModel {
   DeveloperSalesModel.fromJson(Map<String, dynamic> json) {
     status = json["status"];
     message = json["message"];
-    data = json["data"] == null ? null : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
+    data = json["data"] == null
+        ? null
+        : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
     count = json["count"];
   }
 
@@ -18,7 +19,7 @@ class DeveloperSalesModel {
     final Map<String, dynamic> _data = <String, dynamic>{};
     _data["status"] = status;
     _data["message"] = message;
-    if(data != null) {
+    if (data != null) {
       _data["data"] = data?.map((e) => e.toJson()).toList();
     }
     _data["count"] = count;
@@ -38,7 +39,18 @@ class Data {
   String? createdAt;
   String? updatedAt;
 
-  Data({this.id, this.developerId, this.projectId, this.name, this.email, this.phone, this.whatsappPhone, this.project, this.createdAt, this.updatedAt});
+  Data({
+    this.id,
+    this.developerId,
+    this.projectId,
+    this.name,
+    this.email,
+    this.phone,
+    this.whatsappPhone,
+    this.project,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -48,7 +60,9 @@ class Data {
     email = json["email"];
     phone = json["phone"];
     whatsappPhone = json["whatsapp_phone"];
-    project = json["project"] == null ? null : Project.fromJson(json["project"]);
+    project = json["project"] == null
+        ? null
+        : Project.fromJson(json["project"]);
     createdAt = json["created_at"];
     updatedAt = json["updated_at"];
   }
@@ -62,7 +76,7 @@ class Data {
     _data["email"] = email;
     _data["phone"] = phone;
     _data["whatsapp_phone"] = whatsappPhone;
-    if(project != null) {
+    if (project != null) {
       _data["project"] = project?.toJson();
     }
     _data["created_at"] = createdAt;

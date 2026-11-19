@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_sales_table_data.dart';
@@ -13,7 +14,11 @@ import '../view_model/broker_developers_states.dart';
 class DeveloperSalesView extends StatefulWidget {
   final int developerId;
   final int? projectId;
-  const DeveloperSalesView({super.key, required this.developerId, this.projectId});
+  const DeveloperSalesView({
+    super.key,
+    required this.developerId,
+    this.projectId,
+  });
 
   @override
   State<DeveloperSalesView> createState() => _DeveloperSalesViewState();
@@ -50,12 +55,15 @@ class _DeveloperSalesViewState extends State<DeveloperSalesView> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(state.error),
+                    Text(localizeErrorMessage(state.error)),
                     Gap(16.h),
                     CustomButton(
                       text: LangKeys.reload,
                       onPressed: () {
-                        _cubit.getDeveloperSales(widget.developerId, projectId: widget.projectId);
+                        _cubit.getDeveloperSales(
+                          widget.developerId,
+                          projectId: widget.projectId,
+                        );
                       },
                     ),
                   ],
@@ -98,7 +106,11 @@ class _DeveloperSalesViewState extends State<DeveloperSalesView> {
                             color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12.r),
                           ),
-                          child: Icon(Icons.support_agent_rounded, color: Colors.white, size: 24.r),
+                          child: Icon(
+                            Icons.support_agent_rounded,
+                            color: Colors.white,
+                            size: 24.r,
+                          ),
                         ),
                         Gap(14.w),
                         Expanded(
@@ -129,9 +141,7 @@ class _DeveloperSalesViewState extends State<DeveloperSalesView> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: DeveloperSalesTableData(data: data),
-                  ),
+                  Expanded(child: DeveloperSalesTableData(data: data)),
                 ],
               );
             }

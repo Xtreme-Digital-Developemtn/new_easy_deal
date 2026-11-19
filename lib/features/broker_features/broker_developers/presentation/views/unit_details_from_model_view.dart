@@ -60,8 +60,11 @@ class _UnitDetailsFromModelViewState extends State<UnitDetailsFromModelView> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.error_outline,
-                        size: 48.sp, color: AppColors.grayMedium),
+                    Icon(
+                      Icons.error_outline,
+                      size: 48.sp,
+                      color: AppColors.grayMedium,
+                    ),
                     Gap(12.h),
                     Text(
                       state.error,
@@ -108,11 +111,19 @@ class _UnitDetailsBody extends StatelessWidget {
       children: [
         // ── صورة + نوع + موقع ──────────────────────────────────────────
         UnitImageTypeLocation(
-          image: unit.diagram != null && unit.diagram.toString().isNotEmpty ? unit.diagram : null,
+          image: unit.diagram != null && unit.diagram.toString().isNotEmpty
+              ? unit.diagram
+              : null,
           apartment: tr(unit.type),
-          city: isAr ? unit.city?.nameAr?.toString() ?? '' : unit.city?.nameEn?.toString() ?? '',
-          area: isAr ? unit.area?.nameAr?.toString() ?? '' : unit.area?.nameEn?.toString() ?? '',
-          subArea: isAr ? unit.subArea?.nameAr?.toString() ?? '' : unit.subArea?.nameEn?.toString() ?? '',
+          city: isAr
+              ? unit.city?.nameAr?.toString() ?? ''
+              : unit.city?.nameEn?.toString() ?? '',
+          area: isAr
+              ? unit.area?.nameAr?.toString() ?? ''
+              : unit.area?.nameEn?.toString() ?? '',
+          subArea: isAr
+              ? unit.subArea?.nameAr?.toString() ?? ''
+              : unit.subArea?.nameEn?.toString() ?? '',
         ),
         Gap(20.h),
 
@@ -135,10 +146,7 @@ class _UnitDetailsBody extends StatelessWidget {
               label: LangKeys.developerName.tr(),
               value: unit.developerName,
             ),
-            _InfoRow(
-              label: LangKeys.projectName.tr(),
-              value: unit.projectName,
-            ),
+            _InfoRow(label: LangKeys.projectName.tr(), value: unit.projectName),
             _InfoRow(
               label: LangKeys.operationManagement.tr(),
               value: unit.project.managementTeam,
@@ -166,24 +174,30 @@ class _UnitDetailsBody extends StatelessWidget {
             _InfoRow(label: LangKeys.floor.tr(), value: unit.floor),
             _InfoRow(label: LangKeys.unitType.tr(), value: tr(unit.type)),
             _InfoRow(
-                label: LangKeys.operationType.tr(),
-                value: tr(unit.unitOperation)),
+              label: LangKeys.operationType.tr(),
+              value: tr(unit.unitOperation),
+            ),
             _InfoRow(
-                label: LangKeys.compoundType.tr(),
-                value: tr(unit.compoundType)),
+              label: LangKeys.compoundType.tr(),
+              value: tr(unit.compoundType),
+            ),
             _InfoRow(label: LangKeys.theView.tr(), value: tr(unit.view)),
             _InfoRow(
-                label: LangKeys.finishingCondition.tr(),
-                value: tr(unit.finishingType)),
+              label: LangKeys.finishingCondition.tr(),
+              value: tr(unit.finishingType),
+            ),
             _InfoRow(
-                label: LangKeys.deliveryStatus.tr(),
-                value: tr(unit.deliveryStatus)),
+              label: LangKeys.deliveryStatus.tr(),
+              value: tr(unit.deliveryStatus),
+            ),
             _InfoRow(
-                label: LangKeys.deliveryDate.tr(),
-                value: unit.deliveryDate.isNotEmpty ? unit.deliveryDate : na),
+              label: LangKeys.deliveryDate.tr(),
+              value: unit.deliveryDate.isNotEmpty ? unit.deliveryDate : na,
+            ),
             _InfoRow(
-                label: LangKeys.paymentSystem.tr(),
-                value: tr(unit.paymentSystem)),
+              label: LangKeys.paymentSystem.tr(),
+              value: tr(unit.paymentSystem),
+            ),
           ],
         ),
         Gap(16.h),
@@ -216,14 +230,12 @@ class _UnitDetailsBody extends StatelessWidget {
         Gap(16.h),
 
         // ── المميزات ──────────────────────────────────────────────────
-          if (unit.otherAccessories!.isNotEmpty) ...[
-            UnitFeatures(
-              otherAccessories:
-                  unit.otherAccessories!.map((e) => tr(e)).toList(),
-            ),
-            Gap(16.h),
-          ],
-
+        if (unit.otherAccessories!.isNotEmpty) ...[
+          UnitFeatures(
+            otherAccessories: unit.otherAccessories!.map((e) => tr(e)).toList(),
+          ),
+          Gap(16.h),
+        ],
 
         // ── المعرض ───────────────────────────────────────────────────
         if (unit.gallery.isNotEmpty) ...[
@@ -241,8 +253,9 @@ class _UnitDetailsBody extends StatelessWidget {
                 _InfoRow(label: LangKeys.fullName.tr(), value: unit.ownerName!),
               if (unit.ownerPhone != null)
                 _InfoRow(
-                    label: LangKeys.phoneNumber.tr(),
-                    value: unit.ownerPhone!),
+                  label: LangKeys.phoneNumber.tr(),
+                  value: unit.ownerPhone!,
+                ),
             ],
           ),
         Gap(16.h),
@@ -271,8 +284,11 @@ class _InfoCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final List<Widget> children;
-  const _InfoCard(
-      {required this.icon, required this.title, required this.children});
+  const _InfoCard({
+    required this.icon,
+    required this.title,
+    required this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -315,10 +331,7 @@ class _InfoRow extends StatelessWidget {
         children: [
           SizedBox(
             width: 140.w,
-            child: Text(
-              label,
-              style: AppStyles.gray12Medium,
-            ),
+            child: Text(label, style: AppStyles.gray12Medium),
           ),
           Gap(8.w),
           Expanded(
@@ -353,16 +366,18 @@ class _GallerySection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.photo_library_rounded,
-                  size: 18.sp, color: AppColors.primaryDark),
-              Gap(8.w),
-              Text(LangKeys.galleryImages.tr(),
-                  style: AppStyles.blueDark14Bold),
-              Gap(6.w),
-              Text(
-                '(${gallery.length})',
-                style: AppStyles.gray12Medium,
+              Icon(
+                Icons.photo_library_rounded,
+                size: 18.sp,
+                color: AppColors.primaryDark,
               ),
+              Gap(8.w),
+              Text(
+                LangKeys.galleryImages.tr(),
+                style: AppStyles.blueDark14Bold,
+              ),
+              Gap(6.w),
+              Text('(${gallery.length})', style: AppStyles.gray12Medium),
             ],
           ),
           Gap(12.h),
@@ -380,8 +395,11 @@ class _GallerySection extends StatelessWidget {
                       ? Container(
                           width: 100.w,
                           color: Colors.black12,
-                          child: Icon(Icons.play_circle_fill_rounded,
-                              size: 36.sp, color: AppColors.primaryDark),
+                          child: Icon(
+                            Icons.play_circle_fill_rounded,
+                            size: 36.sp,
+                            color: AppColors.primaryDark,
+                          ),
                         )
                       : CustomNetWorkImage(
                           width: 100.w,

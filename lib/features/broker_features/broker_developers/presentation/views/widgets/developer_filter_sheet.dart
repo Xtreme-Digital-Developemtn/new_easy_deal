@@ -55,10 +55,7 @@ class DeveloperFilterResult {
   }
 }
 
-final _compoundOptions = [
-  'inside_compound',
-  'outside_compound',
-];
+final _compoundOptions = ['inside_compound', 'outside_compound'];
 
 final _unitTypeOptions = [
   'apartments',
@@ -136,8 +133,7 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
             ),
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius:
-                  BorderRadius.vertical(top: Radius.circular(20.0.r)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.r)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -148,8 +144,7 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                       left: 20.w,
                       right: 20.w,
                       top: 20.h,
-                      bottom: MediaQuery.of(context).viewInsets.bottom +
-                          20.h,
+                      bottom: MediaQuery.of(context).viewInsets.bottom + 20.h,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,11 +161,12 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                         ),
                         Gap(20.h),
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(LangKeys.filter.tr(),
-                                style: AppStyles.black20Bold),
+                            Text(
+                              LangKeys.filter.tr(),
+                              style: AppStyles.black20Bold,
+                            ),
                             if (currentFilters != null &&
                                 currentFilters.hasFilters)
                               InkWell(
@@ -185,8 +181,10 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                                   priceFromController.clear();
                                   priceToController.clear();
                                 }),
-                                child: Text(LangKeys.clearAll.tr(),
-                                    style: AppStyles.primary14Medium),
+                                child: Text(
+                                  LangKeys.clearAll.tr(),
+                                  style: AppStyles.primary14Medium,
+                                ),
                               ),
                           ],
                         ),
@@ -197,10 +195,9 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                           label: LangKeys.compoundType.tr(),
                           value: selectedCompoundType,
                           items: _compoundOptions,
-                          displayFn: (v) =>
-                              BrokerTextHelper.projectTypeText(v),
-                          onChanged: (v) => setState(
-                              () => selectedCompoundType = v),
+                          displayFn: (v) => BrokerTextHelper.projectTypeText(v),
+                          onChanged: (v) =>
+                              setState(() => selectedCompoundType = v),
                         ),
                         Gap(16.h),
 
@@ -208,16 +205,13 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                         _buildDropdown<int>(
                           label: LangKeys.city.tr(),
                           value: selectedCity,
-                          items: cities
-                              .map((c) => c['id'] as int)
-                              .toList(),
+                          items: cities.map((c) => c['id'] as int).toList(),
                           displayFn: (id) {
                             final city = cities.firstWhere(
                               (c) => c['id'] == id,
                               orElse: () => {'name_ar': id.toString()},
                             );
-                            return city['name_ar']?.toString() ??
-                                id.toString();
+                            return city['name_ar']?.toString() ?? id.toString();
                           },
                           onChanged: (v) async {
                             selectedCity = v;
@@ -244,11 +238,9 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                               (a) => a['id'] == id,
                               orElse: () => {'name_ar': id.toString()},
                             );
-                            return area['name_ar']?.toString() ??
-                                id.toString();
+                            return area['name_ar']?.toString() ?? id.toString();
                           },
-                          onChanged: (v) =>
-                              setState(() => selectedArea = v),
+                          onChanged: (v) => setState(() => selectedArea = v),
                         ),
                         Gap(16.h),
 
@@ -258,8 +250,8 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                           value: selectedUnitType,
                           items: _unitTypeOptions,
                           displayFn: (v) => v.tr(),
-                          onChanged: (v) => setState(
-                              () => selectedUnitType = v),
+                          onChanged: (v) =>
+                              setState(() => selectedUnitType = v),
                         ),
                         Gap(16.h),
 
@@ -269,14 +261,12 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                           value: selectedView,
                           items: _viewOptions,
                           displayFn: (v) => _viewText(v),
-                          onChanged: (v) =>
-                              setState(() => selectedView = v),
+                          onChanged: (v) => setState(() => selectedView = v),
                         ),
                         Gap(16.h),
 
                         // Area Range
-                        Text('المساحة (م²)',
-                            style: AppStyles.black16SemiBold),
+                        Text('المساحة (م²)', style: AppStyles.black16SemiBold),
                         Gap(8.h),
                         Row(
                           children: [
@@ -298,8 +288,7 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                         Gap(16.h),
 
                         // Price Range
-                        Text('السعر (ج.م)',
-                            style: AppStyles.black16SemiBold),
+                        Text('السعر (ج.م)', style: AppStyles.black16SemiBold),
                         Gap(8.h),
                         Row(
                           children: [
@@ -346,9 +335,16 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                               gradientColors: false,
                               color: Colors.white,
                               textColor: AppColors.primaryDark,
-                              borderColor: BorderSide(color: AppColors.primaryDark),
+                              borderColor: BorderSide(
+                                color: AppColors.primaryDark,
+                              ),
                               onPressed: () {
-                                Navigator.pop(context, null);
+                                // نتيجة فاضية (مش null) عشان الشاشة تفرّق بين
+                                // «إعادة تعيين» وبين قفل الشيت من غير قرار.
+                                Navigator.pop(
+                                  context,
+                                  const DeveloperFilterResult(),
+                                );
                               },
                             ),
                           ),
@@ -364,17 +360,15 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                                   unitType: selectedUnitType,
                                   view: selectedView,
                                   areaFrom: int.tryParse(
-                                      areaFromController.text),
-                                  areaTo: int.tryParse(
-                                      areaToController.text),
+                                    areaFromController.text,
+                                  ),
+                                  areaTo: int.tryParse(areaToController.text),
                                   priceFrom: int.tryParse(
-                                      priceFromController.text),
-                                  priceTo: int.tryParse(
-                                      priceToController.text),
+                                    priceFromController.text,
+                                  ),
+                                  priceTo: int.tryParse(priceToController.text),
                                 );
-                                Navigator.pop(
-                                    context,
-                                    result.hasFilters ? result : null);
+                                Navigator.pop(context, result);
                               },
                             ),
                           ),
@@ -411,11 +405,12 @@ Widget _buildDropdown<T>({
               onTap: () => onChanged(null),
               child: Row(
                 children: [
-                  Text(LangKeys.clearSelection.tr(),
-                      style: AppStyles.primary14Medium),
+                  Text(
+                    LangKeys.clearSelection.tr(),
+                    style: AppStyles.primary14Medium,
+                  ),
                   Gap(4.w),
-                  Icon(Icons.close,
-                      size: 16.sp, color: AppColors.primaryDark),
+                  Icon(Icons.close, size: 16.sp, color: AppColors.primaryDark),
                 ],
               ),
             ),
@@ -432,19 +427,19 @@ Widget _buildDropdown<T>({
           child: DropdownButton<T>(
             value: value,
             isExpanded: true,
-            hint: Text(LangKeys.selectAll.tr(),
-                style: AppStyles.black14Medium),
+            hint: Text(LangKeys.selectAll.tr(), style: AppStyles.black14Medium),
             items: [
               DropdownMenuItem<T>(
                 value: null,
-                child: Text(LangKeys.clearSelection.tr(),
-                    style: AppStyles.black14Medium),
+                child: Text(
+                  LangKeys.clearSelection.tr(),
+                  style: AppStyles.black14Medium,
+                ),
               ),
               ...items.map(
                 (item) => DropdownMenuItem<T>(
                   value: item,
-                  child: Text(displayFn(item),
-                      style: AppStyles.black14Medium),
+                  child: Text(displayFn(item), style: AppStyles.black14Medium),
                 ),
               ),
             ],
@@ -465,9 +460,7 @@ Widget _buildNumberField({
     keyboardType: TextInputType.number,
     decoration: InputDecoration(
       hintText: label,
-      hintStyle: AppStyles.black14Medium.copyWith(
-        color: Colors.grey,
-      ),
+      hintStyle: AppStyles.black14Medium.copyWith(color: Colors.grey),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
         borderSide: BorderSide(color: Colors.grey.shade300),
@@ -480,10 +473,7 @@ Widget _buildNumberField({
         borderRadius: BorderRadius.circular(8.r),
         borderSide: BorderSide(color: AppColors.primaryDark),
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: 12.w,
-        vertical: 12.h,
-      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
     ),
     style: AppStyles.black14Medium,
   );

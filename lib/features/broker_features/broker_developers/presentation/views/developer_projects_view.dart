@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'dart:async';
 
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
@@ -202,7 +203,7 @@ class _DeveloperProjectsViewState extends State<DeveloperProjectsView> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(state.error),
+                        Text(localizeErrorMessage(state.error)),
                         Gap(16.h),
                         CustomButton(text: LangKeys.reload, onPressed: _reload),
                       ],
