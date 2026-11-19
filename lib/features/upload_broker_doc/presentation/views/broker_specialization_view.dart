@@ -17,10 +17,8 @@ class BrokerSpecializationView extends StatefulWidget {
   final String role;
   final String phone;
   final String? profileImagePath;
-  final String? frontIdPath;
-  final String? backIdPath;
-  final String? commercialRegistryImagePath;
-  final String? taxCardImagePath;
+  final int? areaId;
+  final int? subAreaId;
 
   const BrokerSpecializationView({
     super.key,
@@ -33,53 +31,44 @@ class BrokerSpecializationView extends StatefulWidget {
     required this.role,
     required this.phone,
     this.profileImagePath,
-    this.frontIdPath,
-    this.backIdPath,
-    this.commercialRegistryImagePath,
-    this.taxCardImagePath,
+    this.areaId,
+    this.subAreaId,
   });
 
   @override
   State<BrokerSpecializationView> createState() => _BrokerSpecializationViewState();
 }
 
-class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
-  /// التخصص الأساسي: واحد فقط.
-  String? _mainCategory;
+/// أقصى عدد تخصصات فرعية يقدر الوسيط يختارها عند إنشاء الحساب.
+const int _maxSubSpecializations = 4;
 
-  /// التخصصات الفرعية التابعة للتخصص الأساسي المختار: متعددة.
+class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
+  /// التخصصات الفرعية المختارة من أي تخصص أساسي، من 1 لحد 4.
+  /// بنخزّن (التخصص الأساسي + الفرعي) مع بعض لأن نفس التخصص الفرعي ممكن
+  /// يتكرر تحت أكتر من تخصص أساسي (مثلاً primary و resale داخل الكمبوند).
   final List<String> _selectedSubs = [];
 
-  bool get _hasSelection => _mainCategory != null && _selectedSubs.isNotEmpty;
+  String _entry(String category, String sub) => '$category|$sub';
 
-  void _selectMainCategory(String category) {
-    if (_mainCategory == category) return;
-    setState(() {
-      _mainCategory = category;
-      _selectedSubs.clear();
-    });
-  }
+  bool get _hasSelection => _selectedSubs.isNotEmpty;
 
-  void _toggleSubCategory(String subValue) {
-    setState(() {
-      if (_selectedSubs.contains(subValue)) {
-        _selectedSubs.remove(subValue);
-      } else {
-        _selectedSubs.add(subValue);
-      }
-    });
-  }
+  bool get _reachedMax => _selectedSubs.length >= _maxSubSpecializations;
 
-  void _toggleAllSubs(List<String> subOptions) {
-    setState(() {
-      if (_selectedSubs.length == subOptions.length) {
-        _selectedSubs.clear();
-      } else {
-        _selectedSubs
-          ..clear()
-          ..addAll(subOptions);
-      }
-    });
+  void _toggleSubCategory(String category, String sub) {
+    final entry = _entry(category, sub);
+    if (_selectedSubs.contains(entry)) {
+      setState(() => _selectedSubs.remove(entry));
+      return;
+    }
+    if (_reachedMax) {
+      Toast.showErrorToast(
+        msg: LangKeys.maxSubSpecializationsReached
+            .tr(args: ['$_maxSubSpecializations']),
+        context: context,
+      );
+      return;
+    }
+    setState(() => _selectedSubs.add(entry));
   }
 
   @override
@@ -102,13 +91,28 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '${LangKeys.mainSpecialization.tr()} *',
-                  style: AppStyles.black16SemiBold,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${LangKeys.subSpecializations.tr()} *',
+                        style: AppStyles.black16SemiBold,
+                      ),
+                    ),
+                    Text(
+                      '${_selectedSubs.length}/$_maxSubSpecializations',
+                      style: AppStyles.black14SemiBold.copyWith(
+                        color: _reachedMax
+                            ? AppColors.errorDark
+                            : AppColors.primaryDark,
+                      ),
+                    ),
+                  ],
                 ),
                 Gap(4.h),
                 Text(
-                  LangKeys.selectMainSpecializationHint.tr(),
+                  LangKeys.selectSubSpecializationsHint
+                      .tr(args: ['$_maxSubSpecializations']),
                   style: AppStyles.gray12Regular,
                 ),
                 Gap(20.h),
@@ -120,134 +124,93 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
                       final option = specializationScopeOptions[index];
                       final subOptions =
                           specializationScopeSubOptions[option.value] ?? [];
-                      final isMain = _mainCategory == option.value;
-                      final isAllSelected = isMain &&
-                          subOptions.isNotEmpty &&
-                          _selectedSubs.length == subOptions.length;
 
                       return Container(
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
-                            color: isMain
-                                ? AppColors.primaryDark
-                                : AppColors.grayLight,
-                            width: isMain ? 2 : 1,
+                            color: AppColors.grayLight,
                           ),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () => _selectMainCategory(option.value),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.w, vertical: 14.h),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      isMain
-                                          ? Icons.radio_button_checked
-                                          : Icons.radio_button_unchecked,
-                                      color: isMain
-                                          ? AppColors.primaryDark
-                                          : AppColors.gray,
-                                      size: 24.r,
-                                    ),
-                                    Gap(12.w),
-                                    Expanded(
-                                      child: Text(
-                                        option.translationKey != null
-                                            ? option.translationKey!.tr()
-                                            : option.key,
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    if (isMain && subOptions.isNotEmpty)
-                                      GestureDetector(
-                                        onTap: () => _toggleAllSubs(subOptions),
-                                        child: Icon(
-                                          isAllSelected
-                                              ? Icons.check_box
-                                              : _selectedSubs.isNotEmpty
-                                                  ? Icons.indeterminate_check_box
-                                                  : Icons.check_box_outline_blank,
-                                          color: _selectedSubs.isNotEmpty
-                                              ? AppColors.primaryDark
-                                              : AppColors.gray,
-                                          size: 22.r,
-                                        ),
-                                      ),
-                                  ],
+                            // التخصص الأساسي عنوان للمجموعة بس، مش اختيار.
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 14.h),
+                              child: Text(
+                                option.translationKey != null
+                                    ? option.translationKey!.tr()
+                                    : option.key,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.primaryDark,
                                 ),
                               ),
                             ),
-                            if (isMain && subOptions.isNotEmpty) ...[
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 52.w, right: 16.w, bottom: 8.h),
-                                child: Align(
-                                  alignment: AlignmentDirectional.centerStart,
-                                  child: Text(
-                                    '${LangKeys.subSpecializations.tr()} *',
-                                    style: AppStyles.gray12Regular,
-                                  ),
-                                ),
-                              ),
-                              ...subOptions.map(
-                                (sub) => GestureDetector(
-                                  onTap: () => _toggleSubCategory(sub),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 52.w,
-                                        right: 16.w,
-                                        bottom: 12.h),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          _selectedSubs.contains(sub)
-                                              ? Icons.check_box
-                                              : Icons.check_box_outline_blank,
-                                          color: _selectedSubs.contains(sub)
-                                              ? AppColors.primaryDark
-                                              : AppColors.gray,
-                                          size: 20.r,
-                                        ),
-                                        Gap(8.w),
-                                        Expanded(
-                                          child: Text(
-                                            _subLabel(sub),
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: AppColors.black
-                                                  .withOpacity(0.8),
-                                            ),
+                            ...subOptions.map((sub) {
+                              final isSelected =
+                                  _selectedSubs.contains(_entry(option.value, sub));
+                              final isDisabled = !isSelected && _reachedMax;
+                              return GestureDetector(
+                                onTap: () =>
+                                    _toggleSubCategory(option.value, sub),
+                                behavior: HitTestBehavior.opaque,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.only(
+                                      start: 16.w, end: 16.w, bottom: 12.h),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        isSelected
+                                            ? Icons.check_box
+                                            : Icons.check_box_outline_blank,
+                                        color: isSelected
+                                            ? AppColors.primaryDark
+                                            : AppColors.gray,
+                                        size: 20.r,
+                                      ),
+                                      Gap(8.w),
+                                      Expanded(
+                                        child: Text(
+                                          sub.toUpperCase().tr(),
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                            color: isDisabled
+                                                ? AppColors.gray
+                                                : AppColors.black,
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                              );
+                            }),
                           ],
                         ),
                       );
                     },
                   ),
                 ),
-                if (_mainCategory != null && _selectedSubs.isEmpty) ...[
-                  Gap(8.h),
+                Gap(8.h),
+                if (_selectedSubs.isEmpty)
                   Text(
                     LangKeys.selectAtLeastOneSubSpecialization.tr(),
                     style: AppStyles.gray12Regular
                         .copyWith(color: AppColors.errorDark),
+                  )
+                else if (_reachedMax)
+                  // رسالة توضيحية مش خطأ: الاختيار صالح، بس مفيش مكان لزيادة.
+                  Text(
+                    LangKeys.maxSubSpecializationsReached
+                        .tr(args: ['$_maxSubSpecializations']),
+                    style: AppStyles.gray12Regular
+                        .copyWith(color: AppColors.primaryDark),
                   ),
-                ],
                 Gap(20.h),
                 if (regState is! SignUpLoading)
                   CustomButton(
@@ -264,20 +227,14 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
     );
   }
 
-  String _subLabel(String value) {
-    return value
-        .replaceAll('_', ' ')
-        .split(' ')
-        .map((w) => w.isNotEmpty
-            ? '${w[0].toUpperCase()}${w.substring(1)}'
-            : '')
-        .join(' ');
-  }
-
   void _submit() {
-    final scopes = <String, List<String>>{
-      _mainCategory!: List<String>.from(_selectedSubs),
-    };
+    // التخصصات الفرعية المختارة بتتجمّع تحت التخصص الأساسي بتاع كل واحدة،
+    // فممكن الريكوست يطلع فيه أكتر من تخصص أساسي.
+    final scopes = <String, List<String>>{};
+    for (final entry in _selectedSubs) {
+      final parts = entry.split('|');
+      scopes.putIfAbsent(parts.first, () => []).add(parts.last);
+    }
     context.read<RegisterCubit>().register(
       fullName: widget.name,
       phone: widget.phone,
@@ -288,18 +245,8 @@ class _BrokerSpecializationViewState extends State<BrokerSpecializationView> {
       image: widget.profileImagePath != null
           ? File(widget.profileImagePath!)
           : null,
-      idFront: widget.frontIdPath != null
-          ? File(widget.frontIdPath!)
-          : null,
-      idBack: widget.backIdPath != null
-          ? File(widget.backIdPath!)
-          : null,
-      commercialRegistryImage: widget.commercialRegistryImagePath != null
-          ? File(widget.commercialRegistryImagePath!)
-          : null,
-      taxCardImage: widget.taxCardImagePath != null
-          ? File(widget.taxCardImagePath!)
-          : null,
+      areaIds: widget.areaId != null ? [widget.areaId!] : null,
+      subAreas: widget.subAreaId != null ? [widget.subAreaId!] : null,
       specializationScopes: scopes,
       brokerTypeIndex: widget.selectedIndex,
     );

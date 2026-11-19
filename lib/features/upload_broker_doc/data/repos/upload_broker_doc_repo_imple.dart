@@ -15,7 +15,13 @@ class UploadBrokerDocRepoImpl implements UploadBrokerDocRepo {
   @override
   Future<Either<Failure, CitiesModel>> getAllCities() async {
     try {
-      var response = await apiService!.getData(endPoint: EndPoints.cities);
+      // من غير باراميترات الترقيم السيرفر بيرجّع data فاضية، وكمان الشاشة دي
+      // بتتفتح قبل تسجيل الدخول فلازم public عشان مايتبعتش توكن قديم.
+      var response = await apiService!.getData(
+        endPoint: EndPoints.cities,
+        query: {'limit': 100, 'offset': 0, 'sort': 'asc', 'sortBy': 'id'},
+        public: true,
+      );
       return right(CitiesModel.fromJson(response.data));
     } catch (e) {
       return left(handleError(e));
@@ -28,6 +34,7 @@ class UploadBrokerDocRepoImpl implements UploadBrokerDocRepo {
       var response = await apiService!.getData(
         endPoint: EndPoints.areas,
         query: {'cityId': cityId, 'limit': 100, 'offset': 0, 'sort': 'asc', 'sortBy': 'id'},
+        public: true,
       );
       return right(AreasModel.fromJson(response.data));
     } catch (e) {
@@ -41,6 +48,7 @@ class UploadBrokerDocRepoImpl implements UploadBrokerDocRepo {
       var response = await apiService!.getData(
         endPoint: EndPoints.subAreas,
         query: {'areaId': areaId, 'limit': 100, 'offset': 0, 'sort': 'asc', 'sortBy': 'id'},
+        public: true,
       );
       return right(SubAreasModel.fromJson(response.data));
     } catch (e) {

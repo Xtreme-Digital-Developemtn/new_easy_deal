@@ -292,10 +292,8 @@ class AppRouter {
             role: args["role"] as String? ?? '',
             phone: args["phone"] as String? ?? '',
             profileImagePath: args["profileImagePath"] as String?,
-            frontIdPath: args["frontIdPath"] as String?,
-            backIdPath: args["backIdPath"] as String?,
-            commercialRegistryImagePath: args["commercialRegistryImagePath"] as String?,
-            taxCardImagePath: args["taxCardImagePath"] as String?,
+            areaId: args["areaId"] as int?,
+            subAreaId: args["subAreaId"] as int?,
           ),
         );
       case Routes.createRequestView:

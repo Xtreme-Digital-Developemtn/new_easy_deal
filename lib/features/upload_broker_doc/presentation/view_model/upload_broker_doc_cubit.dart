@@ -4,7 +4,6 @@ import 'package:easy_deal/features/search/data/models/areas_model.dart';
 import 'package:easy_deal/features/search/data/models/cities_model.dart';
 import 'package:easy_deal/features/create_request/data/models/sub_areas_model.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../../data/repos/upload_broker_doc_repo.dart';
@@ -18,10 +17,8 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   final ImagePicker picker = ImagePicker();
 
   static const int maxFileSizeBytes = 10 * 1024 * 1024;
-  // الصورة الشخصية والهوية: صور فقط (TC11 القديمة)
+  // الصورة الشخصية / لوجو الشركة: صور فقط
   static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png'];
-  // المستندات القانونية للشركة: صور + PDF (TC5 الجديدة)
-  static const List<String> allowedDocExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
 
   String? lastFileError;
 
@@ -103,168 +100,16 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
   }
 
 
-  File? frontIdCardImage;
-  File? backIdCardImage;
-
-  Future<void> pickIdCardImages({
-    required bool isFront,
-    required UploadBrokerDocStates newEmit,
-    ImageSource source = ImageSource.gallery,
-  }) async {
-    try {
-      final file = await _pickAndValidate(source);
-      if (file != null) {
-        if (isFront) {
-          frontIdCardImage = file;
-        } else {
-          backIdCardImage = file;
-        }
-        validateIndividualDocuments();
-        emit(newEmit);
-      }
-    } catch (e) {
-      debugPrint("Error picking image: $e");
-      emit(UploadImageErrorState());
-    }
-  }
-
-  void clearIdCardImages({
-    required bool isFront,
-    required UploadBrokerDocStates newEmit,
-  }) {
-    if (isFront) {
-      frontIdCardImage = null;
-    } else {
-      backIdCardImage = null;
-    }
-    validateIndividualDocuments();
-    emit(newEmit);
-  }
-
-
-  File? commercialFile;
-  File? taxFile;
-
-  Future<File?> _pickDocAndValidate() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: allowedDocExtensions,
-        allowMultiple: false,
-        withData: false,
-      );
-      if (result == null || result.files.single.path == null) return null;
-      final path = result.files.single.path!;
-      final ext = path.split('.').last.toLowerCase();
-      if (!allowedDocExtensions.contains(ext)) {
-        lastFileError = 'الصيغة غير مدعومة ($ext) — المسموح: jpg, png, pdf';
-        emit(UploadFileValidationErrorState(lastFileError!));
-        return null;
-      }
-      final file = File(path);
-      final size = await file.length();
-      if (size > maxFileSizeBytes) {
-        lastFileError =
-            'حجم الملف أكبر من 10 ميجا (${(size / 1024 / 1024).toStringAsFixed(1)} MB)';
-        emit(UploadFileValidationErrorState(lastFileError!));
-        return null;
-      }
-      lastFileError = null;
-      return file;
-    } catch (e) {
-      lastFileError = 'تعذر اختيار الملف';
-      emit(UploadFileValidationErrorState(lastFileError!));
-      return null;
-    }
-  }
-
-  Future<void> pickCommercialFile({
-    required UploadBrokerDocStates newEmit,
-    ImageSource source = ImageSource.gallery,
-  })
-  async {
-    try {
-      final file = await _pickAndValidate(source);
-      if (file != null) {
-        commercialFile = file;
-        validateCompanyDocuments();
-        emit(newEmit);
-      }
-    } catch (e) {
-      debugPrint("Error picking commercial file: $e");
-      emit(UploadImageErrorState());
-    }
-  }
-
-  Future<void> pickCommercialPdf({
-    required UploadBrokerDocStates newEmit,
-  }) async {
-    final file = await _pickDocAndValidate();
-    if (file != null) {
-      commercialFile = file;
-      validateCompanyDocuments();
-      emit(newEmit);
-    }
-  }
-
-  void clearCommercialFile({
-    required UploadBrokerDocStates newEmit,
-  }) {
-    commercialFile = null;
-    validateCompanyDocuments();
-    emit(newEmit);
-  }
-
-  Future<void> pickTaxFile({
-    required UploadBrokerDocStates newEmit,
-    ImageSource source = ImageSource.gallery,
-  }) async {
-    try {
-      final file = await _pickAndValidate(source);
-      if (file != null) {
-        taxFile = file;
-        validateCompanyDocuments();
-        emit(newEmit);
-      }
-    } catch (e) {
-      debugPrint("Error picking tax file: $e");
-      emit(UploadImageErrorState());
-    }
-  }
-
-  Future<void> pickTaxPdf({
-    required UploadBrokerDocStates newEmit,
-  }) async {
-    final file = await _pickDocAndValidate();
-    if (file != null) {
-      taxFile = file;
-      validateCompanyDocuments();
-      emit(newEmit);
-    }
-  }
-
-  void clearTaxFile({
-    required UploadBrokerDocStates newEmit,
-  }) {
-    taxFile = null;
-    validateCompanyDocuments();
-    emit(newEmit);
-  }
-
 
   bool isIndividualDocumentsValid = false;
   bool isCompanyDocumentsValid = false;
 
   void validateIndividualDocuments() {
-    isIndividualDocumentsValid = profileImage != null &&
-        frontIdCardImage != null &&
-        backIdCardImage != null;
+    isIndividualDocumentsValid = profileImage != null;
   }
 
   void validateCompanyDocuments() {
-    isCompanyDocumentsValid = companyLogo != null &&
-        commercialFile != null &&
-        taxFile != null;
+    isCompanyDocumentsValid = companyLogo != null;
   }
 
 
@@ -346,22 +191,34 @@ class UploadBrokerDocCubit extends Cubit<UploadBrokerDocStates> {
     );
   }
 
-  void selectCity(Cities? city) {
+  /// المدينة والمنطقة مطلوبين، والمنطقة الفرعية اختيارية.
+  bool get isLocationValid => selectedCity != null && selectedArea != null;
+
+  Future<void> selectCity(Cities? city) async {
     selectedCity = city;
     selectedArea = null;
     selectedSubArea = null;
     areasList = [];
     subAreasList = [];
+    emit(GetAreasSuccessState());
+    if (city?.id != null) {
+      await getAllAreas(cityId: city!.id!);
+    }
   }
 
-  void selectArea(Areas? area) {
+  Future<void> selectArea(Areas? area) async {
     selectedArea = area;
     selectedSubArea = null;
     subAreasList = [];
+    emit(GetSubAreasSuccessState());
+    if (area?.id != null) {
+      await getAllSubAreas(areaId: area!.id!);
+    }
   }
 
   void selectSubArea(SubArea? subArea) {
     selectedSubArea = subArea;
+    emit(GetSubAreasSuccessState());
   }
 
   void toggleSpecializationScope(String scope) {

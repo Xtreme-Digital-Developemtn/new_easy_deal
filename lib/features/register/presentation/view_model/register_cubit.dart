@@ -127,11 +127,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String gender,
     required String email,
     required File? image,
-    File? idFront,
-    File? idBack,
-    File? commercialRegistryImage,
-    File? taxCardImage,
-    List<int>? areaids,
+    List<int>? areaIds,
     List<int>? subAreas,
     Map<String, List<String>>? specializationScopes,
     int brokerTypeIndex = 0,
@@ -152,25 +148,19 @@ class RegisterCubit extends Cubit<RegisterStates> {
       formData.files.add(MapEntry("image",
           await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)));
     }
-    if (idFront != null) {
-      formData.files.add(MapEntry("idFront",
-          await MultipartFile.fromFile(idFront.path, filename: idFront.path.split('/').last)));
-    }
-    if (idBack != null) {
-      formData.files.add(MapEntry("idBack",
-          await MultipartFile.fromFile(idBack.path, filename: idBack.path.split('/').last)));
-    }
-    if (commercialRegistryImage != null) {
-      formData.files.add(MapEntry("commercialRegistryImage",
-          await MultipartFile.fromFile(commercialRegistryImage.path, filename: commercialRegistryImage.path.split('/').last)));
-    }
-    if (taxCardImage != null) {
-      formData.files.add(MapEntry("taxCardImage",
-          await MultipartFile.fromFile(taxCardImage.path, filename: taxCardImage.path.split('/').last)));
-    }
     if (CacheHelper.getData(key: "userRole") == "broker") {
       final type = brokerTypeIndex == 1 ? "independent" : "real_estate_brokage_company";
       formData.fields.add(MapEntry("type", type));
+    }
+    if (areaIds != null) {
+      for (final areaId in areaIds) {
+        formData.fields.add(MapEntry("areaIds[]", areaId.toString()));
+      }
+    }
+    if (subAreas != null) {
+      for (final subAreaId in subAreas) {
+        formData.fields.add(MapEntry("subAreas[]", subAreaId.toString()));
+      }
     }
     if (specializationScopes != null) {
       specializationScopes.forEach((category, values) {

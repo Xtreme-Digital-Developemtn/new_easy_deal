@@ -1,5 +1,5 @@
 import 'package:easy_deal/core/utils/toast/toast.dart';
-import 'package:easy_deal/features/upload_broker_doc/presentation/views/widgets/broker_documents_images.dart';
+import 'package:easy_deal/features/upload_broker_doc/presentation/views/widgets/broker_location_section.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/views/widgets/broker_profile_image.dart';
 import 'package:easy_deal/features/upload_broker_doc/presentation/view_model/upload_broker_doc_states.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -42,7 +42,8 @@ class UploadBrokerDocView extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) =>
-            UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>()),
+            UploadBrokerDocCubit(getIt.get<UploadBrokerDocRepoImpl>())
+              ..getAllCities(),
         child: BlocConsumer<UploadBrokerDocCubit, UploadBrokerDocStates>(
           listener: (context, uploadState) {
             if (uploadState is UploadFileValidationErrorState) {
@@ -51,64 +52,56 @@ class UploadBrokerDocView extends StatelessWidget {
           },
           builder: (context, uploadState) {
             var docCubit = context.read<UploadBrokerDocCubit>();
-            final isValid = isCompany
+            final isImageValid = isCompany
                 ? docCubit.isCompanyDocumentsValid
                 : docCubit.isIndividualDocumentsValid;
+            final isValid = isImageValid && docCubit.isLocationValid;
             return Padding(
               padding: EdgeInsets.all(20.0.r),
               child: ListView(
                 children: [
                   BrokerProfileImage(isCompany: isCompany),
-                  Gap(24.h),
-                  BrokerDocumentsImages(isCompany: isCompany),
                   Gap(12.h),
-                  if (!isValid)
+                  if (!isImageValid)
                     Text(
                       isCompany
-                          ? 'ارفع اللوجو + السجل التجاري + البطاقة الضريبية للمتابعة'
-                          : 'ارفع الصورة الشخصية + وجه وظهر البطاقة للمتابعة',
-                      style: TextStyle(fontSize: 12.sp, color: AppColors.errorDark),
+                          ? LangKeys.uploadCompanyLogoToContinue.tr()
+                          : LangKeys.uploadProfilePhotoToContinue.tr(),
+                      style:
+                          TextStyle(fontSize: 12.sp, color: AppColors.errorDark),
+                    ),
+                  Gap(24.h),
+                  const BrokerLocationSection(),
+                  Gap(12.h),
+                  if (isImageValid && !docCubit.isLocationValid)
+                    Text(
+                      LangKeys.selectWorkAreaToContinue.tr(),
+                      style:
+                          TextStyle(fontSize: 12.sp, color: AppColors.errorDark),
                     ),
                   Gap(20.h),
                   CustomButton(
                     text: LangKeys.next.tr(),
                     onPressed: isValid
                         ? () {
-                            if (isCompany) {
-                              context.pushNamed(
-                                Routes.brokerSpecializationView,
-                                arguments: {
-                                  'selectedIndex': selectedIndex,
-                                  'name': name,
-                                  'email': email,
-                                  'password': password,
-                                  'confirmPassword': confirmPassword,
-                                  'gender': gender,
-                                  'role': role,
-                                  'phone': phone,
-                                  'profileImagePath': docCubit.companyLogo?.path,
-                                  'commercialRegistryImagePath': docCubit.commercialFile?.path,
-                                  'taxCardImagePath': docCubit.taxFile?.path,
-                                },
-                              );
-                            } else {
-                              context.pushNamed(
-                                Routes.brokerSpecializationView,
-                                arguments: {
-                                  'selectedIndex': selectedIndex,
-                                  'name': name,
-                                  'email': email,
-                                  'password': password,
-                                  'confirmPassword': confirmPassword,
-                                  'gender': gender,
-                                  'role': role,
-                                  'phone': phone,
-                                  'profileImagePath': docCubit.profileImage?.path,
-                                  'frontIdPath': docCubit.frontIdCardImage?.path,
-                                  'backIdPath': docCubit.backIdCardImage?.path,
-                                },
-                              );
-                            }
+                            context.pushNamed(
+                              Routes.brokerSpecializationView,
+                              arguments: {
+                                'selectedIndex': selectedIndex,
+                                'name': name,
+                                'email': email,
+                                'password': password,
+                                'confirmPassword': confirmPassword,
+                                'gender': gender,
+                                'role': role,
+                                'phone': phone,
+                                'profileImagePath': isCompany
+                                    ? docCubit.companyLogo?.path
+                                    : docCubit.profileImage?.path,
+                                'areaId': docCubit.selectedArea?.id,
+                                'subAreaId': docCubit.selectedSubArea?.id,
+                              },
+                            );
                           }
                         : null,
                   ),
@@ -121,6 +114,4 @@ class UploadBrokerDocView extends StatelessWidget {
       ),
     );
   }
-
 }
-

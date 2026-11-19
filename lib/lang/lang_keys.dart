@@ -153,26 +153,13 @@ abstract class LangKeys {
   static const String profilePhoto = "profilePhoto";
   static const String changePhoto = "changePhoto";
   static const String deletePhoto = "deletePhoto";
-  static const String uploadTheFrontOfTheCardImage =
-      "uploadTheFrontOfTheCardImage";
-  static const String uploadTheBackOfTheCardImage =
-      "uploadTheBackOfTheCardImage";
   static const String completeCompanyInfo = "completeCompanyInfo";
   static const String companyLogo = 'companyLogo';
-  static const String companyLegalDocuments = 'companyLegalDocuments';
-  static const String commercialFile = 'commercialFile';
-  static const String taxFile = 'taxFile';
-  static const String uploadCommercialFile = 'uploadCommercialFile';
-  static const String uploadTaxFile = 'uploadTaxFile';
-  static const String nationalIdDocuments = 'nationalIdDocuments';
-  static const String idFrontSide = 'idFrontSide';
-  static const String idBackSide = 'idBackSide';
-  static const String uploadIdFront = 'uploadIdFront';
-  static const String uploadIdBack = 'uploadIdBack';
   static const String changeLogo = 'changeLogo';
-  static const String uploadFrontAndBackId = 'uploadFrontAndBackId';
-  static const String uploadRequiredLegalDocuments =
-      'uploadRequiredLegalDocuments';
+  static const String uploadProfilePhotoToContinue =
+      'uploadProfilePhotoToContinue';
+  static const String uploadCompanyLogoToContinue =
+      'uploadCompanyLogoToContinue';
   static const String createNewRequest = 'createNewRequest';
   static const String rentingHotelUnitPart1 = 'rentingHotelUnitPart1';
   static const String rentingHotelUnitPart2 = 'rentingHotelUnitPart2';
@@ -275,6 +262,9 @@ abstract class LangKeys {
       'advertisementAndPropertyDetails';
   static const String specializations = 'specializations';
   static const String areas = 'areas';
+  static const String workAreas = 'workAreas';
+  static const String selectWorkAreaToContinue =
+      'selectWorkAreaToContinue';
   static const String notAvailable = 'notAvailable';
   static const String thereAreNoItemsCurrentlyAvailable =
       'thereAreNoItemsCurrentlyAvailable';
@@ -456,10 +446,12 @@ abstract class LangKeys {
   static const String continueToSpecializations = 'continueToSpecializations';
   static const String selectWorkAreas = 'selectWorkAreas';
   static const String selectSpecializationScope = 'selectSpecializationScope';
-  static const String mainSpecialization = 'mainSpecialization';
   static const String subSpecializations = 'subSpecializations';
-  static const String selectMainSpecializationHint = 'selectMainSpecializationHint';
   static const String selectAtLeastOneSubSpecialization = 'selectAtLeastOneSubSpecialization';
+  static const String selectSubSpecializationsHint =
+      'selectSubSpecializationsHint';
+  static const String maxSubSpecializationsReached =
+      'maxSubSpecializationsReached';
   static const String selectDealTypePlaceholder = 'selectDealTypePlaceholder';
   static const String selectUnitTypePlaceholder = 'selectUnitTypePlaceholder';
   static const String selectCity = 'selectCity';

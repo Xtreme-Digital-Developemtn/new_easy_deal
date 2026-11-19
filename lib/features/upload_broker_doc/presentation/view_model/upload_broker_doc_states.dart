@@ -10,11 +10,7 @@ class UploadCompanyLogoSuccessState extends UploadBrokerDocStates {}
 class UploadCompanyLogoErrorState extends UploadBrokerDocStates {}
 class ClearCompanyLogoSuccessState extends UploadBrokerDocStates {}
 
-class UploadCommercialFileSuccessState extends UploadBrokerDocStates {}
-class ClearCommercialFileSuccessState extends UploadBrokerDocStates {}
 
-class UploadTaxFileSuccessState extends UploadBrokerDocStates {}
-class ClearTaxFileSuccessState extends UploadBrokerDocStates {}
 
 class UploadImageErrorState extends UploadBrokerDocStates {}
 
@@ -23,11 +19,7 @@ class UploadFileValidationErrorState extends UploadBrokerDocStates {
   UploadFileValidationErrorState(this.message);
 }
 
-class UploadFrontCardIdPhotoSuccessState extends UploadBrokerDocStates {}
-class ClearFrontCardIdPhotoSuccessState extends UploadBrokerDocStates {}
 
-class UploadBackCardIdPhotoSuccessState extends UploadBrokerDocStates {}
-class ClearBackCardIdPhotoSuccessState extends UploadBrokerDocStates {}
 
 class GetCitiesLoadingState extends UploadBrokerDocStates {}
 class GetCitiesSuccessState extends UploadBrokerDocStates {}
