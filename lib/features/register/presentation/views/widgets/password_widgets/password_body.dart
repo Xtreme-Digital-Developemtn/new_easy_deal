@@ -4,10 +4,15 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'create_password_buttons.dart';
 
-class PasswordBody extends StatelessWidget {
-  PasswordBody({super.key}) : _passwordFormKey = GlobalKey<FormState>();
+class PasswordBody extends StatefulWidget {
+  const PasswordBody({super.key});
 
-  final GlobalKey<FormState> _passwordFormKey;
+  @override
+  State<PasswordBody> createState() => _PasswordBodyState();
+}
+
+class _PasswordBodyState extends State<PasswordBody> {
+  final GlobalKey<FormState> _passwordFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class PasswordBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(LangKeys.password.tr(),style: AppStyles.black16SemiBold,),
+          Text(LangKeys.password.tr(), style: AppStyles.black16SemiBold),
           Gap(12.h),
           CreatePasswordForm(formKey: _passwordFormKey),
           Gap(24.h),

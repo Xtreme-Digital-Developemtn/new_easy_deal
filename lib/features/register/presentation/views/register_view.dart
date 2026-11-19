@@ -43,7 +43,7 @@ class RegisterView extends StatelessWidget {
                         case 3:
                           return const OtpBody();
                         case 4:
-                          return PasswordBody();
+                          return const PasswordBody();
                         default:
                           return AccountTypeBody();
                       }
