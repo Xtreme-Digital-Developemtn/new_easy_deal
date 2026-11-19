@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/broker_features/broker_ads/presentation/views/widgets/ads_list_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../../../../core/errors/error_messages.dart';
 import '../../../../../main_imports.dart';
 import '../view_model/broker_ads_cubit.dart';
 import '../view_model/broker_ads_states.dart';
@@ -47,7 +48,7 @@ class _BrokerAdsViewState extends State<BrokerAdsView> {
         listener: (context, state) {
           if (state is LoadMoreAdvertisementShuffleErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              SnackBar(content: Text(localizeErrorMessage(state.error))),
             );
           }
         },
@@ -60,7 +61,13 @@ class _BrokerAdsViewState extends State<BrokerAdsView> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(state.error),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Text(
+                      localizeErrorMessage(state.error),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   Gap(16.h),
                   CustomButton(
                     text: LangKeys.reload,

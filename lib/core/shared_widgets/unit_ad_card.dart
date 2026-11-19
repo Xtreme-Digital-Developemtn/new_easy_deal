@@ -64,7 +64,16 @@ class UnitAdCard extends StatelessWidget {
   String _buildImageUrl(String? url) {
     if (url == null || url.isEmpty) return '';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    return '${EndPoints.imageBaseUrl}$url';
+    // الـ base مش منتهي بـ `/` والسيرفر ساعات بيرجّع المسار من غير `/` في أوله،
+    // فلازم نظبط الشرطة بينهم بدل ما الرابط يطلع ملزوق وكل الصور تقع.
+    final base = EndPoints.imageBaseUrl.endsWith('/')
+        ? EndPoints.imageBaseUrl.substring(
+            0,
+            EndPoints.imageBaseUrl.length - 1,
+          )
+        : EndPoints.imageBaseUrl;
+    final path = url.startsWith('/') ? url : '/$url';
+    return '$base$path';
   }
 
   String? _firstImageUrl() {
