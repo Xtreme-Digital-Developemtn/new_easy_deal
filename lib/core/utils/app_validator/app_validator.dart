@@ -49,10 +49,16 @@ class AppValidators {
 //     return null;
 //   }
 //
-  static String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return LangKeys.emailValidate.tr();
+  /// [isRequired] بـ false معناها إن الإيميل اختياري: لو فاضي بيعدّي،
+  /// ولو المستخدم كتب حاجة بتتفحص عادي.
+  static String? emailValidator(String? value, {bool isRequired = true}) {
+    final email = value?.trim() ?? '';
+
+    if (email.isEmpty) {
+      return isRequired ? LangKeys.emailValidate.tr() : null;
     }
+
+    value = email;
 
     // الفحوصات المحددة الأول عشان كل حالة تطلع رسالتها الخاصة
     // قبل الـ regex العام اللي كان بيبلعها كلها.

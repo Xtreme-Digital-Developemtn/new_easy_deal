@@ -141,9 +141,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
       MapEntry("role", CacheHelper.getData(key: "userRole")),
       MapEntry("password", password),
       MapEntry("password_confirmation", passwordConfirmation),
-      MapEntry("email", email != "" ? email : ""),
       MapEntry("gender", gender),
     ]);
+    // الإيميل اختياري: لو فاضي مابنبعتوش خالص بدل ما نبعت قيمة فاضية
+    // والسيرفر يرفضها كإيميل غير صالح.
+    if (email.trim().isNotEmpty) {
+      formData.fields.add(MapEntry("email", email.trim()));
+    }
     if (image != null) {
       formData.files.add(MapEntry("image",
           await MultipartFile.fromFile(image.path, filename: image.path.split('/').last)));

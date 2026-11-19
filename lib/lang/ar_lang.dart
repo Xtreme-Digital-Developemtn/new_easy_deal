@@ -298,6 +298,7 @@
     "landingArea": "مساحة الأرض",
     "viewDetails": "عرض التفاصيل",
     "ok": "موافق",
+    "optional": "اختياري",
     "viewingDetails": "عرض التفاصيل",
     "editingItem": "تعديل العنصر",
     "changingStatus": "تغيير الحالة",

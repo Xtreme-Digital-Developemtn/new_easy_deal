@@ -298,6 +298,7 @@
     "landingArea": "Land Area",
     "viewDetails": "View Details",
     "ok": "OK",
+    "optional": "Optional",
     "viewingDetails": "Viewing Details",
     "editingItem": "Editing Item",
     "changingStatus": "Changing Status",

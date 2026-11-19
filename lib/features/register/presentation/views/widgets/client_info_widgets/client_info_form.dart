@@ -39,9 +39,13 @@ class ClientInfoForm extends StatelessWidget {
             ),
             Gap(20.h),
             CustomTextFormField(
-              validator: (value) =>
-                  AppValidators.emailValidator(registerCubit.emailCon.text),
-              hintText:   LangKeys.enterYourEmail.tr(),
+              // الإيميل اختياري في إنشاء الحساب: بيتفحص بس لو المستخدم كتبه.
+              validator: (value) => AppValidators.emailValidator(
+                registerCubit.emailCon.text,
+                isRequired: false,
+              ),
+              hintText:
+                  '${LangKeys.enterYourEmail.tr()} (${LangKeys.optional.tr()})',
               controller: registerCubit.emailCon,
               onChanged: (_) => registerCubit.onUserInteraction(),
             ),

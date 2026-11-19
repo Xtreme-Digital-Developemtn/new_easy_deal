@@ -300,6 +300,7 @@ abstract class LangKeys {
   static const String edit = 'edit';
   static const String viewDetails = 'viewDetails';
   static const String ok = 'ok';
+  static const String optional = 'optional';
   static const String viewingDetails = 'viewingDetails';
   static const String editingItem = 'editingItem';
   static const String changingStatus = 'changingStatus';
