@@ -24,11 +24,11 @@ class EditPasswordButton extends StatelessWidget {
           context.read<EditProfileCubit>().clearPasswordsCon();
         }
         if(state is EditProfileDataErrorState){
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error.toString()),
-              backgroundColor: AppColors.errorDark,
-            ),
+          // رسالة السيرفر بتظهر كتوست أحمر زي باقي رسائل الخطأ في التطبيق،
+          // مش سناك بار.
+          Toast.showErrorToast(
+            msg: state.error.toString(),
+            context: context,
           );
         }
       },

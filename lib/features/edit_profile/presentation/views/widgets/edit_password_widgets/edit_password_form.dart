@@ -43,7 +43,7 @@ class EditPasswordForm extends StatelessWidget {
             CustomTextFormField(
               controller:  editProfileCubit.confirmNewPasswordCon,
               keyboardType: TextInputType.visiblePassword,
-              hintText: LangKeys.newPassword.tr(),
+              hintText: LangKeys.confirmPassword.tr(),
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(SvgImages.lock,),
