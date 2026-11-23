@@ -1,4 +1,5 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'package:easy_deal/core/utils/enums.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/requests/data/models/all_request_model.dart';
@@ -47,7 +48,9 @@ class _SendReplyViewState extends State<SendReplyView> {
         context: context,
       );
       result.fold(
-        (failure) => setState(() { _isLoading = false; _isRefreshing = false; _error = failure.errMessage; }),
+        // لازم localizeErrorMessage: ServerFailure بترجّع أكواد زي noInternet
+        // مش رسائل جاهزة للعرض.
+        (failure) => setState(() { _isLoading = false; _isRefreshing = false; _error = localizeErrorMessage(failure.errMessage); }),
         (data) => setState(() { _isLoading = false; _isRefreshing = false; _requests = data.data.data; }),
       );
     } catch (e) {
@@ -305,23 +308,38 @@ class _SendReplyViewState extends State<SendReplyView> {
                 ),
               ),
         ),
-        if (_selectedIds.isNotEmpty && !_isSending)
+        if (requests.isNotEmpty && !_isSending)
           Padding(
             padding: EdgeInsets.all(16.r),
             child: SizedBox(
               width: double.infinity,
-              child: CustomButton(
-                onPressed: () {
-                  if (_isSending) return;
-                  setState(() => _isSending = true);
-                  context.read<BrokerDataCubit>().sendReplies(
-                    brokerId: brokerId,
-                    requestIds: _selectedIds.toList(),
-                    senderId: senderId,
-                    unitIds: unitIds,
-                  );
-                },
-                text: 'إرسال الرد (${_selectedIds.length})',
+              // الزرار بيفضل ظاهر ومعطّل لما مفيش تحديد، والـ GestureDetector
+              // بره بيستقبل الضغطة في الحالة دي (CustomButton بيلغي onTap
+              // بتاعه لما onPressed تبقى null) عشان نطلّع رسالة تحقّق.
+              child: GestureDetector(
+                onTap: _selectedIds.isEmpty
+                    ? () => Toast.showErrorToast(
+                          msg: 'اختر طلب واحد على الأقل لإرسال الرد',
+                          context: context,
+                        )
+                    : null,
+                child: CustomButton(
+                  onPressed: _selectedIds.isEmpty
+                      ? null
+                      : () {
+                          if (_isSending) return;
+                          setState(() => _isSending = true);
+                          context.read<BrokerDataCubit>().sendReplies(
+                            brokerId: brokerId,
+                            requestIds: _selectedIds.toList(),
+                            senderId: senderId,
+                            unitIds: unitIds,
+                          );
+                        },
+                  text: _selectedIds.isEmpty
+                      ? 'إرسال الرد'
+                      : 'إرسال الرد (${_selectedIds.length})',
+                ),
               ),
             ),
           ),
