@@ -329,8 +329,14 @@ class _ActionsCellState extends State<_ActionsCell> {
                   Routes.sendReplyView,
                   arguments: {
                     'unitIds': <int>[widget.item.id!],
-                    'brokerId': CacheHelper.getData(key: 'brokerId'),
-                    'senderId': CacheHelper.getData(key: 'userId'),
+                    'brokerId': int.tryParse(
+                            CacheHelper.getData(key: 'brokerId')?.toString() ??
+                                '') ??
+                        0,
+                    'senderId': int.tryParse(
+                            CacheHelper.getData(key: 'userId')?.toString() ??
+                                '') ??
+                        0,
                   },
                 );
               }

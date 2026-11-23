@@ -82,6 +82,31 @@ class SendReplyErrorState extends BrokerDataStates {
   SendReplyErrorState(this.error);
 }
 
+/// حالة إرسال الرد لأكثر من طلب: بتتبعت مرة واحدة بعد ما كل الطلبات تخلص.
+class SendRepliesLoadingState extends BrokerDataStates {}
+
+class SendRepliesDoneState extends BrokerDataStates {
+  /// الطلبات اللي الرد اتبعت لها بنجاح.
+  final List<int> succeededRequestIds;
+
+  /// الطلبات اللي فشلت مع رسالة الخطأ بتاعة كل واحدة.
+  final Map<int, String> failures;
+
+  /// آخر رسالة نجاح راجعة من السيرفر، لو فيه نجاح.
+  final String? successMessage;
+
+  SendRepliesDoneState({
+    required this.succeededRequestIds,
+    required this.failures,
+    this.successMessage,
+  });
+
+  int get totalCount => succeededRequestIds.length + failures.length;
+  bool get hasSuccess => succeededRequestIds.isNotEmpty;
+  bool get hasFailure => failures.isNotEmpty;
+  bool get allFailed => !hasSuccess && hasFailure;
+}
+
 class UpdateUnitLoadingState extends BrokerDataStates {}
 
 class UpdateUnitSuccessState extends BrokerDataStates {

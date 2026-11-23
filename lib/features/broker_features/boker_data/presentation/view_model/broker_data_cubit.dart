@@ -108,6 +108,49 @@ class BrokerDataCubit extends Cubit<BrokerDataStates> {
     );
   }
 
+  /// بتبعت الرد لمجموعة طلبات واحد ورا التاني، وبتستنى كلهم يخلصوا
+  /// قبل ما تبعت حالة واحدة فيها نتيجة كل طلب — عشان الشاشة متتقفلش
+  /// عند أول نجاح وباقي الطلبات متتلغيش.
+  Future<void> sendReplies({
+    required int brokerId,
+    required List<int> requestIds,
+    required int senderId,
+    required List<int> unitIds,
+  }) async {
+    if (requestIds.isEmpty) return;
+    emit(SendRepliesLoadingState());
+
+    final succeeded = <int>[];
+    final failures = <int, String>{};
+    String? successMessage;
+
+    for (final requestId in requestIds) {
+      final result = await brokerDataRepo!.sendReply(
+        brokerId: brokerId,
+        requestId: requestId,
+        senderId: senderId,
+        unitIds: unitIds,
+      );
+      result.fold(
+        (failure) {
+          failures[requestId] = localizeErrorMessage(failure.errMessage);
+        },
+        (data) {
+          succeeded.add(requestId);
+          if (data.message.isNotEmpty) {
+            successMessage = data.message;
+          }
+        },
+      );
+    }
+
+    emit(SendRepliesDoneState(
+      succeededRequestIds: succeeded,
+      failures: failures,
+      successMessage: successMessage,
+    ));
+  }
+
   Future<void> updateUnit({required int id, required Map<String, dynamic> data}) async {
     print('📤 [UPDATE UNIT REQUEST] ID: $id');
     print('📤 [UPDATE UNIT REQUEST] Data: $data');

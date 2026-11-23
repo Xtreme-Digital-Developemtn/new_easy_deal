@@ -73,12 +73,29 @@ class _SendReplyViewState extends State<SendReplyView> {
     }
   }
 
+  /// بيقبل int أو String (الكاش ساعات بيرجع نص) ويرجع 0 لو القيمة مش رقم.
+  int _parseId(dynamic value) {
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value?.toString() ?? '') ?? 0;
+  }
+
+  List<int> _parseIds(dynamic value) {
+    if (value is List) {
+      return value
+          .map(_parseId)
+          .where((id) => id != 0)
+          .toList();
+    }
+    return const [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final unitIds = (args?['unitIds'] as List<int>?) ?? [];
-    final brokerId = args?['brokerId'] as int? ?? 0;
-    final senderId = args?['senderId'] as int? ?? 0;
+    final unitIds = _parseIds(args?['unitIds']);
+    final brokerId = _parseId(args?['brokerId']);
+    final senderId = _parseId(args?['senderId']);
 
     return Scaffold(
       appBar: GlobalAppBar(
@@ -87,17 +104,41 @@ class _SendReplyViewState extends State<SendReplyView> {
       ),
       body: BlocListener<BrokerDataCubit, BrokerDataStates>(
         listener: (context, state) {
-          if (state is SendReplySuccessState) {
-            Toast.showSuccessToast(msg: state.model.message, context: context);
+          if (state is SendRepliesDoneState) {
+            if (state.allFailed) {
+              // مفيش طلب نجح: نسيب الشاشة مفتوحة والتحديد زي ما هو
+              // عشان المستخدم يعيد المحاولة.
+              setState(() => _isSending = false);
+              Toast.showErrorToast(
+                msg: state.failures.values.first,
+                context: context,
+              );
+              return;
+            }
+
+            if (state.hasFailure) {
+              // نجاح جزئي: نشيل اللي نجح بس من التحديد ونفضل في الشاشة.
+              setState(() {
+                _isSending = false;
+                _selectedIds.removeAll(state.succeededRequestIds);
+              });
+              Toast.showErrorToast(
+                msg: 'تم إرسال الرد إلى ${state.succeededRequestIds.length} '
+                    'من ${state.totalCount} طلب، وفشل ${state.failures.length}',
+                context: context,
+              );
+              return;
+            }
+
+            Toast.showSuccessToast(
+              msg: state.successMessage ?? 'تم إرسال الرد بنجاح',
+              context: context,
+            );
             Future.microtask(() {
               try {
                 if (context.mounted) Navigator.pop(context);
               } catch (_) {}
             });
-          }
-          if (state is SendReplyErrorState) {
-            setState(() => _isSending = false);
-            Toast.showErrorToast(msg: state.error, context: context);
           }
         },
         child: _buildBody(context, brokerId, senderId, unitIds),
@@ -181,6 +222,9 @@ class _SendReplyViewState extends State<SendReplyView> {
                     final isSelected = _selectedIds.contains(request.id);
                     return GestureDetector(
                       onTap: () {
+                        // قفل التحديد وقت الإرسال عشان القائمة متتغيرش
+                        // في نص عملية الإرسال.
+                        if (_isSending) return;
                         setState(() {
                           if (isSelected) {
                             _selectedIds.remove(request.id);
@@ -268,15 +312,14 @@ class _SendReplyViewState extends State<SendReplyView> {
               width: double.infinity,
               child: CustomButton(
                 onPressed: () {
+                  if (_isSending) return;
                   setState(() => _isSending = true);
-                  for (final requestId in _selectedIds) {
-                    context.read<BrokerDataCubit>().sendReply(
-                      brokerId: brokerId,
-                      requestId: requestId,
-                      senderId: senderId,
-                      unitIds: unitIds,
-                    );
-                  }
+                  context.read<BrokerDataCubit>().sendReplies(
+                    brokerId: brokerId,
+                    requestIds: _selectedIds.toList(),
+                    senderId: senderId,
+                    unitIds: unitIds,
+                  );
                 },
                 text: 'إرسال الرد (${_selectedIds.length})',
               ),
