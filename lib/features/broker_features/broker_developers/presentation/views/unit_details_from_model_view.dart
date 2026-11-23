@@ -1,4 +1,5 @@
 import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/core/errors/error_messages.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
@@ -48,7 +49,10 @@ class _UnitDetailsFromModelViewState extends State<UnitDetailsFromModelView> {
         body: BlocConsumer<BrokerDevelopersCubit, BrokerDevelopersStates>(
           listener: (context, state) {
             if (state is GetUnitDetailsErrorState) {
-              Toast.showErrorToast(msg: state.error, context: context);
+              Toast.showErrorToast(
+                msg: localizeErrorMessage(state.error),
+                context: context,
+              );
             }
           },
           builder: (context, state) {
@@ -67,8 +71,14 @@ class _UnitDetailsFromModelViewState extends State<UnitDetailsFromModelView> {
                     ),
                     Gap(12.h),
                     Text(
-                      state.error,
+                      localizeErrorMessage(state.error),
                       style: AppStyles.gray14Medium,
+                      textAlign: TextAlign.center,
+                    ),
+                    Gap(6.h),
+                    Text(
+                      'الوحدة #${widget.unitId}',
+                      style: AppStyles.gray12Medium,
                       textAlign: TextAlign.center,
                     ),
                     Gap(20.h),
@@ -82,7 +92,39 @@ class _UnitDetailsFromModelViewState extends State<UnitDetailsFromModelView> {
               );
             }
             if (state is GetUnitDetailsSuccessState) {
-              return _UnitDetailsBody(unit: state.unitDetails.data);
+              final unit = state.unitDetails.data;
+              // السيرفر بيرجّع نجاح بـ data = null لو الوحدة مش متاحة للوسيط،
+              // فبنعرض حالة فاضية واضحة بدل ما الشاشة تكراش على cast لـ null.
+              if (unit == null) {
+                return Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.info_outline_rounded,
+                          size: 48.sp,
+                          color: AppColors.grayMedium,
+                        ),
+                        Gap(12.h),
+                        Text(
+                          'مفيش تفاصيل متاحة للوحدة #${widget.unitId}',
+                          style: AppStyles.gray14Medium,
+                          textAlign: TextAlign.center,
+                        ),
+                        Gap(20.h),
+                        CustomButton(
+                          text: LangKeys.reload,
+                          onPressed: () => _cubit.getUnitDetails(widget.unitId),
+                          width: 200.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+              return _UnitDetailsBody(unit: unit);
             }
             return const SizedBox.shrink();
           },

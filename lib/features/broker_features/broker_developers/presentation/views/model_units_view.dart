@@ -92,9 +92,43 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
               } else if (state is GetModelUnitsSuccessState) {
                 final data = state.unitsModel?.data ?? [];
                 if (data.isEmpty) {
+                  // السيرفر رجّع نجاح بصفر وحدة للنموذج ده. بنوضّح النموذج
+                  // المقصود عشان نفرّق بين «النموذج مفيهوش وحدات» وبين مشكلة
+                  // في الفلترة بالـ modelId.
                   return Center(
-                    child: Text(
-                      LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.home_work_outlined,
+                            size: 48.sp,
+                            color: AppColors.grayMedium,
+                          ),
+                          Gap(12.h),
+                          Text(
+                            LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                            style: AppStyles.gray14Medium,
+                            textAlign: TextAlign.center,
+                          ),
+                          Gap(6.h),
+                          Text(
+                            widget.modelCode != null
+                                ? 'النموذج ${widget.modelCode} (#${widget.modelId})'
+                                : 'النموذج #${widget.modelId}',
+                            style: AppStyles.gray12Medium,
+                            textAlign: TextAlign.center,
+                          ),
+                          Gap(20.h),
+                          CustomButton(
+                            text: LangKeys.reload,
+                            onPressed: () =>
+                                _cubit.getModelUnits(widget.modelId),
+                            width: 200.w,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -174,8 +208,10 @@ class _ModelUnitsViewState extends State<ModelUnitsView> {
                     Expanded(
                       child: filtered.isEmpty
                           ? Center(
+                              // فاضي بسبب البحث مش بسبب السيرفر
                               child: Text(
-                                LangKeys.thereAreNoItemsCurrentlyAvailable.tr(),
+                                'مفيش وحدات مطابقة للبحث',
+                                style: AppStyles.gray14Medium,
                               ),
                             )
                           : ModelUnitsTableData(

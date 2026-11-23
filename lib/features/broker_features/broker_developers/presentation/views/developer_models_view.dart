@@ -4,7 +4,6 @@ import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/models/models_response.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/data/repos/broker_developers_repo_imple.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/developer_sales_view.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/model_units_view.dart';
 import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/widgets/developer_models_table_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -245,14 +244,11 @@ class _DeveloperModelsViewState extends State<DeveloperModelsView> {
                                 );
                                 return;
                               }
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => ModelUnitsView(
-                                    modelId: modelId,
-                                    modelCode: item.code?.toString(),
-                                  ),
-                                ),
+                              // الضغط على النموذج يفتح تفاصيل الوحدة مباشرة
+                              // بنفس شاشة وAPI تفاصيل الوحدة: GET unit/{id}
+                              context.pushNamed(
+                                Routes.unitDetailsView,
+                                arguments: {"unitId": modelId},
                               );
                             },
                           ),

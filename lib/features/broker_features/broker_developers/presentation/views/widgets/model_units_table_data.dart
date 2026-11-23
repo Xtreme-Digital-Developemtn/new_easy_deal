@@ -5,7 +5,6 @@ import 'package:easy_deal/features/broker_features/boker_data/data/models/unit_m
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/advertisement_dialog.dart';
-import 'package:easy_deal/features/broker_features/broker_developers/presentation/views/unit_details_from_model_view.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -227,6 +226,21 @@ class ModelUnitsTableData extends StatelessWidget {
                         AppColors.grayLight.withValues(alpha: 0.08),
                       )
                     : const WidgetStatePropertyAll(Colors.white),
+                // الضغط على الوحدة يفتح شاشة تفاصيل الوحدة الأصلية بنفس الـ
+                // unit id، زي أي وحدة في باقي التطبيق.
+                onSelectChanged: (_) {
+                  if (item.id == null) {
+                    Toast.showErrorToast(
+                      msg: 'الوحدة دي مش ليها رقم، مش ممكن فتح تفاصيلها',
+                      context: context,
+                    );
+                    return;
+                  }
+                  context.pushNamed(
+                    Routes.unitDetailsView,
+                    arguments: {"unitId": item.id},
+                  );
+                },
                 cells: [
                   DataCell(_chipCell(item.developerName ?? na)),
                   DataCell(_cell(item.projectName ?? na)),
@@ -288,12 +302,9 @@ class _ActionsCellState extends State<_ActionsCell> {
           switch (value) {
             case 'details':
               if (widget.item.id != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        UnitDetailsFromModelView(unitId: widget.item.id!),
-                  ),
+                context.pushNamed(
+                  Routes.unitDetailsView,
+                  arguments: {"unitId": widget.item.id},
                 );
               }
               break;
@@ -302,6 +313,9 @@ class _ActionsCellState extends State<_ActionsCell> {
               widget.brokerDataCubit.requestsCheckAdvertisementCount();
               break;
             case 'makeRequest':
+            // تعيين لوسيط: شاشة التعيين محتاجة requestId، فبننشئ الطلب للوحدة
+            // دي الأول والـ BlocListener بيفتح شاشة التعيين بالطلب الراجع.
+            case 'assignToBroker':
               if (widget.item.id != null) {
                 widget.brokerDataCubit.makeRequest(
                   id: widget.item.id!,
@@ -427,6 +441,35 @@ class _ActionsCellState extends State<_ActionsCell> {
                   Gap(10.w),
                   Text(
                     'إرسال طلب',
+                    style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
+                  ),
+                ],
+              ),
+            ),
+          );
+
+          // تعيين لوسيط
+          items.add(
+            PopupMenuItem<String>(
+              value: 'assignToBroker',
+              height: 44.h,
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(5.r),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryDark.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(6.r),
+                    ),
+                    child: Icon(
+                      Icons.person_add_alt_1_rounded,
+                      size: 16.sp,
+                      color: AppColors.primaryDark,
+                    ),
+                  ),
+                  Gap(10.w),
+                  Text(
+                    LangKeys.assignToBroker.tr(),
                     style: AppStyles.black14Medium.copyWith(fontSize: 13.sp),
                   ),
                 ],
