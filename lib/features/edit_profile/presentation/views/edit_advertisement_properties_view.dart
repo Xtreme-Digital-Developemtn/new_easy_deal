@@ -3,6 +3,7 @@ import 'package:easy_deal/core/data/specialization_display_data.dart';
 import 'package:easy_deal/core/shared_widgets/units_expandable_line.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/create_request/data/repos/create_request_repo_imple.dart';
+import 'package:easy_deal/features/create_request/data/stepper_config/stepper_constants.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_cubit.dart';
 import 'package:easy_deal/features/create_request/presentation/view_model/create_request_states.dart';
 import 'package:easy_deal/features/edit_profile/presentation/view_model/edit_profile_cubit.dart';
@@ -12,72 +13,6 @@ import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit
 import 'package:easy_deal/features/search/data/models/areas_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-const Map<String, Map<String, dynamic>> _scopeData = {
-  'purchase_sell_outside_compound': {
-    'labelAr': 'بيع خارج كمبوند',
-    'labelEn': 'Sell Outside Compound',
-    'specs': {
-      'purchasing_sell_residential_outside_compound':
-          'وحدات سكنية',
-      'purchasing_sell_national_housing_projects_outside_compound':
-          'مشروعات الإسكان القومي',
-      'purchasing_sell_administrative_commercial_units_outside_compound':
-          'وحدات إدارية وتجارية',
-      'purchasing_sell_industrial_and_warehousing_outside_compound':
-          'صناعي وتخزيني',
-      'purchasing_sell_lands_and_ready_projects_outside_compound':
-          'أراضي ومشروعات جاهزة',
-      'purchasing_sell_villas_and_buildings_outside_compound': 'فيلل وعمارات',
-      'purchasing_sell_vacation_units_outside_compound': 'وحدات مصيفية',
-    },
-  },
-  'primary_inside_compound': {
-    'labelAr': 'بيع داخل كمبوند (أساسي)',
-    'labelEn': 'Sell Inside Compound (Primary)',
-    'specs': {
-      'purchasing_sell_residential_inside_compound': 'وحدات سكنية',
-      'purchasing_sell_villas_inside_compound': 'فيلل',
-      'purchasing_sell_administrative_commercial_units_inside_compound':
-          'وحدات إدارية وتجارية',
-      'purchasing_sell_vacation_units_inside_compound': 'وحدات مصيفية',
-    },
-  },
-  'resale_inside_compound': {
-    'labelAr': 'بيع داخل كمبوند (إعادة بيع)',
-    'labelEn': 'Sell Inside Compound (Resale)',
-    'specs': {
-      'purchasing_sell_residential_inside_compound': 'وحدات سكنية',
-      'purchasing_sell_villas_inside_compound': 'فيلل',
-      'purchasing_sell_administrative_commercial_units_inside_compound':
-          'وحدات إدارية وتجارية',
-      'purchasing_sell_vacation_units_inside_compound': 'وحدات مصيفية',
-    },
-  },
-  'rentals_outside_compound': {
-    'labelAr': 'إيجار خارج كمبوند',
-    'labelEn': 'Rent Outside Compound',
-    'specs': {
-      'rent_residential_outside_compound': 'وحدات سكنية',
-      'rent_national_housing_projects_outside_compound':
-          'مشروعات الإسكان القومي',
-      'rent_administrative_commercial_units_outside_compound':
-          'وحدات إدارية وتجارية',
-      'rent_industrial_and_warehousing_outside_compound': 'صناعي وتخزيني',
-      'rent_hotel_vacation_units_outside_compound': 'وحدات فندقية/مصيفية',
-    },
-  },
-  'rentals_inside_compound': {
-    'labelAr': 'إيجار داخل كمبوند',
-    'labelEn': 'Rent Inside Compound',
-    'specs': {
-      'rent_residential_inside_compound': 'وحدات سكنية',
-      'rent_hotel_vacation_units_inside_compound': 'وحدات فندقية/مصيفية',
-      'rent_administrative_commercial_units_inside_compound':
-          'وحدات إدارية وتجارية',
-    },
-  },
-};
 
 class EditAdvertisementAndPropertyDetailsView extends StatefulWidget {
   const EditAdvertisementAndPropertyDetailsView({super.key});
@@ -114,10 +49,11 @@ class _EditAdvertisementAndPropertyDetailsViewState
               msg: state.updateProfileDataModel.message.toString(),
               context: context,
             );
+            // بنفضل في الشاشة بعد الحفظ: اليوزر لازم يشوف العدّاد اتغيّر،
+            // وكمان يقدر يضيف أكتر من منطقة ورا بعض من غير ما يفتحها تاني.
             context.read<ProfileCubit>().getClientProfile(
                   clientId: CacheHelper.getData(key: "userId"),
                 );
-            context.pop();
           } else if (state is EditProfileDataErrorState) {
             Toast.showErrorToast(
               msg: state.error.toString(),
@@ -164,6 +100,11 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
   final Map<String, Set<String>> _selected = {};
   final Set<String> _expanded = {};
 
+  /// المجموعات اللي كانت محفوظة على السيرفر أول ما فتحنا الشاشة.
+  /// لازم تفضل تتبعت في الريكوست: لو فضيت واحدة منها تتبعت [] عشان السيرفر
+  /// يمسحها فعلاً، مش نشيلها من الريكوست وهو يسيبها زي ما هي.
+  final Set<String> _initialScopes = {};
+
   @override
   void initState() {
     super.initState();
@@ -176,9 +117,12 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
         setState(() {
           scopes.forEach((k, v) {
             _selected[k] = v.toSet();
+            if (v.isNotEmpty) {
+              _initialScopes.add(k);
+              // بنفرد كل مجموعة فيها تحديد عشان اليوزر يشوف اختياراته كلها
+              _expanded.add(k);
+            }
           });
-          // افرد أول مجموعة فيها تحديد عشان اليوزر يشوف اختياراته
-          _expanded.add(scopes.keys.first);
         });
       }
     });
@@ -189,21 +133,24 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
     _selected.forEach((scope, specs) {
       if (specs.isNotEmpty) result[scope] = specs.toList();
     });
+    // أي مجموعة كانت محفوظة وبقيت فاضية دلوقتي تتبعت كـ []
+    for (final scope in _initialScopes) {
+      result.putIfAbsent(scope, () => const <String>[]);
+    }
     return result;
   }
 
   void _save() {
-    final scopes = _buildScopes();
-    if (scopes.isEmpty) return;
+    // مش بنمنع الحفظ لو مفيش تخصصات خالص: بنبعت وخلي السيرفر يقول رأيه
+    // (يقبل صفر تخصصات أو يرجّع إيرور) بدل ما الزرار يبقى ساكت.
     EditProfileCubit.get(context).updateSpecializationsAreas(
       id: CacheHelper.getData(key: "userId"),
-      specializationScopes: scopes,
+      specializationScopes: _buildScopes(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final isArabic = context.isArabic;
     final totalSelected =
         _selected.values.fold<int>(0, (sum, s) => sum + s.length);
     return Column(
@@ -221,20 +168,20 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
                   color: AppColors.blueLight,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: Text('$totalSelected',
-                    style: AppStyles.primary14Medium),
+                child:
+                    Text('$totalSelected', style: AppStyles.primary14Medium),
               ),
             ],
           ],
         ),
         Gap(12.h),
-        ..._scopeData.entries.map((entry) {
-          final scopeKey = entry.key;
-          final scopeInfo = entry.value;
-          final label = isArabic
-              ? scopeInfo['labelAr'] as String
-              : scopeInfo['labelEn'] as String;
-          final specs = scopeInfo['specs'] as Map<String, String>;
+        // نفس مصدر شاشة التسجيل بالظبط عشان الاتنين ما يفرقوا
+        ...specializationScopeOptions.map((option) {
+          final scopeKey = option.value;
+          final label = option.translationKey != null
+              ? option.translationKey!.tr()
+              : option.key;
+          final specs = specializationScopeSubOptions[scopeKey] ?? const [];
           final selectedSet = _selected[scopeKey] ?? {};
           final isExpanded = _expanded.contains(scopeKey);
           return Column(
@@ -265,7 +212,7 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
                       ),
                       if (selectedSet.isNotEmpty)
                         Padding(
-                          padding: EdgeInsets.only(right: 8.w),
+                          padding: EdgeInsetsDirectional.only(end: 8.w),
                           child: Text('${selectedSet.length}',
                               style: AppStyles.primary14Medium),
                         ),
@@ -284,9 +231,9 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
                   padding: EdgeInsets.only(top: 8.h, bottom: 4.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: specs.entries.map((spec) {
-                      final specKey = spec.key;
-                      final specLabel = isArabic ? spec.value : spec.key;
+                    children: specs.map((specKey) {
+                      // نفس مفاتيح الترجمة المستخدمة في شاشة التسجيل
+                      final specLabel = specKey.toUpperCase().tr();
                       final isOn = selectedSet.contains(specKey);
                       // وحدات التخصص بتظهر تحته، بتتمدد وتتقفل
                       final units =
@@ -333,11 +280,13 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
                                       ),
                                       Gap(4.w),
                                     ],
-                                    Text(
-                                      specLabel,
-                                      style: isOn
-                                          ? AppStyles.white14Medium
-                                          : AppStyles.black14Medium,
+                                    Flexible(
+                                      child: Text(
+                                        specLabel,
+                                        style: isOn
+                                            ? AppStyles.white14Medium
+                                            : AppStyles.black14Medium,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -345,8 +294,8 @@ class _SpecializationsSelectorState extends State<_SpecializationsSelector> {
                             ),
                             if (units.isNotEmpty)
                               Padding(
-                                padding: EdgeInsets.only(
-                                    top: 4.h, right: 12.w, left: 12.w),
+                                padding: EdgeInsetsDirectional.only(
+                                    top: 4.h, start: 12.w, end: 12.w),
                                 child: UnitsExpandableLine(units: units),
                               ),
                           ],
@@ -417,15 +366,21 @@ class _CityAreaSelectorState extends State<_CityAreaSelector> {
   void _add(CreateRequestCubit cubit) {
     final area = cubit.selectedAreaObj;
     if (area == null) return;
-    if (widget.selectedAreas.any((a) => a.id == area.id)) return;
+    if (widget.selectedAreas.any((a) => a.id == area.id)) {
+      // كانت مضافة خلاص: نقول لليوزر بدل ما الزرار يبقى ساكت
+      Toast.showErrorToast(
+        msg: LangKeys.areaAlreadyAdded.tr(),
+        context: context,
+      );
+      return;
+    }
     final updated = [...widget.selectedAreas, area];
     widget.onChanged(updated);
     _save(updated);
   }
 
   void _remove(Areas area) {
-    final updated =
-        widget.selectedAreas.where((a) => a.id != area.id).toList();
+    final updated = widget.selectedAreas.where((a) => a.id != area.id).toList();
     widget.onChanged(updated);
     _save(updated);
   }
@@ -462,13 +417,12 @@ class _CityAreaSelectorState extends State<_CityAreaSelector> {
                 border: Border.all(color: AppColors.blueLight, width: 1.5),
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: DropdownButton<String>(
+              child: DropdownButton<int>(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 isExpanded: true,
                 underline: const SizedBox.shrink(),
-                value: cubit.selectedCityObj != null
-                    ? _name(cubit.selectedCityObj)
-                    : null,
+                // بالـ id مش بالاسم: مدينتين بنفس الاسم كانت بترمي assertion
+                value: cubit.selectedCityObj?.id,
                 hint: Text(
                   state is GetCitiesLoadingState
                       ? 'Loading...'
@@ -476,21 +430,20 @@ class _CityAreaSelectorState extends State<_CityAreaSelector> {
                   style: const TextStyle(color: Color(0xFF969696), fontSize: 14),
                 ),
                 items: cubit.citiesList
-                    .map((c) => DropdownMenuItem<String>(
-                          value: _name(c),
+                    .where((c) => c.id != null)
+                    .map((c) => DropdownMenuItem<int>(
+                          value: c.id,
                           child: Text(_name(c)),
                         ))
                     .toList(),
                 onChanged: cubit.citiesList.isEmpty
                     ? null
-                    : (name) {
-                        if (name != null) {
-                          final city = cubit.citiesList.firstWhere(
-                            (c) => _name(c) == name,
-                          );
-                          cubit.selectCity(city);
-                          cubit.getAreas(cityId: city.id!);
-                        }
+                    : (id) {
+                        if (id == null) return;
+                        final city =
+                            cubit.citiesList.firstWhere((c) => c.id == id);
+                        cubit.selectCity(city);
+                        cubit.getAreas(cityId: city.id!);
                       },
               ),
             ),
@@ -505,34 +458,32 @@ class _CityAreaSelectorState extends State<_CityAreaSelector> {
                   border: Border.all(color: AppColors.blueLight, width: 1.5),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: DropdownButton<String>(
+                child: DropdownButton<int>(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   isExpanded: true,
                   underline: const SizedBox.shrink(),
-                  value: cubit.selectedAreaObj != null
-                      ? _name(cubit.selectedAreaObj)
-                      : null,
+                  value: cubit.selectedAreaObj?.id,
                   hint: Text(
                     state is GetAreasLoadingState
                         ? 'Loading...'
                         : LangKeys.selectArea.tr(),
-                    style: const TextStyle(color: Color(0xFF969696), fontSize: 14),
+                    style:
+                        const TextStyle(color: Color(0xFF969696), fontSize: 14),
                   ),
                   items: cubit.areasList
-                      .map((a) => DropdownMenuItem<String>(
-                            value: _name(a),
+                      .where((a) => a.id != null)
+                      .map((a) => DropdownMenuItem<int>(
+                            value: a.id,
                             child: Text(_name(a)),
                           ))
                       .toList(),
                   onChanged: cubit.areasList.isEmpty
                       ? null
-                      : (name) {
-                          if (name != null) {
-                            final area = cubit.areasList.firstWhere(
-                              (a) => _name(a) == name,
-                            );
-                            cubit.selectArea(area);
-                          }
+                      : (id) {
+                          if (id == null) return;
+                          final area =
+                              cubit.areasList.firstWhere((a) => a.id == id);
+                          cubit.selectArea(area);
                         },
                 ),
               ),

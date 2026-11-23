@@ -477,6 +477,7 @@
     "selectUnitTypePlaceholder": "اختر نوع الوحدة",
     "selectCity": "اختر المدينة",
     "selectCityFirst": "اختر المدينة أولاً",
+    "areaAlreadyAdded": "المنطقة مضافة بالفعل",
     "selectArea": "اختر المنطقة",
     "selectAreaFirst": "اختر المنطقة أولاً",
     "selectSubArea": "اختر المنطقة الفرعية",

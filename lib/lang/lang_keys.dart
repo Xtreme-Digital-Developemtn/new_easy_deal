@@ -461,6 +461,7 @@ abstract class LangKeys {
   static const String selectUnitTypePlaceholder = 'selectUnitTypePlaceholder';
   static const String selectCity = 'selectCity';
   static const String selectCityFirst = 'selectCityFirst';
+  static const String areaAlreadyAdded = 'areaAlreadyAdded';
   static const String selectArea = 'selectArea';
   static const String selectAreaFirst = 'selectAreaFirst';
   static const String selectSubArea = 'selectSubArea';

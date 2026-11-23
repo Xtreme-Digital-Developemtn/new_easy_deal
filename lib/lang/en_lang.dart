@@ -477,6 +477,7 @@
     "selectUnitTypePlaceholder": "Select unit type",
     "selectCity": "Select city",
     "selectCityFirst": "Select city first",
+    "areaAlreadyAdded": "Area already added",
     "selectArea": "Select area",
     "selectAreaFirst": "Select area first",
     "selectSubArea": "Select sub area",
