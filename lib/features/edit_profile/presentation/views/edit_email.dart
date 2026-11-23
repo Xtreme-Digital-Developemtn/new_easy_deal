@@ -6,9 +6,8 @@ import 'package:easy_deal/features/profile/presentation/view_model/profile_cubit
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
 class EditEmailView extends StatefulWidget {
-  const EditEmailView ({super.key,  });
+  const EditEmailView({super.key});
 
   @override
   State<EditEmailView> createState() => _EditEmailViewState();
@@ -23,6 +22,7 @@ class _EditEmailViewState extends State<EditEmailView> {
     cubit.emailCon.text = profile?.email ?? "";
     cubit.nameCon.clear();
     cubit.mobileNumberCon.clear();
+    cubit.hasUserInteracted = false;
     cubit.role = profile?.role;
     cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
@@ -31,21 +31,25 @@ class _EditEmailViewState extends State<EditEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.editEmailAddress),
-      body: BlocConsumer<EditProfileCubit , EditProfileStates>(
-        listener: (context,state){
-          if(state is EditProfileDataSuccessState){
-            Toast.showSuccessToast(msg: state.updateProfileDataModel.message.toString(), context: context);
+      body: BlocConsumer<EditProfileCubit, EditProfileStates>(
+        listener: (context, state) {
+          if (state is EditProfileDataSuccessState) {
+            Toast.showSuccessToast(
+              msg: state.updateProfileDataModel.message.toString(),
+              context: context,
+            );
             context.pop();
-            context.read<ProfileCubit>().getClientProfile(clientId: CacheHelper.getData(key: "userId"));
-          }
-          else if(state is EditProfileDataErrorState){
+            context.read<ProfileCubit>().getClientProfile(
+              clientId: CacheHelper.getData(key: "userId"),
+            );
+          } else if (state is EditProfileDataErrorState) {
             Toast.showErrorToast(msg: state.error.toString(), context: context);
           }
         },
-        builder: (context,state){
+        builder: (context, state) {
           var editProfileCubit = context.read<EditProfileCubit>();
           return Padding(
-            padding:   EdgeInsets.all(20.0.r),
+            padding: EdgeInsets.all(20.0.r),
             child: Form(
               key: editProfileCubit.formKey,
               child: Column(
@@ -56,48 +60,43 @@ class _EditEmailViewState extends State<EditEmailView> {
                   Text(LangKeys.emailAddress.tr()),
                   Gap(8.h),
                   CustomTextFormField(
-                    validator: (value) => AppValidators.emailValidator(editProfileCubit.emailCon.text),
-                    hintText:   LangKeys.enterYourEmail.tr(),
+                    validator: (value) => AppValidators.emailValidator(value),
+                    hintText: LangKeys.enterYourEmail.tr(),
                     controller: editProfileCubit.emailCon,
                     onChanged: (_) => editProfileCubit.onUserInteraction(),
                   ),
                   Gap(32.h),
                   ConditionalBuilder(
-                    condition: state is ! EditProfileDataLoadingState,
-                    fallback: (context)=>CustomLoading(),
-                    builder: (context){
+                    condition: state is! EditProfileDataLoadingState,
+                    fallback: (context) => CustomLoading(),
+                    builder: (context) {
                       return CustomButton(
-                        onPressed: (){
-                          if(editProfileCubit.formKey.currentState!.validate()){
-                            editProfileCubit.updateProfileData(id : CacheHelper.getData(key: "userId"),
-                            email:editProfileCubit.emailCon.text.isEmpty ?
-                                context.read<ProfileCubit>().clientProfileModel!.data!.email
-                                : editProfileCubit.emailCon.text ,
-                              phone:editProfileCubit.mobileNumberCon.text.isEmpty ?
-                              context.read<ProfileCubit>().clientProfileModel!.data!.phone
-                                  : editProfileCubit.mobileNumberCon.text ,
-                              fullName:editProfileCubit.nameCon.text.isEmpty ?
-                              context.read<ProfileCubit>().clientProfileModel!.data!.fullName
-                                  : editProfileCubit.nameCon.text ,
+                        onPressed: () {
+                          if (editProfileCubit.formKey.currentState!
+                              .validate()) {
+                            final profile = context
+                                .read<ProfileCubit>()
+                                .clientProfileModel!
+                                .data!;
+                            final email =
+                                editProfileCubit.emailCon.text.trim();
+                            editProfileCubit.updateProfileData(
+                              id: CacheHelper.getData(key: "userId"),
+                              email: email.isEmpty ? profile.email : email,
+                              phone: profile.phone,
+                              fullName: profile.fullName,
                             );
                           }
-
-                          // context.pushNamed(Routes.otpView,arguments: {
-                          //   "contact" : "mostafa@gmail.com",
-                          //   "isMobile" : false,
-                          // });
                         },
                         text: LangKeys.save.tr(),
                       );
                     },
-
                   ),
                 ],
               ),
             ),
           );
         },
-
       ),
     );
   }

@@ -18,9 +18,10 @@ class _EditPasswordViewState extends State<EditPasswordView> {
     super.initState();
     final profile = context.read<ProfileCubit>().clientProfileModel?.data;
     final cubit = context.read<EditProfileCubit>();
-    cubit.nameCon.text = profile?.fullName ?? "";
-    cubit.emailCon.text = profile?.email ?? "";
-    cubit.mobileNumberCon.text = profile?.phone ?? "";
+    // الشاشة دي بتغيّر الباسورد بس، فمش محتاجة تلمس كونترولرز الاسم/البريد/
+    // الموبايل (كانت بتسيب فيها قيم بتتبعت مع عمليات حفظ تانية).
+    cubit.newPasswordCon.clear();
+    cubit.confirmNewPasswordCon.clear();
     cubit.role = profile?.role;
     cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }

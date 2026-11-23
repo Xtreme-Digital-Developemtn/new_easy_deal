@@ -27,6 +27,7 @@ class _EditNameViewState extends State<EditNameView> {
     cubit.nameCon.text = profile?.fullName ?? "";
     cubit.emailCon.clear();
     cubit.mobileNumberCon.clear();
+    cubit.hasUserInteracted = false;
     cubit.role = profile?.role;
     cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
@@ -54,17 +55,19 @@ class _EditNameViewState extends State<EditNameView> {
           }
         },
         builder: (context, state) {
+          var editProfileCubit = context.read<EditProfileCubit>();
           return SingleChildScrollView(
             padding: EdgeInsets.all(20.r),
             child: Form(
-              key: context.read<EditProfileCubit>().formKey,
+              key: editProfileCubit.formKey,
               child: Column(
                 children: [
                   CustomTextFormField(
-                    controller: context.read<EditProfileCubit>().nameCon,
-                    validator: (value) => AppValidators.displayNameValidator(value),
+                    controller: editProfileCubit.nameCon,
+                    validator: (value) =>
+                        AppValidators.displayNameValidator(value),
                     hintText: LangKeys.enterYourName.tr(),
-                    onChanged: (_) => context.read<EditProfileCubit>().onUserInteraction(),
+                    onChanged: (_) => editProfileCubit.onUserInteraction(),
                   ),
                   Gap(12.h),
                   ConditionalBuilder(
@@ -73,18 +76,19 @@ class _EditNameViewState extends State<EditNameView> {
                     builder: (context) {
                       return CustomButton(
                         onPressed: () {
-                          var editProfileCubit = context.read<EditProfileCubit>();
-                          if (context.read<EditProfileCubit>().formKey.currentState!.validate()) {
-                            context.read<EditProfileCubit>().updateProfileData(id : CacheHelper.getData(key: "userId"),
-                              email:editProfileCubit.emailCon.text.isEmpty ?
-                              context.read<ProfileCubit>().clientProfileModel!.data!.email
-                                  : editProfileCubit.emailCon.text ,
-                              phone:editProfileCubit.mobileNumberCon.text.isEmpty ?
-                              context.read<ProfileCubit>().clientProfileModel!.data!.phone
-                                  : editProfileCubit.mobileNumberCon.text ,
-                              fullName:editProfileCubit.nameCon.text.isEmpty ?
-                              context.read<ProfileCubit>().clientProfileModel!.data!.fullName
-                                  : editProfileCubit.nameCon.text ,);
+                          if (editProfileCubit.formKey.currentState!
+                              .validate()) {
+                            final profile = context
+                                .read<ProfileCubit>()
+                                .clientProfileModel!
+                                .data!;
+                            final name = editProfileCubit.nameCon.text.trim();
+                            editProfileCubit.updateProfileData(
+                              id: CacheHelper.getData(key: "userId"),
+                              email: profile.email,
+                              phone: profile.phone,
+                              fullName: name.isEmpty ? profile.fullName : name,
+                            );
                           }
                         },
                         text: LangKeys.save.tr(),

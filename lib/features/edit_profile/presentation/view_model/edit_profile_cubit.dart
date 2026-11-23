@@ -6,6 +6,7 @@ import 'package:easy_deal/features/profile/data/models/client_profile_model.dart
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/utils/phone/phone_utils.dart';
 import '../../../../main_imports.dart';
 import '../../data/repos/edit_profile_repo.dart';
 import 'edit_profile_states.dart';
@@ -70,11 +71,15 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   File? selectedCommercialRegistryImage;
   File? selectedTaxCardImage;
   ClientProfileModel? profileModel;
+  /// [includePassword] بتتبعت true من شاشة تغيير الباسورد بس. من غيرها أي
+  /// باسورد المستخدم كتبه وخرج من غير حفظ كان بيتبعت مع حفظ الرقم أو الاسم
+  /// ويغيّر الباسورد من غير ما يطلب.
   Future<void> updateProfileData({required int? id  ,
     required String? fullName,
     required String? phone,
     required String? email,
     List<int>? areaIds,
+    bool includePassword = false,
   }) async {
     emit(EditProfileDataLoadingState());
     final result = await editProfileRepo!.updateProfileData(
@@ -89,11 +94,11 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
               .map((a) => a.id!)
               .toList() ??
           [],
-      password: newPasswordCon.text.trim().isNotEmpty
+      password: includePassword && newPasswordCon.text.trim().isNotEmpty
           ? newPasswordCon.text.trim()
           : null,
-
-      passwordConfirmation: confirmNewPasswordCon.text.trim().isNotEmpty
+      passwordConfirmation:
+          includePassword && confirmNewPasswordCon.text.trim().isNotEmpty
           ? confirmNewPasswordCon.text.trim()
           : null,
     );
@@ -252,6 +257,10 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
   var nameCon = TextEditingController();
   var mobileNumberCon = TextEditingController();
   String phoneNumber = '';
+
+  /// كود الاتصال المختار في حقل الهاتف، محتاجينه عشان نبعت الرقم بالشكل
+  /// اللي الباك اند مستنيه (مصر بصفر البداية، وغيرها بالشكل الدولي).
+  String phoneDialCode = PhoneUtils.defaultDialCode;
   bool hasUserInteracted = false;
   void onUserInteraction() {
     hasUserInteracted = true;
