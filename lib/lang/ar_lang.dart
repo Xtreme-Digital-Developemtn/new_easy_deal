@@ -601,7 +601,7 @@
     "readyToMakeAMove": "مستعد لاتخاذ خطوة",
     "buySellOrRentYourPropertyToday": "اشترِ أو بِع أو أجر عقارك اليوم",
     "editMobileNumber": "تعديل رقم الهاتف",
-    "editMobileNumberMsg": "رسالة تعديل رقم الهاتف",
+    "editMobileNumberMsg": "أدخل رقم الهاتف الجديد الذي تريد استخدامه لتسجيل الدخول إلى حسابك.",
     "enterMobileNumber": "أدخل رقم الهاتف",
     "enterTheIssueTitle": "أدخل عنوان القضية",
     "title": "العنوان",
