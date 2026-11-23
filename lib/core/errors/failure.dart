@@ -18,20 +18,30 @@ class ServerFailure extends Failure {
       case DioExceptionType.receiveTimeout:
         return ServerFailure("receiveTimeOut");
       case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(
-            dioException.response!.statusCode!, dioException.response!.data);
-      case DioExceptionType.cancel:
-        return ServerFailure("requestCanceled");
-      case DioExceptionType.unknown:
-        if (dioException.error!.toString().contains("SocketException")) {
-          return ServerFailure("noInternet");
-        }else
-        {
+        // كان `response!.statusCode!`: أي واحد منهم null كان بيرمي استثناء
+        // من جوه معالج الأخطاء نفسه، فالطلب يفضل معلّق في حالة التحميل.
+        final statusCode = dioException.response?.statusCode;
+        if (statusCode == null) {
           return ServerFailure("unexpectedError");
         }
-
-      default:
-        return ServerFailure("Something went Error Try Again");
+        return ServerFailure.fromResponse(
+            statusCode, dioException.response?.data);
+      case DioExceptionType.cancel:
+        return ServerFailure("requestCanceled");
+      // النوع ده هو اللي dio بيرجّعه لما مفيش نت خالص (مش unknown)، وكان
+      // واقع في الـ default برسالة إنجليزي ثابتة مش مترجمة.
+      case DioExceptionType.connectionError:
+        return ServerFailure("noInternet");
+      case DioExceptionType.badCertificate:
+        return ServerFailure("unexpectedError");
+      case DioExceptionType.unknown:
+        // كان `dioException.error!`: لو الـ error بـ null بيرمي استثناء.
+        if (dioException.error?.toString().contains("SocketException") ??
+            false) {
+          return ServerFailure("noInternet");
+        } else {
+          return ServerFailure("unexpectedError");
+        }
     }
   }
 

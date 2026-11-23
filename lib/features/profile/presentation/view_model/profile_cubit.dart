@@ -21,13 +21,20 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   Future<void> logout() async {
     emit(LogoutLoadingState());
-    var result = await profileRepo!.logout();
-    return result.fold((failure) {
-      emit(LogoutErrorState(failure.errMessage));
-    }, (data) async {
-        logoutModel = data;
-        emit(LogoutSuccessState(data));
-    });
+    // لازم try/catch: أي استثناء غير متوقع (مثلاً من جوه معالج الأخطاء)
+    // كان بيهرب من غير emit، فالشيت يفضل على مؤشّر التحميل للأبد وزرار
+    // الإلغاء معطّل — المستخدم مش قادر يخرج ولا يقفل.
+    try {
+      var result = await profileRepo!.logout();
+      return result.fold((failure) {
+        emit(LogoutErrorState(failure.errMessage));
+      }, (data) async {
+          logoutModel = data;
+          emit(LogoutSuccessState(data));
+      });
+    } catch (e) {
+      emit(LogoutErrorState(handleError(e).errMessage));
+    }
   }
 
 

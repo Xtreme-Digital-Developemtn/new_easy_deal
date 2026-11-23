@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/core/utils/toast/toast.dart';
 
+import '../../../../../core/errors/error_messages.dart';
 import '../../../../../core/shared_cubits/session/app_session.dart';
 import '../../../../../main_imports.dart';
 import '../../view_model/profile_cubit.dart';
@@ -22,7 +23,12 @@ void showLogoutBottomSheet(BuildContext context) {
             return;
           }
           else if(state is LogoutErrorState){
-            Toast.showErrorToast(msg: state.error.toString(), context: context);
+            // لازم localizeErrorMessage: ServerFailure بترجّع أكواد زي
+            // noInternet مش جمل، فبدونها المستخدم كان بيشوف "noInternet".
+            Toast.showErrorToast(
+              msg: localizeErrorMessage(state.error.toString()),
+              context: context,
+            );
           }
         },
         builder:  (context,state){

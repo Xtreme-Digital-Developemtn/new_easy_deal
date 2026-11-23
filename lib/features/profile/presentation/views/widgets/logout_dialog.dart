@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import '../../../../../core/errors/error_messages.dart';
 import '../../../../../core/shared_cubits/session/app_session.dart';
 import '../../../../../main_imports.dart';
 import '../../view_model/profile_cubit.dart';
@@ -20,7 +21,10 @@ void showLogoutDialog(BuildContext context) {
             return;
           }
         else if(state is LogoutErrorState){
-          Toast.showErrorToast(msg: state.error.toString(), context: context);
+          Toast.showErrorToast(
+            msg: localizeErrorMessage(state.error.toString()),
+            context: context,
+          );
         }
       },
       builder:  (context,state){
