@@ -36,8 +36,16 @@ class _EditRegistrationPapersViewState extends State<EditRegistrationPapersView>
     _PaperField(key: 'commercialRegistryImage', label: 'السجل التجاري'),
   ];
 
+  /// الـ API بيرجع نوع الحساب بصيغ مختلفة (brokage / brokerage، مسافات،
+  /// حروف كبيرة)، فبنوحّد الصيغة قبل المقارنة زي ما بيحصل ف باقي الشاشات،
+  /// وإلا حساب الشركة كان ممكن يشوف 3 كروت بدل 5.
   List<_PaperField> _papersFor(String? type) {
-    if (type == 'real_estate_brokage_company') return _brokerPapers;
+    final normalized =
+        (type ?? '').trim().toLowerCase().replaceAll(RegExp(r'\s+'), '_');
+    if (normalized == 'real_estate_brokage_company' ||
+        normalized == 'real_estate_brokerage_company') {
+      return _brokerPapers;
+    }
     return _independentPapers;
   }
 
