@@ -16,6 +16,11 @@ import '../../shared_cubits/session/app_session.dart';
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           options.headers["Accept"] = "application/json";
+          // من غير الهيدر ده رسائل التحقق الجاية من السيرفر (زي "رقم الهاتف
+          // مستخدم بالفعل") كانت بتوصل بلغة السيرفر الافتراضية مهما كانت لغة
+          // التطبيق.
+          options.headers["Accept-Language"] =
+              CacheHelper.getData(key: StorageKeys.language) ?? "ar";
 
           if (options.extra['public'] != true) {
             if (CacheTokenManger.userToken != null &&

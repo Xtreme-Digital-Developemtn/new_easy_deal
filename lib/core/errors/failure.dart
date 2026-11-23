@@ -52,6 +52,14 @@ class ServerFailure extends Failure {
     if (response is Map<String, dynamic>) {
       // JSON response
       errorMessage = response["message"]?.toString() ?? errorMessage;
+
+      // أخطاء التحقق (422) بتيجي في "errors" لكل حقل، و"message" بتبقى
+      // رسالة عامة زي "The given data was invalid"، فالمستخدم مكانش بيعرف
+      // إن الرقم مثلاً مستخدم بحساب تاني. بناخد أول رسالة حقل لو موجودة.
+      final fieldError = _firstFieldError(response["errors"]);
+      if (fieldError != null) {
+        errorMessage = fieldError;
+      }
     } else if (response is String) {
       // Plain text response (common for 500 errors)
       errorMessage = response.isNotEmpty ? response : errorMessage;
@@ -67,5 +75,19 @@ class ServerFailure extends Failure {
     } else {
       return ServerFailure(errorMessage);
     }
+  }
+
+  /// بترجّع أول رسالة خطأ لحقل من شكل {"phone": ["..."], "email": ["..."]}.
+  static String? _firstFieldError(dynamic errors) {
+    if (errors is! Map) return null;
+    for (final value in errors.values) {
+      if (value is List && value.isNotEmpty) {
+        final first = value.first?.toString().trim();
+        if (first != null && first.isNotEmpty) return first;
+      } else if (value is String && value.trim().isNotEmpty) {
+        return value.trim();
+      }
+    }
+    return null;
   }
 }

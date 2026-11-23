@@ -8,26 +8,27 @@ class AppValidators {
     if (displayName == null || displayName
         .trim()
         .isEmpty) {
-      return LangKeys.nameValidate; // "Name is required"
+      return LangKeys.nameValidate.tr(); // "Name is required"
     }
 
     final trimmed = displayName.trim();
 
     if (trimmed.length < 2) {
-      return LangKeys.nameTooShort; // "Name must be at least 2 characters"
+      return LangKeys.nameTooShort.tr(); // "Name must be at least 2 characters"
     }
 
     if (trimmed.length > 50) {
-      return LangKeys.nameTooLong; // "Name cannot exceed 50 characters"
+      return LangKeys.nameTooLong.tr(); // "Name cannot exceed 50 characters"
     }
 
     if (RegExp(r'[0-9]').hasMatch(trimmed)) {
-      return LangKeys.nameNoNumbers; // "Name cannot contain numbers"
+      return LangKeys.nameNoNumbers.tr(); // "Name cannot contain numbers"
     }
 
     if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(trimmed)) {
-      return LangKeys
-          .nameNoSpecialChars; // "Name cannot contain special characters"
+      // لازم tr(): كانت بترجّع الـ key نفسه فالمستخدم كان يشوف "nameNoNumbers"
+      // مكتوبة تحت الحقل بدل الرسالة.
+      return LangKeys.nameNoSpecialChars.tr();
     }
 
     return null;

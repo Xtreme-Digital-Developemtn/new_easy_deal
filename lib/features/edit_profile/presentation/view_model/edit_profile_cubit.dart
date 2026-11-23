@@ -6,6 +6,7 @@ import 'package:easy_deal/features/profile/data/models/client_profile_model.dart
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../core/errors/error_messages.dart';
 import '../../../../core/utils/phone/phone_utils.dart';
 import '../../../../main_imports.dart';
 import '../../data/repos/edit_profile_repo.dart';
@@ -105,7 +106,7 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
     result.fold(
           (failure) {
-        emit(EditProfileDataErrorState(failure.errMessage));
+        emit(EditProfileDataErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) {
         updateProfileDataModel = data;
@@ -130,7 +131,7 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
 
     result.fold(
           (failure) {
-        emit(EditProfileDataErrorState(failure.errMessage));
+        emit(EditProfileDataErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) {
         updateProfileDataModel = data;
@@ -168,7 +169,7 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
       );
       final failure = result.fold((f) => f, (d) => null);
       if (failure != null) {
-        firstError = failure.errMessage;
+        firstError = localizeErrorMessage(failure.errMessage);
         break;
       }
     }
@@ -313,7 +314,7 @@ class EditProfileCubit extends Cubit<EditProfileStates> {
     var result = await editProfileRepo!.getSubAreas(cityId: cityId);
     return result.fold(
           (failure) {
-        emit(GetSubAreasDataErrorState(failure.errMessage));
+        emit(GetSubAreasDataErrorState(localizeErrorMessage(failure.errMessage)));
       },
           (data) async {
             getSubAreasModel = data;
