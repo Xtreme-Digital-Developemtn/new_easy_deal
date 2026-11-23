@@ -900,6 +900,15 @@ abstract class LangKeys {
   static const String cannotOpenFile = 'cannotOpenFile';
   static const String cannotLoadImage = 'cannotLoadImage';
   static const String addMapHint = 'addMapHint';
+  static const String accountDetails = 'accountDetails';
+  static const String loginMethods = 'loginMethods';
+  static const String advertisementsAndPropertiesDetails = 'advertisementsAndPropertiesDetails';
+  static const String advertisementsCount = 'advertisementsCount';
+  static const String operationsCount = 'operationsCount';
+  static const String locationsCount = 'locationsCount';
+  static const String specializationsCount = 'specializationsCount';
+  static const String change = 'change';
+  static const String setUp = 'setUp';
 }
 
 

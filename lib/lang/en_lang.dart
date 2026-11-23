@@ -1161,5 +1161,14 @@
     "cannotOpenFile": "Could not open the file",
     "cannotLoadImage": "Could not load the image",
     "addMapHint": "Tap the + button to add your first map",
+    "accountDetails": "Account Details",
+    "loginMethods": "Login Methods",
+    "advertisementsAndPropertiesDetails": "Advertisements and Properties Details",
+    "advertisementsCount": "Advertisements",
+    "operationsCount": "Operations",
+    "locationsCount": "Locations",
+    "specializationsCount": "Specializations",
+    "change": "Change",
+    "setUp": "Set",
   };
 }

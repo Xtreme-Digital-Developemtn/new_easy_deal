@@ -28,7 +28,6 @@ class EditProfileListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool hasSubTitle = subTitle != null && subTitle!.trim().isNotEmpty;
     return Column(
       children: [
         Container(
@@ -75,6 +74,11 @@ class EditProfileListItem extends StatelessWidget {
                     child: SizedBox(
                       height: 40.h,
                       child: CustomButton(
+                        // من غير onPressed الزرار كان بيترسم بشكل معطّل
+                        // (opacity 0.6) والضغطة عليه بتعتمد على صفّ الـ InkWell
+                        // اللي فوقه بس.
+                        onPressed: onButtonTap ?? onTap,
+                        gradientColors: false,
                         color : AppColors.white,
                         borderColor: BorderSide(
                           color: AppColors.primaryDark

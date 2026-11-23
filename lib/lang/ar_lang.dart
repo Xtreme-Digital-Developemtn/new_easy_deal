@@ -1161,5 +1161,14 @@
     "cannotOpenFile": "تعذّر فتح الملف",
     "cannotLoadImage": "تعذّر تحميل الصورة",
     "addMapHint": "اضغط على زر + لإضافة أول خريطة",
+    "accountDetails": "تفاصيل الحساب",
+    "loginMethods": "طرق تسجيل الدخول",
+    "advertisementsAndPropertiesDetails": "تفاصيل الإعلانات والعقارات",
+    "advertisementsCount": "الاعلانات",
+    "operationsCount": "العمليات",
+    "locationsCount": "المواقع",
+    "specializationsCount": "التخصصات",
+    "change": "تغيير",
+    "setUp": "ضبط",
   };
 }

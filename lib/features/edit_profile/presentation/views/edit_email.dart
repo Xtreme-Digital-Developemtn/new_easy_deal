@@ -20,7 +20,7 @@ class _EditEmailViewState extends State<EditEmailView> {
     super.initState();
     final profile = context.read<ProfileCubit>().clientProfileModel?.data;
     final cubit = context.read<EditProfileCubit>();
-    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
+    cubit.emailCon.text = profile?.email ?? "";
     cubit.nameCon.clear();
     cubit.mobileNumberCon.clear();
     cubit.role = profile?.role;

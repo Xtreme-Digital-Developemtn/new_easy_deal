@@ -1,3 +1,5 @@
+import 'package:easy_deal/lang/lang_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,7 +32,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.description_outlined,
               count: adsCount,
-              title: 'الاعلانات',
+              title: LangKeys.advertisementsCount.tr(),
             ),
           ),
 
@@ -40,7 +42,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.show_chart_rounded,
               count: opsCount,
-              title: 'العمليات',
+              title: LangKeys.operationsCount.tr(),
             ),
           ),
 
@@ -50,7 +52,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.location_on_outlined,
               count: locationsCount,
-              title: 'المواقع',
+              title: LangKeys.locationsCount.tr(),
             ),
           ),
 
@@ -60,7 +62,7 @@ class ProfileStatistics extends StatelessWidget {
             child: ProfileStatisticCard(
               icon: Icons.workspace_premium_outlined,
               count: specialtyCount,
-              title: 'التخصصات',
+              title: LangKeys.specializationsCount.tr(),
             ),
           ),
         ],

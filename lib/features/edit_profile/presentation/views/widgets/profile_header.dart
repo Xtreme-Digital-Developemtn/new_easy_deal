@@ -67,13 +67,21 @@ class ProfileHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: onMore,
-                child: Icon(
-                  Icons.more_horiz,
-                  color: Colors.white,
-                  size: 28.sp,
-                ),
+              // الأيقونة بتظهر بس لو فيها فعل. من غير كده كانت زرار شكلي
+              // المستخدم يضغط عليه وميحصل حاجة. المساحة بتتحفظ عشان
+              // العنوان يفضل في النص.
+              SizedBox(
+                width: 28.sp,
+                child: onMore == null
+                    ? null
+                    : InkWell(
+                        onTap: onMore,
+                        child: Icon(
+                          Icons.more_horiz,
+                          color: Colors.white,
+                          size: 28.sp,
+                        ),
+                      ),
               ),
             ],
           ),

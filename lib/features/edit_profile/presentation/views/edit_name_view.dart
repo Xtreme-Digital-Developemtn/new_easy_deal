@@ -19,17 +19,16 @@ class _EditNameViewState extends State<EditNameView> {
     super.initState();
     final profile = context.read<ProfileCubit>().clientProfileModel?.data;
     final cubit = context.read<EditProfileCubit>();
-    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
+    // الكونترولرز بتتبع كيوبت عام عايش طول عمر التطبيق، فبنملا النص
+    // الموجود بدل ما نعمل كونترولر جديد كل مرة (الكونترولر القديم كان
+    // بيتسرّب)، ومبنعملهاش dispose هنا — الشاشات التانية بتستخدمه بعدنا،
+    // والـ dispose كان بيخلي فتح شاشة البريد أو الموبايل بعد كده يرمي
+    // استثناء "used after being disposed".
+    cubit.nameCon.text = profile?.fullName ?? "";
     cubit.emailCon.clear();
     cubit.mobileNumberCon.clear();
     cubit.role = profile?.role;
     cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
-  }
-
-  @override
-  void dispose() {
-    context.read<EditProfileCubit>().nameCon.dispose();
-    super.dispose();
   }
 
   @override

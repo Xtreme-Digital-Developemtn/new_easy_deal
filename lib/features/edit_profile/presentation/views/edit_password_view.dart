@@ -18,9 +18,9 @@ class _EditPasswordViewState extends State<EditPasswordView> {
     super.initState();
     final profile = context.read<ProfileCubit>().clientProfileModel?.data;
     final cubit = context.read<EditProfileCubit>();
-    cubit.nameCon = TextEditingController(text: profile?.fullName ?? "");
-    cubit.emailCon = TextEditingController(text: profile?.email ?? "");
-    cubit.mobileNumberCon = TextEditingController(text: profile?.phone ?? "");
+    cubit.nameCon.text = profile?.fullName ?? "";
+    cubit.emailCon.text = profile?.email ?? "";
+    cubit.mobileNumberCon.text = profile?.phone ?? "";
     cubit.role = profile?.role;
     cubit.profileModel = context.read<ProfileCubit>().clientProfileModel;
   }
