@@ -173,7 +173,9 @@ class DeveloperProjectsTableData extends StatelessWidget {
 
   DataColumn2 _col(String label, {ColumnSize size = ColumnSize.L}) {
     return DataColumn2(
-      label: Padding(
+      label: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
       ),

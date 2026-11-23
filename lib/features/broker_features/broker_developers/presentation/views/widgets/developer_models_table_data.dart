@@ -16,7 +16,9 @@ class DeveloperModelsTableData extends StatelessWidget {
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
-      label: Padding(
+      label: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
       ),
@@ -136,6 +138,10 @@ class DeveloperModelsTableData extends StatelessWidget {
                   Center(child: _cell(item.numberOfUnits?.toString() ?? '')),
                 ),
                 DataCell(
+                  Center(child: _cell(item.numberOfFloors?.toString() ?? '')),
+                ),
+                DataCell(Center(child: _cell(_safeArea(item.unitArea)))),
+                DataCell(
                   Center(child: _cell(item.numberOfRooms?.toString() ?? '')),
                 ),
                 DataCell(
@@ -143,10 +149,6 @@ class DeveloperModelsTableData extends StatelessWidget {
                     child: _cell(item.numberOfBathrooms?.toString() ?? ''),
                   ),
                 ),
-                DataCell(
-                  Center(child: _cell(item.numberOfFloors?.toString() ?? '')),
-                ),
-                DataCell(Center(child: _cell(_safeArea(item.unitArea)))),
                 DataCell(Center(child: _cell(_safeArea(item.landingArea)))),
               ],
             );

@@ -11,7 +11,9 @@ class DeveloperSalesTableData extends StatelessWidget {
 
   DataColumn2 _col(String label, double width) {
     return DataColumn2(
-      label: Padding(
+      label: Container(
+        width: double.infinity,
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 6.w),
         child: Text(label, style: _headerStyle, textAlign: TextAlign.center),
       ),
