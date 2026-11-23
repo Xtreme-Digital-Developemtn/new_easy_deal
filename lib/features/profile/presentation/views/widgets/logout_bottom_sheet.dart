@@ -61,14 +61,14 @@ void showLogoutBottomSheet(BuildContext context) {
                   SizedBox(height: 20.h),
 
                   Text(
-                    "تسجيل الخروج",
+                    LangKeys.logout.tr(),
                     style: AppStyles.black20Bold,
                   ),
 
                   SizedBox(height: 10.h),
 
                   Text(
-                    "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
+                    LangKeys.areYouSureLogout.tr(),
                     textAlign: TextAlign.center,
                     style: AppStyles.gray12Regular,
                   ),
@@ -88,7 +88,7 @@ void showLogoutBottomSheet(BuildContext context) {
                           onPressed: state is! LogoutLoadingState ? () {
                             Navigator.pop(context);
                           } : null,
-                          text: "إلغاء",
+                          text: LangKeys.cancel.tr(),
                           textColor: AppColors.primaryDark,
                         ),
                       ),
@@ -107,7 +107,7 @@ void showLogoutBottomSheet(BuildContext context) {
                             onPressed: (){
                               profileCubit.logout();
                             },
-                            text: "تسجيل الخروج",
+                            text: LangKeys.logout.tr(),
                             textColor: AppColors.errorDark,
                           ),
                       ),

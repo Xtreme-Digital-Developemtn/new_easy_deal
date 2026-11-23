@@ -320,7 +320,7 @@
     "emailMultipleAt": "البريد الإلكتروني لا يمكن أن يحتوي على أكثر من علامة @",
     "enterYourEmail": "أدخل بريدك الإلكتروني",
     "logout": "تسجيل الخروج",
-    "areYouSureLogout": "هل أنت متأكد من تسجيل الخروج؟",
+    "areYouSureLogout": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
     "confirmLogout": "تأكيد تسجيل الخروج",
     "noUnitsAvailable": "لا توجد وحدات متاحة",
     "somethingWentWrong": "حدث خطأ ما",
