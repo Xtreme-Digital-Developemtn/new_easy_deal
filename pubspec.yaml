@@ -73,6 +73,7 @@ dependencies:
   firebase_messaging:
   flutter_local_notifications:
   step_progress_indicator: ^1.0.2
+  package_info_plus: ^8.1.0
   data_table_2: ^2.7.2
   adaptive_dialog:
   skeletonizer: ^2.1.2

@@ -81,10 +81,22 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   SocialMediaModel? socialMediaModel;
 
+  // الكيوبت ده عام وبيعمل emit لحالات كتير (البروفايل، تسجيل الخروج)،
+  // فالويدجت مش ينفع تعرف حالة السوشيال من الـstate الحالي لوحده —
+  // لإن نداء البروفايل والسوشيال بيشتغلوا في نفس الوقت عند تشغيل التطبيق.
+  // الفلاجات دي هي مصدر الحقيقة لحالة السوشيال.
+  bool isSocialMediaLoading = false;
+  String? socialMediaError;
+
   Future<void> getSocialMedia() async {
+    if (isSocialMediaLoading) return;
+    isSocialMediaLoading = true;
+    socialMediaError = null;
     emit(GetSocialMediaLoadingState());
     var result = await profileRepo!.getSocialMedia();
+    isSocialMediaLoading = false;
     return result.fold((failure) {
+      socialMediaError = failure.errMessage;
       emit(GetSocialMediaErrorState(failure.errMessage));
     }, (data) async {
       socialMediaModel = data;
