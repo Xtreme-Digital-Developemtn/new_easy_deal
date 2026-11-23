@@ -32,10 +32,30 @@ class AppSession {
 
   /// تسجيل خروج: بنشيل التوكن وهوية الأكونت، وبعدين نبني التطبيق من الأول.
   static void signedOut() {
+    // التوكن اللي في الذاكرة بيتصفّر على طول: أي حاجة بتقراه في نفس الفريم
+    // (زي `initialRoute`) لازم تشوف إننا خرجنا.
     CacheTokenManger.userToken = null;
-    CacheTokenManger.clearUserToken();
-    SessionCache.clear();
-    _restart();
+    _clearStorageThenRestart();
+  }
+
+  /// المسح من الستوريدج لازم يخلص قبل إعادة بناء الشجرة.
+  ///
+  /// `clearUserToken` و`SessionCache.clear` async، وقبل كده كانوا بيتنادوا
+  /// من غير await:
+  /// - التوكن في الـ secure storage: لو المستخدم قفل التطبيق في نفس اللحظة
+  ///   كان المسح ممكن ميخلصش، وفتح التطبيق تاني بيلاقي التوكن في الستوريدج
+  ///   (المتغير الستاتيك بيبدأ null في بروسيس جديدة) فيفتح على الرئيسية.
+  /// - مفاتيح الهوية: الشجرة الجديدة بتعمل `ProfileCubit` وتقراها على طول،
+  ///   فكانت تلاقي بيانات الأكونت القديم.
+  static Future<void> _clearStorageThenRestart() async {
+    try {
+      await CacheTokenManger.clearUserToken();
+      await SessionCache.clear();
+    } finally {
+      // حتى لو المسح رمى استثناء، الجلسة لازم تنتهي.
+      CacheTokenManger.userToken = null;
+      _restart();
+    }
   }
 
   static void _restart() {
