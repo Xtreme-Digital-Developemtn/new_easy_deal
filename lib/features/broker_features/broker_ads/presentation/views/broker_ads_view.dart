@@ -40,10 +40,33 @@ class _BrokerAdsViewState extends State<BrokerAdsView> {
     super.dispose();
   }
 
+  /// «إنشاء إعلان جديد» — بيفتح نفس form إضافة الوحدة. في آخر الـ form زرار
+  /// «إنشاء ونشر» اللي بياخد caption وبيبعت isAdvertisement = 1، فالوحدة
+  /// بتتسجل كإعلان وتظهر هنا. بعد الرجوع بنعمل refresh لليستة.
+  Future<void> _openCreateAd() async {
+    await context.pushNamed(Routes.addPropertyView);
+    if (!mounted) return;
+    context.read<BrokerAdsCubit>().getAdvertisementShuffle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(title: LangKeys.myAds),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openCreateAd,
+        backgroundColor: AppColors.primaryDark,
+        foregroundColor: AppColors.white,
+        icon: const Icon(Icons.add, color: AppColors.white),
+        label: Text(
+          LangKeys.createNewAd.tr(),
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: BlocConsumer<BrokerAdsCubit, BrokerAdsStates>(
         listener: (context, state) {
           if (state is LoadMoreAdvertisementShuffleErrorState) {

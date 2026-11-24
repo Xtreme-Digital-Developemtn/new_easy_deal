@@ -50,13 +50,17 @@ class ApStep5Review extends StatelessWidget {
         CustomButton(
           text: isArabic ? 'إضافة عقار ونشر' : 'Add Property & Publish',
           iconData: Icons.campaign_outlined,
-          color: AppColors.white,
-          textColor: AppColors.primaryDark,
+          color: AppColors.primaryDark,
+          textColor: AppColors.white,
           onPressed: loading
               ? null
+              // النافذة نفسها بتاخد صور الإعلان + الوصف مع بعض، وزرار «نشر»
+              // جواها مقفول لحد ما تترفع صورة واحدة على الأقل.
               : () => ApPublishCaptionSheet.show(
                     context,
-                    onPublish: (caption) => cubit.submit(publish: true, caption: caption),
+                    cubit: cubit,
+                    onPublish: (caption) =>
+                        cubit.submit(publish: true, caption: caption),
                   ),
         ),
 

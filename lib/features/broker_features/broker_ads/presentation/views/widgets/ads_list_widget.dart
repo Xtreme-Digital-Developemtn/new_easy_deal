@@ -26,7 +26,7 @@ class AdsListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       controller: controller,
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 96.r),
       itemCount: data.length + (isLoadingMore ? 1 : 0),
       separatorBuilder: (_, __) => Gap(12.h),
       itemBuilder: (context, index) {

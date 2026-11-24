@@ -687,6 +687,14 @@ class AddPropertyCubit extends Cubit<AddPropertyStates> {
 
   Future<void> submit({required bool publish, String? caption}) async {
     if (isSubmitting) return;
+
+    // النشر كإعلان لازم معاه صورة واحدة على الأقل في معرض الصور (layout).
+    // الحفظ كعقار عادي مش مشروط بصور.
+    if (publish && layout.isEmpty) {
+      emit(CreateUnitErrorState(LangKeys.publishNeedsImage.tr()));
+      return;
+    }
+
     isSubmitting = true;
     syncControllers();
     emit(CreateUnitLoadingState());

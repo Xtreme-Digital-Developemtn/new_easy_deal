@@ -911,6 +911,8 @@ abstract class LangKeys {
   static const String change = 'change';
   static const String setUp = 'setUp';
   static const String noQuestionsFound = 'noQuestionsFound';
+  static const String createNewAd = 'createNewAd';
+  static const String publishNeedsImage = 'publishNeedsImage';
   static const String noDataFound = 'noDataFound';
 }
 

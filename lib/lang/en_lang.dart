@@ -1172,6 +1172,8 @@
     "change": "Change",
     "setUp": "Set",
     "noQuestionsFound": "No questions available yet",
+    "createNewAd": "Create New Ad",
+    "publishNeedsImage": "Publishing an ad requires at least one gallery image",
     "noDataFound": "No data available yet",
   };
 }
