@@ -89,32 +89,164 @@ final _operationOptions = [
   'rent_out',
 ];
 
-final _unitTypeOptions = [
+// Unit types, kept identical to the web stepper modal
+// (/broker/stepper-modal → "اختر نوع الوحدة"): same values, same order,
+// same labels. The web narrows the list by compound type + operation, so the
+// four lists below mirror its outsideCompound / insideCompound /
+// RentalOutsideCompound / RentalInsideCompound arrays one to one.
+const _outsideCompoundSellUnitTypes = [
+  // Residential
   'apartments',
   'duplexes',
-  'penthouses',
-  'roofs',
   'studios',
+  'penthouses',
   'basements',
-  'residential_buildings',
+  'roofs',
+  // Villas
   'villas',
-  'i_villa',
+  'residential_buildings',
+  // Commercial / administrative
   'administrative_units',
   'medical_clinics',
-  'pharmacies',
   'commercial_stores',
-  'residential_lands',
+  'pharmacies',
   'commercial_administrative_buildings',
-  'commercial_administrative_lands',
-  'factory_lands',
+  // Industrial and lands
   'warehouse_lands',
+  'factory_lands',
+  'residential_lands',
+  'commercial_administrative_lands',
+  // Chalets and vacation villas
   'chalets',
   'vacation_villa',
+];
+
+const _insideCompoundSellUnitTypes = [
+  // Residential
+  'apartments',
+  'duplexes',
+  'studios',
+  'penthouses',
+  // Villas
+  'i_villa',
+  'standalone_villas',
+  'town_houses',
+  'twin_houses',
+  // Commercial / administrative
+  'administrative_units',
+  'medical_clinics',
+  'commercial_stores',
+  'pharmacies',
+  'commercial_administrative_buildings',
+  // Chalets and vacation villas
+  'chalets',
+  'vacation_villa',
+];
+
+const _outsideCompoundRentUnitTypes = [
   'hotels',
+  // Residential
+  'apartments',
+  'duplexes',
+  'studios',
+  'penthouses',
+  'basements',
+  'roofs',
+  // Villas
+  'villas',
+  'residential_buildings',
+  // Commercial / administrative
+  'administrative_units',
+  'medical_clinics',
+  'commercial_stores',
+  'pharmacies',
+  'commercial_administrative_buildings',
+  // Chalets and vacation villas
+  'chalets',
+  'vacation_villa',
+  // Industrial
+  'warehouse_lands',
+  'factory_lands',
+];
+
+const _insideCompoundRentUnitTypes = [
+  'hotels',
+  // Residential
+  'apartments',
+  'duplexes',
+  'studios',
+  'penthouses',
+  // Villas
+  'i_villa',
   'twin_houses',
   'town_houses',
   'standalone_villas',
+  // Commercial / administrative
+  'administrative_units',
+  'medical_clinics',
+  'commercial_stores',
+  'pharmacies',
+  'commercial_administrative_buildings',
+  // Chalets and vacation villas
+  'chalets',
+  'vacation_villa',
 ];
+
+/// Every unit type, in the web's grouped order. Shown while the compound type
+/// or the operation has not been picked yet, exactly as the web does.
+const _allUnitTypeOptions = [
+  // Residential
+  'apartments',
+  'duplexes',
+  'studios',
+  'penthouses',
+  'basements',
+  'roofs',
+  // Villas
+  'i_villa',
+  'town_houses',
+  'twin_houses',
+  'standalone_villas',
+  'villas',
+  'residential_buildings',
+  // Commercial / administrative
+  'administrative_units',
+  'medical_clinics',
+  'commercial_stores',
+  'pharmacies',
+  'commercial_administrative_buildings',
+  // Industrial and lands
+  'warehouse_lands',
+  'factory_lands',
+  'residential_lands',
+  'commercial_administrative_lands',
+  // Vacation units
+  'chalets',
+  'vacation_villa',
+  'hotels',
+];
+
+/// The unit types the web offers for the chosen compound type + operation.
+List<String> _unitTypeOptionsFor(String? compoundType, String? operation) {
+  if (compoundType == 'outside_compound') {
+    if (operation == 'sell') return _outsideCompoundSellUnitTypes;
+    if (operation == 'rent_out') return _outsideCompoundRentUnitTypes;
+  } else if (compoundType == 'inside_compound') {
+    if (operation == 'sell') return _insideCompoundSellUnitTypes;
+    if (operation == 'rent_out') return _insideCompoundRentUnitTypes;
+  }
+  return _allUnitTypeOptions;
+}
+
+/// Drops the chosen unit type when the new compound type / operation no longer
+/// offers it, so the dropdown never holds a value that is not in its list.
+String? _keepUnitType(String? unitType, String? compoundType, String? operation) {
+  if (unitType == null) return null;
+  return _unitTypeOptionsFor(compoundType, operation).contains(unitType)
+      ? unitType
+      : null;
+}
+
 
 final _viewOptions = [
   'water_view',
@@ -209,8 +341,11 @@ Future<BrokerDataBasicFilterResult?> showBrokerDataBasicFilterSheet(
                           items: _compoundOptions,
                           displayFn: (v) =>
                               BrokerTextHelper.projectTypeText(v),
-                          onChanged: (v) => setState(
-                              () => selectedCompoundType = v),
+                          onChanged: (v) => setState(() {
+                            selectedCompoundType = v;
+                            selectedUnitType = _keepUnitType(
+                                selectedUnitType, v, selectedUnitOperation);
+                          }),
                         ),
                         Gap(16.h),
 
@@ -219,16 +354,20 @@ Future<BrokerDataBasicFilterResult?> showBrokerDataBasicFilterSheet(
                           value: selectedUnitOperation,
                           items: _operationOptions,
                           displayFn: (v) => _operationText(v),
-                          onChanged: (v) => setState(
-                              () => selectedUnitOperation = v),
+                          onChanged: (v) => setState(() {
+                            selectedUnitOperation = v;
+                            selectedUnitType = _keepUnitType(
+                                selectedUnitType, selectedCompoundType, v);
+                          }),
                         ),
                         Gap(16.h),
 
                         _buildDropdown(
                           label: LangKeys.unitType.tr(),
                           value: selectedUnitType,
-                          items: _unitTypeOptions,
-                          displayFn: (v) => _unitTypeText(v),
+                          items: _unitTypeOptionsFor(
+                              selectedCompoundType, selectedUnitOperation),
+                          displayFn: (v) => BrokerTextHelper.unitTypeText(v),
                           onChanged: (v) => setState(
                               () => selectedUnitType = v),
                         ),
@@ -383,8 +522,11 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                           items: _compoundOptions,
                           displayFn: (v) =>
                               BrokerTextHelper.projectTypeText(v),
-                          onChanged: (v) => setState(
-                              () => selectedCompoundType = v),
+                          onChanged: (v) => setState(() {
+                            selectedCompoundType = v;
+                            selectedUnitType = _keepUnitType(
+                                selectedUnitType, v, selectedUnitOperation);
+                          }),
                         ),
                         Gap(16.h),
 
@@ -393,16 +535,20 @@ Future<BrokerDataAdvancedFilterResult?> showBrokerDataAdvancedFilterSheet(
                           value: selectedUnitOperation,
                           items: _operationOptions,
                           displayFn: (v) => _operationText(v),
-                          onChanged: (v) => setState(
-                              () => selectedUnitOperation = v),
+                          onChanged: (v) => setState(() {
+                            selectedUnitOperation = v;
+                            selectedUnitType = _keepUnitType(
+                                selectedUnitType, selectedCompoundType, v);
+                          }),
                         ),
                         Gap(16.h),
 
                         _buildDropdown(
                           label: LangKeys.unitType.tr(),
                           value: selectedUnitType,
-                          items: _unitTypeOptions,
-                          displayFn: (v) => _unitTypeText(v),
+                          items: _unitTypeOptionsFor(
+                              selectedCompoundType, selectedUnitOperation),
+                          displayFn: (v) => BrokerTextHelper.unitTypeText(v),
                           onChanged: (v) => setState(
                               () => selectedUnitType = v),
                         ),
@@ -667,7 +813,9 @@ Widget _buildDropdown<T>({
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<T>(
-            value: value,
+            // لو القيمة المحفوظة مش موجودة في القائمة الحالية (مثلاً نوع وحدة
+            // مش متاح للعملية المختارة) نعرض الـ hint بدل ما الـ dropdown يقع.
+            value: items.contains(value) ? value : null,
             isExpanded: true,
             hint: Row(
               children: [
@@ -752,61 +900,6 @@ String _operationText(String value) {
       return 'بيع';
     case 'rent_out':
       return 'تأجير';
-    default:
-      return value;
-  }
-}
-
-String _unitTypeText(String value) {
-  switch (value) {
-    case 'apartments':
-      return 'شقق';
-    case 'duplexes':
-      return 'دوبلكس';
-    case 'penthouses':
-      return 'بنتهاوس';
-    case 'roofs':
-      return 'أسطح';
-    case 'studios':
-      return 'ستوديوهات';
-    case 'basements':
-      return 'أقبية';
-    case 'residential_buildings':
-      return 'مباني سكنية';
-    case 'villas':
-      return 'فيلات';
-    case 'i_villa':
-      return 'آي فيلا';
-    case 'administrative_units':
-      return 'وحدات إدارية';
-    case 'medical_clinics':
-      return 'عيادات طبية';
-    case 'pharmacies':
-      return 'صيدليات';
-    case 'commercial_stores':
-      return 'محلات تجارية';
-    case 'residential_lands':
-      return 'أراضي سكنية';
-    case 'commercial_administrative_buildings':
-      return 'مباني إدارية تجارية';
-    case 'commercial_administrative_lands':
-      return 'أراضي إدارية تجارية';
-    case 'factory_lands':
-      return 'أراضي مصانع';
-    case 'warehouse_lands':
-      return 'أراضي مخازن';
-    case 'chalets':
-      return 'شاليهات';
-    case 'vacation_villa':
-      return 'فيلا إجازات';
-    case 'hotels':
-      return 'فنادق';
-    case 'twin_houses':
-      return 'توين هاوس';
-    case 'town_houses':
-      return 'تاون هاوس';
-    case 'standalone_villas':
-      return 'فيلات مستقلة';
     default:
       return value;
   }
