@@ -13,7 +13,8 @@ class RequestDetailsTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RequestDetailsCubit, RequestDetailsStates>(
       buildWhen: (previous, current) =>
-      current is RequestDetailsChangeTabState,
+      current is RequestDetailsChangeTabState ||
+      current is GetRequestDetailsSuccessState,
       builder: (context, state) {
         final cubit = RequestDetailsCubit.get(context);
 
@@ -46,14 +47,17 @@ class RequestDetailsTabs extends StatelessWidget {
                 isSelected: cubit.selectedIndex == 2,
               ),
 
-              const SizedBox(width: 12),
+              /// طلبات البيع مفيهاش توصيات فالتاب مبيظهرش خالص
+              if (!cubit.isSellRequest) ...[
+                const SizedBox(width: 12),
 
-              _buildTab(
-                context: context,
-                title: LangKeys.tabRecommendations.tr(),
-                index: 3,
-                isSelected: cubit.selectedIndex == 3,
-              ),
+                _buildTab(
+                  context: context,
+                  title: LangKeys.tabRecommendations.tr(),
+                  index: 3,
+                  isSelected: cubit.selectedIndex == 3,
+                ),
+              ],
             ],
           ),
         );

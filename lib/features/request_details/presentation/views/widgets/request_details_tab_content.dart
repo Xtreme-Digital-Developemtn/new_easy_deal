@@ -30,6 +30,8 @@ class RequestDetailsTabContent extends StatelessWidget {
             return const RepliesWidget(); // request/replies
 
           case 3:
+            // طلبات البيع مفيهاش توصيات فبنرجع لنظرة عامة
+            if (cubit.isSellRequest) return RequestOverview(data: data);
             return const RecommendedWidget(); // requests/recommend/units - تاب توصيات
 
           default:

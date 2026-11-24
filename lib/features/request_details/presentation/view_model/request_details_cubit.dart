@@ -41,7 +41,13 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
         // Auto load all lists on page open (without button) - نفس الطريقة
         getReplies(requestId: requestId);
         getSentResponses(requestId: requestId);
-        getRecommendedUnits(requestId: requestId);
+        // طلبات البيع مفيهاش تاب توصيات فمش محتاجين نجيبها
+        if (!isSellRequest) {
+          getRecommendedUnits(requestId: requestId);
+        } else if (selectedIndex == 3) {
+          // لو التاب المختار كان توصيات ومبقاش موجود نرجع لنظرة عامة
+          changeTab(0);
+        }
       },
     );
   }
@@ -80,6 +86,10 @@ class RequestDetailsCubit extends Cubit<RequestDetailsStates> {
   // ================= Make Unit (حفظ في العقارات المباشرة) =================
   MakeUnitModel? makeUnitModel;
   bool isMakingUnit = false;
+
+  /// طلبات البيع مفيهاش توصيات ولا تعيين لوسيط، فبنخفيهم من صفحة التفاصيل
+  bool get isSellRequest =>
+      requestDetailsModel?.data?.type?.trim().toLowerCase() == 'sell';
 
   /// الزرار بيظهر بس لو نوع الطلب بيع أو إيجار والمستخدم صاحب الطلب role = client
   bool get canMakeUnit {

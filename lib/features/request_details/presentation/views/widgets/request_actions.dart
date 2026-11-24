@@ -18,6 +18,7 @@ class RequestActions extends StatelessWidget {
   });
 
   final VoidCallback? onNewTap;
+  /// لو null الشيب ما يظهرش - زي طلبات البيع اللي مفيهاش تعيين لوسيط
   final VoidCallback? onAssignBrokerTap;
   final VoidCallback? onCompleteTap;
   final VoidCallback? onStartProcessingTap;
@@ -45,12 +46,14 @@ class RequestActions extends StatelessWidget {
           onTap: onNewTap,
         ),
 
-        _ActionChip(
-          label: LangKeys.assignToBroker.tr(),
-          backgroundColor: const Color(0xFFF0E1FF),
-          textColor: const Color(0xFF8B3DCE),
-          onTap: onAssignBrokerTap,
-        ),
+        /// بيجي null في طلبات البيع (مفيش تعيين لوسيط) فالشيب ما يظهرش أصلاً
+        if (onAssignBrokerTap != null)
+          _ActionChip(
+            label: LangKeys.assignToBroker.tr(),
+            backgroundColor: const Color(0xFFF0E1FF),
+            textColor: const Color(0xFF8B3DCE),
+            onTap: onAssignBrokerTap,
+          ),
 
         _ActionChip(
           label: LangKeys.completed.tr(),

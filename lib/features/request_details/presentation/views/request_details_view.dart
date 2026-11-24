@@ -36,7 +36,8 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
         if (cubit.sentResponsesList.isEmpty) {
           cubit.getSentResponses(requestId: id);
         }
-        if (cubit.recommendedList.isEmpty) {
+        // طلبات البيع مفيهاش توصيات فمش بنجيبها
+        if (!cubit.isSellRequest && cubit.recommendedList.isEmpty) {
           cubit.getRecommendedUnits(requestId: id);
         }
       }
@@ -125,12 +126,15 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RequestActions(
-                        onAssignBrokerTap: () {
-                          context.pushNamed(
-                            Routes.assignToBrokerView,
-                            arguments: {'requestId': widget.requestId},
-                          );
-                        },
+                        // طلبات البيع مفيهاش تعيين لوسيط فالشيب بيتخفي
+                        onAssignBrokerTap: requestDetailsCubit.isSellRequest
+                            ? null
+                            : () {
+                                context.pushNamed(
+                                  Routes.assignToBrokerView,
+                                  arguments: {'requestId': widget.requestId},
+                                );
+                              },
                         onNewTap: () => updateStatus('new'),
                         onCompleteTap: () => updateStatus('finished'),
                         onStartProcessingTap: () => updateStatus('in_processing'),
