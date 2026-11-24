@@ -6,6 +6,7 @@ import '../../utils/toast/toast.dart';
 
 import '../../../features/layout/presentation/view_model/layout_cubit.dart';
 import '../../app_services/local_services/cache_token.dart';
+import '../../app_services/notifications/fcm_token_sync.dart';
 import '../../utils/app_consts/session_cache.dart';
 
 /// إعادة تشغيل الجلسة: أي دخول أو خروج يخلي التطبيق يبدأ من الأول.
@@ -35,6 +36,9 @@ class AppSession {
     // التوكن اللي في الذاكرة بيتصفّر على طول: أي حاجة بتقراه في نفس الفريم
     // (زي `initialRoute`) لازم تشوف إننا خرجنا.
     CacheTokenManger.userToken = null;
+    /// نفس الجهاز ممكن يدخل بحساب تاني: لازم نسمح بإعادة إرسال نفس الـ
+    /// FCM token بعد الدخول الجديد، وإلا السيرفر يفضل رابطه بالمستخدم القديم.
+    FcmTokenSync.reset();
     _clearStorageThenRestart();
   }
 

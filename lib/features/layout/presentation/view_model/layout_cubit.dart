@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/app_services/notifications/fcm_token_sync.dart';
 import 'package:easy_deal/core/utils/app_consts/session_cache.dart';
 import 'package:easy_deal/features/layout/data/models/send_fcm_model.dart';
 import 'package:easy_deal/features/layout/data/repos/layout_repo.dart';
@@ -71,7 +72,10 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
   Future<void> sendFcmToken() async {
     emit(SendFcmTokenLoading());
-    var result = await layoutRepo!.sendFcmToken(fcmToken: CacheHelper.getData(key: "FCMToken"));
+    /// الإرسال كله بقى في `FcmTokenSync`: بيتحقق من وجود التوكن ومن إن
+    /// المستخدم داخل، وبيمنع إعادة إرسال نفس التوكن كل مرة الـ layout يتبني.
+    final result = await FcmTokenSync.sync();
+    if (result == null) return;
     return result.fold(
           (failure) {
         emit(SendFcmTokenError(failure.errMessage));

@@ -1,4 +1,4 @@
-   import 'package:easy_deal/core/extensions/log_util.dart';
+import 'package:easy_deal/core/extensions/log_util.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -10,8 +10,6 @@ import 'lang/codegen_loader.g.dart';
 import 'main_imports.dart';
 import 'my_app.dart';
 import 'dart:developer';
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,19 +17,21 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await CacheHelper.init();
 
   String? token = await CacheTokenManger.getUserToken();
   logSuccess("Retrieved token: $token");
-  await CacheHelper.init();
-  // CacheTokenManger.clearUserToken();
   await EasyLocalization.ensureInitialized();
 
   setup();
 
   getVmUri();
-  getFcmToken();
-    Bloc.observer = MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
+
+  /// لازم بعد `CacheHelper.init()` و`setup()`: جوّاها بنخزّن الـ FCM token
+  /// في الكاش وبنبعته عن طريق الريبو المسجّل في getIt.
   await NotificationService.init();
+
   runApp(
     EasyLocalization(
       startLocale: const Locale('ar', ""),
@@ -54,9 +54,4 @@ void main() async {
 Future<Uri?> getVmUri() async {
   ServiceProtocolInfo serviceProtocolInfo = await Service.getInfo();
   return serviceProtocolInfo.serverUri;
-}
-Future<void> getFcmToken() async {
-  String? token = await FirebaseMessaging.instance.getToken();
-  logSuccess('FCM Token: $token');
-  CacheHelper.saveData(key: "FCMToken", value: token);
 }
