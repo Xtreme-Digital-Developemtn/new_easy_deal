@@ -910,6 +910,8 @@ abstract class LangKeys {
   static const String specializationsCount = 'specializationsCount';
   static const String change = 'change';
   static const String setUp = 'setUp';
+  static const String noQuestionsFound = 'noQuestionsFound';
+  static const String noDataFound = 'noDataFound';
 }
 
 

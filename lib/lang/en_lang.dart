@@ -1171,5 +1171,7 @@
     "specializationsCount": "Specializations",
     "change": "Change",
     "setUp": "Set",
+    "noQuestionsFound": "No questions available yet",
+    "noDataFound": "No data available yet",
   };
 }

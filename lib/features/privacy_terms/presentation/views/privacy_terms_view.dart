@@ -1,3 +1,6 @@
+import 'package:easy_deal/core/app_services/remote_services/service_locator.dart';
+import 'package:easy_deal/features/contact_us/data/repos/contact_us_repo_imple.dart';
+import 'package:easy_deal/features/contact_us/presentation/view_model/contact_us_cubit.dart';
 import 'package:easy_deal/features/privacy_terms/data/legal_content.dart';
 import 'package:easy_deal/features/privacy_terms/presentation/views/widgets/legal_document_body.dart';
 import 'package:easy_deal/main_imports.dart';
@@ -15,14 +18,20 @@ class PrivacyTermsView extends StatelessWidget {
           title: LangKeys.privacyAndTerms,
           bottom: const _LegalTabBar(),
         ),
-        body: TabBarView(
-          children: [
-            LegalDocumentBody(
-              document: LegalContent.terms,
-              showWorkingHours: true,
-            ),
-            LegalDocumentBody(document: LegalContent.privacy),
-          ],
+        // The legal text itself is static, but the contact card at the end of
+        // each document shows the same details the admin edits for Contact Us.
+        body: BlocProvider(
+          create: (context) =>
+              ContactUsCubit(getIt.get<ContactUsRepoImpl>())..contactUs(),
+          child: TabBarView(
+            children: [
+              LegalDocumentBody(
+                document: LegalContent.terms,
+                showWorkingHours: true,
+              ),
+              LegalDocumentBody(document: LegalContent.privacy),
+            ],
+          ),
         ),
       ),
     );

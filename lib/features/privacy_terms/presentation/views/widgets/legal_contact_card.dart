@@ -1,4 +1,6 @@
 import 'package:easy_deal/core/utils/app_consts/app_strings.dart';
+import 'package:easy_deal/features/contact_us/presentation/view_model/contact_us_cubit.dart';
+import 'package:easy_deal/features/contact_us/presentation/view_model/contact_us_states.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
@@ -9,6 +11,25 @@ class LegalContactCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<ContactUsCubit, ContactUsStates>(
+      builder: (context, state) {
+        final data = context.read<ContactUsCubit>().contactUsModel?.data;
+        return _card(
+          email: _valueOr(data?.email, AppStrings.companyEmail),
+          phone: _valueOr(data?.phone, AppStrings.companyPhone),
+        );
+      },
+    );
+  }
+
+  /// Server value when the admin filled it in, otherwise the built-in one,
+  /// so the card never ends up empty or showing "null".
+  String _valueOr(String? value, String fallback) {
+    final trimmed = value?.trim() ?? '';
+    return trimmed.isEmpty ? fallback : trimmed;
+  }
+
+  Widget _card({required String email, required String phone}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.r),
@@ -29,12 +50,12 @@ class LegalContactCard extends StatelessWidget {
           _ContactRow(
             icon: Icons.mail_outline_rounded,
             labelKey: LangKeys.legalEmail,
-            value: AppStrings.companyEmail,
+            value: email,
           ),
           _ContactRow(
             icon: Icons.phone_outlined,
             labelKey: LangKeys.legalPhone,
-            value: AppStrings.companyPhone,
+            value: phone,
           ),
           if (showWorkingHours)
             _ContactRow(

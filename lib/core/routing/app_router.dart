@@ -56,8 +56,6 @@ import '../../features/create_request/presentation/view_model/create_request_cub
 import '../../features/create_request/presentation/views/create_request_view.dart';
 import '../../features/create_request/presentation/views/create_request_by_category_view.dart';
 import '../../features/edit_profile/presentation/views/edit_password_view.dart';
-import '../../features/faqs/data/repos/faqs_repo_imple.dart';
-import '../../features/faqs/presentation/view_model/faqs_cubit.dart';
 import '../../features/faqs/presentation/views/faqs_view.dart';
 import '../../features/home/presentation/view_model/home_cubit.dart';
 import '../../features/layout/data/repos/layout_repo_imple.dart';
@@ -232,8 +230,8 @@ class AppRouter {
         );
       case Routes.faqsView:
         return transition(
+          // FAQsView provides (and loads) its own cubit.
           screen: const FAQsView(),
-          cubit: FAQsCubit(getIt.get<FAQsRepoImpl>()),
         );
       case Routes.contactUsView:
         return transition(

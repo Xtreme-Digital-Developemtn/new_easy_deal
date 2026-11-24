@@ -1171,5 +1171,7 @@
     "specializationsCount": "التخصصات",
     "change": "تغيير",
     "setUp": "ضبط",
+    "noQuestionsFound": "لا توجد أسئلة متاحة حالياً",
+    "noDataFound": "لا توجد بيانات متاحة حالياً",
   };
 }

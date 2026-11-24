@@ -14,7 +14,7 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
 
   Future<void> openMap(String query) async {
     final Uri url = Uri.parse(
-      "https://www.google.com/maps/search/?api=1&query=$query",
+      "https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(query)}",
     );
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
