@@ -287,6 +287,27 @@ class BrokerTextHelper {
     }
   }
 
+  /// `compoundType` بيرجع من الـ API بصيغ مختلفة (`inside_compound`،
+  /// `Inside Compound`...) فبنوحّد الشكل الأول قبل المقارنة.
+  static String compoundTypeText(String compoundType) {
+    final key = compoundType
+        .toLowerCase()
+        .trim()
+        .replaceAll(RegExp(r'[\s-]+'), '_');
+    switch (key) {
+      case 'inside_compound':
+      case 'in_compound':
+      case 'inside':
+        return LangKeys.insideCompound.tr();
+      case 'outside_compound':
+      case 'out_compound':
+      case 'outside':
+        return LangKeys.outsideCompound.tr();
+      default:
+        return compoundType;
+    }
+  }
+
   static String unitOperationText(String operation) {
     final key = operation.toLowerCase().trim();
     switch (key) {

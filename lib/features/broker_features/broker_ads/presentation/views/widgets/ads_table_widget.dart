@@ -1,4 +1,5 @@
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/features/broker_features/broker_ads/data/models/advertisement_shuffle_model.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,6 +59,7 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = context.locale.languageCode;
     return Padding(
       padding: EdgeInsets.all(16.r),
       child: Container(
@@ -213,7 +215,7 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
                   ),
                   DataCell(
                     Text(
-                      item.type ?? 'Ad ${index + 1}',
+                      item.type ?? 'Ad ${NumberLocalization.format(index + 1, lang)}',
                       style: AppStyles.black14Medium,
                     ),
                   ),
@@ -233,9 +235,9 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
                     ),
                   ),
                   DataCell(Text(item.detailedAddress ?? '')),
-                  DataCell(Text(item.floor ?? '')),
-                  DataCell(Text(item.view ?? '')),
-                  DataCell(Text(item.unitArea != null ? '${item.unitArea} m\u00B2' : '')),
+                  DataCell(Text(NumberLocalization.formatDynamic(item.floor, lang))),
+                  DataCell(Text(NumberLocalization.formatDynamic(item.view, lang))),
+                  DataCell(Text(item.unitArea != null ? '${NumberLocalization.formatDynamic(item.unitArea, lang)} m\u00B2' : '')),
                   DataCell(
                     Center(
                       child: Container(
@@ -247,7 +249,7 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
                           shape: BoxShape.circle,
                         ),
                         child: Text(
-                          '${item.numberOfRooms ?? 0}',
+                          NumberLocalization.formatDynamic(item.numberOfRooms ?? 0, lang),
                           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.sp),
                         ),
                       ),
@@ -257,12 +259,12 @@ class _AdsTableWidgetState extends State<AdsTableWidget> {
                   DataCell(
                     Text(
                       item.totalPriceInCash != null
-                          ? '\$${item.totalPriceInCash}'
+                          ? '\$${NumberLocalization.formatDynamic(item.totalPriceInCash, lang)}'
                           : item.totalPriceInInstallment != null
-                          ? '\$${item.totalPriceInInstallment}'
+                          ? '\$${NumberLocalization.formatDynamic(item.totalPriceInInstallment, lang)}'
                           : item.monthlyRent != null
-                          ? '\$${item.monthlyRent}'
-                          : '\$${item.dailyRent ?? 0}',
+                          ? '\$${NumberLocalization.formatDynamic(item.monthlyRent, lang)}'
+                          : '\$${NumberLocalization.formatDynamic(item.dailyRent ?? 0, lang)}',
                       style: AppStyles.black14Medium.copyWith(
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryDark,

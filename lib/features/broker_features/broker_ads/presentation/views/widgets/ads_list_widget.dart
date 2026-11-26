@@ -1,9 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import '../../../../../../main_imports.dart';
 import '../../../../../assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import '../../../data/models/advertisement_shuffle_model.dart';
-import '../../view_model/broker_ads_cubit.dart';
-import '../../view_model/broker_ads_states.dart';
 
 class AdsListWidget extends StatelessWidget {
   const AdsListWidget({
@@ -77,26 +74,8 @@ class _AdCard extends StatelessWidget {
       operationLabel: BrokerTextHelper.unitOperationText(
         item.unitOperation ?? '',
       ),
-      featuredButton: BlocBuilder<BrokerAdsCubit, BrokerAdsStates>(
-        builder: (context, state) {
-          return ElevatedButton.icon(
-            onPressed: () {
-              // final cubit = context.read<BrokerAdsCubit>();
-              // cubit.selectedUnitId = item.id;
-              // cubit.requestsCheckAdvertisementCount();
-            },
-            icon: const Icon(Icons.campaign_outlined, size: 16),
-            label: Text("إعلان مميز".tr()),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryDark,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-            ),
-          );
-        },
+      compoundLabel: BrokerTextHelper.compoundTypeText(
+        item.compoundType ?? '',
       ),
     );
   }

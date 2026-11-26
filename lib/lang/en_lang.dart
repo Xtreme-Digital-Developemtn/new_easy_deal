@@ -1175,5 +1175,9 @@
     "createNewAd": "Create New Ad",
     "publishNeedsImage": "Publishing an ad requires at least one gallery image",
     "noDataFound": "No data available yet",
+    "currencyEgp": "EGP",
+    "perMonth": "/month",
+    "perDay": "/day",
+    "priceNotSpecified": "Not specified",
   };
 }

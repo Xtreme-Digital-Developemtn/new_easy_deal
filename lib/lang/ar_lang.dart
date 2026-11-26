@@ -1175,5 +1175,9 @@
     "createNewAd": "إنشاء إعلان جديد",
     "publishNeedsImage": "يجب رفع صورة واحدة على الأقل لنشر الإعلان",
     "noDataFound": "لا توجد بيانات متاحة حالياً",
+    "currencyEgp": "جنيه",
+    "perMonth": "/شهر",
+    "perDay": "/يوم",
+    "priceNotSpecified": "غير محدد",
   };
 }

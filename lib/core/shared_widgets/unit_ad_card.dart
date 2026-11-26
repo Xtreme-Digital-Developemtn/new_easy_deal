@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 
 /// كارت إعلان الوحدة — نفس تصميم كارت شاشة «إعلاناتي» بالظبط،
@@ -21,7 +22,7 @@ class UnitAdCard extends StatelessWidget {
     this.bathrooms,
     this.unitArea,
     this.operationLabel,
-    this.featuredButton,
+    this.compoundLabel,
   });
 
   /// بيستخدم للتنقل لتفاصيل الوحدة عند الضغط على الكارت أو زرار «عرض».
@@ -57,9 +58,9 @@ class UnitAdCard extends StatelessWidget {
   /// اسم العملية بعد الترجمة (مثل: بيع) — آخر شيب في صف البيانات.
   final String? operationLabel;
 
-  /// زرار «إعلان مميز» — بيتبعت من شاشة إعلاناتي بس، ولو مفيش بيتخفي
-  /// وزرار «عرض» بياخد عرض الصف كله.
-  final Widget? featuredButton;
+  /// «داخل كمبوند» / «خارج كمبوند» بعد الترجمة — تاج فوق على الصورة،
+  /// ولو فاضي التاج بيختفي.
+  final String? compoundLabel;
 
   String _buildImageUrl(String? url) {
     if (url == null || url.isEmpty) return '';
@@ -116,13 +117,23 @@ class UnitAdCard extends StatelessWidget {
   }
 
   /// ترتيب السعر: كاش ← تقسيط ← إيجار شهري ← إيجار يومي،
-  /// ولو مفيش أي قيمة بيعرض «غير محدد» زي ما هو في إعلاناتي.
-  String get _priceText {
-    if (_hasPrice(totalPriceInCash)) return '$totalPriceInCash جنيه';
-    if (_hasPrice(totalPriceInInstallment)) return '$totalPriceInInstallment جنيه';
-    if (_hasPrice(monthlyRent)) return '$monthlyRent جنيه/شهر';
-    if (_hasPrice(dailyRent)) return '$dailyRent جنيه/يوم';
-    return 'غير محدد';
+  /// ولو مفيش أي قيمة بيعرض «غير محدد». الأرقام والعملة واللاحقة كلها
+  /// بتتبع اللغة الحالية — عربي: «٥٠٠٠ جنيه»، إنجليزي: «5,000 EGP».
+  String _priceText(String lang) {
+    final currency = LangKeys.currencyEgp.tr();
+    if (_hasPrice(totalPriceInCash)) {
+      return '${NumberLocalization.formatDynamic(totalPriceInCash, lang)} $currency';
+    }
+    if (_hasPrice(totalPriceInInstallment)) {
+      return '${NumberLocalization.formatDynamic(totalPriceInInstallment, lang)} $currency';
+    }
+    if (_hasPrice(monthlyRent)) {
+      return '${NumberLocalization.formatDynamic(monthlyRent, lang)} $currency${LangKeys.perMonth.tr()}';
+    }
+    if (_hasPrice(dailyRent)) {
+      return '${NumberLocalization.formatDynamic(dailyRent, lang)} $currency${LangKeys.perDay.tr()}';
+    }
+    return LangKeys.priceNotSpecified.tr();
   }
 
   Color _getStatusColor(String status) {
@@ -180,6 +191,8 @@ class UnitAdCard extends StatelessWidget {
     final firstImageUrl = _firstImageUrl();
     final galleryImages = _galleryImageUrls();
     final safeStatus = status ?? '';
+    // لغة التطبيق الحالية — بتحدد شكل الأرقام (عربية / لاتينية) في الكارت كله.
+    final lang = context.locale.languageCode;
     final safeTitle = (title == null || title!.isEmpty) ? 'عقار' : title!;
 
     return Card(
@@ -238,6 +251,34 @@ class UnitAdCard extends StatelessWidget {
                         ),
                       ),
 
+                    // تاج «داخل / خارج كمبوند» تحت تاج نوع الوحدة
+                    if (compoundLabel != null && compoundLabel!.isNotEmpty)
+                      Positioned(
+                        top: (typeLabel != null && typeLabel!.isNotEmpty)
+                            ? 36.h
+                            : 8.h,
+                        right: 8.w,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 4.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                            border: Border.all(color: AppColors.primaryDark),
+                          ),
+                          child: Text(
+                            compoundLabel!,
+                            style: TextStyle(
+                              color: AppColors.primaryDark,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+
                     // عدد صور الجاليري
                     Positioned(
                       top: 8.h,
@@ -261,7 +302,10 @@ class UnitAdCard extends StatelessWidget {
                             ),
                             Gap(4.w),
                             Text(
-                              "${galleryImages.length}",
+                              NumberLocalization.format(
+                                galleryImages.length,
+                                lang,
+                              ),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 10,
@@ -313,14 +357,14 @@ class UnitAdCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              safeTitle,
-                              style: AppStyles.black14SemiBold.copyWith(
-                                fontSize: 16.sp,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            // Text(
+                            //   safeTitle,
+                            //   style: AppStyles.black14SemiBold.copyWith(
+                            //     fontSize: 16.sp,
+                            //   ),
+                            //   maxLines: 1,
+                            //   overflow: TextOverflow.ellipsis,
+                            // ),
                             Gap(4.h),
                             if (location != null && location!.isNotEmpty)
                               Row(
@@ -348,7 +392,7 @@ class UnitAdCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            _priceText,
+                            _priceText(lang),
                             style: AppStyles.primary16Medium.copyWith(
                               fontSize: 16.sp,
                             ),
@@ -383,17 +427,20 @@ class UnitAdCard extends StatelessWidget {
                     children: [
                       _InfoChip(
                         icon: Icons.king_bed_outlined,
-                        label: "${rooms ?? 0} غرف",
+                        label:
+                            "${NumberLocalization.formatDynamic(rooms ?? 0, lang)} غرف",
                       ),
                       Gap(8.w),
                       _InfoChip(
                         icon: Icons.bathtub_outlined,
-                        label: "${bathrooms ?? 0} حمام",
+                        label:
+                            "${NumberLocalization.formatDynamic(bathrooms ?? 0, lang)} حمام",
                       ),
                       Gap(8.w),
                       _InfoChip(
                         icon: Icons.straighten_outlined,
-                        label: "${unitArea ?? 0} م²",
+                        label:
+                            "${NumberLocalization.formatDynamic(unitArea ?? 0, lang)} ${LangKeys.squareMeter.tr()}",
                       ),
                       if (operationLabel != null &&
                           operationLabel!.isNotEmpty) ...[
@@ -406,34 +453,24 @@ class UnitAdCard extends StatelessWidget {
                     ],
                   ),
                   Gap(12.h),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: () => context.pushNamed(
-                            Routes.unitDetailsView,
-                            arguments: {"unitId": unitId},
-                          ),
-                          icon: const Icon(
-                            Icons.visibility_outlined,
-                            size: 16,
-                          ),
-                          label: Text("عرض".tr()),
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: AppColors.primaryDark,
-                            side: BorderSide(color: AppColors.primaryDark),
-                            padding: EdgeInsets.symmetric(vertical: 10.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                          ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () => context.pushNamed(
+                        Routes.unitDetailsView,
+                        arguments: {"unitId": unitId},
+                      ),
+                      icon: const Icon(Icons.visibility_outlined, size: 16),
+                      label: Text("عرض".tr()),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.primaryDark,
+                        side: BorderSide(color: AppColors.primaryDark),
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
-                      if (featuredButton != null) ...[
-                        Gap(8.w),
-                        Expanded(child: featuredButton!),
-                      ],
-                    ],
+                    ),
                   ),
                 ],
               ),

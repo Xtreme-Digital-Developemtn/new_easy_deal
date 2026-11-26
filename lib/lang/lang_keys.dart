@@ -914,6 +914,10 @@ abstract class LangKeys {
   static const String createNewAd = 'createNewAd';
   static const String publishNeedsImage = 'publishNeedsImage';
   static const String noDataFound = 'noDataFound';
+  static const String currencyEgp = 'currencyEgp';
+  static const String perMonth = 'perMonth';
+  static const String perDay = 'perDay';
+  static const String priceNotSpecified = 'priceNotSpecified';
 }
 
 
