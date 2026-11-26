@@ -29,7 +29,7 @@ class BasicInfo extends StatelessWidget {
             child: Column(
               children: [
                 RequestDetailsItem(title: LangKeys.typeOfOperation, value: typeOfOperation),
-                RequestDetailsItem(title: LangKeys.scopeOfSpecialization, value: scopeOfSpecialization),
+                RequestDetailsItem(title: 'التخصص', value: scopeOfSpecialization),
                 RequestDetailsItem(title: LangKeys.unitType, value: unitType,isLast: true,),
               ],
             ),

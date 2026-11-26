@@ -4,7 +4,6 @@ import 'package:easy_deal/features/request_details/data/models/request_details_m
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
 import '../../../../../main_imports.dart';
-import '../../../../requests/data/config/request_translations.dart';
 
 class RequestInformationSection extends StatelessWidget {
   const RequestInformationSection({super.key, this.data});
@@ -24,35 +23,14 @@ class RequestInformationSection extends StatelessWidget {
     }
   }
 
-  static String? _title(Data? data) {
-    // نفس المنطق القديم: العنوان مبني على النوع + نوع الوحدة وإلا عنوان الـAPI
-    if (DisplayValue.isValid(data?.type) || DisplayValue.isValid(data?.unit)) {
-      return DisplayValue.text(RequestTranslations.title(data?.type, data?.unit));
-    }
-    return DisplayValue.text(data?.title);
-  }
-
   static List<Widget?> _rows(Data? data) => [
         optionalInfoRow(
           title: LangKeys.requestId.tr(),
           value: DisplayValue.text(data?.id),
         ),
         optionalInfoRow(
-          title: LangKeys.title.tr(),
-          value: _title(data),
-        ),
-        optionalInfoRow(
           title: LangKeys.dateOfCreation.tr(),
           value: _formatDate(data?.createdAt),
-        ),
-        optionalInfoRow(
-          title: LangKeys.lastUpdated.tr(),
-          value: _formatDate(data?.updatedAt),
-        ),
-        optionalInfoRow(
-          title: LangKeys.numberOfReplies.tr(),
-          // عدد الردود صفر قيمة حقيقية ومفيدة للمستخدم
-          value: DisplayValue.text(data?.numberOfReplies, zeroIsValid: true),
         ),
       ];
 

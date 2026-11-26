@@ -13,8 +13,8 @@ class RequestTranslations {
   static const Map<String, String> _status = {
     'new': 'جديد',
     'in_processing': 'قيد المعالجة',
-    'finished': 'مكتمل',
-    'completed': 'مكتمل',
+    'finished': 'طلب منتهي',
+    'completed': 'طلب منتهي',
     'pending': 'قيد الانتظار',
     'accepted': 'مقبول',
     'rejected': 'مرفوض',
@@ -31,7 +31,7 @@ class RequestTranslations {
   };
 
   static const Map<String, String> _unit = {
-    'Apartments': 'شقق',
+    'Apartments': 'شقة',
     'Pharmacies': 'صيدليات',
     'Duplexes': 'دوبلكس',
     'Vacation_villa': 'فيلا مصيف',

@@ -49,7 +49,7 @@ class RequestActions extends StatelessWidget {
         /// بيجي null في طلبات البيع (مفيش تعيين لوسيط) فالشيب ما يظهرش أصلاً
         if (onAssignBrokerTap != null)
           _ActionChip(
-            label: LangKeys.assignToBroker.tr(),
+            label: 'ارسال لوسطاء',
             backgroundColor: const Color(0xFFF0E1FF),
             textColor: const Color(0xFF8B3DCE),
             onTap: onAssignBrokerTap,

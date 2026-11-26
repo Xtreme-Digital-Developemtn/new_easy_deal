@@ -326,7 +326,7 @@ class ApOptions {
   // Delivery types – updateDeliveryTypes()
   // ---------------------------------------------------------------------------
   static const _allDeliveryTypes = <ApOptionItem>[
-    ApOptionItem(value: 'immediate_delivery', ar: 'استلام فوري', en: 'Immediate Delivery'),
+    ApOptionItem(value: 'immediate_delivery', ar: 'تسليم فوري', en: 'Immediate Delivery'),
     ApOptionItem(value: 'under_construction', ar: 'تحت الإنشاء', en: 'Under Construction'),
   ];
 

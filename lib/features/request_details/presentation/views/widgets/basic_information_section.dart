@@ -18,7 +18,7 @@ class BasicInformationSection extends StatelessWidget {
           value: DisplayValue.mapped(data?.type, RequestTranslations.type),
         ),
         optionalInfoRow(
-          title: LangKeys.scopeOfSpecialization.tr(),
+          title: 'التخصص',
           value: DisplayValue.mapped(
             data?.specializationScope,
             RequestTranslations.specializationScope,

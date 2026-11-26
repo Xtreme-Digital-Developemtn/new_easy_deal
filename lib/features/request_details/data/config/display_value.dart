@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+
 /// تحقق موحد من صلاحية القيم قبل عرضها في تفاصيل الطلب.
 ///
 /// الـAPI بيرجّع نفس الحقل أحياناً `null` وأحياناً `''` أو `' '` أو `'null'`
@@ -99,8 +102,37 @@ class DisplayValue {
   static String? _numText(num value, {required bool zeroIsValid}) {
     if (value is double && (value.isNaN || value.isInfinite)) return null;
     if (!zeroIsValid && value == 0) return null;
-    if (value is int) return value.toString();
-    if (value == value.roundToDouble()) return value.toInt().toString();
-    return value.toString();
+    String result;
+    if (value is int) {
+      result = value.toString();
+    } else if (value == value.roundToDouble()) {
+      result = value.toInt().toString();
+    } else {
+      result = value.toString();
+    }
+    if (_isArabicLocale()) result = _toArabicNumerals(result);
+    return result;
+  }
+
+  static bool _isArabicLocale() {
+    final intlLocale = Intl.defaultLocale;
+    if (intlLocale != null && intlLocale.startsWith('ar')) return true;
+    try {
+      final platformLocale =
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      if (platformLocale == 'ar') return true;
+    } catch (_) {}
+    return false;
+  }
+
+  static String _toArabicNumerals(String input) {
+    const western = '0123456789';
+    const arabic = '٠١٢٣٤٥٦٧٨٩';
+    final buffer = StringBuffer();
+    for (final ch in input.split('')) {
+      final idx = western.indexOf(ch);
+      buffer.write(idx >= 0 ? arabic[idx] : ch);
+    }
+    return buffer.toString();
   }
 }

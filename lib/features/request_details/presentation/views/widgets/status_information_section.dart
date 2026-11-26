@@ -28,11 +28,13 @@ class StatusInformationSection extends StatelessWidget {
           (raw) => ApOptions.label(raw?.toString(), context.isArabic),
         ),
       ),
-      // حالة الطلب نفسها (جديد / قيد المعالجة / مكتمل) مش حالة التسليم
-      optionalInfoRow(
-        title: LangKeys.status.tr(),
-        value: DisplayValue.mapped(data?.status, RequestTranslations.status),
-      ),
+      // حالة الطلب نفسها (جديد / قيد المعالجة / مكتمل) مش حالة التسليم.
+      // "جديد" ما نعرضه في معلومات الوحدة (طلب لم يبدأ بعد).
+      if (data?.status?.toString() != 'new')
+        optionalInfoRow(
+          title: LangKeys.status.tr(),
+          value: DisplayValue.mapped(data?.status, RequestTranslations.status),
+        ),
       optionalInfoRow(
         title: LangKeys.finishingCondition.tr(),
         value: DisplayValue.mapped(
