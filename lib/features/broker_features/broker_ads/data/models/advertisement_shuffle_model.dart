@@ -7,11 +7,35 @@ class AdvertisementShuffleModel {
 
   AdvertisementShuffleModel({this.status, this.message, this.data, this.count});
 
+  /// `unit` بيرجّع الليستة مرة جوه `data` مباشرة ومرة جوه `data.data` مع
+  /// `count` جمبها، فالقراءة بتتعامل مع الشكلين بدل ما الكاست يرمي exception.
   AdvertisementShuffleModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    data = json["data"] == null ? null : (json["data"] as List).map((e) => Data.fromJson(e)).toList();
-    count = json["count"];
+    status = json["status"]?.toString();
+    message = json["message"]?.toString();
+    count = _asInt(json["count"]);
+
+    final raw = json["data"];
+    if (raw is List) {
+      data = raw
+          .map((e) => Data.fromJson(
+              e is Map ? Map<String, dynamic>.from(e) : <String, dynamic>{}))
+          .toList();
+    } else if (raw is Map) {
+      final inner = raw["data"];
+      if (inner is List) {
+        data = inner
+            .map((e) => Data.fromJson(
+                e is Map ? Map<String, dynamic>.from(e) : <String, dynamic>{}))
+            .toList();
+      }
+      count = _asInt(raw["count"]) ?? count;
+    }
+  }
+
+  static int? _asInt(dynamic value) {
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value?.toString() ?? '');
   }
 
   Map<String, dynamic> toJson() {

@@ -14,11 +14,17 @@ class BrokerAdsRepoImpl implements BrokerAdsRepo {
     int? brokerId,
   }) async {
     try {
+      // `unit` مع `isAdvertisement=1` بيرجّع إعلانات الوسيط نفسه مرتّبة من
+      // الأحدث، بدل `unit/advertisement-shuffle` اللي مشترك مع «الأكثر مبيعاً»
+      // في الرئيسية وبيرجّع إعلانات كل الوسطاء بترتيب عشوائي.
       var response = await apiService!.getData(
-        endPoint: EndPoints.advertisementShuffle,
+        endPoint: EndPoints.brokerUnits,
         query: {
           'limit': limit,
           'offset': offset,
+          'sort': 'desc',
+          'sortBy': 'id',
+          'isAdvertisement': 1,
           if (brokerId != null) 'brokerId': brokerId,
         },
       );

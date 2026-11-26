@@ -13,7 +13,7 @@ class BrokerAdsCubit extends Cubit<BrokerAdsStates> {
 
   AdvertisementShuffleModel? advertisementShuffleModel;
 
-  /// Page size sent as `limit` to `unit/advertisement-shuffle`.
+  /// Page size sent as `limit` to `unit?isAdvertisement=1`.
   int limit = 10;
 
   /// Ads accumulated across every page loaded so far (مفلترة على الوسيط الحالي).
@@ -31,9 +31,9 @@ class BrokerAdsCubit extends Cubit<BrokerAdsStates> {
   /// loader without replacing the ads already on screen.
   bool isLoadingMore = false;
 
-  /// id الوسيط الحالي من الكاش. شاشة «إعلاناتي» لازم تتقيّد بيه: الـ endpoint
-  /// مشترك مع «الأكثر مبيعاً» في الرئيسية وبيرجّع إعلانات كل الوسطاء، فكانت
-  /// نفس القايمة بتظهر لأي أكونت حتى بعد تسجيل خروج ودخول بأكونت تاني.
+  /// id الوسيط الحالي من الكاش، بيتبعت كـ `brokerId` مع الريكوست. من غيره
+  /// الـ endpoint بيرجّع إعلانات كل الوسطاء، فكانت نفس القايمة بتظهر لأي
+  /// أكونت حتى بعد تسجيل خروج ودخول بأكونت تاني.
   int? get _brokerId => SessionCache.brokerId;
 
   /// خط دفاع تاني لو السيرفر ماحترمش الفلتر: مانعرضش إعلان وسيط تاني.
