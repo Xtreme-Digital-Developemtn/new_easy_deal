@@ -15,6 +15,8 @@ abstract class SearchRepo{
     required String area,
     String city = '',
     String subArea = '',
+    /// اسم منطقة فرعية كتبه المستخدم بنفسه عند اختيار «أخرى».
+    String otherSubAreas = '',
     required String priceFrom,
     required String priceTo,
     required String unitAreaFrom,

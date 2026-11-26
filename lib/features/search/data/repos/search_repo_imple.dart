@@ -19,6 +19,7 @@ class SearchRepoImpl implements SearchRepo {
     required String area,
     String city = '',
     String subArea = '',
+    String otherSubAreas = '',
     required String priceFrom,
     required String priceTo,
     required String unitAreaFrom,
@@ -51,6 +52,10 @@ class SearchRepoImpl implements SearchRepo {
       if (isValidId(area)) queryParams["area"] = area;
       if (isValidId(city)) queryParams["city"] = city;
       if (isValidId(subArea)) queryParams["subArea"] = subArea;
+      // منطقة فرعية «أخرى» مكتوبة بالنص — بتتبعت في نفس الـ endpoint
+      if (otherSubAreas.trim().isNotEmpty) {
+        queryParams["otherSubAreas"] = otherSubAreas.trim();
+      }
       if (isValidValue(priceFrom)) queryParams["priceFrom"] = priceFrom;
       if (isValidValue(priceTo)) queryParams["priceTo"] = priceTo;
       if (isValidValue(unitAreaFrom)) queryParams["unitAreaFrom"] = unitAreaFrom;

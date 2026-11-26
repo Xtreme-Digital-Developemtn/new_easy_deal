@@ -89,6 +89,7 @@ class SearchCubit extends Cubit<SearchStates> {
       'city': cityId,
       'area': areaId,
       'subArea': subAreaId,
+      'otherSubAreas': isSubAreaOther ? otherSubAreaCon.text.trim() : '',
       'unitType': properType,
       'unitOperation': theProcess,
       'deliveryStatus': deliveryStatus,
@@ -121,6 +122,7 @@ class SearchCubit extends Cubit<SearchStates> {
       area: areaId?.toString() ?? "",
       city: cityId?.toString() ?? "",
       subArea: subAreaId?.toString() ?? "",
+      otherSubAreas: isSubAreaOther ? otherSubAreaCon.text.trim() : "",
       unitType: properType.toString(),
       priceFrom: priceFromCon.text,
       priceTo: priceToCon.text,
@@ -275,6 +277,11 @@ class SearchCubit extends Cubit<SearchStates> {
   var areaToCon = TextEditingController();
   var areaFromCon = TextEditingController();
 
+  /// المنطقة الفرعية «أخرى»: المستخدم بيكتب اسم المنطقة بنفسه،
+  /// وبتتبعت للـ API في نفس الـ endpoint باسم `otherSubAreas`.
+  var otherSubAreaCon = TextEditingController();
+  bool isSubAreaOther = false;
+
   void onSearchChanged(String value) {
     keyword = value;
     getAllUnits(reset: true);
@@ -293,6 +300,8 @@ class SearchCubit extends Cubit<SearchStates> {
     subArea = null;
     subAreaId = null;
     subAreasModel = null;
+    isSubAreaOther = false;
+    otherSubAreaCon.clear();
 
     searchCon.clear();
     keyword = '';
@@ -323,6 +332,8 @@ class SearchCubit extends Cubit<SearchStates> {
         subArea = null;
         subAreaId = null;
         subAreasModel = null;
+        isSubAreaOther = false;
+        otherSubAreaCon.clear();
         break;
       case 'area':
         area = null;
@@ -330,10 +341,18 @@ class SearchCubit extends Cubit<SearchStates> {
         subArea = null;
         subAreaId = null;
         subAreasModel = null;
+        isSubAreaOther = false;
+        otherSubAreaCon.clear();
         break;
       case 'subArea':
         subArea = null;
         subAreaId = null;
+        isSubAreaOther = false;
+        otherSubAreaCon.clear();
+        break;
+      case 'otherSubAreas':
+        isSubAreaOther = false;
+        otherSubAreaCon.clear();
         break;
       case 'unitType':
         properType = null;
@@ -419,6 +438,8 @@ class SearchCubit extends Cubit<SearchStates> {
     subArea = null;
     subAreaId = null;
     subAreasModel = null;
+    isSubAreaOther = false;
+    otherSubAreaCon.clear();
     emit(SelectTheCityState());
     if (cityId != null) getAllAreas(cityId: cityId!);
   }
@@ -432,6 +453,8 @@ class SearchCubit extends Cubit<SearchStates> {
     subArea = null;
     subAreaId = null;
     subAreasModel = null;
+    isSubAreaOther = false;
+    otherSubAreaCon.clear();
     emit(SelectTheAreaState());
     if (areaId != null) getAllSubAreas(areaId: areaId!);
   }
@@ -441,6 +464,17 @@ class SearchCubit extends Cubit<SearchStates> {
   void selectTheSubArea(SubArea newSubArea) {
     subArea = newSubArea.nameAr;
     subAreaId = newSubArea.id;
+    isSubAreaOther = false;
+    otherSubAreaCon.clear();
+    emit(SelectTheSubAreaState());
+  }
+
+  /// اختيار «أخرى» في المنطقة الفرعية: بنلغي الـ id المختار
+  /// ونفتح خانة نص يكتب فيها المستخدم اسم المنطقة، وبتتبعت `otherSubAreas`.
+  void selectSubAreaOther() {
+    isSubAreaOther = true;
+    subArea = null;
+    subAreaId = null;
     emit(SelectTheSubAreaState());
   }
 

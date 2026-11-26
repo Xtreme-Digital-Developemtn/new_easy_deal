@@ -122,6 +122,14 @@ class ActiveFiltersChips extends StatelessWidget {
           subAreaId != null,
         );
 
+        // منطقة فرعية مكتوبة بالنص عند اختيار «أخرى»
+        final otherSubAreas = appliedText('otherSubAreas');
+        add(
+          'otherSubAreas',
+          '${LangKeys.subArea.tr()}: ${otherSubAreas ?? ''}',
+          otherSubAreas != null,
+        );
+
         final properType = appliedText('unitType');
         add(
           'unitType',

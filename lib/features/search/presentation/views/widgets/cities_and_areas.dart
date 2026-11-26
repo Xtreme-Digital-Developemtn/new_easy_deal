@@ -31,9 +31,15 @@ class CitiesAndAreas extends StatelessWidget {
             citiesList.map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? '')).toList();
         var areaNames =
             areasList.map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? '')).toList();
-        var subAreaNames = subAreasList
-            .map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? ''))
-            .toList();
+        var otherLabel = LangKeys.other.tr();
+        // «أخرى» دايمًا آخر عنصر في القائمة — حتى لو الـ API ما رجّعش مناطق فرعية
+        var subAreaNames = <String>[
+          ...subAreasList
+              .map((e) => isArabic ? (e.nameAr ?? '') : (e.nameEn ?? ''))
+              .where((name) => name.isNotEmpty && name != otherLabel)
+              .toSet(),
+          otherLabel,
+        ];
 
         var currentCityName = cubit.city == null
             ? null
@@ -51,7 +57,11 @@ class CitiesAndAreas extends StatelessWidget {
                     .where((e) => e.nameAr == cubit.area)
                     .map((e) => e.nameEn ?? '')
                     .firstOrNull;
-        var currentSubAreaName = cubit.subArea == null
+        // لو المستخدم اختار «أخرى» القيمة المعروضة هي «أخرى» نفسها،
+        // والخانة اللي تحتها هي اللي بتتبعت في `otherSubAreas`.
+        var currentSubAreaName = cubit.isSubAreaOther
+            ? LangKeys.other.tr()
+            : cubit.subArea == null
             ? null
             : isArabic
                 ? cubit.subArea
@@ -190,35 +200,51 @@ class CitiesAndAreas extends StatelessWidget {
                       ),
                     ),
                   )
-                else if (subAreaNames.isNotEmpty)
+                else if (state is GetAllSubAreasLoadingState)
+                  SizedBox(
+                      height: 56.h,
+                      child: Center(child: CustomLoading(size: 24.sp)))
+                else
                   CustomDropdown<String>(
                     value: _safeValue(subAreaNames, currentSubAreaName),
                     items: subAreaNames,
                     hint: LangKeys.subArea.tr(),
                     itemDisplayBuilder: (item) => item,
                     onChanged: (val) {
-                      if (val != null) {
-                        var subArea = subAreasList.firstWhere(
-                          (e) => (isArabic ? e.nameAr : e.nameEn) == val,
-                          orElse: () => SubArea(id: 0, nameAr: val, nameEn: val),
-                        );
-                        cubit.selectTheSubArea(subArea);
+                      if (val == null) return;
+                      if (val == otherLabel) {
+                        cubit.selectSubAreaOther();
+                        return;
                       }
+                      var subArea = subAreasList.firstWhere(
+                        (e) => (isArabic ? e.nameAr : e.nameEn) == val,
+                        orElse: () => SubArea(id: 0, nameAr: val, nameEn: val),
+                      );
+                      cubit.selectTheSubArea(subArea);
                     },
-                  )
-                else if (state is GetAllSubAreasErrorState ||
-                    state is GetAllSubAreasSuccessState)
-                  SizedBox(
-                    height: 56.h,
-                    child: Center(
-                      child: Text(LangKeys.notAvailable.tr(),
-                          style: AppStyles.gray12Medium),
+                  ),
+
+                /// خانة كتابة المنطقة الفرعية عند اختيار «أخرى»
+                if (cubit.isSubAreaOther) ...[
+                  Gap(12.h),
+                  Text(LangKeys.otherSubArea.tr()),
+                  Gap(4.h),
+                  // ملاحظة: `height` في CustomTextFormField هو الـ vertical
+                  // padding مش طول الخانة — فبنحدد الـ contentPadding بنفسنا
+                  // عشان تبقى سطر واحد مضبوط.
+                  CustomTextFormField(
+                    controller: cubit.otherSubAreaCon,
+                    hintText: LangKeys.otherSubArea.tr(),
+                    maxLines: 1,
+                    borderRadius: 10.r,
+                    borderWidth: 1.5,
+                    textAlignVertical: TextAlignVertical.center,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 10.h,
                     ),
-                  )
-                else
-                  SizedBox(
-                      height: 56.h,
-                      child: Center(child: CustomLoading(size: 24.sp))),
+                  ),
+                ],
               ],
             ),
           ],
