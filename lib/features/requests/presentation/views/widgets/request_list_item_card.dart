@@ -21,19 +21,21 @@ class RequestListItemCard extends StatelessWidget {
   final int id;
   final String? assignedToLabel;
 
-  /// بيتنده بعد الرجوع من شاشة التفاصيل عشان حالة الكارت تتحدّث
-  /// لو المستخدم غيّرها من جوه التفاصيل
+  /// بيتنده بعد الرجوع من شاشة التفاصيل **بس** لو حصل تغيير جوه التفاصيل
+  /// (تحديث حالة / حفظ في الوحدات المباشرة). زرار الرجوع العادي مبيعملش
+  /// refresh عشان الليستة متفضلش تعيد تحميل نفسها من الأول كل مرة.
   final VoidCallback? onReturn;
   // final DateTime date;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await context.pushNamed(Routes.requestDetailsView,arguments: {
+        final changed = await context.pushNamed(Routes.requestDetailsView,arguments: {
           "requestId" : id,
         });
         if (!context.mounted) return;
-        onReturn?.call();
+        // شاشة التفاصيل بترجّع `true` بس لو اتعمل أكشن غيّر الطلب
+        if (changed == true) onReturn?.call();
       },
       child: Container(
         padding: EdgeInsets.all(16.r),

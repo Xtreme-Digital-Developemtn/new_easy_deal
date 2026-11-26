@@ -20,6 +20,11 @@ class RequestDetailsView extends StatefulWidget {
 }
 
 class _RequestDetailsViewState extends State<RequestDetailsView> {
+  /// `true` لو اتعمل أكشن غيّر الطلب (تحديث حالة / حفظ في الوحدات المباشرة).
+  /// بنرجّعها للشاشة اللي ورا عشان تعمل refresh، والرجوع العادي بيرجّع `false`
+  /// فالليستة مبتعيدش تحميل نفسها من غير داعي.
+  bool _hasChanges = false;
+
   @override
   void initState() {
     super.initState();
@@ -46,16 +51,30 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    return PopScope(
+      // زرار الرجوع (الهاردوير/السوايب) لازم يرجّع نفس نتيجة زرار الـAppBar
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        context.pop(_hasChanges);
+      },
+      child: _buildScaffold(context),
+    );
+  }
+
+  Widget _buildScaffold(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(
         title: LangKeys.requestDetails,
         backgroundColor: AppColors.primaryDark,
         textColor: AppColors.white,
         iconColor: AppColors.white,
+        onBack: () => context.pop(_hasChanges),
       ),
       body: BlocConsumer<RequestDetailsCubit, RequestDetailsStates>(
         listener: (context, state) {
           if (state is UpdateRequestStatusSuccessState) {
+            _hasChanges = true;
             Toast.showSuccessToast(
               msg: state.model.message ?? LangKeys.statusUpdatedSuccessfully.tr(),
               context: context,
@@ -63,6 +82,7 @@ class _RequestDetailsViewState extends State<RequestDetailsView> {
           } else if (state is UpdateRequestStatusErrorState) {
             Toast.showErrorToast(msg: state.error, context: context);
           } else if (state is MakeUnitSuccessState) {
+            _hasChanges = true;
             Toast.showSuccessToast(
               msg: state.model.message ?? LangKeys.savedToDirectUnits.tr(),
               context: context,

@@ -27,8 +27,10 @@ extension Navigation on BuildContext {
     );
   }
 
-  void pop() {
+  /// [result] بيتبعت للشاشة اللي ورا (مثلاً `true` لو حصل تغيير محتاج
+  /// الليستة تعمل refresh بعد الرجوع).
+  void pop([Object? result]) {
     logSuccess('Popping current route');
-    Navigator.of(this).pop();
+    Navigator.of(this).pop(result);
   }
 }

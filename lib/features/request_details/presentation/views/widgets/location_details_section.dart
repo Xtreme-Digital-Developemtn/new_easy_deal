@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/data/config/area_display.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
+import 'package:easy_deal/features/request_details/data/config/sub_area_display.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_section.dart';
 
@@ -23,6 +24,10 @@ class LocationDetailsSection extends StatelessWidget {
   static String? _areaName(BuildContext context, Data? data) =>
       DisplayValue.text(AreaDisplay.fromLocations(context, data?.locations));
 
+  /// المناطق الفرعية جوه `locations[].areas[].sub_areas`
+  static String? _subAreaName(BuildContext context, Data? data) =>
+      DisplayValue.text(SubAreaDisplay.fromLocations(context, data?.locations));
+
   static List<Widget?> _rows(BuildContext context, Data? data) => [
         optionalInfoRow(
           title: LangKeys.city.tr(),
@@ -31,6 +36,10 @@ class LocationDetailsSection extends StatelessWidget {
         optionalInfoRow(
           title: LangKeys.area.tr(),
           value: _areaName(context, data),
+        ),
+        optionalInfoRow(
+          title: LangKeys.subArea.tr(),
+          value: _subAreaName(context, data),
         ),
         // العنوان التفصيلي اتشال من العرض
       ];
