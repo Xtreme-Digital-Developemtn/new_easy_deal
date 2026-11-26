@@ -8,13 +8,11 @@ class UnitFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // قائمة فاضية = زي ما تكون null: تظهر «لا يوجد» مش شبكة فاضية
     final cleaned = otherAccessories
             ?.where((e) => e.trim().isNotEmpty)
             .toList() ??
         const <String>[];
-    final List<String> featuresList =
-        cleaned.isEmpty ? [LangKeys.notAvailable.tr()] : cleaned;
+    if (cleaned.isEmpty) return const SizedBox.shrink();
     return Container(
       padding: EdgeInsets.all(12.r),
       width: double.infinity,
@@ -36,9 +34,9 @@ class UnitFeatures extends StatelessWidget {
               mainAxisSpacing: 12.h,
               childAspectRatio: 6,
             ),
-            itemCount: featuresList.length,
+            itemCount: cleaned.length,
             itemBuilder: (context, index) {
-              return Text(featuresList[index],style: AppStyles.black14Medium,);
+              return Text(cleaned[index],style: AppStyles.black14Medium,);
             },
           )
         ],

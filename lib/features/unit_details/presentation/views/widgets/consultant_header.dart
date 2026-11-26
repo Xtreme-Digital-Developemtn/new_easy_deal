@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ConsultantHeader extends StatelessWidget {
-  const ConsultantHeader({super.key});
+  const ConsultantHeader({super.key, this.brokerName});
+
+  final String? brokerName;
 
   @override
   Widget build(BuildContext context) {
+    final name = (brokerName != null && brokerName!.trim().isNotEmpty)
+        ? brokerName!.trim()
+        : 'Mohamed Farouk';
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'Mohamed Farouk',
+              name,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

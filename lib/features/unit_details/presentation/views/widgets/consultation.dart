@@ -5,8 +5,9 @@ import '../widgets/contact_buttons.dart';
 import '../widgets/consultation_form.dart';
 
 class ConsultationView extends StatelessWidget {
-  const ConsultationView({super.key, this.brokerPhone});
+  const ConsultationView({super.key, this.brokerPhone, this.brokerName});
   final String? brokerPhone;
+  final String? brokerName;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ConsultationView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const ConsultantHeader(),
+            ConsultantHeader(brokerName: brokerName),
             const SizedBox(height: 20),
             ContactButtons(brokerPhone: phone),
             const SizedBox(height: 22),

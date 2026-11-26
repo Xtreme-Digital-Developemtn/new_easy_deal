@@ -9,6 +9,7 @@ class UnitAdCard extends StatelessWidget {
     super.key,
     required this.unitId,
     this.gallery,
+    this.caption,
     this.diagram,
     this.typeLabel,
     this.title,
@@ -30,6 +31,9 @@ class UnitAdCard extends StatelessWidget {
 
   /// عناصر الجاليري بصيغة الـ API: maps فيها `type` و `url`.
   final List<dynamic>? gallery;
+
+  /// وصف الإعلان (caption).
+  final String? caption;
 
   /// صورة الـ fallback (الدايجرام) لو مفيش صور في الجاليري.
   final String? diagram;
@@ -203,7 +207,7 @@ class UnitAdCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         onTap: () => context.pushNamed(
           Routes.unitDetailsView,
-          arguments: {"unitId": unitId},
+          arguments: {"unitId": unitId, "gallery": gallery, "caption": caption},
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -458,7 +462,7 @@ class UnitAdCard extends StatelessWidget {
                     child: OutlinedButton.icon(
                       onPressed: () => context.pushNamed(
                         Routes.unitDetailsView,
-                        arguments: {"unitId": unitId},
+                        arguments: {"unitId": unitId, "gallery": gallery, "caption": caption},
                       ),
                       icon: const Icon(Icons.visibility_outlined, size: 16),
                       label: Text("عرض".tr()),

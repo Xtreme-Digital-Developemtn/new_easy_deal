@@ -85,7 +85,7 @@
     "egp": "EGP",
     "license": "License",
     "successSelling": "Success Selling",
-    "unitInformation": "Unit Information",
+    "unitInformation": "Property Details",
     "features": "Features",
     "propertyDetails": "Property Details",
     "groups": "Groups",

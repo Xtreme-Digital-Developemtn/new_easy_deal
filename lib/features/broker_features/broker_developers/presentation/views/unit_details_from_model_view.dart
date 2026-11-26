@@ -154,8 +154,9 @@ class _UnitDetailsBody extends StatelessWidget {
       children: [
         // ── صورة + نوع + موقع ──────────────────────────────────────────
         UnitImageTypeLocation(
-          image: unit.diagram != null && unit.diagram.toString().isNotEmpty
-              ? unit.diagram
+          gallery: unit.gallery,
+          diagram: unit.diagram != null && unit.diagram.toString().isNotEmpty
+              ? unit.diagram.toString()
               : null,
           apartment: tr(unit.type),
           city: isAr

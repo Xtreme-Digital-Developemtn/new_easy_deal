@@ -38,6 +38,8 @@ class UnitInformation extends StatelessWidget {
     'notes',
     // owner identity / internal numbering — not shown to the end user
     'ownerName', 'ownerPhone', 'unitNumber', 'buildingNumber',
+    // reference number — shown only at the top of the details page
+    'referenceCode', 'modelCode', 'unitCode',
   };
 
   /// الحقول الأساسية اللي المستخدم بيدوّر عليها دايمًا: تظهر حتى لو فاضية،
@@ -63,8 +65,11 @@ class UnitInformation extends StatelessWidget {
   /// Labels for keys that have no entry in [ApFields.meta], keyed by the
   /// normalized (camelCase) key — see [_normalizeKey].
   static const Map<String, ApText> _extraLabels = {
-    'modelCode': ApText('كود الوحدة', 'Unit Code'),
-    'unitCode': ApText('كود الوحدة', 'Unit Code'),
+    'modelCode': ApText('الرقم المرجعي', 'Reference Number'),
+    'referenceCode': ApText('الرقم المرجعي', 'Reference Number'),
+    'unitCode': ApText('الرقم المرجعي', 'Reference Number'),
+    'unitArea': ApText('المساحة', 'Area'),
+    'otherSubAreas': ApText('المناطق الفرعية', 'Other Sub Areas'),
     'unitOperation': ApText('نوع العملية', 'Operation'),
     'compoundType': ApText('نوع الكمبوند', 'Compound Type'),
     'projectName': ApText('اسم المشروع', 'Project Name'),
@@ -156,16 +161,16 @@ class UnitInformation extends StatelessWidget {
     flat.forEach((k, v) => normalized[_normalizeKey(k)] = v);
 
     final entries = <MapEntry<String, String>>[];
-    final notAvailable = LangKeys.notAvailable.tr();
 
-    // أولًا الحقول الأساسية بترتيب ثابت — حتى لو فاضية أو مش موجودة أصلًا
+    // أولًا الحقول الأساسية بترتيب ثابت — نعرضها فقط إذا كانت قيمتها غير فاضية
     for (final key in _alwaysShownKeys) {
       final label = _labelOf(key, isArabic);
       if (label == null) continue;
       final text = normalized.containsKey(key)
           ? _formatValue(key, normalized[key], isArabic)
           : null;
-      entries.add(MapEntry(label, text ?? notAvailable));
+      if (text == null) continue;
+      entries.add(MapEntry(label, text));
     }
 
     // وبعدين باقي الحقول اللي بعتها الـ API، بترتيبها، والفاضي منها يتخفي
@@ -214,7 +219,7 @@ class UnitInformation extends StatelessWidget {
 
     if (value is num) {
       if (value == 0) return null;
-      return _withCurrency(key, _formatNumber(value, isArabic));
+      return _withUnit(key, _withCurrency(key, _formatNumber(value, isArabic)));
     }
 
     final text = value.toString().trim();
@@ -223,7 +228,7 @@ class UnitInformation extends StatelessWidget {
     final asNumber = num.tryParse(text);
     if (asNumber != null) {
       if (asNumber == 0) return null;
-      return _withCurrency(key, _formatNumber(asNumber, isArabic));
+      return _withUnit(key, _withCurrency(key, _formatNumber(asNumber, isArabic)));
     }
 
     // ISO timestamps -> plain date
@@ -237,6 +242,9 @@ class UnitInformation extends StatelessWidget {
 
   String _withCurrency(String key, String number) =>
       _moneyKeys.contains(key) ? '$number ${LangKeys.egp.tr()}' : number;
+
+  String _withUnit(String key, String value) =>
+      key == 'unitArea' ? '$value متر مربع' : value;
 
   String _formatNumber(num value, bool isArabic) {
     return NumberLocalization.format(value, isArabic ? 'ar' : 'en');

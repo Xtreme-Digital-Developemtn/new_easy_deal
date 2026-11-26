@@ -59,6 +59,9 @@ class _AdCard extends StatelessWidget {
     return UnitAdCard(
       unitId: item.id,
       gallery: item.gallery,
+      caption: item.advertisers != null && item.advertisers!.isNotEmpty
+          ? item.advertisers!.first.caption
+          : null,
       diagram: item.diagram?.toString(),
       typeLabel: BrokerTextHelper.unitTypeText(item.type ?? ''),
       title: item.projectName?.toString() ?? item.developerName?.toString(),
