@@ -6,6 +6,10 @@ class DeveloperFilterResult {
   final String? compoundType;
   final int? city;
   final int? area;
+  final int? subArea;
+
+  /// اسم منطقة فرعية كتبه المستخدم بنفسه عند اختيار «أخرى».
+  final String? otherSubAreas;
   final String? unitType;
   final String? view;
   final int? areaFrom;
@@ -18,6 +22,8 @@ class DeveloperFilterResult {
     this.compoundType,
     this.city,
     this.area,
+    this.subArea,
+    this.otherSubAreas,
     this.unitType,
     this.view,
     this.areaFrom,
@@ -31,6 +37,8 @@ class DeveloperFilterResult {
       compoundType != null ||
       city != null ||
       area != null ||
+      subArea != null ||
+      (otherSubAreas != null && otherSubAreas!.trim().isNotEmpty) ||
       unitType != null ||
       view != null ||
       areaFrom != null ||
@@ -44,6 +52,11 @@ class DeveloperFilterResult {
     if (compoundType != null) params['compoundType'] = compoundType;
     if (city != null) params['city'] = city;
     if (area != null) params['area'] = area;
+    if (subArea != null) params['subArea'] = subArea;
+    // منطقة فرعية «أخرى» مكتوبة بالنص — بتتبعت بنفس اسم الحقل للـ API
+    if (otherSubAreas != null && otherSubAreas!.trim().isNotEmpty) {
+      params['otherSubAreas'] = otherSubAreas!.trim();
+    }
     if (unitType != null) params['unitType'] = unitType;
     if (view != null) params['view'] = view;
     if (areaFrom != null) params['areaFrom'] = areaFrom;
@@ -57,28 +70,40 @@ class DeveloperFilterResult {
 
 final _compoundOptions = ['inside_compound', 'outside_compound'];
 
-final _unitTypeOptions = [
+/// قيمة وهمية لعنصر «أخرى» في قائمة المنطقة الفرعية — مش بتتبعت للـ API،
+/// بس بتفتح خانة النص اللي بتتبعت باسم `otherSubAreas`.
+const _otherSubAreaId = -1;
+
+/// نفس قائمة أنواع الوحدات المستخدمة في فلتر بيانات الوسيط (مطابقة للويب:
+/// نفس القيم، نفس الترتيب، نفس المسميات) — بتبدأ بـ «شقة».
+const _unitTypeOptions = [
+  // سكني
   'apartments',
   'duplexes',
-  'penthouses',
   'studios',
-  'roofs',
+  'penthouses',
   'basements',
-  'villas',
-  'chalets',
-  'residential_buildings',
+  'roofs',
+  // فيلات
   'i_villa',
-  'twin_houses',
   'town_houses',
+  'twin_houses',
   'standalone_villas',
+  'villas',
+  'residential_buildings',
+  // تجاري / إداري
   'administrative_units',
   'medical_clinics',
   'commercial_stores',
+  'pharmacies',
   'commercial_administrative_buildings',
-  'commercial_administrative_lands',
-  'residential_lands',
-  'factory_lands',
+  // صناعي وأراضي
   'warehouse_lands',
+  'factory_lands',
+  'residential_lands',
+  'commercial_administrative_lands',
+  // وحدات مصايف
+  'chalets',
   'vacation_villa',
   'hotels',
 ];
@@ -100,10 +125,18 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
   DeveloperFilterResult? currentFilters, {
   List<Map<String, dynamic>> cities = const [],
   Future<List<Map<String, dynamic>>> Function(int cityId)? loadAreas,
+  Future<List<Map<String, dynamic>>> Function(int areaId)? loadSubAreas,
 }) async {
   var selectedCompoundType = currentFilters?.compoundType;
   int? selectedCity = currentFilters?.city;
   int? selectedArea = currentFilters?.area;
+  int? selectedSubArea = currentFilters?.subArea;
+  // «أخرى» في المنطقة الفرعية: بنلغي الـ id ونفتح خانة نص اسمها otherSubAreas
+  var isSubAreaOther =
+      (currentFilters?.otherSubAreas?.trim().isNotEmpty ?? false);
+  final otherSubAreaController = TextEditingController(
+    text: currentFilters?.otherSubAreas ?? '',
+  );
   var selectedUnitType = currentFilters?.unitType;
   var selectedView = currentFilters?.view;
   final areaFromController = TextEditingController(
@@ -119,6 +152,17 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
     text: currentFilters?.priceTo?.toString() ?? '',
   );
   List<Map<String, dynamic>> loadedAreas = [];
+  List<Map<String, dynamic>> loadedSubAreas = [];
+
+  // لو الشيت فتحت وفيها فلاتر مطبّقة، بنحمّل المناطق والمناطق الفرعية
+  // الأول عشان القوائم تبان بالقيمة المختارة.
+  if (selectedCity != null && loadAreas != null) {
+    loadedAreas = await loadAreas(selectedCity);
+  }
+  if (selectedArea != null && loadSubAreas != null) {
+    loadedSubAreas = await loadSubAreas(selectedArea);
+  }
+  if (!context.mounted) return null;
 
   return showModalBottomSheet<DeveloperFilterResult>(
     context: context,
@@ -174,6 +218,11 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                                   selectedCompoundType = null;
                                   selectedCity = null;
                                   selectedArea = null;
+                                  selectedSubArea = null;
+                                  isSubAreaOther = false;
+                                  otherSubAreaController.clear();
+                                  loadedAreas.clear();
+                                  loadedSubAreas.clear();
                                   selectedUnitType = null;
                                   selectedView = null;
                                   areaFromController.clear();
@@ -216,7 +265,11 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                           onChanged: (v) async {
                             selectedCity = v;
                             selectedArea = null;
+                            selectedSubArea = null;
+                            isSubAreaOther = false;
+                            otherSubAreaController.clear();
                             loadedAreas.clear();
+                            loadedSubAreas.clear();
                             if (v != null && loadAreas != null) {
                               final areas = await loadAreas(v);
                               loadedAreas.addAll(areas);
@@ -240,8 +293,62 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                             );
                             return area['name_ar']?.toString() ?? id.toString();
                           },
-                          onChanged: (v) => setState(() => selectedArea = v),
+                          onChanged: (v) async {
+                            selectedArea = v;
+                            selectedSubArea = null;
+                            isSubAreaOther = false;
+                            otherSubAreaController.clear();
+                            loadedSubAreas.clear();
+                            if (v != null && loadSubAreas != null) {
+                              final subAreas = await loadSubAreas(v);
+                              loadedSubAreas.addAll(subAreas);
+                            }
+                            setState(() {});
+                          },
                         ),
+                        Gap(16.h),
+
+                        // Sub Area — «أخرى» دايمًا آخر عنصر في القائمة
+                        _buildDropdown<int>(
+                          label: LangKeys.subArea.tr(),
+                          value: isSubAreaOther
+                              ? _otherSubAreaId
+                              : selectedSubArea,
+                          items: [
+                            ...loadedSubAreas.map((s) => s['id'] as int),
+                            _otherSubAreaId,
+                          ],
+                          displayFn: (id) {
+                            if (id == _otherSubAreaId) {
+                              return LangKeys.other.tr();
+                            }
+                            final subArea = loadedSubAreas.firstWhere(
+                              (s) => s['id'] == id,
+                              orElse: () => {'name_ar': id.toString()},
+                            );
+                            return subArea['name_ar']?.toString() ??
+                                id.toString();
+                          },
+                          onChanged: (v) => setState(() {
+                            if (v == _otherSubAreaId) {
+                              isSubAreaOther = true;
+                              selectedSubArea = null;
+                            } else {
+                              isSubAreaOther = false;
+                              otherSubAreaController.clear();
+                              selectedSubArea = v;
+                            }
+                          }),
+                        ),
+
+                        // خانة كتابة المنطقة الفرعية عند اختيار «أخرى»
+                        if (isSubAreaOther) ...[
+                          Gap(8.h),
+                          _buildTextField(
+                            label: LangKeys.otherSubArea.tr(),
+                            controller: otherSubAreaController,
+                          ),
+                        ],
                         Gap(16.h),
 
                         // Unit Type
@@ -357,6 +464,10 @@ Future<DeveloperFilterResult?> showDeveloperFilterSheet(
                                   compoundType: selectedCompoundType,
                                   city: selectedCity,
                                   area: selectedArea,
+                                  subArea: selectedSubArea,
+                                  otherSubAreas: isSubAreaOther
+                                      ? otherSubAreaController.text.trim()
+                                      : null,
                                   unitType: selectedUnitType,
                                   view: selectedView,
                                   areaFrom: int.tryParse(
@@ -448,6 +559,35 @@ Widget _buildDropdown<T>({
         ),
       ),
     ],
+  );
+}
+
+/// خانة نص عادية (المنطقة الفرعية «أخرى») — بنفس شكل خانات الأرقام.
+Widget _buildTextField({
+  required String label,
+  required TextEditingController controller,
+}) {
+  return TextField(
+    controller: controller,
+    textInputAction: TextInputAction.done,
+    decoration: InputDecoration(
+      hintText: label,
+      hintStyle: AppStyles.black14Medium.copyWith(color: Colors.grey),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.primaryDark),
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+    ),
+    style: AppStyles.black14Medium,
   );
 }
 

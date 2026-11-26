@@ -145,6 +145,26 @@ class _BrokerDevelopersViewState extends State<BrokerDevelopersView> {
                   } catch (_) {}
                   return [];
                 },
+                loadSubAreas: (areaId) async {
+                  try {
+                    final api = getIt.get<ApiService>();
+                    final response = await api.getData(
+                      endPoint: EndPoints.subAreas,
+                      query: {
+                        'limit': 100,
+                        'offset': 0,
+                        'sort': 'asc',
+                        'sortBy': 'id',
+                        'areaId': areaId,
+                      },
+                    );
+                    final data = response.data['data'];
+                    if (data != null && data is List) {
+                      return data.cast<Map<String, dynamic>>();
+                    }
+                  } catch (_) {}
+                  return [];
+                },
               );
               // null يعني الشيت اتقفلت من غير قرار (سحب لتحت / ضغط برّه)
               // فمابنغيّرش الفلاتر المطبّقة.

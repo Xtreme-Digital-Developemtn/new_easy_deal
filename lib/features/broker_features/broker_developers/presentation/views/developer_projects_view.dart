@@ -113,6 +113,26 @@ class _DeveloperProjectsViewState extends State<DeveloperProjectsView> {
         } catch (_) {}
         return [];
       },
+      loadSubAreas: (areaId) async {
+        try {
+          final api = getIt.get<ApiService>();
+          final response = await api.getData(
+            endPoint: EndPoints.subAreas,
+            query: {
+              'limit': 100,
+              'offset': 0,
+              'sort': 'asc',
+              'sortBy': 'id',
+              'areaId': areaId,
+            },
+          );
+          final data = response.data['data'];
+          if (data != null && data is List) {
+            return data.cast<Map<String, dynamic>>();
+          }
+        } catch (_) {}
+        return [];
+      },
     );
     if (result != null) {
       setState(() => _appliedFilters = result);
