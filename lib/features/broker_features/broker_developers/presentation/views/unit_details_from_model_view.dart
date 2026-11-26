@@ -11,6 +11,7 @@ import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_information.dart';
 import 'package:easy_deal/features/unit_details/presentation/views/widgets/unit_price_status_indoor.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import '../view_model/broker_developers_cubit.dart';
 import '../view_model/broker_developers_states.dart';
@@ -252,19 +253,19 @@ class _UnitDetailsBody extends StatelessWidget {
             _InfoRow(
               label: LangKeys.price.tr(),
               value: unit.totalPriceInCash > 0
-                  ? '${unit.totalPriceInCash} ${LangKeys.egp.tr()}'
+                  ? '${NumberLocalization.formatDynamic(unit.totalPriceInCash, context.isArabic ? 'ar' : 'en')} ${LangKeys.egp.tr()}'
                   : na,
             ),
             _InfoRow(
               label: LangKeys.installmentPrice.tr(),
               value: (unit.totalPriceInInstallment ?? 0) > 0
-                  ? '${unit.totalPriceInInstallment} ${LangKeys.egp.tr()}'
+                  ? '${NumberLocalization.formatDynamic(unit.totalPriceInInstallment, context.isArabic ? 'ar' : 'en')} ${LangKeys.egp.tr()}'
                   : na,
             ),
             _InfoRow(
               label: LangKeys.pricePerMeter.tr(),
               value: unit.pricePerMeterInCash > 0
-                  ? '${unit.pricePerMeterInCash} ${LangKeys.egp.tr()}'
+                  ? '${NumberLocalization.formatDynamic(unit.pricePerMeterInCash, context.isArabic ? 'ar' : 'en')} ${LangKeys.egp.tr()}'
                   : na,
             ),
           ],

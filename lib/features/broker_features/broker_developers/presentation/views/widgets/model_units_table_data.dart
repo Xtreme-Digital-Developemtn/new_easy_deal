@@ -5,6 +5,7 @@ import 'package:easy_deal/features/broker_features/boker_data/data/models/unit_m
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_cubit.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/views/widgets/advertisement_dialog.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -250,7 +251,7 @@ class ModelUnitsTableData extends StatelessWidget {
                     _cell(
                       item.totalPriceInCash != null &&
                               item.totalPriceInCash! > 0
-                          ? '${item.totalPriceInCash} ${LangKeys.egp.tr()}'
+                          ? '${NumberLocalization.formatDynamic(item.totalPriceInCash, context.locale.languageCode)} ${LangKeys.egp.tr()}'
                           : na,
                     ),
                   ),

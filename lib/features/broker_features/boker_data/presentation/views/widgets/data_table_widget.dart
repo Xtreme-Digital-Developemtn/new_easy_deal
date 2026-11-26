@@ -4,6 +4,7 @@ import 'package:easy_deal/features/broker_features/boker_data/data/models/broker
 import 'package:easy_deal/features/broker_features/boker_data/data/models/unit_make_request_model.dart';
 import 'package:easy_deal/features/assign_to_broker/presentation/views/widgets/broker_text_helper.dart';
 import 'package:easy_deal/features/broker_features/boker_data/presentation/view_model/broker_data_states.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -333,7 +334,7 @@ class DataTableWidget extends StatelessWidget {
         DataCell(_cell(
             _val(BrokerTextHelper.unitTypeText(item.type?.toString() ?? '')))),
         DataCell(_cell(_val(item.unitArea?.toString()))),
-        DataCell(_cell(_val(item.totalPriceInCash?.toString()))),
+        DataCell(_cell(_val(NumberLocalization.formatDynamic(item.totalPriceInCash, context.locale.languageCode)))),
         DataCell(_cell(_val(item.detailedAddress))),
         DataCell(
           GestureDetector(

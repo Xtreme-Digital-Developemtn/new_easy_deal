@@ -1,6 +1,7 @@
 import 'package:easy_deal/features/add_property/data/config/ap_fields.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_option_item.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -213,7 +214,7 @@ class UnitInformation extends StatelessWidget {
 
     if (value is num) {
       if (value == 0) return null;
-      return _withCurrency(key, _formatNumber(value));
+      return _withCurrency(key, _formatNumber(value, isArabic));
     }
 
     final text = value.toString().trim();
@@ -222,7 +223,7 @@ class UnitInformation extends StatelessWidget {
     final asNumber = num.tryParse(text);
     if (asNumber != null) {
       if (asNumber == 0) return null;
-      return _withCurrency(key, _formatNumber(asNumber));
+      return _withCurrency(key, _formatNumber(asNumber, isArabic));
     }
 
     // ISO timestamps -> plain date
@@ -237,9 +238,8 @@ class UnitInformation extends StatelessWidget {
   String _withCurrency(String key, String number) =>
       _moneyKeys.contains(key) ? '$number ${LangKeys.egp.tr()}' : number;
 
-  String _formatNumber(num value) {
-    final isWhole = value % 1 == 0;
-    return NumberFormat(isWhole ? '#,###' : '#,###.##', 'en').format(value);
+  String _formatNumber(num value, bool isArabic) {
+    return NumberLocalization.format(value, isArabic ? 'ar' : 'en');
   }
 
   Widget _buildInfoItem({required String name, required String value}) {

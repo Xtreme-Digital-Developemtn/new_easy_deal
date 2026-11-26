@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
@@ -15,8 +16,13 @@ class PropertyDetailsSection extends StatelessWidget {
   static String? _areaText(dynamic value) =>
       DisplayValue.withSuffix(value, LangKeys.squareMeter.tr());
 
-  static String? _priceText(dynamic value) =>
-      DisplayValue.withSuffix(value, LangKeys.egp.tr());
+  static String? _priceText(BuildContext context, dynamic value) {
+    if (!DisplayValue.isValid(value)) return null;
+    return DisplayValue.withSuffix(
+      NumberLocalization.formatDynamic(value, context.isArabic ? 'ar' : 'en'),
+      LangKeys.egp.tr(),
+    );
+  }
 
   static List<Widget?> _rows(BuildContext context, Attributes? attr) => [
         optionalInfoRow(
@@ -53,11 +59,11 @@ class PropertyDetailsSection extends StatelessWidget {
         ),
         optionalInfoRow(
           title: LangKeys.minimumAverageUnitPrice.tr(),
-          value: _priceText(attr?.averageUnitPriceMin),
+          value: _priceText(context, attr?.averageUnitPriceMin),
         ),
         optionalInfoRow(
           title: LangKeys.maximumAverageUnitPrice.tr(),
-          value: _priceText(attr?.averageUnitPriceMax),
+          value: _priceText(context, attr?.averageUnitPriceMax),
         ),
       ];
 

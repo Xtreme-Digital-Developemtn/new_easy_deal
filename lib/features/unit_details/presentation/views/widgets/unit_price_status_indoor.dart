@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -36,7 +37,7 @@ class UnitPriceStatusIndoor extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(price != null ? '$price ${LangKeys.egp.tr()}' : LangKeys.notAvailable.tr(),style: AppStyles.green20ExtraBold,),
+        Text(price != null ? '${NumberLocalization.formatDynamic(price, context.isArabic ? 'ar' : 'en')} ${LangKeys.egp.tr()}' : LangKeys.notAvailable.tr(),style: AppStyles.green20ExtraBold,),
         Gap(12.h),
         Row(
           children: [

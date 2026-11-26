@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -209,7 +210,7 @@ class RecommendedFields {
         final price = DisplayValue.text(raw);
         return price == null
             ? null
-            : LangKeys.priceWithCurrency.tr(namedArgs: {'price': price});
+            : LangKeys.priceWithCurrency.tr(namedArgs: {'price': NumberLocalization.formatDynamic(raw, context.isArabic ? 'ar' : 'en')});
       case RecommendedFieldKind.enumLabel:
         return DisplayValue.mapped(
           raw,

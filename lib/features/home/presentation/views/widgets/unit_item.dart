@@ -1,5 +1,6 @@
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_deal/features/home/data/models/best_seller_units_model.dart';
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/main_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -87,7 +88,7 @@ class UnitItem extends StatelessWidget {
                             _TopBadge(
                               icon: SvgImages.money,
                               text:
-                              "${unit!.totalPriceInCash} ${LangKeys.egp.tr()}",
+                              "${NumberLocalization.formatDynamic(unit!.totalPriceInCash, context.isArabic ? 'ar' : 'en')} ${LangKeys.egp.tr()}",
                             ),
                         ],
                       ),
