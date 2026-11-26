@@ -26,6 +26,14 @@ class PropertyDetailsSection extends StatelessWidget {
 
   static List<Widget?> _rows(BuildContext context, Attributes? attr) => [
         optionalInfoRow(
+          title: LangKeys.propertyNumber.tr(),
+          value: DisplayValue.text(attr?.buildingNumber),
+        ),
+        optionalInfoRow(
+          title: LangKeys.unitNumber.tr(),
+          value: DisplayValue.text(attr?.unitNumber),
+        ),
+        optionalInfoRow(
           title: LangKeys.floor.tr(),
           // الدور الأرضي ممكن يجي كـ 0 فالصفر هنا قيمة صحيحة
           value: DisplayValue.mapped(
@@ -35,12 +43,8 @@ class PropertyDetailsSection extends StatelessWidget {
           ),
         ),
         optionalInfoRow(
-          title: LangKeys.minimumUnitArea.tr(),
-          value: _areaText(attr?.unitAreaMin),
-        ),
-        optionalInfoRow(
-          title: LangKeys.maximumUnitArea.tr(),
-          value: _areaText(attr?.unitAreaMax),
+          title: LangKeys.unitArea.tr(),
+          value: _areaText(attr?.unitAreaMin ?? attr?.unitArea),
         ),
         optionalInfoRow(
           title: LangKeys.numberOfRooms.tr(),
@@ -51,7 +55,14 @@ class PropertyDetailsSection extends StatelessWidget {
           value: DisplayValue.text(attr?.bathrooms),
         ),
         optionalInfoRow(
-          title: LangKeys.theView.tr(),
+          title: LangKeys.unitLocationFromTheFront.tr(),
+          value: DisplayValue.mapped(
+            attr?.unitFacing,
+            (raw) => ApOptions.label(raw?.toString(), context.isArabic),
+          ),
+        ),
+        optionalInfoRow(
+          title: 'اطلالة الوحدة',
           value: DisplayValue.mapped(
             attr?.unitView,
             (raw) => ApOptions.label(raw?.toString(), context.isArabic),

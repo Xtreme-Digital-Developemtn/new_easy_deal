@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/helpers/number_localization.dart';
 import 'package:easy_deal/features/add_property/data/config/ap_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_deal/features/request_details/data/config/display_value.dart';
@@ -28,6 +29,16 @@ class FinancialNotesSection extends StatelessWidget {
       attributes?.requiredInsurance,
     ]);
     return [
+      optionalInfoRow(
+        title: 'السعر نقدا',
+        value: DisplayValue.withSuffix(
+          NumberLocalization.formatDynamic(
+            attributes?.cashPrice,
+            context.isArabic ? 'ar' : 'en',
+          ),
+          LangKeys.egp.tr(),
+        ),
+      ),
       optionalInfoRow(
         title: LangKeys.paymentSystem.tr(),
         value: DisplayValue.mapped(

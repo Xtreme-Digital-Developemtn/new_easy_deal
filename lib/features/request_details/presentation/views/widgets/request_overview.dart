@@ -1,4 +1,5 @@
 import 'package:easy_deal/features/request_details/data/models/request_details_model.dart';
+import 'package:easy_deal/features/request_details/presentation/views/widgets/address_information_section.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/property_details_section.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/request_information_section.dart';
 import 'package:easy_deal/features/request_details/presentation/views/widgets/status_information_section.dart';
@@ -20,6 +21,7 @@ class RequestOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     // Resolve real data from model: prefers explicit param, falls back to cubit
     final resolved = data ?? context.read<RequestDetailsCubit>().requestDetailsModel?.data;
+    final isSellRequest = context.read<RequestDetailsCubit>().isSellRequest;
 
     /// القسم اللي كل حقوله فاضية بيختفي هو وعنوانه والـDivider والمسافة
     /// اللي بعده، فالترتيب والـLayout بيفضلوا مظبوطين.
@@ -28,6 +30,10 @@ class RequestOverview extends StatelessWidget {
         BasicInformationSection(data: resolved),
       if (LocationDetailsSection.hasData(context, resolved))
         LocationDetailsSection(data: resolved),
+      // في حالات البيع نعرض معلومات العنوان (العنوان التفصيلي + رابط الموقع)
+      // تحت تفاصيل الموقع.
+      if (isSellRequest && AddressInformationSection.hasData(context, resolved))
+        AddressInformationSection(data: resolved),
       if (PropertyDetailsSection.hasData(context, resolved?.attributes))
         PropertyDetailsSection(attributes: resolved?.attributes),
       if (StatusInformationSection.hasData(context, resolved))

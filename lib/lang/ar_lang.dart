@@ -233,6 +233,7 @@
     "additionalInformation": "معلومات إضافية",
     "statusInformation": "معلومات الحالة",
     "siteDetails": "تفاصيل الموقع",
+    "addressInformation": "معلومات العنوان",
     "basicInformation": "المعلومات الأساسية",
     "dateOfCreation": "تاريخ الإنشاء",
     "requiredPaymentSystem": "نظام الدفع المطلوب",

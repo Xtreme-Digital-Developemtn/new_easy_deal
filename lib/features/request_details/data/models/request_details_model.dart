@@ -125,6 +125,9 @@ class Attributes {
   int? rooms;
   int? bathrooms;
   String? unitView;
+  String? unitFacing;
+  String? legalStatus;
+  int? cashPrice;
   /// حالة التسليم جايه من attributes.deliveryStatus وليها قيمتين بس:
   /// `immediate_delivery` و `under_construction`
   String? deliveryStatus;
@@ -144,7 +147,7 @@ class Attributes {
   List<String>? otherExpenses;
   String? mainImage;
 
-  Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.unitAreaMin, this.unitAreaMax, this.rooms, this.bathrooms, this.unitView, this.deliveryStatus, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.averageUnitPriceMin, this.averageUnitPriceMax, this.rentRecurrence, this.requiredInsurance, this.paymentMethod, this.otherExpenses, this.mainImage});
+  Attributes({this.compoundName, this.detailedAddress, this.addressLink, this.unitNumber, this.buildingNumber, this.floor, this.unitArea, this.unitAreaMin, this.unitAreaMax, this.rooms, this.bathrooms, this.unitView, this.unitFacing, this.legalStatus, this.cashPrice, this.deliveryStatus, this.finishingStatus, this.furnishingStatus, this.otherAccessories, this.notes, this.unitPrice, this.unitPriceSuggestions, this.averageUnitPriceMin, this.averageUnitPriceMax, this.rentRecurrence, this.requiredInsurance, this.paymentMethod, this.otherExpenses, this.mainImage});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     compoundName = JsonParse.toStringOrNull(json["compoundName"]);
@@ -161,6 +164,9 @@ class Attributes {
     // الـAPI بيكتبها bathRooms في الطلبات و bathrooms في الوحدات
     bathrooms = JsonParse.toIntOrNull(json["bathrooms"] ?? json["bathRooms"]);
     unitView = JsonParse.toStringOrNull(json["unitView"]);
+    unitFacing = JsonParse.toStringOrNull(json["unitFacing"]);
+    legalStatus = JsonParse.toStringOrNull(json["legalStatus"]);
+    cashPrice = JsonParse.toIntOrNull(json["cashPrice"]);
     deliveryStatus = JsonParse.toStringOrNull(json["deliveryStatus"]);
     finishingStatus = JsonParse.toStringOrNull(json["finishingStatus"]);
     furnishingStatus = JsonParse.toStringOrNull(json["furnishingStatus"]);
@@ -193,6 +199,9 @@ class Attributes {
     _data["rooms"] = rooms;
     _data["bathrooms"] = bathrooms;
     _data["unitView"] = unitView;
+    _data["unitFacing"] = unitFacing;
+    _data["legalStatus"] = legalStatus;
+    _data["cashPrice"] = cashPrice;
     _data["deliveryStatus"] = deliveryStatus;
     _data["finishingStatus"] = finishingStatus;
     _data["furnishingStatus"] = furnishingStatus;

@@ -42,6 +42,13 @@ class StatusInformationSection extends StatelessWidget {
           (raw) => ApOptions.label(raw?.toString(), context.isArabic),
         ),
       ),
+      optionalInfoRow(
+        title: LangKeys.legalStatus.tr(),
+        value: DisplayValue.mapped(
+          data?.attributes?.legalStatus,
+          (raw) => ApOptions.label(raw?.toString(), context.isArabic),
+        ),
+      ),
       // الفرش بيظهر كصف منفصل بس لما الاتنين موجودين (نفس الشرط القديم)
       if (DisplayValue.isValid(data?.attributes?.furnishingStatus) &&
           DisplayValue.isValid(data?.attributes?.finishingStatus))

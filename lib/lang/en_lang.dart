@@ -233,6 +233,7 @@
     "additionalInformation": "Additional Information",
     "statusInformation": "Status Information",
     "siteDetails": "Site Details",
+    "addressInformation": "Address Information",
     "basicInformation": "Basic Information",
     "dateOfCreation": "Date of Creation",
     "requiredPaymentSystem": "Required Payment System",

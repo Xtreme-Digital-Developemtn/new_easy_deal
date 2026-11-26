@@ -240,6 +240,7 @@ abstract class LangKeys {
   static const String additionalInformation = 'additionalInformation';
   static const String statusInformation = 'statusInformation';
   static const String siteDetails = 'siteDetails';
+  static const String addressInformation = 'addressInformation';
   static const String basicInformation = 'basicInformation';
   static const String dateOfCreation = 'dateOfCreation';
   static const String requiredPaymentSystem = 'requiredPaymentSystem';
