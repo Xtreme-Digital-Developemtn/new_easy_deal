@@ -17,7 +17,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
   @override
   Future<Either<Failure, RequestDetailsModel>> requestDetails({
     required int requestId,
-  }) async {
+  })
+  async {
     try {
       var response = await apiService!.getData(
         endPoint: "${EndPoints.requests}/$requestId",
@@ -41,7 +42,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
     required String status,
     required String userId,
     required String unitId,
-  }) async {
+  })
+  async {
     try {
       var response = await apiService!.postData(
         endPoint: '${EndPoints.updateRequestStatus}/$requestId',
@@ -63,7 +65,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
     int offset = 0,
     String sort = 'desc',
     String sortBy = 'id',
-  }) async {
+  })
+  async {
     try {
       final Map<String, dynamic> query = {
         'limit': limit,
@@ -95,7 +98,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
     int offset = 0,
     String sort = 'desc',
     String sortBy = 'id',
-  }) async {
+  })
+  async {
     try {
       final Map<String, dynamic> query = {
         'limit': limit,
@@ -126,7 +130,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
     int offset = 0,
     String sort = 'desc',
     String sortBy = 'id',
-  }) async {
+  })
+  async {
     try {
       final query = {
         'limit': limit,
@@ -149,7 +154,8 @@ class RequestDetailsRepoImpl implements RequestDetailsRepo {
   Future<Either<Failure, MakeUnitModel>> makeUnit({
     required int requestId,
     required int brokerId,
-  }) async {
+  })
+  async {
     try {
       var response = await apiService!.postData(
         endPoint: '${EndPoints.makeUnit}/$requestId/$brokerId',

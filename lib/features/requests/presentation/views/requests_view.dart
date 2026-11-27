@@ -1,3 +1,4 @@
+import 'package:easy_deal/core/utils/toast/toast.dart';
 import 'package:easy_deal/features/requests/presentation/view_model/requests_cubit.dart';
 import 'package:easy_deal/features/requests/presentation/view_model/requests_states.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/requests_count.dart';
@@ -153,7 +154,24 @@ class _RequestsViewState extends State<RequestsView> {
               context.read<RequestsCubit>().fetchAllTypes(context: context);
             }
           },
-          child: Padding(
+          child: BlocListener<RequestsCubit, RequestsStates>(
+            listener: (context, state) {
+              // أكشنز الـ popup بتاعة الكارت: نفس توستات تفاصيل الطلب.
+              // الحالة بتتحدث محليًا في الـ cubit، فمفيش إعادة تحميل للليستة
+              // (عشان القائمة متبدلش والسياق بتاع القائمة المفتوحة يفضل سليم).
+              if (state is UpdateRequestStatusSuccessState ||
+                  state is MakeUnitSuccessState) {
+                final message = state is UpdateRequestStatusSuccessState
+                    ? state.message
+                    : (state as MakeUnitSuccessState).message;
+                Toast.showSuccessToast(msg: message, context: context);
+              } else if (state is UpdateRequestStatusErrorState) {
+                Toast.showErrorToast(msg: state.error, context: context);
+              } else if (state is MakeUnitErrorState) {
+                Toast.showErrorToast(msg: state.error, context: context);
+              }
+            },
+            child: Padding(
           padding: EdgeInsets.all(12.r),
           child: BlocBuilder<RequestsCubit, RequestsStates>(
             builder: (context, state) {
@@ -253,6 +271,7 @@ class _RequestsViewState extends State<RequestsView> {
               );
             },
           ),
+        ),
         ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:easy_deal/features/requests/presentation/view_model/requests_cubit.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/request_list_item_card.dart';
 import 'package:easy_deal/features/requests/presentation/views/widgets/request_list_item_skeleton.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -48,6 +49,7 @@ class RequestsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<RequestsCubit>();
     final items = data ?? [];
     final isEmpty = !isLoading && items.isEmpty;
 
@@ -121,6 +123,29 @@ class RequestsList extends StatelessWidget {
               // بعد الرجوع من التفاصيل بنعيد التحميل عشان الحالة لو اتغيّرت
               // جوه التفاصيل تتحدّث على الكارت
               onReturn: onRefresh == null ? null : () => onRefresh!(),
+
+              /// نفس أكشنز تفاصيل الطلب، بس هنا من الـ popup بتاع الكارت.
+              onStatusChanged: (status) => cubit.updateRequestStatus(
+                request: request,
+                status: status,
+                actionKey: '${request.id}:status:$status',
+              ),
+              onAssignBrokerTap: cubit.canAssignBroker(request)
+                  ? () async {
+                      await context.pushNamed(
+                        Routes.assignToBrokerView,
+                        arguments: {'requestId': request.id},
+                      );
+                      if (!context.mounted) return;
+                      await onRefresh?.call();
+                    }
+                  : null,
+              onMakeUnitTap: cubit.canMakeUnit(request)
+                  ? () => cubit.makeUnit(
+                        request: request,
+                        actionKey: '${request.id}:makeUnit',
+                      )
+                  : null,
             );
                 },
               ),

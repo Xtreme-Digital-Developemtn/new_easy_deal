@@ -6,6 +6,7 @@ import '../../../../core/utils/enums.dart';
 import '../../../../core/utils/toast/toast.dart';
 import '../../../../main_imports.dart';
 import '../../../profile/presentation/view_model/profile_cubit.dart';
+import '../../../request_details/data/repos/request_repo.dart';
 import '../../data/repos/requests_repo.dart';
 import 'requests_states.dart';
 
@@ -21,9 +22,14 @@ class RequestsFetchException implements Exception {
 }
 
 class RequestsCubit extends Cubit<RequestsStates> {
-  RequestsCubit(this.requestsRepo) : super(RequestsInitState());
+  RequestsCubit(this.requestsRepo, this.requestDetailsRepo)
+    : super(RequestsInitState());
 
   RequestsRepo? requestsRepo;
+
+  /// نفس الـ repo اللي بتستخدمه شاشة التفاصيل، عشان الأكشنز من الـ popup
+  /// تسوي بالظبط نفس النداءات (تحديث حالة / حفظ في العقارات المباشرة).
+  RequestDetailsRepo? requestDetailsRepo;
 
   static RequestsCubit get(context) => BlocProvider.of(context);
 
@@ -376,5 +382,112 @@ class RequestsCubit extends Cubit<RequestsStates> {
       }
       emit(GetAllRequestsSuccessState(model));
     }
+  }
+
+  // ================= أكشنز الطلب من الـ popup (زي تفاصيل الطلب) =================
+
+  /// التحميل مربوط بـ (الطلب + الأكشن) نفسه، فالزرار التاني مبيتأثرش.
+  /// المفتاح بيتكون من id الطلب + نوع الأكشن من الـ UI.
+  final Set<String> _runningActions = {};
+
+  bool isActionRunning(String actionKey) => _runningActions.contains(actionKey);
+
+  /// طلبات البيع مفيهاش تعيين لوسيط (زي تفاصيل الطلب بالظبط).
+  bool canAssignBroker(RequestItem request) =>
+      _normalize(request.type) != 'sell';
+
+  /// زرار حفظ في العقارات المباشرة بيظهر بس للعميل ولطلبات بيع/تأجير.
+  bool canMakeUnit(RequestItem request) {
+    final type = _normalize(request.type);
+    final role = _normalize(request.user.role);
+    return (type == 'sell' || type == 'rent_out') && role == 'client';
+  }
+
+  static String _normalize(dynamic value) =>
+      value?.toString().trim().toLowerCase() ?? '';
+
+  Future<void> updateRequestStatus({
+    required RequestItem request,
+    required String status,
+    required String actionKey,
+  }) async {
+    if (isActionRunning(actionKey)) return;
+    _runningActions.add(actionKey);
+    emit(UpdateRequestStatusLoadingState());
+
+    try {
+      final userId = request.user.id ??
+          CacheHelper.getData(key: StorageKeys.userId) ??
+          '';
+      final result = await requestDetailsRepo!.updateRequestStatus(
+        requestId: request.id,
+        status: status,
+        userId: userId.toString(),
+        unitId: request.id.toString(),
+      );
+
+      result.fold(
+        (failure) {
+          emit(UpdateRequestStatusErrorState(failure.errMessage));
+        },
+        (data) {
+          final newStatus = data.data?.status ?? status;
+          _applyStatusToLists(request.id, newStatus);
+          emit(
+            UpdateRequestStatusSuccessState(
+              data.message ?? LangKeys.statusUpdatedSuccessfully.tr(),
+            ),
+          );
+        },
+      );
+    } finally {
+      _runningActions.remove(actionKey);
+    }
+  }
+
+  Future<void> makeUnit({
+    required RequestItem request,
+    required String actionKey,
+  }) async {
+    if (isActionRunning(actionKey)) return;
+    final brokerId = _asInt(CacheHelper.getData(key: StorageKeys.brokerId));
+    if (brokerId == null) {
+      emit(MakeUnitErrorState(LangKeys.brokerDataNotFound.tr()));
+      return;
+    }
+
+    _runningActions.add(actionKey);
+    emit(MakeUnitLoadingState());
+
+    try {
+      final result = await requestDetailsRepo!.makeUnit(
+        requestId: request.id,
+        brokerId: brokerId,
+      );
+
+      result.fold(
+        (failure) {
+          emit(MakeUnitErrorState(failure.errMessage));
+        },
+        (data) {
+          emit(
+            MakeUnitSuccessState(
+              data.message ?? LangKeys.savedToDirectUnits.tr(),
+            ),
+          );
+        },
+      );
+    } finally {
+      _runningActions.remove(actionKey);
+    }
+  }
+
+  void _applyStatusToLists(int requestId, dynamic status) {
+    RequestItem update(RequestItem item) =>
+        item.id == requestId ? item.copyWith(status: status) : item;
+
+    assignedRequests = assignedRequests.map(update).toList();
+    sentRequests = sentRequests.map(update).toList();
+    receivedRequests = receivedRequests.map(update).toList();
   }
 }

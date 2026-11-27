@@ -75,6 +75,28 @@ class RequestItem {
     required this.assignedBrokers,
   });
 
+  /// نسخة من الطلب مع تعديل الحالة محليًا بعد تحديث الحالة من الـ popup،
+  /// عشان الكارت يتحدث فورًا من غير ما الليستة كلها تعيد التحميل.
+  RequestItem copyWith({dynamic status}) {
+    return RequestItem(
+      id: id,
+      title: title,
+      specializationScope: specializationScope,
+      type: type,
+      unit: unit,
+      status: status ?? this.status,
+      numberOfReplies: numberOfReplies,
+      user: user,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      detailedAddress: detailedAddress,
+      locations: locations,
+      attributes: attributes,
+      brokers: brokers,
+      assignedBrokers: assignedBrokers,
+    );
+  }
+
   factory RequestItem.fromJson(Map<dynamic, dynamic>? json) {
     return RequestItem(
       id: json?['id'] ?? 0,
