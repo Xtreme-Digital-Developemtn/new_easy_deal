@@ -390,7 +390,8 @@ class RequestsCubit extends Cubit<RequestsStates> {
   /// المفتاح بيتكون من id الطلب + نوع الأكشن من الـ UI.
   final Set<String> _runningActions = {};
 
-  bool isActionRunning(String actionKey) => _runningActions.contains(actionKey);
+  bool _isActionRunning(String actionKey) =>
+      _runningActions.contains(actionKey);
 
   /// طلبات البيع مفيهاش تعيين لوسيط (زي تفاصيل الطلب بالظبط).
   bool canAssignBroker(RequestItem request) =>
@@ -411,11 +412,11 @@ class RequestsCubit extends Cubit<RequestsStates> {
     required String status,
     required String actionKey,
   }) async {
-    if (isActionRunning(actionKey)) return;
+    if (_isActionRunning(actionKey)) return;
     _runningActions.add(actionKey);
-    emit(UpdateRequestStatusLoadingState());
 
     try {
+      emit(UpdateRequestStatusLoadingState());
       final userId = request.user.id ??
           CacheHelper.getData(key: StorageKeys.userId) ??
           '';
@@ -449,7 +450,7 @@ class RequestsCubit extends Cubit<RequestsStates> {
     required RequestItem request,
     required String actionKey,
   }) async {
-    if (isActionRunning(actionKey)) return;
+    if (_isActionRunning(actionKey)) return;
     final brokerId = _asInt(CacheHelper.getData(key: StorageKeys.brokerId));
     if (brokerId == null) {
       emit(MakeUnitErrorState(LangKeys.brokerDataNotFound.tr()));
@@ -457,9 +458,9 @@ class RequestsCubit extends Cubit<RequestsStates> {
     }
 
     _runningActions.add(actionKey);
-    emit(MakeUnitLoadingState());
 
     try {
+      emit(MakeUnitLoadingState());
       final result = await requestDetailsRepo!.makeUnit(
         requestId: request.id,
         brokerId: brokerId,

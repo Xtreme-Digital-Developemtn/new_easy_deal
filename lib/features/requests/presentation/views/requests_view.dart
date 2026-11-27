@@ -157,8 +157,8 @@ class _RequestsViewState extends State<RequestsView> {
           child: BlocListener<RequestsCubit, RequestsStates>(
             listener: (context, state) {
               // أكشنز الـ popup بتاعة الكارت: نفس توستات تفاصيل الطلب.
-              // الحالة بتتحدث محليًا في الـ cubit، فمفيش إعادة تحميل للليستة
-              // (عشان القائمة متبدلش والسياق بتاع القائمة المفتوحة يفضل سليم).
+              // إعادة تحميل الليستة بتتم من الكارت بعد ما القائمة تقفل
+              // (مش هنا) عشان السياق بتاع القائمة المفتوحة مايتدمرش.
               if (state is UpdateRequestStatusSuccessState ||
                   state is MakeUnitSuccessState) {
                 final message = state is UpdateRequestStatusSuccessState

@@ -128,7 +128,8 @@ class RequestsList extends StatelessWidget {
               onStatusChanged: (status) => cubit.updateRequestStatus(
                 request: request,
                 status: status,
-                actionKey: '${request.id}:status:$status',
+                actionKey:
+                    RequestListItemCard.statusActionKey(request.id, status),
               ),
               onAssignBrokerTap: cubit.canAssignBroker(request)
                   ? () async {
@@ -136,16 +137,17 @@ class RequestsList extends StatelessWidget {
                         Routes.assignToBrokerView,
                         arguments: {'requestId': request.id},
                       );
-                      if (!context.mounted) return;
-                      await onRefresh?.call();
                     }
                   : null,
               onMakeUnitTap: cubit.canMakeUnit(request)
                   ? () => cubit.makeUnit(
                         request: request,
-                        actionKey: '${request.id}:makeUnit',
+                        actionKey:
+                            RequestListItemCard.makeUnitActionKey(request.id),
                       )
                   : null,
+              onActionCompleted:
+                  onRefresh == null ? null : () => onRefresh!(),
             );
                 },
               ),

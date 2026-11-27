@@ -30,6 +30,7 @@ class RequestListItemCard extends StatefulWidget {
     this.onStatusChanged,
     this.onAssignBrokerTap,
     this.onMakeUnitTap,
+    this.onActionCompleted,
   });
   final String title;
   final Color statusColor;
@@ -49,7 +50,18 @@ class RequestListItemCard extends StatefulWidget {
   final Future<void> Function(String status)? onStatusChanged;
   final Future<void> Function()? onAssignBrokerTap;
   final Future<void> Function()? onMakeUnitTap;
+
+  /// بيتنده بعد ما الأكشن يخلص والقائمة تقفل، عشان الليستة والعدادات
+  /// تتحدثوا من غير ما السياق بتاع القائمة المفتوحة يتدمر في نص الطلب.
+  final VoidCallback? onActionCompleted;
   // final DateTime date;
+
+  /// مفاتيح الأكشن مشتركة بين الكارت والـ cubit، عشان مفيش تكرار أو
+  /// اختلاف بين مفتاح السبنر ومفتاح منع الضغط المتكرر.
+  static String statusActionKey(int requestId, String status) =>
+      '$requestId:status:$status';
+  static String assignActionKey(int requestId) => '$requestId:assignBroker';
+  static String makeUnitActionKey(int requestId) => '$requestId:makeUnit';
 
   @override
   State<RequestListItemCard> createState() => _RequestListItemCardState();
@@ -68,9 +80,10 @@ class _RequestListItemCardState extends State<RequestListItemCard> {
     super.dispose();
   }
 
-  String _statusKey(String status) => '${widget.id}:status:$status';
-  String get _assignKey => '${widget.id}:assignBroker';
-  String get _makeUnitKey => '${widget.id}:makeUnit';
+  String _statusKey(String status) =>
+      RequestListItemCard.statusActionKey(widget.id, status);
+  String get _assignKey => RequestListItemCard.assignActionKey(widget.id);
+  String get _makeUnitKey => RequestListItemCard.makeUnitActionKey(widget.id);
 
   Future<void> _runAction(
     BuildContext menuContext,
@@ -93,6 +106,8 @@ class _RequestListItemCardState extends State<RequestListItemCard> {
       if (keepMenuOpen && menuContext.mounted) {
         Navigator.of(menuContext).pop();
       }
+      // بعد ما القائمة قفلت، دلوقتي آمن نعيد تحميل الليستة.
+      widget.onActionCompleted?.call();
     }
   }
 
@@ -175,7 +190,6 @@ class _RequestListItemCardState extends State<RequestListItemCard> {
       surfaceTintColor: AppColors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       icon: Icon(Icons.more_vert, color: AppColors.primaryDark, size: 20.sp),
-      onSelected: (_) {},
       itemBuilder: (menuContext) => [
         if (widget.onStatusChanged != null) ...[
           _menuItem(
@@ -237,7 +251,6 @@ class _RequestListItemCardState extends State<RequestListItemCard> {
   }) {
     return _LoadingPopupMenuItem<_RequestMenuAction>(
       value: value,
-      actionKey: actionKey,
       onItemTap: () => _runAction(
         menuContext,
         actionKey,
@@ -284,12 +297,10 @@ class _LoadingPopupMenuItem<T> extends PopupMenuItem<T> {
   const _LoadingPopupMenuItem({
     super.key,
     super.value,
-    required this.actionKey,
     required this.onItemTap,
     required super.child,
   });
 
-  final String actionKey;
   final VoidCallback onItemTap;
 
   @override
